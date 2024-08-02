@@ -1453,6 +1453,19 @@ Filters the intermediate output array of the `fictioneer_get_story_buttons( $arg
 
 ---
 
+### `apply_filters( 'fictioneer_filter_story_header_classes', $classes, $args )`
+Filters the intermediate output array of CSS classes for the story header before it is imploded and rendered. Depending on the Customizer and story settings, it can include `story__header`, `_no-tax`, `_no-thumbnail`, `padding-top`, `padding-left`, and `padding-right`.
+
+**$classes:**
+* (array) – Collection of strings depending on the Customizer and story settings; can include `story__header`, `_no-tax`, `_no-thumbnail`, `padding-top`, `padding-left`, and `padding-right`.
+
+**$args:**
+* $story_data (array) – Collection of story data.
+* $story_id (int) – Current story (post) ID.
+* $context (string|null) – Either `null` or `'shortcode'`. Default `null`. Unsafe.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_media_buttons', $output, $args )`
 Filters the intermediate output array of the `fictioneer_filter_media_buttons( $args )` function before it is imploded and returned. Used in chapter, posts, and stories.
 

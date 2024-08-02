@@ -39,7 +39,7 @@ $tax_shown = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) &&
   ! get_post_meta( $story_id, 'fictioneer_story_no_tags', true );
 
 // Story header classes
-$header_classes = [];
+$header_classes = ['story__header'];
 
 if ( ! $tax_shown ) {
   $header_classes[] = '_no-tax';
@@ -55,9 +55,12 @@ if ( ( $args['context'] ?? 0 ) !== 'shortcode' ) {
   $header_classes[] = 'padding-right';
 }
 
+// Filter classes
+$header_classes = apply_filters( 'fictioneer_filter_story_header_classes', $header_classes, $args );
+
 ?>
 
-<header class="story__header <?php echo implode( ' ', $header_classes ); ?>">
+<header class="<?php echo implode( ' ', $header_classes ); ?>">
 
   <?php if ( $thumbnail_shown ) echo fictioneer_get_story_page_cover( $story ); ?>
 
