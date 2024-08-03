@@ -2112,8 +2112,18 @@ function fictioneer_shortcode_sidebar( $attr ) {
   // Buffer
   ob_start();
 
-  // Output sidebar
-  get_sidebar( $name );
+  // Does sidebar exist?
+  if ( ! is_active_sidebar( $name ) ) {
+    return;
+  }
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-sidebar _shortcode">
+    <div class="fictioneer-sidebar__wrapper">
+      <?php dynamic_sidebar( $name ); ?>
+    </div>
+  </div>
+  <?php // <--- End HTML
 
   // Capture and return buffer
   return ob_get_clean();
