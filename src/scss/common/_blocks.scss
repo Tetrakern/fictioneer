@@ -729,7 +729,7 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 // CALENDAR
 // =============================================================================
 
-.wp-block-calendar:not(.no-theme-style) {
+.wp-block-calendar:where(:not(.no-theme-style)) {
   container-type: inline-size;
 
   :is(.wp-calendar-table, .wp-calendar-nav) {
@@ -781,7 +781,7 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 // CATEGORIES
 // =============================================================================
 
-.wp-block-categories:not(.no-theme-style) {
+.wp-block-categories:where(:not(.no-theme-style)) {
   list-style-type: disc;
   padding-left: 1.05em;
 }

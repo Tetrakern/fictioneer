@@ -62,9 +62,8 @@ img {
   }
 }
 
-p a,
-.content-section table a,
-.content-section > :where(ul, ol):where(:not(.esc-link)) li:where(:not(.esc-link)) a:where(:not(.esc-link)),
+p a:not(.wp-element-button),
+.content-section :is(.wp-block-table, .wp-block-pullquote, .wp-block-list) a:not(.wp-element-button),
 .link {
   color: var(--inline-link-color);
   border-bottom: var(--inline-link-color-border);
