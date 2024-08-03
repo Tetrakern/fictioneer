@@ -1,0 +1,14 @@
+.widget {
+  font-size: var(--fs-widget);
+
+  &.widget_block .wp-block-heading {
+    font-size: 1.1em;
+    margin-bottom: -1.5rem;
+  }
+
+  .widgettitle {
+    font-size: 1.1em;
+    margin-bottom: .625rem;
+  }
+}
+

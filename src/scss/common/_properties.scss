@@ -13,6 +13,7 @@
   // === CONFIGURATION =========================================================
 
   --site-width: #{$full-width}px; // Overridden by theme customizer
+  --sidebar-width: 256px;
   --lightness-offset: 0; // Overridden by theme customizer
   --darken: (1 + var(--lightness-offset));
   --saturation-offset: 0; // Overridden by theme customizer
@@ -391,6 +392,8 @@
   --fs-dxxs: #{get_clamp(11, 13, 400, 768)};
   --fs-dxs: #{get_clamp(12, 13, 400, 768)};
   --fs-ds: #{get_clamp(13, 14, 400, 768)};
+
+  --fs-widget: #{clamp(13px, 5.5cqw, 15px)};
 
   // === COLORS - LINKS ========================================================
 
