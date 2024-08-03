@@ -2,7 +2,7 @@
 // GENERAL
 // =============================================================================
 
-:where(.wp-block-quote, .wp-block-table, .wp-block-image:not(.alignright, .alignleft), .wp-block-code, .wp-block-details, .wp-block-footnotes, .wp-block-embed, .wp-block-gallery, .wp-block-preformatted, .wp-block-buttons, .wp-block-file-wrapper, .wp-block-pullquote):not(.no-theme-spacing) {
+:where(.wp-block-quote, .wp-block-table, .wp-block-image:not(.alignright, .alignleft), .wp-block-code, .wp-block-details, .wp-block-footnotes, .wp-block-embed, .wp-block-gallery, .wp-block-preformatted, .wp-block-buttons, .wp-block-file-wrapper, .wp-block-pullquote, .wp-block-calendar):not(.no-theme-spacing) {
   clear: both;
 
   &:not(:first-child) {
@@ -722,5 +722,57 @@ figure.wp-block-pullquote {
 .wp-block-details {
   > * {
     margin-block-start: 0;
+  }
+}
+
+// =============================================================================
+// CALENDAR
+// =============================================================================
+
+.wp-block-calendar {
+  container-type: inline-size;
+
+  :is(.wp-calendar-table, .wp-calendar-nav) {
+    font-size: clamp(13px, 3cqw, 15px);
+  }
+
+  caption {
+    padding-bottom: .5em;
+  }
+
+  :is(th, td) {
+    font-size: inherit;
+    text-align: center;
+  }
+
+  th {
+    font-weight: var(--font-weight-strong);
+  }
+
+  table:where(:not(.has-text-color)) {
+    color: var(--calendar-color);
+
+    :is(th, td) {
+      color: var(--calendar-color);
+      border-color: var(--calendar-border-color);
+    }
+  }
+
+  table:not(.has-background) {
+    th {
+      background: var(--calendar-th-background);
+    }
+  }
+
+  .wp-calendar-nav {
+    padding-top: .25em;
+
+    a {
+      color: var(--calendar-color);
+
+      &:hover {
+        color: var(--layout-link-color-hover);
+      }
+    }
   }
 }
