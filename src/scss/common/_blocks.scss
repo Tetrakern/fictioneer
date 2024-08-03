@@ -314,7 +314,7 @@ p.has-drop-cap::first-letter {
   margin-left: auto;
   margin-right: auto;
   max-width: max(85%, 260px);
-  width: max-content;
+  width: fit-content;
 
   &.has-background {
     --this-vertical-offset: -0.5rem;
@@ -400,7 +400,6 @@ figure.wp-block-pullquote {
   margin-left: auto;
   margin-right: auto;
   max-width: max(85%, 260px);
-  width: max-content;
 
   blockquote {
     border: 2px solid var(--layout-lineart-color);
