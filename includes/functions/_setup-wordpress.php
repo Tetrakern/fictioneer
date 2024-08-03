@@ -307,24 +307,6 @@ function fictioneer_extend_taxonomy_pages( $query ) {
 add_filter( 'pre_get_posts', 'fictioneer_extend_taxonomy_pages' );
 
 // =============================================================================
-// DISABLE SELECTED ARCHIVES
-// =============================================================================
-
-/**
- * Disable date archives
- *
- * @since 3.0
- */
-
-function fictioneer_disable_date_archives() {
-  if ( is_date() ) {
-    wp_redirect( home_url(), 301 );
-    die();
-  }
-}
-add_action( 'template_redirect', 'fictioneer_disable_date_archives' );
-
-// =============================================================================
 // MODIFY RSS FEEDS
 // =============================================================================
 
