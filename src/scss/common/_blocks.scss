@@ -784,6 +784,12 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 .wp-block-categories:where(:not(.no-theme-style)) {
   list-style-type: disc;
   padding-left: 1.05em;
+
+  a {
+    &:hover {
+      color: var(--inline-link-color-hover);
+    }
+  }
 }
 
 // =============================================================================
