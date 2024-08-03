@@ -765,13 +765,14 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
   }
 
   .wp-calendar-nav {
+    color: var(--calendar-color);
     padding-top: .25em;
 
     a {
-      color: var(--calendar-color);
+      color: var(--widget-link-color);
 
       &:hover {
-        color: var(--layout-link-color-hover);
+        color: var(--widget-link-color-hover);
       }
     }
   }
