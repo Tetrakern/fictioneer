@@ -64,7 +64,7 @@ img {
 
 p a,
 .content-section table a,
-.content-section > :where(ul, ol):not(.esc-link) li:not(.esc-link) a:not(.esc-link),
+.content-section > :where(ul, ol):where(:not(.esc-link)) li:where(:not(.esc-link)) a:where(:not(.esc-link)),
 .link {
   color: var(--inline-link-color);
   border-bottom: var(--inline-link-color-border);
