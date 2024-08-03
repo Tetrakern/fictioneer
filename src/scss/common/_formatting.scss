@@ -95,6 +95,7 @@ p a,
 }
 
 .content-section {
+  font-size: var(--fs-s);
   overflow-wrap: break-word;
 
   :where(h1, h2, h3, h4, h5, h6) {

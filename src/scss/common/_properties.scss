@@ -389,6 +389,18 @@
   --fs-xxxl: 2.5rem; // 40px
   --fs-xxxxl: 3rem; // 48px
 
+  --fs-em-xxxs: .625em; // 10px
+  --fs-em-xxs: .75em; // 12px
+  --fs-em-xs: .875em; // 14px
+  --fs-em-s: 1em; // 16px
+  --fs-em-m: 1.125em; // 18px
+  --fs-em-ml: 1.25em; // 20px
+  --fs-em-l: 1.5em; // 24px
+  --fs-em-xl: 1.75em; // 28px
+  --fs-em-xxl: 2.125em; // 34px
+  --fs-em-xxxl: 2.5em; // 40px
+  --fs-em-xxxxl: 3em; // 48px
+
   --fs-dxxs: #{get_clamp(11, 13, 400, 768)};
   --fs-dxs: #{get_clamp(12, 13, 400, 768)};
   --fs-ds: #{get_clamp(13, 14, 400, 768)};

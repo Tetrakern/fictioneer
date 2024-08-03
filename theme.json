@@ -43,42 +43,42 @@
       "fontFamilies": [],
       "fontSizes": [
         {
-          "size": "var(--fs-xxs)",
+          "size": "var(--fs-em-xxs)",
           "name": "Extra Small",
           "slug": "extra-small"
         },
         {
-          "size": "var(--fs-xs)",
+          "size": "var(--fs-em-xs)",
           "name": "Small",
           "slug": "small"
         },
         {
-          "size": "var(--fs-s)",
+          "size": "var(--fs-em-s)",
           "name": "Normal",
           "slug": "normal"
         },
         {
-          "size": "var(--fs-m)",
+          "size": "var(--fs-em-m)",
           "name": "Medium",
           "slug": "medium"
         },
         {
-          "size": "var(--fs-l)",
+          "size": "var(--fs-em-l)",
           "name": "Large",
           "slug": "large"
         },
         {
-          "size": "var(--fs-xl)",
+          "size": "var(--fs-em-xl)",
           "name": "Extra Large",
           "slug": "extra-large"
         },
         {
-          "size": "var(--fs-xxl)",
+          "size": "var(--fs-em-xxl)",
           "name": "Huge",
           "slug": "huge"
         },
         {
-          "size": "var(--fs-xxxl)",
+          "size": "var(--fs-em-xxxl)",
           "name": "Gigantic",
           "slug": "gigantic"
         }
