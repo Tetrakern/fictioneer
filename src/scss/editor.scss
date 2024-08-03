@@ -581,6 +581,100 @@ body {
     }
   }
 
+  // ==============================================================================
+  // LATEST POSTS
+  // ==============================================================================
+
+  .wp-block-latest-posts:where(:not(.no-theme-style)) {
+    --this-row-gap: 24px;
+    --this-col-gap: 24px;
+    gap: var(--this-row-gap) var(--this-col-gap);
+    padding-left: 0 !important;
+
+    &.has-background {
+      padding: var(--this-col-gap) var(--this-row-gap) !important;
+    }
+
+    &.has-link-color {
+      * {
+        color: inherit !important;
+      }
+    }
+
+    &.is-grid {
+      display: grid;
+
+      li {
+        margin: 0;
+        width: 100%;
+      }
+    }
+
+    &.columns-2  {
+      grid-template-columns: repeat(auto-fill, minmax(max(190px, calc((100% - var(--this-col-gap)) / 2)), 1fr));
+    }
+
+    &.columns-3  {
+      grid-template-columns: repeat(auto-fill, minmax(max(190px, calc((100% - 2 * var(--this-col-gap)) / 3)), 1fr));
+    }
+
+    &.columns-4  {
+      grid-template-columns: repeat(auto-fill, minmax(max(190px, calc((100% - 3 * var(--this-col-gap)) / 4)), 1fr));
+    }
+
+    &.columns-5  {
+      grid-template-columns: repeat(auto-fill, minmax(max(190px, calc((100% - 4 * var(--this-col-gap)) / 5)), 1fr));
+    }
+
+    &:not(.is-grid) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    li {
+      box-sizing: border-box;
+      flex: 1 1 auto;
+      background-color: #f6f7f7;
+      padding: 16px;
+      margin: 0;
+      min-width: 0;
+      width: 100%;
+      contain: style layout; // Improve performance
+      container-type: inline-size; // Enable container query units
+
+      > * {
+        font-family: var(--ff-card-body);
+        font-size: clamp(13.5px, 3.125cqw, 15px);
+        line-height: 1.45;
+        overflow-wrap: break-word;
+      }
+    }
+
+    .wp-block-latest-posts__post-title:is(a) {
+      grid-area: title;
+      display: inline-block;
+      font-size: clamp(15px + var(--card-font-size-min-mod, 0px), 3.765cqw + var(--card-font-size-grow-mod, 0px), 17px + var(--card-font-size-max-mod, 0px));
+      line-height: 1.3;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      overflow: hidden;
+
+      @container (min-width: 640px) {
+        font-size: clamp(15px + var(--card-font-size-min-mod, 0px), 3.065cqw + var(--card-font-size-grow-mod, 0px), 18px + var(--card-font-size-max-mod, 0px));
+      }
+    }
+
+    .wp-block-latest-posts__post-excerpt {
+      margin-top: 0.4em;
+      margin-bottom: 0;
+    }
+
+    .wp-block-latest-posts__featured-image {
+      display: none;
+    }
+  }
+
   // =============================================================================
   // LITRPG BOX
   // =============================================================================
