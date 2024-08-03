@@ -169,7 +169,7 @@ body {
   // SEPARATORS
   // =============================================================================
 
-  .wp-block-separator {
+  .wp-block-separator:where(:not(.no-theme-style)) {
     margin: 48px auto;
     border: 0;
     border-bottom: var(--layout-hr-border);
@@ -212,7 +212,7 @@ body {
   // BUTTONS
   // =============================================================================
 
-  .wp-block-button {
+  .wp-block-button:where(:not(.no-theme-style)) {
     padding-left: 0 !important;
     padding-right: 0 !important;
 
@@ -270,7 +270,7 @@ body {
   // IMAGES
   // =============================================================================
 
-  .wp-block-image {
+  .wp-block-image:where(:not(.no-theme-style)) {
     &.alignright {
       float: right;
       margin: .5em calc((100% - min(100%, var(--editor-max-width))) / 2) .5em 1.5em;
@@ -286,7 +286,7 @@ body {
     }
   }
 
-  .wp-block-gallery {
+  .wp-block-gallery:where(:not(.no-theme-style)) {
     &.has-background {
       padding: max(var(--wp--style--unstable-gallery-gap, 1em), 8px);
     }
@@ -296,7 +296,7 @@ body {
   // CODE BLOCK
   // =============================================================================
 
-  .wp-block-code {
+  .wp-block-code:where(:not(.no-theme-style)) {
     clear: both;
     padding: 1rem;
     border-radius: var(--layout-border-radius-small);
@@ -329,7 +329,7 @@ body {
   // BLOCKQUOTE
   // =============================================================================
 
-  .wp-block-quote {
+  .wp-block-quote:where(:not(.no-theme-style)) {
     --spacing-offset: 12px;
     font-size: 87.5%;
     position: relative;
@@ -397,7 +397,7 @@ body {
   // PULLQUOTE
   // =============================================================================
 
-  figure.wp-block-pullquote {
+  figure.wp-block-pullquote:where(:not(.no-theme-style)) {
     --spacing-offset: 8px;
     clear: both;
     font-size: 1.25em;
@@ -569,7 +569,7 @@ body {
   // PREFORMATTED BLOCK
   // =============================================================================
 
-  .wp-block-preformatted {
+  .wp-block-preformatted:where(:not(.no-theme-style)) {
     font-family: var(--ff-mono);
     line-height: 1.7;
     white-space: pre-wrap;

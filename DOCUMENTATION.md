@@ -527,6 +527,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `hide-if-logged-in` | Hides element if the user is logged in.
 | `hide-if-logged-out` | Hides element if the user is logged out.
 | `no-theme-spacing` | Removes the top and bottom spacing applied by the theme.
+| `no-theme-style` | Removes the styling applied by the theme (for some blocks).
 | `padding-[top\|right\|bottom\|left]` | Applies directional theme page padding.
 | `bg-[50\|100\|200\|...\|800\|900\|950]` | Forces the respective theme background color.
 | `fg-[100\|200\|...\|800\|900\|950]` | Forces the respective theme text color.

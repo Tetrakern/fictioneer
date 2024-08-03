@@ -41,7 +41,7 @@ sup[data-fn] {
 // SEPARATOR
 // =============================================================================
 
-.wp-block-separator {
+.wp-block-separator:where(:not(.no-theme-style)) {
   border: 0;
   border-bottom: var(--layout-hr-border);
 
@@ -79,7 +79,7 @@ sup[data-fn] {
 // IMAGES
 // =============================================================================
 
-.wp-block-image {
+.wp-block-image:where(:not(.no-theme-style)) {
   &.alignright {
     float: right;
     margin: .5em 0 .5em 1.5em;
@@ -104,7 +104,7 @@ sup[data-fn] {
   }
 }
 
-.wp-block-gallery {
+.wp-block-gallery:where(:not(.no-theme-style)) {
   &.has-background {
     padding: max(var(--wp--style--unstable-gallery-gap, 1rem), 0.5rem);
   }
@@ -159,7 +159,7 @@ p.has-drop-cap::first-letter {
 // CODE BLOCK
 // =============================================================================
 
-.wp-block-code {
+.wp-block-code:where(:not(.no-theme-style)) {
   clear: both;
   letter-spacing: 0;
   border-style: solid;
@@ -202,7 +202,7 @@ p.has-drop-cap::first-letter {
 // TABLES
 // =============================================================================
 
-.wp-block-table {
+.wp-block-table:where(:not(.no-theme-style)) {
   clear: both;
   float: none;
   overflow-x: auto;
@@ -284,7 +284,7 @@ p.has-drop-cap::first-letter {
 // BLOCKQUOTE
 // =============================================================================
 
-.wp-block-quote,
+.wp-block-quote:where(:not(.no-theme-style)),
 .comment-section blockquote {
   color: var(--fg-500);
   font-size: 87.5%; // Scales with custom formatting
@@ -307,7 +307,7 @@ p.has-drop-cap::first-letter {
   }
 }
 
-.wp-block-quote {
+.wp-block-quote:where(:not(.no-theme-style)) {
   --paragraph-spacing-offset: .75rem;
   position: relative;
   font-style: italic;
@@ -389,7 +389,7 @@ p.has-drop-cap::first-letter {
 // PULLQUOTE
 // =============================================================================
 
-figure.wp-block-pullquote {
+figure.wp-block-pullquote:where(:not(.no-theme-style)) {
   --paragraph-spacing-offset: .5rem;
   clear: both;
   color: var(--fg-600);
@@ -537,7 +537,7 @@ figure.wp-block-pullquote {
 // PRE BLOCK
 // =============================================================================
 
-.wp-block-preformatted {
+.wp-block-preformatted:where(:not(.no-theme-style)) {
   font-family: var(--ff-mono);
   line-height: 1.7;
   white-space: pre;
@@ -553,7 +553,7 @@ figure.wp-block-pullquote {
 // BUTTON(S) BLOCK
 // =============================================================================
 
-.wp-block-button {
+.wp-block-button:where(:not(.no-theme-style)) {
   border-style: solid;
 
   // Theme button style applied
@@ -594,7 +594,7 @@ figure.wp-block-pullquote {
   }
 }
 
-.wp-block-buttons > .wp-block-button {
+.wp-block-buttons:where(:not(.no-theme-style)) > .wp-block-button {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
@@ -603,7 +603,7 @@ figure.wp-block-pullquote {
 // FILE DOWNLOADS
 // =============================================================================
 
-.wp-block-file {
+.wp-block-file:where(:not(.no-theme-style)) {
   --focus-offset: 2px;
   display: flex;
   gap: 0 1px;
@@ -670,7 +670,7 @@ figure.wp-block-pullquote {
 // VIDEO
 // =============================================================================
 
-.wp-block-video {
+.wp-block-video:where(:not(.no-theme-style)) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -691,7 +691,7 @@ figure.wp-block-pullquote {
 // AUDIO
 // =============================================================================
 
-.wp-block-audio {
+.wp-block-audio:where(:not(.no-theme-style)) {
   display: flex;
   align-items: center;
 
@@ -707,7 +707,7 @@ figure.wp-block-pullquote {
 // FOOTNOTES
 // =============================================================================
 
-.wp-block-footnotes {
+.wp-block-footnotes:where(:not(.no-theme-style)) {
   border-style: solid;
 
   li:not(:last-child) {
@@ -729,7 +729,7 @@ figure.wp-block-pullquote {
 // CALENDAR
 // =============================================================================
 
-.wp-block-calendar {
+.wp-block-calendar:not(.no-theme-style) {
   container-type: inline-size;
 
   :is(.wp-calendar-table, .wp-calendar-nav) {
@@ -781,7 +781,7 @@ figure.wp-block-pullquote {
 // CATEGORIES
 // =============================================================================
 
-.wp-block-categories {
+.wp-block-categories:not(.no-theme-style) {
   list-style-type: disc;
   padding-left: 1.05em;
 }
