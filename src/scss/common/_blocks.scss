@@ -786,8 +786,10 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
   padding-left: 1.05em;
 
   a {
+    color: var(--widget-link-color);
+
     &:hover {
-      color: var(--inline-link-color-hover);
+      color: var(--widget-link-color-hover);
     }
   }
 }

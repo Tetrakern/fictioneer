@@ -418,6 +418,9 @@
   --inline-link-color-border: 1px solid transparent;
   --inline-link-color-border-hover: 1px solid currentColor;
 
+  --widget-link-color: inherit;
+  --widget-link-color-hover: var(--fg-200);
+
   // === COLORS - BOOKMARKS ====================================================
 
   --bookmark-color-alpha: #7d8497; // FG-900

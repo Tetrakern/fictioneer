@@ -17,5 +17,13 @@
     list-style-type: disc;
     padding-left: 1.05em;
   }
+
+  a {
+    color: var(--widget-link-color);
+
+    &:hover {
+      color: var(--widget-link-color-hover);
+    }
+  }
 }
 
