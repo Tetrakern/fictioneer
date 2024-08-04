@@ -1328,3 +1328,7 @@ There are a few reserved URL slugs you must not use in permalinks, otherwise you
 * oauth2
 * download-epub
 * fictioneer-logout
+
+### Some block settings look bad or do nothing!
+
+Some block settings lack styling in the theme or have been disabled because they do not work well with the layout. For example, the Latest Posts block ignores the thumbnail settings. Custom font sizes and colors should really be only used on headings or paragraphs.
