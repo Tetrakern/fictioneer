@@ -215,6 +215,12 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
  */
 
 function fictioneer_sidebar( $context ) {
+  // Do not render sidebar if...
+  if ( get_theme_mod( 'sidebar_style', 'none' ) === 'none' || ! is_active_sidebar( 'fictioneer-sidebar' ) ) {
+    return;
+  }
+
+  // Setup
   $post = get_post();
   $sidebar_disabled = array(
     'fcn_story' => get_theme_mod( 'sidebar_disable_in_stories' ),
@@ -222,17 +228,14 @@ function fictioneer_sidebar( $context ) {
     'fcn_collection' => get_theme_mod( 'sidebar_disable_in_collections' ),
     'fcn_recommendation' => get_theme_mod( 'sidebar_disable_in_recommendations' )
   );
-  $is_sidebar_disabled = false;
 
-  if ( isset( $sidebar_disabled[ $post->post_type ] ) && $sidebar_disabled[ $post->post_type ] ) {
-    $is_sidebar_disabled = true;
-  }
-
-  // Do not render sidebar if...
   if (
-    get_theme_mod( 'sidebar_style', 'none' ) === 'none' ||
-    get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true ) ||
-    $is_sidebar_disabled
+    $post &&
+    ! is_archive() &&
+    ! is_search() &&
+    isset( $sidebar_disabled[ $post->post_type ] ) &&
+    $sidebar_disabled[ $post->post_type ] &&
+    ! get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
   ) {
     return;
   }
@@ -244,7 +247,7 @@ function fictioneer_sidebar( $context ) {
   <?php // <--- End HTML
 }
 
-if ( ! get_option( 'fictioneer_disable_all_widgets' ) && is_active_sidebar( 'fictioneer-sidebar' ) ) {
+if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
   add_action( 'fictioneer_main', 'fictioneer_sidebar' );
 }
 
@@ -647,29 +650,37 @@ function fictioneer_add_classes_to_body( $classes ) {
 
   // Sidebar
   $sidebar_style = get_theme_mod( 'sidebar_style', 'none' );
-  $sidebar_disabled = array(
-    'fcn_story' => get_theme_mod( 'sidebar_disable_in_stories' ),
-    'fcn_chapter' => get_theme_mod( 'sidebar_disable_in_chapters' ),
-    'fcn_collection' => get_theme_mod( 'sidebar_disable_in_collections' ),
-    'fcn_recommendation' => get_theme_mod( 'sidebar_disable_in_recommendations' )
-  );
-  $is_sidebar_disabled = false;
-
-  if ( isset( $sidebar_disabled[ $post->post_type ] ) && $sidebar_disabled[ $post->post_type ] ) {
-    $is_sidebar_disabled = true;
-  }
 
   if (
     $sidebar_style !== 'none' &&
-    ! get_option( 'fictioneer_disable_all_widgets' ) &&
     is_active_sidebar( 'fictioneer-sidebar' ) &&
-    ! get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true ) &&
-    ! $is_sidebar_disabled
+    ! get_option( 'fictioneer_disable_all_widgets' )
   ) {
-    $classes[] = 'has-sidebar';
+    $sidebar_disabled = array(
+      'fcn_story' => get_theme_mod( 'sidebar_disable_in_stories' ),
+      'fcn_chapter' => get_theme_mod( 'sidebar_disable_in_chapters' ),
+      'fcn_collection' => get_theme_mod( 'sidebar_disable_in_collections' ),
+      'fcn_recommendation' => get_theme_mod( 'sidebar_disable_in_recommendations' )
+    );
+    $is_sidebar_disabled = false;
 
-    if ( $sidebar_style === 'right' ) {
-      $classes[] = 'has-sidebar-right';
+    if (
+      $post &&
+      ! is_archive() &&
+      ! is_search() &&
+      isset( $sidebar_disabled[ $post->post_type ] ) &&
+      $sidebar_disabled[ $post->post_type ] &&
+      ! get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
+    ) {
+      $is_sidebar_disabled = true;
+    }
+
+    if ( ! $is_sidebar_disabled ) {
+      $classes[] = 'has-sidebar';
+
+      if ( $sidebar_style === 'right' ) {
+        $classes[] = 'has-sidebar-right';
+      }
     }
   }
 
