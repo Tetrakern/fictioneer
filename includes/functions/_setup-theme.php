@@ -2024,3 +2024,28 @@ function fictioneer_get_theme_colors_array() {
   // Merge and return colors, child overriding parent
   return $fictioneer_colors;
 }
+
+// =============================================================================
+// CALENDAR BLOCK
+// =============================================================================
+
+/**
+ * Changes the navigation icons of the calendar block
+ *
+ * @since 5.22.0
+ *
+ * @param string $calendar_output  HTML of the calendar block.
+ *
+ * @return array Updated HTML of the calendar block.
+ */
+
+function fictioneer_modify_calender_nav( $calendar_output ) {
+  // Replace previous icon
+  $calendar_output = str_replace( '>&laquo;', '><i class="fa-solid fa-caret-left"></i>', $calendar_output );
+
+  // Replace next icon
+  $calendar_output = str_replace( '&raquo;<', '<i class="fa-solid fa-caret-right"></i><', $calendar_output );
+
+  return $calendar_output;
+}
+add_filter( 'get_calendar', 'fictioneer_modify_calender_nav' );
