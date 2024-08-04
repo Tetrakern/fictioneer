@@ -194,6 +194,12 @@ The theme has two menu locations: Navigation and Footer Menu. You can create and
 * `hide-if-logged-in` - Hides the menu item if the user is logged in.
 * `hide-if-logged-out` - Hides the menu item if the user is logged out.
 
+## Sidebar
+
+You can enable the optional sidebar under **Appearance > Customize > Layout**, choosing either left or right alignment along with other options. Typically, this also requires some manual adjustments to the layout. Increasing the site width is recommended to accommodate the new column; 1100px is a good start for a 256px wide sidebar.
+
+Enabling the sidebar also reduces the default page padding, which can be overridden further down with custom layout properties. If space becomes an issue, consider reducing the horizontal page padding to zero and turning off the page background for an open site appearance.
+
 ## Stories
 
 Stories are added under **Stories > Add New**. Required fields are the short description, status, and age rating. You should be thorough with the setup, especially the taxonomies if you have more than a few stories on your site, because they can be searched for. Just avoid adding excessive lists of tags. Also note that stories are not supposed to be used like chapters, for example as oneshot, because they lack all chapter features, including comments.
@@ -467,6 +473,7 @@ These fields and options are available in most post types, which does not mean t
 | Patreon Amount Cents | Number | Patreon pledge threshold to ignore the password protection (if set up).
 | Expire Post Password | Date | Choose a date and time to automatically remove the post password (set your time zone).
 | Disable new comments | Check | Disable new comments but keep the current ones visible.
+| Disable sidebar | Check | Disable the sidebar on this post or page (if any).
 
 ### SEO & Meta Tags
 

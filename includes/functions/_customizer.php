@@ -630,6 +630,7 @@ function fictioneer_build_customize_css( $context = null ) {
   $card_style = get_theme_mod( 'card_style', 'default' );
   $card_frame = get_theme_mod( 'card_frame', 'default' );
   $footer_style = get_theme_mod( 'footer_style', 'default' );
+  $sidebar_style = get_theme_mod( 'sidebar_style', 'none' );
   $css = '';
 
   if ( $context === 'preview' ) {
@@ -714,6 +715,8 @@ function fictioneer_build_customize_css( $context = null ) {
   $font_lightness_offset_light = (int) get_theme_mod( 'font_lightness_offset_light', 0 );
   $site_width = (int) get_theme_mod( 'site_width', 960 );
   $main_offset = (int) get_theme_mod( 'main_offset', 0 );
+  $sidebar_width = (int) get_theme_mod( 'sidebar_width', 256 );
+  $sidebar_gap = (int) get_theme_mod( 'sidebar_gap', 48 );
   $logo_height = (int) get_theme_mod( 'logo_height', 210 );
   $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
   $title_max = (int) get_theme_mod( 'site_title_font_size_max', 60 );
@@ -749,6 +752,8 @@ function fictioneer_build_customize_css( $context = null ) {
   $css .= ":root {
     --site-width: {$site_width}px;
     --main-offset: {$main_offset}px;
+    --sidebar-width: {$sidebar_width}px;
+    --sidebar-gap: {$sidebar_gap}px;
     --hue-offset: {$hue_offset_dark}deg;
     --saturation-offset: " . $saturation_offset_dark / 100 . ";
     --lightness-offset: " . $lightness_offset_dark / 100 . ";
@@ -796,6 +801,13 @@ function fictioneer_build_customize_css( $context = null ) {
 
   // --- Custom layout ---------------------------------------------------------
 
+  if ( $sidebar_style !== 'none' ) {
+    $css .= ":root, :root[data-theme=base] {
+      --layout-spacing-horizontal: " . fictioneer_get_css_clamp( 20, 48, 480, $site_width ) . ";
+      --layout-spacing-horizontal-small: " . fictioneer_get_css_clamp( 10, 20, 320, 400 ) . ";
+    }";
+  }
+
   if ( get_theme_mod( 'use_custom_layout', false ) ) {
     $vertical_min = (int) get_theme_mod( 'vertical_spacing_min', 24 );
     $vertical_max = (int) get_theme_mod( 'vertical_spacing_max', 48 );
@@ -815,6 +827,13 @@ function fictioneer_build_customize_css( $context = null ) {
       --layout-border-radius-small: {$small_border_radius}px;
       --chapter-list-gap: {$chapter_list_gap}px;
     }";
+
+    if ( $sidebar_style !== 'none' ) {
+      $css .= ".has-sidebar {
+        --layout-spacing-horizontal: " . fictioneer_get_css_clamp( $horizontal_min, $horizontal_max, 480, $site_width ) . ";
+        --layout-spacing-horizontal-small: " . fictioneer_get_css_clamp( $horizontal_small_min, $horizontal_small_max, 320, 400 ) . ";
+      }";
+    }
   }
 
   // --- Dark mode font weight adjustment --------------------------------------

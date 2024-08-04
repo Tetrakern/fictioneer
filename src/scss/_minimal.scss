@@ -113,4 +113,13 @@
   .padding-bottom {
     padding-bottom: var(--layout-spacing-vertical-minimal);
   }
+
+  .has-sidebar {
+    --layout-spacing-horizontal: var(--layout-spacing-horizontal-minimal);
+    --layout-spacing-horizontal-small: var(--layout-spacing-horizontal-minimal);
+
+    @include bp(desktop) {
+      --layout-spacing-horizontal-minimal: 48px;
+    }
+  }
 }

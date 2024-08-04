@@ -684,6 +684,7 @@ Fires after opening the site’s `<main>` container.
 **Hooked Actions:**
 * `fictioneer_main_observer()` – Renders the main observer element. Priority 1.
 * `fictioneer_page_background()` – Renders the page background. Priority 10.
+* `fictioneer_sidebar() – Renders the sidebar if enabled. Priority 10.
 
 ---
 

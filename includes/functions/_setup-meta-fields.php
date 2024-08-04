@@ -3297,15 +3297,34 @@ function fictioneer_render_extra_metabox( $post ) {
   }
 
   // Checkbox: Disable new comments
-  if ( in_array( $post->post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
-    $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
-      _x( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
+  $flag_count = 0;
+  $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
+    _x( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
+  if ( in_array( $post->post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
     $output['fictioneer_disable_commenting'] = fictioneer_get_metabox_checkbox(
       $post,
       'fictioneer_disable_commenting',
       __( 'Disable new comments', 'fictioneer' )
     );
+
+    $flag_count++;
+  }
+
+  // Checkbox: Disable new comments
+  if ( current_user_can( 'manage_options' ) && get_theme_mod( 'sidebar_style', 'none' ) !== 'none' ) {
+    $output['fictioneer_disable_sidebar'] = fictioneer_get_metabox_checkbox(
+      $post,
+      'fictioneer_disable_sidebar',
+      __( 'Disable sidebar', 'fictioneer' )
+    );
+
+    $flag_count++;
+  }
+
+  // Remove Flags heading if no flags are rendered
+  if ( ! $flag_count ) {
+    unset( $output['flags_heading'] );
   }
 
   // --- Filters ---------------------------------------------------------------
@@ -3500,6 +3519,11 @@ function fictioneer_save_extra_metabox( $post_id ) {
     in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] )
   ) {
     $fields['fictioneer_disable_commenting'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] );
+  }
+
+  // Checkbox: Disable sidebar
+  if ( isset( $_POST['fictioneer_disable_sidebar'] ) && current_user_can( 'manage_options' ) ) {
+    $fields['fictioneer_disable_sidebar'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_sidebar'] );
   }
 
   // --- Filters -----------------------------------------------------------------

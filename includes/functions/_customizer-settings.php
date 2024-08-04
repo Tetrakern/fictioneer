@@ -1404,6 +1404,178 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Sidebar style
+  $manager->add_setting(
+    'sidebar_style',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'none'
+    )
+  );
+
+  $sidebar_styles = array(
+    'none' => _x( 'None (Default)', 'Customizer sidebar style option.', 'fictioneer' ),
+    'left' => _x( 'Left', 'Customizer header sidebar option.', 'fictioneer' ),
+    'right' => _x( 'Right', 'Customizer header sidebar option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'sidebar_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Sidebar', 'fictioneer' ),
+      'description' => __( 'Choose whether and where to render the sidebar. You can set it up under Widgets.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_sidebar_style', $sidebar_styles )
+    )
+  );
+
+  // Sidebar width
+  $manager->add_setting(
+    'sidebar_width',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'absint',
+      'default' => 256
+    )
+  );
+
+  $manager->add_control(
+    'sidebar_width',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Sidebar Width', 'fictioneer' ),
+      'description' => __( 'Width of the sidebar in pixels. Default 256.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '256',
+        'style' => 'width: 80px',
+        'min' => 100
+      )
+    )
+  );
+
+  // Sidebar gap
+  $manager->add_setting(
+    'sidebar_gap',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'absint',
+      'default' => 48
+    )
+  );
+
+  $manager->add_control(
+    'sidebar_gap',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Sidebar Gap', 'fictioneer' ),
+      'description' => __( 'Gap between sidebar and content in pixels. Default 48.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '48',
+        'style' => 'width: 80px',
+        'min' => 0
+      )
+    )
+  );
+
+  // Disable story sidebar
+  $manager->add_setting(
+    'sidebar_disable_in_stories',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> 0
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'sidebar_disable_in_stories',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Disable sidebar in stories', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'sidebar_disable_in_stories'
+      )
+    )
+  );
+
+  // Disable chapter sidebar
+  $manager->add_setting(
+    'sidebar_disable_in_chapters',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> 0
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'sidebar_disable_in_chapters',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Disable sidebar in chapters', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'sidebar_disable_in_chapters'
+      )
+    )
+  );
+
+  // Disable collection sidebar
+  $manager->add_setting(
+    'sidebar_disable_in_collections',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> 0
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'sidebar_disable_in_collections',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Disable sidebar in collections', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'sidebar_disable_in_collections'
+      )
+    )
+  );
+
+  // Disable recommendation sidebar
+  $manager->add_setting(
+    'sidebar_disable_in_recommendations',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> 0
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'sidebar_disable_in_recommendations',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Disable sidebar in recommendations', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'sidebar_disable_in_recommendations'
+      )
+    )
+  );
+
   // Header style
   $manager->add_setting(
     'header_style',
