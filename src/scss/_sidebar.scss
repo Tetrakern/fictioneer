@@ -145,7 +145,12 @@
 
   @include bp(desktop) {
     flex: 1 0 var(--sidebar-width);
-    padding-top: var(--page-inset-top);
+  }
+
+  &._layout {
+    @include bp(desktop) {
+      padding-top: var(--page-inset-top);
+    }
   }
 
   &__wrapper,
