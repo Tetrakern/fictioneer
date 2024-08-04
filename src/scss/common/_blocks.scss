@@ -914,3 +914,48 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
     display: none;
   }
 }
+
+// =============================================================================
+// LOGIN/LOGOUT
+// =============================================================================
+
+.wp-block-loginout {
+  &.has-login-form.logged-out {
+    input:is([type="text"], [type="password"]) {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &:is(.logged-in, .logged-out) {
+    a:last-child {
+      @extend %button;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  form {
+    display: grid;
+    gap: .75rem;
+  }
+
+  :is(.login-username, .login-password) {
+    label {
+      display: block;
+      font-size: var(--fs-xs);
+      font-weight: var(--font-weight-medium);
+      padding: 0 0 2px;
+    }
+  }
+
+  .login-remember {
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
