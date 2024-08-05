@@ -247,7 +247,7 @@
       }
     }
 
-    :where(a, label):not(._no-menu-item-style) {
+    :where(a, label):where(:not(._no-menu-item-style)) {
       position: relative;
       display: flex;
       align-items: center;
