@@ -5,7 +5,7 @@
   font-weight: var(--font-weight-navigation);
 
   .menu-item {
-    :is(a, label, button):not(._no-menu-item-style) {
+    :is(a, label, button):where(:not(._no-menu-item-style)) {
       display: flex;
       align-items: center;
       color: var(--navigation-color);

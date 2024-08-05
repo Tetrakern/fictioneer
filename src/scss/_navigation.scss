@@ -283,6 +283,14 @@
       content-visibility: visible;
     }
 
+    :where(a, label, button):not(._no-menu-item-style) {
+      color: var(--navigation-subitem-color, var(--navigation-color));
+
+      &:hover {
+        color: var(--navigation-subitem-color-hover, var(--navigation-color-hover));
+      }
+    }
+
     .menu-item {
       &:last-child {
         border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
@@ -364,9 +372,15 @@
 .user-is-tabbing {
   :is(.main-navigation, .icon-menu) {
     :is(.menu-item, .page_item) {
-      :is(a, label, button):focus-visible {
+      :where(a, label, button):focus-visible {
         color: var(--navigation-color-hover);
         background: var(--navigation-item-background-hover);
+      }
+
+      .sub-menu {
+        :where(a, label, button):focus-visible {
+          color: var(--navigation-subitem-color-hover, var(--navigation-color-hover));
+        }
       }
 
       &:focus-within {
