@@ -200,6 +200,10 @@ You can enable the optional sidebar under **Appearance > Customize > Layout**, c
 
 Enabling the sidebar also reduces the default page padding, which can be overridden further down with custom layout properties. If space becomes an issue, consider reducing the horizontal page padding to zero and turning off the page background for an open site appearance.
 
+**Notes:**
+* The Latest Posts widget always hides the thumbnail, regardless of block settings.
+* Use the optional `no-theme-style` CSS class to remove the widget styling if needed.
+
 ## Stories
 
 Stories are added under **Stories > Add New**. Required fields are the short description, status, and age rating. You should be thorough with the setup, especially the taxonomies if you have more than a few stories on your site, because they can be searched for. Just avoid adding excessive lists of tags. Also note that stories are not supposed to be used like chapters, for example as oneshot, because they lack all chapter features, including comments.
