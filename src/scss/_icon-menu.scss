@@ -45,6 +45,10 @@
     }
   }
 
+  .sub-menu .menu-item :where(a, label, button):where(:not(._no-menu-item-style)) {
+    padding: 0 1rem;
+  }
+
   .user-profile-image {
     border-radius: 50%;
     height: 1.2em;
