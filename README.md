@@ -26,6 +26,10 @@ Fictioneer is open source and completely free. However, maintaining and developi
 
 stories, chapters, collections, and recommendations &bull; customizable web reader &bull; shortcodes &bull; text-to-speech &bull; bookmarks &bull; progress tracker &bull; lightbox &bull; dark/light mode &bull; ePUB converter &bull; advanced search form &bull; sidebar &bull; OAuth 2.0 logins (Discord, Google, Twitch, and Patreon) &bull; Patreon content gate &bull; post password expiration &bull; gate content for users and roles &bull; role manager &bull; responsive layout &bull; cache aware &bull; custom comment system &bull; AJAX comments &bull; private comments &bull; comment reply subscriptions &bull; send notifications to Discord &bull; search engine optimization &bull; GDPR compliant &bull; hue, saturation, and lightness sliders &bull; translation ready &bull; compatible with Elementor
 
+## Migration
+
+Migrating an existing WordPress database (or, may the stars have mercy on your soul, another CMS) can be a downright nightmare. Depending on what you did and the themes and plugins you used before, you may encounter severe issues matching the previous data structures to those used in Fictioneer. To make this easier, take a look at the [migration guide](MIGRATION.md).
+
 ## Free Plugins
 
 [Fictioneer Email Notifications](https://github.com/Tetrakern/fictioneer-email-notifications): Allows readers to subscribe to selected updates via email. You can choose to receive notifications for all new content, specific post types, or selected stories and taxonomies.
