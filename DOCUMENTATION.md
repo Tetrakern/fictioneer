@@ -194,6 +194,25 @@ The theme has two menu locations: Navigation and Footer Menu. You can create and
 * `hide-if-logged-in` - Hides the menu item if the user is logged in.
 * `hide-if-logged-out` - Hides the menu item if the user is logged out.
 
+### Taxonomy Submenus
+
+In addition to the Taxonomies page template, you can also add a submenu for each taxonomy in the main navigation. This works for categories, tags, genres, fandoms, characters, and warnings. To do this, add a custom link as a menu item with `#` as the link, then assign it **one** of the following trigger CSS classes (check the screen options if you cannot see the input). This should work on all levels, but it is recommended to keep it at the top level. The menu link and submenu will only be visible on desktop viewports.
+
+**Menu classes:**
+* `trigger-term-menu-categories` - Submenu for categories.
+* `trigger-term-menu-tags` - Submenu for tags.
+* `trigger-term-menu-genres` - Submenu for genres.
+* `trigger-term-menu-fandoms` - Submenu for fandoms.
+* `trigger-term-menu-characters` - Submenu for characters.
+* `trigger-term-menu-warnings` - Submenu for warnings.
+
+**Optional CSS classes:**
+* `columns-2|4|5` - Change the number of columns to 2, 4, or 5 (default is 3).
+
+![Genres Submenu Setup](repo/assets/menu_custom_link_genres_submenu.png?raw=true)
+
+![Genres Submenu](repo/assets/genres_submenu.png?raw=true)
+
 ## Sidebar
 
 You can enable the optional sidebar under **Appearance > Customize > Layout**, choosing either left or right alignment along with other options. Typically, this also requires some manual adjustments to the layout. Increasing the site width is recommended to accommodate the new column; 1100px is a good start for a 256px wide sidebar. Note that the sidebar will only show up once you add widgets to it.
