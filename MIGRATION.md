@@ -49,7 +49,11 @@ function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $previ
 
   // Found any?
   if ( ! $query->have_posts() ) {
-    wp_die( 'No matching posts found.' );
+    if ( $preview ) {
+      wp_die( 'No matching posts found.' );
+    } else {
+      return;
+    }
   }
 
   // Preview?
