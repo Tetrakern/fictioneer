@@ -1077,7 +1077,7 @@ function fictioneer_render_taxonomy_submenu( $type = 'fcn_genre', $hide_empty = 
  */
 
 function fictioneer_render_category_submenu() {
-  fictioneer_render_taxonomy_submenu( $type = 'category' );
+  fictioneer_render_taxonomy_submenu( 'category' );
 }
 
 /**
@@ -1087,7 +1087,7 @@ function fictioneer_render_category_submenu() {
  */
 
 function fictioneer_render_tag_submenu() {
-  fictioneer_render_taxonomy_submenu( $type = 'post_tag' );
+  fictioneer_render_taxonomy_submenu( 'post_tag' );
 }
 
 /**
@@ -1097,7 +1097,7 @@ function fictioneer_render_tag_submenu() {
  */
 
 function fictioneer_render_genre_submenu() {
-  fictioneer_render_taxonomy_submenu( $type = 'fcn_genre' );
+  fictioneer_render_taxonomy_submenu( 'fcn_genre' );
 }
 
 /**
@@ -1107,7 +1107,7 @@ function fictioneer_render_genre_submenu() {
  */
 
 function fictioneer_render_fandom_submenu() {
-  fictioneer_render_taxonomy_submenu( $type = 'fcn_fandom' );
+  fictioneer_render_taxonomy_submenu( 'fcn_fandom' );
 }
 
 /**
@@ -1117,7 +1117,7 @@ function fictioneer_render_fandom_submenu() {
  */
 
 function fictioneer_render_character_submenu() {
-  fictioneer_render_taxonomy_submenu( $type = 'fcn_character' );
+  fictioneer_render_taxonomy_submenu( 'fcn_character' );
 }
 
 /**
@@ -1127,5 +1127,5 @@ function fictioneer_render_character_submenu() {
  */
 
 function fictioneer_render_warning_submenu() {
-  fictioneer_render_taxonomy_submenu( $type = 'fcn_content_warning' );
+  fictioneer_render_taxonomy_submenu( 'fcn_content_warning' );
 }
