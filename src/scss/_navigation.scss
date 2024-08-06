@@ -418,3 +418,92 @@
     text-transform: uppercase;
   }
 }
+
+[class*="trigger-term-menu"] {
+  display: none;
+  content-visibility: hidden;
+  border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
+
+  @include bp(desktop) {
+    display: block;
+    content-visibility: visible;
+  }
+
+  &.columns-2 .nav-terms-submenu {
+    --columns: 2;
+  }
+
+  &.columns-4 .nav-terms-submenu {
+    --columns: 4;
+  }
+
+  &.columns-5 .nav-terms-submenu {
+    --columns: 5;
+  }
+
+  > a::after {
+    content: unicode("f078");
+    font-family: "Font Awesome 6 Free";
+    font-size: .75em;
+    font-weight: 900;
+    margin: 0 -0.5em 0 .75em;
+  }
+}
+
+.mobile-menu [class*="trigger-term-menu"] {
+  display: none !important;
+  content-visibility: hidden !important;
+}
+
+.nav-terms-submenu {
+  --gap: 0px;
+  --width: 500px;
+  --columns: 3;
+  font-family: var(--ff-nav-item);
+  font-size: 15px;
+  width: 1000px;
+  max-width: min(calc(100vw - 20px), calc(var(--width) + var(--gap) * (var(--columns) - 1)));
+
+  @include bp(desktop) {
+    display: block;
+    content-visibility: visible;
+  }
+
+  &__note {
+    text-transform: uppercase;
+    font-family: var(--ff-note);
+    font-size: 12px;
+    font-weight: 600;
+    padding: .75rem 1rem 0;
+    opacity: .5;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-gap: var(--gap);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, calc((var(--width) - var(--gap) * (var(--columns) - 1)) / var(--columns))), 1fr));
+    background: var(--navigation-submenu-background);
+    padding-top: .5rem;
+    border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
+    overflow: hidden;
+  }
+
+  .nav-term-item {
+    line-height: var(--navigation-height);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 1rem;
+    height: var(--navigation-height);
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  :where(a, label, button) {
+    color: var(--navigation-subitem-color, var(--navigation-color));
+
+    &:hover {
+      background: var(--navigation-subitem-background-hover);
+      color: var(--navigation-subitem-color-hover, var(--navigation-color-hover));
+    }
+  }
+}

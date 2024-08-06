@@ -1011,3 +1011,121 @@ function fictioneer_mu_registration_end( $args ) {
 if ( FICTIONEER_MU_REGISTRATION ) {
   add_action( 'fictioneer_after_main', 'fictioneer_mu_registration_end', 999 );
 }
+
+// =============================================================================
+// TAXONOMY SUBMENU (HOOKED IN NAVIGATION PARTIAL)
+// =============================================================================
+
+/**
+ * Outputs the <template> HTML for the taxonomy submenu
+ *
+ * Note: The ID of the template element is "term-submenu-{$type}".
+ *
+ * @since 5.22.1
+ *
+ * @param string $type        Optional. The taxonomy type to build the menu for. Default 'fcn_genre'.
+ * @param bool   $hide_empty  Optional. Whether to include empty taxonomies. Default true.
+ */
+
+function fictioneer_render_taxonomy_submenu( $type = 'fcn_genre', $hide_empty = true ) {
+  // Query terms
+  $terms = get_terms(
+    apply_filters(
+      'fictioneer_filter_taxonomy_submenu_query_args',
+      array( 'taxonomy' => $type, 'hide_empty' => $hide_empty ),
+      $type
+    )
+  );
+
+  // All good?
+  if ( is_wp_error( $terms ) ) {
+    return;
+  }
+
+  // Setup
+  $nice_type = str_replace( 'fcn_', '', $type );
+  $taxonomy = get_taxonomy( $type );
+  $html = '';
+
+  // Build HTML
+  $html = "<template id='term-submenu-{$type}'><div class='sub-menu nav-terms-submenu _{$nice_type}'>";
+  $html .= '<div class="nav-terms-submenu__note">';
+  $html .= apply_filters(
+    'fictioneer_filter_taxonomy_submenu_note',
+    sprintf( __( 'Choose a %s to browse', 'fictioneer' ), $taxonomy->labels->singular_name ),
+    $taxonomy
+  );
+  $html .= '</div><div class="nav-terms-submenu__wrapper">';
+
+  foreach ( $terms as $term ) {
+    $link = esc_url( get_term_link( $term ) );
+    $name = esc_html( $term->name );
+
+    $html .= "<a href='{$link}' class='nav-term-item _{$nice_type} _no-menu-item-style' data-type='{$type}' data-term-id='{$term->term_id}'>{$name}</a>";
+  }
+
+  $html .= '</div></div></template>';
+
+  // Render
+  echo apply_filters( 'fictioneer_filter_taxonomy_submenu_html', $html, $terms, $type, $hide_empty );
+}
+
+/**
+ * Action wrapper for the category submenu
+ *
+ * @since 5.22.1
+ */
+
+function fictioneer_render_category_submenu() {
+  fictioneer_render_taxonomy_submenu( $type = 'category' );
+}
+
+/**
+ * Action wrapper for the tag submenu
+ *
+ * @since 5.22.1
+ */
+
+function fictioneer_render_tag_submenu() {
+  fictioneer_render_taxonomy_submenu( $type = 'post_tag' );
+}
+
+/**
+ * Action wrapper for the genre submenu
+ *
+ * @since 5.22.1
+ */
+
+function fictioneer_render_genre_submenu() {
+  fictioneer_render_taxonomy_submenu( $type = 'fcn_genre' );
+}
+
+/**
+ * Action wrapper for the fandom submenu
+ *
+ * @since 5.22.1
+ */
+
+function fictioneer_render_fandom_submenu() {
+  fictioneer_render_taxonomy_submenu( $type = 'fcn_fandom' );
+}
+
+/**
+ * Action wrapper for the character submenu
+ *
+ * @since 5.22.1
+ */
+
+function fictioneer_render_character_submenu() {
+  fictioneer_render_taxonomy_submenu( $type = 'fcn_character' );
+}
+
+/**
+ * Action wrapper for the warning submenu
+ *
+ * @since 5.22.1
+ */
+
+function fictioneer_render_warning_submenu() {
+  fictioneer_render_taxonomy_submenu( $type = 'fcn_content_warning' );
+}

@@ -492,7 +492,58 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.classList.add('_oversized-navigation');
     }
   }
+
+  _$$('.main-navigation .trigger-term-menu-categories').forEach(element => {
+    fcn_appendTermMenu('category', element);
+  });
+
+  _$$('.main-navigation .trigger-term-menu-tags').forEach(element => {
+    fcn_appendTermMenu('post_tag', element);
+  });
+
+  _$$('.main-navigation .trigger-term-menu-genres').forEach(element => {
+    fcn_appendTermMenu('fcn_genre', element);
+  });
+
+  _$$('.main-navigation .trigger-term-menu-fandoms').forEach(element => {
+    fcn_appendTermMenu('fcn_fandom', element);
+  });
+
+  _$$('.main-navigation .trigger-term-menu-characters').forEach(element => {
+    fcn_appendTermMenu('fcn_character', element);
+  });
+
+  _$$('.main-navigation .trigger-term-menu-warnings').forEach(element => {
+    fcn_appendTermMenu('fcn_content_warning', element);
+  });
 });
+
+/**
+ * Append term submenu to navigation menu item.
+ *
+ * @since 5.22.1
+ *
+ * @param {String} type - The taxonomy type.
+ * @param {HTMLElement} target - The menu item element.
+ */
+
+function fcn_appendTermMenu(type, target) {
+  const template = _$$$(`term-submenu-${type}`);
+
+  if (!template) {
+    return;
+  }
+
+  const submenu = template.content.cloneNode(true);
+
+  target.classList.add('menu-item-has-children');
+
+  target.querySelector('[href="#"]').addEventListener('click', event => {
+    event.preventDefault();
+  });
+
+  target.appendChild(submenu);
+}
 
 // =============================================================================
 // DETECT SCROLL DIRECTION
