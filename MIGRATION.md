@@ -64,7 +64,7 @@ function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $previ
           'action' => 'fictioneer_migrate_chapters',
           'perform' => 1
         ),
-        admin_url( 'admin-post.php' )
+        home_url( $_SERVER['REQUEST_URI'] )
       )
     );
 
