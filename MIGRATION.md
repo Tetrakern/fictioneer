@@ -170,8 +170,8 @@ function fictioneer_migrate() {
   // Story data if you want to append the chapters
   $story_args = array(
     'story_id' => null, // Leave null if you only want to convert chapters
-    'age_rating' => 'Everyone', // Chose: 'Everyone', 'Teen', 'Mature', or 'Adult' (capitalized and in English)
-    'status' => 'Ongoing', // Chose: 'Ongoing', 'Completed', 'Oneshot', 'Hiatus', or 'Cancelled' (capitalized and in English)
+    'age_rating' => 'Everyone', // Choose: 'Everyone', 'Teen', 'Mature', or 'Adult' (capitalized and in English)
+    'status' => 'Ongoing', // Choose: 'Ongoing', 'Completed', 'Oneshot', 'Hiatus', or 'Cancelled' (capitalized and in English)
     'description' => null, // Used on cards; falls back to excerpt
     'topwebfiction' => null, // Enter full URL here if any
   );
