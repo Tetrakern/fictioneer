@@ -135,7 +135,7 @@ function fictioneer_store_original_publish_date( $post_id, $post ) {
 
   // Set if missing
   if ( empty( $first_publish_date ) || strtotime( $first_publish_date ) === false ) {
-    update_post_meta( $post_id, 'fictioneer_first_publish_date', current_time( 'mysql' ) );
+    update_post_meta( $post_id, 'fictioneer_first_publish_date', current_time( 'mysql', true ) );
   }
 }
 add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
