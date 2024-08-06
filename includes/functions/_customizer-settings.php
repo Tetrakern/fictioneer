@@ -330,11 +330,13 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     )
   );
 
+  $color_priority_start = 20;
+
   $manager->add_control(
     'use_custom_light_mode',
     array(
       'type' => 'checkbox',
-      'priority' => 10,
+      'priority' => $color_priority_start++,
       'section' => 'light_mode_colors',
       'label' => __( 'Use custom light mode colors', 'fictioneer' )
     )
@@ -536,6 +538,8 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     )
   );
 
+  $color_priority_start = 20;
+
   foreach ( $colors as $key => $color ) {
     fictioneer_add_color_theme_option(
       $manager,
@@ -543,7 +547,8 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
         'section' => 'light_mode_colors',
         'setting' => $key,
         'label' => $color['label'],
-        'description' => $color['description']
+        'description' => $color['description'],
+        'priority' => $color_priority_start++
       )
     );
   }
@@ -743,6 +748,8 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     )
   );
 
+  $color_priority_start = 20;
+
   // Toggle use of custom dark mode colors
   $manager->add_setting(
     'use_custom_dark_mode',
@@ -756,7 +763,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     'use_custom_dark_mode',
     array(
       'type' => 'checkbox',
-      'priority' => 10,
+      'priority' => $color_priority_start++,
       'section' => 'dark_mode_colors',
       'label' => __( 'Use custom dark mode colors', 'fictioneer' )
     )
@@ -969,7 +976,8 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'setting' => $key,
         'label' => $color['label'],
-        'description' => $color['description']
+        'description' => $color['description'],
+        'priority' => $color_priority_start++
       )
     );
   }
@@ -1080,7 +1088,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'site_tagline_font_size_min',
     array(
       'type' => 'number',
-      'priority' => 41,
+      'priority' => 42,
       'section' => 'title_tagline',
       'label' => __( 'Tagline - Minimum Size', 'fictioneer' ),
       'description' => __( 'Minimum font size in pixels of the tagline on 320px viewports. Default 13.', 'fictioneer' ),
@@ -1106,7 +1114,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'site_tagline_font_size_max',
     array(
       'type' => 'number',
-      'priority' => 42,
+      'priority' => 43,
       'section' => 'title_tagline',
       'label' => __( 'Tagline - Maximum Size', 'fictioneer' ),
       'description' => __( 'Maximum font size in pixels of the tagline on [site-width] viewports. Default 18.', 'fictioneer' ),
@@ -1141,7 +1149,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 20,
       'section' => 'header_image',
       'label' => __( 'Header Image Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
@@ -1164,7 +1172,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'header_image_shadow',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 21,
         'label' => __( 'Show header image shadow', 'fictioneer' ),
         'section' => 'header_image',
         'settings' => 'header_image_shadow'
@@ -1187,7 +1195,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'inset_header_image',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 22,
         'label' => __( 'Inset header image', 'fictioneer' ),
         'section' => 'header_image',
         'settings' => 'inset_header_image',
@@ -1210,7 +1218,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_fading_start',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 23,
       'section' => 'header_image',
       'label' => __( 'Fade Out - Start', 'fictioneer' ),
       'description' => __( 'If set to above 0, the header image will fade to transparent, with the value in percent as offset from the top (1-99). Default 0.', 'fictioneer' ),
@@ -1236,7 +1244,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_fading_breakpoint',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 24,
       'section' => 'header_image',
       'label' => __( 'Fade Out - Breakpoint', 'fictioneer' ),
       'description' => __( 'If set to above 320, the fade-out will only be applied to viewports equal to or wider than the value in pixels. Default 0.', 'fictioneer' ),
@@ -1262,7 +1270,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_height_min',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 25,
       'section' => 'header_image',
       'label' => __( 'Minimum Height', 'fictioneer' ),
       'description' => __( 'Min. height in pixels of the header image on 320px viewports. Default 210.', 'fictioneer' ),
@@ -1288,7 +1296,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_height_max',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 26,
       'section' => 'header_image',
       'label' => __( 'Maximum Height', 'fictioneer' ),
       'description' => __( 'Max. height in pixels of the header image on [site-width] viewports. Default 480.', 'fictioneer' ),
@@ -1339,7 +1347,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       array(
         'label' => __( 'Placeholder Image', 'fictioneer' ),
         'description' => __( 'Fallback if no thumbnail has been provided, for example on vertical cards.', 'fictioneer' ),
-        'priority' => 9,
+        'priority' => 0,
         'section' => 'layout',
         'settings' => 'placeholder_image',
         'flex_width' => true,
@@ -1367,7 +1375,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'site_width',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 2,
       'section' => 'layout',
       'label' => __( 'Site Width', 'fictioneer' ),
       'description' => __( 'Maximum site width in pixels, should not be less than 896. Default 960.', 'fictioneer' ),
@@ -1393,7 +1401,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'main_offset',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 4,
       'section' => 'layout',
       'label' => __( 'Main Offset', 'fictioneer' ),
       'description' => __( 'Add an offset in pixels to the main container, positive or negative. Default 0.', 'fictioneer' ),
@@ -1424,7 +1432,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'sidebar_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 6,
       'section' => 'layout',
       'label' => __( 'Sidebar', 'fictioneer' ),
       'description' => __( 'Choose whether and where to render the sidebar. You can set it up under Widgets.', 'fictioneer' ),
@@ -1446,7 +1454,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'sidebar_width',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 8,
       'section' => 'layout',
       'label' => __( 'Sidebar Width', 'fictioneer' ),
       'description' => __( 'Width of the sidebar in pixels. Default 256.', 'fictioneer' ),
@@ -1499,7 +1507,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'sidebar_disable_in_stories',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 12,
         'label' => __( 'Disable sidebar in stories', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'sidebar_disable_in_stories'
@@ -1522,7 +1530,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'sidebar_disable_in_chapters',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 14,
         'label' => __( 'Disable sidebar in chapters', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'sidebar_disable_in_chapters'
@@ -1545,7 +1553,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'sidebar_disable_in_collections',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 16,
         'label' => __( 'Disable sidebar in collections', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'sidebar_disable_in_collections'
@@ -1568,7 +1576,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'sidebar_disable_in_recommendations',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 18,
         'label' => __( 'Disable sidebar in recommendations', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'sidebar_disable_in_recommendations'
@@ -1601,7 +1609,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'header_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 20,
       'section' => 'layout',
       'label' => __( 'Header Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your header. This can affect or disable other settings.', 'fictioneer' ),
@@ -1624,7 +1632,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'title_text_shadow',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 22,
         'label' => __( 'Show title text shadow', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'title_text_shadow'
@@ -1646,7 +1654,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'header_post_content_id',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 24,
       'section' => 'layout',
       'label' => __( 'Post Content Header ID', 'fictioneer' ),
       'description' => __( 'Only used by the Post Content header style. Enter the ID of the post or page you want to render as header. Can impact performance.', 'fictioneer' ),
@@ -1671,7 +1679,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'header_height_min',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 26,
       'section' => 'layout',
       'label' => __( 'Header Height - Minimum', 'fictioneer' ),
       'description' => __( 'Minimum height of the header section in pixels on the smallest viewport. Default 190.', 'fictioneer' ),
@@ -1697,7 +1705,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'header_height_max',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 28,
       'section' => 'layout',
       'label' => __( 'Header Height - Maximum', 'fictioneer' ),
       'description' => __( 'Maximum height of the header section in pixels on the largest viewport. Default 380.', 'fictioneer' ),
@@ -1723,7 +1731,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'mobile_nav_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 30,
       'section' => 'layout',
       'label' => __( 'Mobile Navigation Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your mobile navigation.', 'fictioneer' ),
@@ -1748,7 +1756,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'mobile_menu_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 32,
       'section' => 'layout',
       'label' => __( 'Mobile Menu Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your mobile menu.', 'fictioneer' ),
@@ -1789,7 +1797,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'page_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 34,
       'section' => 'layout',
       'label' => __( 'Page Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your pages.', 'fictioneer' ),
@@ -1812,7 +1820,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'page_shadow',
       array(
         'type' => 'checkbox',
-        'priority' => 10,
+        'priority' => 36,
         'label' => __( 'Show page shadow', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'page_shadow'
@@ -1843,7 +1851,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'story_cover_position',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 38,
       'section' => 'layout',
       'label' => __( 'Story Page Cover Position', 'fictioneer' ),
       'description' => __( 'Choose where to display the cover.', 'fictioneer' ),
@@ -1872,7 +1880,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'content_list_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 40,
       'section' => 'layout',
       'label' => __( 'Content List Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your content lists.', 'fictioneer' ),
@@ -1899,7 +1907,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'footer_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 42,
       'section' => 'layout',
       'label' => __( 'Footer Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your footer.', 'fictioneer' ),
@@ -1921,7 +1929,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'use_custom_layout',
     array(
       'type' => 'checkbox',
-      'priority' => 10,
+      'priority' => 44,
       'section' => 'layout',
       'label' => __( 'Use custom layout properties', 'fictioneer' )
     )
@@ -1941,7 +1949,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'vertical_spacing_min',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 46,
       'section' => 'layout',
       'label' => __( 'Vertical Spacing - Minimum', 'fictioneer' ),
       'description' => __( 'Minimum of the vertical spacing in pixels on the smallest viewport. Default 24.', 'fictioneer' ),
@@ -1967,7 +1975,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'vertical_spacing_max',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 48,
       'section' => 'layout',
       'label' => __( 'Vertical Spacing - Maximum', 'fictioneer' ),
       'description' => __( 'Maximum of the vertical spacing in pixels on [site-width] viewports. Default 48.', 'fictioneer' ),
@@ -1993,7 +2001,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'horizontal_spacing_min',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 50,
       'section' => 'layout',
       'label' => __( 'Horizontal Spacing - Minimum', 'fictioneer' ),
       'description' => __( 'Minimum of the horizontal spacing in pixels on 480px viewports. Default 20.', 'fictioneer' ),
@@ -2019,7 +2027,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'horizontal_spacing_max',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 52,
       'section' => 'layout',
       'label' => __( 'Horizontal Spacing - Maximum', 'fictioneer' ),
       'description' => __( 'Maximum of the horizontal spacing in pixels on [site-width] viewport. Default 80.', 'fictioneer' ),
@@ -2045,7 +2053,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'horizontal_spacing_small_min',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 54,
       'section' => 'layout',
       'label' => __( 'Small Horizontal Spacing - Minimum', 'fictioneer' ),
       'description' => __( 'Minimum of the small horizontal spacing in pixels on 320px viewports. Default 10.', 'fictioneer' ),
@@ -2071,7 +2079,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'horizontal_spacing_small_max',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 56,
       'section' => 'layout',
       'label' => __( 'Small Horizontal Spacing - Maximum', 'fictioneer' ),
       'description' => __( 'Maximum of the small horizontal spacing in pixels below 375px viewports. Default 20.', 'fictioneer' ),
@@ -2097,7 +2105,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'large_border_radius',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 58,
       'section' => 'layout',
       'label' => __( 'Large Border Radius', 'fictioneer' ),
       'description' => __( 'Border radius of large containers in pixels, such as the main content section. Default 4.', 'fictioneer' ),
@@ -2123,7 +2131,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'small_border_radius',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 60,
       'section' => 'layout',
       'label' => __( 'Small Border Radius', 'fictioneer' ),
       'description' => __( 'Border radius of small containers in pixels, such as story cards and inputs. Default 2.', 'fictioneer' ),
@@ -2149,7 +2157,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'chapter_list_gap',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 62,
       'section' => 'layout',
       'label' => __( 'Chapter List Gap', 'fictioneer' ),
       'description' => __( 'The gap between chapter list items in pixels (not grid view). Default 4.', 'fictioneer' ),
@@ -2237,7 +2245,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'card_image_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 12,
       'section' => 'cards',
       'label' => __( 'Card Image Style', 'fictioneer' ),
       'description' => __( 'Choose the image style for your cards. Can be overridden in shortcodes.', 'fictioneer' ),
@@ -2265,7 +2273,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'card_style',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 14,
       'section' => 'cards',
       'label' => __( 'Card Footer Style', 'fictioneer' ),
       'description' => __( 'Choose the footer style for your cards.', 'fictioneer' ),
@@ -2298,7 +2306,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'card_shadow',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 16,
       'section' => 'cards',
       'label' => __( 'Card Shadow', 'fictioneer' ),
       'description' => __( 'Choose the shadow for your cards.', 'fictioneer' ),
@@ -2320,7 +2328,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'card_grid_column_min',
     array(
       'type' => 'number',
-      'priority' => 10,
+      'priority' => 18,
       'section' => 'cards',
       'label' => __( 'Card Width', 'fictioneer' ),
       'description' => __( 'Minimum card width in pixels (still limited by space); affects card scale. Default 308.', 'fictioneer' ),
@@ -2348,7 +2356,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       'card_cover_width_mod',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 20,
         'section' => 'cards',
         'settings' => 'card_cover_width_mod',
         'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
@@ -2378,7 +2386,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       'card_grid_row_gap_mod',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 22,
         'section' => 'cards',
         'settings' => 'card_grid_row_gap_mod',
         'label' => __( 'Card Row Gap Multiplier', 'fictioneer' ),
@@ -2408,7 +2416,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       'card_grid_column_gap_mod',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 24,
         'section' => 'cards',
         'settings' => 'card_grid_column_gap_mod',
         'label' => __( 'Card Column Gap Multiplier', 'fictioneer' ),
@@ -2438,7 +2446,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       'card_font_size_min_mod',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 26,
         'section' => 'cards',
         'settings' => 'card_font_size_min_mod',
         'label' => __( 'Card Font Size Minimum Offset', 'fictioneer' ),
@@ -2468,7 +2476,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       'card_font_size_grow_mod',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 28,
         'section' => 'cards',
         'settings' => 'card_font_size_grow_mod',
         'label' => __( 'Card Font Size Grow Offset', 'fictioneer' ),
@@ -2498,7 +2506,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       'card_font_size_max_mod',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 30,
         'section' => 'cards',
         'settings' => 'card_font_size_max_mod',
         'label' => __( 'Card Font Size Maximum Offset', 'fictioneer' ),
@@ -2595,7 +2603,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'secondary_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 12,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Secondary Font', 'fictioneer' ),
       'description' => __( 'Used for small cards, tags, alongside icons, and in meta rows. Default "Lato".', 'fictioneer' ),
@@ -2617,7 +2625,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'heading_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 14,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Heading Font', 'fictioneer' ),
       'description' => __( 'Used for the site title plus articles, chapters, and cards. Default "Open Sans".', 'fictioneer' ),
@@ -2639,7 +2647,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'site_title_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 16,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Site Title Font', 'fictioneer' ),
       'description' => __( 'Used for the site title and tagline. Defaults to heading font.', 'fictioneer' ),
@@ -2661,7 +2669,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'nav_item_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 18,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Navigation Item Font', 'fictioneer' ),
       'description' => __( 'Used for the items in the navigation bar. Defaults to primary font.', 'fictioneer' ),
@@ -2683,7 +2691,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'story_title_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 20,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Story Title Font', 'fictioneer' ),
       'description' => __( 'Used for the title on story pages. Defaults to heading font.', 'fictioneer' ),
@@ -2705,7 +2713,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'chapter_title_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 22,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Chapter Title Font', 'fictioneer' ),
       'description' => __( 'Used for the title on chapter pages. Defaults to heading font.', 'fictioneer' ),
@@ -2727,7 +2735,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'chapter_list_title_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 24,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Chapter List Title Font', 'fictioneer' ),
       'description' => __( 'Used for the title row in chapter lists. Defaults to primary font.', 'fictioneer' ),
@@ -2749,7 +2757,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'chapter_chapter_body_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 26,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Chapter Body Font', 'fictioneer' ),
       'description' => __( 'Pre-selected font used in chapters. Defaults to primary font.', 'fictioneer' ),
@@ -2771,7 +2779,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'card_title_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 28,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card Title Font', 'fictioneer' ),
       'description' => __( 'Used for the card titles. Defaults to heading font.', 'fictioneer' ),
@@ -2793,7 +2801,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'card_body_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 30,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card Body Font', 'fictioneer' ),
       'description' => __( 'Used for the card content. Defaults to secondary font.', 'fictioneer' ),
@@ -2815,7 +2823,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'card_list_link_font_family_value',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 32,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card List Link Font', 'fictioneer' ),
       'description' => __( 'Used for the links in card lists. Defaults to secondary font.', 'fictioneer' ),
@@ -2837,7 +2845,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     'dark_mode_font_weight',
     array(
       'type' => 'select',
-      'priority' => 10,
+      'priority' => 34,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Dark Mode Font Weight', 'fictioneer' ),
       'description' => __( 'Fonts are rendered thinner in dark mode to offset text bleeding; you can turn that off.', 'fictioneer' ),
