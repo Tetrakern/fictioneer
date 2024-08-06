@@ -1597,6 +1597,35 @@ Filters the groups passed to `fictioneer_get_taxonomy_pills()` before they are l
 
 ---
 
+### `apply_filters( 'fictioneer_filter_taxonomy_submenu_html', $html, $terms, $type, $hide_empty )`
+Filters the built HTML of the taxonomy submenu before it is rendered.
+
+**Parameters:**
+* $html (string) – The current submenu HTML to be rendered.
+* $terms (array) – Array of WP_Term objects.
+* $type (string) – The taxonomy type.
+* $hide_empty (boolean) – Whether to hide empty terms. Default `true`.
+
+---
+
+### `apply_filters( 'fictioneer_filter_taxonomy_submenu_note', $note, $taxonomy )`
+Filters the string of the note rendered above the links in the taxonomy submenu. By default, that is "Choose a {taxonomy} to browse", with the dynamic part taken from the singular name of the taxonomy object.
+
+**Parameters:**
+* $note (string) – The current note to be rendered.
+* $taxonomy (WP_Taxonomy) – The taxonomy object.
+
+---
+
+### `apply_filters( 'fictioneer_filter_taxonomy_submenu_query_args', $query_args, $type )`
+Filters the query arguments used for the taxonomy submenu `get_terms()` call.
+
+**Parameters:**
+* $query_args (array) – Query arguments with 'taxonomy' and 'hide_empty' keys.
+* $type (string) – The taxonomy type.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_translations', $strings )`
 Filters the source array of selected translation strings used in the theme, see `fcntr()` function in `includes/functions/_utility.php`. You cannot translate the whole theme with this, but give it a personal touch.
 
