@@ -683,6 +683,7 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_micro_menu', 10
 function fictioneer_chapter_paragraph_tools() {
   // Setup
   $can_comment = ! fictioneer_is_commenting_disabled( get_the_ID() ) && comments_open();
+  $hide_if_logged_out = get_option( 'comment_registration' ) ? 'hide-if-logged-out' : ''; // Safer for cached site
 
   // Start HTML ---> ?>
   <div id="paragraph-tools" class="paragraph-tools" data-nosnippet>
@@ -700,13 +701,13 @@ function fictioneer_chapter_paragraph_tools() {
         </button>
       <?php endif; ?>
       <?php if ( $can_comment ) : ?>
-        <button id="button-comment-stack" type="button" class="button">
+        <button id="button-comment-stack" type="button" class="button <?php echo $hide_if_logged_out ?>">
           <i class="fa-solid fa-quote-right"></i>
           <span><?php _ex( 'Quote', 'Paragraph tools quote button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
       <?php if ( $can_comment && get_option( 'fictioneer_enable_suggestions' ) ) : ?>
-        <button id="button-tools-add-suggestion" type="button" class="button">
+        <button id="button-tools-add-suggestion" type="button" class="button <?php echo $hide_if_logged_out ?>">
           <i class="fa-solid fa-highlighter"></i>
           <span class="hide-below-480"><?php _ex( 'Suggestion', 'Paragraph tools suggestion button', 'fictioneer' ); ?></span>
         </button>
