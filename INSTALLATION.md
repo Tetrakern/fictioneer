@@ -851,6 +851,95 @@ Quite often, you need to apply specific styles depending on the theme mode or sc
 }
 ```
 
+#### Button Colors
+
+The button colors are based on the background `var(--bg-x)` and foreground `var(--fg-x)` CSS properties, with `x` being the numerical assignment of the shade as seen in the Customizer. This can make them challenging to modify. The reason for the lack of color input options is that there are simply too many properties attached to buttons. However, you can still modify them with custom CSS! Below is the default property setup for the buttons.
+
+```css
+/* Dark Mode */
+:root, :root[data-theme=base] {
+  --button-font-weight: 500;
+  --button-box-shadow: none;
+  --button-color-active: var(--fg-inverted);
+  --button-background-active: var(--bg-100);
+  --button-border-active: 1px solid transparent;
+  --button-barberpole: var(--bg-500);
+  --button-oauth-connected: var(--button-background-active);
+
+  --button-primary-background: var(--bg-400);
+  --button-primary-background-hover: var(--bg-300);
+  --button-primary-background-disabled: var(--bg-500);
+  --button-primary-color: var(--fg-400);
+  --button-primary-color-hover: var(--fg-300);
+  --button-primary-color-disabled: var(--fg-700);
+  --button-primary-filter-disabled: saturate(.7) opacity(.3) brightness(1.4);
+
+  --button-secondary-background: transparent;
+  --button-secondary-background-hover: var(--bg-500);
+  --button-secondary-background-disabled: repeating-linear-gradient(-45deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 6%) 2px, transparent 2px, transparent 4px);
+  --button-secondary-color: var(--fg-600);
+  --button-secondary-color-hover: var(--fg-400);
+  --button-secondary-color-disabled: var(--fg-800);
+  --button-secondary-border: 1px solid var(--bg-300);
+  --button-secondary-border-hover: 1px solid var(--bg-200);
+  --button-secondary-border-disabled: 1px solid var(--bg-300);
+
+  --button-warning-background: var(--red-500);
+  --button-warning-background-hover: var(--red-600);
+  --button-warning-color: #fff;
+  --button-warning-color-hover: #fff;
+
+  --button-suggestion-color: var(--fg-inverted);
+  --button-suggestion-color-hover: var(--fg-inverted);
+  --button-suggestion-background: var(--bg-100);
+  --button-suggestion-background-hover: var(--bg-50);
+
+  --button-quick-background: var(--bg-500);
+  --button-quick-background-hover: var(--bg-300);
+  --button-quick-color: var(--fg-600);
+  --button-quick-color-hover: var(--fg-400);
+
+  --button-file-block-color: var(--fg-inverted);
+  --button-file-block-color-hover: var(--fg-inverted);
+  --button-file-block-background: var(--bg-100);
+  --button-file-block-background-hover: var(--bg-50);
+}
+
+/* Light Mode Overrides */
+:root[data-mode=light] {
+  --button-color-active: var(--fg-inverted);
+  --button-background-active: var(--bg-700);
+  --button-barberpole: var(--bg-300);
+
+  --button-primary-background: var(--bg-600);
+  --button-primary-background-hover: var(--bg-700);
+  --button-primary-background-disabled: var(--bg-400);
+  --button-primary-color: var(--fg-inverted);
+  --button-primary-color-hover: var(--fg-inverted);
+  --button-primary-color-disabled: var(--fg-700);
+  --button-primary-filter-disabled: opacity(.6);
+
+  --button-secondary-background-hover: var(--bg-300);
+  --button-secondary-background-disabled: repeating-linear-gradient(-45deg, hsl(var(--bg-950-free) / 6%), hsl(var(--bg-950-free) / 6%) 2px, transparent 2px, transparent 4px);
+  --button-secondary-border: 1px solid var(--bg-400);
+  --button-secondary-border-hover: 1px solid var(--bg-500);
+  --button-secondary-border-disabled: 1px solid var(--bg-400);
+
+  --button-suggestion-background: var(--bg-600);
+  --button-suggestion-background-hover: var(--bg-700);
+
+  --button-quick-background: var(--bg-600);
+  --button-quick-background-hover: var(--bg-700);
+  --button-quick-color: var(--fg-inverted);
+  --button-quick-color-hover: var(--fg-inverted);
+
+  --button-file-block-color: var(--fg-inverted);
+  --button-file-block-color-hover: var(--fg-inverted);
+  --button-file-block-background: var(--bg-600);
+  --button-file-block-background-hover: var(--bg-700);
+}
+```
+
 #### Top-Header & Navigation Backgrounds
 
 Assuming you have set the **Header Style** to **top** or **split**, the following snippet makes the navigation background always visible regardless of scroll position and adds a semi-transparent background color to the header. This might come in handy if your site has a background image.
