@@ -56,7 +56,7 @@ if ( $header_style === 'wide' ) {
           fictioneer_icon( 'fa-bars', 'off' );
           fictioneer_icon( 'fa-xmark', 'on' );
         ?>
-        <span class="mobile-menu-button__label"><?php _ex( 'Menu' , 'Mobile menu label', 'fictioneer'); ?></span>
+        <span class="mobile-menu-button__label"><?php _ex( 'Menu' , 'Mobile menu label', 'fictioneer' ); ?></span>
       </label>
 
       <nav class="main-navigation__left" aria-label="<?php echo esc_attr__( 'Main Navigation', 'fictioneer' ); ?>">

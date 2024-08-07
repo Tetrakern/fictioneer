@@ -13,6 +13,20 @@
       letter-spacing: 0;
       padding: 0 10px;
       height: var(--navigation-height);
+
+      &:hover {
+        color: var(--navigation-color-hover);
+      }
+    }
+
+    .sub-menu {
+      :where(a, label, button):where(:not(._no-menu-item-style)) {
+        color: var(--navigation-subitem-color, var(--navigation-color));
+
+        &:hover {
+          color: var(--navigation-subitem-color-hover, var(--navigation-color-hover));
+        }
+      }
     }
 
     &:hover,

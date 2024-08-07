@@ -233,6 +233,7 @@
     }
 
     &:hover {
+      color: var(--navigation-color-hover);
       background: var(--navigation-item-background-hover);
     }
 
@@ -471,6 +472,7 @@
 
   &__note {
     text-transform: uppercase;
+    color: var(--navigation-subitem-color, var(--navigation-color));
     font-family: var(--ff-note);
     font-size: 12px;
     font-weight: 600;
