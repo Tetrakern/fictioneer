@@ -196,9 +196,11 @@ The theme has two menu locations: Navigation and Footer Menu. You can create and
 
 ### Taxonomy Submenus
 
+**Note: This feature is planned for version 5.22.1 and not yet available.**
+
 In addition to the Taxonomies page template, you can also add a submenu for each taxonomy in the main navigation. This works for categories, tags, genres, fandoms, characters, and warnings. To do this, add a custom link as a menu item with `#` as the link, then assign it **one** of the following trigger CSS classes (check the screen options if you cannot see the input). This should work on all levels, but it is recommended to keep it at the top level. The menu link and submenu will only be visible on desktop viewports.
 
-**Menu classes:**
+**Menu classes (use one per menu item):**
 * `trigger-term-menu-categories` - Submenu for categories.
 * `trigger-term-menu-tags` - Submenu for tags.
 * `trigger-term-menu-genres` - Submenu for genres.
@@ -208,6 +210,43 @@ In addition to the Taxonomies page template, you can also add a submenu for each
 
 **Optional CSS classes:**
 * `columns-2|4|5` - Change the number of columns to 2, 4, or 5 (default is 3).
+
+**Optional custom CSS:**
+Due to its size, the taxonomy submenu can cause layout issues depending on where the parent item is placed. There are too many cases to consider individually, so here is some CSS for you to modify as needed. Add this CSS to the [Custom CSS section](https://wordpress.org/documentation/article/customizer/#additional-css) in the Customizer, and only keep the properties you actually change.
+
+<details>
+  <summary>Show default CSS definitions</summary>
+
+```css
+.nav-terms-submenu {
+  --gap: 0px;
+  --width: 500px;
+  --columns: 3;
+  font-size: 15px;
+  width: 1000px;
+  max-width: min(calc(100vw - 20px), calc(var(--width) + var(--gap) * (var(--columns) - 1)));
+  /*
+  How to move the menu horizontally:
+  transform: translateX(-25%);
+
+  Align the menu to the right:
+  right: 0;
+  */
+}
+
+.nav-terms-submenu__note {
+  text-transform: uppercase;
+  font-family: var(--ff-note);
+  font-size: 12px;
+  font-weight: 600;
+  padding: .75rem 1rem 0;
+  opacity: .5;
+}
+```
+
+</details>
+
+<br>
 
 ![Genres Submenu Setup](repo/assets/menu_custom_link_genres_submenu.png?raw=true)
 
