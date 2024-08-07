@@ -90,29 +90,7 @@ if ( $header_style === 'wide' ) {
                 }
               }
 
-              if ( strpos( $menu, 'trigger-term-menu-categories' ) !== false ) {
-                add_action( 'wp_footer', 'fictioneer_render_category_submenu' );
-              }
-
-              if ( strpos( $menu, 'trigger-term-menu-tags' ) !== false ) {
-                add_action( 'wp_footer', 'fictioneer_render_tag_submenu' );
-              }
-
-              if ( strpos( $menu, 'trigger-term-menu-genres' ) !== false ) {
-                add_action( 'wp_footer', 'fictioneer_render_genre_submenu' );
-              }
-
-              if ( strpos( $menu, 'trigger-term-menu-fandoms' ) !== false ) {
-                add_action( 'wp_footer', 'fictioneer_render_fandom_submenu' );
-              }
-
-              if ( strpos( $menu, 'trigger-term-menu-characters' ) !== false ) {
-                add_action( 'wp_footer', 'fictioneer_render_character_submenu' );
-              }
-
-              if ( strpos( $menu, 'trigger-term-menu-warning' ) !== false ) {
-                add_action( 'wp_footer', 'fictioneer_render_warning_submenu' );
-              }
+              fictioneer_add_taxonomy_submenus( $menu );
 
               echo $menu;
             }

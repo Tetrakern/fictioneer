@@ -1071,6 +1071,31 @@ function fictioneer_render_taxonomy_submenu( $type = 'fcn_genre', $hide_empty = 
 }
 
 /**
+ * Adds actions to render taxonomy submenus as needed
+ *
+ * @since 5.22.1
+ *
+ * @param string $menu  The menu HTML to be rendered.
+ */
+
+function fictioneer_add_taxonomy_submenus( $menu ) {
+  $submenu_callbacks = array(
+    'trigger-term-menu-categories' => 'fictioneer_render_category_submenu',
+    'trigger-term-menu-tags' => 'fictioneer_render_tag_submenu',
+    'trigger-term-menu-genres' => 'fictioneer_render_genre_submenu',
+    'trigger-term-menu-fandoms' => 'fictioneer_render_fandom_submenu',
+    'trigger-term-menu-characters' => 'fictioneer_render_character_submenu',
+    'trigger-term-menu-warning' => 'fictioneer_render_warning_submenu'
+  );
+
+  foreach ( $submenu_callbacks as $trigger => $callback ) {
+    if ( strpos( $menu, $trigger ) !== false ) {
+      add_action( 'wp_footer', $callback );
+    }
+  }
+}
+
+/**
  * Action wrapper for the category submenu
  *
  * @since 5.22.1
