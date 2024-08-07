@@ -200,6 +200,8 @@ The theme has two menu locations: Navigation and Footer Menu. You can create and
 
 In addition to the Taxonomies page template, you can also add a submenu for each taxonomy in the main navigation. This works for categories, tags, genres, fandoms, characters, and warnings. To do this, add a custom link as a menu item with `#` as the link, then assign it **one** of the following trigger CSS classes (check the screen options if you cannot see the input). This should work on all levels, but it is recommended to keep it at the top level. The menu link and submenu will only be visible on desktop viewports.
 
+![Genres Submenu](repo/assets/genres_submenu.png?raw=true)
+
 **Menu classes (use one per menu item):**
 * `trigger-term-menu-categories` - Submenu for categories.
 * `trigger-term-menu-tags` - Submenu for tags.
@@ -254,10 +256,6 @@ Due to its size, the taxonomy submenu can cause layout issues depending on where
 ```
 
 </details>
-
-<br>
-
-![Genres Submenu](repo/assets/genres_submenu.png?raw=true)
 
 ## Sidebar
 
