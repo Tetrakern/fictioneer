@@ -208,6 +208,15 @@ In addition to the Taxonomies page template, you can also add a submenu for each
 * `trigger-term-menu-characters` - Submenu for characters.
 * `trigger-term-menu-warnings` - Submenu for warnings.
 
+<details>
+  <summary>Screenshot from the admin menu interface</summary>
+
+![Genres Submenu Setup](repo/assets/menu_custom_link_genres_submenu.png?raw=true)
+
+</details>
+
+<br>
+
 **Optional CSS classes:**
 * `columns-2|4|5` - Change the number of columns to 2, 4, or 5 (default is 3).
 
@@ -247,8 +256,6 @@ Due to its size, the taxonomy submenu can cause layout issues depending on where
 </details>
 
 <br>
-
-![Genres Submenu Setup](repo/assets/menu_custom_link_genres_submenu.png?raw=true)
 
 ![Genres Submenu](repo/assets/genres_submenu.png?raw=true)
 
