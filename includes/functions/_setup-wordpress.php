@@ -1537,3 +1537,44 @@ function fictioneer_remove_emoji_resource_hint( $urls, $relation_type ) {
 remove_filter( 'the_title', 'capital_P_dangit', 11 );
 remove_filter( 'the_content', 'capital_P_dangit', 11 );
 remove_filter( 'comment_text', 'capital_P_dangit', 31 );
+
+// =============================================================================
+// FIX EXCERPT FORMATTING
+// =============================================================================
+
+/**
+ * Fix inconsistent line breaks in excerpts
+ *
+ * @since 4.0
+ * @since 5.22.1 - Re-added since it is still needed.
+ * @link https://github.com/WordPress/gutenberg/issues/15117
+ *
+ * @param string $excerpt  The post excerpt.
+ *
+ * @return string The fixed excerpt.
+ */
+
+function fictioneer_fix_excerpt( $excerpt ) {
+  add_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
+  $excerpt = wp_trim_excerpt( $excerpt );
+  remove_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
+
+  return $excerpt;
+}
+// remove_filter( 'get_the_excerpt', 'wp_trim_excerpt' );
+// add_filter( 'get_the_excerpt', 'fictioneer_fix_excerpt' );
+
+/**
+ * Replace line breaks with whitespace
+ *
+ * @since 4.0
+ * @since 5.22.1 - Re-added since it is still needed.
+ *
+ * @param string $text  String to process.
+ *
+ * @return string The processed string.
+ */
+
+function fictioneer_replace_br_with_whitespace( $text ) {
+  return str_replace( '<br>', ' ', $text );
+}
