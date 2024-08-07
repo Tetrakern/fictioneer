@@ -1915,6 +1915,8 @@ function fictioneer_elementor_override_styles() {
     --e-global-color-secondary: var(--fg-300);
     --e-global-color-text: var(--fg-500);
     --e-global-color-accent: var(--fg-700);
+    --swiper-pagination-color: var(--fg-700);
+    --swiper-pagination-bullet-inactive-opacity: .25;
   }";
 
   // Output
