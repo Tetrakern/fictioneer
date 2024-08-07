@@ -577,8 +577,12 @@ button[type=submit]:where(:not(._inline)),
     }
   }
 
-  .current-chapter :is(a, label, button, .popup-item):not(:hover) {
+  .current-chapter :is(a, label, button, .popup-item) {
     background: var(--popup-menu-background-selected);
+
+    &:hover {
+      background: var(--popup-menu-background-selected-hover, var(--popup-menu-background-hover));
+    }
   }
 }
 
