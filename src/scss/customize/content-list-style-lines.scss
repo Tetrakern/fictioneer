@@ -21,4 +21,8 @@
   .card__link-list-item:last-child {
     border-bottom: none;
   }
+
+  .card ._small .cell-list:last-child {
+    margin-bottom: calc(var(--this-spacing) * .65); // Offset list item padding
+  }
 }
