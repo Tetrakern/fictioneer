@@ -72,7 +72,8 @@ function fcn_touchParagraph(e) {
   // Do not call paragraphs tools on spoilers, popup menus, or escape class
   if (
     e.target.classList.contains('spoiler') ||
-    e.target.closest('.popup-menu-toggle, .skip-tools')
+    e.target.closest('.popup-menu-toggle, .skip-tools') ||
+    !e.target.closest('p')?.textContent.trim().length
   ) {
     return;
   }
