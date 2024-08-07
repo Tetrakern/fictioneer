@@ -16,6 +16,10 @@
   .card__link-list-item {
     border-bottom: var(--card-content-li-hr-border, var(--content-li-hr-border));
     border-bottom-width: 1px;
+
+    &:last-child {
+      margin-bottom: -0.125em; // Offset list item padding
+    }
   }
 
   .card__link-list-item:last-child {
