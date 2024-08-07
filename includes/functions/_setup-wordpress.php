@@ -1561,8 +1561,8 @@ function fictioneer_fix_excerpt( $excerpt ) {
 
   return $excerpt;
 }
-// remove_filter( 'get_the_excerpt', 'wp_trim_excerpt' );
-// add_filter( 'get_the_excerpt', 'fictioneer_fix_excerpt' );
+remove_filter( 'get_the_excerpt', 'wp_trim_excerpt' );
+add_filter( 'get_the_excerpt', 'fictioneer_fix_excerpt' );
 
 /**
  * Replace line breaks with whitespace
