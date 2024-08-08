@@ -6,6 +6,7 @@
     border-radius: 0 !important;
 
     &__wrapper {
+      --mi-full: url('../img/grunge-frame-a/top-left.png'), url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/top-right.png'), url('../img/grunge-frame-a/right.png'), url('../img/grunge-frame-a/bottom-right.png'), url('../img/grunge-frame-a/bottom.png'), url('../img/grunge-frame-a/bottom-left.png'), url('../img/grunge-frame-a/left.png'), var(--data-image-2x2-black);
       --f: #{get_clamp(48, 64, 375, 768)};
       --g: #{get_clamp(-12, 0, 375, 768)};
       --mi: url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/bottom.png'), var(--data-image-2x2-black);
@@ -14,7 +15,7 @@
       border-radius: 0 !important;
 
       @include bp(desktop) {
-        --mi: url('../img/grunge-frame-a/top-left.png'), url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/top-right.png'), url('../img/grunge-frame-a/right.png'), url('../img/grunge-frame-a/bottom-right.png'), url('../img/grunge-frame-a/bottom.png'), url('../img/grunge-frame-a/bottom-left.png'), url('../img/grunge-frame-a/left.png'), var(--data-image-2x2-black);
+        --mi: var(--mi-full);
         --ms: var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), calc(100% - calc(var(--f) * 2 - 2px)) calc(100% - calc(var(--f) * 2 - 2px));
         --mp: top left, top 0 left calc(var(--f) - 1px), top right, top calc(var(--f) - 1px) right 0, bottom right, bottom 0 right calc(var(--f) - 1px), bottom left, top calc(var(--f) - 1px) left 0, top calc(var(--f) - 1px) left calc(var(--f) - 1px);
       }
