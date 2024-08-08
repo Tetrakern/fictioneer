@@ -1859,6 +1859,36 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Story cover width offset
+  $manager->add_setting(
+    'story_cover_width_offset',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float',
+      'default' => '0'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Range_Control(
+      $manager,
+      'story_cover_width_offset',
+      array(
+        'type' => 'range-value',
+        'priority' => 39,
+        'section' => 'layout',
+        'settings' => 'story_cover_width_offset',
+        'label' => __( 'Story Cover Width Offset', 'fictioneer' ),
+        'description' => '<small>' . __( 'Offset for the maximum width of the story page cover image in pixels. Default 0. Does not work on the "Top-Left Overflow" position.', 'fictioneer' ) . '</small>',
+        'input_attrs' => array(
+          'min' => -100,
+          'max' => 100,
+          'step' => 1
+        )
+      )
+    )
+  );
+
   // Content list item style
   $manager->add_setting(
     'content_list_style',

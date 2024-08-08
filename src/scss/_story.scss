@@ -156,11 +156,11 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
 
     &:is(._float-top-left, ._float-top-right) .story__thumbnail {
       --this-img-height: auto;
-      --this-img-width: #{get_clamp(56, 200, 320, 768)};
+      --this-img-width: var(--floating-cover-image-width, #{get_clamp(56, 200, 320, 768)});
 
       &-image {
-        max-width: var(--this-img-width);
-        max-height: 300px;
+        width: var(--this-img-width);
+        max-height: unset;
       }
     }
 
@@ -188,8 +188,8 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
       }
     }
 
-    &._in-content {
-      max-width: get_clamp(100, 200, 375, 768);
+    &._in-content .story__thumbnail-image {
+      width: var(--in-content-cover-image-width, get_clamp(100, 200, 375, 768));
     }
 
     &._float-right {

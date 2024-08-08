@@ -726,6 +726,7 @@ function fictioneer_build_customize_css( $context = null ) {
   $header_image_max = (int) get_theme_mod( 'header_image_height_max', 480 );
   $header_min = (int) get_theme_mod( 'header_height_min', 190 );
   $header_max = (int) get_theme_mod( 'header_height_max', 380 );
+  $story_cover_width_offset = (int) get_theme_mod( 'story_cover_width_offset', 0 );
   $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
   $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
   $card_grid_column_gap_mod = get_theme_mod( 'card_grid_column_gap_mod', 1 );
@@ -784,6 +785,8 @@ function fictioneer_build_customize_css( $context = null ) {
     --card-cover-width-mod: {$card_cover_width_mod};
     --card-box-shadow: {$card_box_shadow};
     --card-drop-shadow: " . str_replace( 'box-', 'drop-', $card_box_shadow ) . ";
+    --floating-cover-image-width: " . fictioneer_get_css_clamp( 56, 200 + $story_cover_width_offset, 320, 768 ) . ";
+    --in-content-cover-image-width: " . fictioneer_get_css_clamp( 100, 200 + $story_cover_width_offset, 375, 768 ) . ";
   }";
 
   if ( $card_box_shadow === 'none' ) {
