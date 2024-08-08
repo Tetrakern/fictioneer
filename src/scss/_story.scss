@@ -334,12 +334,12 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
   .chapter-group,
   &__scheduled-chapter,
   &__blog {
-    margin-left: var(--layout-spacing-horizontal-small);
-    margin-right: var(--layout-spacing-horizontal-small);
+    margin-left: var(--story-content-margin-left, var(--layout-spacing-horizontal-small));
+    margin-right: var(--story-content-margin-right, var(--layout-spacing-horizontal-small));
 
     @include bp(400px) {
-      margin-left: var(--layout-spacing-horizontal);
-      margin-right: var(--layout-spacing-horizontal);
+      margin-left: var(--story-content-margin-left, var(--layout-spacing-horizontal));
+      margin-right: var(--story-content-margin-right, var(--layout-spacing-horizontal));
     }
   }
 
@@ -644,4 +644,18 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
 .chapter-group[data-folded="false"] .chapter-group__list-item._folding-toggle {
   display: none;
   content-visibility: hidden;
+}
+
+.has-sidebar {
+  &:not(.has-sidebar-right) {
+    @include bp(desktop) {
+      --story-content-margin-left: var(--sidebar-gap, 3rem);
+    }
+  }
+
+  &.has-sidebar-right {
+    @include bp(desktop) {
+    --story-content-margin-right: var(--sidebar-gap, 3rem);
+  }
+  }
 }
