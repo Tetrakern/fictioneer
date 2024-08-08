@@ -33,7 +33,7 @@ $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 
 $thumbnail_shown = has_post_thumbnail( $story_id ) &&
   ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true ) &&
-  ! in_array( $cover_position, ['float-left', 'float-right', 'none'] );
+  ! in_array( $cover_position, ['float-left', 'float-right', 'hide'] );
 
 $tax_shown = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) &&
   $story['has_taxonomies'] &&
