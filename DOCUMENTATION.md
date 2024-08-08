@@ -259,7 +259,7 @@ Due to its size, the taxonomy submenu can cause layout issues depending on where
 
 ## Sidebar
 
-You can enable the optional sidebar under **Appearance > Customize > Layout**, choosing either left or right alignment along with other options. Typically, this also requires some manual adjustments to the layout. Increasing the site width is recommended to accommodate the new column; 1100px is a good start for a 256px wide sidebar. Note that the sidebar will only show up once you add widgets to it.
+You can enable the optional sidebar under **Appearance > Customize > Layout**, choosing either left or right alignment along with other options. Typically, this also requires some manual adjustments to the layout. Increasing the site width is recommended to accommodate the new column; 1036px is a good start for a 256px wide sidebar (leaving 700px content space). Note that the sidebar will only show up once you add widgets to it.
 
 Enabling the sidebar also reduces the default page padding, which can be overridden further down with custom layout properties. If space becomes an issue, consider reducing the horizontal page padding to zero and turning off the page background for an open site appearance.
 
