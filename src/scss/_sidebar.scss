@@ -195,3 +195,16 @@
     }
   }
 }
+
+.fictioneer-sidebar._layout {
+  &::before {
+    content: '';
+    display: block;
+    margin: var(--sidebar-mobile-divider-margin);
+    border-top: var(--sidebar-mobile-divider);
+
+    @include bp(desktop) {
+      content: none;
+    }
+  }
+}

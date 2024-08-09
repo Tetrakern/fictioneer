@@ -37,6 +37,8 @@
 
   --sidebar-width: 256px; // Overridden by theme customizer
   --sidebar-gap: 3rem; // Overridden by theme customizer
+  --sidebar-mobile-divider: 2px solid var(--layout-lineart-color);
+  --sidebar-mobile-divider-margin: 1rem var(--layout-spacing-horizontal-small);
 
   // === FONT FAMILIES =========================================================
 
