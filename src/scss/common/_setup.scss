@@ -76,7 +76,7 @@ article {
   text-decoration: none; // WP bullshit
 }
 
-a {
+a:where(:not(.button, .wp-element-button)) {
   cursor: pointer;
   color: var(--layout-link-color);
   text-decoration: none;
