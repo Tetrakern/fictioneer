@@ -665,6 +665,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_disable_anti_flicker' => array(
+      'name' => 'fictioneer_disable_anti_flicker',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1127,6 +1133,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_default_formatting_indent' => __( 'Disable default indentation of chapter paragraphs', 'fictioneer' ),
       'fictioneer_override_chapter_status_icons' => __( 'Override chapter status icons', 'fictioneer' ),
       'fictioneer_enable_custom_fields' => __( 'Enable custom fields', 'fictioneer' ),
+      'fictioneer_disable_anti_flicker' => __( 'Disable anti-flicker script', 'fictioneer' ),
     );
   }
 

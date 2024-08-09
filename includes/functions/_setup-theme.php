@@ -1572,10 +1572,13 @@ function fictioneer_output_head_anti_flicker() {
   <noscript>
     <style>body {visibility: visible !important;}</style>
   </noscript>
-  <script>document.addEventListener('DOMContentLoaded', () => {document.body.style.visibility = "visible";});</script>
+  <script>document.addEventListener('readystatechange', () => {if (document.readyState === "interactive") document.body.style.visibility = "visible";});</script>
   <?php // <--- End HTML
 }
-add_action( 'wp_head', 'fictioneer_output_head_anti_flicker' );
+
+if ( ! get_option( 'fictioneer_disable_anti_flicker' ) ) {
+  add_action( 'wp_head', 'fictioneer_output_head_anti_flicker' );
+}
 
 // =============================================================================
 // OUTPUT HEAD CRITICAL SCRIPTS
