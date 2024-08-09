@@ -266,6 +266,7 @@ Enabling the sidebar also reduces the default page padding, which can be overrid
 **Notes:**
 * The Latest Posts widget always hides the thumbnail, regardless of block settings.
 * Use the optional `no-theme-style` CSS class to remove the widget styling if needed.
+* The style under **Appearance > Widgets** is NOT fully representative of the frontend.
 
 ## Stories
 

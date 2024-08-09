@@ -2,11 +2,33 @@
   font-size: var(--fs-widget);
 
   &.widget_block .wp-block-heading {
-    font-size: 1.1em;
+    &:is(h1) {
+      font-size: 1.6em;
+    }
+
+    &:is(h2) {
+      font-size: 1.5em;
+    }
+
+    &:is(h3) {
+      font-size: 1.4em;
+    }
+
+    &:is(h4) {
+      font-size: 1.3em;
+    }
+
+    &:is(h5) {
+      font-size: 1.2em;
+    }
+
+    &:is(h6) {
+      font-size: 1.1em;
+    }
   }
 
   .widgettitle {
-    font-size: 1.1em;
+    font-size: 1.4em; // h3
     margin-bottom: .625rem;
   }
 
