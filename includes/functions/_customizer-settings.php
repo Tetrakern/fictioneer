@@ -1882,6 +1882,39 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Story cover shadow
+  $manager->add_setting(
+    'story_cover_shadow',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => apply_filters( 'fictioneer_filter_customizer_story_cover_shadow_default', 'var(--box-shadow-xl)' )
+    )
+  );
+
+  $cover_shadows = array(
+    'none' => _x( 'No Shadow', 'Customizer story cover shadow option.', 'fictioneer' ),
+    'var(--box-shadow-border)' => _x( 'Border Shadow', 'Customizer story cover shadow option.', 'fictioneer' ),
+    'var(--box-shadow-xs)' => _x( 'Shadow Thin', 'Customizer story cover shadow option.', 'fictioneer' ),
+    'var(--box-shadow-s)' => _x( 'Shadow Small', 'Customizer story cover shadow option.', 'fictioneer' ),
+    'var(--box-shadow)' => _x( 'Shadow Normal', 'Customizer story cover shadow option.', 'fictioneer' ),
+    'var(--box-shadow-m)' => _x( 'Shadow Medium', 'Customizer story cover shadow option.', 'fictioneer' ),
+    'var(--box-shadow-l)' => _x( 'Shadow Large', 'Customizer story cover shadow option.', 'fictioneer' ),
+    'var(--box-shadow-xl)' => _x( 'Shadow Huge (Default)', 'Customizer story cover shadow option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'story_cover_shadow',
+    array(
+      'type' => 'select',
+      'priority' => 38.5,
+      'section' => 'layout',
+      'label' => __( 'Story Page Cover Shadow', 'fictioneer' ),
+      'description' => __( 'Choose the shadow for your cover.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_story_cover_shadow', $cover_shadows )
+    )
+  );
+
   // Story cover width offset
   $manager->add_setting(
     'story_cover_width_offset',
