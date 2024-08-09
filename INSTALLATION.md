@@ -171,6 +171,16 @@ Updating the theme works the same as installing the theme. If done in the admin 
 
 Note that any changes made to the theme files will be undone — which you should not have done in the first place. Always use a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) for modifications to avoid this issue. Your theme options and Customizer settings are preserved, however.
 
+### Issue: Jetpack Boost
+
+Jetpack is a WordPress plugin that is sometimes forced upon users. [Jetpack Boost](https://jetpack.com/support/jetpack-boost/) is an optional feature of the plugin that is occasionally auto-enabled and is intended to make your site faster. However, it often causes issues by breaking the site because it concatenates scripts and styles without considering the consequences. This problem can also occur with other overzealous "optimization" plugins.
+
+To resolve this, you have two options: either turn off Jetpack Boost or add the theme scripts to the exclusion list. Some of them may work when concatenated, but they were not tested.
+
+```
+fictioneer-dynamic-scripts, fictioneer-application-scripts, fictioneer-lightbox, fictioneer-mobile-menu-scripts, fictioneer-consent-scripts, fictioneer-chapter-scripts, fictioneer-dmp, fictioneer-tts-scripts, fictioneer-story-scripts, fictioneer-user-scripts, fictioneer-user-profile-scripts, fictioneer-bookmarks-scripts, fictioneer-follows-scripts, fictioneer-checkmarks-scripts, fictioneer-reminders-scripts, fictioneer-comments-scripts, fictioneer-ajax-comments-scripts, fictioneer-ajax-bookshelf-scripts, fictioneer-dev-scripts, fcnen-frontend-scripts, fictioneer-fcnmm-script, fictioneer-child-script
+```
+
 ### Optional: Additional Plugins
 
 The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and often confusing. There are plugins for almost everything, in variants, free or premium or "freemium". You often find articles about "must-have" plugins — you are well advised to question those. Too many plugins can slow down your site, open vulnerabilities, or conflict with the theme. Fictioneer is designed as standalone solution and technically works without additional plugins. However, nothing is ever complete, so here are a few plugins of note anyway.
