@@ -240,11 +240,19 @@ function fictioneer_sidebar( $context ) {
     return;
   }
 
+  // Remove filters
+  remove_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
+  remove_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
+
   // Start HTML ---> ?>
   <aside class="fictioneer-sidebar _layout">
     <div class="fictioneer-sidebar__wrapper _layout padding-top padding-bottom"><?php dynamic_sidebar( 'fictioneer-sidebar' ); ?></div>
   </aside>
   <?php // <--- End HTML
+
+  // Restore filters
+  add_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
+  add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
 }
 
 if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {

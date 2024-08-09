@@ -2117,6 +2117,10 @@ function fictioneer_shortcode_sidebar( $attr ) {
     return;
   }
 
+  // Remove filters
+  remove_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
+  remove_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
+
   // Start HTML ---> ?>
   <div class="fictioneer-sidebar _shortcode">
     <div class="fictioneer-sidebar__wrapper">
@@ -2124,6 +2128,10 @@ function fictioneer_shortcode_sidebar( $attr ) {
     </div>
   </div>
   <?php // <--- End HTML
+
+  // Restore filters
+  add_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
+  add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
 
   // Capture and return buffer
   return ob_get_clean();
