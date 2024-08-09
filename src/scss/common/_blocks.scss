@@ -172,6 +172,7 @@ p.has-drop-cap::first-letter {
     line-height: 1.7;
     white-space: pre;
     border-radius: var(--layout-border-radius-small);
+    container-type: inline-size; // Prevent layout pushing
   }
 
   &:not([style*=padding]) {
