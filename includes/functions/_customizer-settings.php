@@ -1367,7 +1367,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 960
+      'default' => apply_filters( 'fictioneer_filter_customizer_site_width_default', 960 )
     )
   );
 
@@ -1380,7 +1380,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Site Width', 'fictioneer' ),
       'description' => __( 'Maximum site width in pixels, should not be less than 896. Default 960.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '960',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_site_width_default', 960 ) ),
         'min' => 896,
         'style' => 'width: 80px'
       )
@@ -1723,7 +1723,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'overflow'
+      'default' => apply_filters( 'fictioneer_filter_customizer_mobile_nav_style_default', 'overflow' )
     )
   );
 
@@ -1748,7 +1748,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'minimize_to_right'
+      'default' => apply_filters( 'fictioneer_filter_customizer_mobile_menu_style_default', 'minimize_to_right' )
     )
   );
 
@@ -1834,7 +1834,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'top-left-overflow'
+      'default' => apply_filters( 'fictioneer_filter_customizer_story_cover_position_default', 'top-left-overflow' )
     )
   );
 
@@ -1895,7 +1895,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'default'
+      'default' => apply_filters( 'fictioneer_filter_customizer_content_list_style_default', 'default' )
     )
   );
 
@@ -1924,7 +1924,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'default'
+      'default' => apply_filters( 'fictioneer_filter_customizer_footer_style_default', 'default' )
     )
   );
 
@@ -1971,7 +1971,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 24
+      'default' => apply_filters( 'fictioneer_filter_customizer_vertical_spacing_min_default', 24 )
     )
   );
 
@@ -1984,7 +1984,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Vertical Spacing - Minimum', 'fictioneer' ),
       'description' => __( 'Minimum of the vertical spacing in pixels on the smallest viewport. Default 24.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '24',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_vertical_spacing_min_default', 24 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -1997,7 +1997,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 48
+      'default' => apply_filters( 'fictioneer_filter_customizer_vertical_spacing_max_default', 48 )
     )
   );
 
@@ -2010,7 +2010,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Vertical Spacing - Maximum', 'fictioneer' ),
       'description' => __( 'Maximum of the vertical spacing in pixels on [site-width] viewports. Default 48.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '48',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_vertical_spacing_max_default', 48 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -2023,7 +2023,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 20
+      'default' => apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_min_default', 20 )
     )
   );
 
@@ -2036,7 +2036,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Horizontal Spacing - Minimum', 'fictioneer' ),
       'description' => __( 'Minimum of the horizontal spacing in pixels on 480px viewports. Default 20.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '20',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_min_default', 20 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -2049,7 +2049,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 80
+      'default' => apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_max_default', 80 )
     )
   );
 
@@ -2062,7 +2062,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Horizontal Spacing - Maximum', 'fictioneer' ),
       'description' => __( 'Maximum of the horizontal spacing in pixels on [site-width] viewport. Default 80.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '80',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_max_default', 80 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -2075,7 +2075,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 10
+      'default' => apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_small_min_default', 10 )
     )
   );
 
@@ -2088,7 +2088,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Small Horizontal Spacing - Minimum', 'fictioneer' ),
       'description' => __( 'Minimum of the small horizontal spacing in pixels on 320px viewports. Default 10.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '10',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_small_min_default', 10 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -2101,7 +2101,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 20
+      'default' => apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_small_max_default', 20 )
     )
   );
 
@@ -2114,7 +2114,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Small Horizontal Spacing - Maximum', 'fictioneer' ),
       'description' => __( 'Maximum of the small horizontal spacing in pixels below 375px viewports. Default 20.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '20',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_horizontal_spacing_small_max_default', 20 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -2127,7 +2127,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 4
+      'default' => apply_filters( 'fictioneer_filter_customizer_large_border_radius_default', 4 )
     )
   );
 
@@ -2140,7 +2140,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Large Border Radius', 'fictioneer' ),
       'description' => __( 'Border radius of large containers in pixels, such as the main content section. Default 4.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '4',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_large_border_radius_default', 4 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -2153,7 +2153,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 2
+      'default' => apply_filters( 'fictioneer_filter_customizer_small_border_radius_default', 2 )
     )
   );
 
@@ -2166,7 +2166,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Small Border Radius', 'fictioneer' ),
       'description' => __( 'Border radius of small containers in pixels, such as story cards and inputs. Default 2.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '2',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_small_border_radius_default', 2 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
@@ -2179,7 +2179,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 4
+      'default' => apply_filters( 'fictioneer_filter_customizer_chapter_list_gap_default', 4 )
     )
   );
 
@@ -2192,7 +2192,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Chapter List Gap', 'fictioneer' ),
       'description' => __( 'The gap between chapter list items in pixels (not grid view). Default 4.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => '4',
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_chapter_list_gap_default', 4 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )
