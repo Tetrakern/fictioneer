@@ -207,4 +207,11 @@
       content: none;
     }
   }
+
+  &._hide-on-mobile {
+    @media screen and (max-width: 1023.9px) {
+      display: none;
+      content-visibility: hidden;
+    }
+  }
 }

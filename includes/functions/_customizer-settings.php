@@ -1440,6 +1440,29 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Disable story sidebar
+  $manager->add_setting(
+    'sidebar_hide_on_mobile',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> 0
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'sidebar_hide_on_mobile',
+      array(
+        'type' => 'checkbox',
+        'priority' => 7,
+        'label' => __( 'Hide sidebar on mobile', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'sidebar_hide_on_mobile'
+      )
+    )
+  );
+
   // Sidebar width
   $manager->add_setting(
     'sidebar_width',

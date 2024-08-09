@@ -240,12 +240,19 @@ function fictioneer_sidebar( $context ) {
     return;
   }
 
+  // Classes
+  $classes = [];
+
+  if ( get_theme_mod( 'sidebar_hide_on_mobile' ) ) {
+    $classes[] = '_hide-on-mobile';
+  }
+
   // Remove filters
   remove_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
   remove_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
 
   // Start HTML ---> ?>
-  <aside class="fictioneer-sidebar _layout">
+  <aside class="fictioneer-sidebar _layout <?php echo implode( ' ', $classes ); ?>">
     <div class="fictioneer-sidebar__wrapper _layout padding-top padding-bottom"><?php dynamic_sidebar( 'fictioneer-sidebar' ); ?></div>
   </aside>
   <?php // <--- End HTML
