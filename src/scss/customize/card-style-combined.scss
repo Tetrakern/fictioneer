@@ -20,4 +20,8 @@
   .card__main > .card__footer .card__footer-box._right {
     border: none !important;
   }
+
+  .card__main > .card__footer {
+    margin-top: var(--card-footer-margin-top, calc(var(--this-spacing) * 0.5))
+  }
 }
