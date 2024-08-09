@@ -787,6 +787,7 @@ function fictioneer_build_customize_css( $context = null ) {
     --card-box-shadow: {$card_box_shadow};
     --card-drop-shadow: " . str_replace( 'box-', 'drop-', $card_box_shadow ) . ";
     --story-cover-box-shadow: {$story_cover_box_shadow};
+    --recommendation-cover-box-shadow: {$story_cover_box_shadow};
     --floating-cover-image-width: " . fictioneer_get_css_clamp( 56, 200 + $story_cover_width_offset, 320, 768 ) . ";
     --in-content-cover-image-width: " . fictioneer_get_css_clamp( 100, 200 + $story_cover_width_offset, 375, 768 ) . ";
   }";
