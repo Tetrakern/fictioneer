@@ -178,7 +178,7 @@ Jetpack is a WordPress plugin that is sometimes forced upon users. [Jetpack Boos
 To resolve this, you have two options: either turn off Jetpack Boost or add the theme scripts to the exclusion list. Some of them may work when concatenated, but they were not tested.
 
 ```
-fictioneer-dynamic-scripts, fictioneer-application-scripts, fictioneer-lightbox, fictioneer-mobile-menu-scripts, fictioneer-consent-scripts, fictioneer-chapter-scripts, fictioneer-dmp, fictioneer-tts-scripts, fictioneer-story-scripts, fictioneer-user-scripts, fictioneer-user-profile-scripts, fictioneer-bookmarks-scripts, fictioneer-follows-scripts, fictioneer-checkmarks-scripts, fictioneer-reminders-scripts, fictioneer-comments-scripts, fictioneer-ajax-comments-scripts, fictioneer-ajax-bookshelf-scripts, fictioneer-dev-scripts, fcnen-frontend-scripts, fictioneer-fcnmm-script, fictioneer-child-script
+fictioneer-dynamic-scripts, fictioneer-application-scripts, fictioneer-lightbox, fictioneer-mobile-menu-scripts, fictioneer-consent-scripts, fictioneer-chapter-scripts, fictioneer-dmp, fictioneer-tts-scripts, fictioneer-story-scripts, fictioneer-user-scripts, fictioneer-user-profile-scripts, fictioneer-bookmarks-scripts, fictioneer-follows-scripts, fictioneer-checkmarks-scripts, fictioneer-reminders-scripts, fictioneer-comments-scripts, fictioneer-ajax-comments-scripts, fictioneer-ajax-bookshelf-scripts, fictioneer-dev-scripts, fcnen-frontend-scripts, fcnmm-script, fictioneer-child-script
 ```
 
 ### Optional: Additional Plugins
