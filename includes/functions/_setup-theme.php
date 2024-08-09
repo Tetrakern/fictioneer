@@ -1486,7 +1486,7 @@ add_action( 'wp_head', 'fictioneer_output_head_meta', 1 );
 
 if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
   /**
-   * Output font stylesheets <head> meta
+   * Outputs font stylesheets in the <head>
    *
    * Note: This function should be kept pluggable due to legacy reasons.
    *
@@ -1549,11 +1549,32 @@ add_action( 'admin_head', 'fictioneer_output_head_fonts', 5 );
 add_action( 'elementor/editor/after_enqueue_scripts', 'fictioneer_output_head_fonts', 5 );
 
 // =============================================================================
+// OUTPUT HEAD NOSCRIPT
+// =============================================================================
+
+/**
+ * Outputs script to prevent flickering of layout on page load
+ *
+ * @since 5.22.1
+ */
+
+function fictioneer_output_head_anti_flicker() {
+  // Start HTML ---> ?>
+  <style>body{visibility: hidden;}</style>
+  <noscript>
+    <style>body {visibility: visible !important;}</style>
+  </noscript>
+  <script>document.addEventListener('DOMContentLoaded', () => {document.body.style.visibility = "visible";});</script>
+  <?php // <--- End HTML
+}
+add_action( 'wp_head', 'fictioneer_output_head_anti_flicker' );
+
+// =============================================================================
 // OUTPUT HEAD CRITICAL SCRIPTS
 // =============================================================================
 
 /**
- * Output critical path scripts in <head>
+ * Outputs critical path scripts in the <head>
  *
  * Critical path scripts executed in the <head> before the rest of the DOM
  * is loaded. This is necessary for the light/dark switch and site settings

@@ -310,7 +310,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `wp_default_scripts` | `fictioneer_remove_jquery_migrate`
 | `wp_enqueue_scripts` | `fictioneer_add_custom_scripts`, `fictioneer_customizer_queue`, `fictioneer_style_queue`
 | `wp_footer` | `fictioneer_render_taxonomy_submenu`
-| `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`, `fictioneer_add_fiction_css`, `fictioneer_output_head_fonts`, `fictioneer_output_head_translations`, `fictioneer_remove_mu_registration_styles`, `fictioneer_output_mu_registration_style`, `fictioneer_output_head_meta`, `fictioneer_output_head_critical_scripts`
+| `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`, `fictioneer_add_fiction_css`, `fictioneer_output_head_fonts`, `fictioneer_output_head_translations`, `fictioneer_remove_mu_registration_styles`, `fictioneer_output_mu_registration_style`, `fictioneer_output_head_meta`, `fictioneer_output_head_critical_scripts`. `fictioneer_output_head_anti_flicker`
 | `wp_update_nav_menu` | `fictioneer_purge_nav_menu_transients`
 
 <br>
