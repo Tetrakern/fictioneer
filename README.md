@@ -28,7 +28,7 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 
 ## Migration
 
-Migrating an existing WordPress database (or, may the stars have mercy on your soul, another CMS) can be a downright nightmare. Depending on what you did and the themes and plugins you used before, you may encounter severe issues matching the previous data structures to those used in Fictioneer. To make this easier, take a look at the [migration guide](MIGRATION.md).
+Migrating an existing WordPress database can be a downright nightmare. Depending on what you did and the themes and plugins you used before, you may encounter severe issues matching the previous data structures to those used in Fictioneer. To make this easier, take a look at the [migration guide](MIGRATION.md).
 
 ## Free Plugins
 
@@ -39,6 +39,7 @@ Migrating an existing WordPress database (or, may the stars have mercy on your s
 [Child themes](https://developer.wordpress.org/themes/advanced-topics/child-themes/) are the best way to customize Fictioneer if the provided options prove insufficient. You do not even need much programming experience for this since there are many guides and code snippets to adjust WordPress to your needs. But note that Fictioneer is not a page builder, so changing the whole layout does require expertise. Plugins may or may not work here.
 
 * [Base child theme](https://github.com/Tetrakern/fictioneer-child-theme)
+* [Minimalist child theme](https://github.com/Tetrakern/fictioneer-minimalist)
 * [CSS snippets](INSTALLATION.md#css-snippets)
 * [PHP action & filter snippets](CUSTOMIZE.md)
 
@@ -63,6 +64,10 @@ Fictioneer (up to 5.22) has been developed by one author, barring [credited](CRE
 <p align="center">Base Theme - Sidebar (Light/Dark)</p>
 
 ![Screenshot Collage](repo/assets/two_columns_layout.jpg?raw=true)
+
+<p align="center"><a href="https://github.com/Tetrakern/fictioneer-minimalist">Minimalist Child Theme</a> - Sidebar (Light/Dark)</p>
+
+![Screenshot Collage](repo/assets/fictioneer_minimalist.jpg?raw=true)
 
 <p align="center">Base Theme Parts</p>
 
