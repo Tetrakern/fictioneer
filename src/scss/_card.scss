@@ -330,6 +330,12 @@
         margin-bottom: 0;
       }
     }
+
+    &._vertical {
+      .cell-desc {
+        flex-grow: 1;
+      }
+    }
   }
 
   &__content {
