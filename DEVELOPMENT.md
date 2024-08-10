@@ -338,6 +338,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `get_avatar_url` | `fictioneer_get_avatar_url`
 | `get_comment_author_IP` | `__return_empty_string`
 | `get_comment_text` | `fictioneer_replace_comment_line_breaks`
+| `get_the_excerpt` | `fictioneer_fix_excerpt`
 | `is_protected_meta` | `fictioneer_make_theme_meta_protected`
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
@@ -365,7 +366,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `show_admin_bar` | `__return_false`
 | `strip_shortcodes_tagnames` | `fictioneer_exempt_shortcodes_from_removal`
 | `style_loader_tag` | `fictioneer_add_font_awesome_integrity`
-| `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`
+| `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`, `fictioneer_replace_br_with_whitespace`
 | `the_password_form` | `fictioneer_password_form`, `fictioneer_unlock_with_patreon`
 | `the_content_more_link` | `fictioneer_wrap_read_more_link`
 | `the_excerpt_rss` | `fictioneer_filter_rss_excerpt`
