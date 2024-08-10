@@ -196,6 +196,8 @@ $pag_args = array(
                   ?></span></div>
                 <?php endif; ?>
 
+                <div class="card-spacer"></div>
+
                 <?php if ( $categories || $tags || $genres || $fandoms || $characters ) : ?>
                   <div class="card__tag-list cell-tax _small _scrolling">
                     <div class="card__h-scroll">

@@ -16,6 +16,10 @@
   font-size: 87.5%;
 }
 
+.card-spacer {
+  flex: 1 1 auto; // Fill out empty space
+}
+
 .card {
   --layout-link-color-hover: var(--card-link-color-hover, var(--fg-300));
   --this-spacing: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
@@ -318,7 +322,7 @@
       flex-direction: column;
 
       .cell-desc {
-        flex: 1 1 auto; // Fill out empty space
+        flex: 0 1 auto;
       }
 
       .cell-img {
