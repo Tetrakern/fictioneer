@@ -1,28 +1,3 @@
-.main {
-  &:is(._below-768, ._640-and-below) {
-    .chapter {
-      &__actions {
-        .button {
-          &._navigation {
-            .on {
-              // Do not show Previous/Next labels below 768px width
-              display: none;
-            }
-          }
-        }
-
-        .hide-below-tablet {
-          display: none !important;
-        }
-
-        &-right {
-          flex-basis: 19%;
-        }
-      }
-    }
-  }
-}
-
 .chapter-font-color {
   color: var(--text-chapter);
 }
@@ -61,7 +36,7 @@
     &-right {
       flex-basis: 19%;
 
-      @include bp(768px) {
+      @container (min-width: 500px) {
         flex-basis: 25%;
       }
     }
@@ -106,8 +81,7 @@
       }
 
       &._navigation {
-        // Do not show Previous/Next labels below tablet
-        @media only screen and (max-width: 767px) {
+        @container (max-width: 499.9px) {
           .on {
             display: none;
           }
