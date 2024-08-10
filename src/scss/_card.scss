@@ -322,18 +322,12 @@
       flex-direction: column;
 
       .cell-desc {
-        flex: 0 1 auto;
+        flex: 1 1 auto;
       }
 
       .cell-img {
         margin-right: var(--this-spacing);
         margin-bottom: 0;
-      }
-    }
-
-    &._vertical {
-      .cell-desc {
-        flex-grow: 1;
       }
     }
   }

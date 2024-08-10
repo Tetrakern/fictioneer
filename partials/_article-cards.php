@@ -189,14 +189,12 @@ $pag_args = array(
                 <h3 class="card__title cell-title _article _small"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
                 <?php if ( post_password_required() ) : ?>
-                  <div class="card__content _small _article cell-desc truncate _5-5"><span><?php echo $obfuscation; ?></span></div>
+                  <div class="card__content _small _article cell-desc"><div class="truncate _5-5"><span><?php echo $obfuscation; ?></span></div></div>
                 <?php else : ?>
-                  <div class="card__content _small _article cell-desc truncate _5-5"><span><?php
+                  <div class="card__content _small _article cell-desc"><div class="truncate _5-5"><span><?php
                     echo wp_strip_all_tags( fictioneer_get_excerpt() );
-                  ?></span></div>
+                  ?></span></div></div>
                 <?php endif; ?>
-
-                <div class="card-spacer"></div>
 
                 <?php if ( $categories || $tags || $genres || $fandoms || $characters ) : ?>
                   <div class="card__tag-list cell-tax _small _scrolling">
