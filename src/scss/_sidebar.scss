@@ -95,6 +95,10 @@
   }
 
   &.has-sidebar-right {
+    .main {
+      grid-template-columns: 1fr calc(var(--sidebar-width) + var(--layout-spacing-horizontal));
+    }
+
     .main__wrapper {
       order: 1;
 
@@ -135,16 +139,13 @@
     flex-direction: column;
 
     @include bp(desktop) {
-      flex-direction: row;
-      min-width: calc(640px + var(--sidebar-width));
+      display: grid;
+      grid-template-columns: calc(var(--sidebar-width) + var(--layout-spacing-horizontal)) 1fr;
+      min-width: calc(494px + var(--sidebar-width));
     }
 
     &__wrapper {
-      flex: 999999 1 auto;
-
-      @include bp(desktop) {
-        max-width: calc(100% - var(--sidebar-width));
-      }
+      flex: 1 1 auto;
     }
   }
 
@@ -169,10 +170,6 @@
   position: relative;
   z-index: 1;
   flex: 1 1 100%;
-
-  @include bp(desktop) {
-    flex: 1 0 var(--sidebar-width);
-  }
 
   &._layout {
     @include bp(desktop) {
