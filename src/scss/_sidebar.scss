@@ -84,24 +84,15 @@
         }
       }
     }
-
-    .fictioneer-sidebar._layout {
-      order: 2;
-
-      @include bp(desktop) {
-        order: 1;
-      }
-    }
   }
 
   &.has-sidebar-right {
     .main {
       grid-template-columns: 1fr calc(var(--sidebar-width) + var(--layout-spacing-horizontal));
+      grid-template-areas: 'content sidebar';
     }
 
     .main__wrapper {
-      order: 1;
-
       .padding-right {
         @include bp(desktop) {
           padding-right: var(--sidebar-gap, 3rem);
@@ -110,8 +101,6 @@
     }
 
     .fictioneer-sidebar._layout {
-      order: 2;
-
       .fictioneer-sidebar__wrapper {
         @include bp(desktop) {
           padding: var(--layout-spacing-vertical) var(--layout-spacing-horizontal) var(--layout-spacing-vertical) 0;
@@ -141,11 +130,14 @@
     @include bp(desktop) {
       display: grid;
       grid-template-columns: calc(var(--sidebar-width) + var(--layout-spacing-horizontal)) 1fr;
+      grid-template-areas: 'sidebar content';
       min-width: calc(494px + var(--sidebar-width));
     }
 
     &__wrapper {
+      grid-area: content;
       flex: 1 1 auto;
+      order: 1;
     }
   }
 
@@ -199,6 +191,9 @@
 }
 
 .fictioneer-sidebar._layout {
+  grid-area: sidebar;
+  order: 2;
+
   &::before {
     content: '';
     display: block;
