@@ -1549,20 +1549,21 @@ remove_filter( 'comment_text', 'capital_P_dangit', 31 );
  * @since 5.22.1 - Re-added since it is still needed.
  * @link https://github.com/WordPress/gutenberg/issues/15117
  *
- * @param string $excerpt  The post excerpt.
+ * @param string  $excerpt  The post excerpt.
+ * @param WP_Post $post     The post object.
  *
  * @return string The fixed excerpt.
  */
 
-function fictioneer_fix_excerpt( $excerpt ) {
+function fictioneer_fix_excerpt( $excerpt, $post ) {
   add_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
-  $excerpt = wp_trim_excerpt( $excerpt );
+  $excerpt = wp_trim_excerpt( $excerpt, $post );
   remove_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
 
   return $excerpt;
 }
 remove_filter( 'get_the_excerpt', 'wp_trim_excerpt' );
-add_filter( 'get_the_excerpt', 'fictioneer_fix_excerpt' );
+add_filter( 'get_the_excerpt', 'fictioneer_fix_excerpt', 10, 2 );
 
 /**
  * Replace line breaks with whitespace
