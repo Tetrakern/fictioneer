@@ -11,6 +11,10 @@
           }
         }
 
+        .hide-below-tablet {
+          display: none !important;
+        }
+
         &-right {
           flex-basis: 19%;
         }
@@ -38,6 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    container-type: inline-size;
 
     &-left {
       flex-basis: 19%;
@@ -45,6 +50,12 @@
 
     &-center {
       flex-basis: 56%;
+
+      @container (max-width: 600px) {
+        .hide-below-tablet {
+          display: none !important;
+        }
+      }
     }
 
     &-right {
