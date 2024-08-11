@@ -640,7 +640,7 @@ function fictioneer_add_classes_to_body( $classes ) {
   }
 
   // Browsers
-  if ( ! fictioneer_caching_active( 'devise_body_classes' ) ) {
+  if ( ! fictioneer_caching_active( 'device_body_classes' ) ) {
     $includes['is-iphone'] = $GLOBALS['is_iphone'];
     $includes['is-chrome'] = $GLOBALS['is_chrome'];
     $includes['is-safari'] = $GLOBALS['is_safari'];
