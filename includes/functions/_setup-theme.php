@@ -229,15 +229,15 @@ function fictioneer_sidebar( $context ) {
     'fcn_recommendation' => get_theme_mod( 'sidebar_disable_in_recommendations' )
   );
 
-  if (
-    $post &&
-    ! is_archive() &&
-    ! is_search() &&
-    isset( $sidebar_disabled[ $post->post_type ] ) &&
-    $sidebar_disabled[ $post->post_type ] &&
-    ! get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
-  ) {
-    return;
+  // If not archive or search and post exists...
+  if ( $post && ! is_archive() && ! is_search() ) {
+    // .. check specific escape conditions
+    if (
+      ( $sidebar_disabled[ $post->post_type ] ?? 0 ) ||
+      get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
+    ) {
+      return;
+    }
   }
 
   // Classes
@@ -679,15 +679,15 @@ function fictioneer_add_classes_to_body( $classes ) {
     );
     $is_sidebar_disabled = false;
 
-    if (
-      $post &&
-      ! is_archive() &&
-      ! is_search() &&
-      isset( $sidebar_disabled[ $post->post_type ] ) &&
-      $sidebar_disabled[ $post->post_type ] &&
-      ! get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
-    ) {
-      $is_sidebar_disabled = true;
+    // If not archive or search and post exists...
+    if ( $post && ! is_archive() && ! is_search() ) {
+      // .. check specific escape conditions
+      if (
+        ( $sidebar_disabled[ $post->post_type ] ?? 0 ) ||
+        get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
+      ) {
+        $is_sidebar_disabled = true;
+      }
     }
 
     if ( ! $is_sidebar_disabled ) {
