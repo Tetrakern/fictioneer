@@ -20,7 +20,12 @@ if ( ! $story_id ) {
 }
 
 // Header
-get_header();
+get_header(
+  null,
+  array(
+    'no_index' => get_post_meta( $story_id, 'fictioneer_story_hidden', true ) ? 1 : 0
+  )
+);
 
 ?>
 
