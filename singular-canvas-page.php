@@ -18,7 +18,7 @@ get_header();
 
 <main id="main" class="main canvas">
 
-  <?php do_action( 'fictioneer_main', 'singular-canas-page' ); ?>
+  <?php do_action( 'fictioneer_main', 'singular-canvas-page' ); ?>
 
   <div class="main__wrapper">
 
