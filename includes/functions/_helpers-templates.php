@@ -1627,7 +1627,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
     }
 
     // Category node
-    if ( ! ( $args['no_cat'] ?? 0 ) ) {
+    if ( ! ( $args['no_cat'] ?? 0 ) && ! get_option( 'fictioneer_hide_categories' ) ) {
       $output['category'] = sprintf(
         '<div class="post__categories"><i class="fa-solid fa-tags"></i> %s</div>',
         get_the_category_list(', ')

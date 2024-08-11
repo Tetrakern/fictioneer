@@ -79,6 +79,16 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_categories',
+                    __( 'Hide categories on posts', 'fictioneer' ),
+                    __( 'If you do not need them anyway.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_show_full_post_content',
                     __( 'Display full posts instead of excerpts', 'fictioneer' ),
                     __( 'You can still use the [More] block for shortened previews.', 'fictioneer' )
