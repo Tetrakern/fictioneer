@@ -88,7 +88,8 @@
 
   &.has-sidebar-right {
     .main {
-      grid-template-columns: 1fr calc(var(--sidebar-width) + var(--layout-spacing-horizontal));
+      // minmax(min(100%, 300px), 1fr) prevents overflow issues
+      grid-template-columns: minmax(min(100%, 300px), 1fr) calc(var(--sidebar-width) + var(--layout-spacing-horizontal));
       grid-template-areas: 'content sidebar';
     }
 
@@ -129,7 +130,8 @@
 
     @include bp(desktop) {
       display: grid;
-      grid-template-columns: calc(var(--sidebar-width) + var(--layout-spacing-horizontal)) 1fr;
+      // minmax(min(100%, 300px), 1fr) prevents overflow issues
+      grid-template-columns: calc(var(--sidebar-width) + var(--layout-spacing-horizontal)) minmax(min(100%, 300px), 1fr);
       grid-template-areas: 'sidebar content';
       min-width: calc(494px + var(--sidebar-width));
     }
