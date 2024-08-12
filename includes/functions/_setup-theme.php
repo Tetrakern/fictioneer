@@ -703,6 +703,11 @@ function fictioneer_add_classes_to_body( $classes ) {
     }
   }
 
+  // Page padding
+  if ( $post && get_post_meta( $post->ID, 'fictioneer_disable_page_padding', true ) ) {
+    $classes[] = 'no-page-padding';
+  }
+
   // Continue filter
   return $classes;
 }

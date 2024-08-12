@@ -3322,6 +3322,17 @@ function fictioneer_render_extra_metabox( $post ) {
     $flag_count++;
   }
 
+  // Checkbox: Disable new comments
+  if ( current_user_can( 'manage_options' ) ) {
+    $output['fictioneer_disable_page_padding'] = fictioneer_get_metabox_checkbox(
+      $post,
+      'fictioneer_disable_page_padding',
+      __( 'Disable page padding', 'fictioneer' )
+    );
+
+    $flag_count++;
+  }
+
   // Remove Flags heading if no flags are rendered
   if ( ! $flag_count ) {
     unset( $output['flags_heading'] );
@@ -3524,6 +3535,11 @@ function fictioneer_save_extra_metabox( $post_id ) {
   // Checkbox: Disable sidebar
   if ( isset( $_POST['fictioneer_disable_sidebar'] ) && current_user_can( 'manage_options' ) ) {
     $fields['fictioneer_disable_sidebar'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_sidebar'] );
+  }
+
+  // Checkbox: Disable padding
+  if ( isset( $_POST['fictioneer_disable_page_padding'] ) && current_user_can( 'manage_options' ) ) {
+    $fields['fictioneer_disable_page_padding'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_page_padding'] );
   }
 
   // --- Filters -----------------------------------------------------------------

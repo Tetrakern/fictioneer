@@ -98,6 +98,16 @@
   width: 100%;
 }
 
+.no-page-padding {
+  .main__wrapper {
+    padding: var(--page-inset-top, 0px) 0 0;
+  }
+
+  .story .main__wrapper {
+    padding: 0;
+  }
+}
+
 :root.has-polygon-or-mask:not(.minimal) .main__background {
   background: none;
   border-radius: 0;
