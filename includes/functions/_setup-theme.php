@@ -624,6 +624,7 @@ function fictioneer_add_classes_to_body( $classes ) {
   // Setup
   $post = get_post();
   $user = wp_get_current_user();
+  $template = get_page_template_slug();
   $includes = [];
 
   // Mobile menu
@@ -684,7 +685,8 @@ function fictioneer_add_classes_to_body( $classes ) {
       // .. check specific escape conditions
       if (
         ( $sidebar_disabled[ $post->post_type ] ?? 0 ) ||
-        get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
+        get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true ) ||
+        in_array( $template, ['singular-canvas-main.php', 'singular-canvas-site.php'] )
       ) {
         $is_sidebar_disabled = true;
       }
