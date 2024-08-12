@@ -7,7 +7,7 @@ $header_breakpoint: 640px;
   border: var(--button-border-active) !important;
 }
 
-:root.no-covers .story {
+:root.no-covers {
   .story__thumbnail {
     display: none;
     content-visibility: hidden;
