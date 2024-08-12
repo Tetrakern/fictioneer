@@ -372,7 +372,6 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
     justify-content: space-between;
     gap: 1rem;
     padding-top: .75rem;
-    padding-bottom: 1.75rem;
   }
 
   &__changelog {
@@ -516,6 +515,10 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
         content-visibility: hidden;
       }
     }
+  }
+
+  .comment-section {
+    margin-top: 3rem;
   }
 }
 
