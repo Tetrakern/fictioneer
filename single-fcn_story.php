@@ -16,7 +16,16 @@
 $post_id = $args['post_id'] ?? get_the_ID();
 $post = get_post( $post_id );
 $password_required = post_password_required();
+$cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 
+// Wrapper classes
+$wrapper_classes = [];
+
+if ( $cover_position === 'top-left-overflow' ) {
+  $wrapper_classes[] = '_no-padding-top';
+}
+
+// Header
 get_header(
   null,
   array(
@@ -31,7 +40,7 @@ get_header(
 
   <?php do_action( 'fictioneer_main', 'story' ); ?>
 
-  <div class="main__wrapper _no-padding-top">
+  <div class="main__wrapper <?php echo implode( ' ', $wrapper_classes ); ?>">
 
     <?php
       do_action( 'fictioneer_main_wrapper' );
@@ -62,7 +71,7 @@ get_header(
         do_action( 'fictioneer_story_after_header', $hook_args );
       ?>
 
-      <section class="story__summary padding-left padding-right"><?php
+      <section class="story__summary"><?php
         if ( $password_required ) {
           if ( $password_note ) {
             echo '<div class="story__password-note infobox">' . $password_note . '</div>';

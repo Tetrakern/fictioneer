@@ -253,7 +253,7 @@ function fictioneer_sidebar( $context ) {
 
   // Start HTML ---> ?>
   <aside class="fictioneer-sidebar _layout <?php echo implode( ' ', $classes ); ?>">
-    <div class="fictioneer-sidebar__wrapper _layout padding-top padding-bottom"><?php dynamic_sidebar( 'fictioneer-sidebar' ); ?></div>
+    <div class="fictioneer-sidebar__wrapper _layout"><?php dynamic_sidebar( 'fictioneer-sidebar' ); ?></div>
   </aside>
   <?php // <--- End HTML
 
@@ -695,6 +695,8 @@ function fictioneer_add_classes_to_body( $classes ) {
 
       if ( $sidebar_style === 'right' ) {
         $classes[] = 'has-sidebar-right';
+      } else {
+        $classes[] = 'has-sidebar-left';
       }
     }
   }

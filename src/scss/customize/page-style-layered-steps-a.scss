@@ -2,7 +2,7 @@
 @import '../common/_mixins';
 
 :root.page-style-mask-image-layered-steps-a:not(.minimal) .main__background {
-  top: max(0px, calc(var(--page-inset-top)) - 1rem);
+  top: max(0px, calc(var(--page-inset-top, 0px)) - 1rem);
   filter: var(--page-drop-shadow);
 
   &::before {

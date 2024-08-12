@@ -33,7 +33,7 @@ get_header();
         $this_breadcrumb = [ $title, get_the_permalink() ];
       ?>
 
-      <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article">
 
         <section class="singular__content content-section"><?php the_content(); ?></section>
 
@@ -44,7 +44,7 @@ get_header();
       <?php do_action( 'fictioneer_before_comments' ); ?>
 
       <?php if ( comments_open() && ! post_password_required() ) : ?>
-        <section class="singular__comments comment-section padding-left padding-right padding-bottom">
+        <section class="singular__comments comment-section">
           <?php comments_template(); ?>
         </section>
       <?php endif; ?>

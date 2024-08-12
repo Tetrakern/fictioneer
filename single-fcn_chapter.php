@@ -132,7 +132,7 @@ get_header(
         </div>
       <?php endif; ?>
 
-      <article id="ch-<?php echo $post_id; ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo $password_required ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
+      <article id="ch-<?php echo $post_id; ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article <?php echo $password_required ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
 
         <?php
           // Before chapter article header; includes the actions row, foreword, and warnings
@@ -187,7 +187,7 @@ get_header(
       ?>
 
       <?php if ( comments_open() && ! $password_required ) : ?>
-        <section class="chapter__comments comment-section padding-left padding-right padding-bottom chapter-comments-hideable">
+        <section class="chapter__comments comment-section chapter-comments-hideable">
           <?php comments_template(); ?>
         </section>
       <?php endif; ?>

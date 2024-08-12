@@ -16,7 +16,7 @@ get_header();
 
 ?>
 
-<main id="main" class="main canvas">
+<main id="main" class="main canvas canvas-page">
 
   <?php do_action( 'fictioneer_main', 'singular-canvas-page' ); ?>
 

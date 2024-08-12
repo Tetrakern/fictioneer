@@ -48,22 +48,14 @@ if ( ! $tax_shown ) {
 
 if ( ! $thumbnail_shown ) {
   $header_classes[] = '_no-thumbnail';
-  $header_classes[] = 'padding-top';
-}
-
-if ( ( $args['context'] ?? 0 ) !== 'shortcode' ) {
-  $header_classes[] = 'padding-left';
-  $header_classes[] = 'padding-right';
 }
 
 if ( $cover_position === 'float-top-left' ) {
   $header_classes[] = '_float-top-left';
-  $header_classes[] = 'padding-top';
 }
 
 if ( $cover_position === 'float-top-right' ) {
   $header_classes[] = '_float-top-right';
-  $header_classes[] = 'padding-top';
 }
 
 // Filter classes

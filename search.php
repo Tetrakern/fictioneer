@@ -75,7 +75,7 @@ get_header();
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
-    <article id="search-results" class="search-results__article padding-left padding-right padding-top padding-bottom">
+    <article id="search-results" class="search-results__article">
 
       <header class="search-results__header">
         <h1 class="search-results__title">

@@ -23,7 +23,7 @@ get_header();
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
-    <article class="archive__article padding-left padding-right padding-top padding-bottom">
+    <article class="archive__article">
 
       <header class="archive__header">
         <div class="tax-cloud">

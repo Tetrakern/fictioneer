@@ -476,8 +476,8 @@ Pages work the same as always in WordPress, just with some additional fields and
 * **Index (Advanced):** The same as the Index page template, but with additional meta data.
 * **Taxonomies:** Shows details about all taxonomies used on the site, with count and definition (if provided).
 * **User Profile:** Frontend account profile to keep users out of the admin. Must never be cached!
-* **Canvas (Main):** Renders the main container without page or bounds. Meant to be used with page builder plugins.
-* **Canvas (Page):** Renders the page container without bounds or comments. Meant to be used with page builder plugins.
+* **Canvas (Page):** Renders the page container blank without comments. Meant to be used with page builder plugins.
+* **Canvas (Main):** Renders the main container without page or padding. Meant to be used with page builder plugins.
 * **Canvas (Site):** Renders a completely blank site. Meant to be used with page builder plugins.
 
 ### Meta Fields
@@ -1289,7 +1289,7 @@ This location can be confusing. The page background is actually a separate eleme
   pointer-events: none;
   user-select: none;
   position: absolute;
-  inset: var(--page-inset-top) 0 0 0;
+  inset: var(--page-inset-top, 0px) 0 0 0;
   z-index: 0;
   background-color: var(--page-bg-color);
   box-shadow: var(--page-box-shadow);

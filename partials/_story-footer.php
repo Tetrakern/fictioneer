@@ -20,11 +20,8 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
-// Only render to bottom padding if behind a password
+// Render nothing if password is required
 if ( post_password_required() ) {
-  // Start HTML ---> ?>
-  <footer class="padding-bottom"></footer>
-  <?php // <--- End HTML
   return;
 }
 
@@ -57,7 +54,7 @@ $meta_output = apply_filters( 'fictioneer_filter_story_footer_meta', $meta_outpu
 
 ?>
 
-<footer class="story__footer padding-left padding-right">
+<footer class="story__footer">
   <div class="story__extra">
     <?php if ( $show_log ) : ?>
       <label class="story__changelog hide-below-400" for="modal-chapter-changelog-toggle" tabindex="-1">

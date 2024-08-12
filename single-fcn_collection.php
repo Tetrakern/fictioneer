@@ -99,7 +99,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
         );
       ?>
 
-      <article id="collection-<?php the_ID(); ?>" class="collection__article padding-left padding-right padding-top padding-bottom">
+      <article id="collection-<?php the_ID(); ?>" class="collection__article">
 
         <?php
           // Render article header

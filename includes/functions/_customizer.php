@@ -762,7 +762,7 @@ function fictioneer_build_customize_css( $context = null ) {
     --font-saturation-offset: " . $font_saturation_offset_dark / 100 . ";
     --font-lightness-offset: " . $font_lightness_offset_dark / 100 . ";
     --header-image-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
-    --header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--page-inset-top));
+    --header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--page-inset-top, 0px));
     --header-logo-height: {$logo_height}px;
     --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
     --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";

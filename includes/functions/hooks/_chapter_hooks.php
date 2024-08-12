@@ -122,7 +122,7 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_top_actions'
 
 function fictioneer_chapter_footer( $args ) {
   // Start HTML ---> ?>
-  <footer class="chapter__footer chapter__actions chapter__actions--bottom padding-bottom chapter-end" data-nosnippet>
+  <footer class="chapter__footer chapter__actions chapter__actions--bottom chapter-end" data-nosnippet>
     <div class="chapter__actions-container chapter__actions-left"><?php
       do_action( 'fictioneer_chapter_actions_bottom_left', $args, 'bottom' );
     ?></div>

@@ -33,14 +33,6 @@
   flex: 0 0 auto;
 }
 
-.main,
-.canvas {
-  position: relative;
-  flex: 1 1 auto;
-  color: var(--fg-500);
-  width: 100%;
-}
-
 .main {
   margin-top: var(--main-offset, 0);
   max-width: var(--site-width);
@@ -50,7 +42,7 @@
     pointer-events: none;
     user-select: none;
     position: absolute;
-    inset: var(--page-inset-top) 0 0 0;
+    inset: var(--page-inset-top, 0px) 0 0 0;
     z-index: 0;
     background-color: var(--page-bg-color);
     box-shadow: var(--page-box-shadow);
@@ -80,9 +72,13 @@
   &__wrapper {
     position: relative;
     z-index: 1;
-    padding-top: var(--page-inset-top);
+    padding: calc(var(--page-inset-top, 0px) + var(--layout-spacing-vertical)) var(--layout-spacing-horizontal-small) var(--layout-spacing-vertical);
     max-width: 100%;
     contain: style;
+
+    @include bp(400px) {
+      padding: calc(var(--page-inset-top, 0px) + var(--layout-spacing-vertical)) var(--layout-spacing-horizontal) var(--layout-spacing-vertical);
+    }
 
     &._no-padding-top {
       padding-top: 0;
@@ -92,6 +88,14 @@
       min-height: 800px;
     }
   }
+}
+
+.main,
+.canvas {
+  position: relative;
+  flex: 1 1 auto;
+  color: var(--fg-500);
+  width: 100%;
 }
 
 :root.has-polygon-or-mask:not(.minimal) .main__background {

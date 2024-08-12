@@ -92,7 +92,7 @@ reset( $sorted_stories );
         $this_breadcrumb = [ $title, get_the_permalink() ];
       ?>
 
-      <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article">
 
         <header class="singular__header hidden">
           <h1 class="singular__title"><?php echo $title; ?></h1>

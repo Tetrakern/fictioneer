@@ -32,11 +32,11 @@ defined( 'ABSPATH' ) OR exit;
     ?>
   </section>
 
-  <nav class="pagination _padding-top padding-bottom"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
+  <nav class="pagination _padding-top"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
 
 <?php else : ?>
 
-  <article class="post _empty padding-top padding-bottom padding-left padding-right">
+  <article class="post _empty">
     <span><?php _e( 'No (more) posts found.', 'fictioneer' ); ?></span>
   </article>
 

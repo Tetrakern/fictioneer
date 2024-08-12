@@ -182,7 +182,7 @@ function fictioneer_story_copyright_notice( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section class="story__copyright-notice padding-left padding-right">
+  <section class="story__copyright-notice">
     <i class="fa-regular fa-copyright"></i> <?php echo $copyright_notice; ?>
   </section>
   <?php // <--- End HTML
@@ -225,7 +225,7 @@ function fictioneer_story_tags_and_warnings( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section class="story__tags-and-warnings tag-group padding-left padding-right"><?php
+  <section class="story__tags-and-warnings tag-group"><?php
     echo fictioneer_get_taxonomy_pills( $tag_args, 'story_after_content', '_secondary' );
   ?></section>
   <?php // <--- End HTML
@@ -253,7 +253,7 @@ function fictioneer_story_actions( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section class="story__after-summary padding-left padding-right">
+  <section class="story__after-summary">
     <?php echo fictioneer_get_media_buttons(); ?>
     <div class="story__actions"><?php echo fictioneer_get_story_buttons( $args ); ?></div>
   </section>
@@ -297,7 +297,7 @@ function fictioneer_story_tabs( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section id="tabs-<?php echo $story_id; ?>" class="story__tabs tabs-wrapper padding-left padding-right" data-current="chapters" data-order="asc" data-view="list">
+  <section id="tabs-<?php echo $story_id; ?>" class="story__tabs tabs-wrapper" data-current="chapters" data-order="asc" data-view="list">
 
     <div class="tabs">
       <button class="tabs__item _current" data-target="chapters" tabindex="0"><?php
@@ -458,7 +458,7 @@ function fictioneer_story_pages( $args ) {
       }
 
       // Start HTML ---> ?>
-      <section class="story__tab-target padding-left padding-right content-section background-texture" data-finder="tab-page-<?php echo $index; ?>">
+      <section class="story__tab-target content-section background-texture" data-finder="tab-page-<?php echo $index; ?>">
         <div class="story__custom-page"><?php echo apply_filters( 'the_content', $page[2] ); ?></div>
       </section>
       <?php // <--- End HTML
@@ -830,7 +830,6 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_blog', 44 );
 function fictioneer_story_comments( $args ) {
   // Setup
   $story = $args['story_data'];
-  $shortcode = filter_var( $args['shortcode'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $header = filter_var( $args['header'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $classes = $args['classes'] ?? '';
   $style = $args['style'] ?? '';
@@ -838,11 +837,6 @@ function fictioneer_story_comments( $args ) {
   // Abort conditions...
   if ( post_password_required() || $story['comment_count'] < 1 ) {
     return;
-  }
-
-  // Add extra classes
-  if ( ! $shortcode ) {
-    $classes .= ' padding-left padding-right padding-bottom';
   }
 
   // Start HTML ---> ?>

@@ -13,10 +13,18 @@
 $post_id = get_the_ID();
 $story_id = get_post_meta( $post_id, 'fictioneer_template_story_id', true );
 $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
+$cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 $render_story_header = get_post_meta( $post_id, 'fictioneer_template_show_story_header', true );
 
 if ( ! $story_id ) {
   $render_story_header = false;
+}
+
+// Wrapper classes
+$wrapper_classes = [];
+
+if ( $render_story_header && $cover_position === 'top-left-overflow' ) {
+  $wrapper_classes[] = '_no-padding-top';
 }
 
 // Header
@@ -33,7 +41,7 @@ get_header(
 
   <?php do_action( 'fictioneer_main', 'singular-story' ); ?>
 
-  <div class="main__wrapper <?php echo $render_story_header ? '_no-padding-top' : ''; ?>">
+  <div class="main__wrapper <?php echo implode( ' ', $wrapper_classes ); ?>">
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
@@ -45,7 +53,7 @@ get_header(
         $this_breadcrumb = [ $title, get_the_permalink() ];
       ?>
 
-      <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-bottom <?php echo $render_story_header ? '' : 'padding-top'; ?>">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article">
 
         <?php
           // Render story header
@@ -71,7 +79,7 @@ get_header(
       <?php do_action( 'fictioneer_before_comments' ); ?>
 
       <?php if ( comments_open() && ! post_password_required() ) : ?>
-        <section class="singular__comments comment-section padding-left padding-right padding-bottom">
+        <section class="singular__comments comment-section">
           <?php comments_template(); ?>
         </section>
       <?php endif; ?>

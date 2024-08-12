@@ -60,7 +60,7 @@
   // === HEADER ================================================================
 
   --header-image-height: #{get_clamp(210, 480, 320, $full-width)};
-  --header-height: calc(#{get_clamp(190, 380, 320, $full-width)} - var(--page-inset-top));
+  --header-height: calc(#{get_clamp(190, 380, 320, $full-width)} - var(--page-inset-top, 0px));
   --header-logo-height: 210px;
 
   --site-title-font-size: #{get_clamp(32, 60, 320, $full-width)};

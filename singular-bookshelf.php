@@ -116,7 +116,7 @@ get_header( null, array( 'no_index' => 1 ) );
         ) . '#main';
       ?>
 
-      <article id="singular-<?php the_ID(); ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-<?php the_ID(); ?>" class="singular__article">
 
         <?php if ( ! empty( $title ) ) : ?>
           <header class="singular__header">

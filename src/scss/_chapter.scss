@@ -6,7 +6,6 @@
   &__article {
     position: relative;
     z-index: 1; // Makes sure the popup menus are higher thn surrounding elements
-    padding-top: var(--layout-spacing-vertical);
   }
 
   &__password-note {

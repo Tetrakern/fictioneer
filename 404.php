@@ -24,7 +24,7 @@ get_header( null, array( 'no_index' => 1 ) );
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
-    <article class="singular__article padding-left padding-right padding-top padding-bottom">
+    <article class="singular__article">
       <section class="singular__content the-404__content content-section">
         <?php if ( $custom_404 > 0 ) : ?>
           <?php echo apply_filters( 'the_content', get_the_content( null, null, $custom_404 ) ); ?>

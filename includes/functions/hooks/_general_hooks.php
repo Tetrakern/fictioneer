@@ -981,7 +981,7 @@ function fictioneer_mu_registration_start( $args ) {
     <div class="main__background polygon polygon--main background-texture"></div>
     <div class="main__wrapper">
       <?php do_action( 'fictioneer_main_wrapper' ); ?>
-      <article id="singular-wp-registration" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-wp-registration" class="singular__article">
         <section class="singular__content content-section">
   <?php // <--- End HTML
 }

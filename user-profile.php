@@ -75,7 +75,7 @@ get_header( null, array( 'type' => 'user-profile', 'no_index' => 1 ) );
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
-    <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+    <article id="singular-<?php echo $post_id; ?>" class="singular__article">
 
       <section class="singular__content content-section profile__content">
         <?php do_action( 'fictioneer_account_content', $hook_args ); ?>

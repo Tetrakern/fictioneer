@@ -73,7 +73,7 @@ get_header();
         $this_breadcrumb = [$title, get_the_permalink()];
       ?>
 
-      <article id="singular-<?php the_ID(); ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-<?php the_ID(); ?>" class="singular__article">
 
         <?php if ( get_the_content() ) : ?>
           <section class="singular__content content-section">

@@ -1,4 +1,6 @@
 .widget {
+  --block-latest-posts-title-font-size: 1.1em;
+  color: var(--fg-700);
   font-size: var(--fs-widget);
 
   &.widget_block .wp-block-heading {
@@ -30,6 +32,13 @@
   .wp-block-list {
     list-style: initial;
     padding-left: 1.05em;
+  }
+
+  .wp-block-latest-posts {
+    @include bp(desktop) {
+      --this-row-gap: 1.25rem;
+      --this-col-gap: 1.25rem;
+    }
   }
 
   .widgettitle {
@@ -69,18 +78,18 @@
   --layout-spacing-horizontal: #{get_clamp(20, 48, 480, $full-width)};
   --layout-spacing-horizontal-small: #{get_clamp(10, 20, 320, 400)};
 
-  &:where(:not(.has-sidebar-right)) {
+  &.has-sidebar-left {
     .main__wrapper {
       order: 1;
 
       @include bp(desktop) {
         order: 2;
+        padding-left: 0;
       }
 
       .padding-left {
         @include bp(desktop) {
-          order: 2;
-          padding-left: var(--sidebar-gap, 3rem);
+          padding-left: 0;
         }
       }
     }
@@ -88,15 +97,21 @@
 
   &.has-sidebar-right {
     .main {
-      // minmax(min(100%, 300px), 1fr) prevents overflow issues
-      grid-template-columns: minmax(min(100%, 300px), 1fr) calc(var(--sidebar-width) + var(--layout-spacing-horizontal));
-      grid-template-areas: 'content sidebar';
+      @include bp(desktop) {
+        // minmax(min(100%, 300px), 1fr) prevents overflow issues
+        grid-template-columns: minmax(min(100%, 300px), 1fr) calc(var(--sidebar-width) + var(--layout-spacing-horizontal));
+        grid-template-areas: 'content sidebar';
+      }
     }
 
     .main__wrapper {
+      @include bp(desktop) {
+        padding-right: 0;
+      }
+
       .padding-right {
         @include bp(desktop) {
-          padding-right: var(--sidebar-gap, 3rem);
+          padding-right: 0;
         }
       }
     }
@@ -113,6 +128,7 @@
   .fictioneer-sidebar__wrapper._layout {
     padding: var(--layout-spacing-vertical) var(--layout-spacing-horizontal-small);
     min-width: calc(var(--sidebar-width) + var(--layout-spacing-horizontal-small));
+    container-type: inline-size;
 
     @include bp(400px) {
       padding: var(--layout-spacing-vertical) var(--layout-spacing-horizontal);
@@ -127,6 +143,7 @@
   .main {
     display: flex;
     flex-direction: column;
+    gap: var(--sidebar-gap, 3rem);
 
     @include bp(desktop) {
       display: grid;
@@ -164,37 +181,15 @@
   position: relative;
   z-index: 1;
   flex: 1 1 100%;
-
-  &._layout {
-    @include bp(desktop) {
-      padding-top: var(--page-inset-top);
-    }
-  }
-
-  &__wrapper,
-  .elementor-widget-container {
-    container-type: inline-size;
-  }
-}
-
-.fictioneer-sidebar._layout,
-.elementor-widget-sidebar {
-  .widget {
-    --block-latest-posts-title-font-size: 1.1em;
-    color: var(--fg-700);
-  }
-
-  .wp-block-latest-posts {
-    @include bp(desktop) {
-      --this-row-gap: 1.25rem;
-      --this-col-gap: 1.25rem;
-    }
-  }
 }
 
 .fictioneer-sidebar._layout {
   grid-area: sidebar;
   order: 2;
+
+  @include bp(desktop) {
+    padding-top: var(--page-inset-top, 0px);
+  }
 
   &::before {
     content: '';

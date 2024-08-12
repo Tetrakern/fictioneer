@@ -99,7 +99,7 @@ get_header();
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
-    <article class="singular__article author-page__article padding-left padding-right padding-top padding-bottom">
+    <article class="singular__article author-page__article">
 
       <?php
         $title = $author_page ? trim( get_the_title( $author_page ) ) : $author->display_name;

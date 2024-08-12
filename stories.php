@@ -127,7 +127,7 @@ get_header();
         );
       ?>
 
-      <article id="singular-<?php echo $post_id; ?>" class="singular__article stories__article padding-top padding-left padding-right padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article stories__article">
 
         <?php if ( ! empty( $title ) ) : ?>
           <header class="singular__header stories__header">

@@ -21,7 +21,6 @@ defined( 'ABSPATH' ) OR exit;
 $post_id = get_the_ID();
 $title = fictioneer_get_safe_title( $post_id, 'post' );
 $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
-$nested = $args['nested'] ?? false;
 
 if (
   ! get_option( 'fictioneer_show_full_post_content' ) &&
@@ -34,7 +33,7 @@ if (
 
 ?>
 
-<article id="post-<?php echo $post_id; ?>" class="post <?php if ( ! $nested ) echo 'padding-left padding-right'; ?>">
+<article id="post-<?php echo $post_id; ?>" class="post">
 
   <header class="post__header">
     <h2 class="post__title h1"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>

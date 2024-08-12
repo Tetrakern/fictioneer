@@ -1,13 +1,3 @@
-.blog-posts:not(._nested) {
-  &:first-child {
-    padding-top: var(--layout-spacing-vertical);
-  }
-
-  &:last-child {
-    padding-bottom: var(--layout-spacing-vertical);
-  }
-}
-
 :is(.blog-posts, .latest-posts) {
   .post {
     padding-bottom: 1rem;

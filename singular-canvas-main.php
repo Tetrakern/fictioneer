@@ -16,7 +16,7 @@ get_header();
 
 ?>
 
-<main id="main" class="canvas">
+<main id="main" class="canvas canvas-main">
 
   <?php
     while ( have_posts() ) {

@@ -42,7 +42,7 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
         );
       ?>
 
-      <article id="recommendation-<?php the_ID(); ?>" class="recommendation__article padding-left padding-right padding-top padding-bottom">
+      <article id="recommendation-<?php the_ID(); ?>" class="recommendation__article">
 
         <?php
           // Render article header
