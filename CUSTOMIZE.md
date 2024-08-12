@@ -1,6 +1,69 @@
 # Customization Snippets
 
-This is a collection of code snippets for previously solved customization issues. They are supposed to go into your child theme’s **functions.php** or a subsequently included file (replace "child_" and "x.x.x" with your child theme prefix and version respectively). Putting them into the main theme would work, but will cause them to be deleted when you update. Also assume each snippet requires the latest version of Fictioneer.
+This is a collection of code snippets for previously solved customization issues. They are supposed to go into your child theme’s **functions.php** or a subsequently included file (replace "child_" and "x.x.x" with your child theme prefix and version respectively). Putting them into the main theme would work, but will cause them to be deleted when you update.
+
+Alternatively, you can put the code into a [must-use plugin](https://developer.wordpress.org/advanced-administration/plugins/mu-plugins/) file. Create a new PHP file with a name of your choice in the the `/wp-content/mu-plugins/` directory (create the directory if it does not exist). Use the following example code as base:
+
+<details>
+  <summary>Example customization must-use plugin</summary>
+
+```php
+<?php
+/**
+ * Plugin Name: Fictioneer Customization
+ * Description: Scripts to customize the theme or child theme.
+ * Version: 1.0.0
+ * Author: YOUR NAME
+ * License: GNU General Public License v3.0 or later
+ * License URI: http://www.gnu.org/licenses/gpl.html
+ */
+
+
+/**
+ * Adds actions and filters after the theme has loaded
+ * and all hooks have been registered
+ */
+
+function custom_initialize() {
+  // Uncomment the following line to apply the example filter
+  // add_filter( 'fictioneer_filter_post_meta_items', 'custom_modify_post_meta_items' );
+}
+add_action( 'after_setup_theme', 'custom_initialize', 99 );
+
+/**
+ * Example: Removes the icons from the post meta row and separates the items with a "|"
+ *
+ * Note: Add ".post__meta { gap: .5rem; }" under Appearance > Customize > Custom CSS.
+ *
+ * @param array $output  The HTML of the post meta items to be rendered.
+ *
+ * @return array The updated items.
+ */
+
+function custom_modify_post_meta_items( $output ) {
+  // Remove icons
+  $output = array_map( function( $item ) { return preg_replace( '/<i[^>]*>.*?<\/i>/', '', $item ); }, $output );
+  $count = 0;
+  $new_output = [];
+
+  // Add slashes as divider
+  foreach ( $output as $key => $value ) {
+    if ( $count > 0 ) {
+      $new_output[ $key . '_slash' ] = '<span class="divider">|</span>';
+    }
+
+    $new_output[ $key ] = $value;
+
+    $count++;
+  }
+
+  // Continue filter
+  return $new_output;
+}
+```
+</details>
+
+<br>
 
 For general information on theme and style customization, please refer to the [installation guide](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#how-to-customize-the-fictioneer-theme).
 
