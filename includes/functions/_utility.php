@@ -316,17 +316,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         $comment_count = $meta_cache['comment_count'];
 
         if ( count( $meta_cache['chapter_ids'] ) > 0 ) {
-          // Counting the stored comment count of chapters is typically
-          // faster than querying and counting all comments.
-          $chapters = fictioneer_get_story_chapter_posts( $story_id );
-
-          if ( ! empty( $chapters ) ) {
-            $comment_count = 0; // Reset
-
-            foreach ( $chapters as $chapter ) {
-               $comment_count += $chapter->comment_count;
-            }
-          }
+          $comment_count = fictioneer_get_story_comment_count( $story_id );
         }
 
         $meta_cache['comment_count'] = $comment_count;
@@ -441,6 +431,36 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     // Done
     return $result;
   }
+}
+
+/**
+ * Returns the comment count of all story chapters
+ *
+ * Note: Includes hidden and non-chapter posts.
+ *
+ * @since 4.22.2
+ *
+ * @param int        $story_id  ID of the story.
+ * @param array|null $chapters  Optional. Array of WP_Post chapter objects.
+ *
+ * @return int Number of comments.
+ */
+
+function fictioneer_get_story_comment_count( $story_id, $chapters = null ) {
+  // Setup
+  $comment_count = 0;
+  $chapters = $chapters ?? fictioneer_get_story_chapter_posts( $story_id );
+
+  // Counting the stored comment count of chapters is typically
+  // faster than querying and counting all comments.
+  if ( ! empty( $chapters ) ) {
+    foreach ( $chapters as $chapter ) {
+      $comment_count += $chapter->comment_count;
+    }
+  }
+
+  // Return result
+  return $comment_count;
 }
 
 // =============================================================================
