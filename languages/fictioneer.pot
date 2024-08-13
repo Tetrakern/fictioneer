@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 15:14+0000\n"
+"POT-Creation-Date: 2024-08-13 18:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "%s connection successfully unset."
 msgstr ""
 
-#: partials/_showcase.php:129 partials/_card-story.php:85
+#: partials/_showcase.php:129 partials/_card-story.php:84
 #: partials/_card-chapter.php:79 includes/functions/_helpers-templates.php:603
 #: includes/functions/_helpers-templates.php:643
 #, php-format
@@ -117,7 +117,7 @@ msgid "%s superfluous rows have been deleted."
 msgstr ""
 
 #: partials/_card-recommendation.php:75 partials/_card-recommendation.php:102
-#: partials/_card-story.php:134 partials/_card-page.php:42
+#: partials/_card-story.php:133 partials/_card-page.php:42
 #: partials/_card-page.php:69 partials/_card-collection.php:92
 #: partials/_card-collection.php:122 partials/_card-post.php:43
 #: partials/_card-post.php:70 partials/_card-chapter.php:141
@@ -573,8 +573,8 @@ msgstr ""
 msgid "Access Denied"
 msgstr ""
 
-#: includes/functions/_setup-roles.php:799
-#: includes/functions/_setup-roles.php:929
+#: includes/functions/_setup-roles.php:804
+#: includes/functions/_setup-roles.php:934
 #: includes/functions/users/_admin-profile.php:66
 msgid "Access denied."
 msgstr ""
@@ -1928,8 +1928,8 @@ msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:743
 msgid ""
-"Caches the latest %d story cards in the database to speed up loading. Do not "
-"use this together with a cache plugin."
+"Caches the latest %d story cards in the database to speed up loading. May or "
+"may not work with cache plugins."
 msgstr ""
 
 #: includes/functions/settings/_settings_page_roles.php:330
@@ -3058,7 +3058,7 @@ msgstr ""
 
 #. Name of the template
 #: chapters.php:2 chapters.php:107 author.php:53 author.php:141
-#: partials/_card-story.php:236 partials/_latest-stories.php:265
+#: partials/_card-story.php:235 partials/_latest-stories.php:265
 #: partials/_latest-stories-compact.php:279 partials/_card-collection.php:198
 #: partials/_latest-updates.php:382 partials/_collection-statistics.php:39
 #: includes/functions/_setup-types-and-terms.php:185
@@ -3606,7 +3606,7 @@ msgstr ""
 msgid "Commenting is disabled."
 msgstr ""
 
-#: author.php:149 partials/_card-story.php:253 partials/_card-story.php:253
+#: author.php:149 partials/_card-story.php:252 partials/_card-story.php:252
 #: partials/_card-page.php:91 partials/_article-cards.php:257
 #: partials/_card-collection.php:208 partials/_collection-statistics.php:47
 #: partials/_card-post.php:114 partials/_latest-chapters.php:285
@@ -6757,7 +6757,7 @@ msgstr ""
 msgid "Large Border Radius"
 msgstr ""
 
-#: partials/_card-recommendation.php:113 partials/_card-story.php:147
+#: partials/_card-recommendation.php:113 partials/_card-story.php:146
 #: partials/_card-chapter.php:174
 #, php-format
 msgctxt "Large card: by {Author} —."
@@ -6772,7 +6772,7 @@ msgid ""
 "more</strong> is met unless the comment is set to ignore reports."
 msgstr ""
 
-#: partials/_card-story.php:246 partials/_latest-stories.php:273
+#: partials/_card-story.php:245 partials/_latest-stories.php:273
 #: partials/_latest-stories-compact.php:287 partials/_article-cards.php:252
 #: partials/_card-collection.php:205 partials/_latest-updates.php:388
 #: partials/_latest-chapters.php:280 partials/_card-chapter.php:243
@@ -7650,7 +7650,7 @@ msgstr ""
 msgid "Navigation Menu"
 msgstr ""
 
-#: partials/_card-story.php:204
+#: partials/_card-story.php:203
 msgid "New"
 msgstr ""
 
@@ -7735,7 +7735,7 @@ msgstr ""
 msgid "No collections found."
 msgstr ""
 
-#: partials/_card-story.php:151 partials/_card-collection.php:132
+#: partials/_card-story.php:150 partials/_card-collection.php:132
 #: partials/_card-chapter.php:178
 #: includes/functions/_setup-meta-fields.php:4296
 msgid "No description provided yet."
@@ -8710,7 +8710,7 @@ msgstr ""
 msgid "Provided post ID is not a story ID."
 msgstr ""
 
-#: partials/_card-story.php:244 partials/_latest-stories.php:275
+#: partials/_card-story.php:243 partials/_latest-stories.php:275
 #: partials/_story-footer.php:39 partials/_latest-stories-compact.php:289
 #: partials/_card-page.php:88 partials/_article-cards.php:254
 #: partials/_card-collection.php:203 partials/_card-post.php:112
@@ -10272,7 +10272,7 @@ msgstr ""
 msgid "Story Capabilities"
 msgstr ""
 
-#: partials/_card-story.php:110
+#: partials/_card-story.php:109
 msgctxt "Story card label."
 msgid "Story"
 msgstr ""
@@ -11171,7 +11171,7 @@ msgstr ""
 msgid "Top Web Fiction"
 msgstr ""
 
-#: partials/_card-story.php:240 partials/_latest-stories.php:269
+#: partials/_card-story.php:239 partials/_latest-stories.php:269
 #: partials/_story-footer.php:42 partials/_latest-stories-compact.php:283
 #: partials/_card-collection.php:200 partials/_latest-updates.php:385
 msgid "Total Words"
@@ -11875,7 +11875,7 @@ msgctxt "Word count in chapter list."
 msgid "%s Words"
 msgstr ""
 
-#: partials/_card-story.php:202 partials/_latest-chapters.php:276
+#: partials/_card-story.php:201 partials/_latest-chapters.php:276
 #: partials/_card-chapter.php:204 partials/_card-chapter.php:237
 #: includes/functions/settings/_settings_page_epubs.php:83
 msgid "Words"
@@ -11928,7 +11928,7 @@ msgid ""
 "email notification for each direct reply."
 msgstr ""
 
-#: includes/functions/_setup-roles.php:1356
+#: includes/functions/_setup-roles.php:1361
 msgid "You are not allowed to upload files of this type."
 msgstr ""
 

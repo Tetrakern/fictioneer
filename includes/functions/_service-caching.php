@@ -87,9 +87,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_PARTIAL_CACHING' ) ) {
 if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
   define(
     'FICTIONEER_ENABLE_STORY_CARD_CACHING',
-    get_option( 'fictioneer_enable_story_card_caching' ) &&
-    ! is_customize_preview() &&
-    ! fictioneer_caching_active( 'story_card_caching' )
+    get_option( 'fictioneer_enable_story_card_caching' ) && ! is_customize_preview()
   );
 }
 
