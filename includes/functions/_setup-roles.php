@@ -453,6 +453,11 @@ function fictioneer_bypass_password( $required, $post ) {
     return $required;
   }
 
+  // Ensure to skip search, list pages, and nested loops
+  if ( ! is_singular() || get_queried_object_id() != $post->ID ) {
+    return $required;
+  }
+
   // Static variable cache
   static $cache = [];
 
