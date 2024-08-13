@@ -203,7 +203,8 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'lightbox' => filter_var( $attr['lightbox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'words' => filter_var( $attr['words'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'date' => filter_var( $attr['date'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
-    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) ),
+    'infobox' => filter_var( $attr['infobox'] ?? 1, FILTER_VALIDATE_BOOLEAN )
   );
 
   //--- Fixes ------------------------------------------------------------------

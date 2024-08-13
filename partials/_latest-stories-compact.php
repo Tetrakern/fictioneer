@@ -28,6 +28,7 @@
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['classes']           String of additional CSS classes. Default empty.
+ * @internal $args['infobox']           Whether to show the info box and toggle.
  */
 
 
@@ -129,6 +130,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
+          // Description
+          $short_description = fictioneer_first_paragraph_as_excerpt(
+            fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
+          );
+          $short_description = mb_strlen( $short_description, 'UTF-8' ) < 30 ? get_the_excerpt() : $short_description;
+
           // Extra classes
           if ( $show_taxonomies ) {
             $card_classes[] = '_info';
@@ -176,7 +183,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _story _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
-            <?php if ( $show_taxonomies ) : ?>
+            <?php if ( $args['infobox'] ) : ?>
               <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
@@ -216,102 +223,101 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
                     ?></span>
                   <?php endif; ?>
-                  <span><?php
-                    $short_description = fictioneer_first_paragraph_as_excerpt(
-                      fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
-                    );
-                    echo mb_strlen( $short_description, 'UTF-8' ) < 30 ? get_the_excerpt() : $short_description;
-                  ?></span>
+                  <span><?php echo $short_description; ?></span>
                 </div>
               </div>
 
             </div>
 
-            <div class="card__overlay-infobox escape-last-click">
+            <?php if ( $args['infobox'] ) : ?>
+              <div class="card__overlay-infobox escape-last-click">
 
-              <?php if ( $show_taxonomies ) : ?>
-                <div class="card__tag-list _small">
-                  <?php
-                    if ( $story['has_taxonomies'] || $tags ) {
-                      $output = [];
+                <?php if ( $show_taxonomies ) : ?>
+                  <div class="card__tag-list _small">
+                    <?php
+                      if ( $story['has_taxonomies'] || $tags ) {
+                        $output = [];
 
-                      if ( $story['fandoms'] ) {
-                        foreach ( $story['fandoms'] as $fandom ) {
-                          $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                        if ( $story['fandoms'] ) {
+                          foreach ( $story['fandoms'] as $fandom ) {
+                            $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                          }
                         }
-                      }
 
-                      if ( $story['genres'] ) {
-                        foreach ( $story['genres'] as $genre ) {
-                          $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                        if ( $story['genres'] ) {
+                          foreach ( $story['genres'] as $genre ) {
+                            $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                          }
                         }
-                      }
 
-                      if ( $tags ) {
-                        foreach ( $tags as $tag ) {
-                          $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                        if ( $tags ) {
+                          foreach ( $tags as $tag ) {
+                            $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                          }
                         }
-                      }
 
-                      if ( $story['characters'] ) {
-                        foreach ( $story['characters'] as $character ) {
-                          $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                        if ( $story['characters'] ) {
+                          foreach ( $story['characters'] as $character ) {
+                            $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                          }
                         }
-                      }
 
-                      // Implode with three-per-em spaces around a bullet
-                        echo implode( '&#8196;&bull;&#8196;', $output );
-                    } else {
-                      ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
+                        // Implode with three-per-em spaces around a bullet
+                          echo implode( '&#8196;&bull;&#8196;', $output );
+                      } else {
+                        ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
+                      }
+                    ?>
+                  </div>
+                <?php else : ?>
+                  <div class="card__overlay-description _small"><?php echo $short_description; ?></div>
+                <?php endif; ?>
+
+                <div class="card__footer _small">
+
+                  <div class="card__footer-box _left text-overflow-ellipsis"><?php
+
+                    // Build footer items
+                    $footer_items = [];
+
+                    if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) {
+                      $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
                     }
-                  ?>
-                </div>
-              <?php endif; ?>
 
-              <div class="card__footer _small">
+                    if ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) {
+                      $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
+                    }
 
-                <div class="card__footer-box _left text-overflow-ellipsis"><?php
+                    if ( $args['orderby'] === 'modified' ) {
+                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                    } else {
+                      $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                    }
 
-                  // Build footer items
-                  $footer_items = [];
+                    $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
 
-                  if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) {
-                    $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
-                  }
+                    // Filter footer items
+                    $footer_items = apply_filters(
+                      'fictioneer_filter_shortcode_latest_stories_card_footer',
+                      $footer_items,
+                      $post,
+                      $story,
+                      $args
+                    );
 
-                  if ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) {
-                    $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
-                  }
+                    // Implode and render footer items
+                    echo implode( ' ', $footer_items );
 
-                  if ( $args['orderby'] === 'modified' ) {
-                    $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
-                  } else {
-                    $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
-                  }
+                  ?></div>
 
-                  $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                  <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
+                    <?php echo fcntr( $story['rating_letter'] ); ?>
+                  </div>
 
-                  // Filter footer items
-                  $footer_items = apply_filters(
-                    'fictioneer_filter_shortcode_latest_stories_card_footer',
-                    $footer_items,
-                    $post,
-                    $story,
-                    $args
-                  );
-
-                  // Implode and render footer items
-                  echo implode( ' ', $footer_items );
-
-                ?></div>
-
-                <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
-                  <?php echo fcntr( $story['rating_letter'] ); ?>
                 </div>
 
               </div>
-
-            </div>
+            <?php endif; ?>
 
           </div>
         </li>

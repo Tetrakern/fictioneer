@@ -32,6 +32,7 @@
  * @internal $args['words']             Whether to show the word count of chapter items. Default true.
  * @internal $args['date']              Whether to show the date of chapter items. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
+ * @internal $args['infobox']           Whether to show the info box and toggle.
  */
 
 
@@ -221,7 +222,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _info _story-update _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
-            <?php if ( $show_excerpt ) :  ?>
+            <?php if ( $show_excerpt && $args['infobox'] ) :  ?>
               <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
@@ -321,7 +322,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             </div>
 
-            <?php if ( $show_excerpt ) :  ?>
+            <?php if ( $show_excerpt && $args['infobox'] ) :  ?>
               <div class="card__overlay-infobox _excerpt escape-last-click">
                 <div class="card__excerpt"><strong><?php echo $chapter_title; ?>:</strong> <?php echo $chapter_excerpt; ?></div>
               </div>

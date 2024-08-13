@@ -29,6 +29,7 @@
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['classes']           String of additional CSS classes. Default empty.
+ * @internal $args['infobox']           Whether to show the info box and toggle.
  */
 
 
@@ -178,7 +179,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _info _chapter _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
-            <?php if ( $words > 0 ) : ?>
+            <?php if ( $words > 0 && $args['infobox'] ) : ?>
               <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
@@ -252,7 +253,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             </div>
 
-            <?php if ( $words > 0 ) : ?>
+            <?php if ( $words > 0 && $args['infobox'] ) : ?>
               <div class="card__overlay-infobox _excerpt escape-last-click">
                 <div class="card__excerpt"><?php
                   echo fictioneer_get_forced_excerpt( $post, $args['vertical'] ? 512 : 256 );
