@@ -288,6 +288,16 @@ if ( ! defined( 'FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME' ) ) {
   define( 'FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME', 4 * HOUR_IN_SECONDS );
 }
 
+// Integer: Maximum number of cards in card cache
+if ( ! defined( 'FICTIONEER_CARD_CACHE_LIMIT' ) ) {
+  define( 'FICTIONEER_CARD_CACHE_LIMIT', 50 );
+}
+
+// Integer: Time until the card cache expires
+if ( ! defined( 'FICTIONEER_CARD_CACHE_EXPIRATION_TIME' ) ) {
+  define( 'FICTIONEER_CARD_CACHE_EXPIRATION_TIME', HOUR_IN_SECONDS );
+}
+
 /*
  * Booleans
  */

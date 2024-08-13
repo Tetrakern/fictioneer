@@ -83,6 +83,16 @@ if ( ! defined( 'FICTIONEER_ENABLE_PARTIAL_CACHING' ) ) {
   );
 }
 
+// Boolean: Partial caching enabled?
+if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
+  define(
+    'FICTIONEER_ENABLE_STORY_CARD_CACHING',
+    get_option( 'fictioneer_enable_story_card_caching' ) &&
+    ! is_customize_preview() &&
+    ! fictioneer_caching_active( 'story_card_caching' )
+  );
+}
+
 // =============================================================================
 // ENABLE SHORTCODE TRANSIENTS?
 // =============================================================================
@@ -192,6 +202,11 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
 
     // Cached HTML partials
     fictioneer_clear_all_cached_partials();
+
+    // Cached story cards
+    if ( FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+      fictioneer_purge_story_card_cache();
+    }
   }
 }
 
@@ -280,6 +295,11 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     // Cached HTML partial
     if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
       fictioneer_clear_cached_content( $post_id );
+    }
+
+    // Cached story card
+    if ( FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+      fictioneer_delete_cached_story_card( $post_id );
     }
   }
 }
@@ -1071,4 +1091,183 @@ if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
   foreach ( ['save_post', 'untrash_post', 'trashed_post', 'delete_post'] as $hook ) {
     add_action( $hook, 'fictioneer_clear_cached_content' );
   }
+}
+
+// =============================================================================
+// TRANSIENT CARD CACHE
+// =============================================================================
+
+/**
+ * Returns the Transient array with all cached story cards
+ *
+ * @since 5.22.1
+ *
+ * @return array Array of cached story cards; empty array if disabled.
+ */
+
+function fictioneer_get_story_card_cache() {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+    return [];
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_story_card_cache;
+
+  if ( ! $fictioneer_story_card_cache ) {
+    $fictioneer_story_card_cache = get_transient( 'fictioneer_card_cache' ) ?: [];
+  }
+
+  return $fictioneer_story_card_cache;
+}
+
+
+
+function fictioneer_set_story_card_cache( $key, $card ) {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+    return;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_story_card_cache;
+
+  // Setup
+  if ( ! $fictioneer_story_card_cache ) {
+    $fictioneer_story_card_cache = fictioneer_get_story_card_cache();
+  }
+
+  // Remove cached card...
+  unset( $fictioneer_story_card_cache[ $key ] );
+
+  // ... and append at the end
+  $fictioneer_story_card_cache[ $key ] = $card;
+}
+
+
+
+function fictioneer_save_story_card_cache() {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+    return;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_story_card_cache;
+
+  // Anything to save?
+  if ( is_array( $fictioneer_story_card_cache ) ) {
+    set_transient( 'fictioneer_card_cache', $fictioneer_story_card_cache, FICTIONEER_CARD_CACHE_EXPIRATION_TIME );
+  }
+}
+add_action( 'shutdown', 'fictioneer_save_story_card_cache' );
+
+
+
+
+function fictioneer_purge_story_card_cache() {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+    return;
+  }
+
+  global $fictioneer_story_card_cache;
+
+  $fictioneer_story_card_cache = [];
+
+  delete_transient( 'fictioneer_card_cache' );
+}
+
+
+
+function fictioneer_delete_cached_story_card( $post_id ) {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+    return;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_story_card_cache;
+
+  // Setup
+  if ( ! $fictioneer_story_card_cache ) {
+    $fictioneer_story_card_cache = fictioneer_get_story_card_cache();
+  }
+
+  // Find matching keys
+  foreach ( $fictioneer_story_card_cache as $key => $value ) {
+    if ( strpos( $key, $post_id . '_' ) === 0 ) {
+      unset( $fictioneer_story_card_cache[ $key ] );
+
+      // Update comment count in story meta cache (if story)
+      if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
+        $story_data = fictioneer_get_story_data( $post_id );
+
+        if ( $story_data ) {
+          $story_data['comment_count'] = fictioneer_get_story_comment_count( $post_id );
+          $story_data['comment_count_timestamp'] = time();
+
+          update_post_meta( $post_id, 'fictioneer_story_data_collection', $story_data );
+        }
+      }
+    }
+  }
+}
+
+
+
+function fictioneer_delete_cached_story_card_by_comment( $comment_id ) {
+  // Setup
+  $comment = get_comment( $comment_id );
+
+  if ( $comment ) {
+    $story_id = get_post_meta( $comment->comment_post_ID, 'fictioneer_chapter_story', true );
+
+    if ( $story_id ) {
+      fictioneer_delete_cached_story_card( $story_id );
+    }
+  }
+}
+add_action( 'wp_insert_comment', 'fictioneer_delete_cached_story_card_by_comment' );
+add_action( 'delete_comment', 'fictioneer_delete_cached_story_card_by_comment' );
+
+
+
+function fictioneer_get_cached_story_card( $key ) {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+    return null;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_story_card_cache;
+
+  // Setup
+  if ( ! $fictioneer_story_card_cache ) {
+    $fictioneer_story_card_cache = fictioneer_get_story_card_cache();
+  }
+
+  // Look in currently cached cards...
+  if ( $card = ( $fictioneer_story_card_cache[ $key ] ?? 0 ) ) {
+    // Remove cached card...
+    unset( $fictioneer_story_card_cache[ $key ] );
+
+    // ... and append at the end
+    $fictioneer_story_card_cache[ $key ] = $card;
+  } else {
+    return null;
+  }
+
+  // Limit cache to 50 latest cards
+  if ( count( $fictioneer_story_card_cache ) > FICTIONEER_CARD_CACHE_LIMIT ) {
+    $fictioneer_story_card_cache = array_slice(
+      $fictioneer_story_card_cache,
+      -1 * FICTIONEER_CARD_CACHE_LIMIT,
+      FICTIONEER_CARD_CACHE_LIMIT,
+      true
+    );
+  }
+
+  // Return cached card
+  return $card;
 }

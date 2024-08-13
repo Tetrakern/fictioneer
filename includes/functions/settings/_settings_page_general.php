@@ -734,6 +734,20 @@
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_story_card_caching',
+                    __( 'Enable caching of story cards', 'fictioneer' ),
+                    sprintf(
+                      __( 'Caches the latest %d story cards in the database to speed up loading. Do not use this together with a cache plugin.', 'fictioneer' ),
+                      FICTIONEER_CARD_CACHE_LIMIT
+                    ),
+                    __( '<p>Rendering story cards is resource-intensive due to multiple complex queries. The more cards you display at once, the slower the page will load. This feature mitigates the slowdown by caching the HTML of the last rendered cards in the database, which typically results in faster loading times for the most recent stories.</p><p>You can use the <code>FICTIONEER_CARD_CACHE_LIMIT</code> constant to change the number of cached cards (default is 50). Be aware that increasing this number will result in higher RAM consumption.</p>', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
             </div>
           </div>
         </div>

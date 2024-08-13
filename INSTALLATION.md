@@ -1597,6 +1597,8 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_QUERY_ID_ARRAY_LIMIT | integer | Maximum allowed IDs in 'post__{not}_in' query arguments. Default `100`.
 | FICTIONEER_PATREON_EXPIRATION_TIME | integer | Time until a user’s Patreon data expires in seconds. Default `WEEK_IN_SECONDS`.
 | FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME | integer | Time until a cached partial expires in seconds. Default `4 * HOUR_IN_SECONDS`.
+| FICTIONEER_CARD_CACHE_LIMIT | integer | Number of cards cached by the story card cache feature if enabled. Default `50`.
+| FICTIONEER_CARD_CACHE_EXPIRATION_TIME | integer | Time until the whole story card cache expires in seconds. Default `HOUR_IN_SECONDS`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.

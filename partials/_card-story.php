@@ -18,6 +18,19 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
+// Card cache?
+$card_cache_active = get_option( 'fictioneer_enable_story_card_caching' );
+
+if ( $card_cache_active ) {
+  $cache_key = $post->ID . '_' . date( 'Y-m-d-H-i-s', strtotime( $post->post_modified_gmt ) ) .
+    '_' . md5( json_encode( $args ) );
+
+  if ( $cache = fictioneer_get_cached_story_card( $cache_key ) ) {
+    echo $cache;
+    return;
+  }
+}
+
 // Setup
 $post_id = $post->ID;
 $story = fictioneer_get_story_data( $post_id );
@@ -71,6 +84,11 @@ $thumbnail_args = array(
   'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
   'class' => 'no-auto-lightbox'
 );
+
+// Buffer HTML for cache if active
+if ( $card_cache_active ) {
+  ob_start();
+}
 
 ?>
 
@@ -253,3 +271,17 @@ $thumbnail_args = array(
 
   </div>
 </li>
+
+<?php
+
+// Capture, store, and output cache if active
+if ( $card_cache_active ) {
+  // Get buffered HTML
+  $cache = fictioneer_minify_html( ob_get_clean() );
+
+  // Save in cache
+  fictioneer_set_story_card_cache( $cache_key, $cache );
+
+  // Render card
+  echo $cache;
+}

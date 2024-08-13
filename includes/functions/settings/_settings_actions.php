@@ -481,6 +481,9 @@ function fictioneer_purge_theme_caches() {
 
   fictioneer_clear_all_cached_partials();
 
+  // Cached story cards
+  fictioneer_purge_story_card_cache();
+
   // Cache busting string
   fictioneer_regenerate_cache_bust();
 
