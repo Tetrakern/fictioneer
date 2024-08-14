@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
   _$$('.story__actions > *').forEach(e => {
     const s = window.getComputedStyle(e);
 
-    if(s.display === 'none' || s.visibility === 'hidden'){
-      e.remove();}
+    if (s.display === 'none' || s.visibility === 'hidden') {
+      e.remove();
+    }
     }
   );
 });
