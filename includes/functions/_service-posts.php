@@ -426,3 +426,64 @@ function fictioneer_expire_post_password( $required, $post ) {
   return $required;
 }
 add_filter( 'post_password_required', 'fictioneer_expire_post_password', 5, 2 );
+
+// =============================================================================
+// STORY COMMENT COUNT
+// =============================================================================
+
+/**
+ * Increments comment count of story by 1
+ *
+ * @since 5.22.3
+ *
+ * @param int $comment_id  ID of the comment belonging to the post
+ */
+
+function fictioneer_increment_story_comment_count( $comment_id ) {
+  // Setup
+  $comment = get_comment( $comment_id );
+
+  if ( ! $comment ) {
+    return;
+  }
+
+  $story_id = get_post_meta( $comment->comment_post_ID, 'fictioneer_chapter_story', true );
+  $story_data = $story_id ? fictioneer_get_story_data( $story_id ) : null;
+
+  // Increment comment count (will be recounted at some later point)
+  if ( $story_data ) {
+    $story_data['comment_count'] = intval( $story_data['comment_count'] ) + 1;
+    update_post_meta( $story_id, 'fictioneer_story_data_collection', $story_data );
+  }
+}
+
+/**
+ * Decrements comment count of story by 1
+ *
+ * @since 5.22.3
+ *
+ * @param int $comment_id  ID of the comment belonging to the post
+ */
+
+function fictioneer_decrement_story_comment_count( $comment_id ) {
+  // Setup
+  $comment = get_comment( $comment_id );
+
+  if ( ! $comment ) {
+    return;
+  }
+
+  $story_id = get_post_meta( $comment->comment_post_ID, 'fictioneer_chapter_story', true );
+  $story_data = $story_id ? fictioneer_get_story_data( $story_id ) : null;
+
+  // Decrement comment count (will be recounted at some later point)
+  if ( $story_data ) {
+    $story_data['comment_count'] = max( 0, intval( $story_data['comment_count'] ) - 1 );
+    update_post_meta( $story_id, 'fictioneer_story_data_collection', $story_data );
+  }
+}
+
+if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
+  add_action( 'wp_insert_comment', 'fictioneer_increment_story_comment_count' );
+  add_action( 'delete_comment', 'fictioneer_decrement_story_comment_count' );
+}

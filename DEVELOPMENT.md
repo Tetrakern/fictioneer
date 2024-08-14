@@ -277,7 +277,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `customize_controls_enqueue_scripts` | `fictioneer_enqueue_customizer_scripts`
 | `customize_register` | `fictioneer_add_customizers`
 | `customize_save_after` | `fictioneer_watch_for_customizer_updates`
-| `delete_comment` | `fictioneer_delete_cached_story_card_by_comment`
+| `delete_comment` | `fictioneer_delete_cached_story_card_by_comment`, `fictioneer_decrement_story_comment_count`
 | `delete_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
 | `do_feed_rss2` | `fictioneer_main_rss_template`
 | `do_meta_boxes` | `fictioneer_remove_custom_fields_meta_boxes`
@@ -312,7 +312,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `wp_enqueue_scripts` | `fictioneer_add_custom_scripts`, `fictioneer_customizer_queue`, `fictioneer_style_queue`
 | `wp_footer` | `fictioneer_render_taxonomy_submenu`
 | `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`, `fictioneer_add_fiction_css`, `fictioneer_output_head_fonts`, `fictioneer_output_head_translations`, `fictioneer_remove_mu_registration_styles`, `fictioneer_output_mu_registration_style`, `fictioneer_output_head_meta`, `fictioneer_output_head_critical_scripts`. `fictioneer_output_head_anti_flicker`
-| `wp_insert_comment` | `fictioneer_delete_cached_story_card_by_comment`
+| `wp_insert_comment` | `fictioneer_delete_cached_story_card_by_comment`, `fictioneer_increment_story_comment_count`
 | `wp_update_nav_menu` | `fictioneer_purge_nav_menu_transients`
 
 <br>
