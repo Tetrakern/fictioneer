@@ -204,7 +204,8 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'words' => filter_var( $attr['words'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'date' => filter_var( $attr['date'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) ),
-    'infobox' => filter_var( $attr['infobox'] ?? 1, FILTER_VALIDATE_BOOLEAN )
+    'infobox' => filter_var( $attr['infobox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
+    'source' => filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN )
   );
 
   //--- Fixes ------------------------------------------------------------------
@@ -483,7 +484,6 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   // Specifics
   $args['simple'] = false;
   $args['spoiler'] = filter_var( $attr['spoiler'] ?? 0, FILTER_VALIDATE_BOOLEAN );
-  $args['source'] = filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN );
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );

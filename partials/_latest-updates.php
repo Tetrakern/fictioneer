@@ -25,6 +25,7 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
+ * @internal $args['source']            Whether to show author and story.
  * @internal $args['vertical']          Whether to show the vertical variant.
  * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
@@ -263,7 +264,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <div class="card__content _small cell-desc">
                 <div class="truncate <?php echo $truncate_factor; ?>">
-                  <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
+                  <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
                     ?></span>

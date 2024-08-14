@@ -14,7 +14,6 @@
  * @internal $args['order']             Order of posts. Default 'DESC'.
  * @internal $args['orderby']           Sorting of posts. Default 'date'.
  * @internal $args['spoiler']           Whether to obscure or show chapter excerpt.
- * @internal $args['source']            Whether to show author and story.
  * @internal $args['post_ids']          Array of post IDs. Default empty.
  * @internal $args['author_ids']        Array of author IDs. Default empty.
  * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
@@ -23,6 +22,8 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
+ * @internal $args['spoiler']           Whether to obscure or show chapter excerpt.
+ * @internal $args['source']            Whether to show author and story.
  * @internal $args['simple']            Whether to show the simple variant.
  * @internal $args['vertical']          Whether to show the vertical variant.
  * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
