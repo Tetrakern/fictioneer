@@ -1098,7 +1098,7 @@ if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
 /**
  * Returns the Transient array with all cached story cards
  *
- * @since 5.22.1
+ * @since 5.22.2
  *
  * @return array Array of cached story cards; empty array if disabled.
  */
@@ -1119,7 +1119,14 @@ function fictioneer_get_story_card_cache() {
   return $fictioneer_story_card_cache;
 }
 
-
+/**
+ * Sets the cache for one story card
+ *
+ * @since 5.22.2
+ *
+ * @param string $key   The cache key of the card.
+ * @param string $card  The HTML of the card.
+ */
 
 function fictioneer_set_story_card_cache( $key, $card ) {
   // Abort if...
@@ -1142,7 +1149,11 @@ function fictioneer_set_story_card_cache( $key, $card ) {
   $fictioneer_story_card_cache[ $key ] = $card;
 }
 
-
+/**
+ * Saves the story card cache array as Transient
+ *
+ * @since 5.22.2
+ */
 
 function fictioneer_save_story_card_cache() {
   // Abort if...
@@ -1160,8 +1171,11 @@ function fictioneer_save_story_card_cache() {
 }
 add_action( 'shutdown', 'fictioneer_save_story_card_cache' );
 
-
-
+/**
+ * Purges the entire story card cache
+ *
+ * @since 5.22.2
+ */
 
 function fictioneer_purge_story_card_cache() {
   // Abort if...
@@ -1176,7 +1190,13 @@ function fictioneer_purge_story_card_cache() {
   delete_transient( 'fictioneer_card_cache' );
 }
 
-
+/**
+ * Deletes a specific card from the story card cache
+ *
+ * @since 5.22.2
+ *
+ * @param int $post_id  Post ID of the story.
+ */
 
 function fictioneer_delete_cached_story_card( $post_id ) {
   // Abort if...
@@ -1212,7 +1232,13 @@ function fictioneer_delete_cached_story_card( $post_id ) {
   }
 }
 
-
+/**
+ * Deletes a specific card from the story card cache by comment ID
+ *
+ * @since 5.22.2
+ *
+ * @param int $comment_id  ID of the comment belonging to the story
+ */
 
 function fictioneer_delete_cached_story_card_by_comment( $comment_id ) {
   // Setup
@@ -1229,7 +1255,15 @@ function fictioneer_delete_cached_story_card_by_comment( $comment_id ) {
 add_action( 'wp_insert_comment', 'fictioneer_delete_cached_story_card_by_comment' );
 add_action( 'delete_comment', 'fictioneer_delete_cached_story_card_by_comment' );
 
-
+/**
+ * Returns the cached HTML for a specific story card
+ *
+ * @since 5.22.2
+ *
+ * @param string $key  The cache key of the card.
+ *
+ * @return string|null HTML of the card or null if not found/disabled.
+ */
 
 function fictioneer_get_cached_story_card( $key ) {
   // Abort if...
