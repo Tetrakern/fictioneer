@@ -69,6 +69,14 @@ function wp_admin_notice( string $message, array $args = array() ) {}
 function elementor_theme_do_location( $location ) {}
 
 /**
+ * WordPress: Clears the plugins cache used by get_plugins() and by default, the plugin updates cache.
+ *
+ * @param string $clear_update_cache  Whether to clear the plugin updates cache. Default true.
+ */
+
+function wp_cache_clean_cache( $clear_update_cache = true ) {}
+
+/**
  * Replaces insecure HTTP URLs to the site in the given content, if configured to do so.
  *
  * @param string $content  Content to replace URLs in.
@@ -79,7 +87,15 @@ function elementor_theme_do_location( $location ) {}
 function wp_replace_insecure_home_url( $content ) {}
 
 /**
- * Use the rocket_clean_domain() function when you want to purge
+ * WP Super Cache: Clear post cache
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function wp_cache_post_change( $post_id ) {}
+
+/**
+ * WP Rocket: Use the rocket_clean_domain() function when you want to purge
  * a complete domain from the cache, that is: clear the cache for
  * your entire website.
  *
@@ -89,15 +105,63 @@ function wp_replace_insecure_home_url( $content ) {}
 function rocket_clean_domain() {}
 
 /**
- * Clears the plugins cache used by get_plugins() and by default, the plugin updates cache.
+ * WP Rocket: Clear post cache
  *
- * @param string $clear_update_cache  Whether to clear the plugin updates cache. Default true.
+ * @link https://docs.wp-rocket.me/article/93-rocketcleanpost
+ *
+ * @param int $post_id  The post ID.
  */
 
-function wp_cache_clean_cache( $clear_update_cache = true ) {}
+function rocket_clean_post( $post_id ) {}
 
 /**
  * W3TC: Purges/Flushes everything
  */
 
 function w3tc_flush_all( $extras = null ) {}
+
+/**
+ * W3TC: Clear post cache
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function w3tc_flush_post( $post_id ) {}
+
+/**
+ * WP-Optimize: Returns instance
+ *
+ * @link https://getwpo.com
+ *
+ * @return WP_Optimize Instance of self.
+ */
+
+function WP_Optimize() {}
+
+/**
+ * WP-Optimize cache class
+ */
+
+class WPO_Page_Cache {
+  /**
+   * Deletes the cache for a single post
+   *
+   * @param int $post_id  The post ID.
+   */
+
+  public static function delete_single_post_cache( $post_id ) {}
+}
+
+/**
+ * WPFC: Clear all cache
+ */
+
+function wpfc_clear_all_cache() {}
+
+/**
+ * WPFC: Clear post cache
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function wpfc_clear_post_cache_by_id( $post_id ) {}
