@@ -2521,10 +2521,12 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
   /**
-   * Return the total word count of all published stories
+   * Returns the total word count of all published stories
    *
    * @since 4.0.0
-   * @see fictioneer_get_story_data()
+   * @since 5.22.3 - Refactored with SQL query for better performance.
+   *
+   * @return int The word count of all published stories.
    */
 
   function fictioneer_get_stories_total_word_count() {
@@ -2536,32 +2538,47 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
       return $transient_word_count_cache;
     }
 
-    // Setup
-    $word_count = 0;
+    global $wpdb;
 
-    // Query all stories
-    $stories = get_posts(
-      array(
-        'numberposts' => -1,
-        'post_type' => 'fcn_story',
-        'post_status' => 'publish',
-        'update_post_meta_cache' => true,
-        'update_post_term_cache' => false, // Improve performance
-        'no_found_rows' => true, // Improve performance
+    // Setup
+    $words = 0;
+
+    // Sum of all word counts
+    $words = $wpdb->get_var(
+      $wpdb->prepare(
+        "
+        SELECT SUM(CAST(pm.meta_value AS UNSIGNED))
+        FROM $wpdb->postmeta AS pm
+        INNER JOIN $wpdb->posts AS p ON pm.post_id = p.ID
+        LEFT JOIN $wpdb->postmeta AS hidden_meta ON hidden_meta.post_id = p.ID AND hidden_meta.meta_key = %s
+        LEFT JOIN $wpdb->postmeta AS no_chapter_meta ON no_chapter_meta.post_id = p.ID AND no_chapter_meta.meta_key = %s
+        WHERE pm.meta_key = %s
+        AND p.post_type IN (%s, %s)
+        AND p.post_status = %s
+        AND (hidden_meta.meta_value IS NULL OR hidden_meta.meta_value = '')
+        AND (no_chapter_meta.meta_value IS NULL OR no_chapter_meta.meta_value = '')
+        ",
+        'fictioneer_chapter_hidden',
+        'fictioneer_chapter_no_chapter',
+        '_word_count',
+        'fcn_chapter',
+        'fcn_story',
+        'publish'
       )
     );
 
-    // Sum of all word counts
-    foreach ( $stories as $story ) {
-      $story_data = fictioneer_get_story_data( $story->ID, false ); // Does not refresh comment count!
-      $word_count += $story_data['word_count'];
+    // Modifiers
+    $multiplier = floatval( get_option( 'fictioneer_word_count_multiplier', 1.0 ) );
+
+    if ( $multiplier !== 1.0 ) {
+      $words = max( 0, intval( $words * $multiplier ) );
     }
 
     // Cache for next time
-    set_transient( 'fictioneer_stories_total_word_count', $word_count, 900 );
+    set_transient( 'fictioneer_stories_total_word_count', $words, 900 );
 
     // Return newly calculated value
-    return $word_count;
+    return $words;
   }
 }
 
