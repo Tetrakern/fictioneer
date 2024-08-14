@@ -36,7 +36,12 @@ $post_id = $post->ID;
 $story = fictioneer_get_story_data( $post_id );
 $story_link = ( $story['redirect'] ?? 0 ) ?: get_permalink( $post_id );
 $latest = $args['show_latest'] ?? FICTIONEER_SHOW_LATEST_CHAPTERS_ON_STORY_CARDS;
-$chapter_ids = array_slice( $story['chapter_ids'], $latest ? -3 : 0, 3, true ); // Does not include hidden or non-chapters
+$chapter_limit = max( 0, FICTIONEER_STORY_CARD_CHAPTER_LIMIT );
+$chapter_ids = array_slice(
+  $story['chapter_ids'],
+  $latest ? -1 * $chapter_limit : 0, $chapter_limit,
+  true
+); // Does not include hidden or non-chapters
 $chapter_count = count( $chapter_ids );
 $excerpt = fictioneer_first_paragraph_as_excerpt(
   fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
@@ -160,7 +165,7 @@ if ( $card_cache_active ) {
               'post_status' => 'publish',
               'post__in' => $chapter_ids ?: [0], // Must not be empty!
               'orderby' => 'post__in',
-              'posts_per_page' => -1,
+              'posts_per_page' => FICTIONEER_STORY_CARD_CHAPTER_LIMIT,
               'no_found_rows' => true, // Improve performance
               'update_post_term_cache' => false // Improve performance
             );

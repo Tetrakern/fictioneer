@@ -298,6 +298,11 @@ if ( ! defined( 'FICTIONEER_CARD_CACHE_EXPIRATION_TIME' ) ) {
   define( 'FICTIONEER_CARD_CACHE_EXPIRATION_TIME', HOUR_IN_SECONDS );
 }
 
+// Integer: Maximum number of chapters shown on story cards
+if ( ! defined( 'FICTIONEER_STORY_CARD_CHAPTER_LIMIT' ) ) {
+  define( 'FICTIONEER_STORY_CARD_CHAPTER_LIMIT', 3 );
+}
+
 /*
  * Booleans
  */
