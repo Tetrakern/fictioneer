@@ -11,7 +11,13 @@ var /** @type {Object} */ fcn_storySettings = fcn_getStorySettings();
 // CLEANUP
 // =============================================================================
 
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Remove hidden story actions after page load
+ *
+ * @since 5.22.2
+ */
+
+function fcn_cleanUpActions() {
   _$$('.story__actions > *').forEach(e => {
     const s = window.getComputedStyle(e);
 
@@ -20,7 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     }
   );
-});
+}
+
+if (fcn_theRoot.dataset.ajaxAuth) {
+  document.addEventListener('fcnAuthReady', () => {
+    fcn_cleanUpActions();
+  });
+} else {
+  document.addEventListener('DOMContentLoaded', () => { fcn_cleanUpActions() });
+}
 
 // =============================================================================
 // LOAD USER SETTINGS
