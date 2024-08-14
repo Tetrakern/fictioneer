@@ -996,6 +996,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
+* **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
@@ -1074,6 +1075,7 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
+* **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
@@ -1121,6 +1123,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
+* **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
@@ -1173,6 +1176,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
+* **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **words:** Whether to show the word count of chapter items. Default `true`.
 * **date:** Whether to show the date of chapter items. Default `true`.
