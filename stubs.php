@@ -77,3 +77,27 @@ function elementor_theme_do_location( $location ) {}
  */
 
 function wp_replace_insecure_home_url( $content ) {}
+
+/**
+ * Use the rocket_clean_domain() function when you want to purge
+ * a complete domain from the cache, that is: clear the cache for
+ * your entire website.
+ *
+ * @link https://docs.wp-rocket.me/article/92-rocketcleandomain
+ */
+
+function rocket_clean_domain() {}
+
+/**
+ * Clears the plugins cache used by get_plugins() and by default, the plugin updates cache.
+ *
+ * @param string $clear_update_cache  Whether to clear the plugin updates cache. Default true.
+ */
+
+function wp_cache_clean_cache( $clear_update_cache = true ) {}
+
+/**
+ * W3TC: Purges/Flushes everything
+ */
+
+function w3tc_flush_all( $extras = null ) {}
