@@ -1270,16 +1270,16 @@ function fictioneer_delete_cached_story_card_by_comment( $comment_id ) {
       fictioneer_delete_cached_story_card( $story_id );
 
       // Update comment count in story meta cache (if story)
-      if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
-        $story_data = fictioneer_get_story_data( $story_id );
+      // if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
+      //   $story_data = fictioneer_get_story_data( $story_id );
 
-        if ( $story_data ) {
-          $story_data['comment_count'] = fictioneer_get_story_comment_count( $story_id );
-          $story_data['comment_count_timestamp'] = time();
+      //   if ( $story_data ) {
+      //     $story_data['comment_count'] = fictioneer_get_story_comment_count( $story_id );
+      //     $story_data['comment_count_timestamp'] = time();
 
-          update_post_meta( $story_id, 'fictioneer_story_data_collection', $story_data );
-        }
-      }
+      //     update_post_meta( $story_id, 'fictioneer_story_data_collection', $story_data );
+      //   }
+      // }
     }
   }
 }
