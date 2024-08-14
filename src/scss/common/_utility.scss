@@ -273,10 +273,11 @@ body:not(.is-editor):not(.is-admin) {
     font: 400 var(--fs-xxs)/1.2 var(--ff-note);
     text-align: center;
     text-shadow: none;
+    white-space: normal;
     padding: 6px 8px;
     border-radius: var(--layout-border-radius-small);
     width: max-content;
-    max-width: 150px;
+    max-width: 160px;
     opacity: 0;
     transform: translate(-50%, -100%);
     transition: opacity .1s;
