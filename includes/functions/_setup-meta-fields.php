@@ -3022,7 +3022,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
     $story_id = absint( $_POST['fictioneer_chapter_story'] );
     $current_story_id = absint( get_post_meta( $post_id, 'fictioneer_chapter_story', true ) );
 
-    if ( $story_id !== $current_story_id ) {
+    if ( $current_story_id && $story_id !== $current_story_id ) {
       // Make sure the chapter is not in the list of the wrong story
       $other_story_chapters = fictioneer_get_story_chapter_ids( $current_story_id );
       $other_story_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );

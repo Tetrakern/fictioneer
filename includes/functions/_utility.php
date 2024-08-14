@@ -1278,8 +1278,8 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
   // Setup
   $story = get_post( $story_id );
 
-  // Abort if story not found
-  if ( ! $story || ! $story_id ) {
+  // Abort if story not found or not a story
+  if ( ! $story || $story->post_type !== 'fcn_story' ) {
     return;
   }
 
