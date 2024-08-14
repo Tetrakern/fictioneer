@@ -1216,18 +1216,6 @@ function fictioneer_delete_cached_story_card( $post_id ) {
   foreach ( $fictioneer_story_card_cache as $key => $value ) {
     if ( strpos( $key, $post_id . '_' ) === 0 ) {
       unset( $fictioneer_story_card_cache[ $key ] );
-
-      // Update comment count in story meta cache (if story)
-      if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
-        $story_data = fictioneer_get_story_data( $post_id );
-
-        if ( $story_data ) {
-          $story_data['comment_count'] = fictioneer_get_story_comment_count( $post_id );
-          $story_data['comment_count_timestamp'] = time();
-
-          update_post_meta( $post_id, 'fictioneer_story_data_collection', $story_data );
-        }
-      }
     }
   }
 }
@@ -1267,6 +1255,11 @@ add_action( 'save_post', 'fictioneer_delete_cached_story_card_after_update' );
  */
 
 function fictioneer_delete_cached_story_card_by_comment( $comment_id ) {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+    return;
+  }
+
   // Setup
   $comment = get_comment( $comment_id );
 
@@ -1275,6 +1268,18 @@ function fictioneer_delete_cached_story_card_by_comment( $comment_id ) {
 
     if ( $story_id ) {
       fictioneer_delete_cached_story_card( $story_id );
+
+      // Update comment count in story meta cache (if story)
+      if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
+        $story_data = fictioneer_get_story_data( $story_id );
+
+        if ( $story_data ) {
+          $story_data['comment_count'] = fictioneer_get_story_comment_count( $story_id );
+          $story_data['comment_count_timestamp'] = time();
+
+          update_post_meta( $story_id, 'fictioneer_story_data_collection', $story_data );
+        }
+      }
     }
   }
 }
