@@ -1233,6 +1233,32 @@ function fictioneer_delete_cached_story_card( $post_id ) {
 }
 
 /**
+ * Deletes a specific card from the story card cache after update
+ *
+ * @since 5.22.3
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_delete_cached_story_card_after_update( $post_id ) {
+  // Story?
+  if ( get_post_type( $post_id ) === 'fcn_story' ) {
+    fictioneer_delete_cached_story_card( $post_id );
+    return;
+  }
+
+  // Chapter?
+  if ( get_post_type( $post_id ) === 'fcn_chapter' ) {
+    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+
+    if ( $story_id ) {
+      fictioneer_delete_cached_story_card( $story_id );
+    }
+  }
+}
+add_action( 'save_post', 'fictioneer_delete_cached_story_card_after_update' );
+
+/**
  * Deletes a specific card from the story card cache by comment ID
  *
  * @since 5.22.2
