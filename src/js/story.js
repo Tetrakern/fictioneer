@@ -8,6 +8,20 @@ var /** @type {Number} */ fcn_storyCommentPage = 1;
 var /** @type {Object} */ fcn_storySettings = fcn_getStorySettings();
 
 // =============================================================================
+// CLEANUP
+// =============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  _$$('.story__actions > *').forEach(e => {
+    const s = window.getComputedStyle(e);
+
+    if(s.display === 'none' || s.visibility === 'hidden'){
+      e.remove();}
+    }
+  );
+});
+
+// =============================================================================
 // LOAD USER SETTINGS
 // =============================================================================
 
