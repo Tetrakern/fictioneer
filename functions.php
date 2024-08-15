@@ -275,7 +275,7 @@ if ( ! defined( 'FICTIONEER_REQUESTS_PER_MINUTE' ) ) {
 // to prevent performance degradation. If exceeded, the whole argument will be
 // ignored in certain queries, which account for.
 if ( ! defined( 'FICTIONEER_QUERY_ID_ARRAY_LIMIT' ) ) {
-  define( 'FICTIONEER_QUERY_ID_ARRAY_LIMIT', 100 );
+  define( 'FICTIONEER_QUERY_ID_ARRAY_LIMIT', 1000 );
 }
 
 // Integer: Time until a user's Patreon data expires in seconds
