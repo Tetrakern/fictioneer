@@ -371,7 +371,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       }
     }
 
-    // Count chapters and words
+    // Count chapters, words, comments, etc.
     if ( ! empty( $chapters ) ) {
       foreach ( $chapters as $chapter ) {
         // This is about 50 times faster than using a meta query lol

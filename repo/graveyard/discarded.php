@@ -774,4 +774,57 @@ function fictioneer_defer_css( $html, $handle, $href ) {
 //   add_filter( 'style_loader_tag', 'fictioneer_defer_css', 10, 3 );
 // }
 
-?>
+// =============================================================================
+// SQL TO GET STORY WORD COUNT AND CHAPTERS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_story_word_count' ) ) {
+  function fictioneer_get_story_word_and_chapter_count( $post_id, $chapter_ids = null ) {
+    global $wpdb;
+
+    // Prepare
+    $chapter_ids = $chapter_ids ?? fictioneer_get_story_chapter_ids();
+    $chapter_ids[] = $post_id; // Also count story post words
+    $placeholders = implode( ',', array_fill( 0, count( $chapter_ids ), '%d' ) );
+
+    // SQL Query
+    $query = $wpdb->prepare(
+      "
+      SELECT
+        SUM(meta_word_count.meta_value) AS total_word_count,
+        COUNT(posts.ID) AS matched_posts_count
+      FROM {$wpdb->posts} AS posts
+      INNER JOIN {$wpdb->postmeta} AS meta_word_count
+        ON (posts.ID = meta_word_count.post_id AND meta_word_count.meta_key = '_word_count')
+      LEFT JOIN {$wpdb->postmeta} AS meta_hidden
+        ON (posts.ID = meta_hidden.post_id AND meta_hidden.meta_key = 'fictioneer_chapter_hidden')
+      LEFT JOIN {$wpdb->postmeta} AS meta_no_chapter
+        ON (posts.ID = meta_no_chapter.post_id AND meta_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
+      WHERE (posts.post_type = 'fcn_chapter' OR posts.post_type = 'fcn_story')
+      AND posts.ID IN ($placeholders)
+      AND posts.post_status = 'publish'
+      AND (meta_hidden.meta_value IS NULL OR meta_hidden.meta_value = '')
+      AND (meta_no_chapter.meta_value IS NULL OR meta_no_chapter.meta_value = '')
+      ",
+      ...$chapter_ids
+    );
+
+    // Execute
+    $results = $wpdb->get_row( $query );
+
+    // Get values and apply filters
+    $words = $results->total_word_count;
+    $chapter_count = $results->matched_posts_count - 1; // Remove story post
+    $multiplier = floatval( get_option( 'fictioneer_word_count_multiplier', 1.0 ) );
+
+    if ( $multiplier !== 1.0 ) {
+      $words = intval( $words * $multiplier );
+    }
+
+    // Return results as array
+    return array(
+      'word_count' => $words > 0 ? $words : 0,
+      'chapter_count' => $chapter_count
+    );
+  }
+}
