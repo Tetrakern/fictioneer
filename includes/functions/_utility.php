@@ -197,13 +197,15 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
  * Returns array of chapter posts for a story
  *
  * @since 5.9.2
+ * @since 5.22.3 - Added $args parameter.
  *
- * @param int $story_id  ID of the story.
+ * @param int   $story_id  ID of the story.
+ * @param array $args      Optional. Additional query arguments.
  *
  * @return array Array of chapter posts or empty.
  */
 
-function fictioneer_get_story_chapter_posts( $story_id ) {
+function fictioneer_get_story_chapter_posts( $story_id, $args = [] ) {
   // Setup
   $chapter_ids = fictioneer_get_story_chapter_ids( $story_id );
 
@@ -228,6 +230,7 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
       'update_post_term_cache' => false // Improve performance
     );
 
+    $query_args = array_merge( $query_args, $args );
     $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args, $story_id, $chapter_ids );
 
     $chapter_query = new WP_Query( $query_args );
@@ -248,6 +251,7 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
     'update_post_term_cache' => false // Improve performance
   );
 
+  $query_args = array_merge( $query_args, $args );
   $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args, $story_id, $chapter_ids );
 
   $chapter_query = new WP_Query( $query_args );
@@ -449,7 +453,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 function fictioneer_get_story_comment_count( $story_id, $chapters = null ) {
   // Setup
   $comment_count = 0;
-  $chapters = $chapters ?? fictioneer_get_story_chapter_posts( $story_id );
+  $chapters = $chapters ?? fictioneer_get_story_chapter_posts( $story_id, array( 'update_post_meta_cache' => false ) );
 
   // Counting the stored comment count of chapters is typically
   // faster than querying and counting all comments.
