@@ -679,6 +679,10 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
       // Beware: This is an option, not a Transient!
       update_option( 'fictioneer_story_or_chapter_updated_timestamp', time() * 1000 );
 
+      // Clear meta caches
+      delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+      delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
+
       // Refresh cached HTML output
       delete_transient( 'fictioneer_story_chapter_list_html' . $story_id );
 
