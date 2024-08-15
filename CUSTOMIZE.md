@@ -515,3 +515,33 @@ add_action( 'fictioneer_chapter_before_header', 'child_display_chapter_taxonomie
 // ... or at the bottom for whatever reason
 add_action( 'fictioneer_chapter_after_content', 'child_display_chapter_taxonomies', 5 );
 ```
+
+## Remove theme metaboxes
+
+Maybe you do not want the "Support Links" or "Extra" meat boxes. You can disable them by removing the actions from the respective hooks, which must be done with a priority later than 10.
+
+**References**
+* Action: [add_meta_boxes](https://developer.wordpress.org/reference/hooks/add_meta_boxes/)
+* Action: [save_post](https://developer.wordpress.org/reference/hooks/save_post/)
+* Include: [_setup-meta-fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_setup-meta-fields.php)
+
+```php
+/**
+ * Removes selected theme metaboxes and save actions
+ *
+ * @since x.x.x
+ */
+
+function child_remove_metaboxes() {
+  // Remove "Extra" metabox
+  remove_meta_box(
+    'fictioneer-extra',
+    ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
+    'side'
+  );
+
+  // Remove saving action too
+  remove_action( 'save_post', 'fictioneer_save_extra_metabox' );
+}
+add_action( 'add_meta_boxes', 'child_remove_metaboxes', 99 );
+```
