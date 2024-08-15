@@ -179,7 +179,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           foreach ( $search_list as $chapter_id ) {
             $chapter_post = get_post( $chapter_id );
 
-            if ( $chapter_post->post_password || get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
+            if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
+              continue;
+            }
+
+            if ( $args['ignore_protected'] && $chapter_post->post_password ) {
               continue;
             }
 
