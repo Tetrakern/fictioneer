@@ -377,7 +377,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           // Do not count non-chapters...
           if ( ! get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ) {
             $chapter_count += 1;
-            $word_count += fictioneer_get_word_count( $chapter->ID );
+            $word_count += get_post_meta( $chapter->ID, '_word_count', true );
           }
 
           // ... but they are still listed!
@@ -395,14 +395,17 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     }
 
     // Add story word count
-    $word_count += fictioneer_get_word_count( $story_id );
+    $word_count += get_post_meta( $story_id, '_word_count', true );
+
+    // Customize word count
+    $modified_word_count = fictioneer_multiply_word_count( $word_count );
 
     // Prepare result
     $result = array(
       'id' => $story_id,
       'chapter_count' => $chapter_count,
-      'word_count' => $word_count,
-      'word_count_short' => fictioneer_shorten_number( $word_count ),
+      'word_count' => $modified_word_count,
+      'word_count_short' => fictioneer_shorten_number( $modified_word_count ),
       'status' => $status,
       'icon' => $icon,
       'has_taxonomies' => $fandoms || $characters || $genres,
@@ -1082,6 +1085,7 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
    *
    * @since 5.8.2
    * @since 5.9.4 - Add logic for optional multiplier.
+   * @since 5.22.3 - Moved multiplier to fictioneer_multiply_word_count()
    *
    * @param int $post_id  Optional. The ID of the post the field belongs to.
    *                      Defaults to current post ID.
@@ -1092,9 +1096,48 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
   function fictioneer_get_word_count( $post_id = null ) {
     // Setup
     $words = get_post_meta( $post_id ?? get_the_ID(), '_word_count', true );
-    $words = (int) $words;
+
+    // Apply multiplier and return
+    return fictioneer_multiply_word_count( $words );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_get_story_word_count' ) ) {
+  /**
+   * Returns word count for the whole story
+   *
+   * @since 5.22.3
+   *
+   * @param int $post_id  Post ID of the story.
+   *
+   * @return int The word count or 0.
+   */
+
+  function fictioneer_get_story_word_count( $post_id = null ) {
+    // Setup
+    $words = get_post_meta( $post_id, 'fictioneer_story_total_word_count', true ) ?: 0;
+
+    // Apply multiplier and return
+    return fictioneer_multiply_word_count( $words );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_multiply_word_count' ) ) {
+  /**
+   * Multiplies word count with factor from options
+   *
+   * @since 5.22.3
+   *
+   * @param int $words  Word count.
+   *
+   * @return int The updated word count.
+   */
+
+  function fictioneer_multiply_word_count( $words ) {
+    // Setup
     $multiplier = floatval( get_option( 'fictioneer_word_count_multiplier', 1.0 ) );
 
+    // Multiply
     if ( $multiplier !== 1.0 ) {
       $words = intval( $words * $multiplier );
     }
@@ -2542,6 +2585,8 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
   /**
    * Returns the total word count of all published stories
    *
+   * Note: Does not include standalone chapters for performance reasons.
+   *
    * @since 4.0.0
    * @since 5.22.3 - Refactored with SQL query for better performance.
    *
@@ -2569,29 +2614,18 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
         SELECT SUM(CAST(pm.meta_value AS UNSIGNED))
         FROM $wpdb->postmeta AS pm
         INNER JOIN $wpdb->posts AS p ON pm.post_id = p.ID
-        LEFT JOIN $wpdb->postmeta AS hidden_meta ON hidden_meta.post_id = p.ID AND hidden_meta.meta_key = %s
-        LEFT JOIN $wpdb->postmeta AS no_chapter_meta ON no_chapter_meta.post_id = p.ID AND no_chapter_meta.meta_key = %s
         WHERE pm.meta_key = %s
-        AND p.post_type IN (%s, %s)
+        AND p.post_type = %s
         AND p.post_status = %s
-        AND (hidden_meta.meta_value IS NULL OR hidden_meta.meta_value = '')
-        AND (no_chapter_meta.meta_value IS NULL OR no_chapter_meta.meta_value = '')
         ",
-        'fictioneer_chapter_hidden',
-        'fictioneer_chapter_no_chapter',
-        '_word_count',
-        'fcn_chapter',
+        'fictioneer_story_total_word_count',
         'fcn_story',
         'publish'
       )
     );
 
-    // Modifiers
-    $multiplier = floatval( get_option( 'fictioneer_word_count_multiplier', 1.0 ) );
-
-    if ( $multiplier !== 1.0 ) {
-      $words = max( 0, intval( $words * $multiplier ) );
-    }
+    // Customize
+    $words = fictioneer_multiply_word_count( $words );
 
     // Cache for next time
     set_transient( 'fictioneer_stories_total_word_count', $words, DAY_IN_SECONDS );

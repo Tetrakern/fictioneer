@@ -59,7 +59,7 @@ if ( $stories->have_posts() ) {
       'title' => $title,
       'link' => get_post_meta( $story_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story_id ),
       'date' => get_the_date( $story_id ),
-      'total_words' => absint( get_post_meta( $story_id, 'fictioneer_story_total_word_count', true ) ?? 0 ),
+      'total_words' => fictioneer_get_story_word_count( $story_id ),
       'rating' => get_post_meta( $story_id, 'fictioneer_story_rating', true ),
       'status' => get_post_meta( $story_id, 'fictioneer_story_status', true )
     );
