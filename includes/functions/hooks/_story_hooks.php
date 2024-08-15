@@ -60,7 +60,7 @@ function fictioneer_stories_statistics( $args ) {
     $statistics = apply_filters( 'fictioneer_filter_stories_statistics', $statistics, $args );
 
     // Cache for next time
-    set_transient( 'fictioneer_stories_statistics', $statistics, 900 );
+    set_transient( 'fictioneer_stories_statistics', $statistics, HOUR_IN_SECONDS );
   }
 
   // Start HTML ---> ?>

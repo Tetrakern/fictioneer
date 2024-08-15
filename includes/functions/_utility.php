@@ -2596,7 +2596,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
     }
 
     // Cache for next time
-    set_transient( 'fictioneer_stories_total_word_count', $words, 900 );
+    set_transient( 'fictioneer_stories_total_word_count', $words, DAY_IN_SECONDS );
 
     // Return newly calculated value
     return $words;
