@@ -320,7 +320,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         $comment_count = $meta_cache['comment_count'];
 
         if ( count( $meta_cache['chapter_ids'] ) > 0 ) {
-          $comment_count = fictioneer_get_story_comment_count( $story_id );
+          $comment_count = fictioneer_get_story_comment_count( $story_id, $meta_cache['chapter_ids'] );
         }
 
         $meta_cache['comment_count'] = $comment_count;
@@ -442,25 +442,42 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
  *
  * Note: Includes hidden and non-chapter posts.
  *
- * @since 4.22.2
+ * @since 5.22.2
+ * @since 5.22.3 - Switched to SQL query.
  *
- * @param int        $story_id  ID of the story.
- * @param array|null $chapters  Optional. Array of WP_Post chapter objects.
+ * @param int        $story_id     ID of the story.
+ * @param array|null $chapter_ids  Optional. Array of chapter IDs.
  *
  * @return int Number of comments.
  */
 
-function fictioneer_get_story_comment_count( $story_id, $chapters = null ) {
+function fictioneer_get_story_comment_count( $story_id, $chapter_ids = null ) {
   // Setup
   $comment_count = 0;
-  $chapters = $chapters ?? fictioneer_get_story_chapter_posts( $story_id, array( 'update_post_meta_cache' => false ) );
+  $chapter_ids = $chapter_ids ?? fictioneer_get_story_chapter_ids( $story_id );
 
-  // Counting the stored comment count of chapters is typically
-  // faster than querying and counting all comments.
-  if ( ! empty( $chapters ) ) {
-    foreach ( $chapters as $chapter ) {
-      $comment_count += $chapter->comment_count;
-    }
+  // No chapters?
+  if ( empty( $chapter_ids ) ) {
+    return 0;
+  }
+
+  // SQL
+  global $wpdb;
+
+  $chunks = array_chunk( $chapter_ids, FICTIONEER_QUERY_ID_ARRAY_LIMIT );
+
+  foreach  ($chunks as $chunk ) {
+    $placeholders = implode( ',', array_fill( 0, count( $chunk ), '%d' ) );
+    $query = $wpdb->prepare("
+      SELECT COUNT(comment_ID)
+      FROM {$wpdb->comments} c
+      INNER JOIN {$wpdb->posts} p ON c.comment_post_ID = p.ID
+      WHERE p.post_type = 'fcn_chapter'
+      AND p.ID IN ($placeholders)
+      AND c.comment_approved = '1'
+    ", ...$chunk );
+
+    $comment_count += $wpdb->get_var( $query );
   }
 
   // Return result
