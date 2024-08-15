@@ -197,7 +197,7 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
  * Returns array of chapter posts for a story
  *
  * @since 5.9.2
- * @since 5.22.3 - Added $args parameter.
+ * @since 5.22.3 - Refactored.
  *
  * @param int   $story_id  ID of the story.
  * @param array $args      Optional. Additional query arguments.
@@ -206,6 +206,9 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
  */
 
 function fictioneer_get_story_chapter_posts( $story_id, $args = [] ) {
+  // Static variable cache
+  static $cached_results = [];
+
   // Setup
   $chapter_ids = fictioneer_get_story_chapter_ids( $story_id );
 
@@ -214,62 +217,57 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [] ) {
     return [];
   }
 
-  // Few chapters?
-  if ( count( $chapter_ids ) <= FICTIONEER_QUERY_ID_ARRAY_LIMIT ) {
-    // Query with post__in, which should be faster than meta query
-    // as long as the ID array is not too large.
-    $query_args = array(
-      'fictioneer_query_name' => 'get_story_chapter_posts_by_post__in',
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'publish',
-      'post__in' => $chapter_ids ?: [0], // Must not be empty!
-      'orderby' => 'post__in',
-      'ignore_sticky_posts' => true,
-      'posts_per_page' => -1,
-      'no_found_rows' => true, // Improve performance
-      'update_post_term_cache' => false // Improve performance
-    );
-
-    $query_args = array_merge( $query_args, $args );
-    $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args, $story_id, $chapter_ids );
-
-    $chapter_query = new WP_Query( $query_args );
-
-    return $chapter_query->posts;
-  }
-
-  // Query
+  // Query arguments
   $query_args = array(
-    'fictioneer_query_name' => 'get_story_chapter_posts_by_meta',
+    'fictioneer_query_name' => 'get_story_chapter_posts',
     'post_type' => 'fcn_chapter',
     'post_status' => 'publish',
-    'meta_key' => 'fictioneer_chapter_story',
-    'meta_value' => $story_id,
     'ignore_sticky_posts' => true,
-    'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+    'posts_per_page' => -1,
     'no_found_rows' => true, // Improve performance
     'update_post_term_cache' => false // Improve performance
   );
 
+  // Apply filters and custom arguments
   $query_args = array_merge( $query_args, $args );
   $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args, $story_id, $chapter_ids );
 
-  $chapter_query = new WP_Query( $query_args );
+  // Static cache key
+  $cache_key = $story_id . '_' . md5( serialize( $query_args ) );
 
-  // Filter out chapters not included in chapter ID array
-  $filtered_chapters = array_filter( $chapter_query->posts, function( $post ) use ( $chapter_ids ) {
-    return in_array( $post->ID, $chapter_ids );
+  // Static cache hit?
+  if ( isset( $cached_results[ $cache_key ] ) ) {
+    return $cached_results[ $cache_key ];
+  }
+
+  // Batched or one go?
+  if ( count( $chapter_ids ) <= FICTIONEER_QUERY_ID_ARRAY_LIMIT ) {
+    $query_args['post__in'] = $chapter_ids ?: [0];
+    $chapter_query = new WP_Query( $query_args );
+    $chapter_posts = $chapter_query->posts;
+  } else {
+    $chapter_posts = [];
+    $batches = array_chunk( $chapter_ids, FICTIONEER_QUERY_ID_ARRAY_LIMIT );
+
+    foreach ( $batches as $batch ) {
+      $query_args['post__in'] = $batch ?: [0];
+      $chapter_query = new WP_Query( $query_args );
+      $chapter_posts = array_merge( $chapter_posts, $chapter_query->posts );
+    }
+  }
+
+  // Restore order
+  $chapter_positions = array_flip( $chapter_ids );
+
+  usort( $chapter_posts, function( $a, $b ) use ( $chapter_positions ) {
+    return $chapter_positions[ $a->ID ] - $chapter_positions[ $b->ID ];
   });
 
-  // Sort by order of chapter ID array
-  usort( $filtered_chapters, function( $a, $b ) use ( $chapter_ids ) {
-    $pos_a = array_search( $a->ID, $chapter_ids );
-    $pos_b = array_search( $b->ID, $chapter_ids );
-    return $pos_a - $pos_b;
-  });
+  // Cache for subsequent calls
+  $cached_results[ $cache_key ] = $chapter_posts;
 
   // Return chapters selected in story
-  return $filtered_chapters;
+  return $chapter_posts;
 }
 
 // =============================================================================
