@@ -1559,7 +1559,7 @@ function fictioneer_save_query_result_cache_registry() {
   if ( $count > FICTIONEER_QUERY_RESULT_CACHE_LIMIT ) {
     $fictioneer_query_result_registry = array_slice(
       $fictioneer_query_result_registry,
-      $count - FICTIONEER_QUERY_RESULT_CACHE_LIMIT,
+      0,
       FICTIONEER_QUERY_RESULT_CACHE_LIMIT,
       true
     );
