@@ -1361,6 +1361,9 @@ function fictioneer_get_query_result_cache_registry() {
     return [];
   }
 
+  // Initialize lock to avoid race conditions
+  fictioneer_query_result_cache_lock();
+
   // Initialize global cache variable
   global $fictioneer_query_result_registry;
 
@@ -1375,6 +1378,35 @@ function fictioneer_get_query_result_cache_registry() {
 
   // Return array for good measure, but the global will do
   return $fictioneer_query_result_registry;
+}
+
+/**
+ * Checks whether the registry is locked by another process
+ *
+ * Note: Locks the registry for 30 seconds if currently unlocked,
+ * which needs to be cleared afterwards. The lock state for this
+ * process is cached in a static variable.
+ *
+ * @since 5.22.3
+ *
+ * @return bool True if locked, false if free for this process.
+ */
+
+function fictioneer_query_result_cache_lock() {
+  static $lock = null;
+
+  if ( $lock !== null ) {
+    return $lock;
+  }
+
+  if ( get_transient( 'fictioneer_query_result_cache_lock' ) ) {
+    $lock = true;
+  } else {
+    set_transient( 'fictioneer_query_result_cache_lock', 1, 30 );
+    $lock = false;
+  }
+
+  return $lock;
 }
 
 /**
@@ -1394,7 +1426,7 @@ function fictioneer_get_query_result_cache_registry() {
 
 function fictioneer_cache_query_result( $key, $result ) {
   // Abort if...
-  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING ) {
+  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING || fictioneer_query_result_cache_lock() ) {
     return;
   }
 
@@ -1503,7 +1535,7 @@ function fictioneer_delete_cached_query_result( $key ) {
 
 function fictioneer_save_query_result_cache_registry() {
   // Abort if...
-  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING ) {
+  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING || fictioneer_query_result_cache_lock() ) {
     return;
   }
 
@@ -1517,5 +1549,8 @@ function fictioneer_save_query_result_cache_registry() {
   ) {
     update_option( 'fictioneer_query_cache_registry', $fictioneer_query_result_registry ?: [] );
   }
+
+  // Clear lock
+  delete_transient( 'fictioneer_query_result_cache_lock' );
 }
 add_action( 'shutdown', 'fictioneer_save_query_result_cache_registry' );
