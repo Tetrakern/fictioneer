@@ -313,6 +313,11 @@ if ( ! defined( 'FICTIONEER_QUERY_RESULT_CACHE_LIMIT' ) ) {
   define( 'FICTIONEER_QUERY_RESULT_CACHE_LIMIT', 50 );
 }
 
+// Integer: Limit the number of large query result cache uploads per request
+if ( ! defined( 'FICTIONEER_QUERY_RESULT_CACHE_BREAK' ) ) {
+  define( 'FICTIONEER_QUERY_RESULT_CACHE_BREAK', 3 );
+}
+
 /*
  * Booleans
  */

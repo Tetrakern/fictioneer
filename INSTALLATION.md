@@ -1602,6 +1602,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_STORY_CARD_CHAPTER_LIMIT | integer | Maximum number of chapters shown on story cards. Default 3.
 | FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD | integer | Count of a query result required to be eligible for caching. Default `75`.
 | FICTIONEER_QUERY_RESULT_CACHE_LIMIT | integer | Number of query results cached if the feature is enabled. Default `50`.
+| FICTIONEER_QUERY_RESULT_CACHE_BREAK | integer | Limit the number of large query result cache uploads per request. Default `3`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
