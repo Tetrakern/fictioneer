@@ -285,7 +285,7 @@ if ( $card_cache_active ) {
   $cache = fictioneer_minify_html( ob_get_clean() );
 
   // Save in cache
-  fictioneer_set_story_card_cache( $cache_key, $cache );
+  fictioneer_cache_story_card( $cache_key, $cache );
 
   // Render card
   echo $cache;

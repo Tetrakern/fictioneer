@@ -1111,6 +1111,35 @@ if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
 // =============================================================================
 
 /**
+ * Checks whether the story card cache is locked by another process
+ *
+ * Note: Locks the Transient for 30 seconds if currently unlocked,
+ * which needs to be cleared afterwards. The lock state for this
+ * process is cached in a static variable.
+ *
+ * @since 5.22.3
+ *
+ * @return bool True if locked, false if free for this process.
+ */
+
+function fictioneer_story_card_cache_lock() {
+  static $lock = null;
+
+  if ( $lock !== null ) {
+    return $lock;
+  }
+
+  if ( get_transient( 'fictioneer_story_card_cache_lock' ) ) {
+    $lock = true;
+  } else {
+    set_transient( 'fictioneer_story_card_cache_lock', 1, 30 );
+    $lock = false;
+  }
+
+  return $lock;
+}
+
+/**
  * Returns the Transient array with all cached story cards
  *
  * @since 5.22.2
@@ -1124,6 +1153,9 @@ function fictioneer_get_story_card_cache() {
     return [];
   }
 
+  // Initialize lock to avoid race conditions
+  fictioneer_story_card_cache_lock();
+
   // Initialize global cache variable
   global $fictioneer_story_card_cache;
 
@@ -1135,7 +1167,7 @@ function fictioneer_get_story_card_cache() {
 }
 
 /**
- * Sets the cache for one story card
+ * Adds a story card to the cache
  *
  * @since 5.22.2
  *
@@ -1143,9 +1175,9 @@ function fictioneer_get_story_card_cache() {
  * @param string $card  The HTML of the card.
  */
 
-function fictioneer_set_story_card_cache( $key, $card ) {
+function fictioneer_cache_story_card( $key, $card ) {
   // Abort if...
-  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING || fictioneer_story_card_cache_lock() ) {
     return;
   }
 
@@ -1157,7 +1189,7 @@ function fictioneer_set_story_card_cache( $key, $card ) {
     $fictioneer_story_card_cache = fictioneer_get_story_card_cache();
   }
 
-  // Remove cached card...
+  // Remove cached card (if set)...
   unset( $fictioneer_story_card_cache[ $key ] );
 
   // ... and append at the end
@@ -1165,40 +1197,43 @@ function fictioneer_set_story_card_cache( $key, $card ) {
 }
 
 /**
- * Saves the story card cache array as Transient
+ * Returns the cached HTML for a specific story card
  *
  * @since 5.22.2
+ *
+ * @param string $key  The cache key of the card.
+ *
+ * @return string|null HTML of the card or null if not found/disabled.
  */
 
-function fictioneer_save_story_card_cache() {
+function fictioneer_get_cached_story_card( $key ) {
   // Abort if...
   if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
-    return;
+    return null;
   }
 
   // Initialize global cache variable
   global $fictioneer_story_card_cache;
 
-  if ( ! is_array( $fictioneer_story_card_cache ) ) {
-    return;
+  // Setup
+  if ( ! $fictioneer_story_card_cache ) {
+    $fictioneer_story_card_cache = fictioneer_get_story_card_cache();
   }
 
-  // Ensure the limit is respected
-  $count = count( $fictioneer_story_card_cache );
+  // Look in currently cached cards...
+  if ( $card = ( $fictioneer_story_card_cache[ $key ] ?? 0 ) ) {
+    // Remove cached card...
+    unset( $fictioneer_story_card_cache[ $key ] );
 
-  if ( $count > FICTIONEER_CARD_CACHE_LIMIT ) {
-    $fictioneer_story_card_cache = array_slice(
-      $fictioneer_story_card_cache,
-      $count - FICTIONEER_CARD_CACHE_LIMIT,
-      FICTIONEER_CARD_CACHE_LIMIT,
-      true
-    );
+    // ... and append at the end
+    $fictioneer_story_card_cache[ $key ] = $card;
+  } else {
+    return null;
   }
 
-  // Save Transient
-  set_transient( 'fictioneer_card_cache', $fictioneer_story_card_cache, FICTIONEER_CARD_CACHE_EXPIRATION_TIME );
+  // Return cached card
+  return $card;
 }
-add_action( 'shutdown', 'fictioneer_save_story_card_cache' );
 
 /**
  * Purges the entire story card cache
@@ -1304,47 +1339,76 @@ add_action( 'wp_insert_comment', 'fictioneer_delete_cached_story_card_by_comment
 add_action( 'delete_comment', 'fictioneer_delete_cached_story_card_by_comment' );
 
 /**
- * Returns the cached HTML for a specific story card
+ * Saves the story card cache array as Transient
  *
  * @since 5.22.2
- *
- * @param string $key  The cache key of the card.
- *
- * @return string|null HTML of the card or null if not found/disabled.
  */
 
-function fictioneer_get_cached_story_card( $key ) {
+function fictioneer_save_story_card_cache() {
   // Abort if...
-  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING ) {
-    return null;
+  if ( ! FICTIONEER_ENABLE_STORY_CARD_CACHING || fictioneer_story_card_cache_lock() ) {
+    return;
   }
+
+  // Clear lock
+  delete_transient( 'fictioneer_story_card_cache_lock' );
 
   // Initialize global cache variable
   global $fictioneer_story_card_cache;
 
-  // Setup
-  if ( ! $fictioneer_story_card_cache ) {
-    $fictioneer_story_card_cache = fictioneer_get_story_card_cache();
+  if ( ! is_array( $fictioneer_story_card_cache ) ) {
+    return;
   }
 
-  // Look in currently cached cards...
-  if ( $card = ( $fictioneer_story_card_cache[ $key ] ?? 0 ) ) {
-    // Remove cached card...
-    unset( $fictioneer_story_card_cache[ $key ] );
+  // Ensure the limit is respected
+  $count = count( $fictioneer_story_card_cache );
 
-    // ... and append at the end
-    $fictioneer_story_card_cache[ $key ] = $card;
-  } else {
-    return null;
+  if ( $count > FICTIONEER_CARD_CACHE_LIMIT ) {
+    $fictioneer_story_card_cache = array_slice(
+      $fictioneer_story_card_cache,
+      $count - FICTIONEER_CARD_CACHE_LIMIT,
+      FICTIONEER_CARD_CACHE_LIMIT,
+      true
+    );
   }
 
-  // Return cached card
-  return $card;
+  // Save Transient
+  set_transient( 'fictioneer_card_cache', $fictioneer_story_card_cache, FICTIONEER_CARD_CACHE_EXPIRATION_TIME );
 }
+add_action( 'shutdown', 'fictioneer_save_story_card_cache' );
 
 // =============================================================================
 // TRANSIENT QUERY RESULT CACHE
 // =============================================================================
+
+/**
+ * Checks whether the registry is locked by another process
+ *
+ * Note: Locks the registry for 30 seconds if currently unlocked,
+ * which needs to be cleared afterwards. The lock state for this
+ * process is cached in a static variable.
+ *
+ * @since 5.22.3
+ *
+ * @return bool True if locked, false if free for this process.
+ */
+
+function fictioneer_query_result_cache_lock() {
+  static $lock = null;
+
+  if ( $lock !== null ) {
+    return $lock;
+  }
+
+  if ( get_transient( 'fictioneer_query_result_cache_lock' ) ) {
+    $lock = true;
+  } else {
+    set_transient( 'fictioneer_query_result_cache_lock', 1, 30 );
+    $lock = false;
+  }
+
+  return $lock;
+}
 
 /**
  * Returns the global registry array for cached query results
@@ -1382,35 +1446,6 @@ function fictioneer_get_query_result_cache_registry() {
 
   // Return array for good measure, but the global will do
   return $fictioneer_query_result_registry;
-}
-
-/**
- * Checks whether the registry is locked by another process
- *
- * Note: Locks the registry for 30 seconds if currently unlocked,
- * which needs to be cleared afterwards. The lock state for this
- * process is cached in a static variable.
- *
- * @since 5.22.3
- *
- * @return bool True if locked, false if free for this process.
- */
-
-function fictioneer_query_result_cache_lock() {
-  static $lock = null;
-
-  if ( $lock !== null ) {
-    return $lock;
-  }
-
-  if ( get_transient( 'fictioneer_query_result_cache_lock' ) ) {
-    $lock = true;
-  } else {
-    set_transient( 'fictioneer_query_result_cache_lock', 1, 30 );
-    $lock = false;
-  }
-
-  return $lock;
 }
 
 /**
