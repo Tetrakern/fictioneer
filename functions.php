@@ -290,7 +290,7 @@ if ( ! defined( 'FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME' ) ) {
 
 // Integer: Maximum number of cards in card cache
 if ( ! defined( 'FICTIONEER_CARD_CACHE_LIMIT' ) ) {
-  define( 'FICTIONEER_CARD_CACHE_LIMIT', 50 );
+  define( 'FICTIONEER_CARD_CACHE_LIMIT', 40 );
 }
 
 // Integer: Time until the card cache expires
