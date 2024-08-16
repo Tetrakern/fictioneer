@@ -1179,10 +1179,24 @@ function fictioneer_save_story_card_cache() {
   // Initialize global cache variable
   global $fictioneer_story_card_cache;
 
-  // Anything to save?
-  if ( is_array( $fictioneer_story_card_cache ) ) {
-    set_transient( 'fictioneer_card_cache', $fictioneer_story_card_cache, FICTIONEER_CARD_CACHE_EXPIRATION_TIME );
+  if ( ! is_array( $fictioneer_story_card_cache ) ) {
+    return;
   }
+
+  // Ensure the limit is respected
+  $count = count( $fictioneer_story_card_cache );
+
+  if ( $count > FICTIONEER_CARD_CACHE_LIMIT ) {
+    $fictioneer_story_card_cache = array_slice(
+      $fictioneer_story_card_cache,
+      $count - FICTIONEER_CARD_CACHE_LIMIT,
+      FICTIONEER_CARD_CACHE_LIMIT,
+      true
+    );
+  }
+
+  // Save Transient
+  set_transient( 'fictioneer_card_cache', $fictioneer_story_card_cache, FICTIONEER_CARD_CACHE_EXPIRATION_TIME );
 }
 add_action( 'shutdown', 'fictioneer_save_story_card_cache' );
 
@@ -1322,16 +1336,6 @@ function fictioneer_get_cached_story_card( $key ) {
     $fictioneer_story_card_cache[ $key ] = $card;
   } else {
     return null;
-  }
-
-  // Limit cache to 50 latest cards
-  if ( count( $fictioneer_story_card_cache ) > FICTIONEER_CARD_CACHE_LIMIT ) {
-    $fictioneer_story_card_cache = array_slice(
-      $fictioneer_story_card_cache,
-      -1 * FICTIONEER_CARD_CACHE_LIMIT,
-      FICTIONEER_CARD_CACHE_LIMIT,
-      true
-    );
   }
 
   // Return cached card
@@ -1539,18 +1543,31 @@ function fictioneer_save_query_result_cache_registry() {
     return;
   }
 
+  // Clear lock
+  delete_transient( 'fictioneer_query_result_cache_lock' );
+
   // Initialize global cache variable
   global $fictioneer_query_result_registry;
 
-  // Anything to save?
-  if (
-    ! is_null( $fictioneer_query_result_registry ) &&
-    $fictioneer_query_result_registry !== get_option( 'fictioneer_query_cache_registry' )
-  ) {
-    update_option( 'fictioneer_query_cache_registry', $fictioneer_query_result_registry ?: [] );
+  if ( is_null( $fictioneer_query_result_registry ) || ! is_array( $fictioneer_query_result_registry ) ) {
+    return;
   }
 
-  // Clear lock
-  delete_transient( 'fictioneer_query_result_cache_lock' );
+  // Ensure the limit is respected
+  $count = count( $fictioneer_query_result_registry );
+
+  if ( $count > FICTIONEER_QUERY_RESULT_CACHE_LIMIT ) {
+    $fictioneer_query_result_registry = array_slice(
+      $fictioneer_query_result_registry,
+      $count - FICTIONEER_QUERY_RESULT_CACHE_LIMIT,
+      FICTIONEER_QUERY_RESULT_CACHE_LIMIT,
+      true
+    );
+  }
+
+  // Anything to save?
+  if ( $fictioneer_query_result_registry !== get_option( 'fictioneer_query_cache_registry' ) ) {
+    update_option( 'fictioneer_query_cache_registry', $fictioneer_query_result_registry ?: [] );
+  }
 }
 add_action( 'shutdown', 'fictioneer_save_query_result_cache_registry' );
