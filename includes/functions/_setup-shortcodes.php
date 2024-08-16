@@ -57,9 +57,17 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
  */
 
 function fictioneer_update_shortcode_relationships( $post_id, $post ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  static $done = null;
+
+  // Prevent multi-fire; allow trashing to pass because
+  // this is sometimes only triggered as REST request.
+  if (
+    ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
+    ( get_post_status( $post_id ) !== 'trash' || $done )
+  ) {
     return;
+  } else {
+    $done = true;
   }
 
   // Setup

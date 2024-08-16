@@ -16,10 +16,23 @@
  * @param WP_Post $post     The saved post object.
  */
 
-  function fictioneer_refresh_recommendation_schema( $post_id, $post ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+function fictioneer_refresh_recommendation_schema( $post_id, $post ) {
+  static $done = null;
+
+  // Prevent multi-fire; allow trashing to pass because
+  // this is sometimes only triggered as REST request.
+  if (
+    ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
+    ( get_post_status( $post_id ) !== 'trash' || $done )
+  ) {
     return;
+  } else {
+    $done = true;
+  }
+
+  // Delete schema if post is not published
+  if ( $post->post_status !== 'publish' ) {
+    delete_post_meta( $post_id, 'fictioneer_schema' );
   }
 
   // Check what was updated
@@ -104,5 +117,3 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
     return $schema;
   }
 }
-
-?>

@@ -2247,12 +2247,17 @@ function fictioneer_render_story_epub_metabox( $post ) {
 function fictioneer_save_story_metaboxes( $post_id ) {
   // --- Verify ----------------------------------------------------------------
 
+  static $done = null;
+
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_story_nonce'] ?? '' ), "story_meta_data_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
-    get_post_type( $post_id ) !== 'fcn_story'
+    get_post_type( $post_id ) !== 'fcn_story' ||
+    $done
   ) {
     return;
+  } else {
+    $done = true;
   }
 
   // --- Permissions? ----------------------------------------------------------
@@ -2903,12 +2908,17 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 function fictioneer_save_chapter_metaboxes( $post_id ) {
   // --- Verify ----------------------------------------------------------------
 
+  static $done = null;
+
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_chapter_nonce'] ?? '' ), "chapter_meta_data_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
-    get_post_type( $post_id ) !== 'fcn_chapter'
+    get_post_type( $post_id ) !== 'fcn_chapter' ||
+    $done
   ) {
     return;
+  } else {
+    $done = true;
   }
 
   // --- Permissions? ----------------------------------------------------------
@@ -3372,12 +3382,17 @@ function fictioneer_save_extra_metabox( $post_id ) {
 
   // --- Verify ------------------------------------------------------------------
 
+  static $done = null;
+
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_advanced_meta_nonce'] ?? '' ), "advanced_meta_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
-    ! in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] )
+    ! in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] ) ||
+    $done
   ) {
     return;
+  } else {
+    $done = true;
   }
 
   // --- Permissions? ------------------------------------------------------------
@@ -3671,12 +3686,17 @@ function fictioneer_save_support_links_metabox( $post_id ) {
 
   // --- Verify ------------------------------------------------------------------
 
+  static $done = null;
+
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_support_links_nonce'] ?? '' ), "support_links_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
-    ! in_array( $post_type, ['post', 'fcn_story', 'fcn_chapter'] )
+    ! in_array( $post_type, ['post', 'fcn_story', 'fcn_chapter'] ) ||
+    $done
   ) {
     return;
+  } else {
+    $done = true;
   }
 
   // --- Permissions? ------------------------------------------------------------
@@ -3831,12 +3851,17 @@ function fictioneer_render_featured_content_metabox( $post ) {
 function fictioneer_save_post_metaboxes( $post_id ) {
   // --- Verify ------------------------------------------------------------------
 
+  static $done = null;
+
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_post_nonce'] ?? '' ), "post_data_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
-    get_post_type( $post_id ) !== 'post'
+    get_post_type( $post_id ) !== 'post' ||
+    $done
   ) {
     return;
+  } else {
+    $done = true;
   }
 
   // --- Permissions? ------------------------------------------------------------
@@ -4066,12 +4091,17 @@ function fictioneer_render_collection_data_metabox( $post ) {
 function fictioneer_save_collection_metaboxes( $post_id ) {
   // --- Verify ------------------------------------------------------------------
 
+  static $done = null;
+
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_collection_nonce'] ?? '' ), "collection_data_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
-    get_post_type( $post_id ) !== 'fcn_collection'
+    get_post_type( $post_id ) !== 'fcn_collection' ||
+    $done
   ) {
     return;
+  } else {
+    $done = true;
   }
 
   // --- Permissions? ------------------------------------------------------------
@@ -4275,12 +4305,17 @@ function fictioneer_render_recommendation_data_metabox( $post ) {
 function fictioneer_save_recommendation_metaboxes( $post_id ) {
   // --- Verify ------------------------------------------------------------------
 
+  static $done = null;
+
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_recommendation_nonce'] ?? '' ), "recommendation_data_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
-    get_post_type( $post_id ) !== 'fcn_recommendation'
+    get_post_type( $post_id ) !== 'fcn_recommendation' ||
+    $done
   ) {
     return;
+  } else {
+    $done = true;
   }
 
   // --- Permissions? ------------------------------------------------------------
