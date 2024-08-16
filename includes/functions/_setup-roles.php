@@ -454,8 +454,10 @@ function fictioneer_bypass_password( $required, $post ) {
   }
 
   // Ensure to skip search, list pages, and nested loops
-  if ( ! is_singular() || get_queried_object_id() != $post->ID ) {
-    return $required;
+  if ( ! wp_doing_ajax() || ! ( $_GET['post_id'] ?? 0 ) ) {
+    if ( ! is_singular() || get_queried_object_id() != $post->ID ) {
+      return $required;
+    }
   }
 
   // Static variable cache
