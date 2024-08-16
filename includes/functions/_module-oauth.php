@@ -33,7 +33,7 @@ define(
       'token' => 'https://www.patreon.com/api/oauth2/token',
       'user' => 'https://www.patreon.com/api/oauth2/v2/identity',
       'revoke' => '',
-      'scope' => urlencode('identity identity[email]')
+      'scope' => urlencode( 'identity identity[email]' )
     ),
     'subscribestar' => array(
       'login' => 'https://www.subscribestar.com/oauth2/authorize',
@@ -108,8 +108,8 @@ function fictioneer_oauth2_get_campaign_tiers() {
   }
 
   // Build params
-  $params = '?fields' . urlencode('[campaign]') . '=created_at';
-  $params .= '&fields' . urlencode('[tier]') . '=title,amount_cents,published,description';
+  $params = '?fields' . urlencode( '[campaign]' ) . '=created_at';
+  $params .= '&fields' . urlencode( '[tier]' ) . '=title,amount_cents,published,description';
   $params .= '&include=tiers';
 
   // Retrieve campaign data from Patreon
@@ -788,9 +788,9 @@ function fictioneer_oauth2_retrieve_user_body( $response ) {
 
 function fictioneer_oauth2_patreon( $token_response, $cookie ) {
   // Build params
-  $params = '?fields' . urlencode('[user]') . '=email,first_name,image_url,is_email_verified';
-  $params .= '&fields' . urlencode('[tier]') . '=title,amount_cents,published,description';
-  $params .= '&fields' . urlencode('[member]') . '=lifetime_support_cents,is_follower,last_charge_date,last_charge_status,next_charge_date,patron_status';
+  $params = '?fields' . urlencode( '[user]' ) . '=email,first_name,image_url,is_email_verified';
+  $params .= '&fields' . urlencode( '[tier]' ) . '=title,amount_cents,published,description';
+  $params .= '&fields' . urlencode( '[member]' ) . '=lifetime_support_cents,is_follower,last_charge_date,last_charge_status,next_charge_date,patron_status';
   $params .= '&include=memberships.currently_entitled_tiers';
 
   // Retrieve user data from Patreon

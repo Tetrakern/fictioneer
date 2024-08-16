@@ -1284,7 +1284,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 
       // Chapter icon
       if ( empty( $text_icon ) && ! $hide_icons ) {
-        $icon = '<i class="' . fictioneer_get_icon_field('fictioneer_chapter_icon', $chapter->ID) . '"></i>';
+        $icon = '<i class="' . fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID ) . '"></i>';
       } elseif ( ! $hide_icons ) {
         $icon = '<span class="text-icon">' . $text_icon . '</span>';
       }
@@ -1630,7 +1630,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
     if ( ! ( $args['no_cat'] ?? 0 ) && ! get_option( 'fictioneer_hide_categories' ) ) {
       $output['category'] = sprintf(
         '<div class="post__categories"><i class="fa-solid fa-tags"></i> %s</div>',
-        get_the_category_list(', ')
+        get_the_category_list( ', ' )
       );
     }
 

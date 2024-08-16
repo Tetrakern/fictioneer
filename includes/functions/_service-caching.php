@@ -318,7 +318,7 @@ if ( ! function_exists( 'fictioneer_litespeed_running' ) ) {
   function fictioneer_litespeed_running() {
     return in_array(
       'litespeed-cache/litespeed-cache.php',
-      apply_filters( 'active_plugins', get_option('active_plugins' ) )
+      apply_filters( 'active_plugins', get_option( 'active_plugins' ) )
     );
   }
 }

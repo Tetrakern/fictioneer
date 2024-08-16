@@ -329,8 +329,8 @@ function fictioneer_ajax_get_follows_notifications() {
       $date = get_the_date(
         sprintf(
           _x( '%1$s \a\t %2$s', 'Date in Follows update list.', 'fictioneer' ),
-          get_option('date_format'),
-          get_option('time_format')
+          get_option( 'date_format' ),
+          get_option( 'time_format' )
         ), $chapter->ID
       );
       $chapter_timestamp = get_post_timestamp( $chapter->ID ) * 1000; // Compatible with Date.now() in JavaScript
