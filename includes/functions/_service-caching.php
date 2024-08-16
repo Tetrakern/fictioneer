@@ -83,11 +83,19 @@ if ( ! defined( 'FICTIONEER_ENABLE_PARTIAL_CACHING' ) ) {
   );
 }
 
-// Boolean: Partial caching enabled?
+// Boolean: Story card caching enabled?
 if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
   define(
     'FICTIONEER_ENABLE_STORY_CARD_CACHING',
     get_option( 'fictioneer_enable_story_card_caching' ) && ! is_customize_preview()
+  );
+}
+
+// Boolean: Query result caching enabled=
+if ( ! defined( 'FICTIONEER_ENABLE_QUERY_RESULT_CACHING' ) ) {
+  define(
+    'FICTIONEER_ENABLE_QUERY_RESULT_CACHING',
+    get_option( 'fictioneer_enable_query_result_caching' ) && ! is_customize_preview()
   );
 }
 
@@ -682,6 +690,9 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
       // Clear meta caches
       delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
       delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
+
+      // Delete cached query results
+      fictioneer_delete_transients_like( "fictioneer_query_{$story_id}" );
 
       // Refresh cached HTML output
       delete_transient( 'fictioneer_story_chapter_list_html' . $story_id );
@@ -1326,3 +1337,185 @@ function fictioneer_get_cached_story_card( $key ) {
   // Return cached card
   return $card;
 }
+
+// =============================================================================
+// TRANSIENT QUERY RESULT CACHE
+// =============================================================================
+
+/**
+ * Returns the global registry array for cached query results
+ *
+ * Note: The registry is stored as auto-loaded options in the
+ * database and set up as global variable on request. It is
+ * only updated in the 'shutdown' action.
+ *
+ * @since 5.22.3
+ * @global $fictioneer_query_result_registry
+ *
+ * @return array Array with Transient keys for cached query results.
+ */
+
+function fictioneer_get_query_result_cache_registry() {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING ) {
+    return [];
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_query_result_registry;
+
+  if ( ! $fictioneer_query_result_registry ) {
+    $fictioneer_query_result_registry = get_option( 'fictioneer_query_cache_registry' );
+
+    if ( ! is_array( $fictioneer_query_result_registry ) ) {
+      $fictioneer_query_result_registry = [];
+      update_option( 'fictioneer_query_cache_registry', [] );
+    }
+  }
+
+  // Return array for good measure, but the global will do
+  return $fictioneer_query_result_registry;
+}
+
+/**
+ * Adds query result to the global query result cache
+ *
+ * Note: Only query results that exceed a certain threshold (75)
+ * are stored in the cache and only the latest n items (50).
+ *
+ * @since 5.22.3
+ * @global $fictioneer_query_result_registry
+ * @see FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD
+ * @see FICTIONEER_QUERY_RESULT_CACHE_LIMIT
+ *
+ * @param string $key     The cache key of the query.
+ * @param array  $result  The result of the query.
+ */
+
+function fictioneer_cache_query_result( $key, $result ) {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING ) {
+    return;
+  }
+
+  if ( count( $result ) < FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD ) {
+    return;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_query_result_registry;
+
+  if ( ! $fictioneer_query_result_registry ) {
+    $fictioneer_query_result_registry = fictioneer_get_query_result_cache_registry();
+  }
+
+  // Build key; must begin with fictioneer_query_{$post_id} for clearing purposes
+  $transient_key = "fictioneer_query_{$key}";
+
+  // Prepend result to stack
+  $fictioneer_query_result_registry = array_merge( array( $key => $transient_key ), $fictioneer_query_result_registry );
+
+  // Randomized expiration to avoid large sets of results to expire simultaneously
+  set_transient( $transient_key, $result, 8 * HOUR_IN_SECONDS + rand( 0, 4 * HOUR_IN_SECONDS ) );
+
+  // Only allow n items in the cache to avoid bloating the database
+  if ( count( $fictioneer_query_result_registry ) > FICTIONEER_QUERY_RESULT_CACHE_LIMIT ) {
+    array_pop( $fictioneer_query_result_registry ); // Drop oldest entry
+  }
+}
+
+/**
+ * Adds query result to the global query result cache
+ *
+ * Note: Only query results that exceed a certain threshold (75)
+ * are stored in the cache and only the latest n items (50).
+ *
+ * @since 5.22.3
+ * @global $fictioneer_query_result_registry
+ *
+ * @param string $key  The cache key of the query.
+ *
+ * @return array|null Array of WP_Post objects or null if not cached or expired.
+ */
+
+function fictioneer_get_cached_query_result( $key ) {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING ) {
+    return null;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_query_result_registry;
+
+  if ( ! $fictioneer_query_result_registry ) {
+    $fictioneer_query_result_registry = fictioneer_get_query_result_cache_registry();
+  }
+
+  // Look for cached result...
+  if ( isset( $fictioneer_query_result_registry[ $key ] ) ) {
+    $transient = get_transient( $fictioneer_query_result_registry[ $key ] );
+
+    if ( is_array( $transient ) ) {
+      // Hit
+      return $transient;
+    } else {
+      // Miss
+      fictioneer_delete_cached_query_result( $key ); // Cleanup
+    }
+  }
+
+  // Nothing cached or expired
+  return null;
+}
+
+/**
+ * Deletes query result from the global query result cache
+ *
+ * @since 5.22.3
+ * @global $fictioneer_query_result_registry
+ *
+ * @param string $key  The cache key of the query.
+ */
+
+function fictioneer_delete_cached_query_result( $key ) {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING ) {
+    return;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_query_result_registry;
+
+  if ( ! $fictioneer_query_result_registry ) {
+    $fictioneer_query_result_registry = fictioneer_get_query_result_cache_registry();
+  }
+
+  // Remove entry (if present)
+  unset( $fictioneer_query_result_registry[ $key ] );
+}
+
+/**
+ * Saves the final global query result cache to the database
+ *
+ * @since 5.22.3
+ * @global $fictioneer_query_result_registry
+ */
+
+function fictioneer_save_query_result_cache_registry() {
+  // Abort if...
+  if ( ! FICTIONEER_ENABLE_QUERY_RESULT_CACHING ) {
+    return;
+  }
+
+  // Initialize global cache variable
+  global $fictioneer_query_result_registry;
+
+  // Anything to save?
+  if (
+    ! is_null( $fictioneer_query_result_registry ) &&
+    $fictioneer_query_result_registry !== get_option( 'fictioneer_query_cache_registry' )
+  ) {
+    update_option( 'fictioneer_query_cache_registry', $fictioneer_query_result_registry ?: [] );
+  }
+}
+add_action( 'shutdown', 'fictioneer_save_query_result_cache_registry' );

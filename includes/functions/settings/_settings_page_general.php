@@ -748,6 +748,21 @@
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_query_result_caching',
+                    __( 'Enable caching of large query results', 'fictioneer' ),
+                    sprintf(
+                      __( 'Caches the latest %d query results with %s or more posts in the database to speed up loading.', 'fictioneer' ),
+                      FICTIONEER_QUERY_RESULT_CACHE_LIMIT,
+                      FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD
+                    ),
+                    __( '<p>Queries that return many results are resource-intensive and can slow down your site, especially for stories with hundreds of chapters. This feature mitigates the slowdown by caching the results of the largest queries in the database, typically resulting in faster loading times.</p><p>You can use the <code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> constant to change the number of cached results (default is 50) and the <code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> constant to change what constitutes as large result (default is 75). Be aware that increasing these numbers will result in higher RAM consumption.</p>', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
             </div>
           </div>
         </div>

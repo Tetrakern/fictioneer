@@ -196,16 +196,20 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
 /**
  * Returns array of chapter posts for a story
  *
+ * Note: Returns reduced WP_Post objects with several properties stripped,
+ * such as the content and excerpt.
+ *
  * @since 5.9.2
  * @since 5.22.3 - Refactored.
  *
  * @param int   $story_id  ID of the story.
  * @param array $args      Optional. Additional query arguments.
+ * @param bool  $full      Optional. Whether to not reduce the posts. Default false.
  *
  * @return array Array of chapter posts or empty.
  */
 
-function fictioneer_get_story_chapter_posts( $story_id, $args = [] ) {
+function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = false ) {
   // Static variable cache
   static $cached_results = [];
 
@@ -240,6 +244,13 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [] ) {
     return $cached_results[ $cache_key ];
   }
 
+  // Query result cache registry hit?
+  $cached_query_result = fictioneer_get_cached_query_result( $cache_key );
+
+  if ( $cached_query_result ) {
+    return $cached_query_result;
+  }
+
   // Batched or one go?
   if ( count( $chapter_ids ) <= FICTIONEER_QUERY_ID_ARRAY_LIMIT ) {
     $query_args['post__in'] = $chapter_ids ?: [0];
@@ -263,8 +274,33 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [] ) {
     return $chapter_positions[ $a->ID ] - $chapter_positions[ $b->ID ];
   });
 
+  // F-REF-1
+  if ( ! $full ) {
+    foreach ( $chapter_posts as $post ) {
+      // Chapter contents are extremely large and this kind of
+      // query does not need them, but we leave a reference
+      // in case this causes issues in the future.
+      $post->post_content = 'F-REF-1';
+
+      unset(
+        $post->post_type, // We know this if fcn_chapter
+        $post->ping_status, // Unused
+        $post->to_ping, // Unused
+        $post->pinged, // Unused
+        $post->menu_order, // Unused
+        $post->post_mime_type, // Unused
+        $post->post_parent, // Unused
+        $post->post_content_filtered, // Unused here
+        $post->guid, // Unused here
+        $post->post_excerpt // Unused here
+      );
+    }
+  }
+
   // Cache for subsequent calls
   $cached_results[ $cache_key ] = $chapter_posts;
+
+  fictioneer_cache_query_result( $cache_key, $chapter_posts );
 
   // Return chapters selected in story
   return $chapter_posts;
@@ -2564,7 +2600,7 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
 
   function fictioneer_multi_save_guard( $post_id ) {
     if (
-      ( defined('REST_REQUEST') && REST_REQUEST ) ||
+      ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
       wp_is_post_autosave( $post_id ) ||
       wp_is_post_revision( $post_id ) ||
       get_post_status( $post_id ) === 'auto-draft'
