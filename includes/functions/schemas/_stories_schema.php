@@ -32,7 +32,6 @@ function fictioneer_refresh_stories_schema( $post_id, $post ) {
 
   // Delete schema if post is not published
   if ( $post->post_status !== 'publish' ) {
-    error_log( 'bonk' );
     delete_post_meta( $post_id, 'fictioneer_schema' );
   }
 
