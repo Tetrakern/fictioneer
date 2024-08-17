@@ -17,11 +17,12 @@ $post_id = $args['post_id'] ?? get_the_ID();
 $post = get_post( $post_id );
 $password_required = post_password_required();
 $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
+$show_thumbnail = has_post_thumbnail( $post_id ) && ! get_post_meta( $post_id, 'fictioneer_story_no_thumbnail', true );
 
 // Wrapper classes
 $wrapper_classes = [];
 
-if ( $cover_position === 'top-left-overflow' ) {
+if ( $cover_position === 'top-left-overflow' && $show_thumbnail ) {
   $wrapper_classes[] = '_no-padding-top';
 }
 
@@ -46,22 +47,21 @@ get_header(
       do_action( 'fictioneer_main_wrapper' );
 
       // Setup
-      $story_id = $post_id;
-      $story = fictioneer_get_story_data( $story_id );
+      $story = fictioneer_get_story_data( $post_id );
       $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
       $this_breadcrumb = [ $story['title'], get_the_permalink() ];
-      $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $story_id );
+      $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post_id );
       $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 
       // Arguments for hooks and templates/etc.
       $hook_args = array(
         'story_data' => $story,
-        'story_id' => $story_id,
+        'story_id' => $post_id,
         'password_required' => $password_required
       );
     ?>
 
-    <article id="post-<?php echo $story_id; ?>" class="story__article" data-id="<?php echo $story_id; ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
+    <article id="post-<?php echo $post_id; ?>" class="story__article" data-id="<?php echo $post_id; ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
 
       <?php
         // Render article header
@@ -78,15 +78,11 @@ get_header(
           }
 
           if ( get_option( 'fictioneer_show_protected_excerpt' ) ) {
-            echo '<p class="story__forced-excerpt">' . fictioneer_get_forced_excerpt( $story_id, 512 ) . '</p>';
+            echo '<p class="story__forced-excerpt">' . fictioneer_get_forced_excerpt( $post_id, 512 ) . '</p>';
           }
         }
 
-        if (
-          in_array( $cover_position, ['float-left', 'float-right'] ) &&
-          has_post_thumbnail( $story_id ) &&
-          ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true )
-        ) {
+        if ( in_array( $cover_position, ['float-left', 'float-right'] ) && $show_thumbnail ) {
           echo fictioneer_get_story_page_cover(
             $hook_args['story_data'],
             array( 'classes' => '_in-content _' . $cover_position )
@@ -116,7 +112,7 @@ get_header(
   // Footer arguments
   $footer_args = array(
     'post_type' => 'fcn_story',
-    'post_id' => $story_id,
+    'post_id' => $post_id,
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()]
     )

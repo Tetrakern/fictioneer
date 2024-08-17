@@ -15,6 +15,7 @@ $story_id = get_post_meta( $post_id, 'fictioneer_template_story_id', true );
 $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
 $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 $render_story_header = get_post_meta( $post_id, 'fictioneer_template_show_story_header', true );
+$show_thumbnail = has_post_thumbnail( $story_id ) && ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true );
 
 if ( ! $story_id ) {
   $render_story_header = false;
@@ -23,7 +24,7 @@ if ( ! $story_id ) {
 // Wrapper classes
 $wrapper_classes = [];
 
-if ( $render_story_header && $cover_position === 'top-left-overflow' ) {
+if ( $render_story_header && $cover_position === 'top-left-overflow' && $show_thumbnail ) {
   $wrapper_classes[] = '_no-padding-top';
 }
 
