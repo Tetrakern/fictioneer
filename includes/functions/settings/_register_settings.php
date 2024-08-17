@@ -689,6 +689,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_allow_rest_save_actions' => array(
+      'name' => 'fictioneer_allow_rest_save_actions',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1155,6 +1161,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_hide_categories' => __( 'Hide categories on posts', 'fictioneer' ),
       'fictioneer_enable_story_card_caching' => __( 'Enable caching of story cards', 'fictioneer' ),
       'fictioneer_enable_query_result_caching' => __( 'Enable caching of large query results', 'fictioneer' ),
+      'fictioneer_allow_rest_save_actions' => __( 'Allow REST requests to trigger save actions', 'fictioneer' ),
     );
   }
 

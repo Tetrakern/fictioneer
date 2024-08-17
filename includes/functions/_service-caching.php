@@ -407,17 +407,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
    */
 
   function fictioneer_refresh_post_caches( $post_id ) {
-    static $done = null;
-
-    // Prevent multi-fire; allow trashing to pass because
-    // this is sometimes only triggered as REST request.
-    if (
-      ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
-      ( get_post_status( $post_id ) !== 'trash' || $done )
-    ) {
+    // Prevent multi-fire
+    if ( fictioneer_multi_save_guard( $post_id ) ) {
       return;
-    } else {
-      $done = true;
     }
 
     // Purge all?
@@ -702,17 +694,9 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
    */
 
   function fictioneer_track_chapter_and_story_updates( $post_id ) {
-    static $done = null;
-
-    // Prevent multi-fire; allow trashing to pass because
-    // this is sometimes only triggered as REST request.
-    if (
-      ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
-      ( get_post_status( $post_id ) !== 'trash' || $done )
-    ) {
+    // Prevent multi-fire
+    if ( fictioneer_multi_save_guard( $post_id ) ) {
       return;
-    } else {
-      $done = true;
     }
 
     // Get story ID from post or parent story (if any)
@@ -791,17 +775,9 @@ fictioneer_toggle_update_tracker_hooks();
  */
 
 function fictioneer_purge_transients( $post_id ) {
-  static $done = null;
-
-  // Prevent multi-fire; allow trashing to pass because
-  // this is sometimes only triggered as REST request.
-  if (
-    ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
-    ( get_post_status( $post_id ) !== 'trash' || $done )
-  ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
     return;
-  } else {
-    $done = true;
   }
 
   // Setup

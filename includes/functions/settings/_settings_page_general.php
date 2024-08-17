@@ -1221,6 +1221,17 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_allow_rest_save_actions',
+                    __( 'Allow REST requests to trigger save actions', 'fictioneer' ),
+                    __( 'They are blocked because they are redundant.', 'fictioneer' ),
+                    __( '<p>When you save in the editor, the theme runs many actions to update everything related—stories, lists, shortcodes, caches, and so forth. Due to how the Gutenberg editor works, these actions are triggered multiple times, which can slow down the saving process. To improve performance, some actions are blocked.</p><p>However, if you are adding or editing content via the REST API, you may need these actions to fire to ensure that related posts are properly updated. If that’s the case, enable this setting.</p>', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_rewrite_chapter_permalinks',
                     __( 'Rewrite chapter permalinks to include story', 'fictioneer' ),
                     __( 'Becomes <code>/story/story-slug/chapter-slug[-n]</code>. You must flush your permalinks and purge the theme caches.', 'fictioneer' ),

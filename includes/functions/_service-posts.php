@@ -15,17 +15,9 @@
 function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
   global $wpdb;
 
-  static $done = null;
-
-  // Prevent multi-fire; allow trashing to pass because
-  // this is sometimes only triggered as REST request.
-  if (
-    ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
-    ( get_post_status( $post_id ) !== 'trash' || $done )
-  ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
     return;
-  } else {
-    $done = true;
   }
 
   // Chapter updated?
@@ -64,17 +56,9 @@ fictioneer_add_stud_post_actions( 'fictioneer_update_modified_date_on_story_for_
  */
 
 function fictioneer_save_word_count( $post_id ) {
-  static $done = null;
-
-  // Prevent multi-fire; allow trashing to pass because
-  // this is sometimes only triggered as REST request.
-  if (
-    ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
-    ( get_post_status( $post_id ) !== 'trash' || $done )
-  ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
     return;
-  } else {
-    $done = true;
   }
 
   // Prepare
@@ -103,17 +87,9 @@ if ( ! get_option( 'fictioneer_count_characters_as_words' ) ) {
  */
 
 function fictioneer_characters_as_word_count( $post_id ) {
-  static $done = null;
-
-  // Prevent multi-fire; allow trashing to pass because
-  // this is sometimes only triggered as REST request.
-  if (
-    ( fictioneer_multi_save_guard( $post_id ) || $done ) &&
-    ( get_post_status( $post_id ) !== 'trash' || $done )
-  ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
     return;
-  } else {
-    $done = true;
   }
 
   // Prepare

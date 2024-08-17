@@ -2606,8 +2606,14 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
    */
 
   function fictioneer_multi_save_guard( $post_id ) {
+    // Always allow trash action to pass
+    if ( get_post_status( $post_id ) === 'trash' ) {
+      return false;
+    }
+
+    // Block REST requests and unnecessary triggers
     if (
-      ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
+      ( defined( 'REST_REQUEST' ) && REST_REQUEST && ! get_option( 'fictioneer_allow_rest_save_actions' ) ) ||
       wp_is_post_autosave( $post_id ) ||
       wp_is_post_revision( $post_id ) ||
       get_post_status( $post_id ) === 'auto-draft'
