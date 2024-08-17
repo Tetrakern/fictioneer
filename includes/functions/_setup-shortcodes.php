@@ -1439,7 +1439,7 @@ function fictioneer_shortcode_blog( $attr ) {
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     $base = serialize( $query_args ) . serialize( $args ) . serialize( $attr );
-    $transient_key = 'fictioneer_shortcode_chapter_list_html_' . md5( $base );
+    $transient_key = 'fictioneer_shortcode_blog_html_' . md5( $base );
     $transient = get_transient( $transient_key );
 
     if ( ! empty( $transient ) ) {
