@@ -1031,7 +1031,10 @@ if ( ! function_exists( 'fictioneer_is_author' ) ) {
     }
 
     // Check capabilities
-    $check = user_can( $user_id, 'publish_posts' );
+    $check = user_can( $user_id, 'publish_posts' ) ||
+      user_can( $user_id, 'publish_fcn_stories' ) ||
+      user_can( $user_id, 'publish_fcn_chapters' ) ||
+      user_can( $user_id, 'publish_fcn_collections' );
 
     // Filter
     $check = apply_filters( 'fictioneer_filter_is_author', $check, $user_id );
