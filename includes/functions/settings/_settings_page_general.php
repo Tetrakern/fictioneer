@@ -1207,6 +1207,17 @@
             <h3 class="fictioneer-card__header"><?php _e( 'Compatibility', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
+              <?php
+                $active_cache_plugins = fictioneer_get_active_cache_plugins();
+
+                if ( $active_cache_plugins ) {
+                  echo '<div class="fictioneer-card__row fictioneer-card__row--boxed">';
+                  echo '<h4>' . __( 'Active Known Cache Plugins', 'fictioneer' ) . '</h4><p>';
+                  echo implode( ', ', $active_cache_plugins );
+                  echo '</p></div>';
+                }
+              ?>
+
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(

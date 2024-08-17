@@ -24,6 +24,32 @@ if ( ! defined( 'FICTIONEER_KNOWN_CACHE_PLUGINS' ) ) {
   );
 }
 
+function fictioneer_get_active_cache_plugins() {
+  static $plugin_names = array(
+    'w3-total-cache/w3-total-cache.php' => 'W3 Total Cache',
+    'wp-super-cache/wp-cache.php' => 'WP Super Cache',
+    'wp-rocket/wp-rocket.php' => 'WP Rocket',
+    'litespeed-cache/litespeed-cache.php' => 'LiteSpeed Cache',
+    'wp-fastest-cache/wpFastestCache.php' => 'WP Fastest Cache',
+    'cache-enabler/cache-enabler.php' => 'Cache Enabler',
+    'hummingbird-performance/wp-hummingbird.php' => 'Hummingbird',
+    'wp-optimize/wp-optimize.php' => 'WP-Optimize',
+    'sg-cachepress/sg-cachepress.php' => 'SG Optimizer',
+    'breeze/breeze.php' => 'Breeze',
+    'nitropack/nitropack.php' => 'NitroPack'
+  );
+
+  $result = [];
+
+  foreach ( FICTIONEER_KNOWN_CACHE_PLUGINS as $plugin_slug ) {
+    if ( is_plugin_active( $plugin_slug ) && isset( $plugin_names[ $plugin_slug ] ) ) {
+      $result[] = $plugin_names[ $plugin_slug ];
+    }
+  }
+
+  return $result;
+}
+
 if ( ! function_exists( 'fictioneer_caching_active' ) ) {
   /**
    * Checks whether caching is active

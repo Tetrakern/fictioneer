@@ -540,6 +540,24 @@ body[class*="fictioneer_page_"] {
         pointer-events: none;
         opacity: .5;
       }
+
+      &--boxed {
+        background: #f6f7f7;
+        text-align: center;
+        padding: 12px;
+        margin: 0 12px 12px;
+
+        h4 {
+          font-size: 12px;
+          font-weight: 700;
+          text-transform: uppercase;
+          margin-bottom: 4px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
     }
 
     &__box {
