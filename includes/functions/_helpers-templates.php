@@ -774,6 +774,7 @@ if ( ! function_exists( 'fictioneer_render_thumbnail' ) ) {
    * Renders the thumbnail with options
    *
    * @since 5.14.0
+   * @since 5.23.0 - Added $echo parameter.
    *
    * @param array $args {
    *   An array of arguments.
@@ -789,9 +790,12 @@ if ( ! function_exists( 'fictioneer_render_thumbnail' ) ) {
    *   @type string|null  $aspect_ratio  Optional. Aspect ratio CSS value.
    *   @type string|null  $text_icon     Optional. Use text-icon as fallback (unless vertical).
    * }
+   * @param bool $echo  Whether to render the thumbnail or return the HTML. Default true.
+   *
+   * @return null|string The HTML of the thumbnail if not rendered. Empty string if no thumbnail.
    */
 
-  function fictioneer_render_thumbnail( $args ) {
+  function fictioneer_render_thumbnail( $args, $echo = true ) {
     // Setup
     $post_id = $args['post_id'] ?? get_the_ID();
     $title = esc_attr( wp_strip_all_tags( $args['title'] ?? __( 'Thumbnail', 'fictioneer' ) ) );
@@ -801,6 +805,7 @@ if ( ! function_exists( 'fictioneer_render_thumbnail' ) ) {
     $vertical = $args['vertical'] ?? 0;
     $lightbox = ( $args['lightbox'] ?? 1 ) && get_option( 'fictioneer_enable_lightbox' );
     $lightbox_attribute = $lightbox ? fictioneer_get_lightbox_attribute() : '';
+    $html = '';
 
     // Get sized thumbnail, full thumbnail, and img tag
     $thumbnails = $args['thumbnails'] ?? fictioneer_get_small_card_thumbnail(
@@ -819,7 +824,7 @@ if ( ! function_exists( 'fictioneer_render_thumbnail' ) ) {
       // Link (lightbox) with image tag
       $url = $lightbox ? $thumbnails['thumbnail_full_url'] : $permalink;
 
-      echo "<a href='{$url}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$thumbnails['thumbnail']}</a>";
+      $html = "<a href='{$url}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$thumbnails['thumbnail']}</a>";
     } elseif ( $vertical ) {
       // Placeholder image
       $placeholder = fictioneer_get_placeholder_image();
@@ -833,9 +838,16 @@ if ( ! function_exists( 'fictioneer_render_thumbnail' ) ) {
         $title = esc_attr( sprintf( _x( 'Link to %s', 'Thumbnail link title', 'fictioneer' ), $title ) );
       }
 
-      echo "<a href='{$url}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$placeholder['thumbnail']}</a>";
+      $html = "<a href='{$url}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$placeholder['thumbnail']}</a>";
     } elseif ( $text_icon ) {
-      echo "<a href='{$permalink}' title='{$title}' class='card__text-icon _small cell-img'><span class='text-icon'>{$text_icon}</span></a>";
+      $html = "<a href='{$permalink}' title='{$title}' class='card__text-icon _small cell-img'><span class='text-icon'>{$text_icon}</span></a>";
+    }
+
+    // Render or return
+    if ( $echo ) {
+      echo $html;
+    } else {
+      return $html;
     }
   }
 }
