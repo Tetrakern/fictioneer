@@ -194,7 +194,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story, $args );
 
                 if ( $args['thumbnail'] ) {
-                  fictioneer_output_small_card_thumbnail(
+                  fictioneer_render_thumbnail(
                     array(
                       'post_id' => $post_id,
                       'title' => $title,

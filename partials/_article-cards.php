@@ -171,7 +171,7 @@ $pag_args = array(
 
                 <?php
                   if ( $args['thumbnail'] ) {
-                    fictioneer_output_small_card_thumbnail(
+                    fictioneer_render_thumbnail(
                       array(
                         'post_id' => $post_id,
                         'title' => $title,

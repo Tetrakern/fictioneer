@@ -769,9 +769,9 @@ if ( ! function_exists( 'fictioneer_get_placeholder_image' ) ) {
   }
 }
 
-if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
+if ( ! function_exists( 'fictioneer_render_thumbnail' ) ) {
   /**
-   * Output small card thumbnail
+   * Renders the thumbnail with options
    *
    * @since 5.14.0
    *
@@ -791,7 +791,7 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
    * }
    */
 
-  function fictioneer_output_small_card_thumbnail( $args ) {
+  function fictioneer_render_thumbnail( $args ) {
     // Setup
     $post_id = $args['post_id'] ?? get_the_ID();
     $title = esc_attr( wp_strip_all_tags( $args['title'] ?? __( 'Thumbnail', 'fictioneer' ) ) );
