@@ -30,6 +30,7 @@
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
+ * @internal $args['footer']            Whether to show the footer. Default true.
  * @internal $args['footer_words']      Whether to show the chapter word count. Default true.
  * @internal $args['footer_date']       Whether to show the chapter date. Default true.
  * @internal $args['footer_comments']   Whether to show the chapter comment count. Default true.
@@ -154,7 +155,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
-          if ( $args['simple'] ) {
+          if ( $args['simple'] || ! $args['footer'] ) {
             $card_classes[] = '_no-footer';
           }
 
@@ -290,7 +291,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 </div>
               </div>
 
-              <?php if ( ! $args['simple'] ) : ?>
+              <?php if ( ! $args['simple'] && $args['footer'] ) : ?>
                 <div class="card__footer cell-footer _small">
 
                   <div class="card__footer-box _left text-overflow-ellipsis"><?php

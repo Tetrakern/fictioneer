@@ -167,6 +167,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $args['footer'] ) {
+            $card_classes[] = '_no-footer';
+          }
+
           if ( ! $args['footer_chapters'] ) {
             $card_classes[] = '_no-footer-chapters';
           }
@@ -299,54 +303,56 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <div class="card__overlay-description _small"><?php echo $short_description; ?></div>
                 <?php endif; ?>
 
-                <div class="card__footer _small">
+                <?php if ( $args['footer'] ) : ?>
+                  <div class="card__footer _small">
 
-                  <div class="card__footer-box _left text-overflow-ellipsis"><?php
+                    <div class="card__footer-box _left text-overflow-ellipsis"><?php
 
-                    // Build footer items
-                    $footer_items = [];
+                      // Build footer items
+                      $footer_items = [];
 
-                    if ( $args['footer_chapters'] && ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) ) {
-                      $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
-                    }
-
-                    if ( $args['footer_words'] && ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) ) {
-                      $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
-                    }
-
-                    if ( $args['footer_date'] ) {
-                      if ( $args['orderby'] === 'modified' ) {
-                        $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
-                      } else {
-                        $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                      if ( $args['footer_chapters'] && ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) ) {
+                        $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
                       }
-                    }
 
-                    if ( $args['footer_status'] ) {
-                      $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
-                    }
+                      if ( $args['footer_words'] && ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) ) {
+                        $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
+                      }
 
-                    // Filter footer items
-                    $footer_items = apply_filters(
-                      'fictioneer_filter_shortcode_latest_stories_card_footer',
-                      $footer_items,
-                      $post,
-                      $story,
-                      $args
-                    );
+                      if ( $args['footer_date'] ) {
+                        if ( $args['orderby'] === 'modified' ) {
+                          $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                        } else {
+                          $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                        }
+                      }
 
-                    // Implode and render footer items
-                    echo implode( ' ', $footer_items );
+                      if ( $args['footer_status'] ) {
+                        $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                      }
 
-                  ?></div>
+                      // Filter footer items
+                      $footer_items = apply_filters(
+                        'fictioneer_filter_shortcode_latest_stories_card_footer',
+                        $footer_items,
+                        $post,
+                        $story,
+                        $args
+                      );
 
-                  <?php if ( $args['footer_rating'] ) : ?>
-                    <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
-                      <?php echo fcntr( $story['rating_letter'] ); ?>
-                    </div>
-                  <?php endif; ?>
+                      // Implode and render footer items
+                      echo implode( ' ', $footer_items );
 
-                </div>
+                    ?></div>
+
+                    <?php if ( $args['footer_rating'] ) : ?>
+                      <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
+                        <?php echo fcntr( $story['rating_letter'] ); ?>
+                      </div>
+                    <?php endif; ?>
+
+                  </div>
+                <?php endif; ?>
 
               </div>
             <?php endif; ?>

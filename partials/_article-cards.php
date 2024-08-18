@@ -25,6 +25,7 @@
  * @internal $args['relation']          Relationship between taxonomies. Default 'AND'.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true.
+ * @internal $args['footer']            Whether to show the footer. Default true.
  * @internal $args['footer_author']     Whether to show the post author. Default true.
  * @internal $args['footer_date']       Whether to show the post date. Default true.
  * @internal $args['footer_comments']   Whether to show the post comment count. Default true.

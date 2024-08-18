@@ -33,6 +33,7 @@
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['words']             Whether to show the word count of chapter items. Default true.
  * @internal $args['date']              Whether to show the date of chapter items. Default true.
+ * @internal $args['footer']            Whether to show the footer. Default true.
  * @internal $args['footer_chapters']   Whether to show the story chapter count. Default true.
  * @internal $args['footer_words']      Whether to show the story word count. Default true.
  * @internal $args['footer_date']       Whether to show the modified date. Default true.
@@ -156,7 +157,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_password';
           }
 
-          if ( in_array( $args['type'], ['simple', 'single'] ) ) {
+          if ( ! $args['footer'] || in_array( $args['type'], ['simple', 'single'] ) ) {
             $card_classes[] = '_no-footer';
           }
 
@@ -401,7 +402,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 </div>
               <?php endif; ?>
 
-              <?php if ( ! in_array( $args['type'], ['simple', 'single'] ) ) : ?>
+              <?php if ( $args['footer'] && ! in_array( $args['type'], ['simple', 'single'] ) ) : ?>
                 <div class="card__footer cell-footer _small">
 
                   <div class="card__footer-box _left text-overflow-ellipsis"><?php
