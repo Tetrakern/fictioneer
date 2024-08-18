@@ -25,6 +25,9 @@
  * @internal $args['relation']          Relationship between taxonomies. Default 'AND'.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true.
+ * @internal $args['footer_author']     Whether to show the post author. Default true.
+ * @internal $args['footer_date']       Whether to show the post date. Default true.
+ * @internal $args['footer_comments']   Whether to show the post comment count. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 
@@ -148,6 +151,22 @@ $pag_args = array(
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $args['footer'] ) {
+            $card_classes[] = '_no-footer';
+          }
+
+          if ( ! $args['footer_author'] ) {
+            $card_classes[] = '_no-footer-author';
+          }
+
+          if ( ! $args['footer_date'] ) {
+            $card_classes[] = '_no-footer-date';
+          }
+
+          if ( ! $args['footer_comments'] ) {
+            $card_classes[] = '_no-footer-comments';
+          }
+
           // Card attributes
           $attributes = [];
 
@@ -239,30 +258,36 @@ $pag_args = array(
                   </div>
                 <?php endif; ?>
 
-                <div class="card__footer cell-footer _article _small">
-                  <div class="card__footer-box text-overflow-ellipsis"><?php
-                    // Build footer items
-                    $footer_items = [];
+                <?php if ( $args['footer'] ) : ?>
+                  <div class="card__footer cell-footer _article _small">
+                    <div class="card__footer-box text-overflow-ellipsis"><?php
+                      // Build footer items
+                      $footer_items = [];
 
-                    if ( get_option( 'fictioneer_show_authors' ) ) {
-                      $footer_items['author'] = '<span class="card__footer-author"><i class="card-footer-icon fa-solid fa-circle-user"></i> ' . fictioneer_get_author_node( get_the_author_meta( 'ID' ) ) . '</span>';
-                    }
+                      if ( $args['footer_author'] && get_option( 'fictioneer_show_authors' ) ) {
+                        $footer_items['author'] = '<span class="card__footer-author"><i class="card-footer-icon fa-solid fa-circle-user"></i> ' . fictioneer_get_author_node( get_the_author_meta( 'ID' ) ) . '</span>';
+                      }
 
-                    if ( $args['orderby'] === 'modified' ) {
-                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE, $post ) . '</span>';
-                    } else {
-                      $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE ) . '</span>';
-                    }
+                      if ( $args['footer_date'] ) {
+                        if ( $args['orderby'] === 'modified' ) {
+                          $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE, $post ) . '</span>';
+                        } else {
+                          $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE ) . '</span>';
+                        }
+                      }
 
-                    $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post ) . '</span>';
+                      if ( $args['footer_comments'] ) {
+                        $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post ) . '</span>';
+                      }
 
-                    // Filter footer items
-                    $footer_items = apply_filters( 'fictioneer_filter_shortcode_article_card_footer', $footer_items, $post );
+                      // Filter footer items
+                      $footer_items = apply_filters( 'fictioneer_filter_shortcode_article_card_footer', $footer_items, $post );
 
-                    // Implode and render footer items
-                    echo implode( ' ', $footer_items );
-                  ?></div>
-                </div>
+                      // Implode and render footer items
+                      echo implode( ' ', $footer_items );
+                    ?></div>
+                  </div>
+                <?php endif; ?>
 
               </div>
 

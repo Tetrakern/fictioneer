@@ -831,6 +831,10 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
+* **footer:** Whether to show the footer (if any). Default `true`.
+* **footer_author:** Whether to show the post author. Default `true`.
+* **footer_date:** Whether to show the post date. Default `true`.
+* **footer_comments:** Whether to show the post comment count. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
