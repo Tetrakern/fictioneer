@@ -208,7 +208,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'footer_comments' => filter_var( $attr['footer_comments'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'footer_status' => filter_var( $attr['footer_status'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'footer_rating' => filter_var( $attr['footer_rating'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
-    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) ),
+    'classes' => esc_attr( wp_strip_all_tags( $attr['classes'] ?? $attr['class'] ?? '' ) ),
     'infobox' => filter_var( $attr['infobox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'source' => filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN )
   );
@@ -1930,7 +1930,7 @@ function fictioneer_shortcode_story_comments( $attr ) {
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? get_the_ID(), 'fcn_story' );
   $story_data = fictioneer_get_story_data( $story_id ?: 0 );
   $header = filter_var( $attr['header'] ?? 1, FILTER_VALIDATE_BOOLEAN );
-  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
+  $classes = wp_strip_all_tags( $attr['classes'] ?? $attr['class'] ?? '' );
   $style = esc_attr( wp_strip_all_tags( $attr['style'] ?? '' ) );
 
   if ( ! $story_data ) {
