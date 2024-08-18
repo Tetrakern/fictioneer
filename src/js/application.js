@@ -2163,7 +2163,7 @@ fcn_theBody.addEventListener('click', event => {
 
   // More setup
   const target = href.replace('#', '');
-  const targetElement = _$$(`[name="${target}"], #${target}`)[0];
+  const targetElement = _$$(`[name="${target}"], [id="${target}"]`)[0]; // Safe for IDs starting with a number
   const storyComment = trigger.closest('.comment._story-comment');
 
   // Story comments need their anchors fixed
