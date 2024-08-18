@@ -997,6 +997,11 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
+* **footer_words:** Whether to show the chapter word count. Default `true`.
+* **footer_date:** Whether to show the chapter date. Default `true`.
+* **footer_comments:** Whether to show the chapter comment count. Default `true`.
+* **footer_status:** Whether to show the chapter story status. Default `true`.
+* **footer_rating:** Whether to show the chapter age rating. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 

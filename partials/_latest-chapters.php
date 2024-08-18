@@ -30,6 +30,11 @@
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
+ * @internal $args['footer_words']      Whether to show the chapter word count. Default true.
+ * @internal $args['footer_date']       Whether to show the chapter date. Default true.
+ * @internal $args['footer_comments']   Whether to show the chapter comment count. Default true.
+ * @internal $args['footer_status']     Whether to show the chapter story status. Default true.
+ * @internal $args['footer_rating']     Whether to show the chapter age rating. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 
@@ -161,6 +166,14 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $args['footer_words'] ) {
+            $card_classes[] = '_no-footer-words';
+          }
+
+          if ( ! $args['footer_date'] ) {
+            $card_classes[] = '_no-footer-date';
+          }
+
           // Truncate factor
           $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
 
@@ -273,19 +286,23 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     // Build footer items
                     $footer_items = [];
 
-                    if ( $words > 0 ) {
+                    if ( $words > 0 && $args['footer_words'] ) {
                       $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ) . '</span>';
                     }
 
-                    if ( $args['orderby'] === 'modified' ) {
-                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post ) . '</span>';
-                    } else {
-                      $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post ) . '</span>';
+                    if ( $args['footer_date'] ) {
+                      if ( $args['orderby'] === 'modified' ) {
+                        $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post ) . '</span>';
+                      } else {
+                        $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post ) . '</span>';
+                      }
                     }
 
-                    $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number() . '</span>';
+                    if ( $args['footer_comments'] ) {
+                      $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number() . '</span>';
+                    }
 
-                    if ( $story ) {
+                    if ( $story && $args['footer_status'] ) {
                       $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
                     }
 
@@ -303,7 +320,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                   ?></div>
 
-                  <?php if ( ! empty( $chapter_rating ) ) : ?>
+                  <?php if ( ! empty( $chapter_rating ) && $args['footer_rating'] ) : ?>
                     <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
                       <?php echo fcntr( $chapter_rating[0] ); ?>
                     </div>

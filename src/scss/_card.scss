@@ -628,6 +628,20 @@
     }
   }
 
+  &._compact._chapter._no-footer-words._no-footer-date {
+    .card__title {
+      margin-bottom: 0;
+    }
+
+    .card__content {
+      margin-bottom: var(--this-spacing);
+
+      > div {
+        display: none;
+      }
+    }
+  }
+
   &._vertical {
     .cell-img {
       display: block;

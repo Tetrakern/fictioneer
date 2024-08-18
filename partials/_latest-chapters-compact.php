@@ -30,6 +30,11 @@
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  * @internal $args['infobox']           Whether to show the info box and toggle.
+ * @internal $args['footer_words']      Whether to show the chapter word count. Default true.
+ * @internal $args['footer_date']       Whether to show the chapter date. Default true.
+ * @internal $args['footer_comments']   Whether to show the chapter comment count. Default true.
+ * @internal $args['footer_status']     Whether to show the chapter story status. Default true.
+ * @internal $args['footer_rating']     Whether to show the chapter age rating. Default true.
  */
 
 
@@ -155,6 +160,14 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $args['footer_words'] ) {
+            $card_classes[] = '_no-footer-words';
+          }
+
+          if ( ! $args['footer_date'] ) {
+            $card_classes[] = '_no-footer-date';
+          }
+
           // Count actually rendered cards to account for buffer
           if ( ++$card_counter > $args['count'] ) {
             break;
@@ -238,14 +251,21 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 </div>
                 <div class="card__words-on-date text-overflow-ellipsis">
                   <?php
-                    if ( $words > 0 ) {
+                    if ( $words > 0 && $args['footer_words'] && $args['footer_date'] ) {
                       printf(
                         _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
                         fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ),
                         get_the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE )
                       );
                     } else {
-                      the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE );
+                      if ( $words > 0 && $args['footer_words'] ) {
+                        printf(
+                          _x( '%1$s Words', 'Small card: {n} Words.', 'fictioneer' ),
+                          fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) )
+                        );
+                      } elseif ( $args['footer_date'] ) {
+                        the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE );
+                      }
                     }
                   ?>
                 </div>
