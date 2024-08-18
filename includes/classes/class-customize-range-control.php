@@ -34,6 +34,7 @@ class Fictioneer_Customize_Range_Control extends \WP_Customize_Control {
         min="<?php echo esc_attr( $this->input_attrs['min'] ?? 0 ); ?>"
         max="<?php echo esc_attr( $this->input_attrs['max'] ?? 100 ); ?>"
         step="<?php echo esc_attr( $this->input_attrs['step'] ?? 1 ); ?>"
+        placeholder="<?php echo esc_attr( $this->input_attrs['placeholder'] ?? 0 ); ?>"
         <?php $this->link(); ?>
       >
 
