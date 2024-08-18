@@ -2188,17 +2188,22 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'large_border_radius',
-    array(
-      'type' => 'number',
-      'priority' => 58,
-      'section' => 'layout',
-      'label' => __( 'Large Border Radius', 'fictioneer' ),
-      'description' => __( 'Border radius of large containers in pixels, such as the main content section. Default 4.', 'fictioneer' ),
-      'input_attrs' => array(
-        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_large_border_radius_default', 4 ) ),
-        'style' => 'width: 80px',
-        'min' => 0
+    new Fictioneer_Customize_Range_Control(
+      $manager,
+      'large_border_radius',
+      array(
+        'type' => 'range-value',
+        'priority' => 58,
+        'section' => 'layout',
+        'settings' => 'large_border_radius',
+        'label' => __( 'Large Border Radius', 'fictioneer' ),
+        'description' => __( 'Border radius of large containers in pixels, such as the main content section. Default 4.', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_large_border_radius_default', 4 ) ),
+          'min' => 0,
+          'max' => 30,
+          'step' => 1
+        )
       )
     )
   );
@@ -2214,17 +2219,53 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'small_border_radius',
+    new Fictioneer_Customize_Range_Control(
+      $manager,
+      'small_border_radius',
+      array(
+        'type' => 'range-value',
+        'priority' => 60,
+        'section' => 'layout',
+        'settings' => 'small_border_radius',
+        'label' => __( 'Small Border Radius', 'fictioneer' ),
+        'description' => __( 'Border radius of small containers in pixels, such as story cards and inputs. Default 2.', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_small_border_radius_default', 2 ) ),
+          'min' => 0,
+          'max' => 30,
+          'step' => 1
+        )
+      )
+    )
+  );
+
+  // Nested border radius multiplier
+  $manager->add_setting(
+    'nested_border_radius_multiplier',
     array(
-      'type' => 'number',
-      'priority' => 60,
-      'section' => 'layout',
-      'label' => __( 'Small Border Radius', 'fictioneer' ),
-      'description' => __( 'Border radius of small containers in pixels, such as story cards and inputs. Default 2.', 'fictioneer' ),
-      'input_attrs' => array(
-        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_small_border_radius_default', 2 ) ),
-        'style' => 'width: 80px',
-        'min' => 0
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_positive_float_def1',
+      'default' => apply_filters( 'fictioneer_filter_customizer_nested_border_radius_multiplier_default', 1 )
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Range_Control(
+      $manager,
+      'nested_border_radius_multiplier',
+      array(
+        'type' => 'range-value',
+        'priority' => 61,
+        'section' => 'layout',
+        'settings' => 'nested_border_radius_multiplier',
+        'label' => __( 'Nested Border Radius Multiplier', 'fictioneer' ),
+        'description' => __( 'Nested border-radii can look bad if too large, which you can offset here. Default 1.', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => apply_filters( 'fictioneer_filter_customizer_nested_border_radius_multiplier_default', 1 ),
+          'min' => 0,
+          'max' => 2,
+          'step' => 0.05
+        )
       )
     )
   );

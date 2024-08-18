@@ -823,6 +823,7 @@ function fictioneer_build_customize_css( $context = null ) {
     $horizontal_small_max = (int) get_theme_mod( 'horizontal_spacing_small_max', 20 );
     $large_border_radius = (int) get_theme_mod( 'large_border_radius', 4 );
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
+    $nested_border_radius_multiplier = max( 0, get_theme_mod( 'nested_border_radius_multiplier', 1 ) );
     $chapter_list_gap = (int) get_theme_mod( 'chapter_list_gap', 4 );
 
     $css .= ":root, :root[data-theme=base] {
@@ -831,6 +832,7 @@ function fictioneer_build_customize_css( $context = null ) {
       --layout-spacing-horizontal-small: " . fictioneer_get_css_clamp( $horizontal_small_min, $horizontal_small_max, 320, 400, '%' ) . ";
       --layout-border-radius-large: {$large_border_radius}px;
       --layout-border-radius-small: {$small_border_radius}px;
+      --layout-nested-border-radius-multiplier: {$nested_border_radius_multiplier};
       --chapter-list-gap: {$chapter_list_gap}px;
     }";
 

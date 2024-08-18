@@ -590,7 +590,7 @@
   &__parent-comment {
     background: var(--comment-background);
     padding: .75rem;
-    border-radius: 2px;
+    border-radius: calc(var(--layout-border-radius-small) * var(--layout-nested-border-radius-multiplier, 1));
     margin: .5rem 0 .75rem;
   }
 

@@ -23,6 +23,7 @@
 .card {
   --layout-link-color-hover: var(--card-link-color-hover, var(--fg-300));
   --this-spacing: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
+  --this-nested-border-radius: calc(var(--layout-border-radius-small) * var(--layout-nested-border-radius-multiplier, 1));
   list-style: none;
   position: relative;
   border-radius: var(--layout-border-radius-small);
@@ -253,16 +254,17 @@
 
   &__image {
     --focus-offset: 2px;
+    --this-border-radius: var(--layout-border-radius-small);
     position: relative;
     display: block;
     background: var(--card-image-placeholder, var(--placeholder-background));
-    border-radius: var(--layout-border-radius-small);
+    border-radius: var(--this-border-radius);
     overflow: hidden;
 
     img {
       position: absolute;
       display: block;
-      border-radius: var(--layout-border-radius-small);
+      border-radius: var(--this-border-radius);
       object-fit: cover;
       height: 100%;
       width: 100%;
@@ -277,6 +279,10 @@
       background-size: cover;
       background-position: center;
     }
+  }
+
+  &:where(:not(._seamless)) .card__image {
+    --this-border-radius: var(--this-nested-border-radius);
   }
 
   &__text-icon {
@@ -380,7 +386,7 @@
       gap: 0 1.125em;
       background: var(--card-content-li-background);
       padding: 0.3em 0.35em 0.3em 0;
-      border-radius: var(--layout-border-radius-small);
+      border-radius: var(--this-nested-border-radius);
       min-width: 0; // Fix whitespace nowrap issue
 
       @include bp(desktop) {
@@ -523,13 +529,13 @@
     > :first-child {
       flex: 1 1 auto;
       padding: .4375rem .5rem;
-      border-top-left-radius: var(--layout-border-radius-small);
-      border-bottom-left-radius: var(--layout-border-radius-small);
+      border-top-left-radius: var(--this-nested-border-radius);
+      border-bottom-left-radius: var(--this-nested-border-radius);
     }
 
     > :last-child {
-      border-top-right-radius: var(--layout-border-radius-small);
-      border-bottom-right-radius: var(--layout-border-radius-small);
+      border-top-right-radius: var(--this-nested-border-radius);
+      border-bottom-right-radius: var(--this-nested-border-radius);
     }
   }
 
@@ -543,7 +549,7 @@
     background: var(--card-overlay-bg-color);
     font-size: var(--card-overlay-font-size, clamp(12px + var(--card-font-size-min-mod, 0px), 3.25cqw + var(--card-font-size-grow-mod, 0px), 14px + var(--card-font-size-max-mod, 0px)));
     line-height: 1.33;
-    border-radius: var(--layout-border-radius-small);
+    border-radius: var(--this-nested-border-radius);
 
     &._excerpt > .card__excerpt {
       line-height: 1.5;
