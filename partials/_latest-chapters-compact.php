@@ -168,6 +168,18 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_no-footer-date';
           }
 
+          if ( ! $args['footer_comments'] ) {
+            $card_classes[] = '_no-footer-comments';
+          }
+
+          if ( ! $args['footer_status'] ) {
+            $card_classes[] = '_no-footer-status';
+          }
+
+          if ( ! $args['footer_rating'] ) {
+            $card_classes[] = '_no-footer-rating';
+          }
+
           // Count actually rendered cards to account for buffer
           if ( ++$card_counter > $args['count'] ) {
             break;

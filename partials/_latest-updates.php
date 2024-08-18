@@ -33,6 +33,11 @@
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['words']             Whether to show the word count of chapter items. Default true.
  * @internal $args['date']              Whether to show the date of chapter items. Default true.
+ * @internal $args['footer_chapters']   Whether to show the story chapter count. Default true.
+ * @internal $args['footer_words']      Whether to show the story word count. Default true.
+ * @internal $args['footer_date']       Whether to show the modified date. Default true.
+ * @internal $args['footer_status']     Whether to show the story status. Default true.
+ * @internal $args['footer_rating']     Whether to show the story age rating. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 
@@ -173,6 +178,26 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
           if ( ! $args['date'] ) {
             $card_classes[] = '_no-chapter-dates';
+          }
+
+          if ( ! $args['footer_chapters'] ) {
+            $card_classes[] = '_no-footer-chapters';
+          }
+
+          if ( ! $args['footer_words'] ) {
+            $card_classes[] = '_no-footer-words';
+          }
+
+          if ( ! $args['footer_date'] ) {
+            $card_classes[] = '_no-footer-date';
+          }
+
+          if ( ! $args['footer_status'] ) {
+            $card_classes[] = '_no-footer-status';
+          }
+
+          if ( ! $args['footer_rating'] ) {
+            $card_classes[] = '_no-footer-rating';
           }
 
           // Search for viable chapters...
@@ -384,15 +409,21 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     // Build footer items
                     $footer_items = [];
 
-                    $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
+                    if ( $args['footer_chapters'] ) {
+                      $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
+                    }
 
-                    if ( $story['word_count'] > 0 ) {
+                    if ( $story['word_count'] > 0 && $args['footer_words'] ) {
                       $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
                     }
 
-                    $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_UPDATES_FOOTER_DATE, $post ) . '</span>';
+                    if ( $args['footer_date'] ) {
+                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_UPDATES_FOOTER_DATE, $post ) . '</span>';
+                    }
 
-                    $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                    if ( $args['footer_status'] ) {
+                      $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                    }
 
                     // Filter footer items
                     $footer_items = apply_filters(
@@ -408,9 +439,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                   ?></div>
 
-                  <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
-                    <?php echo fcntr( $story['rating_letter'] ); ?>
-                  </div>
+                  <?php if ( $args['footer_rating'] ) : ?>
+                    <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
+                      <?php echo fcntr( $story['rating_letter'] ); ?>
+                    </div>
+                  <?php endif; ?>
 
                 </div>
               <?php endif; ?>
