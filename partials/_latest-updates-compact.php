@@ -32,6 +32,11 @@
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['words']             Whether to show the word count of chapter items. Default true.
  * @internal $args['date']              Whether to show the date of chapter items. Default true.
+ * @internal $args['footer_chapters']   Whether to show the story chapter count. Default true.
+ * @internal $args['footer_words']      Whether to show the story word count. Default true.
+ * @internal $args['footer_date']       Whether to show the modified date. Default true.
+ * @internal $args['footer_status']     Whether to show the story status. Default true.
+ * @internal $args['footer_rating']     Whether to show the story age rating. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  * @internal $args['infobox']           Whether to show the info box and toggle.
  */

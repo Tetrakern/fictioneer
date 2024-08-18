@@ -22,12 +22,17 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['source']            Whether to show author and story.
+ * @internal $args['source']            Whether to show author and story. Default true.
  * @internal $args['vertical']          Whether to show the vertical variant.
  * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
+ * @internal $args['footer_chapters']   Whether to show the chapter count. Default true.
+ * @internal $args['footer_words']      Whether to show the word count. Default true.
+ * @internal $args['footer_date']       Whether to show the date. Default true.
+ * @internal $args['footer_status']     Whether to show the status. Default true.
+ * @internal $args['footer_rating']     Whether to show the age rating. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 
@@ -147,6 +152,26 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $args['footer_chapters'] ) {
+            $card_classes[] = '_no-footer-chapters';
+          }
+
+          if ( ! $args['footer_words'] ) {
+            $card_classes[] = '_no-footer-words';
+          }
+
+          if ( ! $args['footer_date'] ) {
+            $card_classes[] = '_no-footer-date';
+          }
+
+          if ( ! $args['footer_status'] ) {
+            $card_classes[] = '_no-footer-status';
+          }
+
+          if ( ! $args['footer_rating'] ) {
+            $card_classes[] = '_no-footer-rating';
+          }
+
           // Truncate factor
           $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
 
@@ -262,21 +287,25 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   // Build footer items
                   $footer_items = [];
 
-                  if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) {
+                  if ( $args['footer_chapters'] && ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) ) {
                     $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
                   }
 
-                  if ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) {
+                  if ( $args['footer_words'] && ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) ) {
                     $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
                   }
 
-                  if ( $args['orderby'] === 'modified' ) {
-                    $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
-                  } else {
-                    $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                  if ( $args['footer_date'] ) {
+                    if ( $args['orderby'] === 'modified' ) {
+                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                    } else {
+                      $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                    }
                   }
 
-                  $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                  if ( $args['footer_status'] ) {
+                    $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                  }
 
                   // Filter footer items
                   $footer_items = apply_filters(
@@ -292,9 +321,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                 ?></div>
 
-                <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
-                  <?php echo fcntr( $story['rating_letter'] ); ?>
-                </div>
+                <?php if ( $args['footer_rating'] ) : ?>
+                  <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
+                    <?php echo fcntr( $story['rating_letter'] ); ?>
+                  </div>
+                <?php endif; ?>
 
               </div>
 
