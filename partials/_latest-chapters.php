@@ -142,7 +142,6 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
-          $words = fictioneer_get_word_count( $post_id );
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
@@ -299,8 +298,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     // Build footer items
                     $footer_items = [];
 
-                    if ( $words > 0 && $args['footer_words'] ) {
-                      $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ) . '</span>';
+                    if ( $args['footer_words'] ) {
+                      $words = fictioneer_get_word_count( $post_id );
+
+                      if ( $words > 0 ) {
+                        $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ) . '</span>';
+                      }
                     }
 
                     if ( $args['footer_date'] ) {
