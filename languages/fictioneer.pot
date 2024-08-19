@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-19 11:21+0000\n"
+"POT-Creation-Date: 2024-08-19 11:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -2791,26 +2791,6 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:2632
 msgctxt "Chapter age rating meta field label."
 msgid "Age Rating"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:2629
-msgctxt "Chapter age rating select option."
-msgid "Adult"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:2626
-msgctxt "Chapter age rating select option."
-msgid "Everyone"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:2628
-msgctxt "Chapter age rating select option."
-msgid "Mature"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:2627
-msgctxt "Chapter age rating select option."
-msgid "Teen"
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:187
@@ -10116,7 +10096,7 @@ msgstr ""
 
 #: partials/_latest-stories.php:235
 #: partials/_latest-recommendations-compact.php:186
-#: partials/_latest-stories-compact.php:253 partials/_latest-updates.php:299
+#: partials/_latest-stories-compact.php:253 partials/_latest-updates.php:301
 #: partials/_latest-updates-compact.php:272
 #, php-format
 msgctxt "Small card: by {Author} —."
@@ -10312,26 +10292,6 @@ msgstr[1] ""
 #: includes/functions/_setup-meta-fields.php:1867
 msgctxt "Story age rating meta field label."
 msgid "Age Rating"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1864
-msgctxt "Story age rating select option."
-msgid "Adult"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1861
-msgctxt "Story age rating select option."
-msgid "Everyone"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1863
-msgctxt "Story age rating select option."
-msgid "Mature"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1862
-msgctxt "Story age rating select option."
-msgid "Teen"
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:118

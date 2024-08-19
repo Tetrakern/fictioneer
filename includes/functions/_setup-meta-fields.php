@@ -1858,10 +1858,10 @@ function fictioneer_render_story_meta_metabox( $post ) {
     $post,
     'fictioneer_story_rating',
     array(
-      'Everyone' => _x( 'Everyone', 'Story age rating select option.', 'fictioneer' ),
-      'Teen' => _x( 'Teen', 'Story age rating select option.', 'fictioneer' ),
-      'Mature' => _x( 'Mature', 'Story age rating select option.', 'fictioneer' ),
-      'Adult' => _x( 'Adult', 'Story age rating select option.', 'fictioneer' )
+      'Everyone' => fcntr( 'Everyone' ),
+      'Teen' => fcntr( 'Teen' ),
+      'Mature' => fcntr( 'Mature' ),
+      'Adult' => fcntr( 'Adult' )
     ),
     array(
       'label' => _x( 'Age Rating', 'Story age rating meta field label.', 'fictioneer' ),
@@ -2623,10 +2623,10 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
     'fictioneer_chapter_rating',
     array(
       '0' => __( '— Unset —', 'fictioneer' ),
-      'Everyone' => _x( 'Everyone', 'Chapter age rating select option.', 'fictioneer' ),
-      'Teen' => _x( 'Teen', 'Chapter age rating select option.', 'fictioneer' ),
-      'Mature' => _x( 'Mature', 'Chapter age rating select option.', 'fictioneer' ),
-      'Adult' => _x( 'Adult', 'Chapter age rating select option.', 'fictioneer' )
+      'Everyone' => fcntr( 'Everyone' ),
+      'Teen' => fcntr( 'Teen' ),
+      'Mature' => fcntr( 'Mature' ),
+      'Adult' => fcntr( 'Adult' )
     ),
     array(
       'label' => _x( 'Age Rating', 'Chapter age rating meta field label.', 'fictioneer' ),
