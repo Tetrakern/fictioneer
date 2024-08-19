@@ -48,6 +48,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $card_counter = 0;
+$show_tags = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ! in_array( $args['type'], ['simple', 'single'] );
 
 // Prepare query
 $query_args = array(
@@ -59,6 +60,7 @@ $query_args = array(
   'orderby' => 'meta_value',
   'meta_key' => 'fictioneer_chapters_added',
   'posts_per_page' => $args['count'] + 4, // Account for non-eligible posts!
+  'update_post_term_cache' => $show_tags, // Improve performance
   'no_found_rows' => true // Improve performance
 );
 
@@ -359,9 +361,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 <?php endforeach; ?>
               </ol>
 
-              <?php if (
-                ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ! in_array( $args['type'], ['simple', 'single'] )
-              ) : ?>
+              <?php if ( $show_tags ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
                   <div class="card__h-scroll">
                     <?php
