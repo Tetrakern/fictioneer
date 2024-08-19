@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-19 10:04+0000\n"
+"POT-Creation-Date: 2024-08-19 11:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -4653,7 +4653,8 @@ msgid ""
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1379
-msgid "Default cover for stories; does not work on vertical cards."
+msgid ""
+"Default cover for stories if none has been provided; inherited by chapters."
 msgstr ""
 
 #: includes/functions/settings/_settings_actions.php:101

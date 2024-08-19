@@ -1376,7 +1376,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'default_story_cover',
       array(
         'label' => __( 'Default Story Cover', 'fictioneer' ),
-        'description' => __( 'Default cover for stories; does not work on vertical cards.', 'fictioneer' ),
+        'description' => __( 'Default cover for stories if none has been provided; inherited by chapters.', 'fictioneer' ),
         'priority' => 1,
         'section' => 'layout',
         'settings' => 'default_story_cover',
