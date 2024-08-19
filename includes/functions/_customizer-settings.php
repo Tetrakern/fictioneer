@@ -1353,9 +1353,39 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'flex_width' => true,
         'flex_height' => true,
         'button_labels' => array(
-          'select' => __( 'Select Placeholder image', 'fictioneer' ),
+          'select' => __( 'Select Placeholder Image', 'fictioneer' ),
           'remove' => __( 'Remove', 'fictioneer' ),
-          'change' => __( 'Change Placeholder image', 'fictioneer' )
+          'change' => __( 'Change Placeholder Image', 'fictioneer' )
+        )
+      )
+    )
+  );
+
+  // Default story cover
+  $manager->add_setting(
+    'default_story_cover',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'absint'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Cropped_Image_Control(
+      $manager,
+      'default_story_cover',
+      array(
+        'label' => __( 'Default Story Cover', 'fictioneer' ),
+        'description' => __( 'Default cover for stories; does not work on vertical cards.', 'fictioneer' ),
+        'priority' => 1,
+        'section' => 'layout',
+        'settings' => 'default_story_cover',
+        'flex_width' => true,
+        'flex_height' => true,
+        'button_labels' => array(
+          'select' => __( 'Select Default Cover', 'fictioneer' ),
+          'remove' => __( 'Remove', 'fictioneer' ),
+          'change' => __( 'Change Default Cover', 'fictioneer' )
         )
       )
     )

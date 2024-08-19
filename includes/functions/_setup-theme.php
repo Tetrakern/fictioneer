@@ -2181,3 +2181,35 @@ function fictioneer_modify_calender_nav( $calendar_output ) {
   return $calendar_output;
 }
 add_filter( 'get_calendar', 'fictioneer_modify_calender_nav' );
+
+// =============================================================================
+// DEFAULT STORY THUMBNAIL
+// =============================================================================
+
+/**
+ * Returns default cover image (if any)
+ *
+ * @since 5.23.0
+ *
+ * @param int         $thumbnail_id  Post thumbnail ID.
+ * @param int|WP_Post $post          Post ID or WP_Post object. Default is global $post.
+ *
+ * @return int Post thumbnail ID (which can be 0 if the thumbnail is not set),
+ *             or false if the post does not exist.
+ */
+
+function fictioneer_default_cover( $thumbnail_id, $post ) {
+  if ( $thumbnail_id || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+    return $thumbnail_id;
+  }
+
+  if ( $post->post_type === 'fcn_story' ) {
+    return get_theme_mod( 'default_story_cover', 0 );
+  }
+
+  return $thumbnail_id;
+}
+
+if ( ! is_admin() && get_theme_mod( 'default_story_cover' ) ) {
+  add_filter( 'post_thumbnail_id', 'fictioneer_default_cover', 10, 2 );
+}
