@@ -7,7 +7,7 @@
 /**
  * Update modified date of story when chapter is updated
  *
- * @since 3.0
+ * @since 3.0.0
  *
  * @param int $post_id  The post ID.
  */
@@ -49,7 +49,8 @@ fictioneer_add_stud_post_actions( 'fictioneer_update_modified_date_on_story_for_
 /**
  * Store word count of posts
  *
- * @since 3.0
+ * @since 3.0.0
+ * @since 5.23.0 - Account for non-Latin scripts.
  * @see update_post_meta()
  *
  * @param int $post_id  Post ID.
@@ -66,8 +67,14 @@ function fictioneer_save_word_count( $post_id ) {
   $content = strip_shortcodes( $content );
   $content = strip_tags( $content );
 
-  // Count
-  $word_count = str_word_count( $content );
+  // Count (check for presence of common non-Latin scripts)
+  $pattern = '/[\x{0400}-\x{04FF}\x{0600}-\x{06FF}\x{4E00}-\x{9FFF}\x{0370}-\x{03FF}\x{0590}-\x{05FF}\x{0900}-\x{097F}\x{0E00}-\x{0E7F}]/u';
+
+  if ( preg_match( $pattern, $content ) ) {
+    $word_count = count( preg_split( '/\s+/', strip_tags( $content ) ) ?: [] );
+  } else {
+    $word_count = str_word_count( $content );
+  }
 
   // Remember
   update_post_meta( $post_id, '_word_count', $word_count );
