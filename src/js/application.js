@@ -331,7 +331,10 @@ fcn_theBody.addEventListener('click', e => {
     )
   ) {
     fcn_toggleLastClicked?.(lastClickTarget);
-    fcn_popupPosition?.();
+
+    if (typeof fcn_popupPosition === 'function') {
+      fcn_popupPosition();
+    }
 
     e.stopPropagation();
     return;
@@ -1407,9 +1410,17 @@ const /** @const {MutationObserver} */ fcn_cardListMutationObserver = new Mutati
   mutations.forEach(mutation => {
     if (mutation.addedNodes.length > 0) {
       // Update view
-      fcn_updateFollowsView?.();
-      fcn_updateCheckmarksView?.();
-      fcn_updateRemindersView?.();
+      if (typeof fcn_updateFollowsView === 'function') {
+        fcn_updateFollowsView();
+      }
+
+      if (typeof fcn_updateCheckmarksView === 'function') {
+        fcn_updateCheckmarksView();
+      }
+
+      if (typeof fcn_updateRemindersView === 'function') {
+        fcn_updateRemindersView();
+      }
     }
   });
 });
