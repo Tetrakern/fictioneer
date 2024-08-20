@@ -980,9 +980,6 @@ function fictioneer_look_for_issues() {
     mkdir( FICTIONEER_CACHE_DIR, 0755, true );
   }
 
-  // Call build methods
-  fictioneer_build_dynamic_scripts();
-
   // Cache directory set up?
   if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
     $issues[] = sprintf(
@@ -998,6 +995,15 @@ function fictioneer_look_for_issues() {
         FICTIONEER_CACHE_DIR
       );
     }
+  }
+
+  // Call build methods if necessary
+  if ( ! file_exists( $customize_css_path ) ) {
+    fictioneer_build_customize_css();
+  }
+
+  if ( ! file_exists( $dynamic_scripts_path ) ) {
+    fictioneer_build_dynamic_scripts();
   }
 
   // Dynamic scripts set up?
@@ -1052,6 +1058,14 @@ function fictioneer_look_for_issues() {
         'customize.css'
       );
     }
+  }
+
+  // Theme folder correct?
+  $fictioneer_theme = wp_get_theme();
+  $fictioneer_theme = $fictioneer_theme->parent() ? $fictioneer_theme->parent() : $fictioneer_theme;
+
+  if ( basename( $fictioneer_theme->get_stylesheet_directory() ) !== 'fictioneer' ) {
+    $issues[] = _x( 'The main theme directory is not "fictioneer" and needs to be renamed to match internal paths.', 'fictioneer' );
   }
 
   // Results
