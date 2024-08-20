@@ -724,7 +724,7 @@ html:not(.logged-in) body:not(.logged-in) {
         color: var(--chapter-list-subrow-color, var(--fg-600));
         font-family: var(--ff-note);
         font-size: var(--chapter-list-subrow-font-size, 13px); // Fallback
-        font-size: var(--chapter-list-subrow-font-size, clamp(12px, 2.15cqw, 13px));
+        font-size: var(--chapter-list-subrow-font-size, clamp(12px, 3.5cqw, 13px));
         font-weight: var(--font-weight-normal);
         line-height: 1.3;
 
