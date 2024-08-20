@@ -561,21 +561,7 @@ The theme’s CSS comes already minified and while additional optimizations such
 
 ### General Tab
 
-Most of the theme’s configuration is found here, the options being largely self-explanatory. Please note that you will probably not need all the features available, such as Checkmarks or Follows. These are for sites with many authors or stories; publishing a weekly serial is better off saving the server resources. Some changes require you to purge the theme caches after updating under **Fictioneer > Tools**. Options of note:
-
-* **System Email Address/Name:** Used for no-reply transactional emails, such as comment reply notifications.
-* **Contact Form Receivers:** Submitted contact forms are sent to those email addresses. One per line.
-* **Add consent wrappers to embedded content:** Required to be GDPR compliant if you use embeds.
-* **Page Assignments:** Only set what you actually need. Used for breadcrumbs and menu items.
-* **Comment Form CSS Selector:** If you are using a third-party comments plugin, several scripts interacting with the comment form might stop working. You can try changing the selector here. For example, wpDiscuz would need `.wpd-field-comment .ql-editor` (rich editor) or `.wpd-field-comment .wc_comment` (textarea). Purge the theme caches after updating.
-* **Enable Storygraph API:** Allows external services to index and search your site to reach a larger audience. Recommended.
-* **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications! You will need to flush your permalinks after enabling.
-* **Enabled caching of partials:** Caches parts of the page as static HTML files, saving server resources on subsequent requests. Accelerates rendering of chapters and reduces RAM consumption. Not compatible with dynamic content, but admins can disable the partial caching per chapter. Only use this if you have no cache plugin running.
-* **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
-* **Enable AJAX user authentication:** If you have trouble with [Nonces](https://developer.wordpress.org/apis/security/nonces/) and/or users not being properly logged-in. Use this as *last resort* to bypass the cache.
-* **Disable theme comment \[…]:** If you want to use different comments. Disables most of the other comment options as well.
-* **Show story changelog button:** Opens modal with timestamped chapter changes; located under the chapter list.
-* **Disable extended \[story|chapter] list meta queries:** Makes list pages and shortcodes faster, but increases the size of your database by one row for each story/chapter. Fine unless you have *thousands* of posts.
+Most of the theme’s configuration is found here, the options being largely self-explanatory. Please note that you will probably not need all the features available, such as Checkmarks or Follows. These are for sites with many authors or stories; publishing a weekly serial is better off saving the server resources. Some changes require you to purge the theme caches after updating under **Fictioneer > Tools**. The more obscure options have a (?) button to show a helper modal.
 
 ### Roles Tab
 
