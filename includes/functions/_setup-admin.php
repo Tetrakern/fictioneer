@@ -957,6 +957,108 @@ function fictioneer_get_mu_plugin_data() {
 }
 
 // =============================================================================
+// LOOK FOR ISSUES
+// =============================================================================
+
+/**
+ * Looks for issues with the theme
+ *
+ * @since 5.23.0
+ *
+ * @return array Array of found issues or empty if none found.
+ */
+
+function fictioneer_look_for_issues() {
+  // Setup
+  $dynamic_scripts_path = FICTIONEER_CACHE_DIR . '/dynamic-scripts.js';
+  $bundled_fonts_path = FICTIONEER_CACHE_DIR . '/bundled-fonts.css';
+  $customize_css_path = FICTIONEER_CACHE_DIR . '/customize.css';
+  $issues = [];
+
+  // Make sure directory exists
+  if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
+    mkdir( FICTIONEER_CACHE_DIR, 0755, true );
+  }
+
+  // Call build methods
+  fictioneer_build_dynamic_scripts();
+
+  // Cache directory set up?
+  if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
+    $issues[] = sprintf(
+      _x( '<code>%s</code> directory could not be found or created.', 'Alert about problems with the theme.', 'fictioneer' ),
+      FICTIONEER_CACHE_DIR
+    );
+  } else {
+    $permissions = substr( sprintf( '%o', fileperms( FICTIONEER_CACHE_DIR ) ), -4 );
+
+    if ( $permissions !== '0755' ) {
+      $issues[] = sprintf(
+        _x( '<code>%s</code> directory permissions are not 755.', 'Alert about problems with the theme.', 'fictioneer' ),
+        FICTIONEER_CACHE_DIR
+      );
+    }
+  }
+
+  // Dynamic scripts set up?
+  if ( ! file_exists( $dynamic_scripts_path ) ) {
+    $issues[] = sprintf(
+      _x( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'Alert about problems with the theme.', 'fictioneer' ),
+      'dynamic-scripts.js',
+      FICTIONEER_CACHE_DIR
+    );
+  } else {
+    $permissions = substr( sprintf( '%o', fileperms( $dynamic_scripts_path ) ), -4 );
+
+    if ( $permissions !== '0644' ) {
+      $issues[] = sprintf(
+        _x( '<strong>%s</strong> file permissions are not 644.', 'Alert about problems with the theme.', 'fictioneer' ),
+        'dynamic-scripts.js'
+      );
+    }
+  }
+
+  // Bundled fonts set up?
+  if ( ! file_exists( $bundled_fonts_path ) ) {
+    $issues[] = sprintf(
+      _x( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'Alert about problems with the theme.', 'fictioneer' ),
+      'bundled-fonts.css',
+      FICTIONEER_CACHE_DIR
+    );
+  } else {
+    $permissions = substr( sprintf( '%o', fileperms( $bundled_fonts_path ) ), -4 );
+
+    if ( $permissions !== '0644' ) {
+      $issues[] = sprintf(
+        _x( '<strong>%s</strong> file permissions are not 644.', 'Alert about problems with the theme.', 'fictioneer' ),
+        'bundled-fonts.css'
+      );
+    }
+  }
+
+  // Customize CSS set up?
+  if ( ! file_exists( $customize_css_path ) ) {
+    $issues[] = sprintf(
+      _x( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'Alert about problems with the theme.', 'fictioneer' ),
+      'customize.css',
+      FICTIONEER_CACHE_DIR
+    );
+  } else {
+    $permissions = substr( sprintf( '%o', fileperms( $customize_css_path ) ), -4 );
+
+    if ( $permissions !== '0644' ) {
+      $issues[] = sprintf(
+        _x( '<strong>%s</strong> file permissions are not 644.', 'Alert about problems with the theme.', 'fictioneer' ),
+        'customize.css'
+      );
+    }
+  }
+
+  // Results
+  return $issues;
+}
+
+// =============================================================================
 // AJAX REQUESTS
 // > Return early if no AJAX functions are required.
 // =============================================================================

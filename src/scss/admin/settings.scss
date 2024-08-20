@@ -432,6 +432,10 @@ body[class*="fictioneer_page_"] {
       }
     }
 
+    &--issues {
+      background: var(--card-background-color-warning);
+    }
+
     &__header {
       padding: 8px 12px;
       border-bottom: 1px solid #c3c4c7;
@@ -555,6 +559,12 @@ body[class*="fictioneer_page_"] {
         }
 
         p {
+          font-size: 12px;
+        }
+      }
+
+      &--issues {
+        li {
           font-size: 12px;
         }
       }

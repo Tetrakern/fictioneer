@@ -6,6 +6,11 @@
  * @subpackage Fictioneer
  * @since 4.7.0
  */
+
+
+// Setup
+$issues = fictioneer_look_for_issues();
+
 ?>
 
 <div class="fictioneer-settings">
@@ -17,6 +22,25 @@
       <?php settings_fields( 'fictioneer-settings-general-group' ); ?>
 
       <div class="fictioneer-columns">
+
+        <?php if ( ! empty( $issues ) ) : ?>
+          <div class="fictioneer-card fictioneer-card--issues">
+            <div class="fictioneer-card__wrapper">
+              <h3 class="fictioneer-card__header"><?php _e( 'Potential Issues', 'fictioneer' ); ?></h3>
+              <div class="fictioneer-card__content">
+
+                <div class="fictioneer-card__row fictioneer-card__row--issues">
+                  <ul><?php
+                    foreach( $issues as $issue ) {
+                      echo "<li>{$issue}</li>";
+                    }
+                  ?></ul>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
 
         <?php if ( fictioneer_check_for_updates() ) : ?>
           <div class="fictioneer-card">
