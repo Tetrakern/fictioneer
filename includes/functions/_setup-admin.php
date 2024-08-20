@@ -638,9 +638,9 @@ function fictioneer_add_sponsor_modal() {
         ?></div>
         <div class="fictioneer-dialog__row">
           <ul class="fictioneer-dialog__link-list">
+            <li><a href="https://github.com/sponsors/Tetrakern" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Sponsor me on <strong>GitHub</strong>', 'fictioneer' ); ?></a></li>
             <li><a href="https://ko-fi.com/tetrakern" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Buy me a coffee on <strong>Ko-fi</strong>', 'fictioneer' ); ?></a></li>
             <li><a href="https://www.patreon.com/tetrakern/" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Support me on <strong>Patreon</strong>', 'fictioneer' ); ?></a></li>
-            <li><a href="https://nowpayments.io/donation/fictioneer" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Donate coins of any kind', 'fictioneer' ); ?></a></li>
           </ul>
         </div>
         <div class="fictioneer-dialog__actions">
