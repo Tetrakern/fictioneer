@@ -324,7 +324,8 @@ $issues = fictioneer_look_for_issues();
                   fictioneer_settings_label_checkbox(
                     'fictioneer_show_story_changelog',
                     __( 'Show story changelog button', 'fictioneer' ),
-                    __( 'Opens modal with timestamped chapter changes.', 'fictioneer' )
+                    __( 'Opens modal with timestamped chapter changes.', 'fictioneer' ),
+                    __( 'Adds a small clock button at the bottom-left of the story chapter list, which opens a modal with a changelog. This is primarily intended for sites with user-contributed content to help expose any manipulation of update listings, such as removing and re-adding chapters. The author cannot to edit this log.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -804,7 +805,7 @@ $issues = fictioneer_look_for_issues();
                 <?php
                   fictioneer_settings_text_input(
                     'fictioneer_comment_form_selector',
-                    __( 'CSS selector for the comment form. Attempts to make scripts work with comment plugin. Clear theme cache after updating.', 'fictioneer' ),
+                    __( 'CSS selector for the comment form. Attempts to make scripts work with a comment plugin. Clear theme cache after updating.', 'fictioneer' ),
                     '#comment'
                 );
                 ?>
@@ -1167,7 +1168,8 @@ $issues = fictioneer_look_for_issues();
                   fictioneer_settings_label_checkbox(
                     'fictioneer_consent_wrappers',
                     __( 'Add consent wrappers to embedded content', 'fictioneer' ),
-                    __( 'External content not loaded until deliberately clicked.', 'fictioneer' )
+                    __( 'External content not loaded until deliberately clicked.', 'fictioneer' ),
+                    __( 'Embedding external media, such as videos or social media posts, also loads tracking scripts from the source. This typically conflicts with data privacy laws. By enabling this wrapper, all embeds are quarantined until the user explicitly clicks on them, making an informed choice and thereby consenting to any loaded scripts.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -1403,7 +1405,8 @@ $issues = fictioneer_look_for_issues();
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_comment_form',
                     __( 'Enable AJAX comment form', 'fictioneer' ),
-                    __( 'Load the comment form via AJAX to circumvent caching.', 'fictioneer' )
+                    __( 'Load the comment form via AJAX to circumvent caching.', 'fictioneer' ),
+                    __( 'The AJAX comment form avoids conflicts with caching, especially issues with dynamic security tokens that are unique to each user. By loading the form after the page has fully loaded, it circumvents the cache, though it may require more server resources.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -1413,7 +1416,8 @@ $issues = fictioneer_look_for_issues();
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_comments',
                     __( 'Enable AJAX comment section', 'fictioneer' ),
-                    __( 'Load the comment section and form via AJAX. More server work but circumvents caching.', 'fictioneer' )
+                    __( 'Load the comment section and form via AJAX. More server work but circumvents caching.', 'fictioneer' ),
+                    __( 'The AJAX comment section avoids conflicts with caching, including the AJAX comment form, ensuring that comments are always up-to-date. By loading the comments after the page has fully loaded, it circumvents the cache, though it may require more server resources.', 'fictioneer' )
                   );
                 ?>
               </div>
