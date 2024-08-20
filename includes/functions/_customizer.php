@@ -466,7 +466,7 @@ function fictioneer_get_font_data() {
 function fictioneer_build_bundled_fonts() {
   // Setup
   $base_fonts = WP_CONTENT_DIR . '/themes/fictioneer/css/fonts-base.css';
-  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+  $bundled_fonts = FICTIONEER_CACHE_DIR . '/bundled-fonts.css';
   $fonts = fictioneer_get_font_data();
   $disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
   $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
@@ -477,8 +477,8 @@ function fictioneer_build_bundled_fonts() {
   $fonts = apply_filters( 'fictioneer_filter_pre_build_bundled_fonts', $fonts );
 
   // Make sure directory exists
-  if ( ! file_exists( dirname( $bundled_fonts ) ) ) {
-    mkdir( dirname( $bundled_fonts ), 0755, true );
+  if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
+    mkdir( FICTIONEER_CACHE_DIR, 0755, true );
   }
 
   // Build
@@ -621,7 +621,7 @@ function fictioneer_get_theme_color( $mod, $default = null ) {
 function fictioneer_build_customize_css( $context = null ) {
   // --- Setup -----------------------------------------------------------------
 
-  $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
+  $file_path = FICTIONEER_CACHE_DIR . '/customize.css';
   $site_width = (int) get_theme_mod( 'site_width', 960 );
   $header_image_style = get_theme_mod( 'header_image_style', 'default' );
   $header_style = get_theme_mod( 'header_style', 'default' );
@@ -634,12 +634,12 @@ function fictioneer_build_customize_css( $context = null ) {
   $css = '';
 
   if ( $context === 'preview' ) {
-    $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
+    $file_path = FICTIONEER_CACHE_DIR . '/customize-preview.css';
   }
 
   // Make sure directory exists
-  if ( ! file_exists( dirname( $file_path ) ) ) {
-    mkdir( dirname( $file_path ), 0755, true );
+  if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
+    mkdir( FICTIONEER_CACHE_DIR, 0755, true );
   }
 
   // --- Assets ----------------------------------------------------------------

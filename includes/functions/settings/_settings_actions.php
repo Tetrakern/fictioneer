@@ -470,8 +470,7 @@ function fictioneer_purge_theme_caches() {
   fictioneer_delete_transients_like( 'fictioneer_' );
 
   // Delete cached files
-  $cache_dir = WP_CONTENT_DIR . '/themes/fictioneer/cache/';
-  $files = glob( $cache_dir . '*' );
+  $files = glob( trailingslashit( FICTIONEER_CACHE_DIR ) . '*' );
 
   foreach ( $files as $file ) {
     if ( is_file( $file ) ) {
