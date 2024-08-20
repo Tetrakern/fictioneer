@@ -1568,6 +1568,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_TRUNCATION_ELLIPSIS | string | Appended to truncated strings. Default `…`.
 | FICTIONEER_AGE_CONFIRMATION_REDIRECT | string | Redirect URL if a visitor reject the age confirmation. Default `https://search.brave.com/`.
 | FICTIONEER_CACHE_DIR | string | Server path to the theme cache directory.
+| FICTIONEER_CACHE_URL | string | URL to the theme cache directory.
 | FICTIONEER_COMMENTCODE_TTL | integer | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
 | FICTIONEER_AJAX_TTL | integer | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
 | FICTIONEER_AJAX_LOGIN_TTL | integer | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
