@@ -705,14 +705,10 @@ html:not(.logged-in) body:not(.logged-in) {
         color: var(--chapter-list-link-color, var(--heading-link-color));
         font-family: var(--ff-chapter-list-title);
         font-size: get_clamp(13, 14, 320, 768); // Fallback
-        font-size: var(--chapter-list-link-font-size, clamp(13px, 2.35cqw, 14px));
+        font-size: var(--chapter-list-link-font-size, clamp(13px, 4.1cqw, 14px));
         font-weight: var(--font-weight-medium);
         line-height: 1.3;
         width: fit-content;
-
-        @container (min-width: 900px) {
-          font-size: var(--chapter-list-link-font-size, 14.5px);
-        }
 
         &:hover {
           color: var(--chapter-list-link-color-hover, var(--heading-link-color-hover));
@@ -727,14 +723,10 @@ html:not(.logged-in) body:not(.logged-in) {
         grid-area: 2 / 2 / 3 / 3;
         color: var(--chapter-list-subrow-color, var(--fg-600));
         font-family: var(--ff-note);
-        font-size: var(--chapter-list-subrow-font-size, var(--fs-xxs)); // Fallback
-        font-size: var(--chapter-list-subrow-font-size, clamp(11.25px, 2.1cqw, 12.25px));
+        font-size: var(--chapter-list-subrow-font-size, 13px); // Fallback
+        font-size: var(--chapter-list-subrow-font-size, clamp(12px, 2.15cqw, 13px));
         font-weight: var(--font-weight-normal);
         line-height: 1.3;
-
-        @container (min-width: 900px) {
-          font-size: var(--chapter-list-subrow-font-size, 12.75px);
-        }
 
         > :is(span, time):not(:last-child)::after {
           content: " •";
