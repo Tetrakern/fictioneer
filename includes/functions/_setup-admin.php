@@ -1068,6 +1068,11 @@ function fictioneer_look_for_issues() {
     $issues[] = _x( 'The main theme directory is not "fictioneer" and needs to be renamed to match internal paths.', 'fictioneer' );
   }
 
+  // Is mbstring enabled?
+  if ( ! extension_loaded( 'mbstring' ) ) {
+    $issues[] = _x( 'The <strong>mbstring</strong> PHP extension is not enabled.', 'fictioneer' );
+  }
+
   // Results
   return $issues;
 }
