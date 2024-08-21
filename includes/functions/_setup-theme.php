@@ -890,7 +890,10 @@ function fictioneer_style_queue() {
       }
 
       // Shortcodes
-      if ( preg_match( '/\[fictioneer_latest_[^\]]*type="list"[^\]]*\]/', $post->post_content ) ) {
+      if (
+        preg_match( '/\[fictioneer_latest_[^\]]*type="list"[^\]]*\]/', $post->post_content ) ||
+        is_admin()
+      ) {
         wp_enqueue_style(
           'fictioneer-post-list',
           get_template_directory_uri() . '/css/post-list.css',
