@@ -801,6 +801,8 @@ add_action( 'customize_save_after', 'fictioneer_regenerate_cache_bust' );
  */
 
 function fictioneer_style_queue() {
+  global $post;
+
   // Setup
   $cache_bust = fictioneer_get_cache_bust();
 
@@ -882,6 +884,16 @@ function fictioneer_style_queue() {
         wp_enqueue_style(
           'fictioneer-comments',
           get_template_directory_uri() . '/css/comments.css',
+          ['fictioneer-application'],
+          $cache_bust
+        );
+      }
+
+      // Shortcodes
+      if ( preg_match( '/\[fictioneer_latest_[^\]]*type="list"[^\]]*\]/', $post->post_content ) ) {
+        wp_enqueue_style(
+          'fictioneer-post-list',
+          get_template_directory_uri() . '/css/post-list.css',
           ['fictioneer-application'],
           $cache_bust
         );
@@ -1428,27 +1440,6 @@ function fictioneer_ao_exclude_css( $exclude ) {
   return $exclude . ', fonts-base.css, fonts-full.css, bundled-fonts.css';
 }
 add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css', 10, 1 );
-
-/**
- * Turn off script optimization for admins and editors
- *
- * @since 5.20.0
- * @link https://developer.wordpress.org/reference/hooks/pre_option_option/
- *
- * @param mixed  $pre_option  The value to return instead of the option value
- * @param string $option      Option name.
- *
- * @return mixed The updated or original option value.
- */
-
-function fictioneer_override_autoptimize_optimize_logged_option( $value, $option ) {
-  if ( $option === 'autoptimize_optimize_logged' ) {
-    return '';
-  }
-
-  return $value;
-}
-add_filter( 'pre_option_autoptimize_optimize_logged', 'fictioneer_override_autoptimize_optimize_logged_option', 10, 2 );
 
 // =============================================================================
 // OUTPUT HEAD FONTS

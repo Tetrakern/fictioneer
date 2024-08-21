@@ -22,7 +22,7 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['source']            Whether to show author and story.
+ * @internal $args['source']            Whether to show the author. Default true.
  * @internal $args['vertical']          Whether to show the vertical variant.
  * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
@@ -320,10 +320,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       }
 
                       if ( $args['footer_date'] ) {
+                        $format = $args['date_format'] ?: FICTIONEER_LATEST_STORIES_FOOTER_DATE;
+
                         if ( $args['orderby'] === 'modified' ) {
-                          $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                          $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( $format, $post ) . '</span>';
                         } else {
-                          $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                          $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( $format, $post ) . '</span>';
                         }
                       }
 

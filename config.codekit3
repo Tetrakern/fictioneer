@@ -3910,6 +3910,21 @@
       "pg" : 0,
       "sct" : 0
     },
+    "\/src\/scss\/post-list.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 0,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/css\/post-list.css",
+      "oF" : 2,
+      "oS" : 3,
+      "pg" : 0,
+      "sct" : 0
+    },
     "\/src\/scss\/properties.scss" : {
       "aP" : 0,
       "bl" : 0,

@@ -1740,6 +1740,7 @@ function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
  * Sanitizes a CSS aspect ratio value
  *
  * @since 5.14.0
+ * @since 5.23.0 - Refactored to accept fractional values.
  *
  * @param string $css      The CSS value to be sanitized.
  * @param string $default  Optional default value.
@@ -1752,13 +1753,18 @@ function sanitize_css_aspect_ratio( $css, $default = false ) {
   $css = trim( $css );
 
   // Validate
-  if ( preg_match( '/^\d+\/\d+$/', $css ) ) {
+  if ( preg_match( '/^\d+(\.\d+)?\/\d+(\.\d+)?$/', $css ) ) {
     // Split based on the slash '/'
     list( $numerator, $denominator ) = explode( '/', $css, 2 );
 
     // Sanitize parts
-    $numerator = absint( $numerator );
-    $denominator = absint( $denominator );
+    $numerator = max( 0, floatval( $numerator ) );
+    $denominator = max( 0, floatval( $denominator ) );
+
+    // Nonsense?
+    if ( $numerator == 0 || $denominator == 0 ) {
+      return $default;
+    }
 
     // Combine and return
     return $numerator . '/' . $denominator;

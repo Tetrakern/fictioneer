@@ -9,32 +9,33 @@
  * @since 4.0.0
  * @see fictioneer_clause_sticky_stories()
  *
- * @internal $args['type']              Type argument passed from shortcode.
- * @internal $args['count']             Number of posts provided by the shortcode.
- * @internal $args['author']            Author provided by the shortcode.
- * @internal $args['order']             Order of posts. Default 'DESC'.
- * @internal $args['orderby']           Sorting of posts. Default 'date'.
- * @internal $args['post_ids']          Array of post IDs. Default empty.
- * @internal $args['author_ids']        Array of author IDs. Default empty.
- * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
- * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
- * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
- * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
- * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['source']            Whether to show author and story. Default true.
- * @internal $args['vertical']          Whether to show the vertical variant.
- * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
- * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
- * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
- * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
- * @internal $args['footer']            Whether to show the footer. Default true.
- * @internal $args['footer_chapters']   Whether to show the chapter count. Default true.
- * @internal $args['footer_words']      Whether to show the word count. Default true.
- * @internal $args['footer_date']       Whether to show the date. Default true.
- * @internal $args['footer_status']     Whether to show the status. Default true.
- * @internal $args['footer_rating']     Whether to show the age rating. Default true.
- * @internal $args['classes']           String of additional CSS classes. Default empty.
+ * @internal $args['type']                Type argument passed from shortcode.
+ * @internal $args['count']               Number of posts provided by the shortcode.
+ * @internal $args['author']              Author provided by the shortcode.
+ * @internal $args['order']               Order of posts. Default 'DESC'.
+ * @internal $args['orderby']             Sorting of posts. Default 'date'.
+ * @internal $args['post_ids']            Array of post IDs. Default empty.
+ * @internal $args['author_ids']          Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
+ * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
+ * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']            Relationship between taxonomies.
+ * @internal $args['source']              Whether to show the author. Default true.
+ * @internal $args['vertical']            Whether to show the vertical variant.
+ * @internal $args['seamless']            Whether to render the image seamless. Default false (Customizer).
+ * @internal $args['aspect_ratio']        Aspect ratio for the image. Only with vertical.
+ * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']           Whether the image is rendered. Default true (Customizer).
+ * @internal $args['footer']              Whether to show the footer. Default true.
+ * @internal $args['date_format']         String to override the date format. Default empty.
+ * @internal $args['footer_chapters']     Whether to show the chapter count. Default true.
+ * @internal $args['footer_words']        Whether to show the word count. Default true.
+ * @internal $args['footer_date']         Whether to show the date. Default true.
+ * @internal $args['footer_status']       Whether to show the status. Default true.
+ * @internal $args['footer_rating']       Whether to show the age rating. Default true.
+ * @internal $args['classes']             String of additional CSS classes. Default empty.
  */
 
 
@@ -302,10 +303,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     }
 
                     if ( $args['footer_date'] ) {
+                      $format = $args['date_format'] ?: FICTIONEER_LATEST_STORIES_FOOTER_DATE;
+
                       if ( $args['orderby'] === 'modified' ) {
-                        $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                        $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( $format, $post ) . '</span>';
                       } else {
-                        $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
+                        $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( $format, $post ) . '</span>';
                       }
                     }
 

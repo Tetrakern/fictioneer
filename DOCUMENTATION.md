@@ -27,7 +27,7 @@ For simplicity, here is the copied content of the [demo homepage](https://fictio
 <!-- /wp:spacer -->
 
 <!-- wp:shortcode -->
-[fictioneer_article_cards per_page="2" ignore_sticky="1"]
+[fictioneer_article_cards per_page="2" ignore_sticky="true"]
 <!-- /wp:shortcode -->
 
 <!-- wp:heading -->
@@ -134,7 +134,7 @@ For simplicity, here is the copied content of the [demo homepage](https://fictio
 <!-- /wp:heading -->
 
 <!-- wp:shortcode -->
-[fictioneer_latest_chapters count="2" post_ids="29,92" orderby="post__in" spoiler="true" vertical="1" seamless="1" aspect_ratio="4/1" type="simple" source="0" lightbox="0"]
+[fictioneer_latest_chapters count="2" post_ids="29,92" orderby="post__in" spoiler="true" vertical="true" seamless="true" aspect_ratio="4/1" type="simple" source="0" lightbox="0"]
 <!-- /wp:shortcode -->
 
 <!-- wp:spacer {"height":"1rem"} -->
@@ -162,7 +162,7 @@ For simplicity, here is the copied content of the [demo homepage](https://fictio
 <!-- /wp:html -->
 
 <!-- wp:shortcode -->
-[fictioneer_story_comments story_id="13" header="1"]
+[fictioneer_story_comments story_id="13" header="true"]
 <!-- /wp:shortcode -->
 ```
 
@@ -737,7 +737,7 @@ Renders the chapters, groups, and tabs of the specified story. It will look just
 ```
 
 ```
-[fictioneer_story_section story_id="182" tabs="1" pages="1"]
+[fictioneer_story_section story_id="182" tabs="true" pages="true"]
 ```
 
 ### Story Comments Shortcode
@@ -831,6 +831,8 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
+* **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
+* **nested_date_format:** String to override any nested [date formats](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the post author. Default `true`.
 * **footer_date:** Whether to show the post date. Default `true`.
@@ -843,15 +845,15 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 ```
 
 ```
-[fictioneer_article_cards post_type="post" per_page="4" ignore_sticky="1"]
+[fictioneer_article_cards post_type="post" per_page="4" ignore_sticky="true"]
 ```
 
 ```
-[fictioneer_article_cards post_type="story, chapter" count="8" ignore_protected="1"]
+[fictioneer_article_cards post_type="story, chapter" count="8" ignore_protected="true"]
 ```
 
 ```
-[fictioneer_article_cards post_type="story, chapter" seamless="1" aspect_ratio="4/1"]
+[fictioneer_article_cards post_type="story, chapter" seamless="true" aspect_ratio="4/1"]
 ```
 
 ![Article Cards](repo/assets/shortcode_example_article_cards.jpg?raw=true)
@@ -904,7 +906,7 @@ Renders a multi-column grid of small bookmark cards, ordered by date of creation
 ```
 
 ```
-[fictioneer_bookmarks count="8" seamless="1" thumbnail="0"]
+[fictioneer_bookmarks count="8" seamless="true" thumbnail="0"]
 ```
 
 ![Bookmarks](repo/assets/shortcode_example_bookmarks.jpg?raw=true)
@@ -975,15 +977,15 @@ Renders two buttons to deal with cookies, "Reset Consent" and "Clear Cookies". B
 
 ### Latest Chapters
 
-Renders a multi-column grid of small cards, showing the latest four chapters ordered by publishing date, descending.
+Renders a multi-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Note that the `list` type behaves a bit different with the parameters.
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
-* **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
+* **type:** Either `default`, `simple`, `compact`, or `list`. The other variants are smaller with less data.
 * **author:** Only show chapters of a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
-* **source:** Set `false` to hide the author and story nodes. Default `true`.
+* **source:** Whether to show the author and story nodes. Default `true`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
@@ -1001,7 +1003,10 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
+* **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
+* **nested_date_format:** String to override any nested [date formats](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
 * **footer:** Whether to show the footer (if any). Default `true`.
+* **footer_author:** Whether to show the chapter author. Default `true`.
 * **footer_words:** Whether to show the chapter word count. Default `true`.
 * **footer_date:** Whether to show the chapter date. Default `true`.
 * **footer_comments:** Whether to show the chapter comment count. Default `true`.
@@ -1023,7 +1028,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 ```
 
 ```
-[fictioneer_latest_chapters source="false" vertical="1" seamless="1" aspect_ratio="5/1"]
+[fictioneer_latest_chapters source="false" vertical="true" seamless="true" aspect_ratio="5/1"]
 ```
 
 ![Latest Chapters](repo/assets/shortcode_example_latest_chapters.jpg?raw=true)
@@ -1102,7 +1107,7 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 ```
 
 ```
-[fictioneer_latest_recommendations vertical="1" seamless="1"]
+[fictioneer_latest_recommendations vertical="true" seamless="true"]
 ```
 
 ![Latest Recommendations](repo/assets/shortcode_example_latest_recommendations.jpg?raw=true)
@@ -1110,10 +1115,10 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 
 ### Latest Stories
 
-Renders a multi-column grid of small cards, showing the latest four stories ordered by publishing date, descending.
+Renders a multi-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Note that the `list` type behaves a bit different with the parameters.
 
 * **count:** Limit stories to any positive number, although you should keep it reasonable. Default `4`.
-* **type:** Either `default` or `compact`. The compact variant is smaller with less data.
+* **type:** Either `default`, `compact`, or `list`. The compact variant is smaller with less data.
 * **author:** Only show stories of a specific author. Make sure to spell the _username_ right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
@@ -1129,13 +1134,17 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
-* **source:** Set `false` to hide the author node. Default `true`.
+* **source:** Whether to show the author node. Default `true`.
 * **vertical:** Whether to render the cards with the image on top. Default `false`.
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
+* **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
+* **terms:** Either `inline`, `pills`, or `none` (only in type `list`). Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies (only in type `list`). Default `10`.
 * **footer:** Whether to show the footer (if any). Default `true`.
+* **footer_author:** Whether to show the author. Default `true`.
 * **footer_chapters:** Whether to show the chapter count. Default `true`.
 * **footer_words:** Whether to show the word count. Default `true`.
 * **footer_date:** Whether to show the date. Default `true`.
@@ -1157,11 +1166,11 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 ```
 
 ```
-[fictioneer_latest_stories count="2" author="Hungry" seamless="1"]
+[fictioneer_latest_stories count="2" author="Hungry" seamless="true"]
 ```
 
 ```
-[fictioneer_latest_stories type="compact" vertical="1" aspect_ratio="3/2"]
+[fictioneer_latest_stories type="compact" vertical="true" aspect_ratio="3/2"]
 ```
 
 ![Latest Stories](repo/assets/shortcode_example_latest_stories.jpg?raw=true)
@@ -1170,10 +1179,10 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 
 ### Latest Updates
 
-Renders a multi-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending.
+Renders a multi-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Note that the `list` type behaves a bit different with the parameters.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
-* **type:** Either `default`, `simple`, `single`, or `compact`. The other variants are smaller with less data.
+* **type:** Either `default`, `simple`, `single`, `compact`, or `list`. The other variants are smaller with less data.
 * **single:** Whether to show only one chapter item (included in type `single`). Default `false`.
 * **author:** Only show updates of a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
@@ -1189,7 +1198,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
-* **source:** Set `false` to hide the author node. Default `true`.
+* **source:** Whether to show the author node. Default `true`.
 * **vertical:** Whether to render the cards with the image on top. Default `false`.
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
@@ -1198,7 +1207,12 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **words:** Whether to show the word count of chapter items. Default `true`.
 * **date:** Whether to show the date of chapter items. Default `true`.
+* **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
+* **nested_date_format:** String to override any nested [date formats](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
+* **terms:** Either `inline`, `pills`, or `none` (only in type `list`). Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies (only in type `list`). Default `10`.
 * **footer:** Whether to show the footer (if any). Default `true`.
+* **footer_author:** Whether to show the story/chapter author. Default `true`.
 * **footer_chapters:** Whether to show the story chapter count. Default `true`.
 * **footer_words:** Whether to show the story word count. Default `true`.
 * **footer_date:** Whether to show the modified date. Default `true`.
@@ -1219,15 +1233,15 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 ```
 
 ```
-[fictioneer_latest_updates type="compact" order="asc" post_ids="13,106" seamless="1"]
+[fictioneer_latest_updates type="compact" order="asc" post_ids="13,106" seamless="true"]
 ```
 
 ```
-[fictioneer_latest_updates type="compact" vertical="1" seamless="1"]
+[fictioneer_latest_updates type="compact" vertical="true" seamless="true"]
 ```
 
 ```
-[fictioneer_latest_updates type="simple" single="1" date="0"]
+[fictioneer_latest_updates type="simple" single="true" date="0"]
 ```
 
 ![Latest Updates](repo/assets/shortcode_example_latest_updates.jpg?raw=true)

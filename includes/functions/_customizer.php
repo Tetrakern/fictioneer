@@ -824,7 +824,7 @@ function fictioneer_build_customize_css( $context = null ) {
     $large_border_radius = (int) get_theme_mod( 'large_border_radius', 4 );
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
     $nested_border_radius_multiplier = max( 0, get_theme_mod( 'nested_border_radius_multiplier', 1 ) );
-    $chapter_list_gap = (int) get_theme_mod( 'chapter_list_gap', 4 );
+    $content_list_gap = (int) get_theme_mod( 'content_list_gap', 4 );
 
     $css .= ":root, :root[data-theme=base] {
       --layout-spacing-vertical: " . fictioneer_get_css_clamp( $vertical_min, $vertical_max, 480, $site_width ) . ";
@@ -833,7 +833,8 @@ function fictioneer_build_customize_css( $context = null ) {
       --layout-border-radius-large: {$large_border_radius}px;
       --layout-border-radius-small: {$small_border_radius}px;
       --layout-nested-border-radius-multiplier: {$nested_border_radius_multiplier};
-      --chapter-list-gap: {$chapter_list_gap}px;
+      --chapter-list-gap: {$content_list_gap}px;
+      --content-list-gap: {$content_list_gap}px;
     }";
 
     if ( $sidebar_style !== 'none' ) {

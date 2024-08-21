@@ -2300,26 +2300,26 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Chapter list gap
+  // Content list gap
   $manager->add_setting(
-    'chapter_list_gap',
+    'content_list_gap',
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => apply_filters( 'fictioneer_filter_customizer_chapter_list_gap_default', 4 )
+      'default' => apply_filters( 'fictioneer_filter_customizer_content_list_gap_default', 4 )
     )
   );
 
   $manager->add_control(
-    'chapter_list_gap',
+    'content_list_gap',
     array(
       'type' => 'number',
       'priority' => 62,
       'section' => 'layout',
-      'label' => __( 'Chapter List Gap', 'fictioneer' ),
-      'description' => __( 'The gap between chapter list items in pixels (not grid view). Default 4.', 'fictioneer' ),
+      'label' => __( 'Content List Gap', 'fictioneer' ),
+      'description' => __( 'The gap between content list items in pixels (not grid view). Default 4.', 'fictioneer' ),
       'input_attrs' => array(
-        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_chapter_list_gap_default', 4 ) ),
+        'placeholder' => strval( apply_filters( 'fictioneer_filter_customizer_content_list_gap_default', 4 ) ),
         'style' => 'width: 80px',
         'min' => 0
       )

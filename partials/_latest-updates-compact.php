@@ -11,34 +11,36 @@
  * @subpackage Fictioneer
  * @since 4.3.0
  *
- * @internal $args['type']              Type argument passed from shortcode ('compact').
- * @internal $args['single']            Whether to show only one chapter item. Default false.
- * @internal $args['count']             Number of posts provided by the shortcode.
- * @internal $args['author']            Author provided by the shortcode.
- * @internal $args['order']             Order of posts. Default 'DESC'.
- * @internal $args['post_ids']          Array of post IDs. Default empty.
- * @internal $args['author_ids']        Array of author IDs. Default empty.
- * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
- * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
- * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
- * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
- * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['source']            Whether to show author and story.
- * @internal $args['vertical']          Whether to show the vertical variant.
- * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
- * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
- * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
- * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
- * @internal $args['words']             Whether to show the word count of chapter items. Default true.
- * @internal $args['date']              Whether to show the date of chapter items. Default true.
- * @internal $args['footer_chapters']   Whether to show the story chapter count. Default true.
- * @internal $args['footer_words']      Whether to show the story word count. Default true.
- * @internal $args['footer_date']       Whether to show the modified date. Default true.
- * @internal $args['footer_status']     Whether to show the story status. Default true.
- * @internal $args['footer_rating']     Whether to show the story age rating. Default true.
- * @internal $args['classes']           String of additional CSS classes. Default empty.
- * @internal $args['infobox']           Whether to show the info box and toggle.
+ * @internal $args['type']                Type argument passed from shortcode ('compact').
+ * @internal $args['single']              Whether to show only one chapter item. Default false.
+ * @internal $args['count']               Number of posts provided by the shortcode.
+ * @internal $args['author']              Author provided by the shortcode.
+ * @internal $args['order']               Order of posts. Default 'DESC'.
+ * @internal $args['post_ids']            Array of post IDs. Default empty.
+ * @internal $args['author_ids']          Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
+ * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
+ * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']            Relationship between taxonomies.
+ * @internal $args['source']              Whether to show author and story.
+ * @internal $args['vertical']            Whether to show the vertical variant.
+ * @internal $args['seamless']            Whether to render the image seamless. Default false (Customizer).
+ * @internal $args['aspect_ratio']        Aspect ratio for the image. Only with vertical.
+ * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']           Whether the image is rendered. Default true (Customizer).
+ * @internal $args['words']               Whether to show the word count of chapter items. Default true.
+ * @internal $args['date']                Whether to show the date of chapter items. Default true.
+ * @internal $args['date_format']         String to override the date format. Default empty.
+ * @internal $args['nested_date_format']  String to override the date format of nested items. Default empty.
+ * @internal $args['footer_chapters']     Whether to show the story chapter count. Default true.
+ * @internal $args['footer_words']        Whether to show the story word count. Default true.
+ * @internal $args['footer_date']         Whether to show the modified date. Default true.
+ * @internal $args['footer_status']       Whether to show the story status. Default true.
+ * @internal $args['footer_rating']       Whether to show the story age rating. Default true.
+ * @internal $args['classes']             String of additional CSS classes. Default empty.
+ * @internal $args['infobox']             Whether to show the info box and toggle.
  */
 
 
@@ -321,8 +323,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                         }
 
                         if ( $args['date'] ) {
-                          echo '<span class="date">' .
-                            get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID ) . '</span>';
+                          echo '<span class="date">' . get_the_date(
+                            $args['nested_date_format'] ?: FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID
+                          ) . '</span>';
                         }
                       ?>
                     </div>

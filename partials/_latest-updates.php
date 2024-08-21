@@ -12,34 +12,38 @@
  * @subpackage Fictioneer
  * @since 4.3.0
  *
- * @internal $args['type']              Type argument passed from shortcode. Default 'default'.
- * @internal $args['single']            Whether to show only one chapter item. Default false.
- * @internal $args['count']             Number of posts provided by the shortcode.
- * @internal $args['author']            Author provided by the shortcode.
- * @internal $args['order']             Order of posts. Default 'DESC'.
- * @internal $args['post_ids']          Array of post IDs. Default empty.
- * @internal $args['author_ids']        Array of author IDs. Default empty.
- * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
- * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
- * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
- * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
- * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['source']            Whether to show author and story.
- * @internal $args['vertical']          Whether to show the vertical variant.
- * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
- * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
- * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
- * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
- * @internal $args['words']             Whether to show the word count of chapter items. Default true.
- * @internal $args['date']              Whether to show the date of chapter items. Default true.
- * @internal $args['footer']            Whether to show the footer. Default true.
- * @internal $args['footer_chapters']   Whether to show the story chapter count. Default true.
- * @internal $args['footer_words']      Whether to show the story word count. Default true.
- * @internal $args['footer_date']       Whether to show the modified date. Default true.
- * @internal $args['footer_status']     Whether to show the story status. Default true.
- * @internal $args['footer_rating']     Whether to show the story age rating. Default true.
- * @internal $args['classes']           String of additional CSS classes. Default empty.
+ * @internal $args['type']                Type argument passed from shortcode. Default 'default'.
+ * @internal $args['single']              Whether to show only one chapter item. Default false.
+ * @internal $args['count']               Number of posts provided by the shortcode.
+ * @internal $args['author']              Author provided by the shortcode.
+ * @internal $args['order']               Order of posts. Default 'DESC'.
+ * @internal $args['post_ids']            Array of post IDs. Default empty.
+ * @internal $args['author_ids']          Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
+ * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
+ * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']            Relationship between taxonomies.
+ * @internal $args['source']              Whether to show author and story.
+ * @internal $args['vertical']            Whether to show the vertical variant.
+ * @internal $args['seamless']            Whether to render the image seamless. Default false (Customizer).
+ * @internal $args['aspect_ratio']        Aspect ratio for the image. Only with vertical.
+ * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']           Whether the image is rendered. Default true (Customizer).
+ * @internal $args['words']               Whether to show the word count of chapter items. Default true.
+ * @internal $args['date']                Whether to show the date of chapter items. Default true.
+ * @internal $args['terms']               Either inline, pills, none, or false. Default inline.
+ * @internal $args['max_terms']           Maximum number of taxonomies terms. Default 10.
+ * @internal $args['date_format']         String to override the date format. Default empty.
+ * @internal $args['nested_date_format']  String to override the date format of nested items. Default empty.
+ * @internal $args['footer']              Whether to show the footer. Default true.
+ * @internal $args['footer_chapters']     Whether to show the story chapter count. Default true.
+ * @internal $args['footer_words']        Whether to show the story word count. Default true.
+ * @internal $args['footer_date']         Whether to show the modified date. Default true.
+ * @internal $args['footer_status']       Whether to show the story status. Default true.
+ * @internal $args['footer_rating']       Whether to show the story age rating. Default true.
+ * @internal $args['classes']             String of additional CSS classes. Default empty.
  */
 
 
@@ -48,7 +52,9 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $card_counter = 0;
-$show_tags = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ! in_array( $args['type'], ['simple', 'single'] );
+$show_terms = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) &&
+  ! in_array( $args['type'], ['simple', 'single'] ) &&
+  ! in_array( $args['terms'], ['none', 'false'] );
 
 // Prepare query
 $query_args = array(
@@ -60,7 +66,7 @@ $query_args = array(
   'orderby' => 'meta_value',
   'meta_key' => 'fictioneer_chapters_added',
   'posts_per_page' => $args['count'] + 4, // Account for non-eligible posts!
-  'update_post_term_cache' => $show_tags, // Improve performance
+  'update_post_term_cache' => $show_terms, // Improve performance
   'no_found_rows' => true // Improve performance
 );
 
@@ -351,8 +357,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                           }
 
                           if ( $args['date'] ) {
-                            echo '<span class="date">' .
-                              get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID ) . '</span>';
+                            echo '<span class="date">' . get_the_date(
+                              $args['nested_date_format'] ?: FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID
+                            ) . '</span>';
                           }
                         ?>
                       </div>
@@ -361,39 +368,41 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 <?php endforeach; ?>
               </ol>
 
-              <?php if ( $show_tags ) : ?>
+              <?php if ( $show_terms ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
                   <div class="card__h-scroll">
                     <?php
                       if ( $story['has_taxonomies'] || $tags ) {
-                        $output = [];
+                        $terms = [];
 
                         if ( $story['fandoms'] ) {
                           foreach ( $story['fandoms'] as $fandom ) {
-                            $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                            $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
                           }
                         }
 
                         if ( $story['genres'] ) {
                           foreach ( $story['genres'] as $genre ) {
-                            $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                            $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
                           }
                         }
 
                         if ( $tags ) {
                           foreach ( $tags as $tag ) {
-                            $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                            $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
                           }
                         }
 
                         if ( $story['characters'] ) {
                           foreach ( $story['characters'] as $character ) {
-                            $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                            $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
                           }
                         }
 
+                        $terms = apply_filters( 'fictioneer_filter_shortcode_latest_updates_terms', $terms, $story, $args );
+
                         // Implode with three-per-em spaces around a bullet
-                        echo implode( '&#8196;&bull;&#8196;', $output );
+                        echo implode( '&#8196;&bull;&#8196;', $terms );
                       } else {
                         ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                       }
@@ -419,7 +428,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     }
 
                     if ( $args['footer_date'] ) {
-                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_UPDATES_FOOTER_DATE, $post ) . '</span>';
+                      $format = $args['date_format'] ?: FICTIONEER_LATEST_UPDATES_FOOTER_DATE;
+
+                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( $format, $post ) . '</span>';
                     }
 
                     if ( $args['footer_status'] ) {

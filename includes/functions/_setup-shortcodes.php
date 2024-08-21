@@ -203,6 +203,8 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'lightbox' => filter_var( $attr['lightbox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'words' => filter_var( $attr['words'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'date' => filter_var( $attr['date'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
+    'date_format' => sanitize_text_field( $attr['date_format'] ?? '' ),
+    'nested_date_format' => sanitize_text_field( $attr['nested_date_format'] ?? '' ),
     'footer' => filter_var( $attr['footer'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'footer_author' => filter_var( $attr['footer_author'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'footer_chapters' => filter_var( $attr['footer_chapters'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
@@ -462,7 +464,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
  * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['spoiler']             Optional. Whether to show spoiler content.
- * @param string|null $attr['source']              Optional. Whether to show author and story.
+ * @param string|null $attr['source']              Optional. Whether to show the author and story.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
@@ -480,6 +482,14 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
+ * @param string|null $attr['date_format']         Optional. String to override the date format. Default empty.
+ * @param string|null $attr['footer']              Optional. Whether to show the footer (if any). Default true.
+ * @param string|null $attr['footer_author']       Optional. Whether to show the chapter author. Default true.
+ * @param string|null $attr['footer_date']         Optional. Whether to show the chapter date. Default true.
+ * @param string|null $attr['footer_words']        Optional. Whether to show the chapter word count. Default true.
+ * @param string|null $attr['footer_comments']     Optional. Whether to show the chapter comment count. Default true.
+ * @param string|null $attr['footer_status']       Optional. Whether to show the chapter status. Default true.
+ * @param string|null $attr['footer_rating']       Optional. Whether to show the story/chapter age rating. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The captured shortcode HTML.
@@ -513,6 +523,9 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   switch ( $type ) {
     case 'compact':
       get_template_part( 'partials/_latest-chapters-compact', null, $args );
+      break;
+    case 'list':
+      get_template_part( 'partials/_latest-chapters-list', null, $args );
       break;
     default:
       $args['simple'] = $type == 'simple';
@@ -563,6 +576,17 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
+ * @param string|null $attr['date_format']         Optional. String to override the date format. Default empty.
+ * @param string|null $attr['terms']               Optional. Either 'inline', 'pills', 'none', or 'false' (only in list type).
+ *                                                 Default 'inline'.
+ * @param string|null $attr['max_terms']           Optional. Maximum number of shown taxonomies. Default 10.
+ * @param string|null $attr['footer']              Optional. Whether to show the footer (if any). Default true.
+ * @param string|null $attr['footer_author']       Optional. Whether to show the story author. Default true.
+ * @param string|null $attr['footer_date']         Optional. Whether to show the story date. Default true.
+ * @param string|null $attr['footer_words']        Optional. Whether to show the story word count. Default true.
+ * @param string|null $attr['footer_chapters']     Optional. Whether to show the story chapter count. Default true.
+ * @param string|null $attr['footer_status']       Optional. Whether to show the story status. Default true.
+ * @param string|null $attr['footer_rating']       Optional. Whether to show the story age rating. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The captured shortcode HTML.
@@ -574,6 +598,10 @@ function fictioneer_shortcode_latest_stories( $attr ) {
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );
+
+  // Terms
+  $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
+  $args['max_terms'] = absint( $attr['max_terms'] ?? 10 );
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -592,6 +620,9 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   switch ( $type ) {
     case 'compact':
       get_template_part( 'partials/_latest-stories-compact', null, $args );
+      break;
+    case 'list':
+      get_template_part( 'partials/_latest-stories-list', null, $args );
       break;
     default:
       get_template_part( 'partials/_latest-stories', null, $args );
@@ -642,6 +673,18 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
  * @param string|null $attr['words']               Optional. Whether to show the word count of chapter items. Default true.
  * @param string|null $attr['date']                Optional. Whether to show the date of chapter items. Default true.
+ * @param string|null $attr['date_format']         Optional. String to override the date format. Default empty.
+ * @param string|null $attr['nested_date_format']  Optional. String to override any nested date formats. Default empty.
+ * @param string|null $attr['terms']               Optional. Either 'inline', 'pills', 'none', or 'false' (only in list type).
+ *                                                 Default 'inline'.
+ * @param string|null $attr['max_terms']           Optional. Maximum number of shown taxonomies. Default 10.
+ * @param string|null $attr['footer']              Optional. Whether to show the footer (if any). Default true.
+ * @param string|null $attr['footer_author']       Optional. Whether to show the story author. Default true.
+ * @param string|null $attr['footer_date']         Optional. Whether to show the story date. Default true.
+ * @param string|null $attr['footer_words']        Optional. Whether to show the story word count. Default true.
+ * @param string|null $attr['footer_chapters']     Optional. Whether to show the story chapter count. Default true.
+ * @param string|null $attr['footer_status']       Optional. Whether to show the story status. Default true.
+ * @param string|null $attr['footer_rating']       Optional. Whether to show the story/chapter age rating. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The captured shortcode HTML.
@@ -654,6 +697,10 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );
+
+  // Terms
+  $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
+  $args['max_terms'] = absint( $attr['max_terms'] ?? 10 );
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -672,6 +719,9 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   switch ( $type ) {
     case 'compact':
       get_template_part( 'partials/_latest-updates-compact', null, $args );
+      break;
+    case 'list':
+      get_template_part( 'partials/_latest-updates-list', null, $args );
       break;
     default:
       get_template_part( 'partials/_latest-updates', null, $args );
@@ -1539,6 +1589,11 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
+ * @param string|null $attr['date_format']         Optional. String to override the date format. Default empty.
+ * @param string|null $attr['footer']              Optional. Whether to show the footer (if any). Default true.
+ * @param string|null $attr['footer_author']       Optional. Whether to show the post author. Default true.
+ * @param string|null $attr['footer_date']         Optional. Whether to show the post date. Default true.
+ * @param string|null $attr['footer_comments']     Optional. Whether to show the post comment count. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The captured shortcode HTML.

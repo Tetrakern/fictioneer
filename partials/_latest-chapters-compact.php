@@ -8,33 +8,33 @@
  * @subpackage Fictioneer
  * @since 4.0.0
  *
- * @internal $args['type']              Type argument passed from shortcode ('compact').
- * @internal $args['count']             Number of posts provided by the shortcode.
- * @internal $args['author']            Author provided by the shortcode.
- * @internal $args['order']             Order of posts. Default 'DESC'.
- * @internal $args['orderby']           Sorting of posts. Default 'date'.
- * @internal $args['spoiler']           Whether to obscure or show chapter excerpt.
- * @internal $args['source']            Whether to show author and story.
- * @internal $args['post_ids']          Array of post IDs. Default empty.
- * @internal $args['author_ids']        Array of author IDs. Default empty.
- * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
- * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
- * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
- * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
- * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['vertical']          Whether to show the vertical variant.
- * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
- * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
- * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
- * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
- * @internal $args['classes']           String of additional CSS classes. Default empty.
- * @internal $args['infobox']           Whether to show the info box and toggle.
- * @internal $args['footer_words']      Whether to show the chapter word count. Default true.
- * @internal $args['footer_date']       Whether to show the chapter date. Default true.
- * @internal $args['footer_comments']   Whether to show the chapter comment count. Default true.
- * @internal $args['footer_status']     Whether to show the chapter story status. Default true.
- * @internal $args['footer_rating']     Whether to show the chapter age rating. Default true.
+ * @internal $args['type']                Type argument passed from shortcode ('compact').
+ * @internal $args['count']               Number of posts provided by the shortcode.
+ * @internal $args['author']              Author provided by the shortcode.
+ * @internal $args['order']               Order of posts. Default 'DESC'.
+ * @internal $args['orderby']             Sorting of posts. Default 'date'.
+ * @internal $args['spoiler']             Whether to obscure or show chapter excerpt.
+ * @internal $args['source']              Whether to show author and story.
+ * @internal $args['post_ids']            Array of post IDs. Default empty.
+ * @internal $args['author_ids']          Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
+ * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
+ * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']            Relationship between taxonomies.
+ * @internal $args['vertical']            Whether to show the vertical variant.
+ * @internal $args['seamless']            Whether to render the image seamless. Default false (Customizer).
+ * @internal $args['aspect_ratio']        Aspect ratio for the image. Only with vertical.
+ * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']           Whether the image is rendered. Default true (Customizer).
+ * @internal $args['classes']             String of additional CSS classes. Default empty.
+ * @internal $args['infobox']             Whether to show the info box and toggle.
+ * @internal $args['date_format']         String to override the date format. Default empty.
+ * @internal $args['nested_date_format']  String to override the date format of nested items. Default empty.
+ * @internal $args['footer_author']       Whether to show the chapter author. Default true.
+ * @internal $args['footer_words']        Whether to show the chapter word count. Default true.
+ * @internal $args['footer_date']         Whether to show the chapter date. Default true.
  */
 
 
@@ -168,18 +168,6 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_no-footer-date';
           }
 
-          if ( ! $args['footer_comments'] ) {
-            $card_classes[] = '_no-footer-comments';
-          }
-
-          if ( ! $args['footer_status'] ) {
-            $card_classes[] = '_no-footer-status';
-          }
-
-          if ( ! $args['footer_rating'] ) {
-            $card_classes[] = '_no-footer-rating';
-          }
-
           // Count actually rendered cards to account for buffer
           if ( ++$card_counter > $args['count'] ) {
             break;
@@ -243,7 +231,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <div class="card__content _small cell-desc">
                 <div class="text-overflow-ellipsis _bottom-spacer-xs">
-                  <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) : ?>
+                  <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] && $args['footer_author'] ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s', 'Small card: by {Author}.', 'fictioneer' ), fictioneer_get_author_node() );
                     ?></span>
@@ -263,11 +251,13 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 </div>
                 <div class="card__words-on-date text-overflow-ellipsis">
                   <?php
+                    $format = $args['date_format'] ?: FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE;
+
                     if ( $words > 0 && $args['footer_words'] && $args['footer_date'] ) {
                       printf(
                         _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
                         fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ),
-                        get_the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE )
+                        get_the_time( $format )
                       );
                     } else {
                       if ( $words > 0 && $args['footer_words'] ) {
@@ -276,7 +266,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                           fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) )
                         );
                       } elseif ( $args['footer_date'] ) {
-                        the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE );
+                        the_time( $format );
                       }
                     }
                   ?>

@@ -8,28 +8,29 @@
  * @subpackage Fictioneer
  * @since 5.7.3
  *
- * @internal $args['post_type']         Array of post types to query. Default 'post'.
- * @internal $args['ignore_sticky']     Whether to ignore sticky flags. Default false.
- * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
- * @internal $args['count']             Number of posts to display. Default -1.
- * @internal $args['author']            Author to query posts for. Default empty.
- * @internal $args['order']             Order of posts. Default 'DESC'.
- * @internal $args['orderby']           Sorting of posts. Default 'date'.
- * @internal $args['page']              The current page. Default 1.
- * @internal $args['post_ids']          Array of post IDs. Default empty.
- * @internal $args['author_ids']        Array of author IDs. Default empty.
- * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
- * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
- * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
- * @internal $args['relation']          Relationship between taxonomies. Default 'AND'.
- * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
- * @internal $args['thumbnail']         Whether the image is rendered. Default true.
- * @internal $args['footer']            Whether to show the footer. Default true.
- * @internal $args['footer_author']     Whether to show the post author. Default true.
- * @internal $args['footer_date']       Whether to show the post date. Default true.
- * @internal $args['footer_comments']   Whether to show the post comment count. Default true.
- * @internal $args['classes']           String of additional CSS classes. Default empty.
+ * @internal $args['post_type']           Array of post types to query. Default 'post'.
+ * @internal $args['ignore_sticky']       Whether to ignore sticky flags. Default false.
+ * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['count']               Number of posts to display. Default -1.
+ * @internal $args['author']              Author to query posts for. Default empty.
+ * @internal $args['order']               Order of posts. Default 'DESC'.
+ * @internal $args['orderby']             Sorting of posts. Default 'date'.
+ * @internal $args['page']                The current page. Default 1.
+ * @internal $args['post_ids']            Array of post IDs. Default empty.
+ * @internal $args['author_ids']          Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
+ * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
+ * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']            Relationship between taxonomies. Default 'AND'.
+ * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']           Whether the image is rendered. Default true.
+ * @internal $args['date_format']         String to override the date format. Default empty.
+ * @internal $args['footer']              Whether to show the footer. Default true.
+ * @internal $args['footer_author']       Whether to show the post author. Default true.
+ * @internal $args['footer_date']         Whether to show the post date. Default true.
+ * @internal $args['footer_comments']     Whether to show the post comment count. Default true.
+ * @internal $args['classes']             String of additional CSS classes. Default empty.
  */
 
 
@@ -270,10 +271,12 @@ $pag_args = array(
                       }
 
                       if ( $args['footer_date'] ) {
+                        $format = $args['date_format'] ?: FICTIONEER_CARD_ARTICLE_FOOTER_DATE;
+
                         if ( $args['orderby'] === 'modified' ) {
-                          $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE, $post ) . '</span>';
+                          $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( $format, $post ) . '</span>';
                         } else {
-                          $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE ) . '</span>';
+                          $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( $format ) . '</span>';
                         }
                       }
 

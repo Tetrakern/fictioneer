@@ -97,10 +97,11 @@ Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $
 
 ---
 
-### `apply_filters( 'fictioneer_filter_card_attributes', $post, $context )`
+### `apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, $context )`
 Filters the intermediate output array of HTML attributes inside the `.card` element before they are rendered. The keys are used as attribute names. Make sure to account for already existing attributes.
 
 **Parameters:**
+* $attributes (array) - Associative array of attributes to be rendered.
 * $post (WP_Post) – The current post object.
 * $context (string|null) - Context regarding where or how the card is rendered. Unsafe.
 
@@ -1018,7 +1019,7 @@ Filters the intermediate output array in the `_latest-chapters.php` partial befo
 
 **Parameters**
 * $post (WP_Post) – The post object.
-* $story (array|null) – Optional. Collection of story post data.
+* $story (array|null) – Collection of story post data. Unsafe.
 * $args (array) – Arguments passed to the partial.
 
 ---
@@ -1248,6 +1249,37 @@ Filters the WP_Query arguments in the `fictioneer_latest_updates` shortcode. The
 * $taxonomies (array) – Array of arrays of required taxonomy names. Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (string) – String of additional CSS classes. Default empty.
+
+---
+
+### `apply_filters( 'fictioneer_filter_shortcode_latest_{type}_list_meta', $meta, $post, $story, $chapter )`
+Filters the intermediate output array for the meta row in list-type shortcode partials before it is imploded and rendered. Can contain the story, chapter, word count, comment count, chapter count, publish date, author, status, and age rating depending on the shortcode and applied parameters. Type can be `chapter`, `stories`, or `updates`.
+
+**Parameters**
+* $meta (array) – Associative array of HTML nodes to be rendered.
+* $post (WP_Post) – The current post object.
+* $story (array|null) – Collection of story post data. Unsafe.
+* $chapter (WP_Post|null) – The chapter post object (only for Latest Updates). Unsafe.
+
+---
+
+### `apply_filters( 'fictioneer_filter_shortcode_list_attributes', $attributes, $post, $context )`
+Filters the intermediate output array of HTML attributes inside list-type shortcodes before they are rendered. The keys are used as attribute names. Make sure to account for already existing attributes.
+
+**Parameters:**
+* $attributes (array) - Associative array of attributes to be rendered.
+* $post (WP_Post) – The current post object.
+* $context (string) - Either `latest-chapters`, `latest-stories`, or `latest-updates`.
+
+---
+
+### `apply_filters( 'fictioneer_filter_shortcode_list_title', $title, $post, $context )`
+Filters the intermediate output array of HTML attributes inside list-type shortcodes before they are rendered. The keys are used as attribute names. Make sure to account for already existing attributes.
+
+**Parameters:**
+* $title (string) – The current title to be rendered.
+* $post (WP_Post) – The current post object.
+* $context (string|null) - Either `latest-chapters`, `latest-stories`, or `latest-updates`.
 
 ---
 
