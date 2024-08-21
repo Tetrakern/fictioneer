@@ -1258,6 +1258,7 @@ function fictioneer_gate_unpublished_content() {
 
   // Do nothing if...
   if (
+    ! $post ||
     ! is_singular() ||
     ( $post->post_status === 'publish' && $post->post_type !== 'fcn_chapter' ) ||
     get_current_user_id() === absint( $post->post_author )
