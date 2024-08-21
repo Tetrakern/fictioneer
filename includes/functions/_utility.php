@@ -2918,7 +2918,7 @@ function fictioneer_truncate( string $string, int $length, string $ellipsis = nu
   $ellipsis = $ellipsis ?? FICTIONEER_TRUNCATION_ELLIPSIS;
 
   // Return truncated string
-  if ( ! function_exists( 'mb_strimwidth' ) ) {
+  if ( function_exists( 'mb_strimwidth' ) ) {
     return mb_strimwidth( $string, 0, $length, $ellipsis );
   } else {
     return strlen( $string ) > $length ? substr( $string, 0, $length ) . $ellipsis : $string;
