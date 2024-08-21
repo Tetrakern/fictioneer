@@ -666,7 +666,7 @@ if ( ! function_exists( 'fictioneer_get_small_card_thumbnail' ) ) {
     // Normal thumbnail?
     if ( ! $thumbnail ) {
       $thumbnail = get_the_post_thumbnail( $post_id, $thumbnail_size, $thumbnail_args );
-      $thumbnail_url = get_the_post_thumbnail_url( $landscape_image_id, $thumbnail_size, false, $thumbnail_args );
+      $thumbnail_url = get_the_post_thumbnail_url( $post_id, $thumbnail_size, false, $thumbnail_args );
       $thumbnail_full_url = get_the_post_thumbnail_url( $post_id, 'full' );
     }
 
