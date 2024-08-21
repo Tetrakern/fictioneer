@@ -770,6 +770,7 @@ fictioneer_toggle_update_tracker_hooks();
  * Purge Transients used for caching when posts are updated
  *
  * @since 5.4.9
+ * @since 5.23.0 - Refactored to purge all shortcode Transients.
  *
  * @param int $post_id  Updated post ID.
  */
@@ -780,23 +781,11 @@ function fictioneer_purge_transients( $post_id ) {
     return;
   }
 
-  // Setup
-  $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
-
   // Menus
   fictioneer_purge_nav_menu_transients();
 
-  // Shortcode...
-  if ( fictioneer_enable_shortcode_transients() ) {
-    // Recommendation?
-    if ( $post_type == 'fcn_recommendation' ) {
-      fictioneer_delete_transients_like( 'fictioneer_shortcode_latest_recommendations' );
-      return;
-    }
-
-    // All
-    fictioneer_delete_transients_like( 'fictioneer_shortcode' );
-  }
+  // Shortcodes...
+  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
 }
 
 /**
