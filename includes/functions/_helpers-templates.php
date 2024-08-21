@@ -677,6 +677,15 @@ if ( ! function_exists( 'fictioneer_get_small_card_thumbnail' ) ) {
       return fictioneer_get_small_card_thumbnail( $parent_id, $args );
     }
 
+    // Default (redundancy check)?
+    $default_attachment_id = get_theme_mod( 'default_story_cover', 0 );
+
+    if ( ! $thumbnail && $default_attachment_id &&  get_post_type( $post_id ) === 'fcn_story' ) {
+      $thumbnail = wp_get_attachment_image( $default_attachment_id, $thumbnail_size, false, $thumbnail_args );
+      $thumbnail_url = wp_get_attachment_url( $default_attachment_id, $thumbnail_size, false, $thumbnail_args );
+      $thumbnail_full_url = wp_get_attachment_url( $default_attachment_id, 'full', false, $thumbnail_args );
+    }
+
     // Landscape thumbnail fallback?
     if ( ! $thumbnail && $landscape_image_id ) {
       $thumbnail = wp_get_attachment_image( $landscape_image_id, $thumbnail_size, false, $thumbnail_args );

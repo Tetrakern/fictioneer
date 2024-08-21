@@ -2182,6 +2182,9 @@ add_filter( 'get_calendar', 'fictioneer_modify_calender_nav' );
 /**
  * Returns default cover image (if any)
  *
+ * Note: Exclude from editor to prevent the default to be
+ * set as actual post thumbnail!
+ *
  * @since 5.23.0
  *
  * @param int         $thumbnail_id  Post thumbnail ID.
