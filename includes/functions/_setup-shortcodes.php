@@ -931,7 +931,14 @@ add_shortcode( 'fictioneer_bookmarks', 'fictioneer_shortcode_bookmarks' );
 
 function fictioneer_shortcode_cookie_buttons( $attr ) {
   ob_start();
-  get_template_part( 'partials/_cookie-buttons' );
+
+  // Start HTML ---> ?>
+  <div class="cookies spacing-top spacing-bottom ">
+    <button type="button" data-click="reset-consent" class="button"><?php _e( 'Reset Consent', 'fictioneer' ); ?></button>
+    <button type="button" data-click="clear-cookies" data-message="<?php _e( 'Cookies and local storage have been cleared. To keep it that way, you should leave the site.', 'fictioneer' ); ?>" class="button"><?php _e( 'Clear Cookies', 'fictioneer' ); ?></button>
+  </div>
+  <?php // <--- End HTML
+
   return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons' );
