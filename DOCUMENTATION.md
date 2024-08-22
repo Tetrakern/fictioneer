@@ -832,7 +832,6 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
-* **nested_date_format:** String to override any nested [date formats](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the post author. Default `true`.
 * **footer_date:** Whether to show the post date. Default `true`.
@@ -1004,12 +1003,11 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
-* **nested_date_format:** String to override any nested [date formats](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the chapter author. Default `true`.
 * **footer_words:** Whether to show the chapter word count. Default `true`.
 * **footer_date:** Whether to show the chapter date. Default `true`.
-* **footer_comments:** Whether to show the chapter comment count. Default `true`.
+* **footer_comments:** Whether to show the chapter comment count (not in `list`). Default `true`.
 * **footer_status:** Whether to show the chapter story status. Default `true`.
 * **footer_rating:** Whether to show the chapter age rating. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
@@ -1033,6 +1031,16 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 
 ![Latest Chapters](repo/assets/shortcode_example_latest_chapters.jpg?raw=true)
 ![Latest Chapters](repo/assets/shortcode_example_latest_chapters_2.png?raw=true)
+
+```
+[fictioneer_latest_chapters type="list" count="2"]
+```
+
+```
+[fictioneer_latest_chapters type="list" orderby="rand" count="2" source="false" footer_status="false"]
+```
+
+![Latest Chapters](repo/assets/shortcode_example_latest_chapters_3.png?raw=true)
 
 ### Latest Posts
 
@@ -1141,11 +1149,11 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
-* **terms:** Either `inline`, `pills`, or `none` (only in type `list`). Default `inline`.
-* **max_terms:** Maximum number of shown taxonomies (only in type `list`). Default `10`.
+* **terms:** Either `inline`, `pills`, or `none` (only in `list`). Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies (only in `list`). Default `10`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the author. Default `true`.
-* **footer_chapters:** Whether to show the chapter count. Default `true`.
+* **footer_chapters:** Whether to show the chapter count (not in `list`). Default `true`.
 * **footer_words:** Whether to show the word count. Default `true`.
 * **footer_date:** Whether to show the date. Default `true`.
 * **footer_status:** Whether to show the status. Default `true`.
@@ -1176,6 +1184,16 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 ![Latest Stories](repo/assets/shortcode_example_latest_stories.jpg?raw=true)
 ![Latest Stories](repo/assets/shortcode_example_latest_stories_3.png?raw=true)
 ![Latest Stories](repo/assets/shortcode_example_latest_stories_2.png?raw=true)
+
+```
+[fictioneer_latest_stories type="list"]
+```
+
+```
+[fictioneer_latest_stories type="list" footer_status="false" footer_rating="false" terms="pills" aspect_ratio="2/3"]
+```
+
+![Latest Stories](repo/assets/shortcode_example_latest_stories_4.png?raw=true)
 
 ### Latest Updates
 
@@ -1209,13 +1227,13 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **date:** Whether to show the date of chapter items. Default `true`.
 * **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
 * **nested_date_format:** String to override any nested [date formats](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
-* **terms:** Either `inline`, `pills`, or `none` (only in type `list`). Default `inline`.
-* **max_terms:** Maximum number of shown taxonomies (only in type `list`). Default `10`.
+* **terms:** Either `inline`, `pills`, or `none` (only in `list`). Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies (only in `list`). Default `10`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the story/chapter author. Default `true`.
-* **footer_chapters:** Whether to show the story chapter count. Default `true`.
+* **footer_chapters:** Whether to show the story chapter count (not in `list`). Default `true`.
 * **footer_words:** Whether to show the story word count. Default `true`.
-* **footer_date:** Whether to show the modified date. Default `true`.
+* **footer_date:** Whether to show the story date. Default `true`.
 * **footer_status:** Whether to show the story status. Default `true`.
 * **footer_rating:** Whether to show the story age rating. Default `true`.
 * **class:** Additional CSS classes, separated by whitespace.
@@ -1248,6 +1266,16 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 ![Latest Updates](repo/assets/shortcode_example_latest_updates_3.png?raw=true)
 ![Latest Updates](repo/assets/shortcode_example_latest_updates_2.png?raw=true)
 ![Latest Updates](repo/assets/shortcode_example_latest_updates_4.png?raw=true)
+
+```
+[fictioneer_latest_updates type="list" count="2" nested_date_format="m/d/Y"]
+```
+
+```
+[fictioneer_latest_updates type="list" count="2" seamless="true" date="false" words="false" footer_rating="false" terms="pills"]
+```
+
+![Latest Updates](repo/assets/shortcode_example_latest_updates_5.png?raw=true)
 
 ### Search Form
 

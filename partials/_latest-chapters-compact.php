@@ -31,7 +31,6 @@
  * @internal $args['classes']             String of additional CSS classes. Default empty.
  * @internal $args['infobox']             Whether to show the info box and toggle.
  * @internal $args['date_format']         String to override the date format. Default empty.
- * @internal $args['nested_date_format']  String to override the date format of nested items. Default empty.
  * @internal $args['footer_author']       Whether to show the chapter author. Default true.
  * @internal $args['footer_words']        Whether to show the chapter word count. Default true.
  * @internal $args['footer_date']         Whether to show the chapter date. Default true.

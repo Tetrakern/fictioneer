@@ -31,7 +31,6 @@
  * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']           Whether the image is rendered. Default true (Customizer).
  * @internal $args['date_format']         String to override the date format. Default empty.
- * @internal $args['nested_date_format']  String to override the date format of nested items. Default empty.
  * @internal $args['footer']              Whether to show the footer. Default true.
  * @internal $args['footer_author']       Whether to show the chapter author. Default true.
  * @internal $args['footer_words']        Whether to show the chapter word count. Default true.
