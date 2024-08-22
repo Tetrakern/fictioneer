@@ -1073,6 +1073,24 @@ function fictioneer_look_for_issues() {
     $issues[] = _x( 'The <strong>mbstring</strong> PHP extension is not enabled.', 'fictioneer' );
   }
 
+  // HTTPS?
+  $site_url = get_option( 'siteurl' );
+  $home_url = get_option( 'home' );
+
+  if ( strpos( $site_url, 'https://' ) !== 0 ) {
+    $issues[] = sprintf(
+      _x( 'Your <strong>Site URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
+      'https://'
+    );
+  }
+
+  if ( strpos( $home_url, 'https://' ) !== 0 ) {
+    $issues[] = sprintf(
+      _x( 'Your <strong>Home URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
+      'https://'
+    );
+  }
+
   // Results
   return $issues;
 }
