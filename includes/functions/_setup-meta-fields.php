@@ -2062,6 +2062,10 @@ function fictioneer_render_story_data_metabox( $post ) {
     )
   );
 
+  $description = get_option( 'fictioneer_limit_chapter_stories_by_author' ) ?
+    __( 'Select and order chapters assigned to the story (set in the chapter). The author of the chapter and the story must match.', 'fictioneer' ) :
+    __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' );
+
   $output['fictioneer_story_chapters'] = fictioneer_get_metabox_relationships(
     $post,
     'fictioneer_story_chapters',
@@ -2069,7 +2073,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     'fictioneer_callback_relationship_chapters',
     array(
       'label' => _x( 'Chapters', 'Story chapters meta field label.', 'fictioneer' ),
-      'description' => __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' ),
+      'description' => $description,
       'show_info' => 1
     )
   );
@@ -2100,7 +2104,7 @@ function fictioneer_render_story_data_metabox( $post ) {
       array(
         'label' => _x( 'Custom Pages', 'Story pages meta field label.', 'fictioneer' ),
         'description' => sprintf(
-          __( 'Add up to %s pages as tabs to stories. Pages must have a short name or will not be shown.', 'fictioneer' ),
+          __( 'Add up to %s pages as tabs to stories. Pages must have a short name and the same author as the story; otherwise, they will not show up.', 'fictioneer' ),
           FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY
         )
       )
