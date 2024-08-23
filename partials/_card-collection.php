@@ -182,8 +182,8 @@ $thumbnail_args = array(
               $characters ? fictioneer_generate_card_terms( $characters, '_inline _character' ) : []
             );
 
-            // Implode with three-per-em spaces around a bullet
-            echo implode( '&#8196;&bull;&#8196;', $taxonomies );
+            // Implode with separator
+            echo implode( fictioneer_get_bullet_separator( 'post-collection' ), $taxonomies );
           ?>
         </div>
       <?php endif; ?>

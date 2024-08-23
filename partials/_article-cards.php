@@ -221,40 +221,40 @@ $pag_args = array(
                   <div class="card__tag-list cell-tax _small _scrolling">
                     <div class="card__h-scroll">
                       <?php
-                        $output = [];
+                        $terms = [];
 
                         if ( $categories ) {
                           foreach ( $categories as $cat ) {
-                            $output[] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
+                            $terms[] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
                           }
                         }
 
                         if ( $fandoms ) {
                           foreach ( $fandoms as $fandom ) {
-                            $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
                           }
                         }
 
                         if ( $genres ) {
                           foreach ( $genres as $genre ) {
-                            $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
                           }
                         }
 
                         if ( $tags ) {
                           foreach ( $tags as $tag ) {
-                            $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
                           }
                         }
 
                         if ( $characters ) {
                           foreach ( $characters as $character ) {
-                            $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
                           }
                         }
 
-                        // Implode with three-per-em spaces around a bullet
-                        echo implode( '&#8196;&bull;&#8196;', $output );
+                        // Implode with separator
+                        echo implode( fictioneer_get_bullet_separator( 'latest-recommendations' ), $terms );
                       ?>
                     </div>
                   </div>

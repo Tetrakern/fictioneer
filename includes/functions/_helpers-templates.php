@@ -2235,3 +2235,28 @@ function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anch
   // Return link sequence as HTML
   return $output;
 }
+
+// =============================================================================
+// BULLET SEPARATOR
+// =============================================================================
+
+/**
+ * Returns the HTML of the bullet separator
+ *
+ * Note:
+ *
+ * @since 5.23.0
+ *
+ * @param string|null $context  Optional. The render context.
+ *
+ * @return string HTML of the bullet separator element. Default is three-per-em
+ *                spaces around a bullet (&#8196;&bull;&#8196;).
+ */
+
+function fictioneer_get_bullet_separator( $context = null ) {
+  return apply_filters(
+    'fictioneer_filter_bullet_separator',
+    '<span class="separator-dot">&#8196;&bull;&#8196;</span>',
+    $context
+  );
+}

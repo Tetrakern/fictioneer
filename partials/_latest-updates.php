@@ -401,8 +401,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                         $terms = apply_filters( 'fictioneer_filter_shortcode_latest_updates_terms', $terms, $story, $args );
 
-                        // Implode with three-per-em spaces around a bullet
-                        echo implode( '&#8196;&bull;&#8196;', $terms );
+                        // Implode with separator
+                        echo implode( fictioneer_get_bullet_separator( 'latest-updates' ), $terms );
                       } else {
                         ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                       }

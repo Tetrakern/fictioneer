@@ -250,34 +250,36 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <div class="card__h-scroll">
                     <?php
                       if ( $story['has_taxonomies'] || $tags ) {
-                        $output = [];
+                        $terms = [];
 
                         if ( $story['fandoms'] ) {
                           foreach ( $story['fandoms'] as $fandom ) {
-                            $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
                           }
                         }
 
                         if ( $story['genres'] ) {
                           foreach ( $story['genres'] as $genre ) {
-                            $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
                           }
                         }
 
                         if ( $tags ) {
                           foreach ( $tags as $tag ) {
-                            $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
                           }
                         }
 
                         if ( $story['characters'] ) {
                           foreach ( $story['characters'] as $character ) {
-                            $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                            $terms[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
                           }
                         }
 
-                        // Implode with three-per-em spaces around a bullet
-                        echo implode( '&#8196;&bull;&#8196;', $output );
+                        $terms = apply_filters( 'fictioneer_filter_shortcode_latest_stories_terms', $terms, $story, $args );
+
+                        // Implode with separator
+                        echo implode( fictioneer_get_bullet_separator( 'latest-stories' ), $terms );
                       } else {
                         ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                       }

@@ -319,7 +319,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                         }
 
                         if ( $words && $args['date'] ) {
-                          echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
+                          echo fictioneer_get_bullet_separator( 'latest-updates-compact' );
                         }
 
                         if ( $args['date'] ) {
