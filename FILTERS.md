@@ -136,6 +136,17 @@ Filters the intermediate output array of the card control popup menu inside the 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_card_{type}_terms', $terms, $post, $args, $story_data )`
+Filters the intermediate output array of term HTML nodes (tags, genres, fandoms, etc.) in card partials before it is imploded and rendered, with the term IDs as keys. Type can be `post`, `story`, `chapter`, `collection`, or `recommendation`.
+
+**Parameters**
+* $terms (array) – Associative array of HTML nodes to be rendered.
+* $post (WP_Post) – The current post object.
+* $args (array) – Arguments passed to the shortcode.
+* $story_data (array|null) – Collection of story post data. Unsafe.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output array in the `_card-chapter.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of words, publishing date, comments, and so forth.
 

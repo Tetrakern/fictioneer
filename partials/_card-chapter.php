@@ -214,20 +214,27 @@ $thumbnail_args = array(
         </ol>
       <?php endif; ?>
 
-      <?php if ( $show_terms ) : ?>
-        <div class="card__tag-list cell-tax">
-          <?php
-            $terms = array_merge(
-              $fandoms ? fictioneer_get_term_nodes( $fandoms, '_inline _fandom' ) : [],
-              $genres ? fictioneer_get_term_nodes( $genres, '_inline _genre' ) : [],
-              $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : [],
-              $characters ? fictioneer_get_term_nodes( $characters, '_inline _character' ) : []
-            );
+      <?php
+        if ( $show_terms ) {
+          $terms = array_merge(
+            $fandoms ? fictioneer_get_term_nodes( $fandoms, '_inline _fandom' ) : [],
+            $genres ? fictioneer_get_term_nodes( $genres, '_inline _genre' ) : [],
+            $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : [],
+            $characters ? fictioneer_get_term_nodes( $characters, '_inline _character' ) : []
+          );
 
-            // Implode with separator
-            echo implode( fictioneer_get_bullet_separator( 'post-chapter' ), $terms );
-          ?>
-        </div>
+          $terms = apply_filters(
+            'fictioneer_filter_card_chapter_terms',
+            $terms, $post, $args, $story_data
+          );
+        }
+      ?>
+
+      <?php if ( $show_terms && $terms ) : ?>
+        <div class="card__tag-list cell-tax"><?php
+          // Implode with separator
+          echo implode( fictioneer_get_bullet_separator( 'chapter-card' ), $terms );
+        ?></div>
       <?php endif; ?>
 
       <div class="card__footer cell-footer">

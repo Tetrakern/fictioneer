@@ -218,20 +218,27 @@ if ( $card_cache_active ) {
         </ol>
       <?php endif; ?>
 
-      <?php if ( $show_terms ) : ?>
-        <div class="card__tag-list cell-tax">
-          <?php
-            $terms = array_merge(
-              $story['fandoms'] ? fictioneer_get_term_nodes( $story['fandoms'], '_inline _fandom' ) : [],
-              $story['genres'] ? fictioneer_get_term_nodes( $story['genres'], '_inline _genre' ) : [],
-              $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : [],
-              $story['characters'] ? fictioneer_get_term_nodes( $story['characters'], '_inline _character' ) : []
-            );
+      <?php
+        if ( $show_terms ) {
+          $terms = array_merge(
+            $story['fandoms'] ? fictioneer_get_term_nodes( $story['fandoms'], '_inline _fandom' ) : [],
+            $story['genres'] ? fictioneer_get_term_nodes( $story['genres'], '_inline _genre' ) : [],
+            $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : [],
+            $story['characters'] ? fictioneer_get_term_nodes( $story['characters'], '_inline _character' ) : []
+          );
 
-            // Implode with separator
-            echo implode( fictioneer_get_bullet_separator( 'post-story' ), $terms );
-          ?>
-        </div>
+          $terms = apply_filters(
+            'fictioneer_filter_card_story_terms',
+            $terms, $post, $args, $story
+          );
+        }
+      ?>
+
+      <?php if ( $show_terms && $terms ) : ?>
+        <div class="card__tag-list cell-tax"><?php
+          // Implode with separator
+          echo implode( fictioneer_get_bullet_separator( 'story-card' ), $terms );
+        ?></div>
       <?php endif; ?>
 
       <div class="card__footer cell-footer">

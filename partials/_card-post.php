@@ -76,18 +76,27 @@ $thumbnail_args = array(
 
       <div class="card__content cell-desc"><div class="truncate _4-4"><span><?php the_excerpt(); ?></span></div></div>
 
-      <?php if ( $categories || $tags ) : ?>
-        <div class="card__tag-list cell-tax">
-          <?php
-            $terms = array_merge(
-              $categories ? fictioneer_get_term_nodes( $categories, '_inline _category' ) : [],
-              $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : []
-            );
+      <?php
+        $terms = [];
 
-            // Implode with separator
-            echo implode( fictioneer_get_bullet_separator( 'post-card' ), $terms );
-          ?>
-        </div>
+        if ( $categories || $tags ) {
+          $terms = array_merge(
+            $categories ? fictioneer_get_term_nodes( $categories, '_inline _category' ) : [],
+            $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : []
+          );
+
+          $terms = apply_filters(
+            'fictioneer_filter_card_post_terms',
+            $terms, $post, $args, null
+          );
+        }
+      ?>
+
+      <?php if ( $terms ) : ?>
+        <div class="card__tag-list cell-tax"><?php
+          // Implode with separator
+          echo implode( fictioneer_get_bullet_separator( 'post-card' ), $terms );
+        ?></div>
       <?php endif; ?>
 
       <div class="card__footer cell-footer">
