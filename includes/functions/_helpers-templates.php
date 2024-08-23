@@ -1833,7 +1833,7 @@ if ( ! function_exists( 'fictioneer_generate_card_terms' ) ) {
     foreach ( $items as $item ) {
       $link = get_tag_link( $item );
 
-      $tags[] = "<a href='{$link}' class='tag-pill {$classes}'>{$item->name}</a>";
+      $tags[ $item->term_id ] = "<a href='{$link}' class='tag-pill {$classes}'>{$item->name}</a>";
     }
 
     return $tags;
