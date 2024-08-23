@@ -445,10 +445,12 @@
     padding: 0 1px; // Visually more "embedded"
 
     &._pills {
-      display: flex;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 6px;
+      // There is a style issue with flex that causes the bounding box
+      // to stretch vertically regardless of align-items. This is a workaround.
+      .tag-pill {
+        display: inline-block;
+        margin: 0 6px 2px 0;
+      }
     }
 
     &._scrolling {
