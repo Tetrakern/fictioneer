@@ -97,6 +97,16 @@ Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $
 
 ---
 
+### `apply_filters( 'fictioneer_filter_bullet_separator', $separator, $context )`
+
+Filters the HTML element used as separator between taxonomies and other items. Note that some items use the `pseudo-separator` CSS class instead and are not affected by this filter, such as the meta row of shortcode lists.
+
+**Parameters:**
+* $separator (string) – The default separator HTML element.
+* $context (string) – The render context.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, $context )`
 Filters the intermediate output array of HTML attributes inside the `.card` element before they are rendered. The keys are used as attribute names. Make sure to account for already existing attributes.
 
