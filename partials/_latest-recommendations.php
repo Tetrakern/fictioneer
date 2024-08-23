@@ -36,7 +36,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' );
+$show_terms = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' );
 
 // Prepare query
 $query_args = array (
@@ -108,10 +108,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $post_id = $post->ID;
           $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-recommendations' );
           $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
-          $fandoms = get_the_terms( $post, 'fcn_fandom' );
-          $characters = get_the_terms( $post, 'fcn_character' );
-          $genres = get_the_terms( $post, 'fcn_genre' );
-          $tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags( $post ) : false;
+          $fandoms = $show_terms ? get_the_terms( $post, 'fcn_fandom' ) : [];
+          $characters = $show_terms ? get_the_terms( $post, 'fcn_character' ) : [];
+          $genres = $show_terms ? get_the_terms( $post, 'fcn_genre' ) : [];
+          $tags = ( $show_terms && get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ) ?
+            get_the_tags( $post ) : false;
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
@@ -126,6 +127,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
           if ( $args['seamless'] ) {
             $card_classes[] = '_seamless';
+          }
+
+          if ( ! $show_terms ) {
+            $card_classes[] = '_no-tax';
           }
 
           // Truncate factor
@@ -217,7 +222,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 ?></div>
               </div>
 
-              <?php if ( $show_taxonomies ) : ?>
+              <?php if ( $show_terms ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
                   <div class="card__h-scroll <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>">
                     <?php

@@ -181,6 +181,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $show_terms || ! ( $story['has_taxonomies'] || $tags ) ) {
+            $card_classes[] = '_no-tax';
+          }
+
           if ( ! $args['words'] ) {
             $card_classes[] = '_no-chapter-words';
           }

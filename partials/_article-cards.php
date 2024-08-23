@@ -159,6 +159,10 @@ $pag_args = array(
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $show_terms ) {
+            $card_classes[] = '_no-tax';
+          }
+
           if ( ! $args['footer'] ) {
             $card_classes[] = '_no-footer';
           }

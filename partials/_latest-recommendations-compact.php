@@ -113,7 +113,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $fandoms = $show_terms ? get_the_terms( $post, 'fcn_fandom' ) : [];
           $characters = $show_terms ? get_the_terms( $post, 'fcn_character' ) : [];
           $genres = $show_terms ? get_the_terms( $post, 'fcn_genre' ) : [];
-          $tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags( $post ) : false;
+          $tags = ( $show_terms && get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ) ?
+            get_the_tags( $post ) : false;
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
@@ -132,6 +133,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
           if ( $args['seamless'] ) {
             $card_classes[] = '_seamless';
+          }
+
+          if ( ! $show_terms ) {
+            $card_classes[] = '_no-tax';
           }
 
           // Truncate factor
