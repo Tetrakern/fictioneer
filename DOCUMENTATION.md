@@ -1099,6 +1099,8 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 * **vertical:** Whether to render the cards with the image on top. Default `false`.
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
+* **terms:** Either `inline`, `pills`, or `none`. Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies. Default `10`.
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
