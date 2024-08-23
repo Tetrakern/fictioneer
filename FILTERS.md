@@ -1252,8 +1252,8 @@ Filters the WP_Query arguments in the `fictioneer_latest_updates` shortcode. The
 
 ---
 
-### `apply_filters( 'fictioneer_filter_shortcode_latest_{type}_list_meta', $meta, $post, $story, $chapter )`
-Filters the intermediate output array for the meta row in list-type shortcode partials before it is imploded and rendered. Can contain the story, chapter, word count, comment count, chapter count, publish date, author, status, and age rating depending on the shortcode and applied parameters. Type can be `chapter`, `stories`, or `updates`.
+### `apply_filters( 'fictioneer_filter_shortcode_{type}_list_meta', $meta, $post, $story, $chapter )`
+Filters the intermediate output array for the meta row in list-type shortcode partials before it is imploded and rendered. Can contain the story, chapter, word count, comment count, chapter count, publish date, author, status, and age rating depending on the shortcode and applied parameters. Type can be `latest_chapter`, `latest_stories`, or `latest_updates`.
 
 **Parameters**
 * $meta (array) – Associative array of HTML nodes to be rendered.
