@@ -190,13 +190,6 @@
     }
   }
 
-  ._pseudo-separator > *:where(:not(:first-child))::before {
-    content: var(--post-list-separator, '• ');
-    color: var(--post-list-meta-divider-color, var(--fg-800));
-    font-family: var(--ff-base);
-    margin: 0 .125em;
-  }
-
   :where(._floating-right) {
     position: absolute;
     top: .5rem;

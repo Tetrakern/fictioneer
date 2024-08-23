@@ -290,7 +290,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           ?></a>
 
           <?php if ( $args['footer'] ) : ?>
-            <div class="post-list-item__meta _pseudo-separator"><?php echo implode( ' ', $meta ); ?></div>
+            <div class="post-list-item__meta pseudo-separator"><?php echo implode( ' ', $meta ); ?></div>
           <?php endif; ?>
 
         </li>

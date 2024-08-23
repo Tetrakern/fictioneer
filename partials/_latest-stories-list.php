@@ -273,11 +273,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           ?></a>
 
           <?php if ( $args['footer'] ) : ?>
-            <div class="post-list-item__meta _pseudo-separator"><?php echo implode( ' ', $meta ); ?></div>
+            <div class="post-list-item__meta pseudo-separator"><?php echo implode( ' ', $meta ); ?></div>
           <?php endif; ?>
 
           <?php if ( $show_terms && ( $story['has_taxonomies'] || $tags ) ) : ?>
-            <div class="post-list-item__tax <?php echo $args['terms'] === 'inline' ? '_pseudo-separator' : '_pills'; ?>"><?php
+            <div class="post-list-item__tax <?php echo $args['terms'] === 'inline' ? 'pseudo-separator' : '_pills'; ?>"><?php
               $inline = $args['terms'] === 'pills' ? '' : '_inline';
               $terms = [];
 
