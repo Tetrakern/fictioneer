@@ -79,13 +79,13 @@ $thumbnail_args = array(
       <?php if ( $categories || $tags ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $taxonomies = array_merge(
-              $categories ? fictioneer_generate_card_terms( $categories, '_inline _category' ) : [],
-              $tags ? fictioneer_generate_card_terms( $tags, '_inline _tag' ) : []
+            $terms = array_merge(
+              $categories ? fictioneer_get_term_nodes( $categories, '_inline _category' ) : [],
+              $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : []
             );
 
             // Implode with separator
-            echo implode( fictioneer_get_bullet_separator( 'post-card' ), $taxonomies );
+            echo implode( fictioneer_get_bullet_separator( 'post-card' ), $terms );
           ?>
         </div>
       <?php endif; ?>

@@ -59,7 +59,7 @@ if (
 
 // Flags
 $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
-$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $story['has_taxonomies'] || $tags );
+$show_terms = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $story['has_taxonomies'] || $tags );
 $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
   get_post_meta( $post_id, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
 
@@ -74,6 +74,10 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
 
 if ( get_theme_mod( 'card_image_style', 'default' ) !== 'default' ) {
   $card_classes[] = '_' . get_theme_mod( 'card_image_style' );
+}
+
+if ( ! $show_terms ) {
+  $card_classes[] = '_no-tax';
 }
 
 // Card attributes
@@ -214,18 +218,18 @@ if ( $card_cache_active ) {
         </ol>
       <?php endif; ?>
 
-      <?php if ( $show_taxonomies ) : ?>
+      <?php if ( $show_terms ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $taxonomies = array_merge(
-              $story['fandoms'] ? fictioneer_generate_card_terms( $story['fandoms'], '_inline _fandom' ) : [],
-              $story['genres'] ? fictioneer_generate_card_terms( $story['genres'], '_inline _genre' ) : [],
-              $tags ? fictioneer_generate_card_terms( $tags, '_inline _tag' ) : [],
-              $story['characters'] ? fictioneer_generate_card_terms( $story['characters'], '_inline _character' ) : []
+            $terms = array_merge(
+              $story['fandoms'] ? fictioneer_get_term_nodes( $story['fandoms'], '_inline _fandom' ) : [],
+              $story['genres'] ? fictioneer_get_term_nodes( $story['genres'], '_inline _genre' ) : [],
+              $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : [],
+              $story['characters'] ? fictioneer_get_term_nodes( $story['characters'], '_inline _character' ) : []
             );
 
             // Implode with separator
-            echo implode( fictioneer_get_bullet_separator( 'post-story' ), $taxonomies );
+            echo implode( fictioneer_get_bullet_separator( 'post-story' ), $terms );
           ?>
         </div>
       <?php endif; ?>

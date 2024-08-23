@@ -28,6 +28,8 @@
  * @internal $args['aspect_ratio']        Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']           Whether the image is rendered. Default true (Customizer).
+ * @internal $args['terms']               Either inline, pills, none, or false. Default inline.
+ * @internal $args['max_terms']           Maximum number of shown taxonomies. Default 10.
  * @internal $args['footer']              Whether to show the footer. Default true.
  * @internal $args['date_format']         String to override the date format. Default empty.
  * @internal $args['footer_chapters']     Whether to show the chapter count. Default true.
@@ -42,6 +44,10 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
+// Setup
+$show_terms = ! in_array( $args['terms'], ['none', 'false'] ) &&
+  ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' );
+
 // Prepare query
 $query_args = array(
   'fictioneer_query_name' => 'latest_stories',
@@ -51,6 +57,7 @@ $query_args = array(
   'order' => $args['order'],
   'orderby' => $args['orderby'],
   'posts_per_page' => $args['count'],
+  'update_post_term_cache' => $show_terms, // Improve performance
   'no_found_rows' => true
 );
 
@@ -129,7 +136,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $post_id = $post->ID;
           $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
           $story_link = get_post_meta( $post_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $post_id );
-          $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
+          $tags = ( $show_terms && get_option( 'fictioneer_show_tags_on_story_cards' ) ) ? get_the_tags( $post ) : false;
           $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS && get_post_meta( $post_id, 'fictioneer_story_sticky', true );
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
@@ -245,41 +252,30 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 </div>
               </div>
 
-              <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) ) : ?>
+              <?php if ( $show_terms ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
-                  <div class="card__h-scroll">
+                  <div class="card__h-scroll <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>">
                     <?php
                       if ( $story['has_taxonomies'] || $tags ) {
-                        $terms = [];
+                        $variant = $args['terms'] === 'pills' ? '_pill' : '_inline';
 
-                        if ( $story['fandoms'] ) {
-                          foreach ( $story['fandoms'] as $fandom ) {
-                            $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
-                          }
-                        }
+                        $terms = array_merge(
+                          $story['fandoms'] ? fictioneer_get_term_nodes( $story['fandoms'], "{$variant} _fandom" ) : [],
+                          $story['genres'] ? fictioneer_get_term_nodes( $story['genres'], "{$variant} _genre" ) : [],
+                          $tags ? fictioneer_get_term_nodes( $tags, "{$variant} _tag" ) : [],
+                          $story['characters'] ? fictioneer_get_term_nodes( $story['characters'], "{$variant} _character" ) : []
+                        );
 
-                        if ( $story['genres'] ) {
-                          foreach ( $story['genres'] as $genre ) {
-                            $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
-                          }
-                        }
-
-                        if ( $tags ) {
-                          foreach ( $tags as $tag ) {
-                            $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
-                          }
-                        }
-
-                        if ( $story['characters'] ) {
-                          foreach ( $story['characters'] as $character ) {
-                            $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
-                          }
-                        }
-
-                        $terms = apply_filters( 'fictioneer_filter_shortcode_latest_stories_terms', $terms, $post, $args, $story );
+                        $terms = apply_filters(
+                          'fictioneer_filter_shortcode_latest_stories_terms',
+                          $terms, $post, $args, $story
+                        );
 
                         // Implode with separator
-                        echo implode( fictioneer_get_bullet_separator( 'latest-stories' ), $terms );
+                        echo implode(
+                          fictioneer_get_bullet_separator( 'latest-stories', $args['terms'] === 'pills' ),
+                          array_slice( $terms, 0, $args['max_terms'] )
+                        );
                       } else {
                         ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                       }

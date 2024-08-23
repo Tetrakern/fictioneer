@@ -831,6 +831,8 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
 * **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
+* **terms:** Either `inline`, `pills`, or `none`. Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies. Default `10`.
 * **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the post author. Default `true`.
@@ -1149,8 +1151,8 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **lightbox:** Whether clicking on the thumbnail/cover image opens the lightbox or post link. Default `true`.
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
-* **terms:** Either `inline`, `pills`, or `none` (only in `list`). Default `inline`.
-* **max_terms:** Maximum number of shown taxonomies (only in `list`). Default `10`.
+* **terms:** Either `inline`, `pills`, or `none`. Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies. Default `10`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the author. Default `true`.
 * **footer_chapters:** Whether to show the chapter count (not in `list`). Default `true`.
@@ -1227,8 +1229,8 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **date:** Whether to show the date of chapter items. Default `true`.
 * **date_format:** String to override the [date format](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
 * **nested_date_format:** String to override any nested [date formats](https://wordpress.org/documentation/article/customize-date-and-time-format/). Default `''`.
-* **terms:** Either `inline`, `pills`, or `none` (only in `list`). Default `inline`.
-* **max_terms:** Maximum number of shown taxonomies (only in `list`). Default `10`.
+* **terms:** Either `inline`, `pills`, or `none`. Default `inline`.
+* **max_terms:** Maximum number of shown taxonomies. Default `10`.
 * **footer:** Whether to show the footer (if any). Default `true`.
 * **footer_author:** Whether to show the story/chapter author. Default `true`.
 * **footer_chapters:** Whether to show the story chapter count (not in `list`). Default `true`.

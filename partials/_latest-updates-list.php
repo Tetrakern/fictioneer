@@ -147,7 +147,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $post_id = $post->ID;
           $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
           $permalink = get_post_meta( $post_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $post_id );
-          $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
+          $tags = ( $show_terms && get_option( 'fictioneer_show_tags_on_story_cards' ) ) ? get_the_tags( $post ) : false;
           $chapter_list = [];
 
           // Skip if no chapters
@@ -314,37 +314,25 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
           <?php if ( $show_terms && ( $story['has_taxonomies'] || $tags ) ) : ?>
             <div class="post-list-item__tax <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>"><?php
-              $inline = $args['terms'] === 'pills' ? '' : '_inline';
-              $terms = [];
+              $variant = $args['terms'] === 'pills' ? '' : '_inline';
 
-              if ( $story['fandoms'] ) {
-                foreach ( $story['fandoms'] as $fandom ) {
-                  $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill ' . $inline . ' _fandom">' . $fandom->name . '</a>';
-                }
-              }
+              $terms = array_merge(
+                $story['fandoms'] ? fictioneer_get_term_nodes( $story['fandoms'], "{$variant} _fandom" ) : [],
+                $story['genres'] ? fictioneer_get_term_nodes( $story['genres'], "{$variant} _genre" ) : [],
+                $tags ? fictioneer_get_term_nodes( $tags, "{$variant} _tag" ) : [],
+                $story['characters'] ? fictioneer_get_term_nodes( $story['characters'], "{$variant} _character" ) : []
+              );
 
-              if ( $story['genres'] ) {
-                foreach ( $story['genres'] as $genre ) {
-                  $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill ' . $inline . ' _genre">' . $genre->name . '</a>';
-                }
-              }
+              $terms = apply_filters(
+                'fictioneer_filter_shortcode_latest_updates_terms',
+                $terms, $post, $args, $story
+              );
 
-              if ( $tags ) {
-                foreach ( $tags as $tag ) {
-                  $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill ' . $inline . '">' . $tag->name . '</a>';
-                }
-              }
-
-              if ( $story['characters'] ) {
-                foreach ( $story['characters'] as $character ) {
-                  $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill ' . $inline . ' _character">' . $character->name . '</a>';
-                }
-              }
-
-              $terms = apply_filters( 'fictioneer_filter_shortcode_latest_updates_terms', $terms, $post, $args, $story );
-              $separator = $args['terms'] === 'pills' ? '' : fictioneer_get_bullet_separator( 'latest-updates-list' );
-
-              echo implode( $separator, array_slice( $terms, 0, $args['max_terms'] ) );
+              // Implode with separator
+              echo implode(
+                fictioneer_get_bullet_separator( 'latest-stories-list', $args['terms'] === 'pills' ),
+                array_slice( $terms, 0, $args['max_terms'] )
+              );
             ?></div>
           <?php endif; ?>
 

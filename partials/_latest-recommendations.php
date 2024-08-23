@@ -24,6 +24,8 @@
  * @internal $args['vertical']          Whether to show the vertical variant.
  * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
+ * @internal $args['terms']               Either inline, pills, none, or false. Default inline.
+ * @internal $args['max_terms']           Maximum number of shown taxonomies. Default 10.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['classes']           String of additional CSS classes. Default empty.
@@ -217,39 +219,28 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <?php if ( $show_taxonomies ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
-                  <div class="card__h-scroll">
+                  <div class="card__h-scroll <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>">
                     <?php
                       if ( $fandoms || $characters || $genres || $tags ) {
-                        $terms = [];
+                        $variant = $args['terms'] === 'pills' ? '_pill' : '_inline';
 
-                        if ( $fandoms ) {
-                          foreach ( $fandoms as $fandom ) {
-                            $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
-                          }
-                        }
+                        $terms = array_merge(
+                          $fandoms ? fictioneer_get_term_nodes( $fandoms, "{$variant} _fandom" ) : [],
+                          $genres ? fictioneer_get_term_nodes( $genres, "{$variant} _genre" ) : [],
+                          $tags ? fictioneer_get_term_nodes( $tags, "{$variant} _tag" ) : [],
+                          $characters ? fictioneer_get_term_nodes( $characters, "{$variant} _character" ) : []
+                        );
 
-                        if ( $genres ) {
-                          foreach ( $genres as $genre ) {
-                            $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
-                          }
-                        }
-
-                        if ( $tags ) {
-                          foreach ( $tags as $tag ) {
-                            $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
-                          }
-                        }
-
-                        if ( $characters ) {
-                          foreach ( $characters as $character ) {
-                            $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
-                          }
-                        }
-
-                        $terms = apply_filters( 'fictioneer_filter_shortcode_latest_recommendations_terms', $terms, $post, $args, null );
+                        $terms = apply_filters(
+                          'fictioneer_filter_shortcode_latest_recommendations_terms',
+                          $terms, $post, $args, null
+                        );
 
                         // Implode with separator
-                        echo implode( fictioneer_get_bullet_separator( 'latest-recommendations' ), $terms );
+                        echo implode(
+                          fictioneer_get_bullet_separator( 'latest-recommendations', $args['terms'] === 'pills' ),
+                          array_slice( $terms, 0, $args['max_terms'] )
+                        );
                       } else {
                         ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                       }

@@ -25,6 +25,8 @@
  * @internal $args['relation']            Relationship between taxonomies. Default 'AND'.
  * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']           Whether the image is rendered. Default true.
+ * @internal $args['terms']               Either inline, pills, none, or false. Default inline.
+ * @internal $args['max_terms']           Maximum number of shown taxonomies. Default 10.
  * @internal $args['date_format']         String to override the date format. Default empty.
  * @internal $args['footer']              Whether to show the footer. Default true.
  * @internal $args['footer_author']       Whether to show the post author. Default true.
@@ -37,6 +39,9 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
+// Setup
+$show_terms = ! in_array( $args['terms'], ['none', 'false'] );
+
 // Arguments
 $query_args = array(
   'fictioneer_query_name' => 'article_cards',
@@ -45,7 +50,8 @@ $query_args = array(
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
-  'ignore_sticky_posts' => $args['ignore_sticky']
+  'ignore_sticky_posts' => $args['ignore_sticky'],
+  'update_post_term_cache' => $show_terms // Improve performance
 );
 
 // Pagination or count?
@@ -132,11 +138,11 @@ $pag_args = array(
           $story_id = ( $post->post_type === 'fcn_story' ) ? $post_id : null;
           $title = fictioneer_get_safe_title( $post_id, 'card-article' );
           $permalink = get_permalink();
-          $categories = wp_get_post_categories( $post_id );
-          $tags = get_the_tags();
-          $fandoms = get_the_terms( $post, 'fcn_fandom' );
-          $characters = get_the_terms( $post, 'fcn_character' );
-          $genres = get_the_terms( $post, 'fcn_genre' );
+          $categories = $show_terms ? get_the_terms( $post_id, 'category' ) : [];
+          $tags = $show_terms ? get_the_tags() : [];
+          $fandoms = $show_terms ? get_the_terms( $post, 'fcn_fandom' ) : [];
+          $characters = $show_terms ? get_the_terms( $post, 'fcn_character' ) : [];
+          $genres = $show_terms ? get_the_terms( $post, 'fcn_genre' ) : [];
           $card_classes = [];
 
           // Chapter story?
@@ -221,42 +227,26 @@ $pag_args = array(
                   <div class="card__tag-list cell-tax _small _scrolling">
                     <div class="card__h-scroll">
                       <?php
-                        $terms = [];
+                        $variant = $args['terms'] === 'pills' ? '_pill' : '_inline';
 
-                        if ( $categories ) {
-                          foreach ( $categories as $cat ) {
-                            $terms[ $cat ] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
-                          }
-                        }
+                        $terms = array_merge(
+                          $categories ? fictioneer_get_term_nodes( $categories, '_inline _category' ) : [],
+                          $fandoms ? fictioneer_get_term_nodes( $fandoms, "{$variant} _fandom" ) : [],
+                          $genres ? fictioneer_get_term_nodes( $genres, "{$variant} _genre" ) : [],
+                          $tags ? fictioneer_get_term_nodes( $tags, "{$variant} _tag" ) : [],
+                          $characters ? fictioneer_get_term_nodes( $characters, "{$variant} _character" ) : []
+                        );
 
-                        if ( $fandoms ) {
-                          foreach ( $fandoms as $fandom ) {
-                            $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
-                          }
-                        }
-
-                        if ( $genres ) {
-                          foreach ( $genres as $genre ) {
-                            $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
-                          }
-                        }
-
-                        if ( $tags ) {
-                          foreach ( $tags as $tag ) {
-                            $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
-                          }
-                        }
-
-                        if ( $characters ) {
-                          foreach ( $characters as $character ) {
-                            $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
-                          }
-                        }
-
-                        $terms = apply_filters( 'fictioneer_filter_shortcode_article_cards_terms', $terms, $post, $args, null );
+                        $terms = apply_filters(
+                          'fictioneer_filter_shortcode_article_cards_terms',
+                          $terms, $post, $args, null
+                        );
 
                         // Implode with separator
-                        echo implode( fictioneer_get_bullet_separator( 'latest-recommendations' ), $terms );
+                        echo implode(
+                          fictioneer_get_bullet_separator( 'article-cards', $args['terms'] === 'pills' ),
+                          array_slice( $terms, 0, $args['max_terms'] )
+                        );
                       ?>
                     </div>
                   </div>

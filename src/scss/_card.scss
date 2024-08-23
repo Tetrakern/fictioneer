@@ -444,6 +444,13 @@
     line-height: 1.5;
     padding: 0 1px; // Visually more "embedded"
 
+    &._pills {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
     &._scrolling {
       --card-tags-margin-top: 0;
       position: relative;
@@ -465,7 +472,7 @@
       }
     }
 
-    :is(.tag-pill._inline, a) {
+    :is(.tag-pill._inline, a):not(._pill) {
       font-size: inherit;
       display: inline-block;
     }
@@ -481,6 +488,12 @@
     &::-webkit-scrollbar {
       width: 0;
       display: none;
+    }
+
+    &._pills {
+      display: flex;
+      gap: 6px;
+      margin: 6px 0 2px;
     }
   }
 

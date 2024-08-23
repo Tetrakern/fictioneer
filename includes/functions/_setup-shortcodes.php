@@ -601,7 +601,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
 
   // Terms
   $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
-  $args['max_terms'] = absint( $attr['max_terms'] ?? 10 );
+  $args['max_terms'] = absint( ( $attr['max_terms'] ?? 10 ) ?: 10 );
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -700,7 +700,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
 
   // Terms
   $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
-  $args['max_terms'] = absint( $attr['max_terms'] ?? 10 );
+  $args['max_terms'] = absint( ( $attr['max_terms'] ?? 10 ) ?: 10 );
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -782,6 +782,10 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );
+
+  // Terms
+  $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
+  $args['max_terms'] = absint( ( $attr['max_terms'] ?? 10 ) ?: 10 );
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -1609,6 +1613,10 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
 function fictioneer_shortcode_article_cards( $attr ) {
   // Defaults
   $args = fictioneer_get_default_shortcode_args( $attr );
+
+  // Terms
+  $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
+  $args['max_terms'] = absint( ( $attr['max_terms'] ?? 10 ) ?: 10 );
 
   // Post type(s)...
   $post_types = sanitize_text_field( $attr['post_type'] ?? 'post' );

@@ -51,7 +51,7 @@ if ( ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) ) {
 
 // Flags
 $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
-$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) && ( $tags || $fandoms || $characters || $genres );
+$show_terms = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) && ( $tags || $fandoms || $characters || $genres );
 
 // Extra classes
 if ( $story_unpublished ) {
@@ -64,6 +64,10 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
 
 if ( get_theme_mod( 'card_image_style', 'default' ) !== 'default' ) {
   $card_classes[] = '_' . get_theme_mod( 'card_image_style' );
+}
+
+if ( ! $show_terms ) {
+  $card_classes[] = '_no-tax';
 }
 
 // Card attributes
@@ -210,18 +214,18 @@ $thumbnail_args = array(
         </ol>
       <?php endif; ?>
 
-      <?php if ( $show_taxonomies ) : ?>
+      <?php if ( $show_terms ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $taxonomies = array_merge(
-              $fandoms ? fictioneer_generate_card_terms( $fandoms, '_inline _fandom' ) : [],
-              $genres ? fictioneer_generate_card_terms( $genres, '_inline _genre' ) : [],
-              $tags ? fictioneer_generate_card_terms( $tags, '_inline _tag' ) : [],
-              $characters ? fictioneer_generate_card_terms( $characters, '_inline _character' ) : []
+            $terms = array_merge(
+              $fandoms ? fictioneer_get_term_nodes( $fandoms, '_inline _fandom' ) : [],
+              $genres ? fictioneer_get_term_nodes( $genres, '_inline _genre' ) : [],
+              $tags ? fictioneer_get_term_nodes( $tags, '_inline _tag' ) : [],
+              $characters ? fictioneer_get_term_nodes( $characters, '_inline _character' ) : []
             );
 
             // Implode with separator
-            echo implode( fictioneer_get_bullet_separator( 'post-chapter' ), $taxonomies );
+            echo implode( fictioneer_get_bullet_separator( 'post-chapter' ), $terms );
           ?>
         </div>
       <?php endif; ?>

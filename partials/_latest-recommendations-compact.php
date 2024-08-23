@@ -26,6 +26,8 @@
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
+ * @internal $args['terms']               Either inline, pills, none, or false. Default inline.
+ * @internal $args['max_terms']           Maximum number of shown taxonomies. Default 10.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  * @internal $args['infobox']           Whether to show the info box and toggle.
  */
@@ -35,7 +37,8 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' );
+$show_terms = ! in_array( $args['terms'], ['none', 'false'] ) &&
+  ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' );
 
 // Prepare query
 $query_args = array (
@@ -46,6 +49,7 @@ $query_args = array (
   'order' => $args['order'],
   'orderby' => $args['orderby'],
   'posts_per_page' => $args['count'],
+  'update_post_term_cache' => $show_terms, // Improve performance
   'no_found_rows' => true
 );
 
@@ -106,15 +110,15 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $post_id = $post->ID;
           $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-recommendations-compact' );
           $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
-          $fandoms = get_the_terms( $post, 'fcn_fandom' );
-          $characters = get_the_terms( $post, 'fcn_character' );
-          $genres = get_the_terms( $post, 'fcn_genre' );
+          $fandoms = $show_terms ? get_the_terms( $post, 'fcn_fandom' ) : [];
+          $characters = $show_terms ? get_the_terms( $post, 'fcn_character' ) : [];
+          $genres = $show_terms ? get_the_terms( $post, 'fcn_genre' ) : [];
           $tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags( $post ) : false;
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
           // Extra classes
-          if ( $show_taxonomies ) {
+          if ( $show_terms ) {
             $card_classes[] = '_info';
           }
 
@@ -152,7 +156,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _recommendation _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
-            <?php if ( $show_taxonomies && $args['infobox'] ) : ?>
+            <?php if ( $show_terms && $args['infobox'] ) : ?>
               <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
@@ -199,41 +203,30 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             </div>
 
-            <?php if ( $show_taxonomies && $args['infobox'] ) : ?>
+            <?php if ( $show_terms && $args['infobox'] ) : ?>
               <div class="card__overlay-infobox escape-last-click">
-                <div class="card__tag-list _small">
+                <div class="card__tag-list _small <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>">
                   <?php
-                    if ( $fandoms || $characters || $genres || $tags ) {
-                      $terms = [];
+                    if ( $fandoms || $genres || $tags || $characters ) {
+                      $variant = $args['terms'] === 'pills' ? '_pill' : '_inline';
 
-                      if ( $fandoms ) {
-                        foreach ( $fandoms as $fandom ) {
-                          $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
-                        }
-                      }
+                      $terms = array_merge(
+                        $fandoms ? fictioneer_get_term_nodes( $fandoms, "{$variant} _fandom" ) : [],
+                        $genres ? fictioneer_get_term_nodes( $genres, "{$variant} _genre" ) : [],
+                        $tags ? fictioneer_get_term_nodes( $tags, "{$variant} _tag" ) : [],
+                        $characters ? fictioneer_get_term_nodes( $characters, "{$variant} _character" ) : []
+                      );
 
-                      if ( $genres ) {
-                        foreach ( $genres as $genre ) {
-                          $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
-                        }
-                      }
-
-                      if ( $tags ) {
-                        foreach ( $tags as $tag ) {
-                          $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
-                        }
-                      }
-
-                      if ( $characters ) {
-                        foreach ( $characters as $character ) {
-                          $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
-                        }
-                      }
-
-                      $terms = apply_filters( 'fictioneer_filter_shortcode_latest_recommendations_terms', $terms, $post, $args, null );
+                      $terms = apply_filters(
+                        'fictioneer_filter_shortcode_latest_recommendations_terms',
+                        $terms, $post, $args, null
+                      );
 
                       // Implode with separator
-                      echo implode( fictioneer_get_bullet_separator( 'latest-recommendations' ), $terms );
+                      echo implode(
+                        fictioneer_get_bullet_separator( 'latest-recommendations-compact', $args['terms'] === 'pills' ),
+                        array_slice( $terms, 0, $args['max_terms'] )
+                      );
                     } else {
                       ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                     }
