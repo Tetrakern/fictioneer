@@ -1427,7 +1427,7 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
     $output = apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args );
 
     // Implode and return HTML
-    return '<div class="chapter-group__list-item-subrow truncate _1-1">' . implode( ' ', $output ) . '</div>';
+    return '<div class="chapter-group__list-item-subrow pseudo-separator truncate _1-1">' . implode( ' ', $output ) . '</div>';
   }
 }
 
