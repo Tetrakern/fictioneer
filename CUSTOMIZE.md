@@ -596,10 +596,12 @@ function child_remove_dot_separator_on_story_cards( $separator, $context ) {
 add_filter( 'fictioneer_filter_bullet_separator', 'child_remove_dot_separator_on_story_cards', 10, 2 );
 ```
 
+Custom CSS:
+
 ```css
 .card._story .cell-tax {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 ```
