@@ -2248,15 +2248,16 @@ function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anch
  * @since 5.23.0
  *
  * @param string|null $context  Optional. The render context.
+ * @param bool        $blank    Optional. Allows to return an empty string via condition.
  *
  * @return string HTML of the bullet separator element. Default is three-per-em
  *                spaces around a bullet (&#8196;&bull;&#8196;).
  */
 
-function fictioneer_get_bullet_separator( $context = null ) {
+function fictioneer_get_bullet_separator( $context = null, $blank = false ) {
   return apply_filters(
     'fictioneer_filter_bullet_separator',
-    '<span class="separator-dot">&#8196;&bull;&#8196;</span>',
+    $blank ? '' : '<span class="separator-dot">&#8196;&bull;&#8196;</span>',
     $context
   );
 }
