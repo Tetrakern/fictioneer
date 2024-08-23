@@ -545,3 +545,61 @@ function child_remove_metaboxes() {
 }
 add_action( 'add_meta_boxes', 'child_remove_metaboxes', 99 );
 ```
+
+## Change large story card taxonomies to pills
+
+Unlike with shortcodes, you cannot just add parameters to change the display of taxonomies (fandoms, tags, etc.) on large cards. However, you can apply filters and custom CSS to achieve the same thing.
+
+**References**
+* Filter: [fictioneer_filter_card_story_terms](FILTERS.md#apply_filters-fictioneer_filter_card_type_terms-terms-post-args-story_data-)
+* Filter: [fictioneer_filter_bullet_separator](FILTERS.md#apply_filters-fictioneer_filter_bullet_separator-separator-context-)
+
+```php
+/**
+ * Replaces the '_inline' style modifier CSS class with '_pill'
+ *
+ * @since x.x.x
+ *
+ * @param array $terms  Associative array of term HTML nodes to be rendered.
+ *
+ * @return array Updated array of term HTML nodes.
+ */
+
+function child_card_terms_as_pills( $terms ) {
+  return array_map(
+    function( $node ) {
+      return str_replace( '_inline', '_pill', $node );
+    },
+    $terms
+  );
+}
+add_filter( 'fictioneer_filter_card_story_terms', 'child_card_terms_as_pills' );
+
+/**
+ * Removes the dot separator from large story cards.
+ *
+ * @since x.x.x
+ *
+ * @param string $separator  The default separator.
+ * @param string $context    The render context.
+ *
+ * @return string An empty string if the correct context or the original.
+ */
+
+function child_remove_dot_separator_on_story_cards( $separator, $context ) {
+  if ( $context === 'story-card' ) {
+    return '';
+  }
+
+  return $separator;
+}
+add_filter( 'fictioneer_filter_bullet_separator', 'child_remove_dot_separator_on_story_cards', 10, 2 );
+```
+
+```css
+.card._story .cell-tax {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+```
