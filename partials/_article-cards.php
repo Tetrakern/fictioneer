@@ -225,33 +225,35 @@ $pag_args = array(
 
                         if ( $categories ) {
                           foreach ( $categories as $cat ) {
-                            $terms[] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
+                            $terms[ $cat ] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
                           }
                         }
 
                         if ( $fandoms ) {
                           foreach ( $fandoms as $fandom ) {
-                            $terms[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                            $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
                           }
                         }
 
                         if ( $genres ) {
                           foreach ( $genres as $genre ) {
-                            $terms[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                            $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
                           }
                         }
 
                         if ( $tags ) {
                           foreach ( $tags as $tag ) {
-                            $terms[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                            $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
                           }
                         }
 
                         if ( $characters ) {
                           foreach ( $characters as $character ) {
-                            $terms[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                            $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
                           }
                         }
+
+                        $terms = apply_filters( 'fictioneer_filter_shortcode_article_cards_terms', $terms, $post, $args, null );
 
                         // Implode with separator
                         echo implode( fictioneer_get_bullet_separator( 'latest-recommendations' ), $terms );

@@ -208,27 +208,29 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                       if ( $fandoms ) {
                         foreach ( $fandoms as $fandom ) {
-                          $terms[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                          $terms[ $fandom->term_id ] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
                         }
                       }
 
                       if ( $genres ) {
                         foreach ( $genres as $genre ) {
-                          $terms[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                          $terms[ $genre->term_id ] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
                         }
                       }
 
                       if ( $tags ) {
                         foreach ( $tags as $tag ) {
-                          $terms[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                          $terms[ $tag->term_id ] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
                         }
                       }
 
                       if ( $characters ) {
                         foreach ( $characters as $character ) {
-                          $terms[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                          $terms[ $character->term_id ] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
                         }
                       }
+
+                      $terms = apply_filters( 'fictioneer_filter_shortcode_latest_recommendations_terms', $terms, $post, $args, null );
 
                       // Implode with separator
                       echo implode( fictioneer_get_bullet_separator( 'latest-recommendations' ), $terms );

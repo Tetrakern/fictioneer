@@ -341,7 +341,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 }
               }
 
-              $terms = apply_filters( 'fictioneer_filter_shortcode_latest_updates_terms', $terms, $story, $args );
+              $terms = apply_filters( 'fictioneer_filter_shortcode_latest_updates_terms', $terms, $post, $args, $story );
 
               echo implode( ' ', array_slice( $terms, 0, $args['max_terms'] ) );
             ?></div>

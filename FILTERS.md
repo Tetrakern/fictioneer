@@ -1263,6 +1263,17 @@ Filters the intermediate output array for the meta row in list-type shortcode pa
 
 ---
 
+### `apply_filters( 'fictioneer_filter_shortcode_{type}_terms', $terms, $post, $args, $story_data )`
+Filters the intermediate output array of term HTML nodes (tags, genres, fandoms, etc.) in shortcodes before it is imploded and rendered, with the term IDs as keys. Type can be `latest_stories`, `latest_updates`, `latest_recommendations`, or `article_cards`. You can use `$args['type']` to further differentiate between shortcode variants.
+
+**Parameters**
+* $terms (array) – Associative array of HTML nodes to be rendered.
+* $post (WP_Post) – The current post object.
+* $args (array) – Arguments passed to the shortcode.
+* $story_data (array|null) – Collection of story post data. Unsafe.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_shortcode_list_attributes', $attributes, $post, $context )`
 Filters the intermediate output array of HTML attributes inside list-type shortcodes before they are rendered. The keys are used as attribute names. Make sure to account for already existing attributes.
 
