@@ -313,7 +313,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           <?php endif; ?>
 
           <?php if ( $show_terms && ( $story['has_taxonomies'] || $tags ) ) : ?>
-            <div class="post-list-item__tax <?php echo $args['terms'] === 'inline' ? 'pseudo-separator' : '_pills'; ?>"><?php
+            <div class="post-list-item__tax <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>"><?php
               $inline = $args['terms'] === 'pills' ? '' : '_inline';
               $terms = [];
 
@@ -342,8 +342,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               }
 
               $terms = apply_filters( 'fictioneer_filter_shortcode_latest_updates_terms', $terms, $post, $args, $story );
+              $separator = $args['terms'] === 'pills' ? '' : fictioneer_get_bullet_separator( 'latest-updates-list' );
 
-              echo implode( ' ', array_slice( $terms, 0, $args['max_terms'] ) );
+              echo implode( $separator, array_slice( $terms, 0, $args['max_terms'] ) );
             ?></div>
           <?php endif; ?>
 
