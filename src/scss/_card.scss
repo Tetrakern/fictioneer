@@ -571,12 +571,17 @@
     }
 
     > :first-child {
+      --this-mask-offset: 1em;
       padding: 0;
       margin: 0.625em;
       height: 100%;
       overflow: hidden;
-      mask: linear-gradient(180deg, black calc(100% - 1.5em), rgb(0 0 0 / 50%) calc(100% - 1em), transparent 100%) top;
-      -webkit-mask: linear-gradient(180deg, black calc(100% - 1.5em), rgb(0 0 0 / 50%) calc(100% - 1em), transparent 100%) top;
+      -webkit-mask: linear-gradient(180deg, black calc(100% - 0.5em - var(--this-mask-offset)), rgb(0 0 0 / 50%) calc(100% - var(--this-mask-offset)), transparent 100%) top;
+      mask: linear-gradient(180deg, black calc(100% - 0.5em - var(--this-mask-offset)), rgb(0 0 0 / 50%) calc(100% - var(--this-mask-offset)), transparent 100%) top;
+
+      &._pills {
+        --this-mask-offset: 0px;
+      }
     }
 
     .card__footer {
