@@ -1814,11 +1814,12 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 // GENERATE CARD TAGS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_generate_card_tags' ) ) {
+if ( ! function_exists( 'fictioneer_generate_card_terms' ) ) {
   /**
    * Returns array of card tags with HTML markup
    *
    * @since 5.5.3
+   * @since 5.23.3 - Refactored into fictioneer_generate_card_terms().
    *
    * @param array  $items    Array of terms.
    * @param string $classes  Optional. CSS classes to add.
@@ -1826,13 +1827,13 @@ if ( ! function_exists( 'fictioneer_generate_card_tags' ) ) {
    * @return array Array of output-ready tags.
    */
 
-  function fictioneer_generate_card_tags( $items, $classes = '' ) {
+  function fictioneer_generate_card_terms( $items, $classes = '' ) {
     $tags = [];
 
     foreach ( $items as $item ) {
       $link = get_tag_link( $item );
 
-      $tags[] = "<a href='{$link}' class='tag-pill _inline {$classes}'>{$item->name}</a>";
+      $tags[] = "<a href='{$link}' class='tag-pill {$classes}'>{$item->name}</a>";
     }
 
     return $tags;

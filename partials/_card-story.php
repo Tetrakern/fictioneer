@@ -218,10 +218,10 @@ if ( $card_cache_active ) {
         <div class="card__tag-list cell-tax">
           <?php
             $taxonomies = array_merge(
-              $story['fandoms'] ? fictioneer_generate_card_tags( $story['fandoms'], '_fandom' ) : [],
-              $story['genres'] ? fictioneer_generate_card_tags( $story['genres'], '_genre' ) : [],
-              $tags ? fictioneer_generate_card_tags( $tags ) : [],
-              $story['characters'] ? fictioneer_generate_card_tags( $story['characters'], '_character' ) : []
+              $story['fandoms'] ? fictioneer_generate_card_terms( $story['fandoms'], '_inline _fandom' ) : [],
+              $story['genres'] ? fictioneer_generate_card_terms( $story['genres'], '_inline _genre' ) : [],
+              $tags ? fictioneer_generate_card_terms( $tags, '_inline _tag' ) : [],
+              $story['characters'] ? fictioneer_generate_card_terms( $story['characters'], '_inline _character' ) : []
             );
 
             // Implode with three-per-em spaces around a bullet

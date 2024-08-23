@@ -214,10 +214,10 @@ $thumbnail_args = array(
         <div class="card__tag-list cell-tax">
           <?php
             $taxonomies = array_merge(
-              $fandoms ? fictioneer_generate_card_tags( $fandoms, '_fandom' ) : [],
-              $genres ? fictioneer_generate_card_tags( $genres, '_genre' ) : [],
-              $tags ? fictioneer_generate_card_tags( $tags ) : [],
-              $characters ? fictioneer_generate_card_tags( $characters, '_character' ) : []
+              $fandoms ? fictioneer_generate_card_terms( $fandoms, '_inline _fandom' ) : [],
+              $genres ? fictioneer_generate_card_terms( $genres, '_inline _genre' ) : [],
+              $tags ? fictioneer_generate_card_terms( $tags, '_inline _tag' ) : [],
+              $characters ? fictioneer_generate_card_terms( $characters, '_inline _character' ) : []
             );
 
             // Implode with three-per-em spaces around a bullet

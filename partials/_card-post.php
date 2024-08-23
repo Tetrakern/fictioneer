@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) OR exit;
 $post_id = $post->ID;
 $title = fictioneer_get_safe_title( $post_id, 'card-post' );
 $tags = get_the_tags();
-$categories = wp_get_post_categories( $post_id );
+$categories = get_the_terms( $post_id, 'category' );
 $card_classes = [];
 
 // Extra classes
@@ -79,22 +79,13 @@ $thumbnail_args = array(
       <?php if ( $categories || $tags ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $output = [];
-
-            if ( $categories ) {
-              foreach ( $categories as $cat ) {
-                $output[] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
-              }
-            }
-
-            if ( $tags ) {
-              foreach ( $tags as $tag ) {
-                $output[] = "<a href='" . get_tag_link( $tag ) . "' class='tag-pill _inline'>{$tag->name}</a>";
-              }
-            }
+            $taxonomies = array_merge(
+              $categories ? fictioneer_generate_card_terms( $categories, '_inline _category' ) : [],
+              $tags ? fictioneer_generate_card_terms( $tags, '_inline _tag' ) : []
+            );
 
             // Implode with three-per-em spaces around a bullet
-            echo implode( '&#8196;&bull;&#8196;', $output );
+            echo implode( '&#8196;&bull;&#8196;', $taxonomies );
           ?>
         </div>
       <?php endif; ?>
