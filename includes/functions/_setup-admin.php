@@ -969,6 +969,8 @@ function fictioneer_get_mu_plugin_data() {
  */
 
 function fictioneer_look_for_issues() {
+  global $wpdb;
+
   // Setup
   $dynamic_scripts_path = FICTIONEER_CACHE_DIR . '/dynamic-scripts.js';
   $bundled_fonts_path = FICTIONEER_CACHE_DIR . '/bundled-fonts.css';
@@ -983,7 +985,7 @@ function fictioneer_look_for_issues() {
   // Cache directory set up?
   if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
     $issues[] = sprintf(
-      _x( '<code>%s</code> directory could not be found or created.', 'Alert about problems with the theme.', 'fictioneer' ),
+      __( '<code>%s</code> directory could not be found or created.', 'fictioneer' ),
       FICTIONEER_CACHE_DIR
     );
   } else {
@@ -991,7 +993,7 @@ function fictioneer_look_for_issues() {
 
     if ( $permissions !== '0755' ) {
       $issues[] = sprintf(
-        _x( '<code>%s</code> directory permissions are not 755.', 'Alert about problems with the theme.', 'fictioneer' ),
+        __( '<code>%s</code> directory permissions are not 755.', 'fictioneer' ),
         FICTIONEER_CACHE_DIR
       );
     }
@@ -1009,7 +1011,7 @@ function fictioneer_look_for_issues() {
   // Dynamic scripts set up?
   if ( ! file_exists( $dynamic_scripts_path ) ) {
     $issues[] = sprintf(
-      _x( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'Alert about problems with the theme.', 'fictioneer' ),
+      __( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'fictioneer' ),
       'dynamic-scripts.js',
       FICTIONEER_CACHE_DIR
     );
@@ -1018,7 +1020,7 @@ function fictioneer_look_for_issues() {
 
     if ( $permissions !== '0644' ) {
       $issues[] = sprintf(
-        _x( '<strong>%s</strong> file permissions are not 644.', 'Alert about problems with the theme.', 'fictioneer' ),
+        __( '<strong>%s</strong> file permissions are not 644.', 'fictioneer' ),
         'dynamic-scripts.js'
       );
     }
@@ -1027,7 +1029,7 @@ function fictioneer_look_for_issues() {
   // Bundled fonts set up?
   if ( ! file_exists( $bundled_fonts_path ) ) {
     $issues[] = sprintf(
-      _x( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'Alert about problems with the theme.', 'fictioneer' ),
+      __( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'fictioneer' ),
       'bundled-fonts.css',
       FICTIONEER_CACHE_DIR
     );
@@ -1036,7 +1038,7 @@ function fictioneer_look_for_issues() {
 
     if ( $permissions !== '0644' ) {
       $issues[] = sprintf(
-        _x( '<strong>%s</strong> file permissions are not 644.', 'Alert about problems with the theme.', 'fictioneer' ),
+        __( '<strong>%s</strong> file permissions are not 644.', 'fictioneer' ),
         'bundled-fonts.css'
       );
     }
@@ -1045,7 +1047,7 @@ function fictioneer_look_for_issues() {
   // Customize CSS set up?
   if ( ! file_exists( $customize_css_path ) ) {
     $issues[] = sprintf(
-      _x( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'Alert about problems with the theme.', 'fictioneer' ),
+      __( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'fictioneer' ),
       'customize.css',
       FICTIONEER_CACHE_DIR
     );
@@ -1054,7 +1056,7 @@ function fictioneer_look_for_issues() {
 
     if ( $permissions !== '0644' ) {
       $issues[] = sprintf(
-        _x( '<strong>%s</strong> file permissions are not 644.', 'Alert about problems with the theme.', 'fictioneer' ),
+        __( '<strong>%s</strong> file permissions are not 644.', 'fictioneer' ),
         'customize.css'
       );
     }
@@ -1065,12 +1067,12 @@ function fictioneer_look_for_issues() {
   $fictioneer_theme = $fictioneer_theme->parent() ? $fictioneer_theme->parent() : $fictioneer_theme;
 
   if ( basename( $fictioneer_theme->get_stylesheet_directory() ) !== 'fictioneer' ) {
-    $issues[] = _x( 'The main theme directory is not "fictioneer" and needs to be renamed to match internal paths.', 'fictioneer' );
+    $issues[] = __( 'The main theme directory is not "fictioneer" and needs to be renamed to match internal paths.', 'fictioneer' );
   }
 
   // Is mbstring enabled?
   if ( ! extension_loaded( 'mbstring' ) ) {
-    $issues[] = _x( 'The <strong>mbstring</strong> PHP extension is not enabled.', 'fictioneer' );
+    $issues[] = __( 'The <strong>mbstring</strong> PHP extension is not enabled.', 'fictioneer' );
   }
 
   // HTTPS?
@@ -1079,15 +1081,44 @@ function fictioneer_look_for_issues() {
 
   if ( strpos( $site_url, 'https://' ) !== 0 ) {
     $issues[] = sprintf(
-      _x( 'Your <strong>Site URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
+      __( 'Your <strong>Site URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
       'https://'
     );
   }
 
   if ( strpos( $home_url, 'https://' ) !== 0 ) {
     $issues[] = sprintf(
-      _x( 'Your <strong>Home URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
+      __( 'Your <strong>Home URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
       'https://'
+    );
+  }
+
+  // Posts per page
+  if ( get_option( 'posts_per_page' ) >= 15 ) {
+    $issues[] = sprintf(
+      __( 'You currently show <strong>%s posts per page</strong>. This high number can cause index and list pages to be slow or crash, depending on the number of chapters per story.', 'fictioneer' ),
+      get_option( 'posts_per_page' )
+    );
+  }
+
+  // Revisions
+  if ( defined( 'WP_POST_REVISIONS' ) && WP_POST_REVISIONS === true ) {
+    $issues[] = sprintf(
+      __( 'You currently store <strong>unlimited revisions per post</strong>. This can bloat your database and slow down your site. Better limit or turn them off by adding <code>%s</code> to your wp-config.php. This will not clean up already stored revisions, use a plugin for that.', 'fictioneer' ),
+      "define( 'WP_POST_REVISIONS', false )"
+    );
+  }
+
+  $revision_count = $wpdb->get_var("
+    SELECT COUNT(*)
+    FROM $wpdb->posts
+    WHERE post_type = 'revision'
+  ");
+
+  if ( $revision_count > 500 ) {
+    $issues[] = sprintf(
+      __( 'You currently have <strong>%s revisions stored</strong> in your database. This is a lot ot bloat that can slow down your site if you do not really need them. Use a plugin to clean them up.', 'fictioneer' ),
+      $revision_count
     );
   }
 
