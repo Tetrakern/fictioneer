@@ -443,6 +443,9 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     // Customize word count
     $modified_word_count = fictioneer_multiply_word_count( $word_count );
 
+    // Rating
+    $rating = get_post_meta( $story_id, 'fictioneer_story_rating', true ) ?: 'Everyone';
+
     // Prepare result
     $result = array(
       'id' => $story_id,
@@ -458,8 +461,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'warnings' => $warnings,
       'genres' => $genres,
       'title' => fictioneer_get_safe_title( $story_id, 'utility-get-story-data' ),
-      'rating' => get_post_meta( $story_id, 'fictioneer_story_rating', true ),
-      'rating_letter' => get_post_meta( $story_id, 'fictioneer_story_rating', true )[0],
+      'rating' => $rating,
+      'rating_letter' => $rating[0],
       'chapter_ids' => $visible_chapter_ids,
       'indexed_chapter_ids' => $indexed_chapter_ids,
       'last_modified' => get_the_modified_time( 'U', $story_id ),
