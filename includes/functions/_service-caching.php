@@ -133,6 +133,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_QUERY_RESULT_CACHING' ) ) {
  * Return whether shortcode Transients should be enabled
  *
  * @since 5.6.3
+ * @since 5.23.1 - Do not turn off with cache plugin
  *
  * @return boolean Either true or false.
  */
@@ -143,8 +144,8 @@ function fictioneer_enable_shortcode_transients() {
     return false;
   }
 
-  // Check constant and caching status
-  $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 && ! fictioneer_caching_active( 'shortcodes' );
+  // Check constant
+  $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1;
 
   // Filter
   $bool = apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool );
