@@ -891,7 +891,7 @@ function fictioneer_style_queue() {
 
       // Shortcodes
       if (
-        preg_match( '/\[fictioneer_latest_[^\]]*type="list"[^\]]*\]/', $post->post_content ) ||
+        ( $post && preg_match( '/\[fictioneer_latest_[^\]]*type="list"[^\]]*\]/', $post->post_content ) ) ||
         is_admin() // Accounts for page editors like Elementor
       ) {
         wp_enqueue_style(
