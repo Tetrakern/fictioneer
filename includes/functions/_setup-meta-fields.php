@@ -4565,10 +4565,11 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
  * @param int $post_id  ID of the updated post.
  */
 
-function fictioneer_save_patreon_bulk_edit( $post_id ){
+function fictioneer_save_patreon_bulk_edit( $post_id ) {
 	// Abort if...
 	if (
     ! wp_verify_nonce( $_REQUEST['_wpnonce'] ?? 0, 'bulk-posts' ) ||
+    ( $_REQUEST['action2'] ?? 0 ) === 'trash' ||
     ! in_array(
       get_post_type( $post_id ),
       ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
