@@ -763,6 +763,46 @@ function fictioneer_toggle_update_tracker_hooks( $add = true ) {
 
 fictioneer_toggle_update_tracker_hooks();
 
+/**
+ * Rebuild story data collection after purge
+ *
+ * Note: This is only triggered for one story to avoid rebuilding the
+ * collections of ALL stories at once in case of a complete purge.
+ *
+ * @since 5.23.1
+ *
+ * @param int     $post_id  Updated post ID.
+ * @param WP_Post $post     The post object.
+ */
+
+function fictioneer_rebuild_story_data_collection( $post_id, $post ) {
+  // Prevent multi-fire and check type
+  if (
+    fictioneer_multi_save_guard( $post_id ) ||
+    ! in_array( $post->post_type, ['fcn_story', 'fcn_chapter'] )
+  ) {
+    return;
+  }
+
+  // Story or chapter?
+  if ( $post->post_type === 'fcn_chapter' ) {
+    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+
+    if ( $story_id ) {
+      fictioneer_get_story_data( $story_id );
+    }
+  } else {
+    fictioneer_get_story_data( $post_id );
+  }
+
+  // Prevent chain reaction
+  remove_action( 'save_post', 'fictioneer_rebuild_story_data_collection', 999 );
+}
+
+if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
+  add_action( 'save_post', 'fictioneer_rebuild_story_data_collection', 999, 2 );
+}
+
 // =============================================================================
 // PURGE CACHE TRANSIENTS
 // =============================================================================
