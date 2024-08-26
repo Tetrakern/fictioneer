@@ -66,6 +66,12 @@ function fictioneer_generate_test_content() {
     return;
   }
 
+  // Disable Discord
+  remove_action( 'comment_post', 'fictioneer_post_comment_to_discord', 99 );
+  remove_action( 'transition_post_status', 'fictioneer_post_story_to_discord', 99 );
+  remove_action( 'transition_post_status', 'fictioneer_post_chapter_to_discord', 99 );
+
+  // Setup
   $user_count = absint( $_GET['users'] ?? 1 );
   $chapter_count = absint( $_GET['chapters'] ?? 50 );
   $comment_count = absint( $_GET['comments'] ?? 3 );
