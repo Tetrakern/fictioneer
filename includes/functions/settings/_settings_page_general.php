@@ -1269,10 +1269,10 @@ $issues = fictioneer_look_for_issues();
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_anti_flicker',
-                    __( 'Disable anti-flicker script', 'fictioneer' ),
-                    __( 'Do not hide the page until the document is fully parsed.', 'fictioneer' ),
-                    __( '<p>Rendering of the site begins while the HTML document is still being parsed, from top to bottom. This can cause the layout to flicker and shift for a split second if styles are applied to grouped elements that are still missing their counterparts. Ugly but not bad.</p><p>This script prevents such flickers by making the site invisible until the entire document has been parsed, which means the site may technically appear a split second later. However, if the script is blocked from being executed, the site will remain invisible. Although this is extremely unlikely, you can turn this feature off here if needed.</p>', 'fictioneer' )
+                    'fictioneer_enable_anti_flicker',
+                    __( 'Enable anti-flicker script', 'fictioneer' ),
+                    __( 'Hides the page until the document is fully parsed.', 'fictioneer' ),
+                    __( '<p>Rendering of the site begins while the HTML document is still being parsed, from top to bottom. This can cause the layout to flicker and shift for a split second if styles are applied to grouped elements that are still missing their counterparts. Not great, not terrible.</p><p>This script prevents such flickers by making the site invisible until the entire document has been parsed, which means the site technically appears a split second later. However, if the script is blocked, the site will remain invisible. This is extremely unlikely, though.</p>', 'fictioneer' )
                   );
                 ?>
               </div>
