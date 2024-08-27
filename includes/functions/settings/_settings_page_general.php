@@ -743,7 +743,12 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_tts',
                     __( 'Enable Text-To-Speech (experimental)', 'fictioneer' ),
-                    __( 'Sometimes wonky browser-based text-to-speech engine. Extend and availability depends on the browser and OS.', 'fictioneer' )
+                    __( 'Sometimes wonky browser-based text-to-speech engine. Extend and availability depends on the browser and OS.', 'fictioneer' ),
+                    sprintf(
+                      __( '%1$s<p>You can engage the <a href="%2$s" target="_blank">Web Speech API</a> of the browser by clicking or tapping on a paragraph, which opens the paragraph tools with the start button. This will display the interface bar at the bottom.</p><p>Whether this works depends on your browser and operating system; additional permissions and settings may be required. The TTS engine should automatically select a voice model that fits the site language, but you can also switch manually in the settings.</p>', 'fictioneer' ),
+                      '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_tts.jpg"></div>',
+                      'https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API'
+                    )
                   );
                 ?>
               </div>
