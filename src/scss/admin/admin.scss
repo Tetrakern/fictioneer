@@ -1254,3 +1254,25 @@ td.fictioneer_patreon_lock_amount {
 a[data-fcn-dialog-target] {
   cursor: pointer;
 }
+
+.helper-modal-image {
+  padding: 1.5px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+
+  &:not(:first-child) {
+    margin-top: .75em;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: .75em;
+  }
+
+  img {
+    display: block;
+    border-radius: 2px;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+  }
+}
