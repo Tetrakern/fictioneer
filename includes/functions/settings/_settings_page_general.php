@@ -649,7 +649,9 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_lightbox',
                     __( 'Enable lightbox', 'fictioneer' ),
-                    __( 'Enlarge images in floating container on click.', 'fictioneer' )
+                    __( 'Enlarge images in floating container on click.', 'fictioneer' ),
+                    __( 'With this feature enabled, clicking on images in the page content will open a window overlay popup. This blocks some content and dims and disables the background to present the image more prominently.', 'fictioneer' ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_lightbox.jpg"></div>'
                   );
                 ?>
               </div>
