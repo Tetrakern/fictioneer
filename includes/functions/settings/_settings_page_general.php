@@ -674,7 +674,9 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_follows',
                     __( 'Enable Follows (requires account)', 'fictioneer' ),
-                    __( 'Follow stories and get on-site alerts for updates.', 'fictioneer' )
+                    __( 'Follow stories and get on-site alerts for updates.', 'fictioneer' ),
+                    __( 'With this feature enabled, logged-in users can "follow" a story to receive on-site update notifications and track the story in their bookshelf (if set up). This feature is more useful if you host many ongoing stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_follows.jpg"></div>'
                   );
                 ?>
               </div>
