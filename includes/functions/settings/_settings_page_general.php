@@ -636,7 +636,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_enable_patreon_locks',
                     __( 'Enable Patreon content gate', 'fictioneer' ),
                     __( 'Requires OAuth 2.0 application with Patreon. Allows patrons to ignore passwords for selected posts.', 'fictioneer' ),
-                    __( '<p>With this feature enabled, users authenticated via Patreon OAuth can access protected posts without the password. Just assign the tiers or a pledge threshold, per post or globally. This is in addition to regular user post unlocks and can be combined to target only paying patrons while working outside of tiers.</p><p>Requires an OAuth 2.0 application with Patreon. Users retain their access for a week by default, after which they need to re-login to refresh their membership data.</p>', 'fictioneer' ),
+                    __( '<p>With this feature enabled, users authenticated via Patreon OAuth can access protected posts without the password. Just assign the tiers or a pledge threshold, per post or globally.</p><p>Requires an OAuth 2.0 application with Patreon. Users retain their access for a week by default, after which they need to re-login to refresh their membership data.</p>', 'fictioneer' ),
                     '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_patreon_locks.jpg"></div>'
                   );
                 ?>
