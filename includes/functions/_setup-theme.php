@@ -1,6 +1,28 @@
 <?php
 
 // =============================================================================
+// URI HELPERS
+// =============================================================================
+
+/**
+ * Returns URI to the theme cache
+ *
+ * @since 5.23.1
+ *
+ * @param string|null $context  The context of the call. Default null.
+ *
+ * @return string URI to the theme cache.
+ */
+
+function fictioneer_get_theme_cache_uri( $context = null ) {
+  return apply_filters(
+    'fictioneer_filter_cache_uri',
+    get_template_directory_uri() . '/cache',
+    $context
+  );
+}
+
+// =============================================================================
 // LEGACY CLEANUP
 // =============================================================================
 
@@ -947,7 +969,7 @@ function fictioneer_output_customize_css() {
   if ( file_exists( $file_path ) ) {
     wp_enqueue_style(
       'fictioneer-customize',
-      FICTIONEER_CACHE_URL . "/customize.css",
+      fictioneer_get_theme_cache_uri() . "/customize.css",
       get_option( 'fictioneer_bundle_stylesheets' ) ? ['fictioneer-complete'] : ['fictioneer-application'],
       fictioneer_get_cache_bust()
     );
@@ -975,7 +997,7 @@ function fictioneer_output_customize_preview_css() {
   if ( file_exists( $file_path ) ) {
     wp_enqueue_style(
       'fictioneer-customize',
-      FICTIONEER_CACHE_URL . "/customize-preview.css",
+      fictioneer_get_theme_cache_uri() . "/customize-preview.css",
       ['fictioneer-application'],
       time() // Prevents caching in preview
     );
@@ -1140,7 +1162,13 @@ function fictioneer_add_custom_scripts() {
   // Dynamic scripts
   fictioneer_build_dynamic_scripts();
 
-  wp_register_script( 'fictioneer-dynamic-scripts', FICTIONEER_CACHE_URL . '/dynamic-scripts.js', [], $cache_bust, $strategy );
+  wp_register_script(
+    'fictioneer-dynamic-scripts',
+    fictioneer_get_theme_cache_uri() . '/dynamic-scripts.js',
+    [],
+    $cache_bust,
+    $strategy
+  );
 
   // Register and enqueue single scripts or complete script
   if ( ! get_option( 'fictioneer_bundle_scripts' ) ) {
@@ -1528,7 +1556,7 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
     // Output font stylesheets...
     if ( file_exists( $bundled_fonts ) ) {
       // ... base and custom
-      $custom_fonts_href = FICTIONEER_CACHE_URL . '/bundled-fonts.css' . $cache_bust;
+      $custom_fonts_href = fictioneer_get_theme_cache_uri() . '/bundled-fonts.css' . $cache_bust;
 
       // Start HTML ---> ?>
       <link rel="stylesheet" id="fictioneer-bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" data-no-optimize="1" data-no-minify="1" <?php echo $loading_pattern; ?>>

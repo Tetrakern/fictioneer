@@ -135,11 +135,6 @@ if ( ! defined( 'FICTIONEER_CACHE_DIR' ) ) {
   define( 'FICTIONEER_CACHE_DIR', WP_CONTENT_DIR . '/themes/fictioneer/cache' );
 }
 
-// String: Path to cache URL (without trailing slash)
-if ( ! defined( 'FICTIONEER_CACHE_URL' ) ) {
-  define( 'FICTIONEER_CACHE_URL', WP_CONTENT_URL . '/themes/fictioneer/cache' );
-}
-
 /*
  * Date Strings
  */
