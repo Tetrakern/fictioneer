@@ -987,7 +987,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
 * **source:** Whether to show the author and story nodes. Default `true`.
-* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of chapter post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.
@@ -1134,7 +1134,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **author:** Only show stories of a specific author. Make sure to spell the _username_ right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
-* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of story post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.
