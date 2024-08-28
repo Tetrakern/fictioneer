@@ -622,10 +622,10 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md#users--oauth'
                     ),
                     sprintf(
-                      __( '%1$s<p>Allows users to register and log in with an external account, such as Google or Discord, bypassing the vulnerable WordPress forms. This method is fast, secure, convenient, and enables other features such as the Patreon gate. Users can still change their email and nickname in their profile afterwards.</p><p>You need to <a href="%2$s" target="_blank">set up an application</a> with the chosen providers, which is normally easy. Remember to flush your permalink structure by saving <strong>Settings > Permalinks</strong> when you toggle this setting to avoid 404s.</p>', 'fictioneer' ),
-                      '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_oauth.jpg"></div>',
+                      __( '<p>With this feature enabled, users can skip the default login form and authenticate with an external account, such as Discord or Google. This method is fast, secure, convenient, and enables other features such as the Patreon gate. Users can still change their email address and nickname in their profile afterwards</p><p>You need to <a href="%s" target="_blank">set up an application</a> with the chosen providers, which is normally easy. Remember to flush your permalink structure by saving <strong>Settings > Permalinks</strong> when you toggle this setting to avoid 404s.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#connections-tab'
-                    )
+                    ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_oauth.jpg"></div>',
                   );
                 ?>
               </div>
