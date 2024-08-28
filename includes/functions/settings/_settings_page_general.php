@@ -705,10 +705,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_enable_suggestions',
                     __( 'Enable Suggestions', 'fictioneer' ),
                     __( 'Suggest color-coded text changes in the comments.', 'fictioneer' ),
-                    sprintf(
-                      __( '%1$s<p>You can make suggestions by selecting text and hitting the floating button or by clicking or tapping on a paragraph, which opens the paragraph tools with the same button for the whole paragraph. This opens the suggestion modal.</p><p>The top section displays the original text, the middle section allows you to make edits, and the bottom section shows the changes. Edits are highlighted in red for deletions and green for additions. Once you are done, the suggestion will be appended to the comment form.</p>', 'fictioneer' ),
-                      '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_suggestions.jpg"></div>'
-                    )
+                    __( '<p>With this feature enabled, readers can leave color-coded suggestions for improvements in the comments. To do so, they can simply click on a paragraph or highlight some text, then click the button to open the suggestion modal, make changes, and append the result to the comment form.</p><p>The top section displays the original text, the middle section allows you to make edits, and the bottom section shows the changes. Edits are highlighted in red for deletions and green for additions. Once you are done, the suggestion will be appended to the comment form.</p>', 'fictioneer' ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_suggestions.jpg"></div>'
                   );
                 ?>
               </div>
