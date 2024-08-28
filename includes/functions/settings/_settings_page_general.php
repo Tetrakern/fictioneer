@@ -661,10 +661,10 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable Bookmarks', 'fictioneer' ),
                     __( 'Bookmark paragraphs in chapters. No account needed.', 'fictioneer' ),
                     sprintf(
-                      __( '%1$s<p>You can bookmark chapters by clicking or tapping on a paragraph, which opens the paragraph tools. The bookmark will link back to that specific paragraph, not just the page, and will display your progress. Bookmarks are stored in the browser and do not require an account, but if you have one, they are synced across browsers and devices.</p><p>While the mobile menu has a section for bookmarks, you will need to set up a page with the Bookmarks template on desktop or add the <code>fictioneer_bookmarks</code> shortcode somewhere. Please refer to the <a href="%2$s" target="_blank">documentation</a> on GitHub for more information.</p>', 'fictioneer' ),
-                      '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_bookmarks.jpg"></div>',
+                      __( '<p>With this feature enabled, readers can click on chapter paragraphs to set a bookmark, which is stored in the local browser. Logged-in users will also benefit from bookmark synchronization across browsers and devices, though an account is not necessary for basic functionality.</p><p>While the mobile menu has a panel for bookmarks, for the desktop view you will need to set up a page with the Bookmarks template or add the <code>fictioneer_bookmarks</code> shortcode to another page. Please refer to the <a href="%s" target="_blank">documentation</a> on GitHub for more information.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md'
-                    )
+                    ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_bookmarks.jpg"></div>'
                   );
                 ?>
               </div>
