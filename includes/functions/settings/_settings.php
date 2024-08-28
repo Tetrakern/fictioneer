@@ -477,6 +477,10 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
 
 function fictioneer_settings_label_checkbox( $option, $label, $description = null, $help = null, $image = null ) {
   // Setup
+  if ( is_string( $help ) ) {
+    $help = strpos( $help, '<p>' ) !== false ? $help : "<p>{$help}</p>";
+  }
+
   $help = ! is_string( $help ) ? '' :
     '<i class="fa-regular fa-circle-question fcn-help" data-action="fcn-show-help" data-label="' . esc_attr( $label ) . '" data-help="' . esc_attr( $image ) . esc_attr( $help ) . '" data-fcn-dialog-target="fcn-help-modal"></i>';
 
