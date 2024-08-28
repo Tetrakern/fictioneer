@@ -1634,6 +1634,15 @@ Filters the intermediate output array in the `_story-header.php` partial before 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_story_word_count', $word_count, $post_id )`
+Filters the total word count of a story after sanitization (greater than or equal to 0) and before `fictioneer_multiply_word_count()` is applied, returning a positive integer. The word count is only calculated and updated when a post associated with the story is saved.
+
+**Parameters:**
+* $word_count (int) – The word count from the `_word_count` meta field.
+* $post_id (int|null) – The post ID of the story. Unsafe.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_subscribe_buttons', $buttons, $post_id, $author_id, $feed )`
 Filters the intermediate output array of the `fictioneer_get_subscribe_options( $post_id, $author_id, $feed )` function before it is imploded and returned. Normally accounts for Patreon, Ko-Fi, SubscribeStar, [Feedly](https://feedly.com/), and [Inoreader](https://www.inoreader.com/).
 
@@ -1723,3 +1732,12 @@ Filters the check result of whether the user’s Patreon data is still valid. Be
 * $valid (boolean) – Result of the check. True if valid, false if expired.
 * $user_id (int) – The user the check is for. 0 if not logged in.
 * $patreon_tiers (array) – The user’s Patreon tiers. Can be empty.
+
+---
+
+### `apply_filters( 'fictioneer_filter_word_count', $word_count, $post_id )`
+Filters the word count of a post after sanitization (greater than or equal to 0) and before `fictioneer_multiply_word_count()` is applied, returning a positive integer. The word count is only calculated and updated when a post is saved.
+
+**Parameters:**
+* $word_count (int) – The word count from the `fictioneer_story_total_word_count` meta field.
+* $post_id (int|null) – The post ID. Unsafe.

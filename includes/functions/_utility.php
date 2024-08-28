@@ -1135,6 +1135,7 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
    * @since 5.8.2
    * @since 5.9.4 - Add logic for optional multiplier.
    * @since 5.22.3 - Moved multiplier to fictioneer_multiply_word_count()
+   * @since 5.23.1 - Added filter and additional sanitization.
    *
    * @param int $post_id  Optional. The ID of the post the field belongs to.
    *                      Defaults to current post ID.
@@ -1143,8 +1144,12 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
    */
 
   function fictioneer_get_word_count( $post_id = null ) {
-    // Setup
-    $words = get_post_meta( $post_id ?? get_the_ID(), '_word_count', true );
+    // Get word count
+    $words = get_post_meta( $post_id ?? get_the_ID(), '_word_count', true ) ?: 0;
+    $words = max( 0, intval( $words ) );
+
+    // Filter
+    $words = apply_filters( 'fictioneer_filter_word_count', $words, $post_id );
 
     // Apply multiplier and return
     return fictioneer_multiply_word_count( $words );
@@ -1156,6 +1161,7 @@ if ( ! function_exists( 'fictioneer_get_story_word_count' ) ) {
    * Returns word count for the whole story
    *
    * @since 5.22.3
+   * @since 5.23.1 - Added filter and additional sanitization.
    *
    * @param int $post_id  Post ID of the story.
    *
@@ -1163,8 +1169,12 @@ if ( ! function_exists( 'fictioneer_get_story_word_count' ) ) {
    */
 
   function fictioneer_get_story_word_count( $post_id = null ) {
-    // Setup
+    // Get word count
     $words = get_post_meta( $post_id, 'fictioneer_story_total_word_count', true ) ?: 0;
+    $words = max( 0, intval( $words ) );
+
+    // Filter
+    $words = apply_filters( 'fictioneer_filter_story_word_count', $words, $post_id );
 
     // Apply multiplier and return
     return fictioneer_multiply_word_count( $words );
@@ -1192,7 +1202,7 @@ if ( ! function_exists( 'fictioneer_multiply_word_count' ) ) {
     }
 
     // Always return an integer greater or equal 0
-    return $words > 0 ? $words : 0;
+    return max( 0, $words );
   }
 }
 
