@@ -686,7 +686,9 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_checkmarks',
                     __( 'Enable Checkmarks (requires account)', 'fictioneer' ),
-                    __( 'Mark chapters and stories as "read".', 'fictioneer' )
+                    __( 'Mark chapters and stories as "read".', 'fictioneer' ),
+                    __( 'With this feature enabled, logged-in users can mark chapters and stories as "read" and keep track of them in their bookshelf (if set up). This feature is more useful if you host many stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_checkmarks.jpg"></div>'
                   );
                 ?>
               </div>
