@@ -661,7 +661,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable Bookmarks', 'fictioneer' ),
                     __( 'Bookmark paragraphs in chapters. No account needed.', 'fictioneer' ),
                     sprintf(
-                      __( '<p>With this feature enabled, readers can click on chapter paragraphs to set a bookmark, which is stored in the local browser. Logged-in users will also benefit from bookmark synchronization across browsers and devices, though an account is not necessary for basic functionality.</p><p>While the mobile menu has a panel for bookmarks, for the desktop view you will need to set up a page with the Bookmarks template or add the <code>fictioneer_bookmarks</code> shortcode to another page. Please refer to the <a href="%s" target="_blank">documentation</a> on GitHub for more information.</p>', 'fictioneer' ),
+                      __( '<p>With this feature enabled, users can click on chapter paragraphs to set a bookmark, which is stored in the local browser. Logged-in users will also benefit from bookmark synchronization across browsers and devices, though an account is not necessary for basic functionality.</p><p>While the mobile menu has a panel for bookmarks, for the desktop view you will need to set up a page with the Bookmarks template or add the <code>fictioneer_bookmarks</code> shortcode to another page. Please refer to the <a href="%s" target="_blank">documentation</a> on GitHub for more information.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md'
                     ),
                     '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_bookmarks.jpg"></div>'
@@ -705,7 +705,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_enable_suggestions',
                     __( 'Enable Suggestions', 'fictioneer' ),
                     __( 'Suggest color-coded text changes in the comments.', 'fictioneer' ),
-                    __( '<p>With this feature enabled, readers can leave color-coded suggestions for improvements in the comments. To do so, they can simply click on a paragraph or highlight some text, then click the button to open the suggestion modal, make changes, and append the result to the comment form.</p><p>The top section displays the original text, the middle section allows you to make edits, and the bottom section shows the changes. Edits are highlighted in red for deletions and green for additions. Once you are done, the suggestion will be appended to the comment form.</p>', 'fictioneer' ),
+                    __( 'With this feature enabled, users can leave color-coded suggestions for improvements in the comments. To do so, they can simply click on a paragraph or highlight some text, then click the button to open the suggestion modal, make changes, and append the result to the comment form.', 'fictioneer' ),
                     '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_suggestions.jpg"></div>'
                   );
                 ?>

@@ -58,7 +58,7 @@
         fictioneer_settings_setup_card(
           'fictioneer_disable_default_formatting_indent',
           __( 'Disable default indentation of chapter paragraphs?', 'fictioneer' ),
-          __( 'Paragraphs in chapters have a first-line indentation by default to guide the reading eye. However, you may find this unaesthetic and prefer to disable it. Note that readers can still enable indentation through the chapter formatting modal.', 'fictioneer' )
+          __( 'Paragraphs in chapters have a first-line indentation by default to guide the reading eye. However, you may find this unaesthetic and prefer to disable it. Note that users can still enable indentation through the chapter formatting modal.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
@@ -82,7 +82,7 @@
         fictioneer_settings_setup_card(
           'fictioneer_enable_bookmarks',
           __( 'Enable bookmarks for chapter paragraphs?', 'fictioneer' ),
-          __( 'With this feature enabled, readers can click on chapter paragraphs to set a bookmark, which is stored in the local browser. Logged-in users will also benefit from bookmark synchronization across browsers and devices, though an account is not necessary for basic functionality.', 'fictioneer' )
+          __( 'With this feature enabled, users can click on chapter paragraphs to set a bookmark, which is stored in the local browser. Logged-in users will also benefit from bookmark synchronization across browsers and devices, though an account is not necessary for basic functionality.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
@@ -106,7 +106,7 @@
         fictioneer_settings_setup_card(
           'fictioneer_enable_suggestions',
           __( 'Enable suggestion tools for chapters?', 'fictioneer' ),
-          __( 'With this feature enabled, readers can leave color-coded suggestions for improvements in the comments. To do so, they can simply click on a paragraph or highlight some text, then click the button to open the suggestion modal, make changes, and append the result to the comment form.', 'fictioneer' )
+          __( 'With this feature enabled, users can leave color-coded suggestions for improvements in the comments. To do so, they can simply click on a paragraph or highlight some text, then click the button to open the suggestion modal, make changes, and append the result to the comment form.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
