@@ -688,7 +688,7 @@ function fictioneer_build_customize_css( $context = null ) {
     }
 
     $css .= '@media only screen and (min-width: 1024px) {
-      .header-background._style-default._fading-bottom._shadow .header-background__wrapper {
+      .inset-header-image .header-background._style-default._fading-bottom._shadow .header-background__wrapper {
         margin-left: 4px;
         margin-right: 4px;
       }
