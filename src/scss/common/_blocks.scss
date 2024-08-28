@@ -1043,3 +1043,30 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
     margin: .3rem 0;
   }
 }
+
+// =============================================================================
+// SEARCH
+// =============================================================================
+
+.wp-block-search {
+  button.wp-block-search__button {
+    @extend %button;
+    margin-left: 0;
+  }
+
+  &__searchfield-hidden {
+    .wp-block-search__inside-wrapper {
+      gap: 0;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  &__inside-wrapper {
+    display: flex;
+    gap: 6px;
+  }
+}
