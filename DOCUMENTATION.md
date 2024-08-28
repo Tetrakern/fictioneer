@@ -1288,6 +1288,7 @@ Renders the search form with advanced options (if not disabled in the settings).
 * **simple:** Set `true` to hide the advanced search options. Default `false`.
 * **placeholder:** Change the placeholder text.
 * **type:** Preselect either "any", "story", "chapter", "recommendation", "collection", or "post".
+* **expanded:** Whether the advanced form is expanded. Default `false`.
 * **tags:** Preselect tags as comma-separated list of term IDs.
 * **genres:** Preselect genres as comma-separated list of term IDs.
 * **fandoms:** Preselect fandoms as comma-separated list of term IDs.

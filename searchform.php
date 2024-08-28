@@ -7,8 +7,10 @@
  * @since 5.0.0
  * @since 5.11.0 - Added 'fictioneer_search_form_filters' action hook.
  * @since 5.19.0 - Added taxonomy preselect arguments.
+ * @since 5.23.1 - Added expanded argument.
  *
  * @internal $args['simple']                Optional. Hide advanced options.
+ * @internal $args['expanded']              Optional. Whether the advanced form should be expanded. Default null|false.
  * @internal $args['placeholder']           Optional. Change search placeholder.
  * @internal $args['preselect_type']        Optional. Default post type to query.
  * @internal $args['preselect_tags']        Optional. Default tag IDs to query.
@@ -109,7 +111,13 @@ if ( $show_advanced ) {
   method="get"
   class="search-form <?php if ( ! $show_advanced ) echo '_simple'; ?>"
   action="<?php echo esc_url( home_url( '/' ) ); ?>"
-  data-advanced="<?php echo ( is_search() && $show_advanced && $no_params ) ? 'true' : 'false'; ?>"
+  data-advanced="<?php
+    if ( $args['expanded'] ?? 0 ) {
+      echo 'true';
+    } else {
+      echo ( is_search() && $show_advanced && $no_params ) ? 'true' : 'false';
+    }
+  ?>"
 >
 
   <?php if ( $show_advanced ) : ?>

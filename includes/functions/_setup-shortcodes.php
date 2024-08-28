@@ -1378,6 +1378,8 @@ function fictioneer_shortcode_search( $attr ) {
   $pre_warnings = fictioneer_explode_list( $attr['warnings'] ?? '' );
 
   // Prepare arguments
+  $args['expanded'] = filter_var( $attr['expanded'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+
   if ( $simple ) {
     $args['simple'] = $simple;
   }
