@@ -972,29 +972,25 @@ function fictioneer_look_for_issues() {
   global $wpdb;
 
   // Setup
-  $dynamic_scripts_path = FICTIONEER_CACHE_DIR . '/dynamic-scripts.js';
-  $bundled_fonts_path = FICTIONEER_CACHE_DIR . '/bundled-fonts.css';
-  $customize_css_path = FICTIONEER_CACHE_DIR . '/customize.css';
+  $cache_dir = fictioneer_get_theme_cache_dir( 'looking_for_issues' );
+  $dynamic_scripts_path = $cache_dir . '/dynamic-scripts.js';
+  $bundled_fonts_path = $cache_dir . '/bundled-fonts.css';
+  $customize_css_path = $cache_dir . '/customize.css';
   $issues = [];
 
-  // Make sure directory exists
-  if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
-    mkdir( FICTIONEER_CACHE_DIR, 0755, true );
-  }
-
   // Cache directory set up?
-  if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
+  if ( ! is_dir( $cache_dir ) ) {
     $issues[] = sprintf(
       __( '<code>%s</code> directory could not be found or created.', 'fictioneer' ),
-      FICTIONEER_CACHE_DIR
+      $cache_dir
     );
   } else {
-    $permissions = substr( sprintf( '%o', fileperms( FICTIONEER_CACHE_DIR ) ), -4 );
+    $permissions = substr( sprintf( '%o', fileperms( $cache_dir ) ), -4 );
 
     if ( $permissions !== '0755' ) {
       $issues[] = sprintf(
         __( '<code>%s</code> directory permissions are not 755.', 'fictioneer' ),
-        FICTIONEER_CACHE_DIR
+        $cache_dir
       );
     }
   }
@@ -1013,7 +1009,7 @@ function fictioneer_look_for_issues() {
     $issues[] = sprintf(
       __( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'fictioneer' ),
       'dynamic-scripts.js',
-      FICTIONEER_CACHE_DIR
+      $cache_dir
     );
   } else {
     $permissions = substr( sprintf( '%o', fileperms( $dynamic_scripts_path ) ), -4 );
@@ -1031,7 +1027,7 @@ function fictioneer_look_for_issues() {
     $issues[] = sprintf(
       __( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'fictioneer' ),
       'bundled-fonts.css',
-      FICTIONEER_CACHE_DIR
+      $cache_dir
     );
   } else {
     $permissions = substr( sprintf( '%o', fileperms( $bundled_fonts_path ) ), -4 );
@@ -1049,7 +1045,7 @@ function fictioneer_look_for_issues() {
     $issues[] = sprintf(
       __( '<strong>%s</strong> could not be found or created in the <code>%s</code> directory.', 'fictioneer' ),
       'customize.css',
-      FICTIONEER_CACHE_DIR
+      $cache_dir
     );
   } else {
     $permissions = substr( sprintf( '%o', fileperms( $customize_css_path ) ), -4 );

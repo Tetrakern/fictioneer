@@ -27,7 +27,7 @@ function fictioneer_watch_for_customizer_updates() {
   fictioneer_clear_all_cached_partials();
 
   // Files
-  $bundled_fonts = FICTIONEER_CACHE_DIR . '/bundled-fonts.css';
+  $bundled_fonts = fictioneer_get_theme_cache_dir( 'watch_for_customizer_updates' ) . '/bundled-fonts.css';
 
   if ( file_exists( $bundled_fonts ) ) {
     unlink( $bundled_fonts );

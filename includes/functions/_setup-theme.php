@@ -22,6 +22,30 @@ function fictioneer_get_theme_cache_uri( $context = null ) {
   );
 }
 
+/**
+ * Returns directory path of the theme cache
+ *
+ * @since 5.23.1
+ *
+ * @param string|null $context  The context of the call. Default null.
+ *
+ * @return string Path of the theme directory.
+ */
+
+function fictioneer_get_theme_cache_dir( $context = null ) {
+  $dir = apply_filters(
+    'fictioneer_filter_cache_dir',
+    WP_CONTENT_DIR . '/themes/fictioneer/cache',
+    $context
+  );
+
+  if ( ! is_dir( $dir ) ) {
+    mkdir( $dir, 0755, true );
+  }
+
+  return $dir;
+}
+
 // =============================================================================
 // LEGACY CLEANUP
 // =============================================================================
@@ -306,7 +330,7 @@ function fictioneer_purge_caches_after_update() {
   fictioneer_regenerate_cache_bust();
 
   // Delete cached files
-  $files = glob( trailingslashit( FICTIONEER_CACHE_DIR ) . '*' );
+  $files = glob( trailingslashit( fictioneer_get_theme_cache_dir( 'purge_caches_after_update' ) ) . '*' );
 
   foreach ( $files as $file ) {
     if ( is_file( $file ) ) {
@@ -958,7 +982,7 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_style_queue' );
 
 function fictioneer_output_customize_css() {
   // Setup
-  $file_path = FICTIONEER_CACHE_DIR . '/customize.css';
+  $file_path = fictioneer_get_theme_cache_dir( 'output_customize_css' ) . '/customize.css';
 
   // Create file if it does not exist
   if ( ! file_exists( $file_path ) ) {
@@ -988,7 +1012,7 @@ if ( ! is_customize_preview() ) {
 
 function fictioneer_output_customize_preview_css() {
   // Setup
-  $file_path = FICTIONEER_CACHE_DIR . '/customize-preview.css';
+  $file_path = fictioneer_get_theme_cache_dir( 'output_customize_preview_css' ) . '/customize-preview.css';
 
   // Create file if it does not exist
   fictioneer_build_customize_css( 'preview' );
@@ -1091,18 +1115,13 @@ if ( ! function_exists( 'fictioneer_add_font_awesome' ) ) {
 function fictioneer_build_dynamic_scripts() {
   // --- Setup -----------------------------------------------------------------
 
-  $file_path = FICTIONEER_CACHE_DIR . '/dynamic-scripts.js';
+  $file_path = fictioneer_get_theme_cache_dir( 'build_dynamic_scripts' ) . '/dynamic-scripts.js';
   $last_version = get_transient( 'fictioneer_dynamic_scripts_version' );
   $scripts = '';
 
   // Rebuild necessary?
   if ( file_exists( $file_path ) && $last_version === FICTIONEER_VERSION ) {
     return;
-  }
-
-  // Make sure directory exists
-  if ( ! is_dir( FICTIONEER_CACHE_DIR ) ) {
-    mkdir( FICTIONEER_CACHE_DIR, 0755, true );
   }
 
   // --- AJAX Settings ---------------------------------------------------------
@@ -1543,7 +1562,7 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
     fictioneer_output_critical_fonts();
 
     // Setup
-    $bundled_fonts = FICTIONEER_CACHE_DIR . '/bundled-fonts.css';
+    $bundled_fonts = fictioneer_get_theme_cache_dir( 'output_head_fonts' ) . '/bundled-fonts.css';
     $last_built_timestamp = get_option( 'fictioneer_bundled_fonts_timestamp', '123456789' );
     $cache_bust = "?timestamp={$last_built_timestamp}";
     $loading_pattern = fictioneer_get_async_css_loading_pattern();

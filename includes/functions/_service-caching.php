@@ -914,7 +914,7 @@ function fictioneer_get_cache_salt() {
 
 function fictioneer_create_html_cache_directory( $dir = null ) {
   // Setup
-  $default_dir = FICTIONEER_CACHE_DIR . '/html/';
+  $default_dir = fictioneer_get_theme_cache_dir( 'create_html_cache_directory' ) . '/html/';
   $dir = $dir ?? $default_dir;
   $result = true;
 
@@ -975,7 +975,7 @@ function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = n
   // Setup
   $args_hash = md5( serialize( $args ) . $identifier . fictioneer_get_cache_salt() );
   $static_file = $slug . ( $name ? "-{$name}" : '' ) . "-{$args_hash}.html";
-  $path = FICTIONEER_CACHE_DIR . '/html/' . $static_file;
+  $path = fictioneer_get_theme_cache_dir( 'get_cached_partial' ) . '/html/' . $static_file;
 
   // Make sure directory exists and handle failure
   if ( ! fictioneer_create_html_cache_directory( dirname( $path ) ) ) {
@@ -1025,7 +1025,7 @@ function fictioneer_clear_all_cached_partials() {
   $done = true;
 
   // Setup
-  $cache_dir = FICTIONEER_CACHE_DIR . '/html/';
+  $cache_dir = fictioneer_get_theme_cache_dir( 'clear_all_cached_partials' ) . '/html/';
 
   // Regenerate cache salt
   fictioneer_generate_cache_salt();
@@ -1083,7 +1083,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
 
   // Setup
   $hash = md5( $post->ID . fictioneer_get_cache_salt() );
-  $dir = FICTIONEER_CACHE_DIR . '/html/' . substr( $hash, 0, 2 );
+  $dir = fictioneer_get_theme_cache_dir( 'get_static_content' ) . '/html/' . substr( $hash, 0, 2 );
   $path = "{$dir}/{$hash}_{$post->ID}.html";
 
   // Make sure directory exists and handle failure
@@ -1142,7 +1142,7 @@ function fictioneer_the_static_content( $more_link_text = \null, $strip_teaser =
 function fictioneer_clear_cached_content( $post_id ) {
   // Setup
   $hash = md5( $post_id . fictioneer_get_cache_salt() );
-  $dir = FICTIONEER_CACHE_DIR . '/html/' . substr( $hash, 0, 2 );
+  $dir = fictioneer_get_theme_cache_dir( 'clear_cached_content' ) . '/html/' . substr( $hash, 0, 2 );
   $path = "{$dir}/{$hash}_{$post_id}.html";
 
   // Delete file
