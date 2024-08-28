@@ -604,10 +604,10 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable Storygraph API', 'fictioneer' ),
                     __( 'Reach a larger audience by allowing external services to index and search your stories (metadata only).', 'fictioneer' ),
                     sprintf(
-                      __( '%1$s<p>The <a href="%2$s" target="_blank">Storygraph API</a> provides request endpoints to query excerpts and metadata of your stories and chapters, but not their full content. This allows third parties to create aggregated indexes for filtering and searching across multiple sites, similar to community archives, while you remain in control. However, it requires someone to use the API.</p>', 'fictioneer' ),
-                      '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_storygraph_api.jpg"></div>',
+                      __( '<p>With this feature enabled, the <a href="%s" target="_blank">Storygraph API</a> provides endpoints to query excerpts and metadata of your public stories and chapters, but not their content. This allows others to aggregate indexes for filtering and searching across multiple sites, like a distributed archive, while you remain in control.</p><p>However, enabling this feature does not guarantee that someone will immediately make use of it. This only provides the possibility.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/API.md'
-                    )
+                    ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_storygraph_api.jpg"></div>',
                   );
                 ?>
               </div>
