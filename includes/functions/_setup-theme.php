@@ -33,14 +33,16 @@ function fictioneer_get_theme_cache_uri( $context = null ) {
  */
 
 function fictioneer_get_theme_cache_dir( $context = null ) {
+  static $is_dir = null;
+
   $dir = apply_filters(
     'fictioneer_filter_cache_dir',
     WP_CONTENT_DIR . '/themes/fictioneer/cache',
     $context
   );
 
-  if ( ! is_dir( $dir ) ) {
-    mkdir( $dir, 0755, true );
+  if ( ! $is_dir && ! is_dir( $dir ) ) {
+    $is_dir = mkdir( $dir, 0755, true );
   }
 
   return $dir;
