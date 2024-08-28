@@ -466,16 +466,19 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
  * Renders a label-wrapped setting checkbox
  *
  * @since 5.7.2
+ * @since 5.23.1 - Added $image parameter.
  *
  * @param string      $option       The name of the setting option.
  * @param string      $label        Label of the setting.
  * @param string|null $description  Optional. The description below the label.
+ * @param string|null $help         Optional. The text for the helper modal.
+ * @param string|null $image        Optional. The image for the helper modal.
  */
 
-function fictioneer_settings_label_checkbox( $option, $label, $description = null, $help = null ) {
+function fictioneer_settings_label_checkbox( $option, $label, $description = null, $help = null, $image = null ) {
   // Setup
   $help = ! is_string( $help ) ? '' :
-    '<i class="fa-regular fa-circle-question fcn-help" data-action="fcn-show-help" data-label="' . esc_attr( $label ) . '" data-help="' . esc_attr( $help ) . '" data-fcn-dialog-target="fcn-help-modal"></i>';
+    '<i class="fa-regular fa-circle-question fcn-help" data-action="fcn-show-help" data-label="' . esc_attr( $label ) . '" data-help="' . esc_attr( $image ) . esc_attr( $help ) . '" data-fcn-dialog-target="fcn-help-modal"></i>';
 
   // Start HTML ---> ?>
   <label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
