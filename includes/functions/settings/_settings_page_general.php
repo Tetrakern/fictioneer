@@ -607,7 +607,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( '<p>With this feature enabled, the <a href="%s" target="_blank">Storygraph API</a> provides endpoints to query excerpts and metadata of your public stories and chapters, but not their content. This allows others to aggregate indexes for filtering and searching across multiple sites, like a distributed archive, while you remain in control.</p><p>However, enabling this feature does not guarantee that someone will immediately make use of it. This only provides the possibility.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/API.md'
                     ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_storygraph_api.jpg"></div>',
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_storygraph_api.jpg"></div>'
                   );
                 ?>
               </div>
@@ -625,7 +625,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( '<p>With this feature enabled, users can skip the default login form and authenticate with an external account, such as Discord or Google. This method is fast, secure, convenient, and enables other features such as the Patreon gate. Users can still change their email address and nickname in their profile afterwards</p><p>You need to <a href="%s" target="_blank">set up an application</a> with the chosen providers, which is normally easy. Remember to flush your permalink structure by saving <strong>Settings > Permalinks</strong> when you toggle this setting to avoid 404s.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#connections-tab'
                     ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_oauth.jpg"></div>',
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_oauth.jpg"></div>'
                   );
                 ?>
               </div>
@@ -756,7 +756,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( '<p>With this feature enabled, users can click on a paragraph to engage the browser’s <a href="%s" target="_blank">Web Speech API</a> — an experimental tool that is not a replacement for a screen reader. The interface bar with controls and options will be displayed at the bottom.</p><p>Whether this works depends on the browser and operating system; additional system permissions and settings may be required. The script should automatically select a voice model that fits the site language, but manual selection is possible in the settings.</p>', 'fictioneer' ),
                       'https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API'
                     ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_tts.jpg"></div>',
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_tts.jpg"></div>'
                   );
                 ?>
               </div>
@@ -1118,7 +1118,9 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_show_wp_login_link',
                     __( 'Show default WordPress login in modal', 'fictioneer' ),
-                    __( 'The default login/registration form is not spam safe.', 'fictioneer' )
+                    __( 'The default login/registration form is not spam safe.', 'fictioneer' ),
+                    __( 'Fictioneer has been built for OAuth 2.0 authentication with external accounts to avoid the vulnerable WordPress login/registration form. However, if you want, you can link it in the login modal regardless.', 'fictioneer' ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_show_wp_login_link.jpg"></div>'
                   );
                 ?>
               </div>
