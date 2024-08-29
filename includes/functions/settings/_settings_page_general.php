@@ -607,7 +607,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( '<p>With this feature enabled, the <a href="%s" target="_blank">Storygraph API</a> provides endpoints to query excerpts and metadata of your public stories and chapters, but not their content. This allows others to aggregate indexes for filtering and searching across multiple sites, like a distributed archive, while you remain in control.</p><p>However, enabling this feature does not guarantee that someone will immediately make use of it. This only provides the possibility.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/API.md'
                     ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_storygraph_api.jpg"></div>'
+                    $images . 'fictioneer_enable_storygraph_api.jpg'
                   );
                 ?>
               </div>
@@ -625,7 +625,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( '<p>With this feature enabled, users can skip the default login form and authenticate with an external account, such as Discord or Google. This method is fast, secure, convenient, and enables other features such as the Patreon gate. Users can still change their email address and nickname in their profile afterwards</p><p>You need to <a href="%s" target="_blank">set up an application</a> with the chosen providers, which is normally easy. Remember to flush your permalink structure by saving <strong>Settings > Permalinks</strong> when you toggle this setting to avoid 404s.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#connections-tab'
                     ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_oauth.jpg"></div>'
+                    $images . 'fictioneer_enable_oauth.jpg'
                   );
                 ?>
               </div>
@@ -637,7 +637,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable Patreon content gate', 'fictioneer' ),
                     __( 'Requires OAuth 2.0 application with Patreon. Allows patrons to ignore passwords for selected posts.', 'fictioneer' ),
                     __( '<p>With this feature enabled, users authenticated via Patreon OAuth can access protected posts without the password. Just assign the tiers or a pledge threshold, per post or globally.</p><p>Requires an OAuth 2.0 application with Patreon. Users retain their access for a week by default, after which they need to re-login to refresh their membership data.</p>', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_patreon_locks.jpg"></div>'
+                    $images . 'fictioneer_enable_patreon_locks.jpg'
                   );
                 ?>
               </div>
@@ -649,7 +649,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable lightbox', 'fictioneer' ),
                     __( 'Enlarge images in floating container on click.', 'fictioneer' ),
                     __( 'With this feature enabled, clicking on images in the page content will open a window overlay popup. This blocks some content and dims and disables the background to present the image more prominently.', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_lightbox.jpg"></div>'
+                    $images . 'fictioneer_enable_lightbox.jpg'
                   );
                 ?>
               </div>
@@ -664,7 +664,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( '<p>With this feature enabled, users can click on chapter paragraphs to set a bookmark, which is stored in the local browser. Logged-in users will also benefit from bookmark synchronization across browsers and devices, though an account is not necessary for basic functionality.</p><p>While the mobile menu has a panel for bookmarks, for the desktop view you will need to set up a page with the Bookmarks template or add the <code>fictioneer_bookmarks</code> shortcode to another page. Please refer to the <a href="%s" target="_blank">documentation</a> on GitHub for more information.</p>', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md'
                     ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_bookmarks.jpg"></div>'
+                    $images . 'fictioneer_enable_bookmarks.jpg'
                   );
                 ?>
               </div>
@@ -676,7 +676,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable Follows (requires account)', 'fictioneer' ),
                     __( 'Follow stories and get on-site alerts for updates.', 'fictioneer' ),
                     __( 'With this feature enabled, logged-in users can "follow" a story to receive on-site update notifications and track the story in their bookshelf (if set up). This feature is more useful if you host many ongoing stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_follows.jpg"></div>'
+                    $images . 'fictioneer_enable_follows.jpg'
                   );
                 ?>
               </div>
@@ -699,7 +699,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable Checkmarks (requires account)', 'fictioneer' ),
                     __( 'Mark chapters and stories as "read".', 'fictioneer' ),
                     __( 'With this feature enabled, logged-in users can mark chapters and stories as "read" and keep track of them in their bookshelf (if set up). This feature is more useful if you host many stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_checkmarks.jpg"></div>'
+                    $images . 'fictioneer_enable_checkmarks.jpg'
                   );
                 ?>
               </div>
@@ -711,7 +711,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enable Suggestions', 'fictioneer' ),
                     __( 'Suggest color-coded text changes in the comments.', 'fictioneer' ),
                     __( 'With this feature enabled, users can leave color-coded suggestions for improvements in the comments. To do so, they can simply click on a paragraph or highlight some text, then click the button to open the suggestion modal, make changes, and append the result to the comment form.', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_suggestions.jpg"></div>'
+                    $images . 'fictioneer_enable_suggestions.jpg'
                   );
                 ?>
               </div>
@@ -756,7 +756,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( '<p>With this feature enabled, users can click on a paragraph to engage the browser’s <a href="%s" target="_blank">Web Speech API</a> — an experimental tool that is not a replacement for a screen reader. The interface bar with controls and options will be displayed at the bottom.</p><p>Whether this works depends on the browser and operating system; additional system permissions and settings may be required. The script should automatically select a voice model that fits the site language, but manual selection is possible in the settings.</p>', 'fictioneer' ),
                       'https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API'
                     ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_tts.jpg"></div>'
+                    $images . 'fictioneer_enable_tts.jpg'
                   );
                 ?>
               </div>
@@ -1120,7 +1120,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Show default WordPress login in modal', 'fictioneer' ),
                     __( 'The default login/registration form is not spam safe.', 'fictioneer' ),
                     __( 'Fictioneer has been built for OAuth 2.0 authentication with external accounts to avoid the vulnerable WordPress login/registration form. However, if you want, you can link it in the login modal regardless.', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_show_wp_login_link.jpg"></div>'
+                    $images . 'fictioneer_show_wp_login_link.jpg'
                   );
                 ?>
               </div>
@@ -1132,7 +1132,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Randomize OAuth 2.0 usernames', 'fictioneer' ),
                     __( 'Some providers use real names. Default for Google.', 'fictioneer' ),
                     __( 'Users registered with an external account normally get the username of said account, with suffix if necessary. But some providers use real names, such as Google, and that can be a privacy concern. Since the display name is independent of the username, assigning a randomly generated one is a simple solution.', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_randomize_oauth_usernames.jpg"></div>'
+                    $images . 'fictioneer_randomize_oauth_usernames.jpg'
                   );
                 ?>
               </div>
