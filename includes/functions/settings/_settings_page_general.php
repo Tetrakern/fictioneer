@@ -1130,7 +1130,9 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_randomize_oauth_usernames',
                     __( 'Randomize OAuth 2.0 usernames', 'fictioneer' ),
-                    __( 'Some providers use real names. Default for Google.', 'fictioneer' )
+                    __( 'Some providers use real names. Default for Google.', 'fictioneer' ),
+                    __( 'Users registered with an external account normally get the username of said account, with suffix if necessary. But some providers use real names, such as Google, and that can be a privacy concern. Since the display name is independent of the username, assigning a randomly generated one is a simple solution.', 'fictioneer' ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_randomize_oauth_usernames.jpg"></div>'
                   );
                 ?>
               </div>
