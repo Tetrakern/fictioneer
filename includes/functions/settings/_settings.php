@@ -472,17 +472,13 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
  * @param string      $label        Label of the setting.
  * @param string|null $description  Optional. The description below the label.
  * @param string|null $help         Optional. The text for the helper modal.
- * @param string      $image        Optional. The image link for the helper modal.
+ * @param string      $image        Optional. The image for the helper modal.
  */
 
 function fictioneer_settings_label_checkbox( $option, $label, $description = null, $help = null, $image = '' ) {
   // Setup
   if ( is_string( $help ) ) {
     $help = strpos( $help, '<p>' ) !== false ? $help : "<p>{$help}</p>";
-  }
-
-  if ( $image ) {
-    $image = '<div class="helper-modal-image"><img src="' . $image . '"></div>';
   }
 
   $help = ! is_string( $help ) ? '' :
