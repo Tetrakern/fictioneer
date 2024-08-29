@@ -1273,7 +1273,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_allow_rest_save_actions',
                     __( 'Allow REST requests to trigger save actions', 'fictioneer' ),
                     __( 'They are blocked because they are redundant.', 'fictioneer' ),
-                    __( '<p>When you save in the editor, the theme runs many actions to update everything related—stories, lists, shortcodes, caches, and so forth. Due to how the Gutenberg editor works, these actions are triggered multiple times, which can slow down the saving process. To improve performance, some actions are blocked.</p><p>However, if you are adding or editing content via the REST API, you may need these actions to fire to ensure that related posts are properly updated. If that’s the case, enable this setting.</p>', 'fictioneer' )
+                    __( '<p>When you save in the editor, the theme runs many actions to update everything related — stories, lists, shortcodes, caches, and so forth. Due to how the Gutenberg editor works, these actions are triggered multiple times, which can slow down the saving process. To improve performance, some actions are blocked.</p><p>However, if you are adding or editing content via the REST API, you may need these actions to fire to ensure that related posts are properly updated. If that’s the case, enable this setting.</p>', 'fictioneer' )
                   );
                 ?>
               </div>
