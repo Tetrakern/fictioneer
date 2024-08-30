@@ -654,7 +654,7 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ name `string` | Author name.
 | &emsp;➞ url `string\|null` | Author website.
 | coAuthors `[object]\|null` | Array of co-author nodes. Same as the author node.
-| content `string` | Return value of `get_the_content()` without filters applied. Needs processing.
+| content `string` | Return value of `get_the_content()` with filters applied. May need further processing.
 | description `string` | HTML string from TinyMCE. Needs processing.
 | words `integer` | Total number of words of all chapters.
 | ageRating `string` | Either Everyone, Teen, Mature, or Adult.

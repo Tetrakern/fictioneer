@@ -83,6 +83,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       $content = get_the_excerpt( $story_id ); // Story likely misused as chapter
     } else {
       $content = get_the_content( null, false, $story_id );
+      $content = apply_filters( 'the_content', $content );
     }
 
     $description = get_post_meta( $story_id, 'fictioneer_story_short_description', true );
