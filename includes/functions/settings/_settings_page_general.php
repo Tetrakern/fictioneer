@@ -1203,7 +1203,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_consent_wrappers',
                     __( 'Add consent wrappers to embedded content', 'fictioneer' ),
                     __( 'External content not loaded until deliberately clicked.', 'fictioneer' ),
-                    __( 'Embedding external media, such as videos or social media posts, also loads tracking scripts from the source. This typically conflicts with data privacy laws. By enabling this wrapper, all embeds are quarantined until the user explicitly clicks on them, making an informed choice and thereby consenting to any loaded scripts.', 'fictioneer' )
+                    __( 'Embedding external media, such as videos or social media posts, also loads tracking scripts from the source. This typically conflicts with data privacy laws. By enabling this wrapper, all embeds are quarantined until the user explicitly clicks on them, making an informed choice and thereby consenting to any loaded scripts.', 'fictioneer' ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_consent_wrappers.jpg"></div>'
                   );
                 ?>
               </div>
