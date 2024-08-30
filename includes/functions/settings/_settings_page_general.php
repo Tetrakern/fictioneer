@@ -854,7 +854,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_require_js_to_comment',
                     __( 'Require JavaScript to comment', 'fictioneer' ),
-                    __( 'Simple but effective spam protection.', 'fictioneer' )
+                    __( 'Simple but effective spam protection.', 'fictioneer' ),
+                    __( 'Most spam bots run on minimal resources because operating them costs time and money. This is why they usually do not run JavaScript when attacking a site — it is too expensive, and your site likely is not worth the extra effort. Therefore, making JavaScript a requirement typically stops all spam until you become a more attractive target or someone specifically targets you.', 'fictioneer' )
                   );
                 ?>
               </div>
