@@ -811,7 +811,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       FICTIONEER_QUERY_RESULT_CACHE_LIMIT,
                       FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD
                     ),
-                    __( '<p>Queries that return many results are resource-intensive and can slow down your site, especially for stories with hundreds of chapters. This feature mitigates the slowdown by caching the results of the largest queries in the database, typically resulting in faster loading times.</p><p>You can use the <code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> constant to change the number of cached results (default is 50) and the <code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> constant to change what constitutes as large result (default is 50). Be aware that increasing these numbers will result in higher RAM consumption.</p>', 'fictioneer' )
+                    __( '<p>With this feature enabled, the results of large queries are cached in the database. Repeating resource-intensive queries, especially for stories with hundreds of chapters, can slow down the site and even cause timeouts. Caching them typically leads to faster loading times.</p><p>You can use the <code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> constant to define what constitutes as large query result (default is 50) and the <code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> constant to change the number of cached results (default is 50). Be aware that increasing these numbers will result in higher RAM consumption.</p>', 'fictioneer' )
                   );
                 ?>
               </div>
