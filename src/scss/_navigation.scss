@@ -95,12 +95,12 @@
 
 :root:not(.no-nav-sticky) .site .main-navigation.is-sticky {
   position: sticky;
+  z-index: 1000;
 }
 
 .main-navigation {
   --focus-offset: -2px;
   top: calc(-0.1px - var(--nav-observer-offset, 0px)); // -0.1px to prevent hairline gaps
-  z-index: 1000;
   color: var(--navigation-color);
   font-size: var(--navigation-font-size);
   font-weight: var(--font-weight-navigation);
