@@ -1154,7 +1154,11 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_restrict_rest_api',
                     __( 'Restrict default REST API', 'fictioneer' ),
-                    __( 'Disables API for guests and low-permission users.', 'fictioneer' )
+                    __( 'Disables API for guests and low-permission users.', 'fictioneer' ),
+                    sprintf(
+                      __( 'The <a href="%s" rel="noopener">WordPress REST API</a> has many endpoints available even to unauthenticated users, such as <code>/wp-json/wp/v2/posts</code>, which returns all blog posts on your site. This also applies to stories, chapters, and so forth. Since the response includes the full post content if it is not protected, you may want to restrict access to hamper content theft by aggregator sites.', 'fictioneer' ),
+                      'https://learn.wordpress.org/tutorial/using-the-wordpress-rest-api/'
+                    )
                   );
                 ?>
               </div>
