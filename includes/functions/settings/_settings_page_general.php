@@ -1171,7 +1171,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     sprintf(
                       __( 'Simple session-based rate limiting, allowing %s requests per minute for selected actions (per action).', 'fictioneer' ),
                       FICTIONEER_REQUESTS_PER_MINUTE
-                    )
+                    ),
+                    __( 'Some frontend actions, such as following a story or setting a chapter checkmark, send small requests for processing. If someone were to spam these actions, it could cause stress on the server. By enabling the rate limit, these actions are restricted to a sensible number of requests per minute and blocked if the limit is exceeded.', 'fictioneer' )
                   );
                 ?>
               </div>
