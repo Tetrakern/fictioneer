@@ -731,7 +731,12 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_seo',
                     __( 'Enable SEO features', 'fictioneer' ),
-                    __( 'Open Graph images, chat embeds, meta tags, and schema graphs for rich snippets. Incompatible with SEO plugins.', 'fictioneer' )
+                    __( 'Open Graph images, chat embeds, meta tags, and schema graphs for rich snippets. Incompatible with SEO plugins.', 'fictioneer' ),
+                    sprintf(
+                      __( 'With this feature enabled, the editor displays a meta box where you can enter a title, <a href="%s" target="_blank" rel="noopener">description</a>, and image. The theme will then render relevant meta tags used by search engines, social media sites, and chat embeds. Whether these services actually use the provided data is ultimately up to them.', 'fictioneer' ),
+                      'https://developers.google.com/search/docs/appearance/snippet'
+                    ),
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_seo.jpg"></div>'
                   );
                 ?>
               </div>
@@ -1156,7 +1161,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Restrict default REST API', 'fictioneer' ),
                     __( 'Disables API for guests and low-permission users.', 'fictioneer' ),
                     sprintf(
-                      __( 'The <a href="%s" rel="noopener">WordPress REST API</a> has many endpoints available even to unauthenticated users, such as <code>/wp-json/wp/v2/posts</code>, which returns all blog posts on your site. This also applies to stories, chapters, and so forth. Since the response includes the full post content if it is not protected, you may want to restrict access to hamper content theft by aggregator sites.', 'fictioneer' ),
+                      __( 'The <a href="%s" target="_blank" rel="noopener">WordPress REST API</a> has many endpoints available even to unauthenticated users, such as <code>/wp-json/wp/v2/posts</code>, which returns all blog posts on your site. This also applies to stories, chapters, and so forth. Since the response includes the full post content if it is not protected, you may want to restrict access to hamper content theft by aggregator sites.', 'fictioneer' ),
                       'https://learn.wordpress.org/tutorial/using-the-wordpress-rest-api/'
                     )
                   );
