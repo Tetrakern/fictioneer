@@ -782,7 +782,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_enable_static_partials',
                     __( 'Enable caching of partials', 'fictioneer' ),
                     __( 'Caches parts of the page as static HTML files to speed up loading. Do not use this together with a cache plugin.', 'fictioneer' ),
-                    __( '<p>Caches parts of the page that never change as static HTML files, pulling them up on subsequent requests to save resources. Unlike full caching, this only affects some modals, menus, and chapter contents. Use this only if cache plugins are not an option.</p><p>Plugins that change the content of chapters may not work without further adjustments. If you need to apply dynamic content to chapters, which are only refreshed on update or when the cache expires, you can still do so with the <code>fictioneer_get_static_content</code> filter.</p><p>Administrators can disable the content caching per chapter.</p>', 'fictioneer' )
+                    __( '<p>With this feature enabled, the theme caches parts of the page that never change as static HTML files, pulling them up on subsequent requests to save resources. Unlike full caching, this only affects some modals, menus, and chapter contents. Use this only if cache plugins are not an option.</p><p>Plugins that change the content of chapters may not work without further adjustments. If you need to apply dynamic chapters content, which are only refreshed on update or when the cache expires, you can still do so with the <code>fictioneer_filter_static_content</code> filter.</p><p>Administrators can disable the content caching per chapter.</p>', 'fictioneer' )
                   );
                 ?>
               </div>
