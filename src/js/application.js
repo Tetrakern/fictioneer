@@ -579,10 +579,16 @@ function fcn_scrollDirection() {
   // Scrolled to top?
   fcn_theBody.classList.toggle('scrolled-to-top', newScrollTop === 0);
 
-  // Check whether the difference between old and new offset exceeds the threshold
-  if (Math.abs(fcn_lastScrollTop - newScrollTop) >= 25) {
-    fcn_theBody.classList.toggle('scrolling-down', newScrollTop > fcn_lastScrollTop);
-    fcn_theBody.classList.toggle('scrolling-up', !(newScrollTop > fcn_lastScrollTop));
+  // Determine scroll direction and apply respective thresholds
+  if (newScrollTop > fcn_lastScrollTop && Math.abs(fcn_lastScrollTop - newScrollTop) >= 10) {
+    // Scrolling down
+    fcn_theBody.classList.add('scrolling-down');
+    fcn_theBody.classList.remove('scrolling-up');
+    fcn_lastScrollTop = Math.max(newScrollTop, 0);
+  } else if (newScrollTop < fcn_lastScrollTop && Math.abs(fcn_lastScrollTop - newScrollTop) >= 50) {
+    // Scrolling up
+    fcn_theBody.classList.add('scrolling-up');
+    fcn_theBody.classList.remove('scrolling-down');
     fcn_lastScrollTop = Math.max(newScrollTop, 0);
   }
 }
