@@ -1230,7 +1230,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_cookie_banner',
                     __( 'Enable cookie banner and consent function', 'fictioneer' ),
-                    __( 'Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, "necessary", or "full".', 'fictioneer' )
+                    __( 'Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function.', 'fictioneer' ),
+                    __( 'Cookie banners are often necessary to comply with data privacy laws and meet visitor expectations. It is better to be safe than sorry, even if the theme does not require one in its base configuration. Enabling this also activates the <code>fictioneer_get_consent()</code> function, which returns either <code>false</code>, <code>"necessary"</code>, or <code>"full"</code>.', 'fictioneer' )
                   );
                 ?>
               </div>

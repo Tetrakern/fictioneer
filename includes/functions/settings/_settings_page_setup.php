@@ -124,7 +124,7 @@
         fictioneer_settings_setup_card(
           'fictioneer_cookie_banner',
           __( 'Enable cookie banner?', 'fictioneer' ),
-          __( 'Cookie banners are often necessary to comply with data privacy laws and meet visitor expectations; it is better to be safe than sorry, even if the theme does not require one in its base configuration. Developers can also use the <code>fictioneer_get_consent()</code> function to comply with regulations.', 'fictioneer' )
+          __( 'Cookie banners are often necessary to comply with data privacy laws and meet visitor expectations. It is better to be safe than sorry, even if the theme does not require one in its base configuration. Enabling this also activates the <code>fictioneer_get_consent()</code> function, which returns either <code>false</code>, <code>"necessary"</code>, or <code>"full"</code>.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
