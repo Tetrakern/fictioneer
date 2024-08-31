@@ -1809,8 +1809,8 @@ class FCN_KeywordInput {
     let value = this.allowList[this.encode(name)];
 
     // Author names can be duplicates
-    if (this.collection.name == 'authors' && trigger) {
-      value = this.allowList[this.encode(name) + '_' + trigger.value];
+    if ((this.collection.name == 'authors' || this.collection.name == 'ex_authors') && trigger) {
+      value = this.allowList[this.encode(name) + `_${trigger.value}`];
     }
 
     // Only allowed value and no duplicates
