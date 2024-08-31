@@ -112,13 +112,13 @@
         fictioneer_settings_setup_card(
           'fictioneer_do_not_save_comment_ip',
           __( 'Prevent saving of IP address for commenters?', 'fictioneer' ),
-          __( 'Saving IP addresses when visitors leave comments can conflict with GDPR and other data privacy laws, depending on how the IP addresses are used and associated with other data. Given the sensitivity of this topic, it is generally better to avoid saving IP addresses. They are not reliable anyway.', 'fictioneer' )
+          __( 'Saving IP addresses when visitors leave comments can conflict with data privacy laws, depending on how the IP addresses are used and associated with other data. Given the sensitivity of this topic, it is generally better to avoid saving IP addresses.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
           'fictioneer_consent_wrappers',
           __( 'Add consent wrappers to third-party embeds?', 'fictioneer' ),
-          __( 'Embedding external content, such as YouTube videos, automatically loads scripts from the source, which can violate data privacy laws by including tracking, advertising, analytics, and more. Consent wrappers quarantine an embed until it is deliberately clicked, informing the visitor about the third-party consent requirements.', 'fictioneer' )
+          __( 'Embedding external content, such as YouTube videos, automatically loads scripts from the source, which can violate data privacy laws by including tracking, advertising, analytics, and more. With the consent wrappers enabled, embeds are quarantined until deliberately clicked, informing the visitor about the third-party consent requirements.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(

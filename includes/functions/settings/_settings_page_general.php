@@ -1149,7 +1149,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_do_not_save_comment_ip',
                     __( 'Do not save comment IP addresses', 'fictioneer' ),
                     __( 'IP addresses are personal data.', 'fictioneer' ),
-                    __( 'IP addresses are considered personal data, and while there is a valid argument that storing them is necessary for protecting against spam and attacks, they can also be misused. The truth is, most malevolent actors constantly rotate their IP addresses, limiting their usefulness. By not storing IP addresses, you may avoid potential privacy issues that outweigh the benefits of keeping them.', 'fictioneer' ),
+                    __( 'Saving IP addresses when visitors leave comments can conflict with data privacy laws, depending on how the IP addresses are used and associated with other data. Given the sensitivity of this topic, it is generally better to avoid saving IP addresses.', 'fictioneer' ),
                     '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_do_not_save_comment_ip.jpg"></div>'
                   );
                 ?>
@@ -1209,7 +1209,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_consent_wrappers',
                     __( 'Add consent wrappers to embedded content', 'fictioneer' ),
                     __( 'External content not loaded until deliberately clicked.', 'fictioneer' ),
-                    __( 'Embedding external media, such as videos or social media posts, also loads tracking scripts from the source. This typically conflicts with data privacy laws. By enabling this wrapper, all embeds are quarantined until the user explicitly clicks on them, making an informed choice and thereby consenting to any loaded scripts.', 'fictioneer' ),
+                    __( 'Embedding external content, such as YouTube videos, automatically loads scripts from the source, which can violate data privacy laws by including tracking, advertising, analytics, and more. With the consent wrappers enabled, embeds are quarantined until deliberately clicked, informing the visitor about the third-party consent requirements.', 'fictioneer' ),
                     '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_consent_wrappers.jpg"></div>'
                   );
                 ?>
