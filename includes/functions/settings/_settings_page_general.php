@@ -345,8 +345,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_show_story_cards_latest_chapters',
-                    __( 'Show latest chapter on large story cards', 'fictioneer' ),
-                    __( 'Instead of the first three to avoid spoilers.', 'fictioneer' )
+                    __( 'Show latest chapters on large story cards', 'fictioneer' ),
+                    __( 'Instead of the earliest ones to avoid spoilers.', 'fictioneer' )
                   );
                 ?>
               </div>
