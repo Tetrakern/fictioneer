@@ -93,7 +93,7 @@ function fictioneer_add_comment_meta_box() {
  * @param object $comment  The comment object.
  */
 
-function fictioneer_comment_meta_box ( $comment ) {
+function fictioneer_comment_meta_box( $comment ) {
   // Setup
   $type = get_comment_type( $comment->comment_ID );
   $user_reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );

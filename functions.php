@@ -556,6 +556,11 @@ if ( strpos( $_SERVER['REQUEST_URI'], 'wp-json/fictioneer/' ) !== false ) {
   require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
 }
 
+if ( is_admin() ) {
+  // Required for comment edit
+  require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
+}
+
 if ( wp_doing_ajax() ) {
   // Required for AJAX
   require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';
