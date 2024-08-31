@@ -1220,7 +1220,7 @@ function fcn_readingProgress() {
   const rect = fcn_chapterContent.getBoundingClientRect();
   const height = rect.height;
   const viewPortHeight = window.innerHeight;
-  const w = (height - rect.bottom - Math.max(rect.top, 0) + viewPortHeight / 2);
+  const w = (height - rect.bottom - Math.max(rect.top, 0) + viewPortHeight);
 
   let p = 100 * w / height;
 
