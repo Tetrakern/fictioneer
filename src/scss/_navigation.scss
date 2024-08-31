@@ -111,6 +111,10 @@
   transition: transform var(--transition-duration);
   contain: layout style; // Improve performance
 
+  &:hover {
+    z-index: 1000;
+  }
+
   &__background {
     position: absolute;
     inset: 0;
