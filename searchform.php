@@ -82,11 +82,6 @@ if ( $show_advanced ) {
 
   $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name || $story_status || $age_rating || $min_words || $max_words;
 
-  // Prime author cache
-  if ( function_exists( 'update_post_author_caches' ) ) {
-    update_post_author_caches( $all_authors );
-  }
-
   // Prepare data JSONs
   $all_terms = array_merge( $all_tags, $all_genres, $all_fandoms, $all_characters, $all_warnings );
   $allow_list = [];
@@ -96,6 +91,16 @@ if ( $show_advanced ) {
   }
 
   if ( ! $skip_author_keywords ) {
+    // Manually prime author caches
+    // See: https://developer.wordpress.org/reference/functions/update_post_author_caches/
+    if ( function_exists( 'cache_users' ) ) {
+      $author_ids = wp_list_pluck( $all_authors, 'ID' );
+      $author_ids = array_map( 'absint', $author_ids );
+      $author_ids = array_unique( array_filter( $author_ids ) );
+
+      cache_users( $author_ids );
+    }
+
     foreach ( $all_authors as $author ) {
       $author_key = base64_encode( mb_strtolower( $author->display_name, 'UTF-8' ) );
 
