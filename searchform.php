@@ -50,12 +50,7 @@ if ( $show_advanced ) {
     array( 'keep_case' => 1 )
   );
 
-  $all_authors = get_users(
-    array(
-      'has_published_posts' => ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post']
-    )
-  );
-
+  $all_authors = fictioneer_get_all_publishing_authors();
   $skip_author_keywords = count( $all_authors ) > FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT;
 
   $queried_authors_in = sanitize_text_field( $_GET['authors'] ?? 0 );

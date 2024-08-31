@@ -3370,3 +3370,37 @@ if ( ! function_exists( 'mb_strlen' ) ) {
     }
   }
 }
+
+// =============================================================================
+// GET ALL PUBLISHING AUTHORS
+// =============================================================================
+
+/**
+ * Returns all authors with published posts
+ *
+ * Note: Qualified post types are fcn_story, fcn_chapter, fcn_recommendation, and post.
+ *
+ * @return array Array of WP_User objects.
+ */
+
+function fictioneer_get_all_publishing_authors() {
+  static $authors = null;
+
+  if ( ! $authors && $transient = get_transient( 'fictioneer_search_all_authors' ) ) {
+    $authors = $transient;
+  }
+
+  if ( $authors ) {
+    return $authors;
+  }
+
+  $authors = get_users(
+    array(
+      'has_published_posts' => ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post']
+    )
+  );
+
+  set_transient( 'fictioneer_search_all_authors', $authors, DAY_IN_SECONDS );
+
+  return $authors;
+}
