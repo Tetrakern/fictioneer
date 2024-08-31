@@ -520,6 +520,14 @@ _$('body').addEventListener(
   }
 );
 
+// Hover over main menu
+_$$$('full-navigation')?.addEventListener('mouseover', () => {
+  if (fcn_lastClicked) {
+    fcn_removeLastClick(fcn_lastClicked);
+    document.activeElement?.blur();
+  }
+});
+
 // =============================================================================
 // REMOVE PARAGRAPH TOOLS BUTTONS FROM TEXT SELECTION
 // =============================================================================
