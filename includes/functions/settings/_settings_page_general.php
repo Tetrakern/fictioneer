@@ -1302,7 +1302,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_rewrite_chapter_permalinks',
                     __( 'Rewrite chapter permalinks to include story', 'fictioneer' ),
                     __( 'Becomes <code>/story/story-slug/chapter-slug[-n]</code>. You must flush your permalinks and purge the theme caches.', 'fictioneer' ),
-                    __( 'Changes the permalinks of chapters to include the story. This allows for more readable and descriptive URLs. Chapter slugs are still kept globally unique — meaning multiple "Chapter N" titles will end up as "chapter-n-x" slugs — and the post editor will continue to display the default permalink structure for technical reasons.', 'fictioneer' )
+                    __( 'Stories and chapters are separate posts that are associated but not hierarchically linked. As a result, the permalink of a chapter does not include the story by default. Enabling this setting adds an alias to include the story in the chapter’s permalink. However, chapter slugs must still be globally unique, and a number will be appended in case of a conflict (e.g. <code>.../story/story-slug/chapter-slug-1</code>).', 'fictioneer' )
                   );
                 ?>
               </div>

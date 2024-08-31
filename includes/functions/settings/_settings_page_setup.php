@@ -130,7 +130,7 @@
         fictioneer_settings_setup_card(
           'fictioneer_rewrite_chapter_permalinks',
           __( 'Rewrite chapter permalinks to include story?', 'fictioneer' ),
-          __( 'Stories and chapters are actually separate posts that are only associated, not hierarchically linked. Therefore, the permalink of a chapter does not include the story by default. Enabling this setting adds an alias to include the story in the permalink. However, chapter slugs must still be globally unique, with numbers appended in case of conflicts (e.g. <code>.../story/story-slug/chapter-slug-1</code> instead of <code>.../chapter/chapter-slug-1</code>).', 'fictioneer' )
+          __( 'Stories and chapters are separate posts that are associated but not hierarchically linked. As a result, the permalink of a chapter does not include the story by default. Enabling this setting adds an alias to include the story in the chapter’s permalink. However, chapter slugs must still be globally unique, and a number will be appended in case of a conflict (e.g. <code>.../story/story-slug/chapter-slug-1</code>).', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
