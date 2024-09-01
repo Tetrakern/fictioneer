@@ -1134,7 +1134,7 @@ function fictioneer_generate_epub() {
   $mimetype_path = $uploads_dir . $folder . '/mimetype';
   $files = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $directory ), RecursiveIteratorIterator::LEAVES_ONLY );
 
-  $zip->addFile( $mimetype_path, substr( $mimetype_path, strlen( $directory ) + 1) );
+  $zip->addFile( $mimetype_path, substr( $mimetype_path, mb_strlen( $directory ) + 1) );
 
   foreach ( $files as $name => $file ) {
     if ( $name == 'mimetype' ) {
@@ -1143,7 +1143,7 @@ function fictioneer_generate_epub() {
 
     if ( ! $file->isDir() ) {
       $filePath = $file->getRealPath();
-      $relativePath = substr( $filePath, strlen( $directory ) + 1);
+      $relativePath = substr( $filePath, mb_strlen( $directory ) + 1);
 
       $zip->addFile( $filePath, $relativePath );
     }

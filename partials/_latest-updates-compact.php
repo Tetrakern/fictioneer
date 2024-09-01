@@ -210,7 +210,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
           // Chapter excerpt
           $chapter_excerpt = fictioneer_get_forced_excerpt( $chapter_list[0]->ID, 768 );
-          $show_excerpt = strlen( str_replace( '…', '', $chapter_excerpt ) ) > 2;
+          $show_excerpt = mb_strlen( str_replace( '…', '', $chapter_excerpt ) ) > 2;
 
           // Truncate factor
           $truncate_factor = $args['vertical'] ? '_2-2' : '_cq-1-2';

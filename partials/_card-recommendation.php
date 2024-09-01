@@ -113,7 +113,7 @@ $thumbnail_args = array(
             _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
             get_post_meta( $post_id, 'fictioneer_recommendation_author', true )
           ),
-          strlen( $one_sentence ) < strlen( $excerpt ) ? $excerpt : wp_strip_all_tags( $one_sentence, true )
+          mb_strlen( $one_sentence ) < mb_strlen( $excerpt ) ? $excerpt : wp_strip_all_tags( $one_sentence, true )
         );
       ?>
 

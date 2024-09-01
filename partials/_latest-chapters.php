@@ -269,11 +269,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                     $excerpt = fictioneer_get_forced_excerpt( $post );
                     $spoiler_note = str_repeat(
-                      _x( '&#183; ', 'Spoiler obfuscation character.', 'fictioneer' ), intval( strlen( $excerpt ) )
+                      _x( '&#183; ', 'Spoiler obfuscation character.', 'fictioneer' ), intval( mb_strlen( $excerpt ) )
                     );
                     $spoiler_note = apply_filters( 'fictioneer_filter_obfuscation_string', $spoiler_note, $post );
                   ?>
-                  <?php if ( strlen( str_replace( '…', '', $excerpt ) ) > 2 ) : ?>
+                  <?php if ( mb_strlen( str_replace( '…', '', $excerpt ) ) > 2 ) : ?>
                     <?php if ( ! $args['spoiler'] ) : ?>
                       <span data-click="toggle-obfuscation" tabindex="0">
                         <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
