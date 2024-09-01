@@ -3398,8 +3398,6 @@ function fictioneer_get_publishing_authors( $args = [] ) {
 
   if ( ! $authors && $transient = get_transient( $key ) ) {
     $authors = $transient;
-
-    error_log( json_encode( $authors ) );
   }
 
   if ( $authors ) {
