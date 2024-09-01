@@ -290,8 +290,16 @@ input[type=radio] {
     white-space: nowrap;
     text-transform: capitalize;
     border-radius: var(--layout-border-radius-small);
-    padding: 4px 20px 4px 6px;
+    padding: 0 20px 0 6px;
     width: fit-content;
+    overflow: hidden;
+
+    &-name {
+      display: block;
+      text-overflow: ellipsis;
+      padding: 4px 0;
+      overflow: hidden;
+    }
 
     &-delete {
       cursor: pointer;

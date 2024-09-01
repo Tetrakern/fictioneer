@@ -63,7 +63,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
               $name = $term->name;
               $value = rawurlencode( $term->term_id );
 
-              echo "<span class='node' data-value='{$value}'><span>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
+              echo "<span class='node' data-value='{$value}'><span class='node-name'>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
             }
           }
         ?>
@@ -141,7 +141,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
               $name = $author->display_name;
               $value = rawurlencode( $author->ID );
 
-              echo "<span class='node' data-value='{$value}'><span>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
+              echo "<span class='node' data-value='{$value}'><span class='node-name'>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
             }
           }
         ?>
