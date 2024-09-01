@@ -8,8 +8,6 @@
  */
 
 
-// Setup
-
 ?>
 
 <div class="fictioneer-settings">

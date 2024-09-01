@@ -98,7 +98,7 @@ reset( $sorted_stories );
 
         <section class="index-letters">
           <?php foreach ( $sorted_stories as $index => $stories ) : ?>
-            <a href="<?php echo esc_attr( "#letter-{$index}" ); ?>" class="index-letters__letter"><?php echo strtoupper( $index ); ?></a>
+            <a href="<?php echo esc_attr( "#letter-{$index}" ); ?>" class="index-letters__letter"><?php echo mb_strtoupper( $index ); ?></a>
             <?php if ( $last_key !== $index ) : ?>
               <span class="index-letters__separator">&bull;</span>
             <?php endif; ?>
@@ -108,7 +108,7 @@ reset( $sorted_stories );
         <?php foreach ( $sorted_stories as $index => $stories ) : ?>
           <section class="glossary">
 
-            <h2 id="<?php echo esc_attr( "letter-{$index}" ); ?>"><?php echo strtoupper( $index ); ?></h2>
+            <h2 id="<?php echo esc_attr( "letter-{$index}" ); ?>"><?php echo mb_strtoupper( $index ); ?></h2>
 
             <div class="glossary__columns">
 

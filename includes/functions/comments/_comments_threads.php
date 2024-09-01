@@ -756,7 +756,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
               data-dialog-message="<?php echo esc_attr(
                 sprintf(
                   __( 'Are you sure you want to delete your comment? Enter %s to confirm.', 'fictioneer' ),
-                  strtoupper( _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) )
+                  mb_strtoupper( _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) )
                 )
               ); ?>"
               data-dialog-confirm="<?php echo esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ); ?>"

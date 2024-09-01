@@ -1124,7 +1124,7 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
           $id_hash = get_the_author_meta( "fictioneer_{$provider[0]}_id_hash", $profile_user->ID ) ?: null;
           $confirmation_message = sprintf(
             __( 'Are you sure? Note that if you disconnect all accounts, you may no longer be able to log back in once you log out. Enter %s to confirm.', 'fictioneer' ),
-            strtoupper( $confirmation_string )
+            mb_strtoupper( $confirmation_string )
           );
 
           if ( $client_id && $client_secret ) {
@@ -1305,7 +1305,7 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
             $confirmation_message = sprintf(
               __( 'Are you sure you want to clear your %s? This action is irreversible. Enter %s to confirm.', 'fictioneer' ),
               str_replace( '-', ' ', $node[0] ),
-              strtoupper( $confirmation_string )
+              mb_strtoupper( $confirmation_string )
             );
           ?>
           <div class="data-node">
@@ -2073,7 +2073,7 @@ function fictioneer_admin_danger_zone( $profile_user ) {
   $confirmation_string = _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' );
   $confirmation_message = sprintf(
     __( 'Are you sure? Your account will be irrevocably deleted, although this will not remove your comments. Enter %s to confirm.', 'fictioneer' ),
-    strtoupper( $confirmation_string )
+    mb_strtoupper( $confirmation_string )
   );
 
   $deletion_url = add_query_arg(
