@@ -115,7 +115,7 @@ if ( ! function_exists( 'fictioneer_comment_header' ) ) {
 }
 
 // =============================================================================
-// COMMENT AJAX SKELETON
+// COMMENTS AJAX SKELETON
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_comments_ajax_skeleton' ) ) {
@@ -153,7 +153,7 @@ if ( ! function_exists( 'fictioneer_comments_ajax_skeleton' ) ) {
 }
 
 // =============================================================================
-// COMMENT AJAX SKELETON
+// COMMENT FORM AJAX SKELETON
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_comments_ajax_form_skeleton' ) ) {
@@ -318,6 +318,57 @@ function fictioneer_replace_comment_line_breaks( $comment_content ) {
 if ( ! get_option( 'fictioneer_disable_comment_callback' ) ) {
   add_filter( 'get_comment_text', 'fictioneer_replace_comment_line_breaks' );
   remove_filter( 'comment_text', 'make_clickable', 9 ); // No auto-linking of plain URLs
+}
+
+// =============================================================================
+// COMMENT PARTS
+// =============================================================================
+
+/**
+ * Returns the HTML for the comment self-delete button
+ *
+ * @since 5.23.1
+ *
+ * @param bool $hidden  Whether the button is (initially) hidden. Default true.
+ *
+ * @return string The HTML of the delete button.
+ */
+
+function fictioneer_get_comment_delete_button( $hidden = true ) {
+  static $html_start = '<button class="fictioneer-comment__delete comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-dialog-message="' .
+    sprintf(
+      __( 'Are you sure you want to delete your comment? Enter %s to confirm.', 'fictioneer' ),
+      mb_strtoupper( _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) )
+    ) .
+    '" data-dialog-confirm="' . esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) .
+    '" data-tooltip="' . esc_attr_x( 'Delete', 'Delete comment inline.'. 'fictioneer' ) .
+    '" data-click="delete-my-comment" %s><i class="fa-solid fa-eraser"></i></button>';
+
+  return sprintf(
+    $html_start,
+    $hidden ? '' : 'hidden'
+  );
+}
+
+/**
+ * Returns the HTML for the comment edit button
+ *
+ * @since 5.23.1
+ *
+ * @param bool $hidden  Whether the button is (initially) hidden. Default true.
+ *
+ * @return string The HTML of the edit button.
+ */
+
+function fictioneer_get_comment_edit_button( $hidden = true ) {
+  static $html_start = '<button class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax"" type="button" data-dialog-message="' .
+    '" data-tooltip="' . esc_attr_x( 'Edit', 'Edit comment inline.'. 'fictioneer' ) .
+    '" data-click="trigger-inline-comment-edit" %s><i class="fa-solid fa-pen"></i></button>';
+
+  return sprintf(
+    $html_start,
+    $hidden ? '' : 'hidden'
+  );
 }
 
 // =============================================================================
@@ -732,40 +783,21 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           // > Render only if either the current user can (still) edit the comment, or if
           //   caching is active. In either case, the button will be made visible by JS.
           // =============================================================================
-          ?>
-          <?php if ( ( $can_edit && $is_editable ) || $cache_plugin_active ) : ?>
-            <button
-            class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax"
-            type="button"
-            data-tooltip="<?php echo esc_attr_x( 'Edit', 'Edit comment inline.'. 'fictioneer' ); ?>"
-            data-click="trigger-inline-comment-edit"
-            <?php echo $is_new && $is_editable ? '' : 'hidden'; ?>
-          ><i class="fa-solid fa-pen"></i></button>
-          <?php endif; ?>
-          <?php
+
+          if ( ( $can_edit && $is_editable ) || $cache_plugin_active ) {
+            echo fictioneer_get_comment_edit_button( ! ( $is_new && $is_editable ) );
+          }
+
           // =============================================================================
           // USER-DELETE COMMENT
           // > Render only if the current user is the comment's owner or caching is
           //   active. In either case, the button will be made visible by JS.
           // =============================================================================
-          ?>
-          <?php if ( $is_owner || $cache_plugin_active ) : ?>
-            <button
-              class="fictioneer-comment__delete comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax"
-              type="button"
-              data-dialog-message="<?php echo esc_attr(
-                sprintf(
-                  __( 'Are you sure you want to delete your comment? Enter %s to confirm.', 'fictioneer' ),
-                  mb_strtoupper( _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) )
-                )
-              ); ?>"
-              data-dialog-confirm="<?php echo esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ); ?>"
-              data-tooltip="<?php echo esc_attr_x( 'Delete', 'Delete comment inline.'. 'fictioneer' ); ?>"
-              data-click="delete-my-comment"
-              <?php echo $is_new ? '' : 'hidden'; ?>
-            ><i class="fa-solid fa-eraser"></i></button>
-          <?php endif; ?>
-          <?php
+
+          if ( $is_owner || $cache_plugin_active ) {
+            echo fictioneer_get_comment_delete_button( ! $is_new );
+          }
+
           // =============================================================================
           // FINGERPRINT
           // =============================================================================
