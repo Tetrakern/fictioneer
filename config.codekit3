@@ -2058,6 +2058,22 @@
       "oAP" : "\/single-post.php",
       "oF" : 1
     },
+    "\/singular-authors-advanced.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/singular-authors-advanced.php",
+      "oF" : 1
+    },
+    "\/singular-authors.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/singular-authors.php",
+      "oF" : 1
+    },
     "\/singular-bookmarks.php" : {
       "cB" : 0,
       "ft" : 8192,

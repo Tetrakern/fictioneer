@@ -472,6 +472,8 @@ Pages work the same as always in WordPress, just with some additional fields and
 * **No Title Page:** Default page template but without the heading. Good for a frontpage.
 * **Story Mirror:** Renders the page exactly like a story (set via meta field).
 * **Story Page:** Front page template for single-story sites, allowing the use of all `[fictioneer_story_*]` shortcodes.
+* **Author Index:** Shows an index of all authors sorted by the display name’s first letter.
+* **Author Index (Advanced):** The same as the Author Index page template, but with additional meta data.
 * **Index:** Shows an index of all stories sorted by the title’s first letter.
 * **Index (Advanced):** The same as the Index page template, but with additional meta data.
 * **Taxonomies:** Shows details about all taxonomies used on the site, with count and definition (if provided).
