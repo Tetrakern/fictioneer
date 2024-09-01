@@ -391,21 +391,13 @@ function fictioneer_extend_search_query( $query ) {
     $query->set( 'tax_query', $tax_array );
   }
 
-  // Prepare author array (negate IDs)
-  if ( ! empty( $authors_out ) ) {
-    $authors_out = array_map(
-      function ( $item ) {
-        return "-$item";
-      },
-      $authors_out
-    );
+  // Extend with author IDs
+  if ( ! empty( $authors_in ) ) {
+    $query->set( 'author__in', $authors_in );
   }
 
-  $authors = array_merge( $authors_in, $authors_out );
-
-  // Extend with authors (if any)
-  if ( ! empty( $authors ) ) {
-    $query->set( 'author', implode( ',', $authors ) );
+  if ( ! empty( $authors_out ) ) {
+    $query->set( 'author__not_in', $authors_out );
   }
 
   // Find username by display name (if any)
