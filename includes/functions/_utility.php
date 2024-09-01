@@ -3381,16 +3381,25 @@ if ( ! function_exists( 'mb_strlen' ) ) {
 /**
  * Returns all authors with published posts
  *
- * Note: Qualified post types are fcn_story, fcn_chapter, fcn_recommendation, and post.
+ * Note: Qualified post types are fcn_story, fcn_chapter, fcn_recommendation,
+ * and post. The result is cached for 12 hours as Transient.
  *
- * @return array Array of WP_User objects.
+ * @link https://developer.wordpress.org/reference/functions/get_users/
+ *
+ * @param array $args  Optional. Array of additional query arguments.
+ *
+ * @return array Array of WP_User object, stdClass objects, or IDs.
  */
 
-function fictioneer_get_all_publishing_authors() {
+function fictioneer_get_publishing_authors( $args = [] ) {
   static $authors = null;
 
-  if ( ! $authors && $transient = get_transient( 'fictioneer_search_all_authors' ) ) {
+  $key = 'fictioneer_publishing_authors_' . md5( serialize( $args ) );
+
+  if ( ! $authors && $transient = get_transient( $key ) ) {
     $authors = $transient;
+
+    error_log( json_encode( $authors ) );
   }
 
   if ( $authors ) {
@@ -3398,12 +3407,13 @@ function fictioneer_get_all_publishing_authors() {
   }
 
   $authors = get_users(
-    array(
-      'has_published_posts' => ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post']
+    array_merge(
+      array( 'has_published_posts' => ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post'] ),
+      $args
     )
   );
 
-  set_transient( 'fictioneer_search_all_authors', $authors, DAY_IN_SECONDS );
+  set_transient( $key, $authors, 12 * HOUR_IN_SECONDS );
 
   return $authors;
 }

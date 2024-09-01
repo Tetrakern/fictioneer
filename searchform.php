@@ -50,7 +50,7 @@ if ( $show_advanced ) {
     array( 'keep_case' => 1 )
   );
 
-  $all_authors = fictioneer_get_all_publishing_authors();
+  $all_authors = fictioneer_get_publishing_authors( array( 'fields' => array( 'ID', 'display_name' ) ) );
   $skip_author_keywords = count( $all_authors ) > FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT;
 
   $queried_authors_in = sanitize_text_field( $_GET['authors'] ?? 0 );
@@ -86,16 +86,6 @@ if ( $show_advanced ) {
   }
 
   if ( ! $skip_author_keywords ) {
-    // Manually prime author caches
-    // See: https://developer.wordpress.org/reference/functions/update_post_author_caches/
-    if ( function_exists( 'cache_users' ) ) {
-      $author_ids = wp_list_pluck( $all_authors, 'ID' );
-      $author_ids = array_map( 'absint', $author_ids );
-      $author_ids = array_unique( array_filter( $author_ids ) );
-
-      cache_users( $author_ids );
-    }
-
     foreach ( $all_authors as $author ) {
       $author_key = base64_encode( mb_strtolower( $author->display_name, 'UTF-8' ) );
 
