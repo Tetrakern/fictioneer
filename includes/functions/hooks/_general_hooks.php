@@ -700,7 +700,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
     <?php if ( is_archive() && ! empty( $post_type_menu ) ) : ?>
       <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
         echo $post_type_menu[ $post_type ?? 'any' ]['label'] ?? __( 'Unknown', 'fictioneer' );
-        echo '<div class="popup-menu _bottom _center">';
+        echo '<div class="popup-menu _bottom _center _fixed-position">';
         echo '<div class="popup-heading">' . __( 'Post Type', 'fictioneer' ) . '</div>';
 
         foreach ( $post_type_menu as $tuple ) {
@@ -715,7 +715,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
     <?php if ( ! empty( $orderby_menu ) ) : ?>
       <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
         echo $orderby_menu[ $args['orderby'] ]['label'] ?? __( 'Custom', 'fictioneer' );
-        echo '<div class="popup-menu _bottom _center">';
+        echo '<div class="popup-menu _bottom _center _fixed-position">';
         echo '<div class="popup-heading">' . __( 'Order By', 'fictioneer' ) . '</div>';
 
         foreach ( $orderby_menu as $tuple ) {
@@ -739,7 +739,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
           echo $date_menu[ $key ]['label'];
         }
 
-        echo '<div class="popup-menu _bottom _center">';
+        echo '<div class="popup-menu _bottom _center _fixed-position">';
         echo '<div class="popup-heading">' . __( 'Time Range', 'fictioneer' ) . '</div>';
 
         foreach ( $date_menu as $tuple ) {
