@@ -43,7 +43,10 @@
 
     &-meta-item {
       &:not(:last-child)::after {
-        content: ' • ';
+        content: var(--pseudo-separator, '• ');
+        color: var(--index-meta-divider-color, var(--fg-800));
+        font-family: var(--ff-base);
+        margin: 0 .125em 0 .4em;
       }
     }
 
