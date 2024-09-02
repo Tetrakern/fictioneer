@@ -5,6 +5,7 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 5.14.0
+ * @since 5.23.1 - Added Transient cache strategy.
  */
 
 
