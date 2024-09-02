@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-02 00:15+0000\n"
+"POT-Creation-Date: 2024-09-02 10:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -627,7 +627,7 @@ msgid ""
 "you change the selection, you cannot go back."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:644
+#: includes/functions/comments/_comments_threads.php:652
 #, php-format
 msgctxt "@mention in comment replies."
 msgid "@%s"
@@ -1657,7 +1657,7 @@ msgstr ""
 msgid "Are you sure you want to delete all ePUBs?"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:340
+#: includes/functions/comments/_comments_threads.php:343
 #, php-format
 msgid "Are you sure you want to delete your comment? Enter %s to confirm."
 msgstr ""
@@ -1772,7 +1772,7 @@ msgstr ""
 msgid "Avatar capability disabled."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:776
+#: includes/functions/comments/_comments_threads.php:784
 msgid "Awaiting moderation."
 msgstr ""
 
@@ -3503,7 +3503,7 @@ msgctxt "Comment edit history."
 msgid "Edit History (Previous Versions):"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:702
+#: includes/functions/comments/_comments_threads.php:710
 #, php-format
 msgctxt "Comment edited by {user}."
 msgid " by %s."
@@ -3562,16 +3562,16 @@ msgstr ""
 #: includes/functions/comments/_story_comments.php:236
 #: includes/functions/comments/_comments_ajax.php:622
 #: includes/functions/comments/_comments_ajax.php:638
-#: includes/functions/comments/_comments_threads.php:602
+#: includes/functions/comments/_comments_threads.php:610
 msgid "Comment has been deleted by user."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:580
+#: includes/functions/comments/_comments_threads.php:588
 msgid "Comment has been marked as offensive."
 msgstr ""
 
 #: includes/functions/comments/_story_comments.php:37
-#: includes/functions/comments/_comments_threads.php:560
+#: includes/functions/comments/_comments_threads.php:568
 msgid "Comment has been marked as private."
 msgstr ""
 
@@ -3592,7 +3592,7 @@ msgid "Submit Changes"
 msgstr ""
 
 #: includes/functions/comments/_story_comments.php:250
-#: includes/functions/comments/_comments_threads.php:590
+#: includes/functions/comments/_comments_threads.php:598
 msgid "Comment is hidden due to negative reports."
 msgstr ""
 
@@ -3602,7 +3602,7 @@ msgctxt "Comment last edited by user on [datetime]."
 msgid "Last edited on %s."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:692
+#: includes/functions/comments/_comments_threads.php:700
 #, php-format
 msgctxt "Comment last edited by user on {datetime}{end}"
 msgid "Last edited on %s%s"
@@ -3676,8 +3676,8 @@ msgstr ""
 #: includes/functions/comments/_story_comments.php:60
 #: includes/functions/comments/_comments_controller.php:389
 #: includes/functions/comments/_comments_ajax.php:553
-#: includes/functions/comments/_comments_threads.php:653
-#: includes/functions/comments/_comments_threads.php:695
+#: includes/functions/comments/_comments_threads.php:661
+#: includes/functions/comments/_comments_threads.php:703
 #, php-format
 msgctxt "Comment time format string."
 msgid "%1$s \\a\\t %2$s"
@@ -4777,7 +4777,7 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:642
+#: includes/functions/settings/_settings_loggers.php:679
 msgid "deleted"
 msgstr ""
 
@@ -5931,7 +5931,7 @@ msgid ""
 "if you want, you can link it in the login modal regardless."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_logs.php:19
+#: includes/functions/settings/_settings_page_logs.php:21
 msgid "Fictioneer Log"
 msgstr ""
 
@@ -6423,7 +6423,7 @@ msgctxt "Hidden card."
 msgid "Hidden Result"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:774
+#: includes/functions/comments/_comments_threads.php:782
 msgid "Hidden due to negative reports."
 msgstr ""
 
@@ -7400,7 +7400,7 @@ msgctxt "Mark story as unread."
 msgid "Mark Unread"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:772
+#: includes/functions/comments/_comments_threads.php:780
 msgid "Marked and hidden as offensive."
 msgstr ""
 
@@ -8502,13 +8502,13 @@ msgctxt "Patreon tiers meta field label."
 msgid "Patreon Tiers"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:149
+#: includes/functions/settings/_settings_loggers.php:186
 #, php-format
 msgctxt "Pattern for checkbox option in logs."
 msgid "%1$s: %2$s"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:469
+#: includes/functions/settings/_settings_loggers.php:506
 #, php-format
 msgctxt "Pattern for connection updates in logs."
 msgid "%s updated."
@@ -8521,19 +8521,19 @@ msgctxt ""
 msgid "Deleted file from server: %s"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:263
+#: includes/functions/settings/_settings_loggers.php:300
 #, php-format
 msgctxt "Pattern for page assignment updates in logs."
 msgid "%1$s changed from \"%2$s\" to \"%3$s\""
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:360
+#: includes/functions/settings/_settings_loggers.php:397
 #, php-format
 msgctxt "Pattern for phrase updates in logs."
 msgid "%1$s phrase changed to \"%2$s\""
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:116
+#: includes/functions/settings/_settings_loggers.php:153
 #, php-format
 msgctxt "Pattern for post/page in logs: {Type} #{ID} {Action}: {Title}."
 msgid "%1$s #%2$s %3$s: %4$s"
@@ -8830,7 +8830,7 @@ msgctxt "Private comments filter in comment screen dropdown."
 msgid "Private"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:732
+#: includes/functions/comments/_comments_threads.php:740
 msgid "Private Reply"
 msgstr ""
 
@@ -8846,8 +8846,8 @@ msgstr ""
 msgid "Profile updated."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:341
-#: includes/functions/comments/_comments_threads.php:343
+#: includes/functions/comments/_comments_threads.php:344
+#: includes/functions/comments/_comments_threads.php:346
 #: includes/functions/users/_admin-profile.php:1105
 #: includes/functions/users/_admin-profile.php:1213
 #: includes/functions/users/_admin-profile.php:2073
@@ -8879,7 +8879,7 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:565
+#: includes/functions/settings/_settings_loggers.php:602
 msgid "published"
 msgstr ""
 
@@ -9225,11 +9225,11 @@ msgstr ""
 msgid "Replaces the default header image."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:732
+#: includes/functions/comments/_comments_threads.php:740
 msgid "Reply"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:570
+#: includes/functions/comments/_comments_threads.php:578
 msgid "Reply has been marked as private."
 msgstr ""
 
@@ -9239,7 +9239,7 @@ msgctxt "Reply notification email subject."
 msgid "New reply to your comment on %s"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:825
+#: includes/functions/comments/_comments_threads.php:833
 msgctxt "Report this comment."
 msgid "Report"
 msgstr ""
@@ -9332,7 +9332,7 @@ msgstr ""
 msgid "Reset Registry"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:541
+#: includes/functions/settings/_settings_loggers.php:578
 msgid "restored"
 msgstr ""
 
@@ -10339,12 +10339,12 @@ msgstr ""
 msgid "Start typing for suggestions…"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:150
+#: includes/functions/settings/_settings_loggers.php:187
 msgctxt "State of checkbox option in logs."
 msgid "Checked"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:150
+#: includes/functions/settings/_settings_loggers.php:187
 msgctxt "State of checkbox option in logs."
 msgid "Unchecked"
 msgstr ""
@@ -10746,7 +10746,7 @@ msgstr ""
 msgid "Submit search request"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:600
+#: includes/functions/settings/_settings_loggers.php:637
 msgid "submitted for review"
 msgstr ""
 
@@ -11392,7 +11392,7 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:536
+#: includes/functions/settings/_settings_loggers.php:573
 msgid "trashed"
 msgstr ""
 
@@ -11595,7 +11595,7 @@ msgctxt "Update {Role}"
 msgid "Update %s"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:567
+#: includes/functions/settings/_settings_loggers.php:604
 msgid "updated"
 msgstr ""
 
@@ -12125,6 +12125,10 @@ msgstr ""
 
 #: includes/functions/settings/_register_settings.php:1113
 msgid "Words per minute"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_logs.php:32
+msgid "WP Debug Log"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:1359
