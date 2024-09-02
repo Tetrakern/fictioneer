@@ -69,7 +69,7 @@ function fictioneer_get_log() {
 
   // Check whether log file exists
   if ( ! file_exists( $log_file ) ) {
-    return '<ul class="fictioneer-log"><li>No log entries yet.</li></ul>';
+    return '<ul class="fictioneer-log"><li class="fictioneer-log__item">No log entries yet.</li></ul>';
   }
 
   // Read
@@ -106,7 +106,7 @@ function fictioneer_get_wp_debug_log() {
 
   // Check whether log file exists
   if ( ! file_exists( $log_file ) ) {
-    return '<ul class="fictioneer-log _wp-debug-log"><li>No log entries yet.</li></ul>';
+    return '<ul class="fictioneer-log _wp-debug-log"><li class="fictioneer-log__item">No log entries yet.</li></ul>';
   }
 
   // Read
