@@ -10,43 +10,58 @@
 
 // Setup
 $post_id = get_the_ID();
+$sorted_authors = [];
+$cached = fictioneer_caching_active( 'author_index_advanced' );
 
 // Header
 get_header();
 
-// Query authors with published posts
-$authors = fictioneer_get_publishing_authors( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ) ) );
+// Transient cache?
+$transient = $cached ? 0 : get_transient( 'fictioneer_author_index_advanced_' . $post_id );
 
-// Sort authors
-$sorted_authors = [];
+if ( $transient ) {
+  $sorted_authors = $transient;
+}
 
-if ( ! empty( $authors ) ) {
-  // Loop through authors...
-  foreach ( $authors as $author ) {
-    // Relevant data
-    $first_char = mb_strtolower( mb_substr( $author->display_name, 0, 1, 'UTF-8' ), 'UTF-8' );
+// ... if not cached
+if ( empty( $sorted_authors ) ) {
+  // Query authors with published posts
+  $authors = fictioneer_get_publishing_authors( array( 'fields' => array( 'ID', 'display_name', 'user_nicename' ) ) );
 
-    // Normalize for numbers and other non-alphabetical characters
-    if ( ! preg_match( '/\p{L}/u', $first_char ) ) {
-      $first_char = '#'; // Group under '#'
+  // Sort authors
+  if ( ! empty( $authors ) ) {
+    // Loop through authors...
+    foreach ( $authors as $author ) {
+      // Relevant data
+      $first_char = mb_strtolower( mb_substr( $author->display_name, 0, 1, 'UTF-8' ), 'UTF-8' );
+
+      // Normalize for numbers and other non-alphabetical characters
+      if ( ! preg_match( '/\p{L}/u', $first_char ) ) {
+        $first_char = '#'; // Group under '#'
+      }
+
+      // Add index if necessary
+      if ( ! isset( $sorted_authors[ $first_char ] ) ) {
+        $sorted_authors[ $first_char ] = [];
+      }
+
+      $sorted_authors[ $first_char ][] = array(
+        'id' => $author->ID,
+        'name' => $author->display_name,
+        'link' => get_author_posts_url( $author->ID, $author->user_nicename ),
+        'story_count' => count_user_posts( $author->ID, 'fcn_story', true ),
+        'chapter_count' => count_user_posts( $author->ID, 'fcn_chapter', true )
+      );
     }
 
-    // Add index if necessary
-    if ( ! isset( $sorted_authors[ $first_char ] ) ) {
-      $sorted_authors[ $first_char ] = [];
-    }
+    // Sort by index
+    ksort( $sorted_authors );
 
-    $sorted_authors[ $first_char ][] = array(
-      'id' => $author->ID,
-      'name' => $author->display_name,
-      'link' => get_author_posts_url( $author->ID, $author->user_nicename ),
-      'story_count' => count_user_posts( $author->ID, 'fcn_story', true ),
-      'chapter_count' => count_user_posts( $author->ID, 'fcn_chapter', true )
-    );
+    // Cache as Transient
+    if ( ! $cached ) {
+      set_transient( 'fictioneer_author_index_advanced_' . $post_id, $sorted_authors, 12 * HOUR_IN_SECONDS );
+    }
   }
-
-  // Sort by index
-  ksort( $sorted_authors );
 }
 
 // Last key

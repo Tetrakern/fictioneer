@@ -10,63 +10,78 @@
 
 // Setup
 $post_id = get_the_ID();
+$sorted_stories = [];
+$cached = fictioneer_caching_active( 'story_index_advanced' );
 
 // Header
 get_header();
 
-// Query all stories
-$args = array(
-  'post_type' => 'fcn_story',
-  'post_status' => ['publish'],
-  'posts_per_page' => -1,
-  'order' => 'ASC',
-  'orderby' => 'name',
-  'update_post_term_cache' => false, // Improve performance
-  'no_found_rows' => true // Improve performance
-);
+// Transient cache?
+$transient = $cached ? 0 : get_transient( 'fictioneer_story_index_advanced_' . $post_id );
 
-$stories = new WP_Query( $args );
+if ( $transient ) {
+  $sorted_stories = $transient;
+}
 
-// Sort stories
-$sorted_stories = [];
+// ... if not cached
+if ( empty( $sorted_stories ) ) {
+  // Query all stories
+  $args = array(
+    'post_type' => 'fcn_story',
+    'post_status' => ['publish'],
+    'posts_per_page' => -1,
+    'order' => 'ASC',
+    'orderby' => 'name',
+    'update_post_term_cache' => false, // Improve performance
+    'no_found_rows' => true // Improve performance
+  );
 
-if ( $stories->have_posts() ) {
-  // Loop through posts...
-  foreach ( $stories->posts as $story ) {
-    $story_id = $story->ID;
+  $stories = new WP_Query( $args );
 
-    // Skip hidden
-    if ( get_post_meta( $story_id, 'fictioneer_story_hidden', true ) ) {
-      continue;
+  // Sort stories
+  if ( $stories->have_posts() ) {
+    // Loop through posts...
+    foreach ( $stories->posts as $story ) {
+      $story_id = $story->ID;
+
+      // Skip hidden
+      if ( get_post_meta( $story_id, 'fictioneer_story_hidden', true ) ) {
+        continue;
+      }
+
+      // Relevant data
+      $title = trim( fictioneer_get_safe_title( $story_id, 'story_index' ) );
+      $first_char = mb_strtolower( mb_substr( $title, 0, 1, 'UTF-8' ), 'UTF-8' );
+
+      // Normalize for numbers and other non-alphabetical characters
+      if ( ! preg_match( '/\p{L}/u', $first_char ) ) {
+        $first_char = '#'; // Group under '#'
+      }
+
+      // Add index if necessary
+      if ( ! isset( $sorted_stories[ $first_char ] ) ) {
+        $sorted_stories[ $first_char ] = [];
+      }
+
+      $sorted_stories[ $first_char ][] = array(
+        'id' => $story_id,
+        'title' => $title,
+        'link' => get_post_meta( $story_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story_id ),
+        'date' => get_the_date( $story_id ),
+        'total_words' => fictioneer_get_story_word_count( $story_id ),
+        'rating' => get_post_meta( $story_id, 'fictioneer_story_rating', true ),
+        'status' => get_post_meta( $story_id, 'fictioneer_story_status', true )
+      );
     }
 
-    // Relevant data
-    $title = trim( fictioneer_get_safe_title( $story_id, 'story_index' ) );
-    $first_char = mb_strtolower( mb_substr( $title, 0, 1, 'UTF-8' ), 'UTF-8' );
+    // Sort by index
+    ksort( $sorted_stories );
 
-    // Normalize for numbers and other non-alphabetical characters
-    if ( ! preg_match( '/\p{L}/u', $first_char ) ) {
-      $first_char = '#'; // Group under '#'
+    // Cache as Transient
+    if ( ! $cached ) {
+      set_transient( 'fictioneer_story_index_advanced_' . $post_id, $sorted_stories, 12 * HOUR_IN_SECONDS );
     }
-
-    // Add index if necessary
-    if ( ! isset( $sorted_stories[ $first_char ] ) ) {
-      $sorted_stories[ $first_char ] = [];
-    }
-
-    $sorted_stories[ $first_char ][] = array(
-      'id' => $story_id,
-      'title' => $title,
-      'link' => get_post_meta( $story_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story_id ),
-      'date' => get_the_date( $story_id ),
-      'total_words' => fictioneer_get_story_word_count( $story_id ),
-      'rating' => get_post_meta( $story_id, 'fictioneer_story_rating', true ),
-      'status' => get_post_meta( $story_id, 'fictioneer_story_status', true )
-    );
   }
-
-  // Sort by index
-  ksort( $sorted_stories );
 }
 
 // Last key
