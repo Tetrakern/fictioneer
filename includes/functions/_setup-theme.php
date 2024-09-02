@@ -2193,7 +2193,7 @@ function fictioneer_get_theme_colors_array() {
   }
 
   // Update static cache
-  $fictioneer_colors = array_merge($parent_colors, $child_colors);
+  $fictioneer_colors = array_merge( $parent_colors, $child_colors );
 
   // Merge and return colors, child overriding parent
   return $fictioneer_colors;
