@@ -10,7 +10,10 @@
 
 <div class="fictioneer-settings">
 
-  <?php fictioneer_settings_header( 'tools' ); ?>
+  <?php
+    fictioneer_settings_header( 'tools' );
+    wp_nonce_field( 'fictioneer_settings_actions', 'fictioneer_admin_nonce' );
+  ?>
 
   <div class="fictioneer-settings__content">
     <div class="fictioneer-columns fictioneer-columns--two-columns">

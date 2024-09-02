@@ -257,8 +257,10 @@ $epubs_table->prepare_items();
 
 <div class="fictioneer-settings">
 
-  <?php fictioneer_settings_header( 'epubs' ); ?>
-  <?php wp_nonce_field( 'fictioneer_settings_actions', 'fictioneer_admin_nonce' ); ?>
+  <?php
+    fictioneer_settings_header( 'epubs' );
+    wp_nonce_field( 'fictioneer_settings_actions', 'fictioneer_admin_nonce' );
+  ?>
 
   <div class="fictioneer-settings__content">
     <div class="fictioneer-single-column">
