@@ -93,6 +93,43 @@ function fictioneer_get_log() {
   return '<ul class="fictioneer-log">' . $output . '</ul>';
 }
 
+/**
+ * Retrieves the debug log entries and returns an HTML representation
+ *
+ * @return string The HTML representation of the log entries.
+ */
+
+function fictioneer_get_wp_debug_log() {
+  // Setup
+  $log_file = WP_CONTENT_DIR . '/debug.log';
+  $output = '';
+
+  // Check whether log file exists
+  if ( ! file_exists( $log_file ) ) {
+    return '<ul class="fictioneer-log _wp-debug-log"><li>No log entries yet.</li></ul>';
+  }
+
+  // Read
+  $log_contents = file_get_contents( $log_file );
+
+  // Parse
+  $log_entries = explode( "\n", $log_contents );
+
+  // Limit display to 250
+  $log_entries = array_slice( $log_entries, -250 );
+
+  // Reverse
+  $log_entries = array_reverse( $log_entries );
+
+  // Build list items
+  foreach ( $log_entries as $entry ) {
+    $output .= '<li class="fictioneer-log__item _wp-debug-log">' . $entry . '</li>';
+  }
+
+  // Return HTML
+  return '<ul class="fictioneer-log _wp-debug-log">' . $output . '</ul>';
+}
+
 // =============================================================================
 // LOG POST UPDATES HELPER
 // =============================================================================
