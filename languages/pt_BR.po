@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-28 12:29+0000\n"
-"PO-Revision-Date: 2024-09-01 22:06-0300\n"
+"POT-Creation-Date: 2024-09-02 10:01+0000\n"
+"PO-Revision-Date: 2024-09-03 19:31-0300\n"
 "Last-Translator: Cochise César <cochise@vivaldi.net>\n"
 "Language-Team: Português do Brasil\n"
 "Language: pt_BR\n"
@@ -112,9 +112,10 @@ msgid ""
 "%s superfluous option rows found. Please backup your database before "
 "performing any optimization."
 msgstr ""
-"%s superfluous post meta rows found. %s superfluous comment meta rows found. "
-"%s linhas de opções supérfluas encontradas. Faça backup do seu banco de "
-"dados antes de realizar qualquer otimização."
+"%s linhas meta de posts supérfluas encontradas. %s linhas meta de "
+"comentários supérfluas encontradas. %s linhas meta de opções supérfluas "
+"encontradas. Faça backup do seu banco de dados antes de realizar qualquer "
+"otimização."
 
 #: includes/functions/settings/_settings_actions.php:132
 #, php-format
@@ -156,8 +157,8 @@ msgstr[1] "%s m"
 
 #: includes/functions/_setup-meta-fields.php:1971
 #: includes/functions/_setup-meta-fields.php:3165
-msgid ".selector { … }"
-msgstr ".selector { … }"
+msgid ".selector { ... }"
+msgstr ".selector { ... }"
 
 #: includes/functions/_setup-types-and-terms.php:792
 msgid "200 MOST RECENTLY UPDATED"
@@ -190,7 +191,7 @@ msgstr ""
 #: includes/functions/_helpers-templates.php:1384
 #, php-format
 msgid "<b>Warning:</b> %s"
-msgstr "<b>Aviso:</b> %s"
+msgstr "<b>Alerta:</b> %s"
 
 #: includes/functions/_setup-wordpress.php:1217
 #, php-format
@@ -202,12 +203,12 @@ msgstr "<br><fieldset><legend>Potencial JavaScript</legend>%s</fieldset>"
 msgid "<br><fieldset><legend>Sender</legend>%s</fieldset>"
 msgstr "<br><fieldset><legend>Sender</legend>%s</fieldset>"
 
-#: includes/functions/_setup-admin.php:988
+#: includes/functions/_setup-admin.php:984
 #, php-format
 msgid "<code>%s</code> directory could not be found or created."
 msgstr "O diretório <code>%s</code> não pôde ser encontrado ou criado."
 
-#: includes/functions/_setup-admin.php:996
+#: includes/functions/_setup-admin.php:992
 #, php-format
 msgid "<code>%s</code> directory permissions are not 755."
 msgstr "As permissões do diretório <code>%s</code> não são 755."
@@ -257,29 +258,6 @@ msgstr ""
 "de dados e nenhum dano pode ser causado dessa forma; isso serve apenas para "
 "que você saiba que alguém <strong>tentou.</strong></p>"
 
-#: includes/functions/settings/_settings_page_general.php:775
-msgid ""
-"<p>Caches parts of the page that never change as static HTML files, pulling "
-"them up on subsequent requests to save resources. Unlike full caching, this "
-"only affects some modals, menus, and chapter contents. Use this only if "
-"cache plugins are not an option.</p><p>Plugins that change the content of "
-"chapters may not work without further adjustments. If you need to apply "
-"dynamic content to chapters, which are only refreshed on update or when the "
-"cache expires, you can still do so with the "
-"<code>fictioneer_get_static_content</code> filter.</p><p>Administrators can "
-"disable the content caching per chapter.</p>"
-msgstr ""
-"<p>Cacheia partes da página que nunca mudam como arquivos HTML estáticos, "
-"puxando-os para cima em solicitações subsequentes para economizar recursos. "
-"Ao contrário do cache completo, isso afeta apenas alguns modais, menus e "
-"conteúdos de capítulos. Use isso somente se os plug-ins de cache não forem "
-"uma opção.</p><p>Os plug-ins que alteram o conteúdo dos capítulos podem não "
-"funcionar sem ajustes adicionais. Se você precisar aplicar conteúdo dinâmico "
-"aos capítulos, que são atualizados somente na atualização ou quando o cache "
-"expira, ainda poderá fazê-lo com o filtro "
-"<code>fictioneer_get_static_content</code>.</p><p>Os administradores podem "
-"desativar o cache de conteúdo por capítulo.</p>"
-
 #: partials/_modal-login.php:30
 #: includes/functions/settings/_settings_page_phrases.php:72
 msgid ""
@@ -298,30 +276,7 @@ msgstr ""
 "<p>Não foram encontrados capítulos publicados associados.</p><p "
 "style=\"margin-top: -10px;\">%s</p>"
 
-#: includes/functions/settings/_settings_page_general.php:804
-msgid ""
-"<p>Queries that return many results are resource-intensive and can slow down "
-"your site, especially for stories with hundreds of chapters. This feature "
-"mitigates the slowdown by caching the results of the largest queries in the "
-"database, typically resulting in faster loading times.</p><p>You can use the "
-"<code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> constant to change the "
-"number of cached results (default is 50) and the "
-"<code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> constant to change what "
-"constitutes as large result (default is 50). Be aware that increasing these "
-"numbers will result in higher RAM consumption.</p>"
-msgstr ""
-"<p>As consultas que retornam muitos resultados consomem muitos recursos e "
-"podem tornar seu site mais lento, especialmente no caso de histórias com "
-"centenas de capítulos. Esse recurso atenua a lentidão armazenando em cache "
-"os resultados das maiores consultas no banco de dados, o que normalmente "
-"resulta em tempos de carregamento mais rápidos.</p><p>Você pode usar a "
-"constante <code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> para alterar o "
-"número de resultados armazenados em cache (o padrão é 50) e a constante "
-"<code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> para alterar o que "
-"constitui um resultado grande (o padrão é 50). Esteja ciente de que o "
-"aumento desses números resultará em maior consumo de RAM.</p>"
-
-#: includes/functions/settings/_settings_page_general.php:1293
+#: includes/functions/settings/_settings_page_general.php:1317
 msgid ""
 "<p>Rendering of the site begins while the HTML document is still being "
 "parsed, from top to bottom. This can cause the layout to flicker and shift "
@@ -341,46 +296,25 @@ msgstr ""
 "segundo depois. No entanto, se o script for bloqueado, o site permanecerá "
 "invisível. No entanto, isso é extremamente improvável.</p>"
 
-#: includes/functions/settings/_settings_page_general.php:789
-msgid ""
-"<p>Rendering story cards is resource-intensive due to multiple complex "
-"queries. The more cards you display at once, the slower the page will load. "
-"This feature mitigates the slowdown by caching the HTML of the last rendered "
-"cards in the database, which typically results in faster loading times for "
-"the most recent stories.</p><p>You can use the "
-"<code>FICTIONEER_CARD_CACHE_LIMIT</code> constant to change the number of "
-"cached cards (default is 40). Be aware that increasing this number will "
-"result in higher RAM consumption.</p>"
-msgstr ""
-"<p>A renderização de cartões de história consome muitos recursos devido a "
-"várias consultas complexas. Quanto mais cartões você exibir de uma vez, mais "
-"lenta será a página. Esse recurso atenua a lentidão armazenando em cache o "
-"HTML dos últimos cartões renderizados no banco de dados, o que normalmente "
-"resulta em tempos de carregamento mais rápidos para as histórias mais "
-"recentes.</p><p>Você pode usar a constante "
-"<code>FICTIONEER_CARD_CACHE_LIMIT</code> para alterar o número de cartões "
-"armazenados em cache (o padrão é 40). Esteja ciente de que o aumento desse "
-"número resultará em maior consumo de RAM.</p>"
-
-#: includes/functions/settings/_settings_page_general.php:1271
+#: includes/functions/settings/_settings_page_general.php:1295
 msgid ""
 "<p>When you save in the editor, the theme runs many actions to update "
-"everything related—stories, lists, shortcodes, caches, and so forth. Due to "
-"how the Gutenberg editor works, these actions are triggered multiple times, "
-"which can slow down the saving process. To improve performance, some actions "
-"are blocked.</p><p>However, if you are adding or editing content via the "
-"REST API, you may need these actions to fire to ensure that related posts "
-"are properly updated. If that’s the case, enable this setting.</p>"
+"everything related — stories, lists, shortcodes, caches, and so forth. Due "
+"to how the Gutenberg editor works, these actions are triggered multiple "
+"times, which can slow down the saving process. To improve performance, some "
+"actions are blocked.</p><p>However, if you are adding or editing content via "
+"the REST API, you may need these actions to fire to ensure that related "
+"posts are properly updated. If that’s the case, enable this setting.</p>"
 msgstr ""
-"<p>Quando você salva no editor, o tema executa várias ações para atualizar "
-"tudo o que está relacionado - histórias, listas, códigos de acesso, caches e "
-"assim por diante. Devido à forma como o editor Gutenberg funciona, essas "
-"ações são acionadas várias vezes, o que pode tornar o processo de salvamento "
-"mais lento. Para melhorar o desempenho, algumas ações são bloqueadas.</"
-"p><p>No entanto, se você estiver adicionando ou editando conteúdo por meio "
-"da API REST, talvez precise que essas ações sejam acionadas para garantir "
-"que as postagens relacionadas sejam atualizadas corretamente. Se esse for o "
-"caso, ative essa configuração.</p><p>"
+"<p>Quando você salva no editor, o tema executa muitas ações para atualizar "
+"tudo relacionado — histórias, listas, shortcodes, caches e assim por diante. "
+"Devido ao funcionamento do editor Gutenberg, essas ações são acionadas "
+"várias vezes, o que pode tornar o processo lento. Para melhorar o "
+"desempenho, algumas ações são bloqueadas.</p><p>No entanto, se você estiver "
+"adicionando ou editando conteúdo por meio da API REST, pode ser necessário "
+"que essas ações sejam disparadas para garantir que as postagens relacionadas "
+"sejam atualizadas corretamente. Se for esse o caso, habilite esta "
+"configuração.</p>"
 
 #: includes/functions/settings/_settings_page_general.php:607
 #, php-format
@@ -401,6 +335,71 @@ msgstr ""
 "p><p>No entanto, a ativação desse recurso não garante que alguém o utilizará "
 "imediatamente. Isso apenas oferece a possibilidade.</p><p>"
 
+#: includes/functions/settings/_settings_page_general.php:799
+msgid ""
+"<p>With this feature enabled, the HTML of the last rendered story cards is "
+"cached in the database, mitigating the slowdown caused by their complex "
+"queries. The more cards you display at once, the slower the page would "
+"typically load, but caching helps to speed up the loading times for the most "
+"recent stories.</p><p>You can use the <code>FICTIONEER_CARD_CACHE_LIMIT</"
+"code> constant to change the number of cached cards (default is 40). Be "
+"aware that increasing this number will result in higher RAM consumption.</p>"
+msgstr ""
+"<p>Com esse recurso habilitado, o HTML dos últimos cartões de história "
+"renderizados é armazenado em cache no banco de dados, mitigando a lentidão "
+"causada por consultas complexas. Quanto mais cartões você exibir de uma vez, "
+"mais lento a página normalmente carregará, mas o cache ajuda a acelerar o "
+"carregamento das histórias mais recentes.</p><p>Você pode usar a constante "
+"<code>FICTIONEER_CARD_CACHE_LIMIT</code> para alterar o número de cartões em "
+"cache (o padrão é 40). Esteja ciente de que aumentar esse número resultará "
+"em maior consumo de RAM.</p>"
+
+#: includes/functions/settings/_settings_page_general.php:814
+msgid ""
+"<p>With this feature enabled, the results of large queries are cached in the "
+"database. Repeating resource-intensive queries, especially for stories with "
+"hundreds of chapters, can slow down the site and even cause timeouts. "
+"Caching them typically leads to faster loading times.</p><p>You can use the "
+"<code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> constant to define what "
+"constitutes as large query result (default is 50) and the "
+"<code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> constant to change the "
+"number of cached results (default is 50). Be aware that increasing these "
+"numbers will result in higher RAM consumption.</p>"
+msgstr ""
+"<p>Com esse recurso habilitado, os resultados de consultas grandes são "
+"armazenados em cache no banco de dados. Repetir consultas que exigem muitos "
+"recursos, especialmente para histórias com centenas de capítulos, podem "
+"deixar o site lento e até mesmo causar timeouts. Armazená-las em cache "
+"normalmente leva a tempos de carregamento mais rápidos.</p><p>Você pode usar "
+"a constante <code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> para "
+"definir o que constitui um resultado de consulta grande (o padrão é 50) e a "
+"constante <code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> para alterar o "
+"número de resultados armazenados em cache (o padrão é 50). Esteja ciente de "
+"que aumentar esses números resultará em maior consumo de RAM.</p>"
+
+#: includes/functions/settings/_settings_page_general.php:785
+msgid ""
+"<p>With this feature enabled, the theme caches parts of the page that never "
+"change as static HTML files, pulling them up on subsequent requests to save "
+"resources. Unlike full caching, this only affects some modals, menus, and "
+"chapter contents. Use this only if cache plugins are not an option.</"
+"p><p>Plugins that change the content of chapters may not work without "
+"further adjustments. If you need to apply dynamic chapters content, which "
+"are only refreshed on update or when the cache expires, you can still do so "
+"with the <code>fictioneer_filter_static_content</code> filter.</"
+"p><p>Administrators can disable the content caching per chapter.</p>"
+msgstr ""
+"<p>Com esse recurso habilitado, o tema armazena em cache partes da página "
+"que nunca mudam como arquivos HTML estáticos,carregando-os em solicitações "
+"subsequentes para economizar recursos. Ao contrário do cache completo, isso "
+"afeta apenas alguns modais, menus e conteúdos de capítulos. Use isso somente "
+"se os plugins de cache não forem uma opção.</p><p>Plugins que alteram o "
+"conteúdo dos capítulos podem não funcionar sem ajustes adicionais. Se você "
+"precisar aplicar conteúdo de capítulos dinâmicos, que são recarregados "
+"somente na atualização ou quando o cache expira, você ainda pode fazer isso "
+"com o filtro <code>fictioneer_filter_static_content</code>.</"
+"p><p>Administradores podem desabilitar o cache de conteúdo por capítulo.</p>"
+
 #: includes/functions/settings/_settings_page_general.php:639
 msgid ""
 "<p>With this feature enabled, users authenticated via Patreon OAuth can "
@@ -416,7 +415,7 @@ msgstr ""
 "semana, por padrão, após a qual precisam fazer login novamente para "
 "atualizar os dados de associação.</p><p>"
 
-#: includes/functions/settings/_settings_page_general.php:751
+#: includes/functions/settings/_settings_page_general.php:761
 #, php-format
 msgid ""
 "<p>With this feature enabled, users can click on a paragraph to engage the "
@@ -482,7 +481,7 @@ msgstr ""
 "salvando <strong>Configurações > Permalinks</strong> ao alternar essa "
 "configuração para evitar 404s.</p>"
 
-#: includes/functions/_utility.php:1897
+#: includes/functions/_utility.php:1907
 msgid ""
 "<span class=\"off\"><i class=\"fa-solid fa-caret-left\"></i></span><span "
 "class=\"on\">Previous</span>"
@@ -490,7 +489,7 @@ msgstr ""
 "<span class=\"off\"><i class=\"fa-solid fa-caret-left\"></i></span><span "
 "class=\"on\">Anterior</span>"
 
-#: includes/functions/_utility.php:1894
+#: includes/functions/_utility.php:1904
 msgid ""
 "<span class=\"on\">Next</span><span class=\"off\"><i class=\"fa-solid fa-"
 "caret-right\"></i></span>"
@@ -544,7 +543,7 @@ msgid_plural "<span>%s</span> <span>Comments</span>"
 msgstr[0] "<span>%s</span> <span>Comentário</span>"
 msgstr[1] "<span>%s</span> <span>Comentários</span>"
 
-#: includes/functions/settings/_settings_page_general.php:978
+#: includes/functions/settings/_settings_page_general.php:989
 #, php-format
 msgid ""
 "<span>Automatically moderate comments with</span> %s <span>reports</span>. "
@@ -563,18 +562,18 @@ msgstr ""
 "<span>Calcule o tempo de leitura com</span> %s <span>palavras por minuto.</"
 "span>"
 
-#: includes/functions/settings/_settings_page_general.php:966
+#: includes/functions/settings/_settings_page_general.php:977
 #, php-format
 msgid "<span>Enable comment editing for</span> %s <span>minute(s)</span>"
 msgstr ""
 "<span>Ativar a edição de comentários por</span> %s <span>minuto(s)</span>"
 
-#: includes/functions/settings/_settings_page_general.php:858
+#: includes/functions/settings/_settings_page_general.php:869
 #, php-format
 msgid "<span>Limit comments to</span> %s <span>link(s) or less</span>"
 msgstr "<span>Limite os comentários a</span> %s <span>link(s) ou menos</span>"
 
-#: includes/functions/settings/_settings_page_general.php:1227
+#: includes/functions/settings/_settings_page_general.php:1251
 #, php-format
 msgid ""
 "<span>Limit file uploads to</span> %s <span>MB or less for user roles with "
@@ -607,9 +606,9 @@ msgstr ""
 "<span>Use</span> %s <span>para formatos de datas curtas (<code>M j</code>).</"
 "span>"
 
-#: includes/functions/_setup-admin.php:1014
-#: includes/functions/_setup-admin.php:1032
-#: includes/functions/_setup-admin.php:1050
+#: includes/functions/_setup-admin.php:1010
+#: includes/functions/_setup-admin.php:1028
+#: includes/functions/_setup-admin.php:1046
 #, php-format
 msgid ""
 "<strong>%s</strong> could not be found or created in the <code>%s</code> "
@@ -618,9 +617,9 @@ msgstr ""
 "O <strong>%s</strong> não pôde ser encontrado ou criado no diretório "
 "<code>%s</code>."
 
-#: includes/functions/_setup-admin.php:1023
-#: includes/functions/_setup-admin.php:1041
-#: includes/functions/_setup-admin.php:1059
+#: includes/functions/_setup-admin.php:1019
+#: includes/functions/_setup-admin.php:1037
+#: includes/functions/_setup-admin.php:1055
 #, php-format
 msgid "<strong>%s</strong> file permissions are not 644."
 msgstr "As permissões de arquivo <strong>%s</strong> não são 644."
@@ -839,7 +838,7 @@ msgstr ""
 "<strong>Aviso:</strong> A história selecionada pertence a outro autor. Se "
 "você alterar a seleção, não poderá voltar atrás."
 
-#: includes/functions/comments/_comments_threads.php:593
+#: includes/functions/comments/_comments_threads.php:652
 #, php-format
 msgctxt "@mention in comment replies."
 msgid "@%s"
@@ -857,7 +856,7 @@ msgctxt "[Site] Feed"
 msgid "%s Feed"
 msgstr "%s Feed"
 
-#: includes/functions/settings/_settings_page_general.php:893
+#: includes/functions/settings/_settings_page_general.php:904
 #, php-format
 msgid ""
 "Accelerate comments by skipping most plugins. Requires the <a href=\"%s\" "
@@ -880,11 +879,11 @@ msgstr "Acesso Negado"
 msgid "Access denied."
 msgstr "Acesso negado."
 
-#: includes/functions/_utility.php:1865
+#: includes/functions/_utility.php:1875
 msgid "Account"
 msgstr "Conta"
 
-#: includes/functions/_setup-theme.php:1735
+#: includes/functions/_setup-theme.php:1784
 #: includes/functions/users/_admin-profile.php:805
 msgid "Account already linked to another profile."
 msgstr "Conta já ligada a outro perfil."
@@ -894,7 +893,7 @@ msgstr "Conta já ligada a outro perfil."
 msgid "Account Bindings"
 msgstr "Ligações da Conta"
 
-#: includes/functions/_setup-theme.php:1737
+#: includes/functions/_setup-theme.php:1786
 msgid "Account has been successfully linked."
 msgstr "A conta foi vinculada com sucesso."
 
@@ -907,7 +906,7 @@ msgstr ""
 msgid "Account page assignment"
 msgstr "Atribuição de página de conta"
 
-#: includes/functions/settings/_settings_page_general.php:1259
+#: includes/functions/settings/_settings_page_general.php:1283
 msgid "Active Known Cache Plugins"
 msgstr "Plug-ins de cache conhecidos ativos"
 
@@ -923,16 +922,16 @@ msgstr ""
 "Adicione um deslocamento em pixels ao contêiner principal, positivo ou "
 "negativo. Padrão 0."
 
-#: includes/functions/_setup-theme.php:1674
+#: includes/functions/_setup-theme.php:1723
 msgid "Add Chapter"
 msgstr "Novo Capítulo"
 
 #: includes/functions/settings/_register_settings.php:1048
-#: includes/functions/settings/_settings_page_general.php:1188
+#: includes/functions/settings/_settings_page_general.php:1210
 msgid "Add consent wrappers to embedded content"
 msgstr "Adicionar wrappers de consentimento ao conteúdo incorporado"
 
-#: includes/functions/settings/_settings_page_setup.php:120
+#: includes/functions/settings/_settings_page_setup.php:118
 msgid "Add consent wrappers to third-party embeds?"
 msgstr "Adicionar wrappers de consentimento a incorporações de terceiros?"
 
@@ -1018,7 +1017,7 @@ msgstr "Adição de gêneros padrão."
 msgid "Added default tags."
 msgstr "Adicionadas tags padrão."
 
-#: includes/functions/settings/_settings_page_general.php:1406
+#: includes/functions/settings/_settings_page_general.php:1430
 msgid "Additional options you most likely do not need."
 msgstr "Opções adicionais das quais você provavelmente não precisa."
 
@@ -1169,62 +1168,62 @@ msgctxt "Advanced search heading."
 msgid "Age Rating"
 msgstr "Classificação Indicativa"
 
-#: searchform.php:403
+#: searchform.php:393
 msgctxt "Advanced search heading."
 msgid "Author"
 msgstr "Autor"
 
-#: searchform.php:406
+#: searchform.php:396
 msgctxt "Advanced search heading."
 msgid "Authors"
 msgstr "Autores"
 
-#: searchform.php:387
+#: searchform.php:377
 msgctxt "Advanced search heading."
 msgid "Characters"
 msgstr "Personagens"
 
-#: searchform.php:439
+#: searchform.php:429
 msgctxt "Advanced search heading."
 msgid "Exclude Authors"
 msgstr "Excluir Autores"
 
-#: searchform.php:424
+#: searchform.php:414
 msgctxt "Advanced search heading."
 msgid "Exclude Characters"
 msgstr "Excluir Personagens"
 
-#: searchform.php:419
+#: searchform.php:409
 msgctxt "Advanced search heading."
 msgid "Exclude Fandoms"
 msgstr "Excluir Fandoms"
 
-#: searchform.php:414
+#: searchform.php:404
 msgctxt "Advanced search heading."
 msgid "Exclude Genres"
 msgstr "Excluir Gêneros"
 
-#: searchform.php:429
+#: searchform.php:419
 msgctxt "Advanced search heading."
 msgid "Exclude Tags"
 msgstr "Excluir Tags"
 
-#: searchform.php:434
+#: searchform.php:424
 msgctxt "Advanced search heading."
 msgid "Exclude Warnings"
 msgstr "Excluir Alertas"
 
-#: searchform.php:382
+#: searchform.php:372
 msgctxt "Advanced search heading."
 msgid "Fandoms"
 msgstr "Fandoms"
 
-#: searchform.php:377
+#: searchform.php:367
 msgctxt "Advanced search heading."
 msgid "Genres"
 msgstr "Gêneros"
 
-#: searchform.php:346
+#: searchform.php:336
 msgctxt "Advanced search heading."
 msgid "Match"
 msgstr "Buscar por"
@@ -1239,12 +1238,12 @@ msgctxt "Advanced search heading."
 msgid "Min Words"
 msgstr "Min. Palavras"
 
-#: searchform.php:364
+#: searchform.php:354
 msgctxt "Advanced search heading."
 msgid "Order"
 msgstr "Ordem"
 
-#: searchform.php:354
+#: searchform.php:344
 msgctxt "Advanced search heading."
 msgid "Sort"
 msgstr "Classificar"
@@ -1254,17 +1253,17 @@ msgctxt "Advanced search heading."
 msgid "Status"
 msgstr "Estado"
 
-#: searchform.php:392
+#: searchform.php:382
 msgctxt "Advanced search heading."
 msgid "Tags"
 msgstr "Tags"
 
-#: searchform.php:330
+#: searchform.php:320
 msgctxt "Advanced search heading."
 msgid "Type"
 msgstr "Tipo"
 
-#: searchform.php:397
+#: searchform.php:387
 msgctxt "Advanced search heading."
 msgid "Warnings"
 msgstr "Alertas"
@@ -1340,35 +1339,35 @@ msgctxt "Advanced search option."
 msgid "500,000 Words"
 msgstr "500.000 Palavras"
 
-#: searchform.php:169 searchform.php:224 searchform.php:231 searchform.php:239
-#: searchform.php:248 searchform.php:332
+#: searchform.php:159 searchform.php:214 searchform.php:221 searchform.php:229
+#: searchform.php:238 searchform.php:322
 #: includes/functions/hooks/_general_hooks.php:792
 #: includes/functions/hooks/_general_hooks.php:824
 msgctxt "Advanced search option."
 msgid "Any"
 msgstr "Qualquer"
 
-#: searchform.php:212 searchform.php:367
+#: searchform.php:202 searchform.php:357
 msgctxt "Advanced search option."
 msgid "Ascending"
 msgstr "Acendente"
 
-#: searchform.php:170 searchform.php:333
+#: searchform.php:160 searchform.php:323
 msgctxt "Advanced search option."
 msgid "Chapters"
 msgstr "Capítulos"
 
-#: searchform.php:173 searchform.php:339
+#: searchform.php:163 searchform.php:329
 msgctxt "Advanced search option."
 msgid "Collections"
 msgstr "Coleções"
 
-#: searchform.php:211 searchform.php:366
+#: searchform.php:201 searchform.php:356
 msgctxt "Advanced search option."
 msgid "Descending"
 msgstr "Desendente"
 
-#: searchform.php:185 searchform.php:348
+#: searchform.php:175 searchform.php:338
 msgctxt "Advanced search option."
 msgid "Keywords"
 msgstr "Palavras-Chave"
@@ -1383,47 +1382,47 @@ msgctxt "Advanced search option."
 msgid "Minimum"
 msgstr "Mínimo"
 
-#: searchform.php:186 searchform.php:349
+#: searchform.php:176 searchform.php:339
 msgctxt "Advanced search option."
 msgid "Phrase"
 msgstr "Frase"
 
-#: searchform.php:174 searchform.php:341
+#: searchform.php:164 searchform.php:331
 msgctxt "Advanced search option."
 msgid "Posts"
 msgstr "Posts"
 
-#: searchform.php:198 searchform.php:357
+#: searchform.php:188 searchform.php:347
 msgctxt "Advanced search option."
 msgid "Published"
 msgstr "Publicado"
 
-#: searchform.php:172 searchform.php:336
+#: searchform.php:162 searchform.php:326
 msgctxt "Advanced search option."
 msgid "Recommendations"
 msgstr "Rocomendações"
 
-#: searchform.php:197 searchform.php:356
+#: searchform.php:187 searchform.php:346
 msgctxt "Advanced search option."
 msgid "Relevance"
 msgstr "Importancia"
 
-#: searchform.php:171 searchform.php:334
+#: searchform.php:161 searchform.php:324
 msgctxt "Advanced search option."
 msgid "Stories"
 msgstr "Histórias"
 
-#: searchform.php:200 searchform.php:359
+#: searchform.php:190 searchform.php:349
 msgctxt "Advanced search option."
 msgid "Title"
 msgstr "Título"
 
-#: searchform.php:199 searchform.php:358
+#: searchform.php:189 searchform.php:348
 msgctxt "Advanced search option."
 msgid "Updated"
 msgstr "Atualizado"
 
-#: searchform.php:404
+#: searchform.php:394
 msgctxt "Advanced search placeholder."
 msgid "Search for an author"
 msgstr "Pesquisar por autor"
@@ -1433,147 +1432,147 @@ msgctxt "Advanced search placeholder."
 msgid "Search keywords or phrase"
 msgstr "Pesquisar palavra-chave ou frase"
 
-#: searchform.php:165 searchform.php:445
+#: searchform.php:155 searchform.php:435
 msgctxt "Advanced search reset button."
 msgid "Reset"
 msgstr "Limpar"
 
-#: searchform.php:164 searchform.php:445
+#: searchform.php:154 searchform.php:435
 msgctxt "Advanced search reset message."
 msgid "Search form reset."
 msgstr "Formulário de busca limpo."
 
-#: searchform.php:448
+#: searchform.php:438
 msgctxt "Advanced search submit."
 msgid "Search"
 msgstr "Pesquisar"
 
-#: searchform.php:282
+#: searchform.php:272
 msgctxt "Advanced search summary AND operation note."
 msgid "[&] "
 msgstr "[&] "
 
-#: searchform.php:262
+#: searchform.php:252
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sAuthor:"
 msgstr "%sAuthor:"
 
-#: searchform.php:261
+#: searchform.php:251
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sAuthors:"
 msgstr "%sAutores:"
 
-#: searchform.php:258
+#: searchform.php:248
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sCharacters:"
 msgstr "%sPersonagens:"
 
-#: searchform.php:268
+#: searchform.php:258
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sExcluded Authors:"
 msgstr "%sAutores Excluídos:"
 
-#: searchform.php:265
+#: searchform.php:255
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sExcluded Characters:"
 msgstr "%sPersonagens Excluídos:"
 
-#: searchform.php:264
+#: searchform.php:254
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sExcluded Fandoms:"
 msgstr "%sFandoms Excluídos:"
 
-#: searchform.php:263
+#: searchform.php:253
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sExcluded Genres:"
 msgstr "%sGêneros Excluídos:"
 
-#: searchform.php:266
+#: searchform.php:256
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sExcluded Warnings:"
 msgstr "%sAlertas Excluídos:"
 
-#: searchform.php:257
+#: searchform.php:247
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sFandoms:"
 msgstr "%sFandoms:"
 
-#: searchform.php:256
+#: searchform.php:246
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sGenres:"
 msgstr "%sGêneros:"
 
-#: searchform.php:260
+#: searchform.php:250
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sTags:"
 msgstr "%sTags:"
 
-#: searchform.php:259
+#: searchform.php:249
 #, php-format
 msgctxt "Advanced search summary."
 msgid "%sWarnings:"
 msgstr "%sAlertas:"
 
-#: searchform.php:223
+#: searchform.php:213
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Age Rating:</b> <span>%s</span>"
 msgstr "<b>Classificação Indicativa:</b> <span>%s</span>"
 
-#: searchform.php:190
+#: searchform.php:180
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Match:</b> <span>%s</span>"
 msgstr "<b>Correspondência:</b> <span>%s</span>"
 
-#: searchform.php:247
+#: searchform.php:237
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Max Words:</b> <span>%s</span>"
 msgstr "<b>Máx. de Palavras:</b> <span>%s</span>"
 
-#: searchform.php:238
+#: searchform.php:228
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Min Words:</b> <span>%s</span>"
 msgstr "<b>Mín. de Palavras:</b> <span>%s</span>"
 
-#: searchform.php:216
+#: searchform.php:206
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Order:</b> <span>%s</span>"
 msgstr "<b>Classificação:</b> <span>%s</span>"
 
-#: searchform.php:204
+#: searchform.php:194
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Sort:</b> <span>%s</span>"
 msgstr "<b>Ordenar:</b> <span>%s</span>"
 
-#: searchform.php:230
+#: searchform.php:220
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Status:</b> <span>%s</span>"
 msgstr "<b>Estado:</b> <span>%s</span>"
 
-#: searchform.php:178
+#: searchform.php:168
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Type:</b> <span>%s</span>"
 msgstr "<b>Tipo:</b> <span>%s</span>"
 
-#: searchform.php:149
+#: searchform.php:139
 msgctxt "Advanced search toggle."
 msgid "Advanced"
 msgstr "Avançado"
@@ -1613,43 +1612,43 @@ msgid "Age Confirmation Modal: Site"
 msgstr "Modal de confirmação de idade: Site"
 
 # Classificação indicativa. A para Adulto.
-#: includes/functions/_utility.php:1909
+#: includes/functions/_utility.php:1919
 msgctxt "Age rating A for Adult."
 msgid "A"
 msgstr "A"
 
-#: includes/functions/_utility.php:1913
+#: includes/functions/_utility.php:1923
 msgctxt "Age rating Adult."
 msgid "Adult"
 msgstr "Adulto"
 
 # Classificação indicativa para Livre
-#: includes/functions/_utility.php:1906
+#: includes/functions/_utility.php:1916
 msgctxt "Age rating E for Everyone."
 msgid "E"
 msgstr "L"
 
-#: includes/functions/_utility.php:1910
+#: includes/functions/_utility.php:1920
 msgctxt "Age rating Everyone."
 msgid "Everyone"
 msgstr "Livre"
 
-#: includes/functions/_utility.php:1908
+#: includes/functions/_utility.php:1918
 msgctxt "Age rating M for Mature."
 msgid "M"
 msgstr "M"
 
-#: includes/functions/_utility.php:1912
+#: includes/functions/_utility.php:1922
 msgctxt "Age rating Mature."
 msgid "Mature"
 msgstr "Maduro"
 
-#: includes/functions/_utility.php:1907
+#: includes/functions/_utility.php:1917
 msgctxt "Age rating T for Teen."
 msgid "T"
 msgstr "T"
 
-#: includes/functions/_utility.php:1911
+#: includes/functions/_utility.php:1921
 msgctxt "Age rating Teen."
 msgid "Teen"
 msgstr "Adolescente"
@@ -1742,7 +1741,7 @@ msgid "All unused tags have been removed."
 msgstr "Todas as etiquetas não utilizadas foram removidas."
 
 #: includes/functions/settings/_register_settings.php:1164
-#: includes/functions/settings/_settings_page_general.php:1269
+#: includes/functions/settings/_settings_page_general.php:1293
 msgid "Allow REST requests to trigger save actions"
 msgstr "Permitir que as solicitações REST acionem ações de salvamento"
 
@@ -1797,7 +1796,7 @@ msgstr ""
 msgid "Always hold comments for moderation"
 msgstr "Sempre mantenha os comentários para moderação"
 
-#: includes/functions/settings/_settings_page_general.php:935
+#: includes/functions/settings/_settings_page_general.php:946
 msgid "Always on top of the first page."
 msgstr "Sempre no topo da primeira página."
 
@@ -1819,7 +1818,7 @@ msgstr "Sempre use o gravatar"
 msgid "Anonymous"
 msgstr "Anônimo"
 
-#: includes/functions/_utility.php:1868
+#: includes/functions/_utility.php:1878
 msgid "Anonymous Guest"
 msgstr "Anônimo Convidado"
 
@@ -1892,7 +1891,7 @@ msgstr "Arquivo de todas as postagens com a tag %s."
 #: includes/functions/_module-seo.php:461
 #, php-format
 msgid "Archive of all posts with the character %s."
-msgstr "Arquivo de todas as postagens com o caractere %s."
+msgstr "Arquivo de todas as postagens com o ersonagem %s."
 
 #: includes/functions/_module-seo.php:488
 #, php-format
@@ -1912,7 +1911,7 @@ msgstr ""
 msgid "Are you sure you want to delete all ePUBs?"
 msgstr "Tem certeza de que deseja excluir todos os ePUBs?"
 
-#: includes/functions/comments/_comments_threads.php:758
+#: includes/functions/comments/_comments_threads.php:343
 #, php-format
 msgid "Are you sure you want to delete your comment? Enter %s to confirm."
 msgstr ""
@@ -1927,7 +1926,7 @@ msgstr ""
 "Tem certeza de que deseja remover a função %s? Todos os titulares atuais se "
 "tornarão Subscribers. Digite %s para confirmar."
 
-#: includes/functions/_setup-theme.php:1358
+#: includes/functions/_setup-theme.php:1407
 msgid "Are you sure?"
 msgstr "Tem certeza?"
 
@@ -2008,7 +2007,7 @@ msgstr ""
 "Tem certeza? Sua conta será excluída de forma irrevogável, embora isso não "
 "remova seus comentários. Digite %s para confirmar."
 
-#: includes/functions/settings/_settings_page_general.php:915
+#: includes/functions/settings/_settings_page_general.php:926
 msgid "Assign custom badges (but users can disable them)."
 msgstr "Atribuir crachás personalizados (mas os usuários podem desativá-los)."
 
@@ -2020,6 +2019,16 @@ msgstr "Autor"
 msgid "Author capabilities have been updated."
 msgstr "Os recursos de autor foram atualizados."
 
+#. Name of the template
+#: singular-authors.php:2
+msgid "Author Index"
+msgstr "Índice de Autores"
+
+#. Name of the template
+#: singular-authors-advanced.php:2
+msgid "Author Index (Advanced)"
+msgstr "Índice de Autores (avançado)"
+
 #: includes/functions/users/_admin-profile.php:1877
 msgid "Author Page"
 msgstr "Página do autor"
@@ -2028,7 +2037,7 @@ msgstr "Página do autor"
 msgid "Automatic moderation report threshold"
 msgstr "Limite do relatório de moderação automática"
 
-#: includes/functions/settings/_settings_page_general.php:764
+#: includes/functions/settings/_settings_page_general.php:774
 msgid ""
 "Automatically generated ePUBs. Can take a while and may fail due to non-"
 "conform content or excessive size. You can alternatively upload manually "
@@ -2042,7 +2051,7 @@ msgstr ""
 msgid "Avatar capability disabled."
 msgstr "Recurso de avatar desativado."
 
-#: includes/functions/comments/_comments_threads.php:725
+#: includes/functions/comments/_comments_threads.php:784
 msgid "Awaiting moderation."
 msgstr "Aguardando moderação."
 
@@ -2117,7 +2126,7 @@ msgstr "Acento primário básico e cor do link de conteúdo."
 msgid "Base success and confirmation color."
 msgstr "Sucesso da base e cor de confirmação."
 
-#: includes/functions/_utility.php:1927
+#: includes/functions/_utility.php:1937
 msgctxt "BBCode example."
 msgid ""
 "<blockquote><code>[quote]</code>… me like my landlord!<code>[/quote]</code></"
@@ -2126,7 +2135,7 @@ msgstr ""
 "<blockquote><code>[quote]</code>… sou como meu senhorio!<code>[/quote]</"
 "code></blockquote>"
 
-#: includes/functions/_utility.php:1930
+#: includes/functions/_utility.php:1940
 msgctxt "BBCode example."
 msgid ""
 "<code>[del]</code><del>Delete</del><code>[/del]</code> your browser history!"
@@ -2134,20 +2143,20 @@ msgstr ""
 "<code>[del]</code><del>Delete</del><code>[/del]</code> o histórico do "
 "navegador!"
 
-#: includes/functions/_utility.php:1924
+#: includes/functions/_utility.php:1934
 #, php-format
 msgctxt "BBCode example."
 msgid "<code>[img]</code>https://www.agine.this<code>[/img]</code> %s"
 msgstr "<code>[img]</code>https://www.agine.this<code>[/img]</code> %s"
 
-#: includes/functions/_utility.php:1929
+#: includes/functions/_utility.php:1939
 msgctxt "BBCode example."
 msgid "<code>[ins]</code><ins>Insert</ins><code>[/ins]</code> more bad puns!"
 msgstr ""
 "<code>[ins]</code><ins>Insira</ins><code>[/ins]</code> mais trocadilhos "
 "ruins!"
 
-#: includes/functions/_utility.php:1926
+#: includes/functions/_utility.php:1936
 msgctxt "BBCode example."
 msgid ""
 "<code>[link=https://www.n.ot]</code><a href=\"http://topwebfiction.com/\" "
@@ -2156,7 +2165,7 @@ msgstr ""
 "<code>[link=https://www.n.ot]</code><a href=\"http://topwebfiction.com/\" "
 "class=\"link\">clickbait</a><code>[/link]</code>."
 
-#: includes/functions/_utility.php:1925
+#: includes/functions/_utility.php:1935
 msgctxt "BBCode example."
 msgid ""
 "<code>[link]</code><a href=\"http://topwebfiction.com/\" target=\"_blank\" "
@@ -2165,7 +2174,7 @@ msgstr ""
 "<code>[link]</code><a href=\"http://topwebfiction.com/\" target=\"_blank\" "
 "class=\"link\">http://topwebfiction.com</a><code>[/link]</code>."
 
-#: includes/functions/_utility.php:1928
+#: includes/functions/_utility.php:1938
 msgctxt "BBCode example."
 msgid ""
 "<code>[spoiler]</code><span class=\"spoiler\">Spanish Inquisition!</"
@@ -2174,7 +2183,7 @@ msgstr ""
 "<code>[spoiler]</code><span class=\"spoiler\">Inquisição Espanhola!</"
 "span><code>[/spoiler]</code>"
 
-#: includes/functions/settings/_settings_page_general.php:1281
+#: includes/functions/settings/_settings_page_general.php:1305
 msgid ""
 "Becomes <code>/story/story-slug/chapter-slug[-n]</code>. You must flush your "
 "permalinks and purge the theme caches."
@@ -2192,7 +2201,7 @@ msgctxt "Blog card label."
 msgid "Page"
 msgstr "Página"
 
-#: includes/functions/_utility.php:1871
+#: includes/functions/_utility.php:1881
 msgctxt "Blog page name, mainly used in breadcrumbs."
 msgid "Blog"
 msgstr "Blog"
@@ -2201,12 +2210,12 @@ msgstr "Blog"
 msgid "Blog Posts"
 msgstr "Publicações do blog"
 
-#: includes/functions/_utility.php:1902
+#: includes/functions/_utility.php:1912
 msgctxt "Blog tab of the story."
 msgid "Blog"
 msgstr "Blog"
 
-#: includes/functions/_utility.php:1872
+#: includes/functions/_utility.php:1882
 msgid "Bookmark"
 msgstr "Marcador"
 
@@ -2215,7 +2224,7 @@ msgid "Bookmark paragraphs in chapters. No account needed."
 msgstr "Marque parágrafos em capítulos. Não é necessário ter uma conta."
 
 #. Name of the template
-#: singular-bookmarks.php:2 includes/functions/_utility.php:1873
+#: singular-bookmarks.php:2 includes/functions/_utility.php:1883
 msgid "Bookmarks"
 msgstr "Marcadores"
 
@@ -2241,7 +2250,7 @@ msgstr "Os marcadores foram apagados com sucesso."
 
 #. Name of the template
 #: singular-bookshelf.php:2 singular-bookshelf.php:107
-#: singular-bookshelf-ajax.php:97 includes/functions/_utility.php:1866
+#: singular-bookshelf-ajax.php:97 includes/functions/_utility.php:1876
 msgid "Bookshelf"
 msgstr "Estante de livros"
 
@@ -2287,12 +2296,12 @@ msgid "Brighten"
 msgstr "Iluminar"
 
 #: includes/functions/settings/_register_settings.php:1043
-#: includes/functions/settings/_settings_page_general.php:1062
+#: includes/functions/settings/_settings_page_general.php:1073
 msgid "Bundle CSS files into one"
 msgstr "Agrupar arquivos CSS em um só"
 
 #: includes/functions/settings/_register_settings.php:1044
-#: includes/functions/settings/_settings_page_general.php:1073
+#: includes/functions/settings/_settings_page_general.php:1084
 msgid "Bundle JavaScript files into one"
 msgstr "Agrupe arquivos JavaScript em um único arquivo"
 
@@ -2305,7 +2314,7 @@ msgstr "Compre um café para mim no <strong>Ko-fi</strong>"
 msgid "By <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Tetrakern</a>"
 msgstr "Por <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Tetrakern</a>"
 
-#: includes/functions/settings/_settings_page_setup.php:187
+#: includes/functions/settings/_settings_page_setup.php:185
 #, php-format
 msgid ""
 "By default, newly installed WordPress sites display the blog index as the "
@@ -2322,7 +2331,7 @@ msgstr ""
 "quiser replicar o layout do site de demonstração, o processo é explicado no "
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">guia de instalação</a>."
 
-#: includes/functions/settings/_settings_page_general.php:1023
+#: includes/functions/settings/_settings_page_general.php:1034
 msgid ""
 "By default, WordPress adds many tags of dubious utility to the site’s head. "
 "Not only does this needlessly impact performance, but it may also leave your "
@@ -2336,7 +2345,7 @@ msgstr ""
 "remove o link RSD (para clientes de blog), o wlwmanifest.xml (para o Windows "
 "Live Writer) e a tag generator (número da versão)."
 
-#: includes/functions/settings/_settings_page_general.php:774
+#: includes/functions/settings/_settings_page_general.php:784
 msgid ""
 "Caches parts of the page as static HTML files to speed up loading. Do not "
 "use this together with a cache plugin."
@@ -2344,7 +2353,7 @@ msgstr ""
 "Armazena em cache partes da página como arquivos HTML estáticos para "
 "acelerar o carregamento. Não use isso junto com um plug-in de cache."
 
-#: includes/functions/settings/_settings_page_general.php:800
+#: includes/functions/settings/_settings_page_general.php:810
 #, php-format
 msgid ""
 "Caches the latest %d query results with %s or more posts in the database to "
@@ -2353,7 +2362,7 @@ msgstr ""
 "Armazena em cache os últimos resultados da consulta %d com %s ou mais posts "
 "no banco de dados para acelerar o carregamento."
 
-#: includes/functions/settings/_settings_page_general.php:786
+#: includes/functions/settings/_settings_page_general.php:796
 msgid ""
 "Caches the latest %d story cards in the database to speed up loading. May or "
 "may not work with cache plugins."
@@ -2366,7 +2375,7 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancel"
 
-#: includes/functions/_utility.php:1918
+#: includes/functions/_utility.php:1928
 msgctxt "Canceled story status"
 msgid "Canceled"
 msgstr "Cancelado"
@@ -3041,17 +3050,17 @@ msgctxt "Capability translation"
 msgid "Upload Restrictions"
 msgstr "Restrições de upload"
 
-#: includes/functions/_utility.php:1867
+#: includes/functions/_utility.php:1877
 msgctxt "Caption for administrator badge label."
 msgid "Admin"
 msgstr "Admin"
 
-#: includes/functions/_utility.php:1869
+#: includes/functions/_utility.php:1879
 msgctxt "Caption for author badge label."
 msgid "Author"
 msgstr "Autor"
 
-#: includes/functions/_utility.php:1893
+#: includes/functions/_utility.php:1903
 msgctxt "Caption for moderator badge label"
 msgid "Mod"
 msgstr "Mod"
@@ -3150,20 +3159,6 @@ msgstr ""
 #: partials/_modal-chapter-changelog.php:31
 msgid "Changelog"
 msgstr "Registro de alterações"
-
-#: includes/functions/settings/_settings_page_general.php:1282
-msgid ""
-"Changes the permalinks of chapters to include the story. This allows for "
-"more readable and descriptive URLs. Chapter slugs are still kept globally "
-"unique — meaning multiple \"Chapter N\" titles will end up as \"chapter-n-"
-"x\" slugs — and the post editor will continue to display the default "
-"permalink structure for technical reasons."
-msgstr ""
-"Altera os permalinks dos capítulos para incluir a história. Isso permite "
-"URLs mais legíveis e descritivos. Os slugs de capítulo ainda são mantidos "
-"globalmente exclusivos, o que significa que vários títulos \"Capítulo N\" "
-"terminarão como slugs \"capítulo-n-x\", e o editor de postagens continuará a "
-"exibir a estrutura de permalink padrão por motivos técnicos."
 
 #: includes/functions/_setup-types-and-terms.php:186
 #: includes/functions/_setup-types-and-terms.php:212
@@ -3282,57 +3277,57 @@ msgstr "Imagem da capa do capítulo"
 msgid "Chapter Data"
 msgstr "Dados do capítulo"
 
-#: includes/functions/_utility.php:2348
+#: includes/functions/_utility.php:2358
 msgctxt "Chapter font color name."
 msgid "Baseline"
 msgstr "Básico"
 
-#: includes/functions/_utility.php:2357
+#: includes/functions/_utility.php:2367
 msgctxt "Chapter font color name."
 msgid "Black"
 msgstr "Preto"
 
-#: includes/functions/_utility.php:2356
+#: includes/functions/_utility.php:2366
 msgctxt "Chapter font color name."
 msgid "Gray"
 msgstr "Cinza"
 
-#: includes/functions/_utility.php:2352
+#: includes/functions/_utility.php:2362
 msgctxt "Chapter font color name."
 msgid "High"
 msgstr "Alta"
 
-#: includes/functions/_utility.php:2353
+#: includes/functions/_utility.php:2363
 msgctxt "Chapter font color name."
 msgid "Higher"
 msgstr "Mais Alto"
 
-#: includes/functions/_utility.php:2354
+#: includes/functions/_utility.php:2364
 msgctxt "Chapter font color name."
 msgid "Highest"
 msgstr "Ainda Mais Alto"
 
-#: includes/functions/_utility.php:2349
+#: includes/functions/_utility.php:2359
 msgctxt "Chapter font color name."
 msgid "Low"
 msgstr "Baixo"
 
-#: includes/functions/_utility.php:2350
+#: includes/functions/_utility.php:2360
 msgctxt "Chapter font color name."
 msgid "Lower"
 msgstr "Mais Baixo"
 
-#: includes/functions/_utility.php:2351
+#: includes/functions/_utility.php:2361
 msgctxt "Chapter font color name."
 msgid "Lowest"
 msgstr "Ainda Mais Baixo"
 
-#: includes/functions/_utility.php:2347
+#: includes/functions/_utility.php:2357
 msgctxt "Chapter font color name."
 msgid "Tinted"
 msgstr "Colorido"
 
-#: includes/functions/_utility.php:2355
+#: includes/functions/_utility.php:2365
 msgctxt "Chapter font color name."
 msgid "White"
 msgstr "Branco"
@@ -3342,7 +3337,7 @@ msgctxt "Chapter foreword meta field label."
 msgid "Foreword"
 msgstr "Prefácio"
 
-#: includes/functions/_utility.php:1880
+#: includes/functions/_utility.php:1890
 msgctxt "Chapter formatting modal heading."
 msgid "Formatting"
 msgstr "Formatação"
@@ -3366,17 +3361,17 @@ msgctxt "Chapter icon meta field label."
 msgid "Icon"
 msgstr "Ícone"
 
-#: includes/functions/_utility.php:1937
+#: includes/functions/_utility.php:1947
 msgctxt "Chapter list status prefix."
 msgid "Private:"
 msgstr "Privado:"
 
-#: includes/functions/_utility.php:1935
+#: includes/functions/_utility.php:1945
 msgctxt "Chapter list status prefix."
 msgid "Scheduled:"
 msgstr "Agendado:"
 
-#: includes/functions/_utility.php:1936
+#: includes/functions/_utility.php:1946
 msgctxt "Chapter list status prefix."
 msgid "Trashed:"
 msgstr "Na lixeira:"
@@ -3500,7 +3495,7 @@ msgstr "Lista de capítulos"
 msgid "Chapters list navigation"
 msgstr "Navegação na lista de capítulos"
 
-#: includes/functions/_utility.php:1904
+#: includes/functions/_utility.php:1914
 msgctxt "Chapters not assigned to group."
 msgid "Unassigned"
 msgstr "Não Atribuído"
@@ -3517,7 +3512,7 @@ msgstr "Atribuição de páginas de capítulos"
 msgid "Characters"
 msgstr "Personagens"
 
-#: includes/functions/settings/_settings_page_general.php:1448
+#: includes/functions/settings/_settings_page_general.php:1472
 msgid ""
 "Check for user login state after the page has been loaded to get around "
 "anonymizing caching strategies."
@@ -3533,7 +3528,7 @@ msgstr "Marcas de verificação"
 msgid "Checkmarks could not be cleared."
 msgstr "As marcas de seleção não puderam ser apagadas."
 
-#: includes/functions/_setup-theme.php:1727
+#: includes/functions/_setup-theme.php:1776
 msgid "Checkmarks re-synchronized."
 msgstr "Marcas de verificação ressincronizadas."
 
@@ -3545,7 +3540,7 @@ msgstr "Marcas de verificação apagadas com sucesso."
 msgid "Child comments cannot be sticky."
 msgstr "Os comentários filhos não podem ser fixos."
 
-#: includes/functions/settings/_settings_page_setup.php:155
+#: includes/functions/settings/_settings_page_setup.php:153
 #, php-format
 msgid ""
 "Child themes allow you to overwrite any part of the parent theme without "
@@ -3661,7 +3656,7 @@ msgid "Click to log out"
 msgstr "Clique para fazer logout"
 
 #: includes/functions/_setup-admin.php:647
-#: includes/functions/settings/_settings_page_general.php:1626
+#: includes/functions/settings/_settings_page_general.php:1650
 #: includes/functions/settings/_settings_page_seo.php:221
 #: includes/functions/comments/_comments_moderation.php:461
 msgid "Close"
@@ -3813,7 +3808,7 @@ msgstr ""
 "Esquema de cores para o modo light. Se você quiser adicionar CSS "
 "personalizado, isso precisa estar em <code>:root[data-mode=\"light\"]</code>."
 
-#: includes/functions/settings/_settings_page_general.php:1240
+#: includes/functions/settings/_settings_page_general.php:1264
 #, php-format
 msgid ""
 "Comma-separated list of allowed <a href=\"%s\" target=\"_blank\" "
@@ -3862,7 +3857,7 @@ msgctxt "Comment edit history."
 msgid "Edit History (Previous Versions):"
 msgstr "Histórico de edição (versões anteriores):"
 
-#: includes/functions/comments/_comments_threads.php:651
+#: includes/functions/comments/_comments_threads.php:710
 #, php-format
 msgctxt "Comment edited by {user}."
 msgid " by %s."
@@ -3877,7 +3872,7 @@ msgstr "Recurso de edição de comentários desativado."
 msgid "Comment Flags:"
 msgstr "Sinalizadores de comentários:"
 
-#: includes/functions/_utility.php:1934
+#: includes/functions/_utility.php:1944
 msgctxt "Comment form cookie checkbox."
 msgid "Save in cookie for next time."
 msgstr "Salvar em cookie para a próxima vez."
@@ -3891,7 +3886,7 @@ msgctxt "Comment form email notification toggle."
 msgid "Toggle to get email notifications about direct replies."
 msgstr "Marque para receber notificações de respostas por e-mail."
 
-#: includes/functions/_utility.php:1932
+#: includes/functions/_utility.php:1942
 #, php-format
 msgctxt "Comment form logged-in note."
 msgid ""
@@ -3901,12 +3896,12 @@ msgstr ""
 "<span>Logado como <strong><a href=\"%1$s\">%2$s</a></strong>. <a "
 "class=\"logout-link\" href=\"%3$s\" data-click=\"logout\">Logout?</a></span>"
 
-#: includes/functions/_utility.php:1931
+#: includes/functions/_utility.php:1941
 msgctxt "Comment form login note."
 msgid "Enter your details or log in with:"
 msgstr "Digite seus detalhes ou faça login com:"
 
-#: includes/functions/_utility.php:1933
+#: includes/functions/_utility.php:1943
 #, php-format
 msgctxt "Comment form privacy checkbox."
 msgid ""
@@ -3927,20 +3922,20 @@ msgstr ""
 #: includes/functions/comments/_story_comments.php:236
 #: includes/functions/comments/_comments_ajax.php:622
 #: includes/functions/comments/_comments_ajax.php:638
-#: includes/functions/comments/_comments_threads.php:551
+#: includes/functions/comments/_comments_threads.php:610
 msgid "Comment has been deleted by user."
 msgstr "O comentário foi excluído pelo usuário."
 
-#: includes/functions/comments/_comments_threads.php:529
+#: includes/functions/comments/_comments_threads.php:588
 msgid "Comment has been marked as offensive."
 msgstr "O comentário foi marcado como ofensivo."
 
 #: includes/functions/comments/_story_comments.php:37
-#: includes/functions/comments/_comments_threads.php:509
+#: includes/functions/comments/_comments_threads.php:568
 msgid "Comment has been marked as private."
 msgstr "O comentário foi marcado como privado."
 
-#: includes/functions/_utility.php:2188 includes/functions/_utility.php:2189
+#: includes/functions/_utility.php:2198 includes/functions/_utility.php:2199
 msgctxt "Comment image consent wrapper button."
 msgid "<i class=\"fa-solid fa-image\"></i> Show Image"
 msgstr "<i class=\"fa-solid fa-image\"></i> Mostrar imagem"
@@ -3957,7 +3952,7 @@ msgid "Submit Changes"
 msgstr "Enviar Mudanças"
 
 #: includes/functions/comments/_story_comments.php:250
-#: includes/functions/comments/_comments_threads.php:539
+#: includes/functions/comments/_comments_threads.php:598
 msgid "Comment is hidden due to negative reports."
 msgstr "O comentário está oculto devido a relatórios negativos."
 
@@ -3967,7 +3962,7 @@ msgctxt "Comment last edited by user on [datetime]."
 msgid "Last edited on %s."
 msgstr "Última edição em %s."
 
-#: includes/functions/comments/_comments_threads.php:641
+#: includes/functions/comments/_comments_threads.php:700
 #, php-format
 msgctxt "Comment last edited by user on {datetime}{end}"
 msgid "Last edited on %s%s"
@@ -4041,8 +4036,8 @@ msgstr "O tópico de comentários está fechado."
 #: includes/functions/comments/_story_comments.php:60
 #: includes/functions/comments/_comments_controller.php:389
 #: includes/functions/comments/_comments_ajax.php:553
-#: includes/functions/comments/_comments_threads.php:602
-#: includes/functions/comments/_comments_threads.php:644
+#: includes/functions/comments/_comments_threads.php:661
+#: includes/functions/comments/_comments_threads.php:703
 #, php-format
 msgctxt "Comment time format string."
 msgid "%1$s \\a\\t %2$s"
@@ -4069,7 +4064,7 @@ msgstr "Os comentários estão desativados."
 #: partials/_collection-statistics.php:47 partials/_card-post.php:114
 #: partials/_latest-chapters.php:322 partials/_card-chapter.php:261
 #: partials/account/_data.php:119
-#: includes/functions/settings/_settings_page_general.php:815
+#: includes/functions/settings/_settings_page_general.php:825
 #: includes/functions/hooks/_story_hooks.php:41
 msgid "Comments"
 msgstr "Comentários"
@@ -4110,11 +4105,11 @@ msgstr ""
 "compactos do que a configuração geral do WordPress. O espaço é um problema "
 "aqui."
 
-#: includes/functions/settings/_settings_page_general.php:1251
+#: includes/functions/settings/_settings_page_general.php:1275
 msgid "Compatibility"
 msgstr "Compatibilidade"
 
-#: includes/functions/_utility.php:1914
+#: includes/functions/_utility.php:1924
 msgctxt "Completed story status."
 msgid "Completed"
 msgstr "Concluído"
@@ -4225,18 +4220,20 @@ msgstr "Largura do conteúdo"
 msgid "Contributor capabilities have been updated."
 msgstr "Os recursos do colaborador foram atualizados."
 
-#: includes/functions/settings/_settings_page_setup.php:127
+#: includes/functions/settings/_settings_page_general.php:1234
+#: includes/functions/settings/_settings_page_setup.php:125
 msgid ""
 "Cookie banners are often necessary to comply with data privacy laws and meet "
-"visitor expectations; it is better to be safe than sorry, even if the theme "
-"does not require one in its base configuration. Developers can also use the "
-"<code>fictioneer_get_consent()</code> function to comply with regulations."
+"visitor expectations. It is better to be safe than sorry, even if the theme "
+"does not require one in its base configuration. Enabling this also activates "
+"the <code>fictioneer_get_consent()</code> function, which returns either "
+"<code>false</code>, <code>\"necessary\"</code>, or <code>\"full\"</code>."
 msgstr ""
 "Os banners de cookies geralmente são necessários para cumprir as leis de "
-"privacidade de dados e atender às expectativas dos visitantes; é melhor "
+"privacidade de dados e atender às expectativas dos visitantes. É melhor "
 "prevenir do que remediar, mesmo que o tema não exija um em sua configuração "
-"básica. Os desenvolvedores também podem usar a função "
-"<code>fictioneer_get_consent()</code> para cumprir os regulamentos."
+"básica. Ativar isso também ativa a função <code>fictioneer_get_consent()</"
+"code> que retorna <code>false</code>,"
 
 #: includes/functions/settings/_settings_page_phrases.php:90
 msgid "Cookie Consent Banner"
@@ -4254,7 +4251,7 @@ msgstr ""
 "Os cookies e o armazenamento local foram apagados. Para mantê-lo assim, você "
 "deve sair do site."
 
-#: includes/functions/_setup-theme.php:1733
+#: includes/functions/_setup-theme.php:1782
 msgid "Copied to clipboard!"
 msgstr "Copiado para a área de transferência!"
 
@@ -4263,11 +4260,11 @@ msgstr "Copiado para a área de transferência!"
 msgid "Count characters instead of words"
 msgstr "Contar caracteres em vez de palavras"
 
-#: includes/functions/settings/_settings_page_setup.php:72
+#: includes/functions/settings/_settings_page_setup.php:70
 msgid "Count characters instead of words?"
 msgstr "Contar caracteres em vez de palavras?"
 
-#: includes/functions/settings/_settings_page_setup.php:73
+#: includes/functions/settings/_settings_page_setup.php:71
 msgid ""
 "Counting words does not work well for logographic writing systems, so you "
 "may want to count characters instead. You can further refine this count by "
@@ -4295,7 +4292,7 @@ msgstr "Capa de %s"
 msgid "Covers"
 msgstr "Capas"
 
-#: includes/functions/settings/_settings_page_general.php:826
+#: includes/functions/settings/_settings_page_general.php:836
 msgid ""
 "CSS selector for the comment form. Attempts to make scripts work with a "
 "comment plugin. Clear theme cache after updating."
@@ -4331,7 +4328,7 @@ msgstr "CSS de página personalizada"
 msgid "Custom Story CSS"
 msgstr "CSS de história personalizada"
 
-#: includes/functions/settings/_settings_page_general.php:739
+#: includes/functions/settings/_settings_page_general.php:749
 msgid ""
 "Customized sitemap for search engines to crawl. Respects unlisted flags and "
 "custom post types. Can be slow."
@@ -5076,7 +5073,7 @@ msgstr "%1$s \\e\\m %2$s"
 msgid "Datetime"
 msgstr "Data e hora"
 
-#: includes/functions/settings/_settings_page_general.php:1594
+#: includes/functions/settings/_settings_page_general.php:1618
 msgid "Deactivation (DANGER ZONE)"
 msgstr "Desativação (ZONA DE PERIGO)"
 
@@ -5135,7 +5132,7 @@ msgstr "Capa da história padrão"
 msgid "Default tags have been added to the list."
 msgstr "As tags padrão foram adicionadas à lista."
 
-#: includes/functions/settings/_settings_page_general.php:1074
+#: includes/functions/settings/_settings_page_general.php:1085
 msgid ""
 "Deferred script file that should be ignored by aggregation plugins to avoid "
 "errors (fictioneer/js/complete.min.js and fictioneer/cache/dynamic-scripts."
@@ -5168,7 +5165,7 @@ msgid "Delete All"
 msgstr "Excluir tudo"
 
 #: includes/functions/settings/_register_settings.php:1064
-#: includes/functions/settings/_settings_page_general.php:1601
+#: includes/functions/settings/_settings_page_general.php:1625
 msgid "Delete all settings and theme mods on deactivation"
 msgstr "Excluir todas as configurações e mods de tema na desativação"
 
@@ -5180,7 +5177,7 @@ msgstr "Excluir níveis"
 msgid "Deleted"
 msgstr "Eliminado"
 
-#: includes/functions/settings/_settings_loggers.php:642
+#: includes/functions/settings/_settings_loggers.php:679
 msgid "deleted"
 msgstr "excluído"
 
@@ -5201,7 +5198,7 @@ msgstr "Os comentários excluídos não podem ser fixados."
 msgid "Deleted global Patreon tiers."
 msgstr "Eliminação dos níveis globais do Patreon."
 
-#: includes/functions/_utility.php:1875
+#: includes/functions/_utility.php:1885
 msgid "Deleted User"
 msgstr "Usuário excluído"
 
@@ -5221,17 +5218,17 @@ msgid "Disable"
 msgstr "Desativar"
 
 #: includes/functions/settings/_register_settings.php:1080
-#: includes/functions/settings/_settings_page_general.php:1458
+#: includes/functions/settings/_settings_page_general.php:1482
 msgid "Disable advanced search"
 msgstr "Desativar a pesquisa avançada"
 
 #: includes/functions/settings/_register_settings.php:1086
-#: includes/functions/settings/_settings_page_general.php:1052
+#: includes/functions/settings/_settings_page_general.php:1063
 msgid "Disable all widgets"
 msgstr "Desativar todos os widgets"
 
 #: includes/functions/settings/_register_settings.php:1074
-#: includes/functions/settings/_settings_page_general.php:1168
+#: includes/functions/settings/_settings_page_general.php:1190
 msgid "Disable application passwords"
 msgstr "Desativar senhas de aplicativos"
 
@@ -5251,7 +5248,7 @@ msgid "Disable collapsing of chapters"
 msgstr "Desativar o recolhimento de capítulos"
 
 #: includes/functions/settings/_register_settings.php:1033
-#: includes/functions/settings/_settings_page_general.php:1468
+#: includes/functions/settings/_settings_page_general.php:1492
 msgid "Disable comment BBCodes"
 msgstr "Desativar BBCodes de comentários"
 
@@ -5266,7 +5263,7 @@ msgid "Disable comment reply notifications"
 msgstr "Desativar notificações de resposta a comentários"
 
 #: includes/functions/settings/_register_settings.php:1078
-#: includes/functions/settings/_settings_page_general.php:836
+#: includes/functions/settings/_settings_page_general.php:846
 msgid "Disable commenting across the site"
 msgstr "Desativar comentários em todo o site"
 
@@ -5286,7 +5283,7 @@ msgstr ""
 msgid "Disable default indentation of chapter paragraphs"
 msgstr "Desativar o recuo padrão dos parágrafos do capítulo"
 
-#: includes/functions/settings/_settings_page_setup.php:60
+#: includes/functions/settings/_settings_page_setup.php:58
 msgid "Disable default indentation of chapter paragraphs?"
 msgstr "Desativar o recuo padrão dos parágrafos do capítulo?"
 
@@ -5295,37 +5292,37 @@ msgid "Disable ePUB download"
 msgstr "Desativar o download do ePUB"
 
 #: includes/functions/settings/_register_settings.php:1096
-#: includes/functions/settings/_settings_page_general.php:1095
+#: includes/functions/settings/_settings_page_general.php:1106
 msgid "Disable extended chapter list meta queries"
 msgstr "Desativar as metaconsultas da lista de capítulos estendida"
 
 #: includes/functions/settings/_register_settings.php:1095
-#: includes/functions/settings/_settings_page_general.php:1084
+#: includes/functions/settings/_settings_page_general.php:1095
 msgid "Disable extended story list meta queries"
 msgstr "Desativar as metaconsultas da lista de histórias estendida"
 
 #: includes/functions/settings/_register_settings.php:1057
-#: includes/functions/settings/_settings_page_general.php:1527
+#: includes/functions/settings/_settings_page_general.php:1551
 msgid "Disable Facebook share button"
 msgstr "Desativar o botão de compartilhamento do Facebook"
 
 #: includes/functions/settings/_register_settings.php:1066
-#: includes/functions/settings/_settings_page_general.php:1302
+#: includes/functions/settings/_settings_page_general.php:1326
 msgid "Disable Fictioneer CSS properties"
 msgstr "Desativar propriedades CSS do Fictioneer"
 
 #: includes/functions/settings/_register_settings.php:1092
-#: includes/functions/settings/_settings_page_general.php:1313
+#: includes/functions/settings/_settings_page_general.php:1337
 msgid "Disable Font Awesome integration"
 msgstr "Desativar a integração do Font Awesome"
 
 #: includes/functions/settings/_register_settings.php:1040
-#: includes/functions/settings/_settings_page_general.php:1007
+#: includes/functions/settings/_settings_page_general.php:1018
 msgid "Disable Heartbeat API"
 msgstr "Desativar a API Heartbeat"
 
 #: includes/functions/settings/_register_settings.php:1061
-#: includes/functions/settings/_settings_page_general.php:1563
+#: includes/functions/settings/_settings_page_general.php:1587
 msgid "Disable Mastodon share button"
 msgstr "Desativar o botão de compartilhamento do Mastodon"
 
@@ -5346,7 +5343,7 @@ msgid "Disable post comment moderation capability"
 msgstr "Desativar o recurso de moderação de comentários de postagens"
 
 #: includes/functions/settings/_register_settings.php:1060
-#: includes/functions/settings/_settings_page_general.php:1554
+#: includes/functions/settings/_settings_page_general.php:1578
 msgid "Disable Reddit share button"
 msgstr "Desativar o botão de compartilhamento do Reddit"
 
@@ -5381,27 +5378,27 @@ msgid "Disable sidebar in stories"
 msgstr "Desativar a barra lateral em histórias"
 
 #: includes/functions/settings/_register_settings.php:1062
-#: includes/functions/settings/_settings_page_general.php:1572
+#: includes/functions/settings/_settings_page_general.php:1596
 msgid "Disable Telegram share button"
 msgstr "Desativar o botão de compartilhamento do Telegram"
 
 #: includes/functions/settings/_register_settings.php:1055
-#: includes/functions/settings/_settings_page_general.php:1498
+#: includes/functions/settings/_settings_page_general.php:1522
 msgid "Disable theme comment form"
 msgstr "Desativar o formulário de comentários do tema"
 
 #: includes/functions/settings/_register_settings.php:1056
-#: includes/functions/settings/_settings_page_general.php:1508
+#: includes/functions/settings/_settings_page_general.php:1532
 msgid "Disable theme comment pagination"
 msgstr "Desativar a paginação de comentários do tema"
 
 #: includes/functions/settings/_register_settings.php:1054
-#: includes/functions/settings/_settings_page_general.php:1488
+#: includes/functions/settings/_settings_page_general.php:1512
 msgid "Disable theme comment query"
 msgstr "Desativar a consulta de comentários do tema"
 
 #: includes/functions/settings/_register_settings.php:1053
-#: includes/functions/settings/_settings_page_general.php:1478
+#: includes/functions/settings/_settings_page_general.php:1502
 msgid "Disable theme comment style (callback)"
 msgstr "Desativar o estilo de comentário do tema (retorno de chamada)"
 
@@ -5411,17 +5408,17 @@ msgid "Disable theme contact forms"
 msgstr "Desativar formulários de contato do tema"
 
 #: includes/functions/settings/_register_settings.php:1047
-#: includes/functions/settings/_settings_page_general.php:1415
+#: includes/functions/settings/_settings_page_general.php:1439
 msgid "Disable theme logout without nonce"
 msgstr "Desativar o logout do tema sem nonce"
 
 #: includes/functions/settings/_register_settings.php:1059
-#: includes/functions/settings/_settings_page_general.php:1545
+#: includes/functions/settings/_settings_page_general.php:1569
 msgid "Disable Tumblr share button"
 msgstr "Desativar o botão de compartilhamento do Tumblr"
 
 #: includes/functions/settings/_register_settings.php:1058
-#: includes/functions/settings/_settings_page_general.php:1536
+#: includes/functions/settings/_settings_page_general.php:1560
 msgid "Disable Twitter share button"
 msgstr "Desativar o botão de compartilhamento do Twitter"
 
@@ -5431,12 +5428,12 @@ msgid "Disable user avatar"
 msgstr "Desativar o avatar do usuário"
 
 #: includes/functions/settings/_register_settings.php:1063
-#: includes/functions/settings/_settings_page_general.php:1581
+#: includes/functions/settings/_settings_page_general.php:1605
 msgid "Disable Whatsapp share button"
 msgstr "Desativar o botão de compartilhamento do Whatsapp"
 
 #: includes/functions/settings/_register_settings.php:1156
-#: includes/functions/settings/_settings_page_general.php:1032
+#: includes/functions/settings/_settings_page_general.php:1043
 msgid "Disable WordPress emojis"
 msgstr "Desativar os emojis do WordPress"
 
@@ -5461,7 +5458,7 @@ msgstr "Chave de fonte \"%s\" desativada."
 msgid "Disabled mu-plugin: %s"
 msgstr "Mu-plugin desativado: %s"
 
-#: includes/functions/settings/_settings_page_general.php:1146
+#: includes/functions/settings/_settings_page_general.php:1163
 msgid "Disables API for guests and low-permission users."
 msgstr "Desativa a API para convidados e usuários com pouca permissão."
 
@@ -5609,7 +5606,7 @@ msgstr "Discussões"
 msgid "Display authors on cards and posts"
 msgstr "Exibir autores em cartões e postagens"
 
-#: includes/functions/settings/_settings_page_setup.php:48
+#: includes/functions/settings/_settings_page_setup.php:46
 msgid "Display authors on cards and posts?"
 msgstr "Exibir autores em cartões e postagens?"
 
@@ -5663,7 +5660,7 @@ msgid "Do not count as chapter"
 msgstr "Não contar como capítulo"
 
 #: includes/functions/settings/_register_settings.php:1045
-#: includes/functions/settings/_settings_page_general.php:1135
+#: includes/functions/settings/_settings_page_general.php:1150
 msgid "Do not save comment IP addresses"
 msgstr "Não salvar endereços IP de comentários"
 
@@ -5686,7 +5683,7 @@ msgstr ""
 msgid "Documentation on GitHub"
 msgstr "Documentação no GitHub"
 
-#: includes/functions/settings/_settings_page_general.php:872
+#: includes/functions/settings/_settings_page_general.php:883
 msgid "Does not reload the page on submit."
 msgstr "Não recarrega a página ao enviar."
 
@@ -5773,22 +5770,22 @@ msgstr "Recursos do editor"
 msgid "Editor capabilities have been updated."
 msgstr "Os recursos do editor foram atualizados."
 
-#: includes/functions/_setup-theme.php:2014
+#: includes/functions/_setup-theme.php:2063
 msgctxt "Elementor color override hint."
 msgid "(--fg-300)"
 msgstr "(--fg-300)"
 
-#: includes/functions/_setup-theme.php:2026
+#: includes/functions/_setup-theme.php:2075
 msgctxt "Elementor color override hint."
 msgid "(--fg-500)"
 msgstr "(--fg-500)"
 
-#: includes/functions/_setup-theme.php:2038
+#: includes/functions/_setup-theme.php:2087
 msgctxt "Elementor color override hint."
 msgid "(--fg-700)"
 msgstr "(--fg-700)"
 
-#: includes/functions/_setup-theme.php:2002
+#: includes/functions/_setup-theme.php:2051
 msgctxt "Elementor color override hint."
 msgid "(--primary-500)"
 msgstr "(--primary-500)"
@@ -5799,9 +5796,9 @@ msgid ""
 "corporate heiress and her genius friend commit high-tech heists in a doomed "
 "city.\""
 msgstr ""
-"Discurso de elevador com 150 caracteres ou menos. Por exemplo: \"Uma "
-"herdeira corporativa rebelde e seu amigo gênio cometem roubos de alta "
-"tecnologia em uma cidade condenada.\""
+"Pitch de elevador com 150 caracteres ou menos. Por exemplo: \"Uma herdeira "
+"corporativa rebelde e seu amigo gênio cometem roubos de alta tecnologia em "
+"uma cidade condenada.\""
 
 #: includes/functions/comments/_comments_form.php:53
 msgid "Email (Gravatar) *"
@@ -5819,35 +5816,21 @@ msgstr "Endereço de e-mail"
 msgid "Email change cancelled."
 msgstr "Alteração de e-mail cancelada."
 
-#: includes/functions/settings/_settings_page_setup.php:121
+#: includes/functions/settings/_settings_page_general.php:1212
+#: includes/functions/settings/_settings_page_setup.php:119
 msgid ""
 "Embedding external content, such as YouTube videos, automatically loads "
 "scripts from the source, which can violate data privacy laws by including "
-"tracking, advertising, analytics, and more. Consent wrappers quarantine an "
-"embed until it is deliberately clicked, informing the visitor about the "
-"third-party consent requirements."
+"tracking, advertising, analytics, and more. With the consent wrappers "
+"enabled, embeds are quarantined until deliberately clicked, informing the "
+"visitor about the third-party consent requirements."
 msgstr ""
 "A incorporação de conteúdo externo, como vídeos do YouTube, carrega "
 "automaticamente scripts da fonte, o que pode violar as leis de privacidade "
 "de dados ao incluir rastreamento, publicidade, análise e muito mais. Os "
-"wrappers de consentimento colocam em quarentena uma incorporação até que ela "
-"seja deliberadamente clicada, informando o visitante sobre os requisitos de "
-"consentimento de terceiros."
-
-#: includes/functions/settings/_settings_page_general.php:1190
-msgid ""
-"Embedding external media, such as videos or social media posts, also loads "
-"tracking scripts from the source. This typically conflicts with data privacy "
-"laws. By enabling this wrapper, all embeds are quarantined until the user "
-"explicitly clicks on them, making an informed choice and thereby consenting "
-"to any loaded scripts."
-msgstr ""
-"A incorporação de mídia externa, como vídeos ou publicações em mídias "
-"sociais, também carrega scripts de rastreamento da fonte. Isso geralmente "
-"entra em conflito com as leis de privacidade de dados. Ao ativar esse "
-"wrapper, todas as incorporações são colocadas em quarentena até que o "
-"usuário clique explicitamente nelas, fazendo uma escolha informada e, "
-"portanto, consentindo com quaisquer scripts carregados."
+"wrappers de consentimento colocam as incorporações em quarentena até que "
+"sejam deliberadamente clicadas, informando o visitante sobre a necessidade "
+"de consentimento de terceiros."
 
 #: includes/functions/settings/_settings_page_general.php:139
 msgid "Emergency stop with an error notice."
@@ -5859,7 +5842,7 @@ msgid "Enable"
 msgstr "Ativar"
 
 #: includes/functions/settings/_register_settings.php:1090
-#: includes/functions/settings/_settings_page_general.php:1405
+#: includes/functions/settings/_settings_page_general.php:1429
 msgid "Enable advanced meta fields"
 msgstr "Habilitar metacampos avançados"
 
@@ -5874,41 +5857,41 @@ msgid "Enable age confirmation modal for site"
 msgstr "Ativar o modal de confirmação de idade para o site"
 
 #: includes/functions/settings/_register_settings.php:1076
-#: includes/functions/settings/_settings_page_general.php:1425
+#: includes/functions/settings/_settings_page_general.php:1449
 msgid "Enable AJAX comment form"
 msgstr "Ativar o formulário de comentários AJAX"
 
 #: includes/functions/settings/_register_settings.php:1034
-#: includes/functions/settings/_settings_page_general.php:881
+#: includes/functions/settings/_settings_page_general.php:892
 msgid "Enable AJAX comment moderation"
 msgstr "Ativar a moderação de comentários AJAX"
 
 #: includes/functions/settings/_register_settings.php:1052
-#: includes/functions/settings/_settings_page_general.php:1436
+#: includes/functions/settings/_settings_page_general.php:1460
 msgid "Enable AJAX comment section"
 msgstr "Ativar a seção de comentários AJAX"
 
 #: includes/functions/settings/_register_settings.php:1030
-#: includes/functions/settings/_settings_page_general.php:871
+#: includes/functions/settings/_settings_page_general.php:882
 msgid "Enable AJAX comment submission"
 msgstr "Ativar o envio de comentários AJAX"
 
 #: includes/functions/settings/_register_settings.php:1073
-#: includes/functions/settings/_settings_page_general.php:1447
+#: includes/functions/settings/_settings_page_general.php:1471
 msgid "Enable AJAX user authentication"
 msgstr "Ativar a autenticação de usuário AJAX"
 
 #: includes/functions/settings/_register_settings.php:1072
-#: includes/functions/settings/_settings_page_general.php:1394
+#: includes/functions/settings/_settings_page_general.php:1418
 msgid "Enable all Gutenberg blocks"
 msgstr "Habilitar todos os blocos do Gutenberg"
 
-#: includes/functions/settings/_settings_page_setup.php:138
+#: includes/functions/settings/_settings_page_setup.php:136
 msgid "Enable all Gutenberg blocks?"
 msgstr "Habilitar todos os blocos do Gutenberg?"
 
 #: includes/functions/settings/_register_settings.php:1160
-#: includes/functions/settings/_settings_page_general.php:1291
+#: includes/functions/settings/_settings_page_general.php:1315
 msgid "Enable anti-flicker script"
 msgstr "Ativar script antiflicker"
 
@@ -5917,27 +5900,27 @@ msgstr "Ativar script antiflicker"
 msgid "Enable Bookmarks"
 msgstr "Ativar marcadores"
 
-#: includes/functions/settings/_settings_page_setup.php:84
+#: includes/functions/settings/_settings_page_setup.php:82
 msgid "Enable bookmarks for chapter paragraphs?"
 msgstr "Ativar marcadores para parágrafos de capítulos?"
 
 #: includes/functions/settings/_register_settings.php:1050
-#: includes/functions/settings/_settings_page_general.php:1364
+#: includes/functions/settings/_settings_page_general.php:1388
 msgid "Enable cache compatibility mode"
 msgstr "Ativar o modo de compatibilidade do cache"
 
 #: includes/functions/settings/_register_settings.php:1163
-#: includes/functions/settings/_settings_page_general.php:798
+#: includes/functions/settings/_settings_page_general.php:808
 msgid "Enable caching of large query results"
 msgstr "Habilitar o armazenamento em cache de resultados de consultas grandes"
 
 #: includes/functions/settings/_register_settings.php:1152
-#: includes/functions/settings/_settings_page_general.php:773
+#: includes/functions/settings/_settings_page_general.php:783
 msgid "Enable caching of partials"
 msgstr "Ativar o armazenamento em cache de parciais"
 
 #: includes/functions/settings/_register_settings.php:1162
-#: includes/functions/settings/_settings_page_general.php:784
+#: includes/functions/settings/_settings_page_general.php:794
 msgid "Enable caching of story cards"
 msgstr "Habilitar o armazenamento em cache de cartões de história"
 
@@ -5946,12 +5929,12 @@ msgstr "Habilitar o armazenamento em cache de cartões de história"
 msgid "Enable chapter groups"
 msgstr "Habilitar grupos de capítulos"
 
-#: includes/functions/settings/_settings_page_setup.php:54
+#: includes/functions/settings/_settings_page_setup.php:52
 msgid "Enable chapter groups?"
 msgstr "Habilitar grupos de capítulos?"
 
 #: includes/functions/settings/_register_settings.php:1022
-#: includes/functions/settings/_settings_page_general.php:686
+#: includes/functions/settings/_settings_page_general.php:699
 msgid "Enable Checkmarks (requires account)"
 msgstr "Ativar marcas de verificação (requer conta)"
 
@@ -5960,36 +5943,36 @@ msgid "Enable comment editing"
 msgstr "Habilitar a edição de comentários"
 
 #: includes/functions/settings/_register_settings.php:1038
-#: includes/functions/settings/_settings_page_general.php:924
+#: includes/functions/settings/_settings_page_general.php:935
 msgid "Enable comment reply notifications"
 msgstr "Ativar notificações de resposta a comentários"
 
 #: includes/functions/settings/_register_settings.php:1039
-#: includes/functions/settings/_settings_page_general.php:954
+#: includes/functions/settings/_settings_page_general.php:965
 msgid "Enable comment reporting"
 msgstr "Habilitar relatórios de comentários"
 
 #: includes/functions/settings/_register_settings.php:1032
-#: includes/functions/settings/_settings_page_general.php:904
+#: includes/functions/settings/_settings_page_general.php:915
 msgid "Enable comment toolbar"
 msgstr "Ativar a barra de ferramentas de comentários"
 
 #: includes/functions/settings/_register_settings.php:1049
-#: includes/functions/settings/_settings_page_general.php:1209
+#: includes/functions/settings/_settings_page_general.php:1232
 msgid "Enable cookie banner and consent function"
 msgstr "Ativar o banner de cookies e a função de consentimento"
 
-#: includes/functions/settings/_settings_page_setup.php:126
+#: includes/functions/settings/_settings_page_setup.php:124
 msgid "Enable cookie banner?"
 msgstr "Ativar o banner de cookies?"
 
 #: includes/functions/settings/_register_settings.php:1035
-#: includes/functions/settings/_settings_page_general.php:914
+#: includes/functions/settings/_settings_page_general.php:925
 msgid "Enable custom badges"
 msgstr "Habilitar crachás personalizados"
 
 #: includes/functions/settings/_register_settings.php:1159
-#: includes/functions/settings/_settings_page_general.php:1344
+#: includes/functions/settings/_settings_page_general.php:1368
 msgid "Enable custom fields"
 msgstr "Habilitar campos personalizados"
 
@@ -5998,17 +5981,17 @@ msgstr "Habilitar campos personalizados"
 msgid "Enable dark mode as default"
 msgstr "Ativar o modo escuro como padrão"
 
-#: includes/functions/settings/_settings_page_setup.php:42
+#: includes/functions/settings/_settings_page_setup.php:40
 msgid "Enable dark mode by default?"
 msgstr "Ativar o modo escuro por padrão?"
 
 #: includes/functions/settings/_register_settings.php:1028
-#: includes/functions/settings/_settings_page_general.php:763
+#: includes/functions/settings/_settings_page_general.php:773
 msgid "Enable ePUB converter (experimental)"
 msgstr "Ativar o conversor de ePUB (experimental)"
 
 #: includes/functions/settings/_register_settings.php:1088
-#: includes/functions/settings/_settings_page_general.php:891
+#: includes/functions/settings/_settings_page_general.php:902
 msgid "Enable fast AJAX for comments"
 msgstr "Ativar AJAX rápido para comentários"
 
@@ -6018,7 +6001,7 @@ msgid "Enable Follows (requires account)"
 msgstr "Ativar seguidores (requer conta)"
 
 #: includes/functions/settings/_register_settings.php:1065
-#: includes/functions/settings/_settings_page_general.php:1323
+#: includes/functions/settings/_settings_page_general.php:1347
 msgid "Enable jQuery migrate script"
 msgstr "Ativar o script de migração do jQuery"
 
@@ -6027,15 +6010,15 @@ msgstr "Ativar o script de migração do jQuery"
 msgid "Enable lightbox"
 msgstr "Ativar lightbox"
 
-#: includes/functions/settings/_settings_page_setup.php:102
+#: includes/functions/settings/_settings_page_setup.php:100
 msgid "Enable logged-in users to check-mark chapters/stories?"
 msgstr "Permitir que usuários conectados marquem capítulos/histórias?"
 
-#: includes/functions/settings/_settings_page_setup.php:90
+#: includes/functions/settings/_settings_page_setup.php:88
 msgid "Enable logged-in users to follow stories?"
 msgstr "Permitir que usuários conectados sigam histórias?"
 
-#: includes/functions/settings/_settings_page_setup.php:96
+#: includes/functions/settings/_settings_page_setup.php:94
 msgid "Enable logged-in users to set reminders for stories?"
 msgstr "Permitir que os usuários conectados definam lembretes para histórias?"
 
@@ -6060,37 +6043,37 @@ msgid "Enable Patreon content gate"
 msgstr "Habilitar a porta de conteúdo do Patreon"
 
 #: includes/functions/settings/_register_settings.php:1051
-#: includes/functions/settings/_settings_page_general.php:1384
+#: includes/functions/settings/_settings_page_general.php:1408
 msgid "Enable private cache compatibility mode"
 msgstr "Ativar o modo de compatibilidade do cache privado"
 
 #: includes/functions/settings/_register_settings.php:1037
-#: includes/functions/settings/_settings_page_general.php:944
+#: includes/functions/settings/_settings_page_general.php:955
 msgid "Enable private commenting"
 msgstr "Habilitar comentários privados"
 
 #: includes/functions/settings/_register_settings.php:1070
-#: includes/functions/settings/_settings_page_general.php:1374
+#: includes/functions/settings/_settings_page_general.php:1398
 msgid "Enable public cache compatibility mode"
 msgstr "Ativar o modo de compatibilidade do cache público"
 
 #: includes/functions/settings/_register_settings.php:1089
-#: includes/functions/settings/_settings_page_general.php:1155
+#: includes/functions/settings/_settings_page_general.php:1176
 msgid "Enable rate limiting for AJAX requests"
 msgstr "Ativar a limitação de taxa para solicitações AJAX"
 
 #: includes/functions/settings/_register_settings.php:1023
-#: includes/functions/settings/_settings_page_general.php:696
+#: includes/functions/settings/_settings_page_general.php:688
 msgid "Enable Reminders (requires account)"
 msgstr "Ativar lembretes (requer conta)"
 
 #: includes/functions/settings/_register_settings.php:1026
-#: includes/functions/settings/_settings_page_general.php:728
+#: includes/functions/settings/_settings_page_general.php:733
 msgid "Enable SEO features"
 msgstr "Ativar recursos de SEO"
 
 #: includes/functions/settings/_register_settings.php:1077
-#: includes/functions/settings/_settings_page_general.php:934
+#: includes/functions/settings/_settings_page_general.php:945
 msgid "Enable sticky comments"
 msgstr "Habilitar comentários fixos"
 
@@ -6099,36 +6082,36 @@ msgstr "Habilitar comentários fixos"
 msgid "Enable Storygraph API"
 msgstr "Ativar a API do Storygraph"
 
-#: includes/functions/settings/_settings_page_setup.php:108
+#: includes/functions/settings/_settings_page_setup.php:106
 msgid "Enable suggestion tools for chapters?"
 msgstr "Habilitar ferramentas de sugestão para capítulos?"
 
 #: includes/functions/settings/_register_settings.php:1024
-#: includes/functions/settings/_settings_page_general.php:706
+#: includes/functions/settings/_settings_page_general.php:711
 msgid "Enable Suggestions"
 msgstr "Ativar sugestões"
 
 #: includes/functions/settings/_register_settings.php:1025
-#: includes/functions/settings/_settings_page_general.php:748
+#: includes/functions/settings/_settings_page_general.php:758
 msgid "Enable Text-To-Speech (experimental)"
 msgstr "Ativar a conversão de texto em fala (experimental)"
 
-#: includes/functions/settings/_settings_page_setup.php:78
+#: includes/functions/settings/_settings_page_setup.php:76
 msgid "Enable theme lightbox for images?"
 msgstr "Ativar a caixa de luz do tema para imagens?"
 
 #: includes/functions/settings/_register_settings.php:1017
-#: includes/functions/settings/_settings_page_general.php:718
+#: includes/functions/settings/_settings_page_general.php:723
 msgid "Enable theme RSS feeds and buttons"
 msgstr "Habilite os botões e feeds RSS do tema"
 
 #: includes/functions/settings/_register_settings.php:1027
-#: includes/functions/settings/_settings_page_general.php:738
+#: includes/functions/settings/_settings_page_general.php:748
 msgid "Enable theme sitemap generation"
 msgstr "Ativar a geração do mapa do site do tema"
 
 #: includes/functions/settings/_register_settings.php:1155
-#: includes/functions/settings/_settings_page_general.php:1333
+#: includes/functions/settings/_settings_page_general.php:1357
 msgid "Enable XML-RPC"
 msgstr "Ativar XML-RPC"
 
@@ -6239,7 +6222,7 @@ msgstr "Erro. O esquema da postagem #%s não pôde ser eliminado."
 msgid "Error: Action parameter missing."
 msgstr "Erro: Parâmetro de ação ausente."
 
-#: includes/functions/_setup-admin.php:1238
+#: includes/functions/_setup-admin.php:1234
 msgid "Error: Colors not found."
 msgstr "Erro: Cores não encontradas."
 
@@ -6247,7 +6230,7 @@ msgstr "Erro: Cores não encontradas."
 #: includes/functions/_setup-meta-fields.php:1364
 #: includes/functions/_setup-meta-fields.php:1543
 #: includes/functions/_setup-meta-fields.php:1690
-#: includes/functions/_setup-admin.php:1228
+#: includes/functions/_setup-admin.php:1224
 msgid "Error: Insufficient permissions."
 msgstr "Erro: Permissões insuficientes."
 
@@ -6274,7 +6257,7 @@ msgstr "Erro: Não conectado."
 msgid "Error: Wrong post type."
 msgstr "Erro: Tipo de postagem incorreto."
 
-#: searchform.php:267
+#: searchform.php:257
 #, php-format
 msgctxt "Excluded Advanced search summary."
 msgid "%sExcluded Tags:"
@@ -6289,7 +6272,7 @@ msgstr "Sair da tela cheia"
 msgid "External Avatar URL"
 msgstr "URL externo do avatar"
 
-#: includes/functions/settings/_settings_page_general.php:1189
+#: includes/functions/settings/_settings_page_general.php:1211
 msgid "External content not loaded until deliberately clicked."
 msgstr ""
 "O conteúdo externo não é carregado até que seja clicado deliberadamente."
@@ -6343,7 +6326,7 @@ msgstr "Falso"
 msgid "Fandoms"
 msgstr "Fandoms"
 
-#: includes/functions/settings/_settings_page_general.php:1063
+#: includes/functions/settings/_settings_page_general.php:1074
 msgid ""
 "Faster if HTTP/2 (+) is not available to load multiple smaller files in "
 "parallel, but increases the initial payload."
@@ -6351,7 +6334,7 @@ msgstr ""
 "Mais rápido se o HTTP/2 (+) não estiver disponível para carregar vários "
 "arquivos menores em paralelo, mas aumenta a carga inicial."
 
-#: includes/functions/settings/_settings_page_general.php:1096
+#: includes/functions/settings/_settings_page_general.php:1107
 msgid ""
 "Faster, but adds one row per chapter to your database, which can slow down "
 "your site if you have thousands."
@@ -6359,7 +6342,7 @@ msgstr ""
 "Mais rápido, mas adiciona uma linha por capítulo ao seu banco de dados, o "
 "que pode tornar seu site mais lento se você tiver milhares."
 
-#: includes/functions/settings/_settings_page_general.php:1085
+#: includes/functions/settings/_settings_page_general.php:1096
 msgid ""
 "Faster, but adds one row per story to your database, which can slow down "
 "your site if you have thousands."
@@ -6376,19 +6359,29 @@ msgid "Features"
 msgstr "Recursos"
 
 #. Name of the theme
-#: includes/functions/_setup-theme.php:1868
-#: includes/functions/_setup-theme.php:2067
+#: includes/functions/_setup-theme.php:1917
+#: includes/functions/_setup-theme.php:2116
 #: includes/functions/settings/_settings.php:28
 #: includes/functions/settings/_settings.php:257
 #: includes/functions/users/_admin-profile.php:868
 msgid "Fictioneer"
 msgstr "Fictioneer"
 
-#: includes/functions/settings/_settings_page_logs.php:19
+#: includes/functions/settings/_settings_page_general.php:1128
+msgid ""
+"Fictioneer has been built for OAuth 2.0 authentication with external "
+"accounts to avoid the vulnerable WordPress login/registration form. However, "
+"if you want, you can link it in the login modal regardless."
+msgstr ""
+"Fictioneer foi feito para autenticação via OAuth 2.0 com contas externas "
+"para evitar o formulário vulnerável de login/criação de conta do WordPress. "
+"Apear disso, se você quiser, você pode linkar o modal de login."
+
+#: includes/functions/settings/_settings_page_logs.php:21
 msgid "Fictioneer Log"
 msgstr "Registro do Fictioneer"
 
-#: includes/functions/settings/_settings_page_setup.php:171
+#: includes/functions/settings/_settings_page_setup.php:169
 #, php-format
 msgid ""
 "Fictioneer offers even more options beyond what is accessible in the "
@@ -6408,11 +6401,11 @@ msgstr ""
 msgid "Fictioneer Settings"
 msgstr "Configurações do Fictioneer"
 
-#: includes/functions/settings/_settings_page_setup.php:20
+#: includes/functions/settings/_settings_page_setup.php:18
 msgid "Fictioneer Setup"
 msgstr "Configuração do Fictioneer"
 
-#: includes/functions/_setup-theme.php:194
+#: includes/functions/_setup-theme.php:242
 msgid "Fictioneer Sidebar"
 msgstr "Barra lateral do Fictioneer"
 
@@ -6422,11 +6415,11 @@ msgctxt "Fictioneer theme major version notice."
 msgid "Fictioneer %s"
 msgstr "Fictioneer %s"
 
-#: includes/functions/_setup-theme.php:1871
+#: includes/functions/_setup-theme.php:1920
 msgid "Fictioneer Theme Settings"
 msgstr "Configurações do tema do Fictioneer"
 
-#: includes/functions/settings/_settings_page_setup.php:49
+#: includes/functions/settings/_settings_page_setup.php:47
 msgid ""
 "Fictioneer was primarily developed for single authors to publish their web "
 "serials, and therefore omits the author to save space. However, if you have "
@@ -6450,7 +6443,7 @@ msgstr "O arquivo não foi encontrado ou não pode ser lido."
 msgid "File not found."
 msgstr "Arquivo não encontrado."
 
-#: includes/functions/settings/_settings_page_general.php:1221
+#: includes/functions/settings/_settings_page_general.php:1245
 msgid "File Uploads"
 msgstr "Upload de arquivos"
 
@@ -6513,7 +6506,7 @@ msgstr "Consertar histórias"
 msgid "Fix Users"
 msgstr "Corrigir usuários"
 
-#: includes/functions/_utility.php:1876
+#: includes/functions/_utility.php:1886
 msgctxt "Follow a story."
 msgid "Follow"
 msgstr "Seguir"
@@ -6554,7 +6547,7 @@ msgstr "Os seguidores estão vazios."
 msgid "Follows could not be cleared."
 msgstr "Não foi possível limpar os seguidores."
 
-#: includes/functions/_setup-theme.php:1729
+#: includes/functions/_setup-theme.php:1778
 msgid "Follows re-synchronized."
 msgstr "Seguimentos re-sincronizados."
 
@@ -6575,7 +6568,7 @@ msgstr "Leveza da fonte"
 msgid "Font Lightness Offset"
 msgstr "Deslocamento da luminosidade da fonte"
 
-#: includes/functions/_utility.php:2282
+#: includes/functions/_utility.php:2292
 msgctxt "Font name."
 msgid "System Font"
 msgstr "Fonte do Sistema"
@@ -6648,7 +6641,7 @@ msgstr ""
 "As fontes são renderizadas mais finas no modo escuro para compensar o "
 "sangramento do texto; você pode desativar essa opção."
 
-#: includes/functions/_setup-theme.php:60
+#: includes/functions/_setup-theme.php:108
 msgid "Footer Menu"
 msgstr "Menu de rodapé"
 
@@ -6664,7 +6657,7 @@ msgstr ""
 "Para sistemas de escrita logográfica. Use o multiplicador de contagem de "
 "palavras para aproximar melhor o número."
 
-#: includes/functions/settings/_settings_page_general.php:1385
+#: includes/functions/settings/_settings_page_general.php:1409
 msgid ""
 "For serving private caches to logged-in users. Also useful if you do not "
 "serve caches to logged-in users at all."
@@ -6672,7 +6665,7 @@ msgstr ""
 "Para fornecer caches privados a usuários conectados. Também é útil se você "
 "não fornecer caches para usuários conectados."
 
-#: includes/functions/settings/_settings_page_general.php:1375
+#: includes/functions/settings/_settings_page_general.php:1399
 msgid ""
 "For serving public caches to logged-in users. Exceptions for administrators "
 "and moderators are recommended."
@@ -6680,7 +6673,7 @@ msgstr ""
 "Para servir caches públicos para usuários conectados. Exceções para "
 "administradores e moderadores são recomendadas."
 
-#: includes/functions/_utility.php:1878
+#: includes/functions/_utility.php:1888
 msgctxt "Forget story set to be read later."
 msgid "Forget"
 msgstr "Esquecer"
@@ -6700,7 +6693,7 @@ msgctxt "Formatting modal font weight selection."
 msgid "Thinner Font Weight"
 msgstr "Peso da fonte leve"
 
-#: includes/functions/_utility.php:1938
+#: includes/functions/_utility.php:1948
 msgctxt "Free Patreon tier (follower)."
 msgid "Follower (Free)"
 msgstr "Seguidor (gratuito)"
@@ -6720,7 +6713,7 @@ msgctxt "Frontend profile headline."
 msgid "Password"
 msgstr "Senha"
 
-#: includes/functions/_utility.php:1881
+#: includes/functions/_utility.php:1891
 msgctxt "Frontpage page name, mainly used in breadcrumbs."
 msgid "Home"
 msgstr "Início"
@@ -6743,7 +6736,7 @@ msgstr "Configurações gerais"
 msgid "Generic donation link"
 msgstr "Link genérico de doação"
 
-#: includes/functions/_setup-theme.php:1726
+#: includes/functions/_setup-theme.php:1775
 msgctxt "Generic error notification."
 msgid "Error"
 msgstr "Erro"
@@ -6860,7 +6853,7 @@ msgstr "Estilo do cabeçalho"
 msgid "Heading Font"
 msgstr "Fonte do título"
 
-#: includes/functions/_utility.php:1870
+#: includes/functions/_utility.php:1880
 msgctxt "Heading for BBCodes tutorial modal."
 msgid "BBCodes"
 msgstr "BBCodes"
@@ -6893,11 +6886,11 @@ msgstr ""
 "strong><br><br><fieldset>[[reply_content]]</fieldset><br><br><a "
 "href=\"[[unsubscribe_url]]\">Cancelar a assinatura deste comentário.</a>"
 
-#: includes/functions/settings/_settings_page_general.php:1620
+#: includes/functions/settings/_settings_page_general.php:1644
 msgid "Help"
 msgstr "Ajuda"
 
-#: includes/functions/_utility.php:1916
+#: includes/functions/_utility.php:1926
 msgctxt "Hiatus story status"
 msgid "Hiatus"
 msgstr "Hiato"
@@ -6907,7 +6900,7 @@ msgctxt "Hidden card."
 msgid "Hidden Result"
 msgstr "Resultado Oculto"
 
-#: includes/functions/comments/_comments_threads.php:723
+#: includes/functions/comments/_comments_threads.php:782
 msgid "Hidden due to negative reports."
 msgstr "Oculto devido a relatórios negativos."
 
@@ -6932,7 +6925,7 @@ msgstr "Ocultar ícones de capítulos"
 msgid "Hide chapter list on large story cards"
 msgstr "Ocultar a lista de capítulos em cartões de história grandes"
 
-#: includes/functions/settings/_settings_page_setup.php:66
+#: includes/functions/settings/_settings_page_setup.php:64
 msgid "Hide chapter list on large story cards?"
 msgstr "Ocultar a lista de capítulos em cartões de história grandes?"
 
@@ -7012,7 +7005,7 @@ msgstr "Oculte seu emblema nos comentários."
 msgid "Hides the icons on story pages and in the mobile menu."
 msgstr "Oculta os ícones nas páginas de história e no menu móvel."
 
-#: includes/functions/settings/_settings_page_general.php:1292
+#: includes/functions/settings/_settings_page_general.php:1316
 msgid "Hides the page until the document is fully parsed."
 msgstr "Oculta a página até que o documento seja totalmente analisado."
 
@@ -7112,17 +7105,17 @@ msgstr "https://github.com/Tetrakern"
 msgid "Hue Offset"
 msgstr "Deslocamento de matiz"
 
-#: includes/functions/_utility.php:3054
+#: includes/functions/_utility.php:3064
 msgctxt "Human readable list joining the last two of three or more items."
 msgid ", or "
 msgstr ", ou "
 
-#: includes/functions/_utility.php:3052
+#: includes/functions/_utility.php:3062
 msgctxt "Human readable list joining three or more items except the last two."
 msgid ", "
 msgstr ", "
 
-#: includes/functions/_utility.php:3053
+#: includes/functions/_utility.php:3063
 msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr " ou "
@@ -7159,11 +7152,11 @@ msgstr ""
 msgid "If you do not need them anyway."
 msgstr "Se você não precisar deles de qualquer forma."
 
-#: includes/functions/settings/_settings_page_general.php:1169
+#: includes/functions/settings/_settings_page_general.php:1191
 msgid "If you do not need them, you should disable them."
 msgstr "Se você não precisar deles, deve desativá-los."
 
-#: includes/functions/settings/_settings_page_general.php:1304
+#: includes/functions/settings/_settings_page_general.php:1328
 msgid ""
 "If you do not understand what this option does, you have no business "
 "enabling it. This is generally a poor life choice."
@@ -7223,7 +7216,23 @@ msgstr "Índice"
 msgid "Index (Advanced)"
 msgstr "Índice (avançado)"
 
-#: includes/functions/settings/_settings_page_general.php:1355
+#: singular-authors-advanced.php:137
+#, php-format
+msgctxt "Index item."
+msgid "%s Chapter"
+msgid_plural "%s Chapters"
+msgstr[0] "%s Capítulo"
+msgstr[1] "%s Capítulo"
+
+#: singular-authors-advanced.php:125
+#, php-format
+msgctxt "Index item."
+msgid "%s Story"
+msgid_plural "%s Stories"
+msgstr[0] "%s História"
+msgstr[1] "%s História"
+
+#: includes/functions/settings/_settings_page_general.php:1379
 msgid "Inefficient but makes sure everything is up-to-date."
 msgstr "Ineficiente, mas garante que tudo esteja atualizado."
 
@@ -7282,8 +7291,8 @@ msgid "Installed Fonts"
 msgstr "Fontes instaladas"
 
 #: includes/functions/settings/_settings_page_general.php:349
-msgid "Instead of the first three to avoid spoilers."
-msgstr "Em vez dos três primeiros, para evitar spoilers."
+msgid "Instead of the earliest ones to avoid spoilers."
+msgstr "Em vez dos primeiros, para evitar spoilers."
 
 #: includes/functions/settings/_settings_actions.php:828
 #: includes/functions/settings/_settings_actions.php:838
@@ -7337,7 +7346,7 @@ msgstr "Solicitação inválida."
 msgid "Invalid story ID."
 msgstr "ID de história inválido."
 
-#: searchform.php:179 searchform.php:191 searchform.php:205 searchform.php:217
+#: searchform.php:169 searchform.php:181 searchform.php:195 searchform.php:207
 msgid "Invalid Value"
 msgstr "Valor inválido"
 
@@ -7345,7 +7354,7 @@ msgstr "Valor inválido"
 msgid "IP Address"
 msgstr "Endereço IP"
 
-#: includes/functions/settings/_settings_page_general.php:1136
+#: includes/functions/settings/_settings_page_general.php:1151
 msgid "IP addresses are personal data."
 msgstr "Os endereços IP são dados pessoais."
 
@@ -7357,11 +7366,11 @@ msgstr "Itens por página"
 msgid "Join Discord"
 msgstr "Participe do Discord"
 
-#: includes/functions/_utility.php:1886
+#: includes/functions/_utility.php:1896
 msgid "Jump: Bookmark"
 msgstr "Pular: Marcador"
 
-#: includes/functions/_utility.php:1885
+#: includes/functions/_utility.php:1895
 msgid "Jump: Comments"
 msgstr "Pular: Comentários"
 
@@ -7443,11 +7452,11 @@ msgstr ""
 msgid "Less informative but also less cluttered."
 msgstr "Menos informativo, mas também menos desorganizado."
 
-#: includes/functions/settings/_settings_page_general.php:1043
+#: includes/functions/settings/_settings_page_general.php:1054
 msgid "Less menu items, links, and icons in the admin bar."
 msgstr "Menos itens de menu, links e ícones na barra de administração."
 
-#: includes/functions/settings/_settings_page_general.php:1022
+#: includes/functions/settings/_settings_page_general.php:1033
 msgid "Less meta tags, scripts, and styles in the &#60;head&#62;."
 msgstr "Menos meta tags, scripts e estilos no &#60;head&#62;."
 
@@ -7690,7 +7699,7 @@ msgstr "Deslocamento de luminosidade"
 msgid "Limit comments to [n] link(s) or less"
 msgstr "Limitar os comentários a [n] link(s) ou menos"
 
-#: partials/_modal-sharing.php:73 includes/functions/_setup-theme.php:1732
+#: partials/_modal-sharing.php:73 includes/functions/_setup-theme.php:1781
 msgid "Link copied to clipboard!"
 msgstr "Link copiado para a área de transferência!"
 
@@ -7728,12 +7737,12 @@ msgstr ""
 "Links para a história, um link por linha e cuidado com os espaços em branco. "
 "Formato: \"Link Name | https://www.address.abc\" (sem aspas)."
 
-#: includes/functions/_utility.php:1877
+#: includes/functions/_utility.php:1887
 msgctxt "List of followed stories."
 msgid "Follows"
 msgstr "Seguindo"
 
-#: includes/functions/_utility.php:1900
+#: includes/functions/_utility.php:1910
 msgctxt "List of stories to read later."
 msgid "Reminders"
 msgstr "Lembrar"
@@ -7752,11 +7761,11 @@ msgid_plural "Load next %s comments (may contain spoilers)"
 msgstr[0] "Carregar próximo comentário (pode ter spoilers)"
 msgstr[1] "Carregar próximos %s comentários (pode ter spoilers)"
 
-#: includes/functions/settings/_settings_page_general.php:1426
+#: includes/functions/settings/_settings_page_general.php:1450
 msgid "Load the comment form via AJAX to circumvent caching."
 msgstr "Carregue o formulário de comentários via AJAX para contornar o cache."
 
-#: includes/functions/settings/_settings_page_general.php:1437
+#: includes/functions/settings/_settings_page_general.php:1461
 msgid ""
 "Load the comment section and form via AJAX. More server work but circumvents "
 "caching."
@@ -7781,7 +7790,7 @@ msgstr "Faça login para seguir"
 msgid "Log in to set Reminders"
 msgstr "Faça login para definir Lembretes"
 
-#: includes/functions/settings/_settings_page_general.php:970
+#: includes/functions/settings/_settings_page_general.php:981
 msgid ""
 "Logged-in users can edit their comments for a number of minutes; enter -1 "
 "for no time limit."
@@ -7789,13 +7798,13 @@ msgstr ""
 "Os usuários conectados podem editar seus comentários por um determinado "
 "número de minutos; digite -1 para não ter limite de tempo."
 
-#: includes/functions/settings/_settings_page_general.php:955
+#: includes/functions/settings/_settings_page_general.php:966
 msgid "Logged-in users can report comments via flag button."
 msgstr ""
 "Os usuários conectados podem denunciar comentários por meio do botão de "
 "sinalização."
 
-#: partials/_icon-menu.php:36 includes/functions/_utility.php:1887
+#: partials/_icon-menu.php:36 includes/functions/_utility.php:1897
 msgid "Login"
 msgstr "Login"
 
@@ -7807,7 +7816,7 @@ msgstr "Modal de login"
 msgid "Login modal"
 msgstr "Modal de login"
 
-#: includes/functions/_utility.php:1888
+#: includes/functions/_utility.php:1898
 msgctxt "Login modal heading."
 msgid "Login"
 msgstr "Entrar"
@@ -7820,12 +7829,12 @@ msgstr "Login/Registro"
 msgid "Logo Height"
 msgstr "Altura do logotipo"
 
-#: partials/_icon-menu.php:146 includes/functions/_utility.php:1890
+#: partials/_icon-menu.php:146 includes/functions/_utility.php:1900
 msgid "Logout"
 msgstr "Sair"
 
 #: includes/functions/settings/_register_settings.php:1046
-#: includes/functions/settings/_settings_page_general.php:1178
+#: includes/functions/settings/_settings_page_general.php:1200
 msgid "Logout redirects Home"
 msgstr "O logout redireciona para a página inicial"
 
@@ -7848,7 +7857,7 @@ msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
 #: partials/_icon-menu.php:94
-msgid "Looking for updates…"
+msgid "Looking for updates..."
 msgstr "Procurando por atualizações…"
 
 #: partials/account/_discussions.php:122
@@ -7881,11 +7890,11 @@ msgstr "Nota de manutenção"
 msgid "Maintenance note"
 msgstr "Nota de manutenção"
 
-#: includes/functions/settings/_settings_page_general.php:1365
+#: includes/functions/settings/_settings_page_general.php:1389
 msgid "Make the theme aware of unknown caching plugins."
 msgstr "Faça com que o tema esteja ciente de plug-ins de cache desconhecidos."
 
-#: includes/functions/settings/_settings_page_setup.php:139
+#: includes/functions/settings/_settings_page_setup.php:137
 msgid ""
 "Many blocks in the editor are disabled by default due to compatibility "
 "concerns. The theme is not built for full-site editing, and layout blocks — "
@@ -7897,7 +7906,7 @@ msgstr ""
 "blocos de layout, como Row, Stack e Group, juntamente com widgets e itens de "
 "conteúdo, podem não ter estilo ou não funcionar como esperado."
 
-#: includes/functions/settings/_settings_page_general.php:1396
+#: includes/functions/settings/_settings_page_general.php:1420
 msgid ""
 "Many blocks in the editor are hidden by default due to compatibility "
 "concerns. The theme is not built for full-site editing, and blocks like Row, "
@@ -7914,7 +7923,7 @@ msgctxt "Mark as read button."
 msgid "Read"
 msgstr "Lido"
 
-#: includes/functions/settings/_settings_page_general.php:687
+#: includes/functions/settings/_settings_page_general.php:700
 msgid "Mark chapters and stories as \"read\"."
 msgstr "Marcar capítulos e histórias como \"lidos\"."
 
@@ -7922,17 +7931,17 @@ msgstr "Marcar capítulos e histórias como \"lidos\"."
 msgid "Mark follows as read"
 msgstr "A marca segue como lida"
 
-#: includes/functions/_utility.php:1891
+#: includes/functions/_utility.php:1901
 msgctxt "Mark story as read."
 msgid "Mark Read"
 msgstr "Marcar como lido"
 
-#: includes/functions/_utility.php:1892
+#: includes/functions/_utility.php:1902
 msgctxt "Mark story as unread."
 msgid "Mark Unread"
 msgstr "Marcar como não lido"
 
-#: includes/functions/comments/_comments_threads.php:721
+#: includes/functions/comments/_comments_threads.php:780
 msgid "Marked and hidden as offensive."
 msgstr "Marcado e ocultado como ofensivo."
 
@@ -8179,7 +8188,7 @@ msgstr "Menu"
 msgid "Mobile Menu Style"
 msgstr "Estilo de menu móvel"
 
-#: includes/functions/_setup-theme.php:1916
+#: includes/functions/_setup-theme.php:1965
 msgid "Mobile Navigation Menu"
 msgstr "Menu de navegação móvel"
 
@@ -8187,7 +8196,7 @@ msgstr "Menu de navegação móvel"
 msgid "Mobile Navigation Style"
 msgstr "Estilo de navegação móvel"
 
-#: includes/functions/settings/_settings_page_general.php:882
+#: includes/functions/settings/_settings_page_general.php:893
 msgid "Moderation actions directly in the comment section."
 msgstr "Ações de moderação diretamente na seção de comentários."
 
@@ -8223,7 +8232,7 @@ msgstr "A função de moderador foi adicionada."
 msgid "Moderator role has been removed."
 msgstr "A função de moderador foi removida."
 
-#: includes/functions/settings/_settings_page_general.php:1075
+#: includes/functions/settings/_settings_page_general.php:1086
 msgid ""
 "Modern browsers and servers can handle multiple scripts in parallel, "
 "eliminating the need to bundle them into one large file. This allows the "
@@ -8236,7 +8245,7 @@ msgstr ""
 "A menos que você tenha certeza do que está fazendo, é melhor deixar essa "
 "configuração desativada."
 
-#: includes/functions/settings/_settings_page_general.php:1064
+#: includes/functions/settings/_settings_page_general.php:1075
 msgid ""
 "Modern browsers and servers can handle multiple stylesheets in parallel, "
 "eliminating the need to bundle them into one large file. This allows the "
@@ -8278,9 +8287,25 @@ msgstr ""
 "frações de pixels. Padrão 0."
 
 #: includes/functions/settings/_register_settings.php:1087
-#: includes/functions/settings/_settings_page_general.php:1199
+#: includes/functions/settings/_settings_page_general.php:1222
 msgid "Monitor posts for suspicious content"
 msgstr "Monitore as postagens em busca de conteúdo suspeito"
+
+#: includes/functions/settings/_settings_page_general.php:858
+msgid ""
+"Most spam bots run on minimal resources because operating them costs time "
+"and money. This is why they usually do not run JavaScript when attacking a "
+"site — it is too expensive, and your site likely is not worth the extra "
+"effort. Therefore, making JavaScript a requirement typically stops all spam "
+"until you become a more attractive target or someone specifically targets "
+"you."
+msgstr ""
+"A maioria dos spam bots roda com recursos mínimos, porque sua operação custa "
+"tempo e dinheiro. Por isso eles normalmente não executam JavaScript quando "
+"atacam um site — é muito caro, e o seu site, provavelmente, não vale o "
+"esforço. Portanto, desativar o JavaScript normalmente acaba com todo o spam "
+"até que você se torne um alvo atrativo ou alguém mire especificamente em "
+"você."
 
 #: includes/functions/settings/_settings_actions.php:146
 msgid "MU-Plugin disabled successfully."
@@ -8348,11 +8373,11 @@ msgstr "Nome"
 msgid "Name *"
 msgstr "Nome *"
 
-#: includes/functions/_setup-theme.php:59
+#: includes/functions/_setup-theme.php:107
 msgid "Navigation"
 msgstr "Navegação"
 
-#: includes/functions/_setup-theme.php:1898
+#: includes/functions/_setup-theme.php:1947
 msgid "Navigation Bar"
 msgstr "Barra de navegação"
 
@@ -8360,7 +8385,7 @@ msgstr "Barra de navegação"
 msgid "Navigation Item Font"
 msgstr "Fonte do item de navegação"
 
-#: includes/functions/_setup-theme.php:1907
+#: includes/functions/_setup-theme.php:1956
 msgid "Navigation Menu"
 msgstr "Menu de navegação"
 
@@ -8428,7 +8453,7 @@ msgstr "Não"
 msgid "No (more) posts found."
 msgstr "Não foram encontradas (mais) postagens."
 
-#: includes/functions/_utility.php:1895
+#: includes/functions/_utility.php:1905
 msgid "No bookmarks."
 msgstr "Não há marcadores."
 
@@ -8472,11 +8497,11 @@ msgstr "Nenhuma descrição foi fornecida ainda."
 msgid "No description yet."
 msgstr "Ainda não há descrição."
 
-#: includes/functions/_setup-admin.php:1206
+#: includes/functions/_setup-admin.php:1202
 msgid "No groups found."
 msgstr "Nenhum grupo foi encontrado."
 
-#: includes/functions/settings/_settings_page_general.php:1395
+#: includes/functions/settings/_settings_page_general.php:1419
 msgid "No guarantee these blocks work with the theme."
 msgstr "Não há garantia de que esses blocos funcionem com o tema."
 
@@ -8489,7 +8514,7 @@ msgstr "nenhuma tecla desativada"
 msgid "No matching posts found."
 msgstr "Não foram encontradas postagens correspondentes."
 
-#: includes/functions/settings/_settings_page_general.php:1008
+#: includes/functions/settings/_settings_page_general.php:1019
 msgid ""
 "No more continuous requests for near real-time updates and autosaves, which "
 "can strain the server."
@@ -8576,7 +8601,7 @@ msgstr "Nenhum"
 msgid "Not a valid JSON string."
 msgstr "Não é uma string JSON válida."
 
-#: includes/functions/_utility.php:3306
+#: includes/functions/_utility.php:3319
 #: includes/functions/comments/_comments_moderation.php:507
 #: includes/functions/comments/_comments_moderation.php:620
 #: includes/functions/comments/_comments_ajax.php:22
@@ -8613,12 +8638,12 @@ msgstr "Nada para mostrar."
 msgid "Notice above comments"
 msgstr "Observe os comentários acima"
 
-#: includes/functions/settings/_settings_page_general.php:988
+#: includes/functions/settings/_settings_page_general.php:999
 msgid "Notice above comments. Leave empty to hide. HTML allowed."
 msgstr ""
 "Observe os comentários acima. Deixe em branco para ocultar. HTML permitido."
 
-#: includes/functions/settings/_settings_page_general.php:925
+#: includes/functions/settings/_settings_page_general.php:936
 msgid "Notify commenters about replies via email (if provided)."
 msgstr ""
 "Notifique os comentaristas sobre as respostas por e-mail (se fornecido)."
@@ -8633,7 +8658,7 @@ msgstr ""
 msgid "OAuth 2.0 Connections"
 msgstr "Conexões OAuth 2.0"
 
-#: includes/functions/_utility.php:1889
+#: includes/functions/_utility.php:1899
 msgctxt "OAuth 2.0 login option plus appended icon."
 msgid "Log in with"
 msgstr "Faça login com"
@@ -8658,12 +8683,12 @@ msgstr ""
 msgid "Oneshot"
 msgstr "Oneshot"
 
-#: includes/functions/_utility.php:1917
+#: includes/functions/_utility.php:1927
 msgctxt "Oneshot story status"
 msgid "Oneshot"
 msgstr "Oneshot"
 
-#: includes/functions/_utility.php:1915
+#: includes/functions/_utility.php:1925
 msgctxt "Ongoing story status"
 msgid "Ongoing"
 msgstr "Em andamento"
@@ -8672,11 +8697,11 @@ msgstr "Em andamento"
 msgid "Only applied to the page."
 msgstr "Aplicado somente à página."
 
-#: includes/functions/settings/_settings_page_general.php:1303
+#: includes/functions/settings/_settings_page_general.php:1327
 msgid "Only do this if you define everything yourself."
 msgstr "Só faça isso se você mesmo definir tudo."
 
-#: includes/functions/settings/_settings_page_general.php:1314
+#: includes/functions/settings/_settings_page_general.php:1338
 msgid "Only do this if you integrate it yourself."
 msgstr "Faça isso somente se você mesmo o integrar."
 
@@ -8709,7 +8734,7 @@ msgstr "Imagem padrão do Open Graph"
 msgid "Open Graph Image"
 msgstr "Imagem de gráfico aberto"
 
-#: includes/functions/settings/_settings_page_general.php:729
+#: includes/functions/settings/_settings_page_general.php:734
 msgid ""
 "Open Graph images, chat embeds, meta tags, and schema graphs for rich "
 "snippets. Incompatible with SEO plugins."
@@ -8802,7 +8827,7 @@ msgstr "Página"
 msgid "Page Assignments"
 msgstr "Atribuições de página"
 
-#: includes/functions/_setup-theme.php:1934
+#: includes/functions/_setup-theme.php:1983
 msgid "Page Background"
 msgstr "Histórico da página"
 
@@ -8829,7 +8854,7 @@ msgstr "Id da história"
 msgid "Page Style"
 msgstr "Página de estilo"
 
-#: includes/functions/_setup-theme.php:1724
+#: includes/functions/_setup-theme.php:1773
 msgctxt "Pagination jump prompt."
 msgid "Enter page number:"
 msgstr "Digite o número da página:"
@@ -8863,7 +8888,7 @@ msgctxt "Paragraph tools text-to-speech button"
 msgid "TTS"
 msgstr "TTS"
 
-#: includes/functions/settings/_settings_page_setup.php:61
+#: includes/functions/settings/_settings_page_setup.php:59
 msgid ""
 "Paragraphs in chapters have a first-line indentation by default to guide the "
 "reading eye. However, you may find this unaesthetic and prefer to disable "
@@ -8877,7 +8902,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:562
 msgid "Parent Character"
-msgstr "Caráter dos pais"
+msgstr "Personagem Pai"
 
 #: includes/functions/_setup-types-and-terms.php:563
 msgid "Parent Character:"
@@ -8885,7 +8910,7 @@ msgstr "Personagem parental:"
 
 #: includes/functions/comments/_comments_ajax.php:351
 msgid "Parent comment has not been approved yet."
-msgstr "O comentário dos pais ainda não foi aprovado."
+msgstr "O comentário pai ainda não foi aprovado."
 
 #: includes/functions/_setup-types-and-terms.php:607
 msgid "Parent Content Warning"
@@ -8897,19 +8922,19 @@ msgstr "Alerta de Conteúdo Pai:"
 
 #: includes/functions/_setup-types-and-terms.php:517
 msgid "Parent Fandom"
-msgstr "Fandom dos pais"
+msgstr "Fandom Pai"
 
 #: includes/functions/_setup-types-and-terms.php:518
 msgid "Parent Fandom:"
-msgstr "Fandom dos pais:"
+msgstr "Fandom Pai:"
 
 #: includes/functions/_setup-types-and-terms.php:472
 msgid "Parent Genre"
-msgstr "Gênero dos pais"
+msgstr "Gênero Pai"
 
 #: includes/functions/_setup-types-and-terms.php:473
 msgid "Parent Genre:"
-msgstr "Gênero dos pais:"
+msgstr "Gênero Pai:"
 
 #: includes/functions/users/_user-ajax.php:219
 #, php-format
@@ -8918,7 +8943,7 @@ msgstr ""
 "Erro parcial no banco de dados. Apenas %1$s de %2$s comentários puderam ser "
 "apagados."
 
-#: includes/functions/_utility.php:1896
+#: includes/functions/_utility.php:1906
 #: includes/functions/_setup-wordpress.php:514
 msgid "Password"
 msgstr "Senha"
@@ -9099,13 +9124,13 @@ msgctxt "Patreon tiers meta field label."
 msgid "Patreon Tiers"
 msgstr "Níveis do Patreon"
 
-#: includes/functions/settings/_settings_loggers.php:149
+#: includes/functions/settings/_settings_loggers.php:186
 #, php-format
 msgctxt "Pattern for checkbox option in logs."
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
 
-#: includes/functions/settings/_settings_loggers.php:469
+#: includes/functions/settings/_settings_loggers.php:506
 #, php-format
 msgctxt "Pattern for connection updates in logs."
 msgid "%s updated."
@@ -9118,19 +9143,19 @@ msgctxt ""
 msgid "Deleted file from server: %s"
 msgstr "Arquivo excluído do servidor: %s"
 
-#: includes/functions/settings/_settings_loggers.php:263
+#: includes/functions/settings/_settings_loggers.php:300
 #, php-format
 msgctxt "Pattern for page assignment updates in logs."
 msgid "%1$s changed from \"%2$s\" to \"%3$s\""
 msgstr "%1$s mudou de \"%2$s\" para \"%3$s\""
 
-#: includes/functions/settings/_settings_loggers.php:360
+#: includes/functions/settings/_settings_loggers.php:397
 #, php-format
 msgctxt "Pattern for phrase updates in logs."
 msgid "%1$s phrase changed to \"%2$s\""
 msgstr "%1$s frase alterada para \"%2$s\""
 
-#: includes/functions/settings/_settings_loggers.php:116
+#: includes/functions/settings/_settings_loggers.php:153
 #, php-format
 msgctxt "Pattern for post/page in logs: {Type} #{ID} {Action}: {Title}."
 msgid "%1$s #%2$s %3$s: %4$s"
@@ -9160,7 +9185,7 @@ msgctxt "Paypal link meta field label."
 msgid "Paypal Link"
 msgstr "Link do Paypal"
 
-#: includes/functions/settings/_settings_page_general.php:1000
+#: includes/functions/settings/_settings_page_general.php:1011
 msgid "Performance"
 msgstr "Desempenho"
 
@@ -9361,11 +9386,11 @@ msgid ""
 msgstr ""
 "Impedir que o avatar seja substituído pelo login mais recente da conta OAuth."
 
-#: includes/functions/settings/_settings_page_setup.php:114
+#: includes/functions/settings/_settings_page_setup.php:112
 msgid "Prevent saving of IP address for commenters?"
 msgstr "Impedir o salvamento do endereço IP dos comentaristas?"
 
-#: includes/functions/settings/_settings_page_general.php:1179
+#: includes/functions/settings/_settings_page_general.php:1201
 msgid "Prevents users from ending up on the login page."
 msgstr "Evita que os usuários acabem na página de login."
 
@@ -9426,7 +9451,7 @@ msgstr "Link principal para o site da recomendação ou do autor."
 msgid "Private comment"
 msgstr "Comentário privado"
 
-#: includes/functions/settings/_settings_page_general.php:945
+#: includes/functions/settings/_settings_page_general.php:956
 msgid "Private comments are invisible to the public."
 msgstr "Os comentários privados são invisíveis para o público."
 
@@ -9435,7 +9460,7 @@ msgctxt "Private comments filter in comment screen dropdown."
 msgid "Private"
 msgstr "Privado"
 
-#: includes/functions/comments/_comments_threads.php:681
+#: includes/functions/comments/_comments_threads.php:740
 msgid "Private Reply"
 msgstr "Resposta privada"
 
@@ -9451,8 +9476,8 @@ msgstr "Sinalizadores de perfil"
 msgid "Profile updated."
 msgstr "Perfil atualizado."
 
-#: includes/functions/comments/_comments_threads.php:759
-#: includes/functions/comments/_comments_threads.php:762
+#: includes/functions/comments/_comments_threads.php:344
+#: includes/functions/comments/_comments_threads.php:346
 #: includes/functions/users/_admin-profile.php:1105
 #: includes/functions/users/_admin-profile.php:1213
 #: includes/functions/users/_admin-profile.php:2073
@@ -9484,7 +9509,7 @@ msgstr "O ID da postagem fornecida não é um ID da história."
 msgid "Published"
 msgstr "Publicado"
 
-#: includes/functions/settings/_settings_loggers.php:565
+#: includes/functions/settings/_settings_loggers.php:602
 msgid "published"
 msgstr "publicado"
 
@@ -9501,7 +9526,7 @@ msgid "Purge All"
 msgstr "Purgar tudo"
 
 #: includes/functions/settings/_register_settings.php:1079
-#: includes/functions/settings/_settings_page_general.php:1354
+#: includes/functions/settings/_settings_page_general.php:1378
 msgid "Purge all caches on content updates"
 msgstr "Limpar todos os caches nas atualizações de conteúdo"
 
@@ -9521,11 +9546,11 @@ msgstr "Caches de temas apagados."
 msgid "Purging…"
 msgstr "Eliminando…"
 
-#: includes/functions/settings/_settings_page_general.php:905
+#: includes/functions/settings/_settings_page_general.php:916
 msgid "Quick buttons to wrap text selection in BBCodes."
 msgstr "Botões rápidos para envolver a seleção de texto em BBCodes."
 
-#: includes/functions/_setup-theme.php:1731
+#: includes/functions/_setup-theme.php:1780
 msgid ""
 "Quote appended to comment!<br><a style=\"font-weight: 700;\" "
 "href=\"#comments\">Go to comment section.</a>"
@@ -9534,7 +9559,7 @@ msgstr ""
 "href=\"#comments\">Ir para a seção de comentários.</a>"
 
 #: includes/functions/settings/_register_settings.php:1153
-#: includes/functions/settings/_settings_page_general.php:1125
+#: includes/functions/settings/_settings_page_general.php:1138
 msgid "Randomize OAuth 2.0 usernames"
 msgstr "Randomizar nomes de usuário do OAuth 2.0"
 
@@ -9543,7 +9568,7 @@ msgctxt "Rate for text-to-speech voice."
 msgid "Rate"
 msgstr "Taxa"
 
-#: includes/functions/_setup-theme.php:1725
+#: includes/functions/_setup-theme.php:1774
 msgctxt "Rate limit reached notification."
 msgid "Slow down."
 msgstr "Diminua a velocidade."
@@ -9566,7 +9591,7 @@ msgctxt "Read more link aria label"
 msgid "Continue reading %s"
 msgstr "Continuar lendo %s"
 
-#: includes/functions/_utility.php:1899
+#: includes/functions/_utility.php:1909
 msgctxt "Read more of a post."
 msgid "Read More"
 msgstr "Leia mais"
@@ -9680,7 +9705,7 @@ msgstr ""
 "após a alteração."
 
 #: includes/functions/settings/_register_settings.php:1042
-#: includes/functions/settings/_settings_page_general.php:1042
+#: includes/functions/settings/_settings_page_general.php:1053
 msgid "Reduce admin bar items"
 msgstr "Reduzir os itens da barra de administração"
 
@@ -9716,16 +9741,16 @@ msgstr "Pesquisar…"
 msgid "Release Notes"
 msgstr "Notas de lançamento"
 
-#: includes/functions/settings/_settings_page_general.php:862
+#: includes/functions/settings/_settings_page_general.php:873
 msgid "Reliable spam protection but can lead to false positives."
 msgstr "Proteção confiável contra spam, mas pode levar a falsos positivos."
 
-#: includes/functions/_utility.php:1898
+#: includes/functions/_utility.php:1908
 msgctxt "Remember a story to be read later."
 msgid "Read Later"
 msgstr "Ler mais tarde"
 
-#: includes/functions/settings/_settings_page_general.php:697
+#: includes/functions/settings/_settings_page_general.php:689
 msgid "Remember stories to be \"read later\"."
 msgstr "Lembre-se de histórias para serem \"lidas mais tarde\"."
 
@@ -9733,7 +9758,7 @@ msgstr "Lembre-se de histórias para serem \"lidas mais tarde\"."
 msgid "Reminders could not be cleared."
 msgstr "Os lembretes não puderam ser apagados."
 
-#: includes/functions/_setup-theme.php:1728
+#: includes/functions/_setup-theme.php:1777
 msgid "Reminders re-synchronized."
 msgstr "Lembretes ressincronizados."
 
@@ -9749,7 +9774,7 @@ msgid "Remove"
 msgstr "Remover"
 
 #: includes/functions/settings/_register_settings.php:1041
-#: includes/functions/settings/_settings_page_general.php:1021
+#: includes/functions/settings/_settings_page_general.php:1032
 msgid "Remove clutter from HTML head"
 msgstr "Remover a desordem do cabeçalho do HTML"
 
@@ -9783,7 +9808,7 @@ msgstr "Removida a função \"%s\"."
 msgid "Removed unused tags."
 msgstr "Remoção de tags não utilizadas."
 
-#: includes/functions/settings/_settings_page_general.php:1033
+#: includes/functions/settings/_settings_page_general.php:1044
 msgid "Removes superfluous CSS and JavaScript."
 msgstr "Remove CSS e JavaScript supérfluos."
 
@@ -9833,7 +9858,7 @@ msgstr "Renderiza capítulos em grupos nas páginas da história (se definido)."
 msgid "Repair Tools"
 msgstr "Ferramentas de reparo"
 
-#: includes/functions/settings/_settings_page_general.php:719
+#: includes/functions/settings/_settings_page_general.php:724
 msgid ""
 "Replace the default WordPress RSS feeds with theme feeds built for "
 "publishing your stories and chapters."
@@ -9845,11 +9870,11 @@ msgstr ""
 msgid "Replaces the default header image."
 msgstr "Substitui a imagem de cabeçalho padrão."
 
-#: includes/functions/comments/_comments_threads.php:681
+#: includes/functions/comments/_comments_threads.php:740
 msgid "Reply"
 msgstr "Responder"
 
-#: includes/functions/comments/_comments_threads.php:519
+#: includes/functions/comments/_comments_threads.php:578
 msgid "Reply has been marked as private."
 msgstr "A resposta foi marcada como privada."
 
@@ -9859,7 +9884,7 @@ msgctxt "Reply notification email subject."
 msgid "New reply to your comment on %s"
 msgstr "Nova resposta ao seu comentário sobre %s"
 
-#: includes/functions/comments/_comments_threads.php:793
+#: includes/functions/comments/_comments_threads.php:833
 msgctxt "Report this comment."
 msgid "Report"
 msgstr "Relatório"
@@ -9873,7 +9898,7 @@ msgstr "Recurso de relatório desativado."
 msgid "Reports"
 msgstr "Relatórios"
 
-#: includes/functions/_setup-admin.php:1154
+#: includes/functions/_setup-admin.php:1150
 #: includes/functions/comments/_comments_moderation.php:516
 #: includes/functions/comments/_comments_moderation.php:629
 #: includes/functions/comments/_comments_ajax.php:462
@@ -9909,7 +9934,7 @@ msgid "Require age confirmation for the whole site."
 msgstr "Exigir confirmação de idade para todo o site."
 
 #: includes/functions/settings/_register_settings.php:1029
-#: includes/functions/settings/_settings_page_general.php:846
+#: includes/functions/settings/_settings_page_general.php:856
 msgid "Require JavaScript to comment"
 msgstr "Requer JavaScript para comentar"
 
@@ -9959,7 +9984,7 @@ msgstr "Opções de redefinição"
 msgid "Reset Registry"
 msgstr "Redefinir registro"
 
-#: includes/functions/settings/_settings_loggers.php:541
+#: includes/functions/settings/_settings_loggers.php:578
 msgid "restored"
 msgstr "restaurado"
 
@@ -9969,7 +9994,7 @@ msgid "Restrict chapter stories by author"
 msgstr "Restringir histórias de capítulos por autor"
 
 #: includes/functions/settings/_register_settings.php:1083
-#: includes/functions/settings/_settings_page_general.php:1145
+#: includes/functions/settings/_settings_page_general.php:1162
 msgid "Restrict default REST API"
 msgstr "Restringir a API REST padrão"
 
@@ -9985,7 +10010,7 @@ msgstr "Resultados para a categoria \"%s\""
 #: taxonomy-fcn_character.php:97
 #, php-format
 msgid "Results for Character \"%s\""
-msgstr "Resultados para o caractere \"%s\""
+msgstr "Resultados para o Personagem \"%s\""
 
 #: taxonomy-fcn_content_warning.php:97
 #, php-format
@@ -10007,31 +10032,31 @@ msgstr "Resultados para o gênero \"%s\""
 msgid "Results for Tag \"%s\""
 msgstr "Resultados para a tag \"%s\""
 
-#: includes/functions/settings/_settings_page_general.php:1459
+#: includes/functions/settings/_settings_page_general.php:1483
 msgid "Return to the default search query and form."
 msgstr "Retornar à consulta de pesquisa e ao formulário padrão."
 
-#: includes/functions/settings/_settings_page_general.php:1499
+#: includes/functions/settings/_settings_page_general.php:1523
 msgid "Return to the default WordPress form."
 msgstr "Retornar ao formulário padrão do WordPress."
 
-#: includes/functions/settings/_settings_page_general.php:1416
+#: includes/functions/settings/_settings_page_general.php:1440
 msgid "Return to the default WordPress logout with nonce."
 msgstr "Retornar ao logout padrão do WordPress com nonce."
 
-#: includes/functions/settings/_settings_page_general.php:1479
+#: includes/functions/settings/_settings_page_general.php:1503
 msgid "Return to the default WordPress markup."
 msgstr "Retornar à marcação padrão do WordPress."
 
-#: includes/functions/settings/_settings_page_general.php:1509
+#: includes/functions/settings/_settings_page_general.php:1533
 msgid "Return to the default WordPress pagination (no-AJAX)."
 msgstr "Retornar à paginação padrão do WordPress (sem AJAX)."
 
-#: includes/functions/settings/_settings_page_general.php:1489
+#: includes/functions/settings/_settings_page_general.php:1513
 msgid "Return to the default WordPress query."
 msgstr "Retornar à consulta padrão do WordPress."
 
-#: includes/functions/settings/_settings_page_general.php:1280
+#: includes/functions/settings/_settings_page_general.php:1304
 msgid "Rewrite chapter permalinks to include story"
 msgstr "Reescrever os permalinks dos capítulos para incluir a história"
 
@@ -10039,7 +10064,7 @@ msgstr "Reescrever os permalinks dos capítulos para incluir a história"
 msgid "Rewrite chapter permalinks to include story "
 msgstr "Reescrever os links permanetes dos capítulos para incluir a história "
 
-#: includes/functions/settings/_settings_page_setup.php:132
+#: includes/functions/settings/_settings_page_setup.php:130
 msgid "Rewrite chapter permalinks to include story?"
 msgstr "Reescrever os permalinks dos capítulos para incluir a história?"
 
@@ -10144,18 +10169,18 @@ msgstr "Saturar o fundo"
 msgid "Saturation Offset"
 msgstr "Deslocamento de saturação"
 
-#: includes/functions/settings/_settings_page_setup.php:115
+#: includes/functions/settings/_settings_page_general.php:1152
+#: includes/functions/settings/_settings_page_setup.php:113
 msgid ""
-"Saving IP addresses when visitors leave comments can conflict with GDPR and "
-"other data privacy laws, depending on how the IP addresses are used and "
-"associated with other data. Given the sensitivity of this topic, it is "
-"generally better to avoid saving IP addresses. They are not reliable anyway."
+"Saving IP addresses when visitors leave comments can conflict with data "
+"privacy laws, depending on how the IP addresses are used and associated with "
+"other data. Given the sensitivity of this topic, it is generally better to "
+"avoid saving IP addresses."
 msgstr ""
-"O salvamento de endereços IP quando os visitantes deixam comentários pode "
-"entrar em conflito com o GDPR e outras leis de privacidade de dados, "
-"dependendo de como os endereços IP são usados e associados a outros dados. "
-"Dada a sensibilidade desse tópico, geralmente é melhor evitar salvar "
-"endereços IP. De qualquer forma, eles não são confiáveis."
+"Salvar os endereços IP quando os visitantes deixam comentários pode entrar "
+"em conflito com leis de privacidade de dados, dependendo de como eles são "
+"usados e associados a outros dados. Dada a sensibilidade do tópico, "
+"normalmente é melhor evitar salvar endereços IP."
 
 #: includes/functions/settings/_settings_page_tools.php:194
 msgid "Scan"
@@ -10211,7 +10236,7 @@ msgstr "Capítulos de pesquisa"
 
 #: includes/functions/_setup-types-and-terms.php:560
 msgid "Search Characters"
-msgstr "Pesquisar caracteres"
+msgstr "Pesquisar Personagem"
 
 #: includes/functions/_setup-types-and-terms.php:343
 msgid "Search Collections"
@@ -10271,11 +10296,11 @@ msgstr ""
 "Cor de texto secundária para itens complementares. Contraste padrão ~5:1 no "
 "BG-700."
 
-#: includes/functions/settings/_settings_page_general.php:1108
+#: includes/functions/settings/_settings_page_general.php:1119
 msgid "Security & Privacy"
 msgstr "Segurança e privacidade"
 
-#: includes/functions/settings/_settings_page_general.php:1334
+#: includes/functions/settings/_settings_page_general.php:1358
 msgid "Security risk. Only enable this if you actually need it."
 msgstr ""
 "Risco de segurança. Ative esse recurso somente se você realmente precisar "
@@ -10375,7 +10400,7 @@ msgstr "Selecione quais níveis ignoram a senha."
 msgid "Sending…"
 msgstr "Enviando…"
 
-#: includes/functions/settings/_settings_page_general.php:1200
+#: includes/functions/settings/_settings_page_general.php:1223
 msgid ""
 "Sends an admin email if suspicious strings are found, which could be an "
 "attempted attack or <strong>false positive.</strong>"
@@ -10404,7 +10429,7 @@ msgstr "Autor: %s"
 #, php-format
 msgctxt "SEO character taxonomy title."
 msgid "Character: %s"
-msgstr "Caractere: %s"
+msgstr "Personagem: %s"
 
 #: includes/functions/schemas/_chapters_schema.php:118
 #, php-format
@@ -10570,7 +10595,7 @@ msgstr "Definir imagem do cabeçalho"
 msgid "Set landscape image"
 msgstr "Definir imagem de paisagem"
 
-#: includes/functions/settings/_settings_page_setup.php:184
+#: includes/functions/settings/_settings_page_setup.php:182
 msgid "Set up a static page with shortcodes as the home page."
 msgstr ""
 "Configure uma página estática com códigos de acesso como a página inicial."
@@ -10702,13 +10727,13 @@ msgstr ""
 msgid "Show %s more"
 msgstr "Mostrar mais %s"
 
-#: includes/functions/settings/_settings_page_general.php:1345
+#: includes/functions/settings/_settings_page_general.php:1369
 msgid "Show custom fields form on post edit screen."
 msgstr ""
 "Mostrar formulário de campos personalizados na tela de edição de posts."
 
 #: includes/functions/settings/_register_settings.php:1151
-#: includes/functions/settings/_settings_page_general.php:1115
+#: includes/functions/settings/_settings_page_general.php:1126
 msgid "Show default WordPress login in modal"
 msgstr "Mostrar o login padrão do WordPress em um modal"
 
@@ -10722,9 +10747,12 @@ msgid "Show header image shadow"
 msgstr "Mostrar sombra da imagem do cabeçalho"
 
 #: includes/functions/settings/_register_settings.php:1100
-#: includes/functions/settings/_settings_page_general.php:348
 msgid "Show latest chapter on large story cards"
 msgstr "Mostrar o último capítulo em cartões de história grandes"
+
+#: includes/functions/settings/_settings_page_general.php:348
+msgid "Show latest chapters on large story cards"
+msgstr "Mostrar os últimos capítulos em cartões de história grandes"
 
 #: includes/functions/_customizer-settings.php:1877
 msgid "Show page shadow"
@@ -10767,15 +10795,13 @@ msgstr "Mostrar etiquetas nos cartões de história"
 msgid "Show title text shadow"
 msgstr "Mostrar sombra do texto do título"
 
-#: includes/functions/settings/_settings_page_general.php:1210
+#: includes/functions/settings/_settings_page_general.php:1233
 msgid ""
 "Shows a generic cookie consent banner and activates the "
-"<code>fictioneer_get_consent()</code> theme function that returns either "
-"false, \"necessary\", or \"full\"."
+"<code>fictioneer_get_consent()</code> theme function."
 msgstr ""
 "Mostra um banner genérico de consentimento de cookies e ativa a função de "
-"tema <code>fictioneer_get_consent()</code> que retorna false, \"necessary\" "
-"ou \"full\"."
+"tema <code>fictioneer_get_consent()</code>."
 
 #: includes/functions/_customizer-settings.php:1467
 msgid "Sidebar"
@@ -10789,11 +10815,11 @@ msgstr "Lacuna na barra lateral"
 msgid "Sidebar Width"
 msgstr "Largura da barra lateral"
 
-#: includes/functions/settings/_settings_page_general.php:847
+#: includes/functions/settings/_settings_page_general.php:857
 msgid "Simple but effective spam protection."
 msgstr "Proteção simples, mas eficaz contra spam."
 
-#: includes/functions/settings/_settings_page_general.php:1157
+#: includes/functions/settings/_settings_page_general.php:1178
 #, php-format
 msgid ""
 "Simple session-based rate limiting, allowing %s requests per minute for "
@@ -10806,7 +10832,7 @@ msgstr ""
 msgid "Site RSS"
 msgstr "RSS do site"
 
-#: partials/_icon-menu.php:126 includes/functions/_utility.php:1901
+#: partials/_icon-menu.php:126 includes/functions/_utility.php:1911
 msgid "Site Settings"
 msgstr "Configurações do site"
 
@@ -10918,7 +10944,21 @@ msgstr "Espaçamento horizontal pequeno - máximo"
 msgid "Small Horizontal Spacing - Minimum"
 msgstr "Espaçamento horizontal pequeno - mínimo"
 
-#: includes/functions/settings/_settings_page_general.php:819
+#: includes/functions/settings/_settings_page_general.php:1181
+msgid ""
+"Some frontend actions, such as following a story or setting a chapter "
+"checkmark, send small requests for processing. If someone were to spam these "
+"actions, it could cause stress on the server. By enabling the rate limit, "
+"these actions are restricted to a sensible number of requests per minute and "
+"blocked if the limit is exceeded."
+msgstr ""
+"Algumas ações de front-end, como seguir uma história ou definir uma marca de "
+"verificação, enviam pequenas solicitações de processamento. Se alguém fizer "
+"spam dessas ações, isso poderá estressar o servidor. Ao ativar o limite de "
+"taxa, essas ações são restritas a um número razoável de solicitações por "
+"minuto e bloqueadas se o limite for excedido."
+
+#: includes/functions/settings/_settings_page_general.php:829
 msgid ""
 "Some of these options will only work properly with the theme comment system "
 "enabled."
@@ -10926,15 +10966,15 @@ msgstr ""
 "Algumas dessas opções só funcionarão corretamente com o sistema de "
 "comentários do tema ativado."
 
-#: includes/functions/settings/_settings_page_general.php:1324
+#: includes/functions/settings/_settings_page_general.php:1348
 msgid "Some older plugins might require this."
 msgstr "Alguns plug-ins mais antigos podem exigir isso."
 
-#: includes/functions/settings/_settings_page_general.php:1126
+#: includes/functions/settings/_settings_page_general.php:1139
 msgid "Some providers use real names. Default for Google."
 msgstr "Alguns provedores usam nomes reais. Padrão para o Google."
 
-#: includes/functions/settings/_settings_page_general.php:749
+#: includes/functions/settings/_settings_page_general.php:759
 msgid ""
 "Sometimes wonky browser-based text-to-speech engine. Extend and availability "
 "depends on the browser and OS."
@@ -10965,7 +11005,7 @@ msgstr "Palavras"
 
 #: includes/functions/_module-seo.php:137
 msgid "Source: Parent"
-msgstr "Fonte: Pais"
+msgstr "Fonte: Pai"
 
 #: includes/functions/_module-seo.php:138
 msgid "Source: Site Default"
@@ -10997,12 +11037,12 @@ msgstr "Solução autônoma para publicação e leitura de ficções da Web."
 msgid "Start typing for suggestions…"
 msgstr "Comece a digitar para obter sugestões…"
 
-#: includes/functions/settings/_settings_loggers.php:150
+#: includes/functions/settings/_settings_loggers.php:187
 msgctxt "State of checkbox option in logs."
 msgid "Checked"
 msgstr "Verificado"
 
-#: includes/functions/settings/_settings_loggers.php:150
+#: includes/functions/settings/_settings_loggers.php:187
 msgctxt "State of checkbox option in logs."
 msgid "Unchecked"
 msgstr "Não verificado"
@@ -11017,7 +11057,7 @@ msgstr "Adesivo"
 msgid "Sticky in lists"
 msgstr "Fixo em listas"
 
-#: includes/functions/settings/_settings_page_general.php:837
+#: includes/functions/settings/_settings_page_general.php:847
 msgid "Still shows the current comments."
 msgstr "Ainda mostra os comentários atuais."
 
@@ -11025,7 +11065,7 @@ msgstr "Ainda mostra os comentários atuais."
 msgid "Stop"
 msgstr "Parar"
 
-#: includes/functions/_utility.php:1905
+#: includes/functions/_utility.php:1915
 msgctxt "Stop following a story."
 msgid "Unfollow"
 msgstr "Deixar de seguir"
@@ -11040,22 +11080,22 @@ msgstr "Deixar de seguir"
 msgid "Stories"
 msgstr "Histórias"
 
-#: includes/functions/settings/_settings_page_setup.php:133
+#: includes/functions/settings/_settings_page_general.php:1306
+#: includes/functions/settings/_settings_page_setup.php:131
 msgid ""
-"Stories and chapters are actually separate posts that are only associated, "
-"not hierarchically linked. Therefore, the permalink of a chapter does not "
+"Stories and chapters are separate posts that are associated but not "
+"hierarchically linked. As a result, the permalink of a chapter does not "
 "include the story by default. Enabling this setting adds an alias to include "
-"the story in the permalink. However, chapter slugs must still be globally "
-"unique, with numbers appended in case of conflicts (e.g. <code>…/story/story-"
-"slug/chapter-slug-1</code> instead of <code>…/chapter/chapter-slug-1</code>)."
+"the story in the chapter’s permalink. However, chapter slugs must still be "
+"globally unique, and a number will be appended in case of a conflict (e.g. "
+"<code>.../story/story-slug/chapter-slug-1</code>)."
 msgstr ""
-"Histórias e capítulos são, na verdade, postagens separadas que estão apenas "
-"associadas, não vinculadas hierarquicamente. Portanto, o link permanente de "
-"um capítulo não inclui a história por padrão. A ativação dessa configuração "
-"adiciona um alias para incluir a história no link permanente. Entretanto, os "
-"slugs de capítulo ainda devem ser globalmente exclusivos, com números "
-"anexados em caso de conflitos (por exemplo, <code>…/story/story-slug/chapter-"
-"slug-1</code> em vez de <code>…/chapter/chapter-slug-1</code>)."
+"Histórias e capítulos são postagens separadas que estão associadas, mas não "
+"vinculadas hierarquicamente. Portanto, por padrão, o link permanente de um "
+"capítulo não inclui a história. Ativar essa configuração adiciona um alias "
+"para incluir a história no link permanente. Entretanto, os slugs de capítulo "
+"ainda devem ser únicos globalmente e, em caso de conflitos, números serão "
+"adicionados (por exemplo, <code>…/story/story-slug/chapter-slug-1</code>)."
 
 #: includes/functions/_setup-types-and-terms.php:137
 msgid "Stories list"
@@ -11114,7 +11154,7 @@ msgctxt "Story card label."
 msgid "Story"
 msgstr "História"
 
-#: includes/functions/settings/_settings_page_setup.php:67
+#: includes/functions/settings/_settings_page_setup.php:65
 msgid ""
 "Story cards pack a lot of information into a compact space to assist with "
 "browsing, providing everything at a glance. However, displaying the first "
@@ -11241,7 +11281,7 @@ msgctxt "Story global note meta field label."
 msgid "Global Note"
 msgstr "Nota global"
 
-#: includes/functions/_setup-theme.php:1925
+#: includes/functions/_setup-theme.php:1974
 msgid "Story Header"
 msgstr "Cabeçalho da história"
 
@@ -11253,7 +11293,7 @@ msgstr "História oculta"
 msgid "Story ID"
 msgstr "ID da história"
 
-#: includes/functions/_setup-admin.php:1162
+#: includes/functions/_setup-admin.php:1158
 msgid "Story ID did not pass validation."
 msgstr "O ID da história não passou na validação."
 
@@ -11267,12 +11307,12 @@ msgstr ""
 "<span class=\"post-list-item__meta-in-story\"><span>em </span><a "
 "href=\"%1$s\">%2$s</a></span>"
 
-#: includes/functions/_utility.php:1882
+#: includes/functions/_utility.php:1892
 msgctxt "Story is followed."
 msgid "Followed"
 msgstr "Seguido"
 
-#: includes/functions/_utility.php:1884
+#: includes/functions/_utility.php:1894
 msgctxt "Story is marked to be read later."
 msgid "Read later"
 msgstr "Leia mais"
@@ -11286,7 +11326,7 @@ msgstr "História Meta"
 msgid "Story Mirror"
 msgstr "Espelho da história"
 
-#: includes/functions/_utility.php:1883
+#: includes/functions/_utility.php:1893
 msgctxt "Story or chapter is marked as read."
 msgid "Read"
 msgstr "Ler"
@@ -11411,19 +11451,19 @@ msgid "Subitem short date format"
 msgstr "Formato de data curta do subitem"
 
 #: includes/functions/_setup-shortcodes.php:1267
-#: includes/functions/settings/_settings_page_setup.php:144
+#: includes/functions/settings/_settings_page_setup.php:142
 msgid "Submit"
 msgstr "Enviar"
 
-#: searchform.php:151
+#: searchform.php:141
 msgid "Submit search request"
 msgstr "Enviar solicitação de pesquisa"
 
-#: includes/functions/settings/_settings_loggers.php:600
+#: includes/functions/settings/_settings_loggers.php:637
 msgid "submitted for review"
 msgstr "enviado para revisão"
 
-#: includes/functions/_utility.php:1903
+#: includes/functions/_utility.php:1913
 msgctxt "Subscribe to a story."
 msgid "Subscribe"
 msgstr "Assine"
@@ -11453,11 +11493,11 @@ msgstr ""
 "Cancelamento bem-sucedido da assinatura do comentário #%1$s em <a "
 "href=\"%2$s\">%3$s</a>!"
 
-#: includes/functions/settings/_settings_page_general.php:707
+#: includes/functions/settings/_settings_page_general.php:712
 msgid "Suggest color-coded text changes in the comments."
 msgstr "Sugira alterações no texto com código de cores nos comentários."
 
-#: includes/functions/_setup-theme.php:1730
+#: includes/functions/_setup-theme.php:1779
 msgid ""
 "Suggestion appended to comment!<br><a style=\"font-weight: 700;\" "
 "href=\"#comments\">Go to comment section.</a>"
@@ -11646,7 +11686,7 @@ msgstr ""
 msgid "Tetrakern"
 msgstr "Tetracore"
 
-#: includes/functions/_utility.php:1919
+#: includes/functions/_utility.php:1929
 msgctxt "Text or icon for paragraph anchor in comments."
 msgid "<i class=\"fa-solid fa-link\"></i>"
 msgstr "<i class=\"fa-solid fa-link\"></i>"
@@ -11679,7 +11719,7 @@ msgid ""
 msgstr ""
 "O campo meta \"fictioneer_story_sticky\" foi acrescentado com o valor 0."
 
-#: includes/functions/settings/_settings_page_general.php:1010
+#: includes/functions/settings/_settings_page_general.php:1021
 #, php-format
 msgid ""
 "The <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Heartbeat "
@@ -11697,6 +11737,24 @@ msgstr ""
 "rastreamento da atividade do usuário, atualizações de vendas de comércio "
 "eletrônico e muito mais."
 
+#: includes/functions/settings/_settings_page_general.php:1165
+#, php-format
+msgid ""
+"The <a href=\"%s\" target=\"_blank\" rel=\"noopener\">WordPress REST API</a> "
+"has many endpoints available even to unauthenticated users, such as <code>/"
+"wp-json/wp/v2/posts</code>, which returns all blog posts on your site. This "
+"also applies to stories, chapters, and so forth. Since the response includes "
+"the full post content if it is not protected, you may want to restrict "
+"access to hamper content theft by aggregator sites."
+msgstr ""
+"A <a href=“%s” target=“_blank” rel=“noopener”>API REST do WordPress</a> tem "
+"muitos endpoints disponíveis até mesmo para usuários não autenticados, como "
+"<code>/wp-json/wp/v2/posts</code>, que retorna todos os posts de blog no seu "
+"site. Isso também se aplica a histórias, capítulos e assim por diante. Como "
+"a resposta inclui o conteúdo completo do post se ele não estiver protegido, "
+"você pode querer restringir o acesso para dificultar o roubo de conteúdo por "
+"sites agregadores."
+
 #: includes/functions/_setup-meta-fields.php:2042
 msgid ""
 "The <em>first paragraph</em> is used on cards, so keep it nice and concise. "
@@ -11706,11 +11764,11 @@ msgstr ""
 "agradável e conciso. A descrição curta completa é passada para a API do "
 "Storygraph."
 
-#: includes/functions/_setup-admin.php:1075
+#: includes/functions/_setup-admin.php:1071
 msgid "The <strong>mbstring</strong> PHP extension is not enabled."
 msgstr "A extensão PHP <strong>mbstring</strong> não está ativada."
 
-#: includes/functions/settings/_settings_page_general.php:1427
+#: includes/functions/settings/_settings_page_general.php:1451
 msgid ""
 "The AJAX comment form avoids conflicts with caching, especially issues with "
 "dynamic security tokens that are unique to each user. By loading the form "
@@ -11722,7 +11780,7 @@ msgstr ""
 "usuário. Ao carregar o formulário após o carregamento completo da página, "
 "ele contorna o cache, embora possa exigir mais recursos do servidor."
 
-#: includes/functions/settings/_settings_page_general.php:1438
+#: includes/functions/settings/_settings_page_general.php:1462
 msgid ""
 "The AJAX comment section avoids conflicts with caching, including the AJAX "
 "comment form, ensuring that comments are always up-to-date. By loading the "
@@ -11734,7 +11792,7 @@ msgstr ""
 "atualizados. Ao carregar os comentários após o carregamento completo da "
 "página, ele contorna o cache, embora possa exigir mais recursos do servidor."
 
-#: includes/functions/_setup-theme.php:1734
+#: includes/functions/_setup-theme.php:1783
 msgid ""
 "The associated email address is already taken. You can link additional "
 "accounts in your profile."
@@ -11742,7 +11800,7 @@ msgstr ""
 "O endereço de e-mail associado já está ocupado. Você pode vincular contas "
 "adicionais em seu perfil."
 
-#: includes/functions/settings/_settings_page_general.php:1116
+#: includes/functions/settings/_settings_page_general.php:1127
 msgid "The default login/registration form is not spam safe."
 msgstr "O formulário padrão de login/registro não é seguro contra spam."
 
@@ -11776,7 +11834,7 @@ msgstr ""
 "O espaço entre os itens da lista de conteúdo em pixels (não na exibição de "
 "grade). Padrão 4."
 
-#: includes/functions/_setup-admin.php:1070
+#: includes/functions/_setup-admin.php:1066
 msgid ""
 "The main theme directory is not \"fictioneer\" and needs to be renamed to "
 "match internal paths."
@@ -11823,7 +11881,7 @@ msgstr ""
 "navegador. Ele pode nem sempre funcionar como pretendido. No Android, você "
 "precisa das seguintes permissões de aplicativo para que isso funcione: "
 
-#: includes/functions/settings/_settings_page_general.php:1053
+#: includes/functions/settings/_settings_page_general.php:1064
 msgid ""
 "The theme does not use widgets by default and removing them slightly boosts "
 "performance."
@@ -11840,7 +11898,7 @@ msgstr ""
 "normal, atribuir o modelo de página especificado e selecioná-lo aqui. "
 "Depois, limpe os caches."
 
-#: includes/functions/settings/_settings_page_setup.php:43
+#: includes/functions/settings/_settings_page_setup.php:41
 msgid ""
 "The theme is set to light mode by default, but you can switch to dark mode. "
 "Visitors can override the display mode with the sun/moon icon toggle on the "
@@ -11900,7 +11958,7 @@ msgstr "Não há capítulos válidos com comentários."
 msgid "There is no guarantee this URL remains valid!"
 msgstr "Não há garantia de que esse URL permaneça válido!"
 
-#: includes/functions/settings/_settings_page_general.php:1270
+#: includes/functions/settings/_settings_page_general.php:1294
 msgid "They are blocked because they are redundant."
 msgstr "Eles são bloqueados porque são redundantes."
 
@@ -11945,7 +12003,7 @@ msgstr ""
 msgid "This function does currently not cover any issues."
 msgstr "Atualmente, essa função não cobre nenhum problema."
 
-#: includes/functions/settings/_settings_page_general.php:1449
+#: includes/functions/settings/_settings_page_general.php:1473
 msgid ""
 "This is a <em>last-resort measure</em> for aggressive caching strategies, "
 "such as options to serve public caches to logged-in users. It queries for "
@@ -12022,7 +12080,7 @@ msgstr ""
 "Este site é destinado a um público adulto. Confirme que você é maior de "
 "idade (18+) ou saia do site."
 
-#: includes/functions/settings/_settings_page_general.php:1602
+#: includes/functions/settings/_settings_page_general.php:1626
 msgid ""
 "This will also remove all theme-related comment and user metadata, such as "
 "bookmarks or follows. Stories, chapters, collections, and recommendations "
@@ -12033,7 +12091,7 @@ msgstr ""
 "coleções e recomendações permanecem, mas você precisará registrar seus tipos "
 "de post personalizados para acessá-los."
 
-#: includes/functions/settings/_settings_page_general.php:1469
+#: includes/functions/settings/_settings_page_general.php:1493
 msgid "This will disable the comment toolbar as well."
 msgstr "Isso também desativará a barra de ferramentas de comentários."
 
@@ -12051,7 +12109,7 @@ msgstr "Link para %s"
 msgid "Time Range"
 msgstr "Intervalo de tempo"
 
-#: includes/functions/settings/_settings_page_setup.php:146
+#: includes/functions/settings/_settings_page_setup.php:144
 msgid "Tips"
 msgstr "Dicas"
 
@@ -12060,7 +12118,7 @@ msgstr "Dicas"
 msgid "Title"
 msgstr "Título"
 
-#: includes/functions/_setup-theme.php:196
+#: includes/functions/_setup-theme.php:244
 msgid ""
 "To render this sidebar, enable it in the Customizer or insert it with the "
 "<code>[fictioneer_sidebar]</code> shortcode. It can also be rendered with "
@@ -12106,7 +12164,7 @@ msgstr "Alternar comentários entre ordem ascendente e descendente"
 msgid "Toggle Dark/Light Mode"
 msgstr "Alternar o modo escuro/claro"
 
-#: includes/functions/_utility.php:1879
+#: includes/functions/_utility.php:1889
 msgctxt "Toggle for chapter formatting modal."
 msgid "Formatting"
 msgstr "Formatação"
@@ -12156,7 +12214,7 @@ msgstr "Total de palavras"
 msgid "Trash"
 msgstr "Lixo"
 
-#: includes/functions/settings/_settings_loggers.php:536
+#: includes/functions/settings/_settings_loggers.php:573
 msgid "trashed"
 msgstr "destruído"
 
@@ -12227,7 +12285,7 @@ msgctxt "Unknown comment editor."
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: includes/functions/settings/_settings_page_general.php:1097
+#: includes/functions/settings/_settings_page_general.php:1108
 msgid ""
 "Unless you are a developer customizing the theme, leave this setting off. "
 "Extended meta queries check not only for the value of meta fields but also "
@@ -12242,7 +12300,7 @@ msgstr ""
 "desativar essa opção, todos os capítulos terão os metacampos ausentes "
 "adicionados e estarão isentos de limpeza."
 
-#: includes/functions/settings/_settings_page_general.php:1086
+#: includes/functions/settings/_settings_page_general.php:1097
 msgid ""
 "Unless you are a developer customizing the theme, leave this setting off. "
 "Extended meta queries check not only for the value of meta fields but also "
@@ -12375,7 +12433,7 @@ msgctxt "Update {Role}"
 msgid "Update %s"
 msgstr "Atualizar %s"
 
-#: includes/functions/settings/_settings_loggers.php:567
+#: includes/functions/settings/_settings_loggers.php:604
 msgid "updated"
 msgstr "atualizado"
 
@@ -12420,7 +12478,7 @@ msgstr "URL para o qual redirecionar quando a história for aberta."
 msgid "URL to Top Web Fiction page."
 msgstr "URL da página Top Web Fiction."
 
-#: includes/functions/settings/_settings_page_setup.php:152
+#: includes/functions/settings/_settings_page_setup.php:150
 msgid "Use a child theme for customization."
 msgstr "Use um tema secundário para personalização."
 
@@ -12431,7 +12489,7 @@ msgstr "Use um tema secundário para personalização."
 msgid "Use as cover image"
 msgstr "Usar como imagem de capa"
 
-#: includes/functions/settings/_settings_page_setup.php:168
+#: includes/functions/settings/_settings_page_setup.php:166
 msgid "Use constants for additional customization."
 msgstr "Use constantes para personalização adicional."
 
@@ -12753,7 +12811,7 @@ msgstr "Usuário"
 msgid "User Agent"
 msgstr "Agente do usuário"
 
-#: includes/functions/_setup-admin.php:1158
+#: includes/functions/_setup-admin.php:1154
 msgid "User did not pass validation."
 msgstr "O usuário não passou na validação."
 
@@ -12787,6 +12845,20 @@ msgstr "Função de usuário muito alta. Consulte um administrador."
 msgctxt "Username profile label with user ID."
 msgid "Username (ID: %s)"
 msgstr "Nome de usuário (ID: %s)"
+
+#: includes/functions/settings/_settings_page_general.php:1140
+msgid ""
+"Users registered with an external account normally get the username of said "
+"account, with suffix if necessary. But some providers use real names, such "
+"as Google, and that can be a privacy concern. Since the display name is "
+"independent of the username, assigning a randomly generated one is a simple "
+"solution."
+msgstr ""
+"Usuários registrados com uma conta externa normalmente recebem o nome de "
+"usuário desta conta, com sufixo se necessário. Mas alguns provedores usam "
+"nomes reais, como Google, e isso pode ser um problema de privacidade. Como o "
+"nome de exibição é independente do nome de usuário, atribuir um gerado "
+"aleatoriamente é uma solução simples."
 
 #: includes/functions/settings/_settings_page_plugins.php:55
 #, php-format
@@ -12846,7 +12918,7 @@ msgstr "Volume"
 msgid "Warning note shown above chapters."
 msgstr "Nota de advertência mostrada acima dos capítulos."
 
-#: includes/functions/_utility.php:1874
+#: includes/functions/_utility.php:1884
 #: includes/functions/_setup-meta-fields.php:2655
 msgid "Warning Notes"
 msgstr "Notas de advertência"
@@ -12889,7 +12961,7 @@ msgid "Width of the sidebar in pixels. Default 256."
 msgstr "Largura da barra lateral em pixels. Padrão: 256."
 
 #: includes/functions/settings/_settings_page_general.php:651
-#: includes/functions/settings/_settings_page_setup.php:79
+#: includes/functions/settings/_settings_page_setup.php:77
 msgid ""
 "With this feature enabled, clicking on images in the page content will open "
 "a window overlay popup. This blocks some content and dims and disables the "
@@ -12899,7 +12971,8 @@ msgstr ""
 "janela pop-up de sobreposição. Isso bloqueia parte do conteúdo e escurece e "
 "desativa o plano de fundo para apresentar a imagem com mais destaque."
 
-#: includes/functions/settings/_settings_page_setup.php:91
+#: includes/functions/settings/_settings_page_general.php:678
+#: includes/functions/settings/_settings_page_setup.php:89
 msgid ""
 "With this feature enabled, logged-in users can \"follow\" a story to receive "
 "on-site update notifications and track the story in their bookshelf (if set "
@@ -12912,7 +12985,8 @@ msgstr ""
 "se você hospedar muitas histórias em andamento. Caso contrário, talvez você "
 "queira economizar recursos do servidor mantendo-o desativado."
 
-#: includes/functions/settings/_settings_page_setup.php:103
+#: includes/functions/settings/_settings_page_general.php:701
+#: includes/functions/settings/_settings_page_setup.php:101
 msgid ""
 "With this feature enabled, logged-in users can mark chapters and stories as "
 "\"read\" and keep track of them in their bookshelf (if set up). This feature "
@@ -12924,7 +12998,8 @@ msgstr ""
 "Esse recurso é mais útil se você hospedar muitas histórias. Caso contrário, "
 "talvez você queira economizar recursos do servidor mantendo-o desativado."
 
-#: includes/functions/settings/_settings_page_setup.php:97
+#: includes/functions/settings/_settings_page_general.php:690
+#: includes/functions/settings/_settings_page_setup.php:95
 msgid ""
 "With this feature enabled, logged-in users can set reminders for stories to "
 "keep track of them for a later date in their bookshelf (if set up). This "
@@ -12937,7 +13012,24 @@ msgstr ""
 "histórias. Caso contrário, talvez você queira economizar recursos do "
 "servidor mantendo-o desativado."
 
-#: includes/functions/settings/_settings_page_setup.php:85
+#: includes/functions/settings/_settings_page_general.php:736
+#, php-format
+msgid ""
+"With this feature enabled, the editor displays a meta box where you can "
+"enter a title, <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">description</a>, and image. The theme will then render "
+"relevant meta tags used by search engines, social media sites, and chat "
+"embeds. Whether these services actually use the provided data is ultimately "
+"up to them."
+msgstr ""
+"Com esse recurso habilitado, o editor exibe uma meta campo onde você pode "
+"inserir um título, <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">descrição</a> e imagem. O tema então renderizará as meta "
+"tags relevantes usadas por mecanismos de busca, sites de mídia social e "
+"incorporações de bate-papo. Se esses serviços realmente usam os dados "
+"fornecidos, depende deles."
+
+#: includes/functions/settings/_settings_page_setup.php:83
 msgid ""
 "With this feature enabled, users can click on chapter paragraphs to set a "
 "bookmark, which is stored in the local browser. Logged-in users will also "
@@ -12950,8 +13042,8 @@ msgstr ""
 "entre navegadores e dispositivos, embora não seja necessária uma conta para "
 "a funcionalidade básica."
 
-#: includes/functions/settings/_settings_page_general.php:708
-#: includes/functions/settings/_settings_page_setup.php:109
+#: includes/functions/settings/_settings_page_general.php:713
+#: includes/functions/settings/_settings_page_setup.php:107
 msgid ""
 "With this feature enabled, users can leave color-coded suggestions for "
 "improvements in the comments. To do so, they can simply click on a paragraph "
@@ -12994,7 +13086,11 @@ msgstr "Palavras"
 msgid "Words per minute"
 msgstr "Palavras por minuto"
 
-#: includes/functions/settings/_settings_page_general.php:1335
+#: includes/functions/settings/_settings_page_logs.php:32
+msgid "WP Debug Log"
+msgstr "WP Debug Log"
+
+#: includes/functions/settings/_settings_page_general.php:1359
 msgid ""
 "XML-RPC allows remote applications to interact with your site but can be a "
 "security risk, enabling brute-force and DDoS attacks. This is why it is "
@@ -13076,7 +13172,7 @@ msgstr ""
 "menos que você limpe isso <em>previamente</em>. Lembre-se de que, depois de "
 "excluir sua conta, não há como voltar atrás."
 
-#: includes/functions/settings/_settings_page_setup.php:55
+#: includes/functions/settings/_settings_page_setup.php:53
 msgid ""
 "You can group chapters into separate sections, for example, to better "
 "compartmentalize story arcs. Groups are defined as verbatim strings set per "
@@ -13176,7 +13272,7 @@ msgstr "Você não pode responder a comentários marcados como ofensivos."
 msgid "You cannot reply to deleted comments."
 msgstr "Não é possível responder a comentários excluídos."
 
-#: includes/functions/_setup-admin.php:1120
+#: includes/functions/_setup-admin.php:1116
 #, php-format
 msgid ""
 "You currently have <strong>%s revisions stored</strong> in your database. "
@@ -13187,7 +13283,7 @@ msgstr ""
 "de dados. Isso é muito inchaço que pode tornar seu site mais lento se você "
 "realmente não precisar delas. Use um plug-in para limpá-las."
 
-#: includes/functions/_setup-admin.php:1099
+#: includes/functions/_setup-admin.php:1095
 #, php-format
 msgid ""
 "You currently show <strong>%s posts per page</strong>. This high number can "
@@ -13198,7 +13294,7 @@ msgstr ""
 "número alto pode fazer com que as páginas de índice e de listagem fiquem "
 "lentas ou travem, dependendo do número de capítulos por história."
 
-#: includes/functions/_setup-admin.php:1107
+#: includes/functions/_setup-admin.php:1103
 #, php-format
 msgid ""
 "You currently store <strong>unlimited revisions per post</strong>. This can "
@@ -13281,7 +13377,7 @@ msgstr ""
 "Você deve estar <label for=\"modal-login-toggle\">logado</label> para "
 "comentar."
 
-#: includes/functions/_setup-admin.php:1091
+#: includes/functions/_setup-admin.php:1087
 #, php-format
 msgid ""
 "Your <strong>Home URL</strong> does not start with <code>%s</code>. This can "
@@ -13292,7 +13388,7 @@ msgstr ""
 "a problemas de segurança, navegadores que se recusam a acessar a página e "
 "scripts necessários que não são carregados."
 
-#: includes/functions/_setup-admin.php:1084
+#: includes/functions/_setup-admin.php:1080
 #, php-format
 msgid ""
 "Your <strong>Site URL</strong> does not start with <code>%s</code>. This can "
@@ -13303,7 +13399,7 @@ msgstr ""
 "levar a problemas de segurança, navegadores que se recusam a acessar a "
 "página e scripts necessários que não são carregados."
 
-#: includes/functions/_setup-theme.php:1736
+#: includes/functions/_setup-theme.php:1785
 msgid ""
 "Your account has been successfully linked. <strong>Hint:</strong> You can "
 "change your display name in your profile and link additional accounts."
@@ -13352,3 +13448,30 @@ msgstr "— Não definido —"
 #: includes/functions/settings/_settings_actions.php:1521
 msgid "← Back to tools"
 msgstr "← Voltar para ferramentas"
+
+#~ msgid ""
+#~ "Changes the permalinks of chapters to include the story. This allows for "
+#~ "more readable and descriptive URLs. Chapter slugs are still kept globally "
+#~ "unique — meaning multiple \"Chapter N\" titles will end up as \"chapter-n-"
+#~ "x\" slugs — and the post editor will continue to display the default "
+#~ "permalink structure for technical reasons."
+#~ msgstr ""
+#~ "Altera os permalinks dos capítulos para incluir a história. Isso permite "
+#~ "URLs mais legíveis e descritivos. Os slugs de capítulo ainda são mantidos "
+#~ "globalmente exclusivos, o que significa que vários títulos \"Capítulo N\" "
+#~ "terminarão como slugs \"capítulo-n-x\", e o editor de postagens "
+#~ "continuará a exibir a estrutura de permalink padrão por motivos técnicos."
+
+#~ msgid ""
+#~ "Embedding external media, such as videos or social media posts, also "
+#~ "loads tracking scripts from the source. This typically conflicts with "
+#~ "data privacy laws. By enabling this wrapper, all embeds are quarantined "
+#~ "until the user explicitly clicks on them, making an informed choice and "
+#~ "thereby consenting to any loaded scripts."
+#~ msgstr ""
+#~ "A incorporação de mídia externa, como vídeos ou publicações em mídias "
+#~ "sociais, também carrega scripts de rastreamento da fonte. Isso geralmente "
+#~ "entra em conflito com as leis de privacidade de dados. Ao ativar esse "
+#~ "wrapper, todas as incorporações são colocadas em quarentena até que o "
+#~ "usuário clique explicitamente nelas, fazendo uma escolha informada e, "
+#~ "portanto, consentindo com quaisquer scripts carregados."
