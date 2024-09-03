@@ -21,7 +21,7 @@ function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
   }
 
   // Chapter updated?
-  if ( get_post_type( $post_id ) != 'fcn_chapter' ) {
+  if ( get_post_type( $post_id ) !== 'fcn_chapter' || get_post_status( $post_id ) !== 'publish' ) {
     return;
   }
 
