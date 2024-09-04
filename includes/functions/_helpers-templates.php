@@ -1286,7 +1286,10 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
     // Loop chapters...
     foreach ( $chapters as $chapter ) {
       // Skip unpublished (in case of filtered query params)
-      if ( $chapter->post_status !== 'publish' ) {
+      if (
+        $chapter->post_status !== 'publish' ||
+        get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true )
+      ) {
         continue;
       }
 
