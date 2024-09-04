@@ -272,3 +272,9 @@ The following list credits all third-party resources used in the Fictioneer them
   Copyright: Antonín Slejška<br>
   License: [CC BY-SA 3.0](https://stackoverflow.com/a/31430385/17140970)<br>
   Source: https://stackoverflow.com/a/31430385/17140970
+
+## Translations
+
+* **Brazilian Portuguese**<br>
+  Copyright: [@c-cesar](https://github.com/c-cesar)<br>
+  License: [GPL 3.0](https://github.com/Tetrakern/fictioneer?tab=GPL-3.0-1-ov-file#readme)
