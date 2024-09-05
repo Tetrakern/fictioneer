@@ -605,9 +605,14 @@ button[type=submit]:where(:not(._inline)),
   opacity: 0.5;
 }
 
-.no-results {
+.no-results,
+.shortcode-json-invalid {
   color: var(--fg-950);
   padding: 0 2px;
+}
+
+.shortcode-json-invalid {
+  margin: 2rem 0;
 }
 
 html:not(.logged-in) body:not(.logged-in) {

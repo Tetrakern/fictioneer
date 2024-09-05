@@ -215,7 +215,8 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'footer_rating' => filter_var( $attr['footer_rating'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'classes' => esc_attr( wp_strip_all_tags( $attr['classes'] ?? $attr['class'] ?? '' ) ),
     'infobox' => filter_var( $attr['infobox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
-    'source' => filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN )
+    'source' => filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
+    'splide' => sanitize_text_field( $attr['splide'] ?? '' )
   );
 
   //--- Fixes ------------------------------------------------------------------
@@ -223,6 +224,24 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
   // Update count if limited to post IDs
   if ( ! empty( $args['post_ids'] ) ) {
     $args['count'] = count( $args['post_ids'] );
+  }
+
+  // Prepare Splide JSON
+  if ( ! empty( $args['splide'] ) ) {
+    $args['splide'] = str_replace( "'", '"', $args['splide'] );
+
+    if ( ! fictioneer_is_valid_json( $args['splide'] ) ) {
+      $args['splide'] = false;
+    } else {
+      $splide = json_decode( $args['splide'], true );
+
+      // Turn arrows are off by default
+      if ( ! preg_match( '/"arrows"\s*:\s*true/', $args['splide'] ) ) {
+        $splide['arrows'] = false;
+      }
+
+      $args['splide'] = json_encode( $splide );
+    }
   }
 
   //--- Finish -----------------------------------------------------------------
@@ -381,10 +400,12 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
  * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Default false (Customizer).
- * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
+ * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio of the item. Supersedes by height. Default empty.
+ * @param string|null $attr['height']              Optional. Override the item height. Default empty.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
  * @return string The captured shortcode HTML.
  */
@@ -397,6 +418,9 @@ function fictioneer_shortcode_showcase( $attr ) {
 
   // Defaults
   $args = fictioneer_get_default_shortcode_args( $attr, 8 );
+
+  // Height
+  $args['height'] = sanitize_text_field( $attr['height'] ?? '' );
 
   // Specifics
   $args['no_cap'] = filter_var( $attr['no_cap'] ?? 0, FILTER_VALIDATE_BOOLEAN );
@@ -421,6 +445,11 @@ function fictioneer_shortcode_showcase( $attr ) {
     return '';
   }
 
+  // Extra classes
+  if ( $args['splide'] ?? 0 ) {
+    $args['classes'] .= ' splide';
+  }
+
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     $base = serialize( $args ) . serialize( $attr );
@@ -439,6 +468,10 @@ function fictioneer_shortcode_showcase( $attr ) {
   get_template_part( 'partials/_showcase', null, $args );
 
   $html = fictioneer_minify_html( ob_get_clean() );
+
+  if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
+    $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
+  }
 
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
@@ -491,6 +524,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['footer_status']       Optional. Whether to show the chapter status. Default true.
  * @param string|null $attr['footer_rating']       Optional. Whether to show the story/chapter age rating. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
  * @return string The captured shortcode HTML.
  */
@@ -505,6 +539,11 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );
+
+  // Extra classes
+  if ( $args['splide'] ?? 0 ) {
+    $args['classes'] .= ' splide';
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -533,6 +572,10 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   }
 
   $html = fictioneer_minify_html( ob_get_clean() );
+
+  if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
+    $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
+  }
 
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
@@ -588,6 +631,7 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @param string|null $attr['footer_status']       Optional. Whether to show the story status. Default true.
  * @param string|null $attr['footer_rating']       Optional. Whether to show the story age rating. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
  * @return string The captured shortcode HTML.
  */
@@ -602,6 +646,11 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   // Terms
   $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
   $args['max_terms'] = absint( ( $attr['max_terms'] ?? 10 ) ?: 10 );
+
+  // Extra classes
+  if ( $args['splide'] ?? 0 ) {
+    $args['classes'] .= ' splide';
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -629,6 +678,10 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   }
 
   $html = fictioneer_minify_html( ob_get_clean() );
+
+  if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
+    $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
+  }
 
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
@@ -686,6 +739,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['footer_status']       Optional. Whether to show the story status. Default true.
  * @param string|null $attr['footer_rating']       Optional. Whether to show the story/chapter age rating. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
  * @return string The captured shortcode HTML.
  */
@@ -701,6 +755,11 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   // Terms
   $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
   $args['max_terms'] = absint( ( $attr['max_terms'] ?? 10 ) ?: 10 );
+
+  // Extra classes
+  if ( $args['splide'] ?? 0 ) {
+    $args['classes'] .= ' splide';
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -728,6 +787,10 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   }
 
   $html = fictioneer_minify_html( ob_get_clean() );
+
+  if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
+    $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
+  }
 
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
@@ -772,6 +835,7 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
  * @return string The captured shortcode HTML.
  */
@@ -786,6 +850,11 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   // Terms
   $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
   $args['max_terms'] = absint( ( $attr['max_terms'] ?? 10 ) ?: 10 );
+
+  // Extra classes
+  if ( $args['splide'] ?? 0 ) {
+    $args['classes'] .= ' splide';
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -810,6 +879,10 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   }
 
   $html = fictioneer_minify_html( ob_get_clean() );
+
+  if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
+    $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
+  }
 
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
@@ -1608,6 +1681,7 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
  * @param string|null $attr['footer_date']         Optional. Whether to show the post date. Default true.
  * @param string|null $attr['footer_comments']     Optional. Whether to show the post comment count. Default true.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
  * @return string The captured shortcode HTML.
  */
@@ -1657,6 +1731,11 @@ function fictioneer_shortcode_article_cards( $attr ) {
   // ... add to args
   $args['post_type'] = $query_post_types;
 
+  // Extra classes
+  if ( $args['splide'] ?? 0 ) {
+    $args['classes'] .= ' splide';
+  }
+
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     $base = serialize( $args ) . serialize( $attr );
@@ -1674,6 +1753,10 @@ function fictioneer_shortcode_article_cards( $attr ) {
   get_template_part( 'partials/_article-cards', null, $args );
 
   $html = fictioneer_minify_html( ob_get_clean() );
+
+  if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
+    $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
+  }
 
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );

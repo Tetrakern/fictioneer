@@ -21,7 +21,7 @@
     }
   }
 
-  &__list {
+  &__list:where(:not(.splide__list)) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(#{get_clamp(160, 175, 375, 480)}, 1fr));
     gap: var(--showcase-row-gap, max(3cqw, 1.5rem)) var(--showcase-row-col, max(3cqw, 1.5rem));
@@ -35,12 +35,20 @@
   &__list-item {
     --focus-offset: 2px;
     position: relative;
+    aspect-ratio: var(--showcase-item-aspect-ratio);
     border-radius: var(--layout-border-radius-small);
     box-shadow: var(--showcase-box-shadow, var(--box-shadow-m));
     overflow: hidden;
     max-width: max(420px, 100%);
-    height: max(64px, #{get_clamp(64, 96, 375, 768)});
     contain: layout paint style; // Improve performance
+
+    &:where(:not(._aspect-ratio, ._custom-height)) {
+      height: max(64px, #{get_clamp(64, 96, 375, 768)});
+    }
+
+    &._custom-height {
+      height: var(--showcase-item-height);
+    }
 
     @include bp(mobile-l) {
       &:first-child:last-child {

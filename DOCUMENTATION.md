@@ -1327,6 +1327,8 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **no_cap:** Set `true` if you want to hide the caption.
+* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the item (X/Y). Superseded by `height`.
+* **height:** Override the item height.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
@@ -1338,6 +1340,18 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 ```
 
 ![Showcase](repo/assets/shortcode_example_showcase.jpg?raw=true)
+
+### Slider
+
+Any shortcode with the `splide` parameter listed can be turned into a slider. [Splide](https://splidejs.com/) is a flexible and lightweight slider that comes with [many options](https://splidejs.com/guides/options/) for customization, although applying them may be challenging if you are not familiar with JSONs. You can look up the details yourself.
+
+The `splide` parameter only accepts JSON strings, such as `splide="{'type':'loop','perPage':3}"`. Note that you need to use single straight quotes due to the shortcode syntax. If there is even a minor error, the JSON will be rejected with a note, and the shortcode will default to its standard layout. Not all parameter combinations have been tested with Splide, so custom CSS may be required.
+
+If you do not want to initialize a slider on page load, you can add the `no-auto-splide` class via the `class` parameter in the shortcode or custom HTML (where the `splide` class is). Normally, Splide’s assets are only enqueued when a shortcode with the necessary parameter is found in the post content, but you can enable Splide globally under **Fictioneer > General > Compatibility**.
+
+
+
+
 
 ### Sidebar
 

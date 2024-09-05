@@ -38,6 +38,7 @@
  * @internal $args['footer_status']       Whether to show the chapter story status. Default true.
  * @internal $args['footer_rating']       Whether to show the story/chapter age rating. Default true.
  * @internal $args['classes']             String of additional CSS classes. Default empty.
+ * @internal $args['splide']              Configuration JSON for the Splide slider. Default empty.
  */
 
 
@@ -45,6 +46,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
+$splide = $args['splide'] ?? 0;
 $render_count = 0;
 $content_list_style = get_theme_mod( 'content_list_style', 'default' );
 
@@ -123,184 +125,207 @@ $entries = fictioneer_shortcode_query( $query_args );
 // Remove temporary filters
 remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
+// Extra attributes
+$attributes = [];
+
+if ( $splide ) {
+  $attributes[] = "data-splide='{$splide}'";
+}
+
 ?>
 
-<section class="latest-chapters _list <?php echo $args['classes']; ?>">
-  <?php if ( $entries->have_posts() ) : ?>
+<section class="latest-chapters _list <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
+  <?php
+    if ( $args['splide'] === false ) {
+      echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+    }
 
-    <ul class="post-list _latest-chapters">
-      <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
+    if ( $splide ) {
+      echo '<div class="splide__track">';
+    }
+  ?>
 
-        <?php
-          // Setup
-          $post_id = $post->ID;
-          $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
-          $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
+    <?php if ( $entries->have_posts() ) : ?>
 
-          if ( get_post_status( $story_id ) !== 'publish' || ! $story ) {
-            continue;
-          }
-
-          // Count actually rendered items to account for buffer
-          if ( ++$render_count > $args['count'] ) {
-            break;
-          }
-
-          // Continue setup
-          $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters-list' );
-          $permalink = get_permalink( $post_id );
-          $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
-          $words = fictioneer_get_word_count( $post_id );
-
-          // Thumbnail
-          $thumbnail = null;
-
-          if ( $args['thumbnail'] ) {
-            $thumbnail = fictioneer_render_thumbnail(
-              array(
-                'post_id' => $post_id,
-                'title' => $title,
-                'permalink' => $permalink,
-                'size' => 'snippet',
-                'classes' => 'post-list-item__image',
-                'lightbox' => $args['lightbox'],
-                'aspect_ratio' => $args['aspect_ratio'] ?? '2/2.5'
-              ),
-              false
-            );
-          }
-
-          // Extra classes
-          $classes = [];
-
-          if ( ! empty( $post->post_password ) ) {
-            $classes[] = '_password';
-          }
-
-          if ( $args['seamless'] ) {
-            $classes[] = '_seamless';
-          }
-
-          if ( $content_list_style !== 'default' ) {
-            $classes[] = "_{$content_list_style}";
-          }
-
-          if ( ! $thumbnail ) {
-            $classes[] = '_no-thumbnail';
-          }
-
-          if ( ! $args['footer'] ) {
-            $classes[] = '_no-footer';
-          }
-
-          if ( ! $args['footer_author'] ) {
-            $classes[] = '_no-footer-author';
-          }
-
-          if ( ! $args['footer_words'] ) {
-            $classes[] = '_no-footer-words';
-          }
-
-          if ( ! $args['footer_date'] ) {
-            $classes[] = '_no-footer-date';
-          }
-
-          if ( ! $args['footer_status'] ) {
-            $classes[] = '_no-footer-status';
-          }
-
-          if ( ! $args['footer_rating'] ) {
-            $classes[] = '_no-footer-rating';
-          }
-
-          // Meta
-          $meta = [];
-
-          if ( $args['source'] ) {
-            $meta['story'] = sprintf(
-              _x(
-                '<span class="post-list-item__meta-in-story"><span>in </span><a href="%1$s">%2$s</a></span>',
-                'Story in Latest * shortcode (type: list).',
-                'fictioneer'
-              ),
-              get_the_permalink( $story_id ),
-              $story['title']
-            );
-          }
-
-          if ( $words > 0 && $args['footer_words'] ) {
-            $meta['words'] = '<span class="post-list-item__meta-words">' . sprintf(
-              _x( '%s&nbsp;Words', 'Word count in Latest * shortcode (type: list).', 'fictioneer' ),
-              number_format_i18n( $words )
-            ) . '</span>';
-          }
-
-          if ( $args['footer_status'] ) {
-            $meta['status'] = '<span class="post-item-item__meta-status">' . fcntr( $story['status'] ) . '</span>';
-          }
-
-          if ( $chapter_rating && $args['footer_rating'] ) {
-            $meta['rating'] = '<span class="post-list-item__meta-rating">' . fcntr( $chapter_rating ) . '</span>';
-          }
-
-          if ( get_option( 'fictioneer_show_authors' ) && $args['footer_author'] ) {
-            $author = fictioneer_get_author_node( null, 'post-list-item__meta-author' );
-
-            if ( $author ) {
-              $meta['author'] = $author;
-            }
-          }
-
-          if ( $args['footer_date'] ) {
-            $meta['publish_date'] = '<span class="post-list-item__meta-publish-date _floating-right">' . get_the_date( $args['date_format'], $post ) . '</span>';
-          }
-
-          $meta = apply_filters( 'fictioneer_filter_shortcode_latest_chapter_list_meta', $meta, $post, $story );
-
-          // Attributes
-          $attributes = [];
-
-          if ( $args['aspect_ratio'] ) {
-            $attributes['style'] = '--post-item-image-aspect-ratio: ' . $args['aspect_ratio'];
-          }
-
-          $attributes = apply_filters( 'fictioneer_filter_shortcode_list_attributes', $attributes, $post, 'latest-chapters' );
-
-          $output_attributes = '';
-
-          foreach ( $attributes as $key => $value ) {
-            $output_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
-          }
-
-        ?>
-
-        <li class="post-<?php echo $post_id; ?> post-list-item _latest-chapters <?php echo implode( ' ', $classes ); ?>" <?php echo $output_attributes; ?>>
+      <ul class="post-list _latest-chapters <?php if ( $splide ) { echo 'splide__list'; } ?>">
+        <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
 
           <?php
-            if ( $thumbnail ) {
-              echo $thumbnail;
+            // Setup
+            $post_id = $post->ID;
+            $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+            $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
+
+            if ( get_post_status( $story_id ) !== 'publish' || ! $story ) {
+              continue;
             }
+
+            // Count actually rendered items to account for buffer
+            if ( ++$render_count > $args['count'] ) {
+              break;
+            }
+
+            // Continue setup
+            $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters-list' );
+            $permalink = get_permalink( $post_id );
+            $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
+            $words = fictioneer_get_word_count( $post_id );
+
+            // Thumbnail
+            $thumbnail = null;
+
+            if ( $args['thumbnail'] ) {
+              $thumbnail = fictioneer_render_thumbnail(
+                array(
+                  'post_id' => $post_id,
+                  'title' => $title,
+                  'permalink' => $permalink,
+                  'size' => 'snippet',
+                  'classes' => 'post-list-item__image',
+                  'lightbox' => $args['lightbox'],
+                  'aspect_ratio' => $args['aspect_ratio'] ?? '2/2.5'
+                ),
+                false
+              );
+            }
+
+            // Extra classes
+            $classes = [];
+
+            if ( ! empty( $post->post_password ) ) {
+              $classes[] = '_password';
+            }
+
+            if ( $args['seamless'] ) {
+              $classes[] = '_seamless';
+            }
+
+            if ( $content_list_style !== 'default' ) {
+              $classes[] = "_{$content_list_style}";
+            }
+
+            if ( ! $thumbnail ) {
+              $classes[] = '_no-thumbnail';
+            }
+
+            if ( ! $args['footer'] ) {
+              $classes[] = '_no-footer';
+            }
+
+            if ( ! $args['footer_author'] ) {
+              $classes[] = '_no-footer-author';
+            }
+
+            if ( ! $args['footer_words'] ) {
+              $classes[] = '_no-footer-words';
+            }
+
+            if ( ! $args['footer_date'] ) {
+              $classes[] = '_no-footer-date';
+            }
+
+            if ( ! $args['footer_status'] ) {
+              $classes[] = '_no-footer-status';
+            }
+
+            if ( ! $args['footer_rating'] ) {
+              $classes[] = '_no-footer-rating';
+            }
+
+            if ( $splide ) {
+              $classes[] = 'splide__slide';
+            }
+
+            // Meta
+            $meta = [];
+
+            if ( $args['source'] ) {
+              $meta['story'] = sprintf(
+                _x(
+                  '<span class="post-list-item__meta-in-story"><span>in </span><a href="%1$s">%2$s</a></span>',
+                  'Story in Latest * shortcode (type: list).',
+                  'fictioneer'
+                ),
+                get_the_permalink( $story_id ),
+                $story['title']
+              );
+            }
+
+            if ( $words > 0 && $args['footer_words'] ) {
+              $meta['words'] = '<span class="post-list-item__meta-words">' . sprintf(
+                _x( '%s&nbsp;Words', 'Word count in Latest * shortcode (type: list).', 'fictioneer' ),
+                number_format_i18n( $words )
+              ) . '</span>';
+            }
+
+            if ( $args['footer_status'] ) {
+              $meta['status'] = '<span class="post-item-item__meta-status">' . fcntr( $story['status'] ) . '</span>';
+            }
+
+            if ( $chapter_rating && $args['footer_rating'] ) {
+              $meta['rating'] = '<span class="post-list-item__meta-rating">' . fcntr( $chapter_rating ) . '</span>';
+            }
+
+            if ( get_option( 'fictioneer_show_authors' ) && $args['footer_author'] ) {
+              $author = fictioneer_get_author_node( null, 'post-list-item__meta-author' );
+
+              if ( $author ) {
+                $meta['author'] = $author;
+              }
+            }
+
+            if ( $args['footer_date'] ) {
+              $meta['publish_date'] = '<span class="post-list-item__meta-publish-date _floating-right">' . get_the_date( $args['date_format'], $post ) . '</span>';
+            }
+
+            $meta = apply_filters( 'fictioneer_filter_shortcode_latest_chapter_list_meta', $meta, $post, $story );
+
+            // Attributes
+            $attributes = [];
+
+            if ( $args['aspect_ratio'] ) {
+              $attributes['style'] = '--post-item-image-aspect-ratio: ' . $args['aspect_ratio'];
+            }
+
+            $attributes = apply_filters( 'fictioneer_filter_shortcode_list_attributes', $attributes, $post, 'latest-chapters' );
+
+            $output_attributes = '';
+
+            foreach ( $attributes as $key => $value ) {
+              $output_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+            }
+
           ?>
 
-          <a href="<?php echo $permalink; ?>" class="post-list-item__title _link"><?php
-            $html_title = empty( $post->post_password ) ? '' : '<i class="fa-solid fa-lock protected-icon"></i> ';
-            $html_title .= $title;
+          <li class="post-<?php echo $post_id; ?> post-list-item _latest-chapters <?php echo implode( ' ', $classes ); ?>" <?php echo $output_attributes; ?>>
 
-            echo apply_filters( 'fictioneer_filter_shortcode_list_title', $html_title, $post, 'shortcode-latest-chapters-list' );
-          ?></a>
+            <?php
+              if ( $thumbnail ) {
+                echo $thumbnail;
+              }
+            ?>
 
-          <?php if ( $args['footer'] ) : ?>
-            <div class="post-list-item__meta pseudo-separator"><?php echo implode( ' ', $meta ); ?></div>
-          <?php endif; ?>
+            <a href="<?php echo $permalink; ?>" class="post-list-item__title _link"><?php
+              $html_title = empty( $post->post_password ) ? '' : '<i class="fa-solid fa-lock protected-icon"></i> ';
+              $html_title .= $title;
 
-        </li>
+              echo apply_filters( 'fictioneer_filter_shortcode_list_title', $html_title, $post, 'shortcode-latest-chapters-list' );
+            ?></a>
 
-      <?php endwhile; ?>
-    </ul>
+            <?php if ( $args['footer'] ) : ?>
+              <div class="post-list-item__meta pseudo-separator"><?php echo implode( ' ', $meta ); ?></div>
+            <?php endif; ?>
 
-  <?php else : ?>
+          </li>
 
-    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
+        <?php endwhile; ?>
+      </ul>
 
-  <?php endif; wp_reset_postdata(); ?>
+    <?php else : ?>
+
+      <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
+
+    <?php endif; wp_reset_postdata(); ?>
+
+  <?php if ( $splide ) { echo '</div>'; } ?>
 </section>

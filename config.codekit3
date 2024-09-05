@@ -640,6 +640,18 @@
       "oF" : 1,
       "pg" : 0
     },
+    "\/css\/splide.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/splide-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
     "\/css\/story.css" : {
       "aP" : 1,
       "bl" : 0,
@@ -1793,6 +1805,17 @@
       "oA" : 1,
       "oAP" : "\/js\/Sortable-1.15.2.min.min.js",
       "oF" : 1,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/js\/splide.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/js\/splide.min.min.js",
+      "oF" : 0,
       "sC" : 3,
       "tS" : 0
     },
@@ -3979,6 +4002,21 @@
       "oA" : 0,
       "oAP" : "\/css\/recommendation.css",
       "oF" : 3,
+      "oS" : 3,
+      "pg" : 0,
+      "sct" : 0
+    },
+    "\/src\/scss\/splide.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 0,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/splide.css",
+      "oF" : 2,
       "oS" : 3,
       "pg" : 0,
       "sct" : 0

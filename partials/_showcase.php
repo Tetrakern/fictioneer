@@ -25,11 +25,17 @@
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
+ * @internal $args['splide']            Configuration JSON for the Splide slider. Default empty.
+ * @internal $args['height']            Override the item height. Default empty.
+ * @internal $args['aspect_ratio']      Aspect ratio of the item. Superseded by height. Default empty.
  */
 
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
+
+// Setup
+$splide = $args['splide'] ?? 0;
 
 // Prepare query
 $query_args = array (
@@ -88,66 +94,119 @@ $query = fictioneer_shortcode_query( $query_args );
 // Remove temporary filters
 remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
+// Extra attributes
+$attributes = [];
+
+if ( $splide ) {
+  $attributes[] = "data-splide='{$splide}'";
+}
+
 ?>
 
 <?php if ( $query->have_posts() ) : ?>
-  <section class="showcase container-inline-size <?php echo $args['classes']; ?>">
-    <ul class="showcase__list">
-      <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-        <li class="showcase__list-item">
-          <a class="showcase__list-item-link polygon" href="<?php the_permalink(); ?>">
-            <figure class="showcase__list-item-figure">
-              <?php
-                // Setup
-                $post_id = $post->ID;
-                $list_title = '';
-                $story_id = null;
-                $landscape_image_id = get_post_meta( $post_id, 'fictioneer_landscape_image', true );
+  <section class="showcase container-inline-size <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
+    <?php
+      if ( $args['splide'] === false ) {
+        echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+      }
 
-                // Get list title and story ID (if any)
-                switch ( $args['post_type'] ) {
-                  case 'fcn_collection':
-                    $list_title = get_post_meta( $post_id, 'fictioneer_collection_list_title', true );
-                    break;
-                  case 'fcn_chapter':
-                    $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
-                    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+      if ( $splide ) {
+        echo '<div class="splide__track">';
+      }
 
-                    if ( empty( $landscape_image_id ) ) {
-                      $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );
-                    }
+      // Item classes
+      $item_classes = '';
 
-                    break;
-                }
+      if ( $args['aspect_ratio'] ) {
+        $item_classes .= ' _aspect-ratio';
+      }
 
-                // Prepare titles
-                $list_title = trim( wp_strip_all_tags( $list_title ) );
-                $title = empty( $list_title ) ? fictioneer_get_safe_title( $post_id, 'shortcode-showcase' ) : $list_title;
+      if ( $args['height'] ) {
+        $item_classes .= ' _custom-height';
+      }
 
-                // Prepare image arguments
-                $image_args = array(
-                  'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
-                  'class' => 'no-auto-lightbox showcase__image'
-                );
+      if ( $splide ) {
+        $item_classes .= ' splide__slide';
+      }
 
-                // Output image or placeholder
-                if ( ! empty( $landscape_image_id ) ) {
-                  echo wp_get_attachment_image( $landscape_image_id, 'medium', false, $image_args );
-                } elseif ( has_post_thumbnail() ) {
-                  the_post_thumbnail( 'medium', $image_args );
-                } elseif ( $story_id && has_post_thumbnail( $story_id ) ) {
-                  echo get_the_post_thumbnail( $story_id, 'medium', $image_args );
-                } else {
-                  echo '<div class="showcase__image _no-cover"></div>';
-                }
-              ?>
-              <?php if ( ! $args['no_cap'] ) : ?>
-                <figcaption class="showcase__list-item-figcaption"><?php echo $title; ?></figcaption>
-              <?php endif; ?>
-            </figure>
-          </a>
-        </li>
-      <?php endwhile; ?>
-    </ul>
+      // Item attributes
+      $attributes = array(
+        'style' => ''
+      );
+
+      if ( $args['aspect_ratio'] ) {
+        $attributes['style'] .= "--showcase-item-aspect-ratio: {$args['aspect_ratio']};";
+      }
+
+      if ( $args['height'] ) {
+        $attributes['style'] .= "--showcase-item-height: {$args['height']};";
+      }
+
+      $item_attributes = '';
+
+      foreach ( $attributes as $key => $value ) {
+        $item_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+      }
+    ?>
+
+      <ul class="showcase__list <?php if ( $splide ) { echo 'splide__list'; } ?>">
+        <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+          <li class="showcase__list-item <?php echo $item_classes; ?>" <?php echo $item_attributes; ?>>
+            <a class="showcase__list-item-link polygon" href="<?php the_permalink(); ?>">
+              <figure class="showcase__list-item-figure">
+                <?php
+                  // Setup
+                  $post_id = $post->ID;
+                  $list_title = '';
+                  $story_id = null;
+                  $landscape_image_id = get_post_meta( $post_id, 'fictioneer_landscape_image', true );
+
+                  // Get list title and story ID (if any)
+                  switch ( $args['post_type'] ) {
+                    case 'fcn_collection':
+                      $list_title = get_post_meta( $post_id, 'fictioneer_collection_list_title', true );
+                      break;
+                    case 'fcn_chapter':
+                      $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
+                      $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+
+                      if ( empty( $landscape_image_id ) ) {
+                        $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );
+                      }
+
+                      break;
+                  }
+
+                  // Prepare titles
+                  $list_title = trim( wp_strip_all_tags( $list_title ) );
+                  $title = empty( $list_title ) ? fictioneer_get_safe_title( $post_id, 'shortcode-showcase' ) : $list_title;
+
+                  // Prepare image arguments
+                  $image_args = array(
+                    'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
+                    'class' => 'no-auto-lightbox showcase__image'
+                  );
+
+                  // Output image or placeholder
+                  if ( ! empty( $landscape_image_id ) ) {
+                    echo wp_get_attachment_image( $landscape_image_id, 'medium', false, $image_args );
+                  } elseif ( has_post_thumbnail() ) {
+                    the_post_thumbnail( 'medium', $image_args );
+                  } elseif ( $story_id && has_post_thumbnail( $story_id ) ) {
+                    echo get_the_post_thumbnail( $story_id, 'medium', $image_args );
+                  } else {
+                    echo '<div class="showcase__image _no-cover"></div>';
+                  }
+                ?>
+                <?php if ( ! $args['no_cap'] ) : ?>
+                  <figcaption class="showcase__list-item-figcaption"><?php echo $title; ?></figcaption>
+                <?php endif; ?>
+              </figure>
+            </a>
+          </li>
+        <?php endwhile; ?>
+      </ul>
+
+    <?php if ( $splide ) { echo '</div>'; } ?>
   </section>
 <?php endif; wp_reset_postdata(); ?>

@@ -940,7 +940,7 @@ function fictioneer_style_queue() {
       // Shortcodes
       if (
         ( $post && preg_match( '/\[fictioneer_latest_[^\]]*type="list"[^\]]*\]/', $post->post_content ) ) ||
-        is_admin() // Accounts for page editors like Elementor
+        strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false // Accounts for page editors like Elementor
       ) {
         wp_enqueue_style(
           'fictioneer-post-list',
@@ -965,6 +965,20 @@ function fictioneer_style_queue() {
     wp_enqueue_style(
       'fictioneer-complete',
       get_template_directory_uri() . '/css/complete.css',
+      [],
+      $cache_bust
+    );
+  }
+
+  // Enqueue Splide CSS
+  if (
+    get_option( 'fictioneer_enable_global_splide' ) ||
+    ( $post && preg_match( '/\[fictioneer_[a-zA-Z0-9_]*[^\]]*splide="([^"]+)"[^\]]*\]/', $post->post_content ) ) ||
+    strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false // Accounts for page editors like Elementor
+  ) {
+    wp_enqueue_style(
+      'fictioneer-splide',
+      get_template_directory_uri() . '/css/splide.css',
       [],
       $cache_bust
     );
@@ -1173,6 +1187,8 @@ function fictioneer_build_dynamic_scripts() {
  */
 
 function fictioneer_add_custom_scripts() {
+  global $post;
+
   // Setup
   $post_type = get_post_type();
   $cache_bust = fictioneer_get_cache_bust();
@@ -1350,6 +1366,15 @@ function fictioneer_add_custom_scripts() {
     wp_enqueue_script( 'comment-reply' );
   }
 
+  // Enqueue Splide
+  if (
+    get_option( 'fictioneer_enable_global_splide' ) ||
+    ( $post && preg_match( '/\[fictioneer_[a-zA-Z0-9_]*[^\]]*splide="([^"]+)"[^\]]*\]/', $post->post_content ) ) ||
+    strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false // Accounts for page editors like Elementor
+  ) {
+    wp_enqueue_script( 'fictioneer-splide', get_template_directory_uri() . '/js/splide.min.js', [], $cache_bust, false );
+  }
+
   // DEV Utilities
   if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
     wp_register_script( 'fictioneer-dev-scripts', get_template_directory_uri() . '/js/dev-tools.min.js', [], $cache_bust, $strategy );
@@ -1491,7 +1516,23 @@ if ( ! is_admin() && ! get_option( 'fictioneer_enable_jquery_migrate' ) ) {
 function fictioneer_ao_exclude_css( $exclude ) {
   return $exclude . ', fonts-base.css, fonts-full.css, bundled-fonts.css';
 }
-add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css', 10, 1 );
+add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css' );
+
+/**
+ * Exclude scripts from Autoptimize (if installed)
+ *
+ * @since 5.23.1
+ * @link https://github.com/wp-plugins/autoptimize
+ *
+ * @param string $exclude  List of current excludes.
+ *
+ * @return string The updated exclusion string.
+ */
+
+function fictioneer_ao_exclude_js( $exclude ) {
+  return $exclude . ', fictioneer/js/splide.min.js';
+}
+add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_js' );
 
 // =============================================================================
 // OUTPUT HEAD FONTS

@@ -1322,6 +1322,20 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_global_splide',
+                    __( 'Enable Splide slider globally', 'fictioneer' ),
+                    __( 'Instead of limiting it to shortcodes.', 'fictioneer' ),
+                    sprintf(
+                      __( 'Normally, the <a href="%s" target="_blank" rel="noopener noreferrer">Splide slider</a> script and style are only loaded when a shortcode with the required parameter is found in the post content. However, if you want to use Splide in other ways, you can enable the assets globally here.', 'fictioneer' ),
+                      'https://splidejs.com/guides/options/'
+                    )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_properties',
                     __( 'Disable Fictioneer CSS properties', 'fictioneer' ),
                     __( 'Only do this if you define everything yourself.', 'fictioneer' ),

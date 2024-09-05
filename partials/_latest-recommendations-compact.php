@@ -26,10 +26,11 @@
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
- * @internal $args['terms']               Either inline, pills, none, or false. Default inline.
- * @internal $args['max_terms']           Maximum number of shown taxonomies. Default 10.
+ * @internal $args['terms']             Either inline, pills, none, or false. Default inline.
+ * @internal $args['max_terms']         Maximum number of shown taxonomies. Default 10.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  * @internal $args['infobox']           Whether to show the info box and toggle.
+ * @internal $args['splide']            Configuration JSON for the Splide slider. Default empty.
  */
 
 
@@ -37,6 +38,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
+$splide = $args['splide'] ?? 0;
 $show_terms = ! in_array( $args['terms'], ['none', 'false'] ) &&
   ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' );
 
@@ -97,158 +99,181 @@ $entries = fictioneer_shortcode_query( $query_args );
 // Remove temporary filters
 remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
+// Extra attributes
+$attributes = [];
+
+if ( $splide ) {
+  $attributes[] = "data-splide='{$splide}'";
+}
+
 ?>
 
-<section class="small-card-block latest-recommendations _compact <?php echo $args['classes']; ?>">
-  <?php if ( $entries->have_posts() ) : ?>
+<section class="small-card-block latest-recommendations _compact <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
+  <?php
+    if ( $args['splide'] === false ) {
+      echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+    }
 
-    <ul class="grid-columns _collapse-on-mobile">
-      <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
+    if ( $splide ) {
+      echo '<div class="splide__track">';
+    }
+  ?>
 
-        <?php
-          // Setup
-          $post_id = $post->ID;
-          $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-recommendations-compact' );
-          $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
-          $fandoms = $show_terms ? get_the_terms( $post, 'fcn_fandom' ) : [];
-          $characters = $show_terms ? get_the_terms( $post, 'fcn_character' ) : [];
-          $genres = $show_terms ? get_the_terms( $post, 'fcn_genre' ) : [];
-          $tags = ( $show_terms && get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ) ?
-            get_the_tags( $post ) : false;
-          $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
-          $card_classes = [];
+    <?php if ( $entries->have_posts() ) : ?>
 
-          // Extra classes
-          if ( $show_terms ) {
-            $card_classes[] = '_info';
-          }
+      <ul class="grid-columns _collapse-on-mobile <?php if ( $splide ) { echo 'splide__list'; } ?>">
+        <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
 
-          if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
-            $card_classes[] = '_' . get_theme_mod( 'card_style' );
-          }
+          <?php
+            // Setup
+            $post_id = $post->ID;
+            $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-recommendations-compact' );
+            $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
+            $fandoms = $show_terms ? get_the_terms( $post, 'fcn_fandom' ) : [];
+            $characters = $show_terms ? get_the_terms( $post, 'fcn_character' ) : [];
+            $genres = $show_terms ? get_the_terms( $post, 'fcn_genre' ) : [];
+            $tags = ( $show_terms && get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ) ?
+              get_the_tags( $post ) : false;
+            $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
+            $card_classes = [];
 
-          if ( $args['vertical'] ) {
-            $card_classes[] = '_vertical';
-          }
+            // Extra classes
+            if ( $show_terms ) {
+              $card_classes[] = '_info';
+            }
 
-          if ( $args['seamless'] ) {
-            $card_classes[] = '_seamless';
-          }
+            if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
+              $card_classes[] = '_' . get_theme_mod( 'card_style' );
+            }
 
-          if ( ! $show_terms ) {
-            $card_classes[] = '_no-tax';
-          }
+            if ( $args['vertical'] ) {
+              $card_classes[] = '_vertical';
+            }
 
-          // Truncate factor
-          $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
+            if ( $args['seamless'] ) {
+              $card_classes[] = '_seamless';
+            }
 
-          // Card attributes
-          $attributes = [];
+            if ( ! $show_terms ) {
+              $card_classes[] = '_no-tax';
+            }
 
-          if ( $args['aspect_ratio'] ) {
-            $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
-          }
+            if ( $splide ) {
+              $card_classes[] = 'splide__slide';
+            }
 
-          $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-latest-recommendations-compact' );
+            // Truncate factor
+            $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
 
-          $card_attributes = '';
+            // Card attributes
+            $attributes = [];
 
-          foreach ( $attributes as $key => $value ) {
-            $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
-          }
-        ?>
+            if ( $args['aspect_ratio'] ) {
+              $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
+            }
 
-        <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _recommendation _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
-          <div class="card__body polygon">
+            $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-latest-recommendations-compact' );
 
-            <?php if ( $show_terms && $args['infobox'] ) : ?>
-              <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
-            <?php endif; ?>
+            $card_attributes = '';
 
-            <div class="card__main <?php echo $grid_or_vertical; ?> _small">
+            foreach ( $attributes as $key => $value ) {
+              $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+            }
+          ?>
 
-              <?php
-                do_action( 'fictioneer_shortcode_latest_recommendations_card_body', $post, $args );
+          <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _recommendation _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+            <div class="card__body polygon">
 
-                if ( $args['thumbnail'] ) {
-                  fictioneer_render_thumbnail(
-                    array(
-                      'post_id' => $post_id,
-                      'title' => $title,
-                      'classes' => 'card__image cell-img',
-                      'permalink' => get_permalink(),
-                      'lightbox' => $args['lightbox'],
-                      'vertical' => $args['vertical'],
-                      'seamless' => $args['seamless'],
-                      'aspect_ratio' => $args['aspect_ratio']
-                    )
-                  );
-                }
-              ?>
+              <?php if ( $show_terms && $args['infobox'] ) : ?>
+                <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
+              <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
+              <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
-              <div class="card__content _small cell-desc">
-                <div class="truncate <?php echo $truncate_factor; ?>">
-                  <span class="card__by-author"><?php
-                    printf(
-                      _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
-                      '<span class="author">' . get_post_meta( $post_id, 'fictioneer_recommendation_author', true ) . '</span>'
+                <?php
+                  do_action( 'fictioneer_shortcode_latest_recommendations_card_body', $post, $args );
+
+                  if ( $args['thumbnail'] ) {
+                    fictioneer_render_thumbnail(
+                      array(
+                        'post_id' => $post_id,
+                        'title' => $title,
+                        'classes' => 'card__image cell-img',
+                        'permalink' => get_permalink(),
+                        'lightbox' => $args['lightbox'],
+                        'vertical' => $args['vertical'],
+                        'seamless' => $args['seamless'],
+                        'aspect_ratio' => $args['aspect_ratio']
+                      )
                     );
-                  ?></span>
-                  <span><?php
-                    if ( ! empty( $one_sentence ) ) {
-                      echo wp_strip_all_tags( $one_sentence, true );
-                    } else {
-                      echo fictioneer_first_paragraph_as_excerpt( get_the_content() );
-                    }
-                  ?></span>
+                  }
+                ?>
+
+                <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
+
+                <div class="card__content _small cell-desc">
+                  <div class="truncate <?php echo $truncate_factor; ?>">
+                    <span class="card__by-author"><?php
+                      printf(
+                        _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
+                        '<span class="author">' . get_post_meta( $post_id, 'fictioneer_recommendation_author', true ) . '</span>'
+                      );
+                    ?></span>
+                    <span><?php
+                      if ( ! empty( $one_sentence ) ) {
+                        echo wp_strip_all_tags( $one_sentence, true );
+                      } else {
+                        echo fictioneer_first_paragraph_as_excerpt( get_the_content() );
+                      }
+                    ?></span>
+                  </div>
                 </div>
+
               </div>
+
+              <?php if ( $show_terms && $args['infobox'] ) : ?>
+                <div class="card__overlay-infobox escape-last-click">
+                  <div class="card__tag-list _small <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>">
+                    <?php
+                      if ( $fandoms || $genres || $tags || $characters ) {
+                        $variant = $args['terms'] === 'pills' ? '_pill' : '_inline';
+
+                        $terms = array_merge(
+                          $fandoms ? fictioneer_get_term_nodes( $fandoms, "{$variant} _fandom" ) : [],
+                          $genres ? fictioneer_get_term_nodes( $genres, "{$variant} _genre" ) : [],
+                          $tags ? fictioneer_get_term_nodes( $tags, "{$variant} _tag" ) : [],
+                          $characters ? fictioneer_get_term_nodes( $characters, "{$variant} _character" ) : []
+                        );
+
+                        $terms = apply_filters(
+                          'fictioneer_filter_shortcode_latest_recommendations_terms',
+                          $terms, $post, $args, null
+                        );
+
+                        // Implode with separator
+                        echo implode(
+                          fictioneer_get_bullet_separator( 'latest-recommendations-compact', $args['terms'] === 'pills' ),
+                          array_slice( $terms, 0, $args['max_terms'] )
+                        );
+                      } else {
+                        ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
+                      }
+                    ?>
+                  </div>
+                </div>
+              <?php endif; ?>
 
             </div>
+          </li>
 
-            <?php if ( $show_terms && $args['infobox'] ) : ?>
-              <div class="card__overlay-infobox escape-last-click">
-                <div class="card__tag-list _small <?php echo $args['terms'] === 'pills' ? '_pills' : ''; ?>">
-                  <?php
-                    if ( $fandoms || $genres || $tags || $characters ) {
-                      $variant = $args['terms'] === 'pills' ? '_pill' : '_inline';
+        <?php endwhile; ?>
+      </ul>
 
-                      $terms = array_merge(
-                        $fandoms ? fictioneer_get_term_nodes( $fandoms, "{$variant} _fandom" ) : [],
-                        $genres ? fictioneer_get_term_nodes( $genres, "{$variant} _genre" ) : [],
-                        $tags ? fictioneer_get_term_nodes( $tags, "{$variant} _tag" ) : [],
-                        $characters ? fictioneer_get_term_nodes( $characters, "{$variant} _character" ) : []
-                      );
+    <?php else : ?>
 
-                      $terms = apply_filters(
-                        'fictioneer_filter_shortcode_latest_recommendations_terms',
-                        $terms, $post, $args, null
-                      );
+      <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
 
-                      // Implode with separator
-                      echo implode(
-                        fictioneer_get_bullet_separator( 'latest-recommendations-compact', $args['terms'] === 'pills' ),
-                        array_slice( $terms, 0, $args['max_terms'] )
-                      );
-                    } else {
-                      ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
-                    }
-                  ?>
-                </div>
-              </div>
-            <?php endif; ?>
+    <?php endif; wp_reset_postdata(); ?>
 
-          </div>
-        </li>
-
-      <?php endwhile; ?>
-    </ul>
-
-  <?php else : ?>
-
-    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
-
-  <?php endif; wp_reset_postdata(); ?>
+  <?php if ( $splide ) { echo '</div>'; } ?>
 </section>

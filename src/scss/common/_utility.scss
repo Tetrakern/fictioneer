@@ -53,7 +53,7 @@ body:not(.is-editor):not(.is-admin) {
   }
 }
 
-.grid-columns {
+.grid-columns:where(:not(.splide__list)) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--grid-columns-min, 308px), 1fr));
   gap:

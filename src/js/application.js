@@ -2262,3 +2262,15 @@ function fcn_showAgeConfirmationModal() {
     localStorage.removeItem('fcnAgeConfirmation');
   });
 }
+
+// =============================================================================
+// SPLIDE SLIDER (IF ANY)
+// =============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  _$$('.splide:not(.no-auto-splide, .is-initialized)').forEach(slider => {
+    if (typeof Splide !== 'undefined') {
+      new Splide(slider).mount();
+    }
+  });
+});

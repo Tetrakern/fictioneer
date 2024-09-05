@@ -59,6 +59,15 @@
   --strong-filter: none;
   --invert-filter: invert(1); // Checkbox check
 
+  // === SPLIDE ================================================================
+
+  --splide-arrow: var(--bg-400);
+  --splide-arrow-hover: var(--bg-700);
+  --splide-arrow-active: var(--bg-700);
+  --splide-pagination: var(--bg-400);
+  --splide-pagination-hover: var(--bg-500);
+  --splide-pagination-active: var(--bg-700);
+
   // === LITRPG ================================================================
 
   --litrpg-background: var(--bg-50);

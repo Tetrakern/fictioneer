@@ -157,6 +157,15 @@
   --strong-filter: brightness(1.05);
   --invert-filter: invert(0); // Checkbox check
 
+  // === SPLIDE ================================================================
+
+  --splide-arrow: var(--bg-400);
+  --splide-arrow-hover: var(--bg-100);
+  --splide-arrow-active: var(--bg-100);
+  --splide-pagination: var(--bg-400);
+  --splide-pagination-hover: var(--bg-300);
+  --splide-pagination-active: var(--bg-100);
+
   // === LITRPG ================================================================
 
   --litrpg-background: var(--bg-50);

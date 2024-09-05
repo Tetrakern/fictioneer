@@ -34,6 +34,7 @@
  * @internal $args['footer_author']       Whether to show the chapter author. Default true.
  * @internal $args['footer_words']        Whether to show the chapter word count. Default true.
  * @internal $args['footer_date']         Whether to show the chapter date. Default true.
+ * @internal $args['splide']              Configuration JSON for the Splide slider. Default empty.
  */
 
 
@@ -41,6 +42,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
+$splide = $args['splide'] ?? 0;
 $card_counter = 0;
 
 // Prepare query
@@ -118,179 +120,202 @@ $entries = fictioneer_shortcode_query( $query_args );
 // Remove temporary filters
 remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
+// Extra attributes
+$attributes = [];
+
+if ( $splide ) {
+  $attributes[] = "data-splide='{$splide}'";
+}
+
 ?>
 
-<section class="small-card-block latest-chapters _compact <?php echo $args['classes']; ?>">
-  <?php if ( $entries->have_posts() ) : ?>
+<section class="small-card-block latest-chapters _compact <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
+  <?php
+    if ( $args['splide'] === false ) {
+      echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+    }
 
-    <ul class="grid-columns _collapse-on-mobile">
-      <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
+    if ( $splide ) {
+      echo '<div class="splide__track">';
+    }
+  ?>
 
-        <?php
-          // Setup
-          $post_id = $post->ID;
-          $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    <?php if ( $entries->have_posts() ) : ?>
 
-          if ( get_post_status( $story_id ) !== 'publish' ) {
-            continue;
-          }
+      <ul class="grid-columns _collapse-on-mobile <?php if ( $splide ) { echo 'splide__list'; } ?>">
+        <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
 
-          $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters-compact' );
-          $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
-          $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
-          $words = fictioneer_get_word_count( $post_id );
-          $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
-          $card_classes = [];
+          <?php
+            // Setup
+            $post_id = $post->ID;
+            $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
-          // Extra card classes
-          if ( ! empty( $post->post_password ) ) {
-            $card_classes[] = '_password';
-          }
+            if ( get_post_status( $story_id ) !== 'publish' ) {
+              continue;
+            }
 
-          if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
-            $card_classes[] = '_' . get_theme_mod( 'card_style' );
-          }
+            $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters-compact' );
+            $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
+            $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
+            $words = fictioneer_get_word_count( $post_id );
+            $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
+            $card_classes = [];
 
-          if ( $args['vertical'] ) {
-            $card_classes[] = '_vertical';
-          }
+            // Extra card classes
+            if ( ! empty( $post->post_password ) ) {
+              $card_classes[] = '_password';
+            }
 
-          if ( $args['seamless'] ) {
-            $card_classes[] = '_seamless';
-          }
+            if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
+              $card_classes[] = '_' . get_theme_mod( 'card_style' );
+            }
 
-          if ( ! $args['footer_words'] ) {
-            $card_classes[] = '_no-footer-words';
-          }
+            if ( $args['vertical'] ) {
+              $card_classes[] = '_vertical';
+            }
 
-          if ( ! $args['footer_date'] ) {
-            $card_classes[] = '_no-footer-date';
-          }
+            if ( $args['seamless'] ) {
+              $card_classes[] = '_seamless';
+            }
 
-          // Count actually rendered cards to account for buffer
-          if ( ++$card_counter > $args['count'] ) {
-            break;
-          }
+            if ( ! $args['footer_words'] ) {
+              $card_classes[] = '_no-footer-words';
+            }
 
-          // Card attributes
-          $attributes = [];
+            if ( ! $args['footer_date'] ) {
+              $card_classes[] = '_no-footer-date';
+            }
 
-          if ( $args['aspect_ratio'] ) {
-            $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
-          }
+            if ( $splide ) {
+              $card_classes[] = 'splide__slide';
+            }
 
-          $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-latest-chapters-compact' );
+            // Count actually rendered cards to account for buffer
+            if ( ++$card_counter > $args['count'] ) {
+              break;
+            }
 
-          $card_attributes = '';
+            // Card attributes
+            $attributes = [];
 
-          foreach ( $attributes as $key => $value ) {
-            $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
-          }
-        ?>
+            if ( $args['aspect_ratio'] ) {
+              $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
+            }
 
-        <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _info _chapter _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
-          <div class="card__body polygon">
+            $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-latest-chapters-compact' );
 
-            <?php if ( $words > 0 && $args['infobox'] ) : ?>
-              <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
-            <?php endif; ?>
+            $card_attributes = '';
 
-            <div class="card__main <?php echo $grid_or_vertical; ?> _small">
+            foreach ( $attributes as $key => $value ) {
+              $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+            }
+          ?>
 
-              <?php
-                do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story, $args );
+          <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _info _chapter _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+            <div class="card__body polygon">
 
-                if ( $args['thumbnail'] ) {
-                  fictioneer_render_thumbnail(
-                    array(
-                      'post_id' => $post_id,
-                      'title' => $title,
-                      'classes' => 'card__image cell-img',
-                      'permalink' => get_permalink(),
-                      'lightbox' => $args['lightbox'],
-                      'vertical' => $args['vertical'],
-                      'seamless' => $args['seamless'],
-                      'aspect_ratio' => $args['aspect_ratio'],
-                      'text_icon' => $text_icon
-                    )
-                  );
-                }
-              ?>
+              <?php if ( $words > 0 && $args['infobox'] ) : ?>
+                <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
+              <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
-                $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
-                $list_title = trim( wp_strip_all_tags( $list_title ) );
+              <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
-                if ( ! empty( $post->post_password ) ) {
-                  echo '<i class="fa-solid fa-lock protected-icon"></i> ';
-                }
+                <?php
+                  do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story, $args );
 
-                echo $list_title ? $list_title : $title;
-              ?></a></h3>
+                  if ( $args['thumbnail'] ) {
+                    fictioneer_render_thumbnail(
+                      array(
+                        'post_id' => $post_id,
+                        'title' => $title,
+                        'classes' => 'card__image cell-img',
+                        'permalink' => get_permalink(),
+                        'lightbox' => $args['lightbox'],
+                        'vertical' => $args['vertical'],
+                        'seamless' => $args['seamless'],
+                        'aspect_ratio' => $args['aspect_ratio'],
+                        'text_icon' => $text_icon
+                      )
+                    );
+                  }
+                ?>
 
-              <div class="card__content _small cell-desc">
-                <div class="text-overflow-ellipsis _bottom-spacer-xs">
-                  <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] && $args['footer_author'] ) : ?>
-                    <span class="card__by-author"><?php
-                      printf( _x( 'by %s', 'Small card: by {Author}.', 'fictioneer' ), fictioneer_get_author_node() );
-                    ?></span>
-                  <?php endif; ?>
-                  <?php
-                    if ( $story && $args['source'] ) {
-                      $story_link = get_post_meta( $story_id, 'fictioneer_story_redirect_link', true )
-                        ?: get_permalink( $story_id );
+                <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+                  $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
+                  $list_title = trim( wp_strip_all_tags( $list_title ) );
 
-                      printf(
-                        _x( 'in <a href="%1$s" class="bold-link">%2$s</a>', 'Small card: in {Link to Story}.', 'fictioneer' ),
-                        $story_link,
-                        fictioneer_truncate( fictioneer_get_safe_title( $story_id, 'shortcode-latest-chapters-compact' ), 24 )
-                      );
-                    }
-                  ?>
-                </div>
-                <div class="card__words-on-date text-overflow-ellipsis">
-                  <?php
-                    $format = $args['date_format'] ?: FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE;
+                  if ( ! empty( $post->post_password ) ) {
+                    echo '<i class="fa-solid fa-lock protected-icon"></i> ';
+                  }
 
-                    if ( $words > 0 && $args['footer_words'] && $args['footer_date'] ) {
-                      printf(
-                        _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
-                        fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ),
-                        get_the_time( $format )
-                      );
-                    } else {
-                      if ( $words > 0 && $args['footer_words'] ) {
+                  echo $list_title ? $list_title : $title;
+                ?></a></h3>
+
+                <div class="card__content _small cell-desc">
+                  <div class="text-overflow-ellipsis _bottom-spacer-xs">
+                    <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] && $args['footer_author'] ) : ?>
+                      <span class="card__by-author"><?php
+                        printf( _x( 'by %s', 'Small card: by {Author}.', 'fictioneer' ), fictioneer_get_author_node() );
+                      ?></span>
+                    <?php endif; ?>
+                    <?php
+                      if ( $story && $args['source'] ) {
+                        $story_link = get_post_meta( $story_id, 'fictioneer_story_redirect_link', true )
+                          ?: get_permalink( $story_id );
+
                         printf(
-                          _x( '%1$s Words', 'Small card: {n} Words.', 'fictioneer' ),
-                          fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) )
+                          _x( 'in <a href="%1$s" class="bold-link">%2$s</a>', 'Small card: in {Link to Story}.', 'fictioneer' ),
+                          $story_link,
+                          fictioneer_truncate( fictioneer_get_safe_title( $story_id, 'shortcode-latest-chapters-compact' ), 24 )
                         );
-                      } elseif ( $args['footer_date'] ) {
-                        the_time( $format );
                       }
-                    }
-                  ?>
+                    ?>
+                  </div>
+                  <div class="card__words-on-date text-overflow-ellipsis">
+                    <?php
+                      $format = $args['date_format'] ?: FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE;
+
+                      if ( $words > 0 && $args['footer_words'] && $args['footer_date'] ) {
+                        printf(
+                          _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
+                          fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ),
+                          get_the_time( $format )
+                        );
+                      } else {
+                        if ( $words > 0 && $args['footer_words'] ) {
+                          printf(
+                            _x( '%1$s Words', 'Small card: {n} Words.', 'fictioneer' ),
+                            fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) )
+                          );
+                        } elseif ( $args['footer_date'] ) {
+                          the_time( $format );
+                        }
+                      }
+                    ?>
+                  </div>
                 </div>
+
               </div>
+
+              <?php if ( $words > 0 && $args['infobox'] ) : ?>
+                <div class="card__overlay-infobox _excerpt escape-last-click">
+                  <div class="card__excerpt"><?php
+                    echo fictioneer_get_forced_excerpt( $post, $args['vertical'] ? 512 : 256 );
+                  ?></div>
+                </div>
+              <?php endif; ?>
 
             </div>
+          </li>
 
-            <?php if ( $words > 0 && $args['infobox'] ) : ?>
-              <div class="card__overlay-infobox _excerpt escape-last-click">
-                <div class="card__excerpt"><?php
-                  echo fictioneer_get_forced_excerpt( $post, $args['vertical'] ? 512 : 256 );
-                ?></div>
-              </div>
-            <?php endif; ?>
+        <?php endwhile; ?>
+      </ul>
 
-          </div>
-        </li>
+    <?php else : ?>
 
-      <?php endwhile; ?>
-    </ul>
+      <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
 
-  <?php else : ?>
+    <?php endif; wp_reset_postdata(); ?>
 
-    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
-
-  <?php endif; wp_reset_postdata(); ?>
+  <?php if ( $splide ) { echo '</div>'; } ?>
 </section>
