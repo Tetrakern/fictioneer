@@ -1577,3 +1577,25 @@ add_filter( 'get_the_excerpt', 'fictioneer_fix_excerpt', 10, 2 );
 function fictioneer_replace_br_with_whitespace( $text ) {
   return str_replace( '<br>', ' ', $text );
 }
+
+// =============================================================================
+// TRY PREVENTING INDEXING OF INTERNAL URLS
+// =============================================================================
+
+/**
+ * Add noindex and nofollow headers to certain requests
+ *
+ * @since 5.23.1
+ */
+
+function fictioneer_block_pages_from_indexing() {
+  $params = ['oauth_nonce', 'nonce', 'return_url', 'order', 'orderby', 'ago'];
+
+  foreach ( $params as $param ) {
+    if ( isset( $_GET[ $param ] ) ) {
+      header( 'X-Robots-Tag: noindex, nofollow', true );
+      break;
+    }
+  }
+}
+add_action( 'send_headers', 'fictioneer_block_pages_from_indexing' );
