@@ -1353,6 +1353,12 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 
 ![Showcase](repo/assets/shortcode_example_showcase.jpg?raw=true)
 
+```
+[fictioneer_showcase for="stories" count="4" aspect_ratio="2/3" min_width="150px"]
+```
+
+![Showcase](repo/assets/shortcode_example_showcase_2.jpg?raw=true)
+
 ### Slider
 
 Any shortcode with the `splide` parameter can be turned into a slider. [Splide](https://splidejs.com/) is a flexible and lightweight slider that comes with [many options](https://splidejs.com/guides/options/) for customization, although applying them may be challenging if you are not familiar with [JSONs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON). You can look up the details yourself.
