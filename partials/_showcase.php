@@ -198,6 +198,8 @@ if ( $args['width'] ) {
                     the_post_thumbnail( 'medium', $image_args );
                   } elseif ( $story_id && has_post_thumbnail( $story_id ) ) {
                     echo get_the_post_thumbnail( $story_id, 'medium', $image_args );
+                  } elseif ( $default_cover_id = get_theme_mod( 'default_story_cover', 0 ) ) {
+                    echo wp_get_attachment_image( $default_cover_id, 'medium', false, $image_args );
                   } else {
                     echo '<div class="showcase__image _no-cover"></div>';
                   }
