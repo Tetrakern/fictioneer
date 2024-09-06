@@ -23,7 +23,7 @@
 
   &__list:where(:not(.splide__list)) {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(#{get_clamp(160, 175, 375, 480)}, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--showcase-item-min-width, #{get_clamp(160, 175, 375, 480)})), 1fr));
     gap: var(--showcase-row-gap, max(3cqw, 1.5rem)) var(--showcase-row-col, max(3cqw, 1.5rem));
 
     // Fallback
@@ -42,12 +42,8 @@
     max-width: max(420px, 100%);
     contain: layout paint style; // Improve performance
 
-    &:where(:not(._aspect-ratio, ._custom-height)) {
-      height: max(64px, #{get_clamp(64, 96, 375, 768)});
-    }
-
-    &._custom-height {
-      height: var(--showcase-item-height);
+    &:where(:not(._aspect-ratio)) {
+      height: var(--showcase-item-height, max(64px, #{get_clamp(64, 96, 375, 768)}));
     }
 
     @include bp(mobile-l) {

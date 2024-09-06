@@ -400,8 +400,9 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
  * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Default false (Customizer).
- * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio of the item. Supersedes by height. Default empty.
+ * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio of the item. Default empty.
  * @param string|null $attr['height']              Optional. Override the item height. Default empty.
+ * @param string|null $attr['height']              Optional. Override the item minimum width. Default empty.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
@@ -419,8 +420,9 @@ function fictioneer_shortcode_showcase( $attr ) {
   // Defaults
   $args = fictioneer_get_default_shortcode_args( $attr, 8 );
 
-  // Height
+  // Height/Width
   $args['height'] = sanitize_text_field( $attr['height'] ?? '' );
+  $args['width'] = sanitize_text_field( $attr['width'] ?? '' );
 
   // Specifics
   $args['no_cap'] = filter_var( $attr['no_cap'] ?? 0, FILTER_VALIDATE_BOOLEAN );

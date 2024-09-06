@@ -27,7 +27,8 @@
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  * @internal $args['splide']            Configuration JSON for the Splide slider. Default empty.
  * @internal $args['height']            Override the item height. Default empty.
- * @internal $args['aspect_ratio']      Aspect ratio of the item. Superseded by height. Default empty.
+ * @internal $args['width']             Override the item minimum width. Default empty.
+ * @internal $args['aspect_ratio']      Aspect ratio of the item. Default empty.
  */
 
 
@@ -99,6 +100,11 @@ $attributes = [];
 
 if ( $splide ) {
   $attributes[] = "data-splide='{$splide}'";
+}
+
+if ( $args['width'] ) {
+  $attributes[] .= "style='--showcase-item-min-width: {$args['width']};'";
+  $args['classes'] .= ' _custom-min-width';
 }
 
 ?>
