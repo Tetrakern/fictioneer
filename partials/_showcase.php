@@ -120,44 +120,40 @@ if ( $args['width'] ) {
         echo '<div class="splide__track">';
       }
 
-      // Item classes
-      $item_classes = '';
+      // Classes
+      $classes = '';
 
       if ( $args['aspect_ratio'] ) {
-        $item_classes .= ' _aspect-ratio';
+        $classes .= ' _aspect-ratio';
       }
 
       if ( $args['height'] ) {
-        $item_classes .= ' _custom-height';
+        $classes .= ' _custom-height';
       }
 
       if ( $splide ) {
-        $item_classes .= ' splide__slide';
+        $classes .= ' splide__slide';
       }
 
-      // Item attributes
-      $attributes = array(
-        'style' => ''
-      );
+      // Style attribute
+      $style = '';
 
       if ( $args['aspect_ratio'] ) {
-        $attributes['style'] .= "--showcase-item-aspect-ratio: {$args['aspect_ratio']};";
+        $style .= "--showcase-item-aspect-ratio: {$args['aspect_ratio']};";
       }
 
       if ( $args['height'] ) {
-        $attributes['style'] .= "--showcase-item-height: {$args['height']};";
+        $style .= "--showcase-item-height: {$args['height']};";
       }
 
-      $item_attributes = '';
-
-      foreach ( $attributes as $key => $value ) {
-        $item_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+      if ( ! empty( $style ) ) {
+        $style = "style='{$style}'";
       }
     ?>
 
       <ul class="showcase__list <?php if ( $splide ) { echo 'splide__list'; } ?>">
         <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-          <li class="showcase__list-item <?php echo $item_classes; ?>" <?php echo $item_attributes; ?>>
+          <li class="showcase__list-item <?php echo $classes; ?>" data-post-id="<?php echo $post->ID; ?>" <?php echo $style; ?>>
             <a class="showcase__list-item-link polygon" href="<?php the_permalink(); ?>">
               <figure class="showcase__list-item-figure">
                 <?php
@@ -194,7 +190,9 @@ if ( $args['width'] ) {
                   );
 
                   // Output image or placeholder
-                  if ( ! empty( $landscape_image_id ) ) {
+                  $ratio = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] ?: '4/2' );
+
+                  if ( ! empty( $landscape_image_id ) && $ratio[0] - $ratio[1] > 1 ) {
                     echo wp_get_attachment_image( $landscape_image_id, 'medium', false, $image_args );
                   } elseif ( has_post_thumbnail() ) {
                     the_post_thumbnail( 'medium', $image_args );
