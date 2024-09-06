@@ -62,7 +62,7 @@
     padding: var(--this-outset) var(--this-outset) var(--this-pagination-vertical-padding, 16px) !important;
   }
 
-  &.article-card-block .splide__track {
+  &.article-card-block.is-overflow .splide__track {
     --this-pagination-vertical-padding: 0px;
 
     .splide__pagination:not(.splide__pagination--ttb) {
