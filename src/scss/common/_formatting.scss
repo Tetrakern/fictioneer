@@ -28,11 +28,11 @@
   }
 
   :is(h2, .h2) {
-    font-size: get_relative_clamp(1.35, 1.55, 320, $full-width, 'vw', 'em');
+    font-size: get_relative_clamp(1.35, 1.6, 320, $full-width, 'vw', 'em');
   }
 
   :is(h1, .h1) {
-    font-size: get_relative_clamp(1.5, 1.75, 320, $full-width, 'vw', 'em');
+    font-size: get_relative_clamp(1.5, 1.8, 320, $full-width, 'vw', 'em');
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
