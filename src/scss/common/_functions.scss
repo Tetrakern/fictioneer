@@ -52,3 +52,40 @@
 @function unicode($str) {
   @return unquote("\"")+unquote(str-insert($str, "\\", 1))+unquote("\"")
 }
+
+/*
+https://toward.studio/latest/making-css-gradients-smooth
+https://css-tricks.com/easing-linear-gradients/
+*/
+
+@function scrim_gradient($startColor: #000000, $direction: 'to bottom', $startOpacity: 1, $offset: 0) {
+  $scrimCoordinates: (
+    0: 1,
+    19: 0.738,
+    34: 0.541,
+    47: 0.382,
+    56.5: 0.278,
+    65: 0.194,
+    73: 0.126,
+    80.2: 0.075,
+    86.1: 0.042,
+    91: 0.021,
+    95.2: 0.008,
+    98.2: 0.002,
+    100: 0
+  );
+
+  $hue: hue($startColor);
+  $saturation: saturation($startColor);
+  $lightness: lightness($startColor);
+  $stops: ();
+
+  @each $colorStop, $alphaValue in $scrimCoordinates {
+    $adjustedAlpha: $alphaValue * $startOpacity;
+    $adjustedStop: percentage(($colorStop * 0.01 * (100 - $offset) + $offset) * 0.01);
+    $stop: hsla($hue, $saturation, $lightness, $adjustedAlpha) $adjustedStop;
+    $stops: append($stops, $stop, comma);
+  }
+
+  @return linear-gradient(unquote($direction), $stops);
+}
