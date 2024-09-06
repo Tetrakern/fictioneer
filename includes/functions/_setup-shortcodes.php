@@ -216,7 +216,8 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'classes' => esc_attr( wp_strip_all_tags( $attr['classes'] ?? $attr['class'] ?? '' ) ),
     'infobox' => filter_var( $attr['infobox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'source' => filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
-    'splide' => sanitize_text_field( $attr['splide'] ?? '' )
+    'splide' => sanitize_text_field( $attr['splide'] ?? '' ),
+    'cache' => filter_var( $attr['cache'] ?? 1, FILTER_VALIDATE_BOOLEAN )
   );
 
   //--- Fixes ------------------------------------------------------------------
@@ -453,7 +454,7 @@ function fictioneer_shortcode_showcase( $attr ) {
   }
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $args ) . serialize( $attr );
     $type = $args['post_type'];
     $transient_key = "fictioneer_shortcode_showcase_{$type}_html_" . md5( $base );
@@ -475,7 +476,7 @@ function fictioneer_shortcode_showcase( $attr ) {
     $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
   }
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -548,7 +549,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   }
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_chapters_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -579,7 +580,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
     $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
   }
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -655,7 +656,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   }
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_stories_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -685,7 +686,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
     $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
   }
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -764,7 +765,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   }
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_updates_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -794,7 +795,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
     $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
   }
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -859,7 +860,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   }
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_recommendations_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -886,7 +887,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
     $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
   }
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -927,7 +928,7 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   $args = fictioneer_get_default_shortcode_args( $attr, 1 );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_posts_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -944,7 +945,7 @@ function fictioneer_shortcode_latest_posts( $attr ) {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -1085,6 +1086,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   }
 
   // Setup
+  $cache = filter_var( $attr['cache'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $count = max( -1, intval( $attr['count'] ?? -1 ) );
   $offset = max( 0, intval( $attr['offset'] ?? 0 ) );
   $group = empty( $attr['group'] ) ? false : strtolower( trim( $attr['group'] ) );
@@ -1147,7 +1149,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $cache ) {
     $base = serialize( $query_args ) . serialize( $attr ) . $classes;
     $base .= ( $hide_icons ? '1' : '0' ) . ( $can_checkmarks ? '1' : '0' );
     $transient_key = "fictioneer_shortcode_chapter_list_html_" . md5( $base );
@@ -1302,7 +1304,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Store buffer
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $cache ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -1575,7 +1577,7 @@ function fictioneer_shortcode_blog( $attr ) {
   $query_args = apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $args );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $query_args ) . serialize( $args ) . serialize( $attr );
     $transient_key = 'fictioneer_shortcode_blog_html_' . md5( $base );
     $transient = get_transient( $transient_key );
@@ -1636,7 +1638,7 @@ function fictioneer_shortcode_blog( $attr ) {
   // Store buffer
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -1739,7 +1741,7 @@ function fictioneer_shortcode_article_cards( $attr ) {
   }
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_article_cards_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -1760,7 +1762,7 @@ function fictioneer_shortcode_article_cards( $attr ) {
     $html .= '<script class="temp-script">document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{"undefined"!=typeof Splide&&new Splide(e).mount()}),document.querySelector(".temp-script").remove();</script>';
   }
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $args['cache'] ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -1801,6 +1803,7 @@ function fictioneer_shortcode_story_section( $attr ) {
   }
 
   // Setup
+  $cache = filter_var( $attr['cache'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? 0, 'fcn_story' );
   $post = get_post( $story_id );
   $story_data = fictioneer_get_story_data( $story_id );
@@ -1830,7 +1833,7 @@ function fictioneer_shortcode_story_section( $attr ) {
   }
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $cache ) {
     $base = serialize( $attr ) . $classes;
     $transient_key = "fictioneer_shortcode_story_section_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -1878,7 +1881,7 @@ function fictioneer_shortcode_story_section( $attr ) {
   wp_reset_postdata();
 
   // Cache in Transient
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $cache ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -1919,6 +1922,7 @@ function fictioneer_shortcode_story_actions( $attr ) {
   }
 
   // Setup
+  $cache = filter_var( $attr['cache'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? 0, 'fcn_story' );
   $story_data = fictioneer_get_story_data( $story_id );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
@@ -1949,7 +1953,7 @@ function fictioneer_shortcode_story_actions( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $cache ) {
     $base = serialize( $attr ) . $classes;
     $transient_key = "fictioneer_shortcode_story_actions_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -1974,7 +1978,7 @@ function fictioneer_shortcode_story_actions( $attr ) {
   $html = fictioneer_minify_html( $html );
 
   // Cache in Transient
-  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED && $cache ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 

@@ -714,6 +714,7 @@ Renders the action row of the specified story. All buttons and links will work a
 * **download:** Whether to render the ePUB/eBook download button (if enabled). Default `true`.
 * **rss:** Whether to render the RSS link (if enabled). Default `true`.
 * **share:** Whether to render the Share modal button (if enabled). Default `true`.
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_story_actions story_id="106"]
@@ -733,6 +734,7 @@ Renders the chapters, groups, and tabs of the specified story. It will look just
 * **blog:** Whether to render the blog tab. Default `false`.
 * **pages:** Whether to render the custom page tabs. Default `false`.
 * **scheduled:** Whether to render the scheduled chapter note. Default `false`.
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_story_section story_id="106"]
@@ -843,6 +845,7 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_article_cards]
@@ -879,6 +882,7 @@ Renders paginated blog posts akin to the main blog page, but with options. Only 
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **class:** Additional CSS classes, separated by whitespace.
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_blog]
@@ -926,6 +930,7 @@ Renders a list of chapters identical to those on story pages, ordered by sequenc
 * **heading:** Show a heading with collapse toggle above the list.
 * **group:** Only show chapters with a specific group name, which can transcend stories.
 * **class:** Additional CSS classes, separated by whitespace. `no-auto-collapse` prevents default group collapsing (if set).
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_chapter_list story="69"]
@@ -1018,6 +1023,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_latest_chapters]
@@ -1064,6 +1070,7 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **class:** Additional CSS classes, separated by whitespace.
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_latest_posts]
@@ -1110,6 +1117,7 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_latest_recommendations]
@@ -1170,6 +1178,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_latest_stories]
@@ -1248,6 +1257,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **footer_rating:** Whether to show the story age rating. Default `true`.
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_latest_updates]
@@ -1342,6 +1352,7 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **width:** Override the item minimum width (it will still be stretched to fill the space).
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
+* **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```
 [fictioneer_showcase for="collections"]
