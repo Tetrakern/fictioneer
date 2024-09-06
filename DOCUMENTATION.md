@@ -842,6 +842,7 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **footer_comments:** Whether to show the post comment count. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
+* **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
 
 ```
 [fictioneer_article_cards]
@@ -1016,6 +1017,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **footer_rating:** Whether to show the chapter age rating. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
+* **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
 
 ```
 [fictioneer_latest_chapters]
@@ -1107,6 +1109,7 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 * **infobox:** Whether to show the info box and toggle on compact versions. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
+* **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
 
 ```
 [fictioneer_latest_recommendations]
@@ -1166,6 +1169,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **footer_rating:** Whether to show the age rating. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
+* **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
 
 ```
 [fictioneer_latest_stories]
@@ -1243,6 +1247,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **footer_status:** Whether to show the story status. Default `true`.
 * **footer_rating:** Whether to show the story age rating. Default `true`.
 * **class:** Additional CSS classes, separated by whitespace.
+* **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
 
 ```
 [fictioneer_latest_updates]
@@ -1326,10 +1331,17 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
+* **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
+* **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
+* **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **no_cap:** Set `true` if you want to hide the caption.
-* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the item (X/Y). Superseded by `height`.
-* **height:** Override the item height.
+* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the item (X/Y).
+* **height:** Override the item height. Superseded by `aspect_ratio`.
+* **width:** Override the item minimum width (it will still be stretched to fill the space).
 * **class:** Additional CSS classes, separated by whitespace.
+* **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
 
 ```
 [fictioneer_showcase for="collections"]
@@ -1343,15 +1355,38 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 
 ### Slider
 
-Any shortcode with the `splide` parameter listed can be turned into a slider. [Splide](https://splidejs.com/) is a flexible and lightweight slider that comes with [many options](https://splidejs.com/guides/options/) for customization, although applying them may be challenging if you are not familiar with JSONs. You can look up the details yourself.
+Any shortcode with the `splide` parameter can be turned into a slider. [Splide](https://splidejs.com/) is a flexible and lightweight slider that comes with [many options](https://splidejs.com/guides/options/) for customization, although applying them may be challenging if you are not familiar with [JSONs](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON). You can look up the details yourself.
 
-The `splide` parameter only accepts JSON strings, such as `splide="{'type':'loop','perPage':3}"`. Note that you need to use single straight quotes due to the shortcode syntax. If there is even a minor error, the JSON will be rejected with a note, and the shortcode will default to its standard layout. Not all parameter combinations have been tested with Splide, so custom CSS may be required.
+The `splide` parameter only accepts JSON strings, such as `splide="{'type':'loop','perPage':3}"`. Note that you need to use **single quotes** due to the shortcode syntax. If there is even a minor error, the JSON will be rejected with a note, and the shortcode will default to its standard layout. Not all parameter combinations have been tested with Splide, so custom CSS may be required in some cases.
 
-If you do not want to initialize a slider on page load, you can add the `no-auto-splide` class via the `class` parameter in the shortcode or custom HTML (where the `splide` class is). Normally, Splide’s assets are only enqueued when a shortcode with the necessary parameter is found in the post content, but you can enable Splide globally under **Fictioneer > General > Compatibility**.
+If you do not want to initialize a slider on page load, you can add the `no-auto-splide` CSS class via the `class` parameter in the shortcode or custom HTML (where the `splide` class is). Normally, Splide’s assets are only enqueued when a shortcode with the necessary parameter is found in the post content, but you can enable Splide globally under **Fictioneer > General > Compatibility**.
 
+```
+[fictioneer_latest_stories count="6" splide="{'type': 'loop', 'gap': '1.5rem', 'autoplay': true, 'perPage': 2, 'breakpoints': {'767': {'perPage': 1}}}"]
+```
 
+<p align="center">
+  <img src="repo/assets/shortcode_example_latest_stories_slider.gif?raw=true" alt="Slider Preview" />
+</p>
 
+#### Custom HTML Sliders
 
+If you enable Splide globally (or have a slider shortcode on the same page), you can use the HTML block to create your own Slider. Just copy the base [structure](https://splidejs.com/guides/structure/) and add any slides you like, although you will need to style them yourself using custom CSS. Initialize the slider with the [data attribute JSON](https://splidejs.com/guides/options/#by-data-attribute), but this time with double quotes as shown in the example. Unlike with shortcodes, navigation arrows are enabled by default but can be turned off with `"arrows:" false`.
+
+```html
+<section class="splide" data-splide='{"type": "loop", "interval": 3000, "gap": "1.5rem", "autoplay": true, "perPage": 3, "breakpoints": {"767": {"perPage": 2, "arrows": false}, "479": {"perPage": 1}}}'>
+  <div class="splide__track">
+    <ul class="splide__list">
+      <li class="splide__slide example-side">Slide 01</li>
+      <li class="splide__slide example-side">Slide 02</li>
+      <li class="splide__slide example-side">Slide 03</li>
+      <li class="splide__slide example-side">Slide 04</li>
+      <li class="splide__slide example-side">Slide 05</li>
+      <li class="splide__slide example-side">Slide 06</li>
+    </ul>
+  </div>
+</section>
+```
 
 ### Sidebar
 
