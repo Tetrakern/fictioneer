@@ -162,6 +162,8 @@ reset( $sorted_stories );
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'singular-index-advanced' ); ?>
+
 </main>
 
 <?php

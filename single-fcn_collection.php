@@ -125,6 +125,8 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'collection' ); ?>
+
 </main>
 
 <?php

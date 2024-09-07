@@ -75,6 +75,8 @@ get_header();
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'category-archive' ); ?>
+
 </main>
 
 <?php

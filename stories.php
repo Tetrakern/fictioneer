@@ -152,6 +152,8 @@ get_header();
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'stories' ); ?>
+
 </main>
 
 <?php

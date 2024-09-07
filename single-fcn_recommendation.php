@@ -75,6 +75,8 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'recommendation' ); ?>
+
 </main>
 
 <?php

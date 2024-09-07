@@ -132,6 +132,8 @@ reset( $sorted_authors );
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'singular-index' ); ?>
+
 </main>
 
 <?php

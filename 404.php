@@ -38,6 +38,8 @@ get_header( null, array( 'no_index' => 1 ) );
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', '404' ); ?>
+
 </main>
 
 <?php

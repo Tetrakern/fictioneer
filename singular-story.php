@@ -88,6 +88,8 @@ get_header(
     <?php endwhile; ?>
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'singular-story' ); ?>
+
 </main>
 
 <?php

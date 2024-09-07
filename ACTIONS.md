@@ -684,7 +684,15 @@ Fires after opening the site’s `<main>` container.
 **Hooked Actions:**
 * `fictioneer_main_observer()` – Renders the main observer element. Priority 1.
 * `fictioneer_page_background()` – Renders the page background. Priority 10.
-* `fictioneer_sidebar() – Renders the sidebar if enabled. Priority 10.
+* `fictioneer_sidebar() – Renders the sidebar if enabled (depends on location). Priority 10.
+
+---
+
+### `do_action( 'fictioneer_main_end', $context )`
+Fires before closing the site’s `<main>` container.
+
+**Parameters:**
+* $context (string|null) – Context of the action call, typically related to the template. Unsafe.
 
 ---
 

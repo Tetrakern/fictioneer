@@ -151,6 +151,9 @@ get_header();
     </article>
 
   </div>
+
+  <?php do_action( 'fictioneer_main_end', 'search' ); ?>
+
 </main>
 
 <?php

@@ -85,6 +85,8 @@ get_header( null, array( 'type' => 'user-profile', 'no_index' => 1 ) );
 
   </div>
 
+  <?php do_action( 'fictioneer_main_end', 'user-profile' ); ?>
+
 </main>
 
 <?php
