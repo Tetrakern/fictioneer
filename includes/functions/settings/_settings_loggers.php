@@ -54,6 +54,9 @@ function fictioneer_log( $message, $current_user = null ) {
 
   // Concatenate and save
   file_put_contents( $log_file, implode( "\n", $log_entries ) );
+
+  // Set file permissions
+  chmod( $log_file, 0600 );
 }
 
 /**
