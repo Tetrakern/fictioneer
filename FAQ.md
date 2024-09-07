@@ -30,7 +30,7 @@ No. Fictioneer was developed as standalone solution and to work out of the box, 
 
 ### Q: Is the theme available in other languages?
 
-The theme is translation-ready but at the point of writing, only English is available. Feel free to [add your own translation](https://developer.wordpress.org/apis/internationalization/localization/) to the **languages** folder under the `fictioneer` text-domain or use a plugin. There is a .POT template file available.
+The theme is translation-ready. Feel free to [add your own translation](https://developer.wordpress.org/apis/internationalization/localization/) to the **languages** folder under the `fictioneer` text-domain or use a plugin. There is a .POT template file available.
 
 ### Q: Why is the ePUB download button not showing up?
 
