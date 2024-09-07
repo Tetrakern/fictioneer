@@ -311,7 +311,11 @@ function fictioneer_sidebar( $context ) {
 }
 
 if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
-  add_action( 'fictioneer_main', 'fictioneer_sidebar' );
+  if ( get_theme_mod( 'sidebar_style' ) === 'right' ) {
+    add_action( 'fictioneer_main_end', 'fictioneer_sidebar' );
+  } else {
+    add_action( 'fictioneer_main', 'fictioneer_sidebar' );
+  }
 }
 
 // =============================================================================

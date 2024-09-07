@@ -694,6 +694,9 @@ Fires before closing the site’s `<main>` container.
 **Parameters:**
 * $context (string|null) – Context of the action call, typically related to the template. Unsafe.
 
+**Hooked Actions:**
+* `fictioneer_sidebar() – Renders the sidebar if enabled (depends on location). Priority 10.
+
 ---
 
 ### `do_action( 'fictioneer_main_wrapper' )`
