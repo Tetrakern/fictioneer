@@ -72,7 +72,7 @@ select {
   background: var(--input-background);
   color: var(--input-color);
   border: none;
-  border-radius: var(--layout-border-radius-small);
+  border-radius: var(--input-border-radius, var(--layout-border-radius-small));
   box-shadow: var(--input-shadow);
 
   // Only iOS
@@ -106,7 +106,7 @@ input[type=range] {
     cursor: pointer;
     -webkit-appearance: none;
     background: var(--input-range-thumb);
-    border-radius: 1px;
+    border-radius: var(--input-border-radius, var(--layout-border-radius-small));
     width: 18px;
     height: 18px;
     transition: background-color var(--transition-duration);
@@ -125,7 +125,7 @@ input[type=range] {
     cursor: pointer;
     background: var(--input-range-thumb);
     border: none;
-    border-radius: 2px;
+    border-radius: var(--input-border-radius, var(--layout-border-radius-small));
     width: 14px;
     height: 14px;
     transition: background-color var(--transition-duration);
@@ -155,7 +155,7 @@ input[type=radio] {
   flex-shrink: 0;
   line-height: 1;
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: min(5px, var(--input-border-radius, var(--layout-border-radius-small)));
   margin: 0;
   height: 16px;
   width: 16px;
@@ -228,6 +228,7 @@ input[type=radio] {
 
   &__operator {
     --focus-offset: -2px;
+    --this-border-radius: var(--input-border-radius, var(--layout-border-radius-small));
     position: absolute;
     top: 0;
     right: 0;
@@ -240,7 +241,7 @@ input[type=radio] {
     font-weight: 400;
     line-height: 1;
     padding: 4px 6px;
-    border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
+    border-radius: var(--this-border-radius) var(--this-border-radius) 0 0;
     width: 40px;
     transform: translateY(-100%);
 
@@ -271,7 +272,7 @@ input[type=radio] {
     flex-wrap: wrap;
     gap: 8px;
     background: var(--input-background);
-    border-radius: var(--layout-border-radius-small);
+    border-radius: var(--input-border-radius, var(--layout-border-radius-small));
     padding: 6px 8px;
     width: 100%;
 
@@ -289,7 +290,7 @@ input[type=radio] {
     text-shadow: none;
     white-space: nowrap;
     text-transform: capitalize;
-    border-radius: var(--layout-border-radius-small);
+    border-radius: var(--input-border-radius, var(--layout-border-radius-small));
     padding: 0 20px 0 6px;
     width: fit-content;
     overflow: hidden;
