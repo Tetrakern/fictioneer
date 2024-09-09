@@ -488,7 +488,7 @@ function fcn_removeLastClick(target) {
 }
 
 /**
- * Clicks on elements with the 'toggle-last-clicked' class are handles by the
+ * Clicks on elements with the 'toggle-last-clicked' class are handled by the
  * global click handler in application.js to avoid rebinding cases.
  */
 
@@ -496,14 +496,16 @@ function fcn_removeLastClick(target) {
 _$('body').addEventListener(
   'click',
   e => {
+    const target = e.target.closest('.toggle-last-clicked');
+
     if (
-      (!['BUTTON', 'A'].includes(e.target.tagName) && e.target.closest('.toggle-last-clicked')) ||
+      (!['BUTTON', 'A'].includes(e.target.tagName) && target) ||
       e.target.closest('.escape-last-click') !== null
     ) {
       return;
     }
 
-    if (fcn_lastClicked && e.currentTarget != fcn_lastClicked) {
+    if (fcn_lastClicked && target != fcn_lastClicked) {
       fcn_removeLastClick(fcn_lastClicked);
     }
   }
