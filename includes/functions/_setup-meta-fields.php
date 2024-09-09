@@ -3023,7 +3023,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
   // Story
   if ( isset( $_POST['fictioneer_chapter_story'] ) ) {
-    $story_id = absint( $_POST['fictioneer_chapter_story'] );
+    $story_id = fictioneer_validate_id( $_POST['fictioneer_chapter_story'], 'fcn_story' );
     $current_story_id = absint( get_post_meta( $post_id, 'fictioneer_chapter_story', true ) );
 
     if ( $current_story_id && $story_id !== $current_story_id ) {
@@ -3051,7 +3051,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
       }
     }
 
-    $fields['fictioneer_chapter_story'] = strval( $story_id );
+    $fields['fictioneer_chapter_story'] = strval( $story_id ?: 0 );
   }
 
   // Card/List title
