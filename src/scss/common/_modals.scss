@@ -207,7 +207,7 @@
   background-color: var(--modal-bg-color);
   padding: 0;
   border: none;
-  border-radius: var(--layout-border-radius-small);
+  border-radius: min(20px, var(--layout-border-radius-large));
   max-height: calc(100% - 20px);
   width: var(--modal-width, 300px);
   max-width: calc(100vw - 20px);
