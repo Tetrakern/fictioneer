@@ -87,7 +87,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
         ),
         'author' => array(
           'name' => $comment->comment_author,
-          'icon_url' => $comment_avatar_url
+          'icon_url' => $comment_avatar_url ?: ''
         ),
         'timestamp' => date_format( date_create( $comment->comment_date ), 'c' )
       )
