@@ -14,7 +14,8 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
    * @param string $webhook  The webhook for the Discord channel.
    * @param array  $message  The message to be sent.
    *
-   * @return array|WP_Error The response or WP_Error on failure.
+   * @return array|WP_Error|null Null if not in debug mode, otherwise
+   *                             the response or WP_Error on failure.
    */
 
   function fictioneer_discord_send_message( $webhook, $message ) {
@@ -30,7 +31,8 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
         ),
         'body' => json_encode( $message, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ),
         'method' => 'POST',
-        'data_format' => 'body'
+        'data_format' => 'body',
+        'blocking' => ! WP_DEBUG
       )
     );
   }
