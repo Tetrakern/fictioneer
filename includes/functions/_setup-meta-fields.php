@@ -729,6 +729,7 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
 function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
   // Setup
   $meta_value = esc_attr( get_post_meta( $post->ID, $meta_key, true ) );
+  $meta_value = $meta_value ? $meta_value : FICTIONEER_DEFAULT_CHAPTER_ICON;
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
@@ -2973,11 +2974,15 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
     // Valid?
     if ( ! $icon_object && ( empty( $icon ) || strpos( $icon, 'fa-' ) !== 0 ) ) {
-      $icon = FICTIONEER_DEFAULT_CHAPTER_ICON;
+      $icon = '';
     }
 
     if ( $icon_object && ( ! property_exists( $icon_object, 'style' ) || ! property_exists( $icon_object, 'id' ) ) ) {
-      $icon = FICTIONEER_DEFAULT_CHAPTER_ICON;
+      $icon = '';
+    }
+
+    if ( $icon === FICTIONEER_DEFAULT_CHAPTER_ICON ) {
+      $icon = ''; // Do not save default icon
     }
 
     $fields['fictioneer_chapter_icon'] = $icon;

@@ -237,7 +237,7 @@ These are the protected meta fields used specifically for the **fcn_chapter** po
 | fictioneer_chapter_foreword | string | Content of the chapter foreword.
 | fictioneer_chapter_afterword | string | Content of the chapter afterword.
 | fictioneer_chapter_password_note | string | Content of the note shown if the story is password protected.
-| fictioneer_chapter_icon | string | Font Awesome icon class string.
+| fictioneer_chapter_icon | string | Font Awesome icon class string. Empty if default icon.
 | fictioneer_chapter_text_icon | string | Text string in place of an icon.
 | fictioneer_chapter_short_title | string | Shorter variant title. Not used by default, intended for child themes.
 | fictioneer_chapter_prefix | string | Prefix for titles in chapter lists.

@@ -389,6 +389,29 @@ function fictioneer_clean_up_discord_trigger_meta_fields() {
 }
 add_action( 'fictioneer_after_update', 'fictioneer_clean_up_discord_trigger_meta_fields' );
 
+/**
+ * Removed default chapter icons from post meta table
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_remove_default_chapter_icons_from_meta() {
+  global $wpdb;
+
+  $wpdb->query(
+    $wpdb->prepare(
+      "
+      DELETE FROM $wpdb->postmeta
+      WHERE meta_key = %s
+      AND meta_value = %s
+      ",
+      'fictioneer_chapter_icon',
+      FICTIONEER_DEFAULT_CHAPTER_ICON
+    )
+  );
+}
+add_action( 'fictioneer_after_update', 'fictioneer_remove_default_chapter_icons_from_meta' );
+
 // =============================================================================
 // PROTECT META FIELDS
 // =============================================================================
