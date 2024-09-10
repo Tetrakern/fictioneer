@@ -1,6 +1,50 @@
 <?php
 
 // =============================================================================
+// MEMORY
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_triggered_discord_posts' ) ) {
+  /**
+   * Checks whether a post has already been posted to Discord
+   *
+   * @since 5.24.1
+   *
+   * @param int $post_id  The post ID to check.
+   *
+   * @param bool True if already sent, false if not.
+   */
+
+  function fictioneer_discord_message_sent( $post_id ) {
+    $post_id = strval( $post_id );
+
+    return in_array( $post_id, get_option( 'fictioneer_triggered_discord_posts' ) ?: [] );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_mark_discord_message_sent' ) ) {
+  /**
+   * Remembers when a post has already been posted to Discord
+   *
+   * Note: The post ID is stored in a non-autoload option array. This can become
+   * subject to a race condition but the issue is considered negligible. Better
+   * to trigger a post twice than store thousands of individual meta fields.
+   *
+   * @since 5.24.1
+   *
+   * @param int $post_id  The post ID to remember.
+   */
+
+  function fictioneer_mark_discord_message_sent( $post_id ) {
+    $post_id = strval( $post_id );
+    $memory = get_option( 'fictioneer_triggered_discord_posts' ) ?: [];
+    $memory[] = $post_id;
+
+    update_option( 'fictioneer_triggered_discord_posts', $memory, false );
+  }
+}
+
+// =============================================================================
 // SEND MESSAGE TO DISCORD WEBHOOK
 // =============================================================================
 
@@ -201,7 +245,7 @@ function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
   }
 
   // Already triggered once?
-  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true ) ) {
+  if ( fictioneer_discord_message_sent( $post->ID ) ) {
     return;
   }
 
@@ -251,8 +295,8 @@ function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
   // Send to Discord
   fictioneer_discord_send_message( $webhook, $message );
 
-  // Set trigger true
-  update_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true );
+  // Remember trigger
+  fictioneer_mark_discord_message_sent( $post->ID );
 }
 
 if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
@@ -286,7 +330,7 @@ function fictioneer_post_chapter_to_discord( $post_id, $post ) {
   }
 
   // Already triggered once?
-  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true ) ) {
+  if ( fictioneer_discord_message_sent( $post_id ) ) {
     return;
   }
 
@@ -353,8 +397,8 @@ function fictioneer_post_chapter_to_discord( $post_id, $post ) {
   // Send to Discord
   fictioneer_discord_send_message( $webhook, $message );
 
-  // Set trigger true
-  update_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true );
+  // Remember trigger
+  fictioneer_mark_discord_message_sent( $post_id );
 }
 
 if ( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) {
