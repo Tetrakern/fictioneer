@@ -1950,7 +1950,14 @@ function fcntr( $key, $escape = false ) {
       'future_prefix' => _x( 'Scheduled:', 'Chapter list status prefix.', 'fictioneer' ),
       'trashed_prefix' => _x( 'Trashed:', 'Chapter list status prefix.', 'fictioneer' ),
       'private_prefix' => _x( 'Private:', 'Chapter list status prefix.', 'fictioneer' ),
-      'free_patreon_tier' => _x( 'Follower (Free)', 'Free Patreon tier (follower).', 'fictioneer' )
+      'free_patreon_tier' => _x( 'Follower (Free)', 'Free Patreon tier (follower).', 'fictioneer' ),
+      'private_comment' => _x( 'Private Comment', 'Comment type translation.', 'fictioneer' ),
+      'comment_comment' => _x( 'Public Comment', 'Comment type translation.', 'fictioneer' ),
+      'approved_comment_status' => _x( 'Approved', 'Comment status translation.', 'fictioneer' ),
+      'hold_comment_status' => _x( 'Hold', 'Comment status translation.', 'fictioneer' ),
+      'unapproved_comment_status' => _x( 'Unapproved', 'Comment status translation.', 'fictioneer' ),
+      'spam_comment_status' => _x( 'Spam', 'Comment status translation.', 'fictioneer' ),
+      'trash_comment_status' => _x( 'Trash', 'Comment status translation.', 'fictioneer' ),
     );
 
     // Filter static translations

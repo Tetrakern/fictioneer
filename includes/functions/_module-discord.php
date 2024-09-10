@@ -54,7 +54,7 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
 function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
   // Setup
   $comment = get_comment( $comment_id );
-  $comment_type = ucfirst( get_comment_type( $comment_id ) );
+  $comment_type = get_comment_type( $comment_id );
   $comment_status = wp_get_comment_status( $comment );
   $comment_avatar_url = get_avatar_url( $comment );
   $post = get_post( $comment->comment_post_ID );
@@ -76,7 +76,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
         'fields' => array(
           array(
             'name' => _x( 'Status', 'Discord message "Status" field.', 'fictioneer' ),
-            'value' => ucfirst( $comment_status ),
+            'value' => fcntr( "{$comment_status}_comment_status" ),
             'inline' => true
           ),
           array(
@@ -155,7 +155,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
   // Comment type
   $message['embeds'][0]['fields'][] = array(
     'name' => _x( 'Type', 'Discord message comment "Type" field.', 'fictioneer' ),
-    'value' => $comment_type,
+    'value' => fcntr( "{$comment_type}_comment" ),
     'inline' => true
   );
 
