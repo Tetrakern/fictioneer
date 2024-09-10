@@ -266,15 +266,20 @@ if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
  *
  * @since 5.6.0
  * @since 5.21.2 - Refactored.
+ * @since 5.24.1 - Switch back to save_post hook to ensure the story ID is set.
  *
- * @param string  $new_status  New post status.
- * @param string  $new_status  Old post status.
- * @param WP_Post $post        Post object.
+ * @param int     $post_id  Post ID.
+ * @param WP_Post $post     Post object.
  */
 
-function fictioneer_post_chapter_to_discord( $new_status, $old_status, $post ) {
-  // Only if chapter going from non-publish status to publish
-  if ( $post->post_type !== 'fcn_chapter' || $new_status !== 'publish' || $old_status === 'publish' ) {
+function fictioneer_post_chapter_to_discord( $post_id, $post ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
+
+  // Only if published chapter
+  if ( $post->post_type !== 'fcn_chapter' || $post->post_status !== 'publish' ) {
     return;
   }
 
@@ -351,7 +356,7 @@ function fictioneer_post_chapter_to_discord( $new_status, $old_status, $post ) {
 }
 
 if ( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) {
-  add_action( 'transition_post_status', 'fictioneer_post_chapter_to_discord', 99, 3 );
+  add_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99, 2 );
 }
 
 // =============================================================================
