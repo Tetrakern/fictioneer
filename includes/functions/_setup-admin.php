@@ -87,7 +87,7 @@ function fictioneer_admin_scripts( $hook_suffix ) {
   if ( $hook_suffix === 'post.php' || $hook_suffix === 'post-new.php' ) {
     wp_enqueue_script(
       'fictioneer-sortablejs',
-      get_template_directory_uri() . '/js/Sortable-1.15.2.min.js',
+      get_template_directory_uri() . '/js/sortable.min.js',
       ['jquery', 'fictioneer-utility-scripts'],
       FICTIONEER_VERSION,
       true

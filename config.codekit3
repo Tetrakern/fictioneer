@@ -1797,13 +1797,13 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/js\/Sortable-1.15.2.min.js" : {
+    "\/js\/sortable.min.js" : {
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
       "mi" : 1,
       "oA" : 1,
-      "oAP" : "\/js\/Sortable-1.15.2.min.min.js",
+      "oAP" : "\/js\/sortable.min.min.js",
       "oF" : 1,
       "sC" : 3,
       "tS" : 0
