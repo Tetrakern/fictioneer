@@ -331,13 +331,15 @@ $header_breakpoint: 640px;
     margin-top: 24px;
 
     .chapter-group__list-item._folding-toggle {
-      display: block;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
       content-visibility: visible;
       padding: 0 !important;
     }
 
     &__folding-toggle {
-      display: block;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
       content-visibility: visible;
       color: var(--fg-800);
       line-height: 1.125;
