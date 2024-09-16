@@ -290,6 +290,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `login_form` | `fictioneer_after_logout_cleanup`
 | `login_head` | `fictioneer_wp_login_scripts`
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
+| `manage_{$type}_posts_custom_column` | `fictioneer_manage_posts_column_patreon`
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`, `fictioneer_update_admin_unlocked_posts`
 | `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_read_others_files`, `fictioneer_read_others_files_list_view`, `fictioneer_filter_chapters_by_story`
 | `private_to_draft` | `fictioneer_chapter_to_draft`
@@ -348,6 +349,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
 | `manage_edit-comments_columns` | `fictioneer_add_comments_report_column`
+| `manage_{$type}_posts_columns` | `fictioneer_add_posts_columns_patreon`
 | `manage_pages_columns` | `fictioneer_remove_comments_column`
 | `manage_posts_columns` | `fictioneer_remove_comments_column`
 | `manage_users_columns` | `fictioneer_hide_users_columns`
