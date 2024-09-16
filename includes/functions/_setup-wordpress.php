@@ -1388,9 +1388,9 @@ add_filter( 'the_content_more_link', 'fictioneer_wrap_read_more_link' );
  */
 
 function fictioneer_disable_font_library( $editor_settings ) {
-	$editor_settings['fontLibraryEnabled'] = false;
+  $editor_settings['fontLibraryEnabled'] = false;
 
-	return $editor_settings;
+  return $editor_settings;
 }
 add_filter( 'block_editor_settings_all', 'fictioneer_disable_font_library' );
 

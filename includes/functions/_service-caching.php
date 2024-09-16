@@ -1076,7 +1076,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
   ) {
     $content = get_the_content( $more_link_text, $strip_teaser );
     $content = apply_filters( 'the_content', $content );
-	  $content = str_replace( ']]>', ']]&gt;', $content );
+    $content = str_replace( ']]>', ']]&gt;', $content );
 
     return apply_filters( 'fictioneer_filter_static_content', $content, $post );
   }
@@ -1090,7 +1090,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
   if ( ! fictioneer_create_html_cache_directory( $dir ) ) {
     $content = get_the_content( $more_link_text, $strip_teaser );
     $content = apply_filters( 'the_content', $content );
-	  $content = str_replace( ']]>', ']]&gt;', $content );
+    $content = str_replace( ']]>', ']]&gt;', $content );
 
     return apply_filters( 'fictioneer_filter_static_content', $content, $post );
   }
