@@ -217,6 +217,9 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
 
   // Send to Discord
   fictioneer_discord_send_message( $webhook, $message );
+
+  // Unhook if done to avoid additional triggers (if any)
+  remove_action( 'comment_post', 'fictioneer_post_comment_to_discord', 99 );
 }
 
 if ( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) {
@@ -297,6 +300,9 @@ function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
 
   // Remember trigger
   fictioneer_mark_discord_message_sent( $post->ID );
+
+  // Unhook if done to avoid additional triggers (if any)
+  remove_action( 'transition_post_status', 'fictioneer_post_story_to_discord', 99 );
 }
 
 if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
@@ -316,9 +322,10 @@ if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
  *
  * @param int     $post_id  Post ID.
  * @param WP_Post $post     Post object.
+ * @param bool    $update   Whether this is an existing post being updated.
  */
 
-function fictioneer_post_chapter_to_discord( $post_id, $post ) {
+function fictioneer_post_chapter_to_discord( $post_id, $post, $update ) {
   // Prevent multi-fire
   if ( fictioneer_multi_save_guard( $post_id ) ) {
     return;
@@ -326,6 +333,14 @@ function fictioneer_post_chapter_to_discord( $post_id, $post ) {
 
   // Only if published chapter
   if ( $post->post_type !== 'fcn_chapter' || $post->post_status !== 'publish' ) {
+    return;
+  }
+
+  // Only if published less than 2 minutes ago
+  $post_timestamp = get_post_time( 'U', true, $post_id );
+  $current_timestamp = current_time( 'U', true );
+
+  if ( $update && ( $current_timestamp - $post_timestamp ) >= 120 ) {
     return;
   }
 
@@ -399,10 +414,13 @@ function fictioneer_post_chapter_to_discord( $post_id, $post ) {
 
   // Remember trigger
   fictioneer_mark_discord_message_sent( $post_id );
+
+  // Unhook if done to avoid additional triggers (if any)
+  remove_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );
 }
 
 if ( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) {
-  add_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99, 2 );
+  add_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99, 3 );
 }
 
 // =============================================================================
