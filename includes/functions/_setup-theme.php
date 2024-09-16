@@ -349,47 +349,6 @@ function fictioneer_purge_caches_after_update() {
 add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 
 /**
- * Aggregates Discord trigger meta into collective option
- *
- * @since 5.24.1
- */
-
-function fictioneer_clean_up_discord_trigger_meta_fields() {
-  global $wpdb;
-
-  // Get Discord trigger meta post IDs (if any remaining)
-  $post_ids = $wpdb->get_col(
-    $wpdb->prepare(
-      "
-      SELECT DISTINCT post_id
-      FROM $wpdb->postmeta
-      WHERE meta_key = %s
-      ",
-      'fictioneer_discord_post_trigger'
-    )
-  );
-
-  // Remove meta fields and update trigger memory option
-  if ( ! empty( $post_ids ) ) {
-    $wpdb->query(
-      $wpdb->prepare(
-        "
-        DELETE FROM $wpdb->postmeta
-        WHERE meta_key = %s
-        ",
-        'fictioneer_discord_post_trigger'
-      )
-    );
-
-    $memory = get_option( 'fictioneer_triggered_discord_posts' ) ?: [];
-    $memory = array_merge( $memory, $post_ids );
-
-    update_option( 'fictioneer_triggered_discord_posts', $memory, false );
-  }
-}
-add_action( 'fictioneer_after_update', 'fictioneer_clean_up_discord_trigger_meta_fields' );
-
-/**
  * Removed default chapter icons from post meta table
  *
  * @since 5.24.1

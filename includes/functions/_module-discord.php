@@ -1,50 +1,6 @@
 <?php
 
 // =============================================================================
-// MEMORY
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_triggered_discord_posts' ) ) {
-  /**
-   * Checks whether a post has already been posted to Discord
-   *
-   * @since 5.24.1
-   *
-   * @param int $post_id  The post ID to check.
-   *
-   * @param bool True if already sent, false if not.
-   */
-
-  function fictioneer_discord_message_sent( $post_id ) {
-    $post_id = strval( $post_id );
-
-    return in_array( $post_id, get_option( 'fictioneer_triggered_discord_posts' ) ?: [] );
-  }
-}
-
-if ( ! function_exists( 'fictioneer_mark_discord_message_sent' ) ) {
-  /**
-   * Remembers when a post has already been posted to Discord
-   *
-   * Note: The post ID is stored in a non-autoload option array. This can become
-   * subject to a race condition but the issue is considered negligible. Better
-   * to trigger a post twice than store thousands of individual meta fields.
-   *
-   * @since 5.24.1
-   *
-   * @param int $post_id  The post ID to remember.
-   */
-
-  function fictioneer_mark_discord_message_sent( $post_id ) {
-    $post_id = strval( $post_id );
-    $memory = get_option( 'fictioneer_triggered_discord_posts' ) ?: [];
-    $memory[] = $post_id;
-
-    update_option( 'fictioneer_triggered_discord_posts', $memory, false );
-  }
-}
-
-// =============================================================================
 // SEND MESSAGE TO DISCORD WEBHOOK
 // =============================================================================
 
@@ -247,8 +203,8 @@ function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
     return;
   }
 
-  // Already triggered once?
-  if ( fictioneer_discord_message_sent( $post->ID ) ) {
+  // Already triggered (this field will eventually be deleted in favor of the time check)?
+  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger' ) ) {
     return;
   }
 
@@ -299,7 +255,7 @@ function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
   fictioneer_discord_send_message( $webhook, $message );
 
   // Remember trigger
-  fictioneer_mark_discord_message_sent( $post->ID );
+  update_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true );
 
   // Unhook if done to avoid additional triggers (if any)
   remove_action( 'transition_post_status', 'fictioneer_post_story_to_discord', 99 );
@@ -336,16 +292,16 @@ function fictioneer_post_chapter_to_discord( $post_id, $post, $update ) {
     return;
   }
 
-  // Only if published less than 2 minutes ago
+  // Only if published less than 10 minutes ago
   $post_timestamp = get_post_time( 'U', true, $post_id );
   $current_timestamp = current_time( 'U', true );
 
-  if ( $update && ( $current_timestamp - $post_timestamp ) >= 120 ) {
+  if ( $update && ( $current_timestamp - $post_timestamp ) >= 600 ) {
     return;
   }
 
-  // Already triggered once?
-  if ( fictioneer_discord_message_sent( $post_id ) ) {
+  // Already triggered (this field will eventually be deleted in favor of the time check)?
+  if ( get_post_meta( $post_id, 'fictioneer_discord_post_trigger' ) ) {
     return;
   }
 
@@ -413,7 +369,7 @@ function fictioneer_post_chapter_to_discord( $post_id, $post, $update ) {
   fictioneer_discord_send_message( $webhook, $message );
 
   // Remember trigger
-  fictioneer_mark_discord_message_sent( $post_id );
+  update_post_meta( $post_id, 'fictioneer_discord_post_trigger', true );
 
   // Unhook if done to avoid additional triggers (if any)
   remove_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );
