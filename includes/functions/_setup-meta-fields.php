@@ -4399,7 +4399,7 @@ add_filter( 'default_hidden_columns', 'fictioneer_default_hide_patreon_posts_col
  * @return array Updated associative array of column headings.
  */
 
-function fictioneer_add_patreon_posts_columns( $post_columns ) {
+function fictioneer_add_posts_columns_patreon( $post_columns ) {
   $post_columns[ 'fictioneer_patreon_lock_tiers' ] =
     _x( 'Patreon Tiers', 'Patreon tiers list table column title.', 'fictioneer' );
 
@@ -4418,7 +4418,7 @@ function fictioneer_add_patreon_posts_columns( $post_columns ) {
  * @param int    $post_id      The current post ID.
  */
 
-function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
+function fictioneer_manage_posts_column_patreon( $column_name, $post_id ) {
   // Setup
   $post = get_post( $post_id );
   $class = $post->post_password ? 'has-password' : 'no-password';
@@ -4619,8 +4619,8 @@ if (
   ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_assign_patreon_tiers' ) )
 ) {
   foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
-    add_filter( "manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns' );
-    add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
+    add_filter( "manage_{$type}_posts_columns", 'fictioneer_add_posts_columns_patreon' );
+    add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_column_patreon', 10, 2 );
   }
 
   add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_tiers', 10, 2 );
