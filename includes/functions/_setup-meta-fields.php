@@ -2579,7 +2579,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
     );
   }
 
-  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) && ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
     $output['fictioneer_chapter_text_icon'] = fictioneer_get_metabox_text(
       $post,
       'fictioneer_chapter_text_icon',
@@ -2989,7 +2989,11 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   }
 
   // Text icon
-  if ( isset( $_POST['fictioneer_chapter_text_icon'] ) && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+  if (
+    isset( $_POST['fictioneer_chapter_text_icon'] ) &&
+    get_option( 'fictioneer_enable_advanced_meta_fields' ) &&
+    ! get_option( 'fictioneer_hide_chapter_icons' )
+  ) {
     $text_icon = sanitize_text_field( $_POST['fictioneer_chapter_text_icon'] );
     $fields['fictioneer_chapter_text_icon'] = mb_substr( $text_icon, 0, 10, 'UTF-8' ); // Icon codes, etc.
   }
