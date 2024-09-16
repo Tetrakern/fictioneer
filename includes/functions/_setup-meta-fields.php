@@ -4632,3 +4632,147 @@ if (
 
   add_action( 'save_post', 'fictioneer_bulk_edit_save_patreon' );
 }
+
+// =============================================================================
+// CHAPTER LIST VIEW AND BULK EDIT
+// =============================================================================
+
+/**
+ * Add chapter meta fields to bulk edit
+ *
+ * @since 5.24.1
+ *
+ * @param string $column_name  Name of the column to edit.
+ * @param string $post_type    The post type slug.
+ */
+
+function fictioneer_add_bulk_edit_chapter_meta( $column_name, $post_type ) {
+  // Check post type
+  if ( $post_type !== 'fcn_chapter' ) {
+    return;
+  }
+
+  // Make sure this function is only executed once
+  static $added = false;
+
+  if ( $added ) {
+    return;
+  }
+
+  $added = true;
+
+  // Start HTML ---> ?>
+
+  <p class="bulk-edit-help"><?php _e( 'Use <code>_remove</code> to remove current values.', 'fictioneer' ); ?></p>
+
+  <?php if ( ! get_option( 'fictioneer_hide_chapter_icons' ) ) : ?>
+    <fieldset class="inline-edit-col-right">
+      <div class="inline-edit-chapter-icon-wrap">
+        <label class="inline-edit-chapter-icon">
+          <span class="title"><?php _ex( 'Icon', 'Chapter icon meta field label.', 'fictioneer' ); ?></span>
+          <input type="text" name="bulk_edit_fictioneer_chapter_icon" autocomplete="off" autocorrect="off">
+        </label>
+      </div>
+    </fieldset>
+    <?php if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) : ?>
+      <fieldset class="inline-edit-col-right">
+        <div class="inline-edit-chapter-text-icon-wrap">
+          <label class="inline-edit-chapter-text-icon">
+            <span class="title"><?php _ex( 'Text Icon', 'Chapter text icon meta field label.', 'fictioneer' ); ?></span>
+            <input type="text" name="bulk_edit_fictioneer_chapter_text_icon" autocomplete="off" autocorrect="off">
+          </label>
+        </div>
+      </fieldset>
+    <?php endif; ?>
+  <?php endif; ?>
+
+  <?php if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) : ?>
+    <fieldset class="inline-edit-col-right">
+      <div class="inline-edit-chapter-prefix-wrap">
+        <label class="inline-edit-chapter-prefix">
+          <span class="title"><?php _ex( 'Prefix', 'Chapter prefix meta field label.', 'fictioneer' ); ?></span>
+          <input type="text" name="bulk_edit_fictioneer_chapter_prefix" autocomplete="off" autocorrect="off">
+        </label>
+      </div>
+    </fieldset>
+  <?php endif; ?>
+
+  <fieldset class="inline-edit-col-right">
+    <div class="inline-edit-chapter-group-wrap">
+      <label class="inline-edit-chapter-group">
+        <span class="title"><?php _ex( 'Group', 'Chapter group meta field label.', 'fictioneer' ); ?></span>
+        <input type="text" name="bulk_edit_fictioneer_chapter_group" autocomplete="off" autocorrect="off">
+      </label>
+    </div>
+  </fieldset>
+  <?php // <--- End HTML
+}
+add_action( 'bulk_edit_custom_box', 'fictioneer_add_bulk_edit_chapter_meta', 10, 2 );
+
+/**
+ * Save chapter bulk edit fields
+ *
+ * @since 5.24.1
+ *
+ * @param int $post_id  ID of the updated post.
+ */
+
+function fictioneer_bulk_edit_save_chapter_fields( $post_id ) {
+  // Abort if...
+  if (
+    ! wp_verify_nonce( $_REQUEST['_wpnonce'] ?? 0, 'bulk-posts' ) ||
+    ( $_REQUEST['action2'] ?? 0 ) === 'trash' ||
+    get_post_type( $post_id ) !== 'fcn_chapter' ||
+    ! current_user_can( 'edit_fcn_chapters', $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( 'edit_published_fcn_chapters', $post_id ) )
+  ) {
+    return;
+  }
+
+  // Setup
+  $icon = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_icon'] ?? '' );
+  $text_icon = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_text_icon'] ?? '' );
+  $prefix = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_prefix'] ?? '' );
+  $group = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_group'] ?? '' );
+
+  // Update icon
+  if ( $icon && ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
+    if ( strpos( $icon, 'fa-' ) === 0 && $icon !== FICTIONEER_DEFAULT_CHAPTER_ICON  ) {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_icon', $icon );
+    } elseif ( $icon === '_remove' ) {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_icon', 0 );
+    }
+  }
+
+  // Update text icon
+  if (
+    $text_icon &&
+    ! get_option( 'fictioneer_hide_chapter_icons' ) &&
+    get_option( 'fictioneer_enable_advanced_meta_fields' )
+  ) {
+    if ( $text_icon === '_remove' ) {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', 0 );
+    } else {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', mb_substr( $text_icon, 0, 10, 'UTF-8' ) );
+    }
+  }
+
+  // Update prefix
+  if ( $prefix && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    if ( $prefix === '_remove' ) {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', 0 );
+    } else {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', $prefix );
+    }
+  }
+
+  // Update group
+  if ( $group ) {
+    if ( $group === '_remove' ) {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', 0 );
+    } else {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', $group );
+    }
+  }
+}
+add_action( 'save_post', 'fictioneer_bulk_edit_save_chapter_fields' );
