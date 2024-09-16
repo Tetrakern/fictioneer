@@ -4360,7 +4360,7 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
 add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
 
 // =============================================================================
-// ADD META FIELDS TO BULK EDIT
+// PATREON LIST VIEW AND BULK EDIT
 // =============================================================================
 
 /**
@@ -4570,7 +4570,7 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
  * @param int $post_id  ID of the updated post.
  */
 
-function fictioneer_save_patreon_bulk_edit( $post_id ) {
+function fictioneer_bulk_edit_save_patreon( $post_id ) {
 	// Abort if...
 	if (
     ! wp_verify_nonce( $_REQUEST['_wpnonce'] ?? 0, 'bulk-posts' ) ||
@@ -4626,5 +4626,5 @@ if (
   add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_tiers', 10, 2 );
   add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_amount', 10, 2 );
 
-  add_action( 'save_post', 'fictioneer_save_patreon_bulk_edit' );
+  add_action( 'save_post', 'fictioneer_bulk_edit_save_patreon' );
 }
