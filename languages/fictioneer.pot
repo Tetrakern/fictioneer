@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-17 09:40+0000\n"
+"POT-Creation-Date: 2024-09-17 16:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -242,7 +242,7 @@ msgid ""
 "your nickname later.</p>"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1636
+#: includes/functions/settings/_settings_actions.php:1638
 #, php-format
 msgid ""
 "<p>No associated published chapters found.</p><p style=\"margin-top: -10px;"
@@ -488,7 +488,7 @@ msgstr ""
 msgid "<strong>[Microphone]</strong> and <strong>[Music and audio]</strong>"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:205
+#: includes/functions/settings/_settings_page_tools.php:225
 msgid ""
 "<strong>Add missing database fields.</strong> To save thousands of rows, the "
 "theme only stores \"truthy\" values and deletes \"falsy\" ones. However, "
@@ -498,7 +498,7 @@ msgid ""
 "filter too."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:27
+#: includes/functions/settings/_settings_page_tools.php:31
 msgid ""
 "<strong>Add or restore moderator role</strong> that is limited to only "
 "moderating comments. It has been stripped of access to most other menus and "
@@ -506,7 +506,7 @@ msgid ""
 "admin panel made by you."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:97
+#: includes/functions/settings/_settings_page_tools.php:101
 #, php-format
 msgid ""
 "<strong>Append a pre-defined collection of %1$s genres and subgenres</strong>"
@@ -514,7 +514,7 @@ msgid ""
 "href=\"%2$s\" target=\"_blank\">Fictioneer Taxonomy Project</a>."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:148
+#: includes/functions/settings/_settings_page_tools.php:152
 #, php-format
 msgid ""
 "<strong>Append a pre-defined collection of %1$s tags</strong> to the list "
@@ -522,7 +522,7 @@ msgid ""
 "target=\"_blank\">Fictioneer Taxonomy Project</a>."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:234
+#: includes/functions/settings/_settings_page_tools.php:254
 msgid ""
 "<strong>Append associated <em>published</em> chapters </strong> that are not "
 "already in the story’s chapter list. Enter the ID of the story, which can be "
@@ -530,7 +530,11 @@ msgid ""
 "story. Beware, ownership restrictions will be ignored!"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:72
+#: includes/functions/settings/_settings_page_tools.php:210
+msgid "<strong>Comment Meta Rows:</strong> %d"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_tools.php:76
 msgid ""
 "<strong>Convert or duplicate chapter tags to genres.</strong> If you want to "
 "change your previous tagging choices in bulk, you can start here. Converting "
@@ -538,7 +542,7 @@ msgid ""
 "genres but also keep the originals."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:54
+#: includes/functions/settings/_settings_page_tools.php:58
 msgid ""
 "<strong>Convert or duplicate story tags to genres.</strong> If you want to "
 "change your previous tagging choices in bulk, you can start here. Converting "
@@ -568,7 +572,7 @@ msgid ""
 "convenience.%3$s"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:37
+#: includes/functions/settings/_settings_page_tools.php:41
 msgid ""
 "<strong>Initialize theme roles and capabilities.</strong> Fictioneer comes "
 "with extended capabilities and roles that need to be initialized in order to "
@@ -585,7 +589,7 @@ msgid ""
 "user) would work for both if you have the disk space."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:193
+#: includes/functions/settings/_settings_page_tools.php:197
 msgid ""
 "<strong>Optimize and clean up the database to boost performance.</strong> "
 "This action removes any superfluous rows added by the theme, such as empty "
@@ -596,7 +600,11 @@ msgid ""
 "performing database operations."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:217
+#: includes/functions/settings/_settings_page_tools.php:203
+msgid "<strong>Post Meta Rows:</strong> %d"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_tools.php:237
 msgid ""
 "<strong>Purge theme caches.</strong> In order to accelerate page rendering, "
 "certain content is composed once and then cached. These caches get purged "
@@ -604,7 +612,7 @@ msgid ""
 "can do so here."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:255
+#: includes/functions/settings/_settings_page_tools.php:275
 msgid ""
 "<strong>Repair or migrate legacy data.</strong> Regardless of planning and "
 "efforts, there can always be updates with changes so drastic that it may "
@@ -612,7 +620,7 @@ msgid ""
 "attempt to fix such issues."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:273
+#: includes/functions/settings/_settings_page_tools.php:293
 msgid ""
 "<strong>Reset post relationship registry.</strong> Warning, this should only "
 "ever be done if the registry either causes problems or has become corrupted. "
@@ -670,7 +678,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1852
+#: includes/functions/_setup-theme.php:1870
 #: includes/functions/users/_admin-profile.php:805
 msgid "Account already linked to another profile."
 msgstr ""
@@ -680,7 +688,7 @@ msgstr ""
 msgid "Account Bindings"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1854
+#: includes/functions/_setup-theme.php:1872
 msgid "Account has been successfully linked."
 msgstr ""
 
@@ -706,7 +714,7 @@ msgid ""
 "0."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1791
+#: includes/functions/_setup-theme.php:1809
 msgid "Add Chapter"
 msgstr ""
 
@@ -719,11 +727,11 @@ msgstr ""
 msgid "Add consent wrappers to third-party embeds?"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:128
+#: includes/functions/settings/_settings_page_tools.php:132
 msgid "Add Genres"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:31
+#: includes/functions/settings/_settings_page_tools.php:35
 msgid "Add Moderator Role"
 msgstr ""
 
@@ -774,7 +782,7 @@ msgstr ""
 msgid "Add Suggestion"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:179
+#: includes/functions/settings/_settings_page_tools.php:183
 msgid "Add Tags"
 msgstr ""
 
@@ -1591,20 +1599,20 @@ msgstr ""
 msgid "Append to Comment"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1486
+#: includes/functions/settings/_settings_actions.php:1488
 msgid ""
 "Appended missing \"fictioneer_chapter_hidden\" meta fields with value 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1426
+#: includes/functions/settings/_settings_actions.php:1428
 msgid "Appended missing \"fictioneer_story_hidden\" meta fields with value 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1456
+#: includes/functions/settings/_settings_actions.php:1458
 msgid "Appended missing \"fictioneer_story_sticky\" meta fields with value 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1576
+#: includes/functions/settings/_settings_actions.php:1578
 msgid "Appending Preview"
 msgstr ""
 
@@ -1669,7 +1677,7 @@ msgid ""
 "Subscribers. Enter %s to confirm."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1459
+#: includes/functions/_setup-theme.php:1477
 msgid "Are you sure?"
 msgstr ""
 
@@ -1717,7 +1725,7 @@ msgid ""
 "Are you sure? Reminders will be irrevocably deleted. Enter %s to confirm."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:286
+#: includes/functions/settings/_settings_page_tools.php:306
 msgid ""
 "Are you sure? Repopulating the registry requires re-saving every single post "
 "or page you want to be covered. Manually."
@@ -2844,7 +2852,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:186
 #: includes/functions/_setup-types-and-terms.php:212
-#: includes/functions/settings/_settings_actions.php:1569
+#: includes/functions/settings/_settings_actions.php:1571
 #: includes/functions/hooks/_story_hooks.php:310
 #: includes/functions/users/_admin-profile.php:1436
 msgid "Chapter"
@@ -3034,7 +3042,7 @@ msgstr ""
 msgid "Chapter groups (if used) are collapsed on page load."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:211
+#: includes/functions/settings/_settings_page_tools.php:231
 msgid "Chapter Hidden"
 msgstr ""
 
@@ -3134,7 +3142,7 @@ msgstr ""
 msgid "Chapter Title Font"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:68
+#: includes/functions/settings/_settings_page_tools.php:72
 msgid "Chapter Tools"
 msgstr ""
 
@@ -3208,7 +3216,7 @@ msgstr ""
 msgid "Checkmarks could not be cleared."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1844
+#: includes/functions/_setup-theme.php:1862
 msgid "Checkmarks re-synchronized."
 msgstr ""
 
@@ -3919,7 +3927,7 @@ msgid ""
 "leave the site."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1850
+#: includes/functions/_setup-theme.php:1868
 msgid "Copied to clipboard!"
 msgstr ""
 
@@ -4704,7 +4712,7 @@ msgstr ""
 msgid "Database error. Report could not be saved."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:189
+#: includes/functions/settings/_settings_page_tools.php:193
 msgid "Database Tools"
 msgstr ""
 
@@ -4718,7 +4726,7 @@ msgctxt "Date in Follows update list."
 msgid "%1$s \\a\\t %2$s"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1569
+#: includes/functions/settings/_settings_actions.php:1571
 msgid "Datetime"
 msgstr ""
 
@@ -4833,7 +4841,7 @@ msgstr ""
 msgid "Deleted comments cannot be sticky."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1732
+#: includes/functions/settings/_settings_actions.php:1734
 msgid "Deleted global Patreon tiers."
 msgstr ""
 
@@ -5090,7 +5098,7 @@ msgstr ""
 msgid "Disabled font key \"%s\"."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1862
+#: includes/functions/settings/_settings_actions.php:1864
 #, php-format
 msgid "Disabled mu-plugin: %s"
 msgstr ""
@@ -5328,8 +5336,8 @@ msgstr ""
 msgid "Downloads"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:59
-#: includes/functions/settings/_settings_page_tools.php:77
+#: includes/functions/settings/_settings_page_tools.php:63
+#: includes/functions/settings/_settings_page_tools.php:81
 msgid "Duplicate Tags &rarr; Genres"
 msgstr ""
 
@@ -5386,22 +5394,22 @@ msgstr ""
 msgid "Editor capabilities have been updated."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2131
+#: includes/functions/_setup-theme.php:2149
 msgctxt "Elementor color override hint."
 msgid "(--fg-300)"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2143
+#: includes/functions/_setup-theme.php:2161
 msgctxt "Elementor color override hint."
 msgid "(--fg-500)"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2155
+#: includes/functions/_setup-theme.php:2173
 msgctxt "Elementor color override hint."
 msgid "(--fg-700)"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2119
+#: includes/functions/_setup-theme.php:2137
 msgctxt "Elementor color override hint."
 msgid "(--primary-500)"
 msgstr ""
@@ -5737,7 +5745,7 @@ msgstr ""
 msgid "Enabled font key \"%s\"."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1818
+#: includes/functions/settings/_settings_actions.php:1820
 #, php-format
 msgid "Enabled mu-plugin: %s"
 msgstr ""
@@ -5960,8 +5968,8 @@ msgid "Features"
 msgstr ""
 
 #. Name of the theme
-#: includes/functions/_setup-theme.php:1985
-#: includes/functions/_setup-theme.php:2184
+#: includes/functions/_setup-theme.php:2003
+#: includes/functions/_setup-theme.php:2202
 #: includes/functions/settings/_settings.php:28
 #: includes/functions/settings/_settings.php:257
 #: includes/functions/users/_admin-profile.php:868
@@ -6007,7 +6015,7 @@ msgctxt "Fictioneer theme major version notice."
 msgid "Fictioneer %s"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1988
+#: includes/functions/_setup-theme.php:2006
 msgid "Fictioneer Theme Settings"
 msgstr ""
 
@@ -6026,8 +6034,8 @@ msgstr ""
 msgid "File not found or not readable."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1808
-#: includes/functions/settings/_settings_actions.php:1852
+#: includes/functions/settings/_settings_actions.php:1810
+#: includes/functions/settings/_settings_actions.php:1854
 msgid "File not found."
 msgstr ""
 
@@ -6066,31 +6074,31 @@ msgstr ""
 msgid "First Page"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:261
+#: includes/functions/settings/_settings_page_tools.php:281
 msgid "Fix Chapters"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:263
+#: includes/functions/settings/_settings_page_tools.php:283
 msgid "Fix Collections"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:264
+#: includes/functions/settings/_settings_page_tools.php:284
 msgid "Fix Pages"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:265
+#: includes/functions/settings/_settings_page_tools.php:285
 msgid "Fix Posts"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:262
+#: includes/functions/settings/_settings_page_tools.php:282
 msgid "Fix Recommendations"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:260
+#: includes/functions/settings/_settings_page_tools.php:280
 msgid "Fix Stories"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:259
+#: includes/functions/settings/_settings_page_tools.php:279
 msgid "Fix Users"
 msgstr ""
 
@@ -6137,7 +6145,7 @@ msgstr ""
 msgid "Follows could not be cleared."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1846
+#: includes/functions/_setup-theme.php:1864
 msgid "Follows re-synchronized."
 msgstr ""
 
@@ -6318,12 +6326,12 @@ msgstr ""
 msgid "Generic donation link"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1843
+#: includes/functions/_setup-theme.php:1861
 msgctxt "Generic error notification."
 msgid "Error"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:86
+#: includes/functions/settings/_settings_page_tools.php:90
 msgid "Genre Tools"
 msgstr ""
 
@@ -6671,7 +6679,7 @@ msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1568
+#: includes/functions/settings/_settings_actions.php:1570
 msgid "ID"
 msgstr ""
 
@@ -6780,7 +6788,7 @@ msgstr[1] ""
 msgid "Inefficient but makes sure everything is up-to-date."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:41
+#: includes/functions/settings/_settings_page_tools.php:45
 msgid "Initialize Roles"
 msgstr ""
 
@@ -6972,7 +6980,7 @@ msgstr ""
 msgid "Leave a comments please"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:199
+#: includes/functions/settings/_settings_page_tools.php:219
 msgid "Legacy Cleanup"
 msgstr ""
 
@@ -7234,7 +7242,7 @@ msgstr ""
 msgid "Limit comments to [n] link(s) or less"
 msgstr ""
 
-#: partials/_modal-sharing.php:73 includes/functions/_setup-theme.php:1849
+#: partials/_modal-sharing.php:73 includes/functions/_setup-theme.php:1867
 msgid "Link copied to clipboard!"
 msgstr ""
 
@@ -7564,21 +7572,21 @@ msgctxt "Metabox replace button."
 msgid "Replace"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:230
+#: includes/functions/settings/_settings_page_tools.php:250
 msgid "Migration Tools"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:242
+#: includes/functions/settings/_settings_page_tools.php:262
 msgctxt "Migration tools chapter append button."
 msgid "Append Chapters"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:241
+#: includes/functions/settings/_settings_page_tools.php:261
 msgctxt "Migration tools chapter preview button."
 msgid "Preview"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1527
+#: includes/functions/settings/_settings_actions.php:1529
 #, php-format
 msgctxt "Migration tools invalid story ID."
 msgid ""
@@ -7671,7 +7679,7 @@ msgstr ""
 msgid "Mobile Menu Style"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2033
+#: includes/functions/_setup-theme.php:2051
 msgid "Mobile Navigation Menu"
 msgstr ""
 
@@ -7838,7 +7846,7 @@ msgstr ""
 msgid "Navigation"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2015
+#: includes/functions/_setup-theme.php:2033
 msgid "Navigation Bar"
 msgstr ""
 
@@ -7846,7 +7854,7 @@ msgstr ""
 msgid "Navigation Item Font"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2024
+#: includes/functions/_setup-theme.php:2042
 msgid "Navigation Menu"
 msgstr ""
 
@@ -7951,8 +7959,8 @@ msgstr ""
 msgid "No description provided yet."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:112
-#: includes/functions/settings/_settings_page_tools.php:163
+#: includes/functions/settings/_settings_page_tools.php:116
+#: includes/functions/settings/_settings_page_tools.php:167
 msgid "No description yet."
 msgstr ""
 
@@ -8220,11 +8228,11 @@ msgstr ""
 msgid "Operator. Either must match (OR) or all must match (AND)."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:198
+#: includes/functions/settings/_settings_page_tools.php:218
 msgid "Optimize"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1319
+#: includes/functions/settings/_settings_actions.php:1320
 #, php-format
 msgid "Optimized database and removed %s superfluous rows."
 msgstr ""
@@ -8279,7 +8287,7 @@ msgstr ""
 msgid "Page Assignments"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2051
+#: includes/functions/_setup-theme.php:2069
 msgid "Page Background"
 msgstr ""
 
@@ -8306,7 +8314,7 @@ msgstr ""
 msgid "Page Style"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1841
+#: includes/functions/_setup-theme.php:1859
 msgctxt "Pagination jump prompt."
 msgid "Enter page number:"
 msgstr ""
@@ -8836,15 +8844,15 @@ msgstr ""
 msgid "Prevents users from ending up on the login page."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1578
+#: includes/functions/settings/_settings_actions.php:1580
 msgid "Preview"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:106
+#: includes/functions/settings/_settings_page_tools.php:110
 msgid "Preview genre list (hover for description)"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:157
+#: includes/functions/settings/_settings_page_tools.php:161
 msgid "Preview tag list (hover for description)"
 msgstr ""
 
@@ -8966,7 +8974,7 @@ msgstr ""
 msgid "Purge all caches on content updates"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:221
+#: includes/functions/settings/_settings_page_tools.php:241
 msgid "Purge Theme Caches"
 msgstr ""
 
@@ -8986,7 +8994,7 @@ msgstr ""
 msgid "Quick buttons to wrap text selection in BBCodes."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1848
+#: includes/functions/_setup-theme.php:1866
 msgid ""
 "Quote appended to comment!<br><a style=\"font-weight: 700;\" "
 "href=\"#comments\">Go to comment section.</a>"
@@ -9002,7 +9010,7 @@ msgctxt "Rate for text-to-speech voice."
 msgid "Rate"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1842
+#: includes/functions/_setup-theme.php:1860
 msgctxt "Rate limit reached notification."
 msgid "Slow down."
 msgstr ""
@@ -9185,7 +9193,7 @@ msgstr ""
 msgid "Reminders could not be cleared."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1845
+#: includes/functions/_setup-theme.php:1863
 msgid "Reminders re-synchronized."
 msgstr ""
 
@@ -9216,7 +9224,7 @@ msgstr ""
 msgid "Remove Tiers"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:180
+#: includes/functions/settings/_settings_page_tools.php:184
 msgid "Remove Unused Tags"
 msgstr ""
 
@@ -9277,7 +9285,7 @@ msgstr ""
 msgid "Renders chapters in groups on story pages (if set)."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:251
+#: includes/functions/settings/_settings_page_tools.php:271
 msgid "Repair Tools"
 msgstr ""
 
@@ -9394,7 +9402,7 @@ msgstr ""
 msgid "Reset Options"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:286
+#: includes/functions/settings/_settings_page_tools.php:306
 msgid "Reset Registry"
 msgstr ""
 
@@ -9498,7 +9506,7 @@ msgstr ""
 msgid "Role renamed."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:23
+#: includes/functions/settings/_settings_page_tools.php:27
 msgid "Role Tools"
 msgstr ""
 
@@ -9592,7 +9600,7 @@ msgid ""
 "avoid saving IP addresses."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:197
+#: includes/functions/settings/_settings_page_tools.php:217
 msgid "Scan"
 msgstr ""
 
@@ -10140,7 +10148,7 @@ msgstr ""
 msgid "Show page shadow"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:278
+#: includes/functions/settings/_settings_page_tools.php:298
 msgid "Show registry array"
 msgstr ""
 
@@ -10536,25 +10544,25 @@ msgid ""
 "cluttered for your liking."
 msgstr ""
 
-#: includes/functions/_service-posts.php:184
+#: includes/functions/_service-posts.php:152
 #, php-format
 msgctxt "Story changelog chapter added."
 msgid "#%s %s: %s."
 msgstr ""
 
-#: includes/functions/_service-posts.php:196
+#: includes/functions/_service-posts.php:164
 #, php-format
 msgctxt "Story changelog chapter removed."
 msgid "#%s %s: %s."
 msgstr ""
 
-#: includes/functions/_service-posts.php:248
+#: includes/functions/_service-posts.php:216
 #, php-format
 msgctxt "Story changelog chapter removed."
 msgid "#%s privated: %s."
 msgstr ""
 
-#: includes/functions/_service-posts.php:262
+#: includes/functions/_service-posts.php:230
 #, php-format
 msgctxt "Story changelog chapter removed."
 msgid "#%s unprivated: %s."
@@ -10565,12 +10573,12 @@ msgctxt "Story changelog initialized."
 msgid "Initialized."
 msgstr ""
 
-#: includes/functions/_service-posts.php:186
+#: includes/functions/_service-posts.php:154
 msgctxt "Story changelog verb."
 msgid "added"
 msgstr ""
 
-#: includes/functions/_service-posts.php:198
+#: includes/functions/_service-posts.php:166
 msgctxt "Story changelog verb."
 msgid "removed"
 msgstr ""
@@ -10651,15 +10659,15 @@ msgctxt "Story global note meta field label."
 msgid "Global Note"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:2042
+#: includes/functions/_setup-theme.php:2060
 msgid "Story Header"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:210
+#: includes/functions/settings/_settings_page_tools.php:230
 msgid "Story Hidden"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:240
+#: includes/functions/settings/_settings_page_tools.php:260
 msgid "Story ID"
 msgstr ""
 
@@ -10772,7 +10780,7 @@ msgctxt "Story status select option."
 msgid "Ongoing"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:209
+#: includes/functions/settings/_settings_page_tools.php:229
 msgid "Story Sticky"
 msgstr ""
 
@@ -10788,7 +10796,7 @@ msgstr ""
 msgid "Story Title Font"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:50
+#: includes/functions/settings/_settings_page_tools.php:54
 msgid "Story Tools"
 msgstr ""
 
@@ -10860,7 +10868,7 @@ msgstr ""
 msgid "Suggest color-coded text changes in the comments."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1847
+#: includes/functions/_setup-theme.php:1865
 msgid ""
 "Suggestion appended to comment!<br><a style=\"font-weight: 700;\" "
 "href=\"#comments\">Go to comment section.</a>"
@@ -10925,7 +10933,7 @@ msgstr ""
 msgid "Table of Contents"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:137
+#: includes/functions/settings/_settings_page_tools.php:141
 msgid "Tag Tools"
 msgstr ""
 
@@ -10945,8 +10953,8 @@ msgstr ""
 msgid "Tags & Taxonomies"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:58
-#: includes/functions/settings/_settings_page_tools.php:76
+#: includes/functions/settings/_settings_page_tools.php:62
+#: includes/functions/settings/_settings_page_tools.php:80
 msgid "Tags &rarr; Genres"
 msgstr ""
 
@@ -11119,7 +11127,7 @@ msgid ""
 "it may require more server resources."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1851
+#: includes/functions/_setup-theme.php:1869
 msgid ""
 "The associated email address is already taken. You can link additional "
 "accounts in your profile."
@@ -11156,7 +11164,7 @@ msgid ""
 "match internal paths."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1803
+#: includes/functions/settings/_settings_actions.php:1805
 msgid "The mu-plugins subdirectory is missing in the theme directory."
 msgstr ""
 
@@ -11321,8 +11329,8 @@ msgstr ""
 msgid "This may be beneficial for search engines."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:198
-#: includes/functions/settings/_settings_page_tools.php:199
+#: includes/functions/settings/_settings_page_tools.php:218
+#: includes/functions/settings/_settings_page_tools.php:219
 msgid ""
 "This operation is safe, but making a database backup is still recommended to "
 "account for the unexpected."
@@ -12224,19 +12232,19 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:211
+#: includes/functions/settings/_settings_page_tools.php:231
 msgid ""
 "You are about to append the \"fictioneer_chapter_hidden\" (0) meta field to "
 "every chapter. Are you sure you want that?"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:210
+#: includes/functions/settings/_settings_page_tools.php:230
 msgid ""
 "You are about to append the \"fictioneer_story_hidden\" (0) meta field to "
 "every story. Are you sure you want that?"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:209
+#: includes/functions/settings/_settings_page_tools.php:229
 msgid ""
 "You are about to append the \"fictioneer_story_sticky\" (0) meta field to "
 "every story. Are you sure you want that?"
@@ -12452,7 +12460,7 @@ msgid ""
 "scripts not loading."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1853
+#: includes/functions/_setup-theme.php:1871
 msgid ""
 "Your account has been successfully linked. <strong>Hint:</strong> You can "
 "change your display name in your profile and link additional accounts."
@@ -12491,6 +12499,6 @@ msgstr ""
 msgid "— Unset —"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1521
+#: includes/functions/settings/_settings_actions.php:1523
 msgid "← Back to tools"
 msgstr ""
