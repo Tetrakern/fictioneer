@@ -128,8 +128,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-not-renamed-role' => __( 'Error. Role could not be renamed.', 'fictioneer' ),
       'fictioneer-removed-role' => __( 'Role removed.', 'fictioneer' ),
       'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' ),
-      'fictioneer-db-optimization-preview' => __( '%s superfluous post meta rows found. %s superfluous comment meta rows found. %s superfluous option rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
-      'fictioneer-db-optimization' => __( '%s superfluous rows have been deleted.', 'fictioneer' ),
+      'fictioneer-db-optimization-preview' => __( '%s superfluous and %s orphaned post meta rows found. %s superfluous comment meta rows found. %s superfluous option rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
+      'fictioneer-db-optimization' => __( '%s superfluous or orphaned rows have been deleted.', 'fictioneer' ),
       'fictioneer-add-story-hidden' => __( 'The "fictioneer_story_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' ),
@@ -1291,6 +1291,13 @@ function fictioneer_tools_optimize_database() {
     OR meta_key IN ('_edit_last', '_edit_lock')
   ");
 
+  $orphaned_post_meta_count = $wpdb->query("
+    DELETE pm
+    FROM $wpdb->postmeta pm
+    LEFT JOIN $wpdb->posts p ON pm.post_id = p.ID
+    WHERE p.ID IS NULL
+  ");
+
   // Delete comment meta
   $comment_meta_count = $wpdb->query("
     DELETE FROM $wpdb->commentmeta
@@ -1312,12 +1319,12 @@ function fictioneer_tools_optimize_database() {
   ");
 
   // Total rows
-  $total = $post_meta_count + $comment_meta_count + $options_meta_count;
+  $total = $post_meta_count + $orphaned_post_meta_count + $comment_meta_count + $options_meta_count;
 
   // Log
   fictioneer_log(
     sprintf(
-      __( 'Optimized database and removed %s superfluous rows.', 'fictioneer' ),
+      __( 'Optimized database and removed %s superfluous or orphaned rows.', 'fictioneer' ),
       $total
     )
   );
@@ -1376,6 +1383,13 @@ function fictioneer_tools_optimize_database_preview() {
     OR meta_key IN ('_edit_last', '_edit_lock')
   ");
 
+  $orphaned_post_meta_count = $wpdb->get_var("
+    SELECT COUNT(*)
+    FROM $wpdb->postmeta pm
+    LEFT JOIN $wpdb->posts p ON pm.post_id = p.ID
+    WHERE p.ID IS NULL
+  ");
+
   // Comment meta
   $comment_meta_count = $wpdb->get_var("
     SELECT COUNT(*) FROM $wpdb->commentmeta
@@ -1401,7 +1415,7 @@ function fictioneer_tools_optimize_database_preview() {
     add_query_arg(
       array(
         'info' => 'fictioneer-db-optimization-preview',
-        'data' => "{$post_meta_count},{$comment_meta_count},{$options_meta_count}"
+        'data' => "{$post_meta_count},{$orphaned_post_meta_count},{$comment_meta_count},{$options_meta_count}"
       ),
       wp_get_referer()
     )

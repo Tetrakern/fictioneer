@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-17 16:49+0000\n"
+"POT-Creation-Date: 2024-09-17 17:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -106,14 +106,14 @@ msgstr ""
 #: includes/functions/settings/_settings_actions.php:131
 #, php-format
 msgid ""
-"%s superfluous post meta rows found. %s superfluous comment meta rows found. "
-"%s superfluous option rows found. Please backup your database before "
-"performing any optimization."
+"%s superfluous and %s orphaned post meta rows found. %s superfluous comment "
+"meta rows found. %s superfluous option rows found. Please backup your "
+"database before performing any optimization."
 msgstr ""
 
 #: includes/functions/settings/_settings_actions.php:132
 #, php-format
-msgid "%s superfluous rows have been deleted."
+msgid "%s superfluous or orphaned rows have been deleted."
 msgstr ""
 
 #: partials/_card-recommendation.php:75 partials/_card-recommendation.php:102
@@ -242,7 +242,7 @@ msgid ""
 "your nickname later.</p>"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1638
+#: includes/functions/settings/_settings_actions.php:1652
 #, php-format
 msgid ""
 "<p>No associated published chapters found.</p><p style=\"margin-top: -10px;"
@@ -1599,20 +1599,20 @@ msgstr ""
 msgid "Append to Comment"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1488
+#: includes/functions/settings/_settings_actions.php:1502
 msgid ""
 "Appended missing \"fictioneer_chapter_hidden\" meta fields with value 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1428
+#: includes/functions/settings/_settings_actions.php:1442
 msgid "Appended missing \"fictioneer_story_hidden\" meta fields with value 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1458
+#: includes/functions/settings/_settings_actions.php:1472
 msgid "Appended missing \"fictioneer_story_sticky\" meta fields with value 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1578
+#: includes/functions/settings/_settings_actions.php:1592
 msgid "Appending Preview"
 msgstr ""
 
@@ -2852,7 +2852,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:186
 #: includes/functions/_setup-types-and-terms.php:212
-#: includes/functions/settings/_settings_actions.php:1571
+#: includes/functions/settings/_settings_actions.php:1585
 #: includes/functions/hooks/_story_hooks.php:310
 #: includes/functions/users/_admin-profile.php:1436
 msgid "Chapter"
@@ -4726,7 +4726,7 @@ msgctxt "Date in Follows update list."
 msgid "%1$s \\a\\t %2$s"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1571
+#: includes/functions/settings/_settings_actions.php:1585
 msgid "Datetime"
 msgstr ""
 
@@ -4841,7 +4841,7 @@ msgstr ""
 msgid "Deleted comments cannot be sticky."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1734
+#: includes/functions/settings/_settings_actions.php:1748
 msgid "Deleted global Patreon tiers."
 msgstr ""
 
@@ -5098,7 +5098,7 @@ msgstr ""
 msgid "Disabled font key \"%s\"."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1864
+#: includes/functions/settings/_settings_actions.php:1878
 #, php-format
 msgid "Disabled mu-plugin: %s"
 msgstr ""
@@ -5745,7 +5745,7 @@ msgstr ""
 msgid "Enabled font key \"%s\"."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1820
+#: includes/functions/settings/_settings_actions.php:1834
 #, php-format
 msgid "Enabled mu-plugin: %s"
 msgstr ""
@@ -6034,8 +6034,8 @@ msgstr ""
 msgid "File not found or not readable."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1810
-#: includes/functions/settings/_settings_actions.php:1854
+#: includes/functions/settings/_settings_actions.php:1824
+#: includes/functions/settings/_settings_actions.php:1868
 msgid "File not found."
 msgstr ""
 
@@ -6679,7 +6679,7 @@ msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1570
+#: includes/functions/settings/_settings_actions.php:1584
 msgid "ID"
 msgstr ""
 
@@ -7586,7 +7586,7 @@ msgctxt "Migration tools chapter preview button."
 msgid "Preview"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1529
+#: includes/functions/settings/_settings_actions.php:1543
 #, php-format
 msgctxt "Migration tools invalid story ID."
 msgid ""
@@ -8232,9 +8232,9 @@ msgstr ""
 msgid "Optimize"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1320
+#: includes/functions/settings/_settings_actions.php:1327
 #, php-format
-msgid "Optimized database and removed %s superfluous rows."
+msgid "Optimized database and removed %s superfluous or orphaned rows."
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2638
@@ -8844,7 +8844,7 @@ msgstr ""
 msgid "Prevents users from ending up on the login page."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1580
+#: includes/functions/settings/_settings_actions.php:1594
 msgid "Preview"
 msgstr ""
 
@@ -11164,7 +11164,7 @@ msgid ""
 "match internal paths."
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1805
+#: includes/functions/settings/_settings_actions.php:1819
 msgid "The mu-plugins subdirectory is missing in the theme directory."
 msgstr ""
 
@@ -12499,6 +12499,6 @@ msgstr ""
 msgid "— Unset —"
 msgstr ""
 
-#: includes/functions/settings/_settings_actions.php:1523
+#: includes/functions/settings/_settings_actions.php:1537
 msgid "← Back to tools"
 msgstr ""
