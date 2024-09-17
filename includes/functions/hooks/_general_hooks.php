@@ -1154,3 +1154,30 @@ function fictioneer_render_character_submenu() {
 function fictioneer_render_warning_submenu() {
   fictioneer_render_taxonomy_submenu( 'fcn_content_warning' );
 }
+
+// =============================================================================
+// DISCORD META FIELD CLEANUP
+// =============================================================================
+
+/**
+ * Removes Discord trigger meta field if outdated
+ *
+ * @since 5.24.1
+ * @global WP_Post $post
+ */
+
+function fictioneer_cleanup_discord_meta() {
+  global $post;
+
+  if ( ! is_singular() || ! $post || ! get_post_meta( $post->ID, 'fictioneer_discord_post_trigger' ) ) {
+    return;
+  }
+
+  $post_timestamp = get_post_time( 'U', true, $post->ID );
+  $current_timestamp = current_time( 'U', true );
+
+  if ( $current_timestamp - $post_timestamp > DAY_IN_SECONDS ) {
+    delete_post_meta( $post->ID, 'fictioneer_discord_post_trigger' );
+  }
+}
+add_action( 'wp_head', 'fictioneer_cleanup_discord_meta' );

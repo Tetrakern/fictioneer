@@ -393,16 +393,6 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $comment_count = 0;
     $visible_chapter_ids = [];
     $indexed_chapter_ids = [];
-    $post_timestamp = get_post_time( 'U', true, $story_id );
-    $current_timestamp = current_time( 'U', true );
-
-    // Remove Discord trigger meta field if outdated
-    if (
-      get_post_meta( $story_id, 'fictioneer_discord_post_trigger' ) &&
-      ( $current_timestamp - $post_timestamp ) > DAY_IN_SECONDS
-    ) {
-      delete_post_meta( $story_id, 'fictioneer_discord_post_trigger' );
-    }
 
     // Assign correct icon
     if ( $status != 'Ongoing' ) {

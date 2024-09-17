@@ -763,31 +763,3 @@ function fictioneer_chapter_suggestion_tools() {
 if ( get_option( 'fictioneer_enable_suggestions' ) ) {
   add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_suggestion_tools', 10 );
 }
-
-// =============================================================================
-// CHAPTER DISCORD META FIELD CLEANUP
-// =============================================================================
-
-/**
- * Removes Discord trigger meta field if outdated
- *
- * @since 5.24.1
- *
- * @param array $args  Chapter arguments passed to the hook.
- */
-
-function fictioneer_cleanup_discord_meta( $args ) {
-  $chapter_id = $args['chapter_id'] ?? 0;
-
-  if ( ! get_post_meta( $chapter_id, 'fictioneer_discord_post_trigger' ) ) {
-    return;
-  }
-
-  $post_timestamp = get_post_time( 'U', true, $chapter_id );
-  $current_timestamp = current_time( 'U', true );
-
-  if ( $current_timestamp - $post_timestamp > DAY_IN_SECONDS ) {
-    delete_post_meta( $chapter_id, 'fictioneer_discord_post_trigger' );
-  }
-}
-add_action( 'fictioneer_chapter_before_header', 'fictioneer_cleanup_discord_meta' );
