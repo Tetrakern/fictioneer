@@ -349,7 +349,7 @@ function fictioneer_purge_caches_after_update() {
 add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 
 /**
- * Removed default chapter icons from post meta table
+ * Removes default chapter icons from post meta table
  *
  * @since 5.24.1
  */
@@ -370,6 +370,24 @@ function fictioneer_remove_default_chapter_icons_from_meta() {
   );
 }
 add_action( 'fictioneer_after_update', 'fictioneer_remove_default_chapter_icons_from_meta' );
+
+/**
+ * Removes obsolete fictioneer_first_publish_date from post meta table
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_remove_first_publish_date_from_meta() {
+  global $wpdb;
+
+  $wpdb->query(
+    $wpdb->prepare(
+      "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s",
+      'fictioneer_first_publish_date'
+    )
+  );
+}
+add_action( 'fictioneer_after_update', 'fictioneer_remove_first_publish_date_from_meta' );
 
 // =============================================================================
 // PROTECT META FIELDS

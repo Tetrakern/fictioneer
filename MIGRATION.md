@@ -108,9 +108,6 @@ function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $previ
       update_post_meta( $post->ID, 'fictioneer_chapter_story', $story_id );
     }
 
-    // Update other meta
-    update_post_meta( $post->ID, 'fictioneer_first_publish_date', $post->post_date_gmt );
-
     // Change post type to fcn_chapter (also triggers hooked actions and updates story)
     wp_update_post(
       array(

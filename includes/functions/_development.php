@@ -158,7 +158,6 @@ function fictioneer_generate_test_content() {
         fictioneer_generate_test_comments( $chapter_id, $comment_count );
 
         update_post_meta( $chapter_id, 'fictioneer_chapter_story', $story_id );
-        update_post_meta( $chapter_id, 'fictioneer_first_publish_date', current_time( 'mysql', true ) );
       }
     }
 
