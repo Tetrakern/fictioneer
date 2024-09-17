@@ -1118,6 +1118,21 @@ function fictioneer_look_for_issues() {
     );
   }
 
+  // Orphaned post meta
+  $orphaned_post_meta_count = $wpdb->get_var("
+    SELECT COUNT(*)
+    FROM $wpdb->postmeta pm
+    LEFT JOIN $wpdb->posts p ON pm.post_id = p.ID
+    WHERE p.ID IS NULL
+  ");
+
+  if ( $orphaned_post_meta_count > 500 ) {
+    $issues[] = sprintf(
+      __( 'You currently have <strong>%s orphaned post meta fields stored</strong> in your database. This is obsolete data that can slow down your site. Optimize your database under <strong>Fictioneer > Tools</strong> or use a plugin to clean them up.', 'fictioneer' ),
+      $orphaned_post_meta_count
+    );
+  }
+
   // Results
   return $issues;
 }

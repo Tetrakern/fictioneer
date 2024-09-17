@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-17 17:02+0000\n"
+"POT-Creation-Date: 2024-09-17 19:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -5842,7 +5842,7 @@ msgstr ""
 msgid "Error: Action parameter missing."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1234
+#: includes/functions/_setup-admin.php:1249
 msgid "Error: Colors not found."
 msgstr ""
 
@@ -5850,7 +5850,7 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1365
 #: includes/functions/_setup-meta-fields.php:1544
 #: includes/functions/_setup-meta-fields.php:1691
-#: includes/functions/_setup-admin.php:1224
+#: includes/functions/_setup-admin.php:1239
 msgid "Error: Insufficient permissions."
 msgstr ""
 
@@ -7964,7 +7964,7 @@ msgstr ""
 msgid "No description yet."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1202
+#: includes/functions/_setup-admin.php:1217
 msgid "No groups found."
 msgstr ""
 
@@ -9327,7 +9327,7 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1150
+#: includes/functions/_setup-admin.php:1165
 #: includes/functions/comments/_comments_moderation.php:516
 #: includes/functions/comments/_comments_moderation.php:629
 #: includes/functions/comments/_comments_ajax.php:462
@@ -10671,7 +10671,7 @@ msgstr ""
 msgid "Story ID"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1158
+#: includes/functions/_setup-admin.php:1173
 msgid "Story ID did not pass validation."
 msgstr ""
 
@@ -11986,7 +11986,7 @@ msgstr ""
 msgid "User Agent"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1154
+#: includes/functions/_setup-admin.php:1169
 msgid "User did not pass validation."
 msgstr ""
 
@@ -12358,6 +12358,15 @@ msgstr ""
 #: includes/functions/comments/_comments_controller.php:191
 #: includes/functions/comments/_comments_controller.php:193
 msgid "You cannot reply to deleted comments."
+msgstr ""
+
+#: includes/functions/_setup-admin.php:1131
+#, php-format
+msgid ""
+"You currently have <strong>%s orphaned post meta fields stored</strong> in "
+"your database. This is obsolete data that can slow down your site. Optimize "
+"your database under <strong>Fictioneer > Tools</strong> or use a plugin to "
+"clean them up."
 msgstr ""
 
 #: includes/functions/_setup-admin.php:1116
