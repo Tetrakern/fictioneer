@@ -1288,6 +1288,7 @@ function fictioneer_tools_optimize_database() {
       AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
       $not_like_sql
     )
+    OR meta_key IN ('_edit_last', '_edit_lock')
   ");
 
   // Delete comment meta
@@ -1372,6 +1373,7 @@ function fictioneer_tools_optimize_database_preview() {
       AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
       $not_like_sql
     )
+    OR meta_key IN ('_edit_last', '_edit_lock')
   ");
 
   // Comment meta
