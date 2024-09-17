@@ -701,6 +701,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_log_posts' => array(
+      'name' => 'fictioneer_log_posts',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1169,6 +1175,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_enable_query_result_caching' => __( 'Enable caching of large query results', 'fictioneer' ),
       'fictioneer_allow_rest_save_actions' => __( 'Allow REST requests to trigger save actions', 'fictioneer' ),
       'fictioneer_enable_global_splide' => __( 'Enable Splide slider globally', 'fictioneer' ),
+      'fictioneer_log_posts' => __( 'Log all post updates', 'fictioneer' ),
     );
   }
 

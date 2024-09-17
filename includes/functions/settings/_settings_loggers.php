@@ -141,12 +141,18 @@ function fictioneer_get_wp_debug_log() {
  * Logs post update
  *
  * @since 5.0.0
+ * @since 5.24.1 - Make dependant on option.
  *
  * @param int    $post_id  The post ID.
  * @param string $action   The action performed.
  */
 
 function fictioneer_log_post_update( $post_id, $action ) {
+  // Log posts?
+  if ( ! get_option( 'fictioneer_log_posts' ) ) {
+    return;
+  }
+
   // Setup
   $type_object = get_post_type_object( get_post_type( $post_id ) );
   $post_type_name = $type_object->labels->singular_name;

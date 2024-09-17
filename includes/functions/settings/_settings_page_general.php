@@ -1158,6 +1158,18 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_log_posts',
+                    __( 'Log all post updates', 'fictioneer' ),
+                    __( 'If you want to track any and all changes.', 'fictioneer' ),
+                    'Enable this option if you want to track every action made to any post: publishing, updating, trashing, and deleting. This may be useful if you have concerns about content changes, but it is not recommended for sites with a high throughput of posts.',
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_log_posts.jpg"></div>'
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_restrict_rest_api',
                     __( 'Restrict default REST API', 'fictioneer' ),
                     __( 'Disables API for guests and low-permission users.', 'fictioneer' ),
