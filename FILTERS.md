@@ -1681,6 +1681,16 @@ Filters the built HTML of the taxonomy submenu before it is rendered.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_cached_taxonomy_submenu_html', $html, $type, $hide_empty )`
+Filters the Transient HTML of the taxonomy submenu before it is rendered. The difference to the non-cached filter is that the terms are not queried in this case.
+
+**Parameters:**
+* $html (string) – The current submenu HTML to be rendered.
+* $type (string) – The taxonomy type.
+* $hide_empty (boolean) – Whether to hide empty terms. Default `true`.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_taxonomy_submenu_note', $note, $taxonomy )`
 Filters the string of the note rendered above the links in the taxonomy submenu. By default, that is "Choose a {taxonomy} to browse", with the dynamic part taken from the singular name of the taxonomy object.
 

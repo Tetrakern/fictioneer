@@ -1022,12 +1022,22 @@ if ( FICTIONEER_MU_REGISTRATION ) {
  * Note: The ID of the template element is "term-submenu-{$type}".
  *
  * @since 5.22.1
+ * @since 5.24.1 - Added Transient.
  *
  * @param string $type        Optional. The taxonomy type to build the menu for. Default 'fcn_genre'.
  * @param bool   $hide_empty  Optional. Whether to include empty taxonomies. Default true.
  */
 
 function fictioneer_render_taxonomy_submenu( $type = 'fcn_genre', $hide_empty = true ) {
+  // Transient cache
+  $key = "fictioneer_taxonomy_submenu_{$type}" . ( $hide_empty ? '_1' : '' );
+  $transient = get_transient( $key );
+
+  if ( $transient ) {
+    echo apply_filters( 'fictioneer_filter_cached_taxonomy_submenu_html', $transient, $type, $hide_empty );
+    return;
+  }
+
   // Query terms
   $terms = get_terms(
     apply_filters(
@@ -1066,8 +1076,14 @@ function fictioneer_render_taxonomy_submenu( $type = 'fcn_genre', $hide_empty = 
 
   $html .= '</div></div></template>';
 
+  // Apply filters
+  $html = apply_filters( 'fictioneer_filter_taxonomy_submenu_html', $html, $terms, $type, $hide_empty );
+
+  // Cache as Transient
+  set_transient( $key, $html, HOUR_IN_SECONDS );
+
   // Render
-  echo apply_filters( 'fictioneer_filter_taxonomy_submenu_html', $html, $terms, $type, $hide_empty );
+  echo $html;
 }
 
 /**
