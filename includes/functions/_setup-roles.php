@@ -1072,9 +1072,9 @@ if ( ! current_user_can( 'manage_options' ) ) {
     global $current_user, $pagenow;
 
     // Only affect media library on admin side
-    if(
-      'admin-ajax.php' != $pagenow ||
-      $_REQUEST['action'] != 'query-attachments'
+    if (
+      'admin-ajax.php' !== $pagenow ||
+      ( $_REQUEST['action'] ?? 0 ) !== 'query-attachments'
     ) {
       return;
     }
