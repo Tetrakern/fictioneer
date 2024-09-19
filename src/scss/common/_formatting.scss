@@ -108,6 +108,8 @@ p a:not(.wp-element-button),
   }
 
   p {
+    font-size: inherit; // Deal with some plugins
+
     img {
       display: inline-block;
       height: auto;
