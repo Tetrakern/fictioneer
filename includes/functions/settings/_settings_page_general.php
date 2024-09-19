@@ -32,7 +32,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
                 <div class="fictioneer-card__row fictioneer-card__row--issues">
                   <ul><?php
-                    foreach( $issues as $issue ) {
+                    foreach ( $issues as $issue ) {
                       echo "<li>{$issue}</li>";
                     }
                   ?></ul>

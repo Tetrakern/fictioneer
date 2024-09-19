@@ -870,7 +870,7 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
   foreach ( $chunks as $chunk ) {
     $values_sql = implode( ', ', $chunk );
 
-    if( ! empty( $values_sql ) ) {
+    if ( ! empty( $values_sql ) ) {
       $wpdb->query("
         INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
         VALUES {$values_sql};

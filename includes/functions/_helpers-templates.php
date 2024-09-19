@@ -1207,7 +1207,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     );
 
     // Navigate to previous chapter
-    if ($args['prev_index'] !== false) {
+    if ( $args['prev_index'] !== false ) {
       $micro_menu['previous'] = sprintf(
         '<a href="%s" title="%s" class="micro-menu__item micro-menu__previous previous" tabindex="-1"><i class="fa-solid fa-caret-left"></i></a>',
         get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ),
@@ -1222,7 +1222,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     );
 
     // Navigate to next chapter
-    if ($args['next_index']) {
+    if ( $args['next_index'] ) {
       $micro_menu['next'] = sprintf(
         '<a href="%s" title="%s" class="micro-menu__item micro-menu__next next" tabindex="-1"><i class="fa-solid fa-caret-right"></i></a>',
         get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ),

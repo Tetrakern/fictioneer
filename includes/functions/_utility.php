@@ -513,7 +513,7 @@ function fictioneer_get_story_comment_count( $story_id, $chapter_ids = null ) {
 
   $chunks = array_chunk( $chapter_ids, FICTIONEER_QUERY_ID_ARRAY_LIMIT );
 
-  foreach  ($chunks as $chunk ) {
+  foreach ( $chunks as $chunk ) {
     $placeholders = implode( ',', array_fill( 0, count( $chunk ), '%d' ) );
     $query = $wpdb->prepare("
       SELECT COUNT(comment_ID)
