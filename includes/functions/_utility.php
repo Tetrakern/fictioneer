@@ -2163,8 +2163,8 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
 
   function fictioneer_bbcodes( $content ) {
     // Setup
-    $img_search = 'https:[^\"\'|;<>\[\]]+?\.(?:png|jpg|jpeg|gif|webp|svg|avif|tiff).*?';
-    $url_search = '(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?';
+    $img_search = '\s*https:[^\"\'|;<>\[\]]+?\.(?:png|jpg|jpeg|gif|webp|svg|avif|tiff).*?\s*';
+    $url_search = '\s*(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?\s*';
 
     // Deal with some multi-line spoiler issues
     if ( preg_match_all( '/\[spoiler](.+?)\[\/spoiler]/is', $content, $spoilers, PREG_PATTERN_ORDER ) ) {
@@ -2188,11 +2188,11 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
       '/\[ins](.+?)\[\/ins]/is',
       '/\[del](.+?)\[\/del]/is',
       '/\[li](.+?)\[\/li]/i',
-      "/\[link.*]\[img]($img_search)\[\/img]\[\/link]/i",
-      "/\[img]($img_search)\[\/img]/i",
-      "/\[link\]($url_search)\[\/link\]/",
-      "(\[link\=[\"']?($url_search)[\"']?\](.+?)\[/link\])",
-      '/\[anchor]([^\"\'|;<>\[\]]+?)\[\/anchor]/i'
+      "/\[link.*]\[img]\s*($img_search)\s*\[\/img]\[\/link]/i",
+      "/\[img]\s*($img_search)\s*\[\/img]/i",
+      "/\[link\]\s*($url_search)\s*\[\/link\]/i",
+      "/\[link=\s*[\"']?\s*($url_search)\s*[\"']?\s*\](.+?)\[\/link\]/i",
+      '/\[anchor]\s*([^\"\'|;<>\[\]]+?)\s*\[\/anchor]/i'
     );
 
     // HTML replacements
