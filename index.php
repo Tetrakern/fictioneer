@@ -26,6 +26,8 @@ get_header();
     get_template_part( 'partials/_loop' );
   ?></div>
 
+  <?php do_action( 'fictioneer_main_end', 'index' ); ?>
+
 </main>
 
 <?php
