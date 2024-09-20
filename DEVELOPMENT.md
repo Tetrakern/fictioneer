@@ -359,7 +359,6 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `post_password_required` | `fictioneer_bypass_password`, `fictioneer_expire_post_password`
 | `post_stuck` | `fictioneer_prevent_post_sticky`
 | `postbox_classes_{$screen_id}_{$box_id}` | `fictioneer_append_metabox_classes`
-| `posts_where` | `fictioneer_exclude_protected_posts`
 | `pre_comment_user_ip` | `__return_empty_string`
 | `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_edit_others_fictioneer_posts`, `fictioneer_add_sof_to_taxonomy_query`
 | `pre_insert_term` | `fictioneer_restrict_tag_creation`

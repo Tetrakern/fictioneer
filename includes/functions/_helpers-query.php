@@ -246,28 +246,6 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
 }
 
 // =============================================================================
-// IGNORE PROTECTED POSTS FILTER
-// =============================================================================
-
-/**
- * Filter to ignore protected posts
- *
- * Note: Filter is not added by default, only in certain places.
- *
- * @since 5.7.3
- *
- * @param string $where  WHERE statement. Default empty string.
- *
- * @return string The updated WHERE statement.
- */
-
-function fictioneer_exclude_protected_posts( $where = '' ) {
-  $where .= " AND post_password = ''";
-
-  return $where;
-}
-
-// =============================================================================
 // STICKY STORIES
 // =============================================================================
 

@@ -1570,7 +1570,7 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Exclude protected
   if ( $args['ignore_protected'] ) {
-    add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+    $query_args['has_password'] = false;
   }
 
   // Apply filters
@@ -1589,9 +1589,6 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Query
   $blog_query = new WP_Query( $query_args );
-
-  // Remove temporary filters
-  remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {

@@ -100,7 +100,7 @@ if ( ! $args['ignore_protected'] ) {
   $obfuscation = str_repeat( _x( '&#183; ', 'Protected post content obfuscation character.', 'fictioneer' ), 256 );
   $obfuscation = apply_filters( 'fictioneer_filter_obfuscation_string', $obfuscation, $post );
 } else {
-  add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+  $query_args['has_password'] = false;
 }
 
 // Apply filters
@@ -108,9 +108,6 @@ $query_args = apply_filters( 'fictioneer_filter_shortcode_article_cards_query_ar
 
 // Query
 $query = fictioneer_shortcode_query( $query_args );
-
-// Remove temporary filters
-remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 // Unique ID
 $unique_id = wp_unique_id( 'article-block-' );

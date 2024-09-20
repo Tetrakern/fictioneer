@@ -87,7 +87,7 @@ if ( ! empty( $args['excluded_authors'] ) ) {
 
 // Ignore protected?
 if ( $args['ignore_protected'] ) {
-  add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+  $query_args['has_password'] = false;
 }
 
 // Apply filters
@@ -95,9 +95,6 @@ $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_recommendations
 
 // Query chapters
 $entries = fictioneer_shortcode_query( $query_args );
-
-// Remove temporary filters
-remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 // Extra attributes
 $attributes = [];
