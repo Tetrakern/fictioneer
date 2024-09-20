@@ -206,6 +206,11 @@ if ( ! defined( 'FICTIONEER_STORY_FOOTER_B480_DATE' ) ) {
  * Integers
  */
 
+// Integer: Default site width
+if ( ! defined( 'FICTIONEER_DEFAULT_SITE_WIDTH' ) ) {
+  define( 'FICTIONEER_DEFAULT_SITE_WIDTH', 960 );
+}
+
 // Integer: Commentcode expiration timer in seconds (-1 for infinite)
 if ( ! defined( 'FICTIONEER_COMMENTCODE_TTL' ) ) {
   define( 'FICTIONEER_COMMENTCODE_TTL', 600 );

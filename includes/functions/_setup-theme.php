@@ -637,7 +637,7 @@ function fictioneer_root_attributes() {
   // Prepare
   $output['class'] = implode( ' ', $classes );
   $output['data-mode-default'] = get_option( 'fictioneer_dark_mode_as_default', false ) ? 'dark' : 'light';
-  $output['data-site-width-default'] = get_theme_mod( 'site_width', 960 );
+  $output['data-site-width-default'] = get_theme_mod( 'site_width', FICTIONEER_DEFAULT_SITE_WIDTH );
   $output['data-theme'] = 'default';
   $output['data-mode'] = $output['data-mode-default'];
   $output['data-font-weight'] = 'default';
