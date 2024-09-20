@@ -30,6 +30,10 @@ $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
 $excerpt = fictioneer_get_forced_excerpt( $post, 512, true );
 $card_classes = [];
 
+if ( ! $chapter_rating && $story_id ) {
+  $chapter_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
+}
+
 // Taxonomies
 $tags = false;
 $fandoms = false;

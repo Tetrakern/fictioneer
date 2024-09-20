@@ -169,6 +169,10 @@ if ( $splide ) {
             $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
             $card_classes = [];
 
+            if ( ! $chapter_rating && $story_id ) {
+              $chapter_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
+            }
+
             // Extra card classes
             if ( ! empty( $post->post_password ) ) {
               $card_classes[] = '_password';

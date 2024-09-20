@@ -174,6 +174,10 @@ if ( $splide ) {
             $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
             $words = fictioneer_get_word_count( $post_id );
 
+            if ( ! $chapter_rating && $story_id ) {
+              $chapter_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
+            }
+
             // Thumbnail
             $thumbnail = null;
 
