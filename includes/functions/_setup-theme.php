@@ -594,7 +594,7 @@ function fictioneer_root_attributes() {
   // Setup
   $post_author_id = ( $post instanceof WP_Post ) ? $post->post_author : 0;
   $output = [];
-  $classes = ['no-js'];
+  $classes = ['fictioneer-theme', 'no-js'];
 
   if ( is_archive() || is_search() || is_404() ) {
     $post_author_id = 0;
