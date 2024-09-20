@@ -369,6 +369,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `removable_query_args` | `fictioneer_removable_args`
 | `render_block` | `fictioneer_download_block_wrapper`
 | `rest_authentication_errors` | `fictioneer_restrict_rest_api`
+| `script_loader_tag` | `fictioneer_data_jetpack_boost_tag`
 | `show_admin_bar` | `__return_false`
 | `strip_shortcodes_tagnames` | `fictioneer_exempt_shortcodes_from_removal`
 | `style_loader_tag` | `fictioneer_add_font_awesome_integrity`

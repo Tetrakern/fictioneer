@@ -1429,6 +1429,26 @@ function fictioneer_add_custom_scripts() {
 add_action( 'wp_enqueue_scripts', 'fictioneer_add_custom_scripts' );
 
 /**
+ * Exclude theme scripts from Jetpack Boost
+ *
+ * @since 5.24.1
+ *
+ * @param string $tag     The <script> tag for the enqueued script.
+ * @param string $handle  The script’s registered handle.
+ *
+ * @return string The filtered <script> tag.
+ */
+
+function fictioneer_data_jetpack_boost_tag( $tag, $handle ) {
+  if ( strpos( $handle, 'fictioneer-' ) !== 0 ) {
+    return $tag;
+  }
+
+  return str_replace( ' src', ' data-jetpack-boost="ignore" src', $tag );
+}
+add_filter( 'script_loader_tag', 'fictioneer_data_jetpack_boost_tag', 10, 2 );
+
+/**
  * Enqueue block editor scripts
  *
  * @since 5.6.0
@@ -1743,7 +1763,7 @@ if ( get_option( 'fictioneer_enable_anti_flicker' ) ) {
 
 function fictioneer_output_head_critical_scripts() {
   // Start HTML ---> ?>
-  <script id="fictioneer-critical-scripts" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,s])=>{switch(e){case"minimal":t.classList.toggle("minimal",s);break;case"darken":a=s>=0?1+s**2:1-s**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=s>=0?1+s**2:1-s**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!s)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const s=o.darken?o.darken:0,r=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=s>=0?1+s**2:1-s**2;o=r>=0?1+r**2:1-r**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}(),document.documentElement.classList.remove("no-js");</script>
+  <script id="fictioneer-critical-scripts" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,s])=>{switch(e){case"minimal":t.classList.toggle("minimal",s);break;case"darken":a=s>=0?1+s**2:1-s**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=s>=0?1+s**2:1-s**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!s)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const s=o.darken?o.darken:0,r=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=s>=0?1+s**2:1-s**2;o=r>=0?1+r**2:1-r**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}(),document.documentElement.classList.remove("no-js");</script>
   <?php // <--- End HTML
 }
 add_action( 'wp_head', 'fictioneer_output_head_critical_scripts', 9999 );
