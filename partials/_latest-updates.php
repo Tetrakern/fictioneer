@@ -23,6 +23,7 @@
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
  * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
  * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['only_protected']      Whether to query only protected posts. Default false.
  * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
  * @internal $args['relation']            Relationship between taxonomies.
  * @internal $args['source']              Whether to show author and story.
@@ -128,6 +129,11 @@ if ( ! empty( $args['excluded_authors'] ) ) {
 // Ignore protected?
 if ( $args['ignore_protected'] ) {
   $query_args['has_password'] = false;
+}
+
+// Only protected?
+if ( $args['only_protected'] ) {
+  $query_args['has_password'] = true;
 }
 
 // Apply filters
