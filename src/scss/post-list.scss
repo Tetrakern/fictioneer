@@ -44,7 +44,7 @@
   }
 
   &._seamless {
-    grid-template-rows: .5rem auto auto .5rem;
+    grid-template-rows: minmax(.5rem, 1fr) auto auto minmax(.5rem, 1fr);
     padding: 0 8px 0 0;
 
     .post-list-item__image {
@@ -58,7 +58,7 @@
     }
 
     &:is(._latest-updates, ._latest-stories):not(._no-tax) {
-      grid-template-rows: .5rem auto auto auto .5rem;
+      grid-template-rows: minmax(.5rem, 1fr) auto auto auto minmax(.5rem, 1fr);
     }
 
     &._full {
