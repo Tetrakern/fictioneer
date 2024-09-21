@@ -2364,3 +2364,42 @@ function fictioneer_default_cover( $thumbnail_id, $post ) {
 if ( ! is_admin() && get_theme_mod( 'default_story_cover' ) ) {
   add_filter( 'post_thumbnail_id', 'fictioneer_default_cover', 10, 2 );
 }
+
+// =============================================================================
+// DISABLE INCOMPATIBLE PLUGINS
+// =============================================================================
+
+/**
+ * Disables the incompatible Page Optimize plugin
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_disable_page_optimize_plugin() {
+  if ( is_plugin_active( 'page-optimize/page-optimize.php' ) ) {
+    deactivate_plugins( 'page-optimize/page-optimize.php' );
+    add_action( 'admin_notices', 'show_page_optimize_deactivated_notice' );
+  }
+}
+add_action( 'init', 'fictioneer_disable_page_optimize_plugin' );
+
+/**
+ * Shows notice when the Page Optimize plugin is disabled
+ *
+ * @since 5.24.1
+ */
+
+function show_page_optimize_deactivated_notice() {
+  if ( ! is_admin() ) {
+    return;
+  }
+
+  wp_admin_notice(
+    __( 'The Page Optimize plugin has been disabled due to compatibility issues.', 'fictioneer' ),
+    array(
+      'type' => 'info',
+      'dismissible' => true,
+      'additional_classes' => ['fictioneer-disabled-plugin-notice']
+    )
+  );
+}
