@@ -498,7 +498,11 @@ function fictioneer_inner_header_background( $args ) {
 
   // Setup
   $header_image_style = get_theme_mod( 'header_image_style', 'default' );
-  $extra_classes = [ "_style-{$header_image_style}", "_image-source-{$args['header_image_source']}" ];
+  $extra_classes = array(
+    "_style-{$header_image_style}",
+    "_image-source-{$args['header_image_source']}",
+    "_post-{$args['post_id']}"
+  );
 
   if ( absint( get_theme_mod( 'header_image_fading_start', 0 ) ) > 0 ) {
     $extra_classes[] = '_fading-bottom';
