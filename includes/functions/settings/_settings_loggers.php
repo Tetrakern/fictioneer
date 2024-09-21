@@ -5,6 +5,28 @@
 // =============================================================================
 
 /**
+ * Returns (or creates) secret log hash used to obscure the log file name
+ *
+ * @since 5.24.1
+ *
+ * @return string  The log hash.
+ */
+
+function fictioneer_get_log_hash() {
+  $hash = strval( get_option( 'fictioneer_log_hash' ) );
+
+  if ( ! empty( $hash ) ) {
+    return $hash;
+  }
+
+  $hash = wp_generate_password( 32, false );
+
+  update_option( 'fictioneer_log_hash', $hash, 'no' );
+
+  return $hash;
+}
+
+/**
  * Logs a message to the theme log file
  *
  * @since 5.0.0
@@ -17,7 +39,8 @@ function fictioneer_log( $message, $current_user = null ) {
   // Setup
   $current_user = $current_user ?? wp_get_current_user();
   $username = _x( 'System', 'Default name in logs.', 'fictioneer' );
-  $log_file = ABSPATH . '/fictioneer-logs.log';
+  $log_hash = fictioneer_get_log_hash();
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-logs.log";
   $log_limit = 5000;
   $date = current_time( 'mysql', true );
 
@@ -57,6 +80,14 @@ function fictioneer_log( $message, $current_user = null ) {
 
   // Set file permissions
   chmod( $log_file, 0600 );
+
+  // Security
+  $silence = WP_CONTENT_DIR . '/index.php';
+
+  if ( ! file_exists( $silence ) ) {
+    file_put_contents( $silence, "<?php\n// Silence is golden.\n" );
+    chmod( $silence, 0600 );
+  }
 }
 
 /**
@@ -67,7 +98,8 @@ function fictioneer_log( $message, $current_user = null ) {
 
 function fictioneer_get_log() {
   // Setup
-  $log_file = ABSPATH . '/fictioneer-logs.log';
+  $log_hash = fictioneer_get_log_hash();
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-logs.log";
   $output = '';
 
   // Check whether log file exists
