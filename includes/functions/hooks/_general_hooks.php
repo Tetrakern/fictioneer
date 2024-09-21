@@ -480,11 +480,14 @@ add_action( 'fictioneer_site', 'fictioneer_post_content_header', 20 );
  * Outputs the HTML for the header background
  *
  * @since 5.0.0
+ * @since 5.24.1 - Considered additional arguments.
  *
- * @param int|null       $args['post_id']           Optional. Current post ID.
- * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
- * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
- * @param array          $args['header_args']       Arguments passed to the header.php partial.
+ * @param int|null       $args['post_id']              Optional. Current post ID.
+ * @param string|null    $args['post_type']            Optional. Current post type.
+ * @param int|null       $args['story_id']             Optional. Current story ID (if chapter).
+ * @param string|boolean $args['header_image_url']     URL of the filtered header image or false.
+ * @param string         $args['header_image_source']  Either default, post, or story.
+ * @param array          $args['header_args']          Arguments passed to the header.php partial.
  */
 
 function fictioneer_inner_header_background( $args ) {
@@ -495,7 +498,7 @@ function fictioneer_inner_header_background( $args ) {
 
   // Setup
   $header_image_style = get_theme_mod( 'header_image_style', 'default' );
-  $extra_classes = [ "_style-{$header_image_style}" ];
+  $extra_classes = [ "_style-{$header_image_style}", "_image-source-{$args['header_image_source']}" ];
 
   if ( absint( get_theme_mod( 'header_image_fading_start', 0 ) ) > 0 ) {
     $extra_classes[] = '_fading-bottom';
@@ -503,6 +506,10 @@ function fictioneer_inner_header_background( $args ) {
 
   if ( get_theme_mod( 'header_image_shadow', true ) ) {
     $extra_classes[] = '_shadow';
+  }
+
+  if ( $args['post_type'] ) {
+    $extra_classes[] = '_' . $args['post_type'];
   }
 
   // Start HTML ---> ?>
