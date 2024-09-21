@@ -439,13 +439,14 @@
 
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     line-height: 1;
     margin-bottom: .75rem;
 
-    img {
+    .avatar {
       border-radius: var(--layout-border-radius-small);
+      transform: translateY(1.5px);
     }
   }
 
