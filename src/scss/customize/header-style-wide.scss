@@ -26,6 +26,7 @@
     height: var(--header-logo-height);
     max-height: var(--header-logo-height);
     width: fit-content;
+    max-width: 100%;
     object-fit: contain;
   }
 }

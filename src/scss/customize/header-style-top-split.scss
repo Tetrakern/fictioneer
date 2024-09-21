@@ -30,6 +30,7 @@
     height: var(--header-logo-height);
     max-height: calc(var(--site-title-font-size) + var(--site-title-tagline-font-size) + 1rem);
     width: auto;
+    max-width: 100%;
     object-fit: contain;
   }
 
