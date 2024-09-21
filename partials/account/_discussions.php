@@ -100,7 +100,7 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
       <div class="fictioneer-comment__meta">
         <div class="fictioneer-comment__author">
           <span><?php echo $current_user->display_name; ?></span>
-          <?php if ( $badge ) echo $badge; ?>
+          <?php if ( $badge ) echo ' ' . $badge; ?>
         </div>
         <div class="fictioneer-comment__info truncate _1-1">
           <div class="fictioneer-comment__date"><?php
