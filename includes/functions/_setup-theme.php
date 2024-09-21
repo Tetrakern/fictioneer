@@ -2381,7 +2381,7 @@ function fictioneer_disable_page_optimize_plugin() {
     add_action( 'admin_notices', 'show_page_optimize_deactivated_notice' );
   }
 }
-add_action( 'init', 'fictioneer_disable_page_optimize_plugin' );
+add_action( 'admin_init', 'fictioneer_disable_page_optimize_plugin' );
 
 /**
  * Shows notice when the Page Optimize plugin is disabled
@@ -2390,10 +2390,6 @@ add_action( 'init', 'fictioneer_disable_page_optimize_plugin' );
  */
 
 function show_page_optimize_deactivated_notice() {
-  if ( ! is_admin() ) {
-    return;
-  }
-
   wp_admin_notice(
     __( 'The Page Optimize plugin has been disabled due to compatibility issues.', 'fictioneer' ),
     array(
