@@ -177,8 +177,10 @@ Fires after `wp_body_open()` in the `<body>` right before the inline storage ele
 
 **$args:**
 * $post_id (int|null) – Current post ID. Unsafe.
+* $post_type (string|null) – Current post type. Unsafe.
 * $story_id (int|null) – Current story ID (if chapter). Unsafe.
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_image_source (string) – Source of the header image. Either `default`, `post`, or `story`.
 * $header_args (array) – Arguments passed to the header.php partial.
 
 **Hooked Actions:**
@@ -1010,8 +1012,10 @@ Fires right after opening the `#site` container in the `header.php` template. In
 
 **$args:**
 * $post_id (int|null) – Current post ID . Unsafe.
+* $post_type (string|null) – Current post type. Unsafe.
 * $post_id (story_id|null) – Current story ID (if chapter). Unsafe.
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_image_source (string) – Source of the header image. Either `default`, `post`, or `story`.
 * $header_args (array) – Arguments passed to the header.php partial.
 
 **Hooked Actions:**

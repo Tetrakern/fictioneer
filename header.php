@@ -57,12 +57,14 @@ if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_MU_REGISTRATION ) {
     <?php
       // Setup
       $story_id = null;
+      $post_type = $post_id ? $post->post_type : null;
+      $header_image_source = 'default';
       $header_image_url = get_header_image();
 
       // If this is a content page...
-      if ( ! empty( $post_id ) ) {
+      if ( $post_id ) {
         // Type?
-        switch ( $post->post_type ) {
+        switch ( $post_type ) {
           case 'fcn_story':
             $story_id = $post_id;
             break;
@@ -75,9 +77,11 @@ if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_MU_REGISTRATION ) {
         if ( get_post_meta( $post_id, 'fictioneer_custom_header_image', true ) ) {
           $header_image_url = get_post_meta( $post_id, 'fictioneer_custom_header_image', true );
           $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
+          $header_image_source = 'post';
         } elseif ( ! empty( $story_id ) && get_post_meta( $story_id, 'fictioneer_custom_header_image', true ) ) {
           $header_image_url = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
           $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
+          $header_image_source = 'story';
         }
       }
 
@@ -89,8 +93,10 @@ if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_MU_REGISTRATION ) {
       // Action arguments
       $action_args = array(
         'post_id' => $post_id,
+        'post_type' => $post_type,
         'story_id' => $story_id,
         'header_image_url' => $header_image_url,
+        'header_image_source' => $header_image_source,
         'header_args' => $args ?? []
       );
 
