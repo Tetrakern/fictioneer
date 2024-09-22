@@ -283,15 +283,17 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 
 function fictioneer_comment_post( $comment_id, $comment_approved, $commentdata ) {
   // Store visibility code for unapproved comments based on Unix seconds
-  add_comment_meta(
-    $comment_id,
-    'fictioneer_visibility_code',
-    array(
-      'timestamp' => time(),
-      'code' => uniqid() // Sufficiently unique for this purpose
-    ),
-    true
-  );
+  if ( $comment_approved === 0 ) {
+    add_comment_meta(
+      $comment_id,
+      'fictioneer_visibility_code',
+      array(
+        'timestamp' => time(),
+        'code' => uniqid() // Sufficiently unique for this purpose
+      ),
+      true
+    );
+  }
 
   // Hold for moderation if user is flagged
   if ( get_user_meta( $commentdata['user_id'], 'fictioneer_admin_always_moderate_comments', true ) ) {
