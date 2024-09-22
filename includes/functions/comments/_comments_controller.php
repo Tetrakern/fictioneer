@@ -22,7 +22,7 @@
  */
 
 function fictioneer_redirect_comment( $location, $commentdata ) {
-  if ( ! isset( $commentdata ) || empty( $commentdata->comment_post_ID ) ) {
+  if ( ! isset( $commentdata ) || empty( $commentdata->comment_post_ID ) || ( $_REQUEST['for'] ?? 0 ) === 'jetpack' ) {
     return $location;
   }
 
