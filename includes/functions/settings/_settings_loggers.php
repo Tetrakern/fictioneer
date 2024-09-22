@@ -40,7 +40,7 @@ function fictioneer_log( $message, $current_user = null ) {
   $current_user = $current_user ?? wp_get_current_user();
   $username = _x( 'System', 'Default name in logs.', 'fictioneer' );
   $log_hash = fictioneer_get_log_hash();
-  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-logs.log";
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-log.log";
   $log_limit = 5000;
   $date = current_time( 'mysql', true );
 
@@ -99,7 +99,7 @@ function fictioneer_log( $message, $current_user = null ) {
 function fictioneer_get_log() {
   // Setup
   $log_hash = fictioneer_get_log_hash();
-  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-logs.log";
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-log.log";
   $output = '';
 
   // Check whether log file exists
