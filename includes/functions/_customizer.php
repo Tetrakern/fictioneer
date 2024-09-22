@@ -466,7 +466,6 @@ function fictioneer_get_font_data() {
 function fictioneer_build_bundled_fonts() {
   // Setup
   $base_fonts = WP_CONTENT_DIR . '/themes/fictioneer/css/fonts-base.css';
-  $bundled_fonts = fictioneer_get_theme_cache_dir( 'build_bundled_fonts' ) . '/bundled-fonts.css';
   $fonts = fictioneer_get_font_data();
   $disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
   $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
@@ -515,7 +514,10 @@ function fictioneer_build_bundled_fonts() {
   update_option( 'fictioneer_bundled_fonts_timestamp', time(), true );
 
   // Save
-  file_put_contents( $bundled_fonts, $combined_font_css );
+  file_put_contents(
+    fictioneer_get_theme_cache_dir( 'build_bundled_fonts' ) . '/bundled-fonts.css',
+    $combined_font_css
+  );
 }
 
 // =============================================================================
@@ -617,7 +619,7 @@ function fictioneer_build_customize_css( $context = null ) {
   // --- Setup -----------------------------------------------------------------
 
   $file_path = fictioneer_get_theme_cache_dir( 'build_customize_css' ) . '/customize.css';
-  $site_width = (int) get_theme_mod( 'site_width', 960 );
+  $site_width = (int) get_theme_mod( 'site_width', FICTIONEER_DEFAULT_SITE_WIDTH );
   $header_image_style = get_theme_mod( 'header_image_style', 'default' );
   $header_style = get_theme_mod( 'header_style', 'default' );
   $content_list_style = get_theme_mod( 'content_list_style', 'default' );
@@ -703,7 +705,7 @@ function fictioneer_build_customize_css( $context = null ) {
   $lightness_offset_light = (int) get_theme_mod( 'lightness_offset_light', 0 );
   $font_saturation_offset_light = (int) get_theme_mod( 'font_saturation_offset_light', 0 );
   $font_lightness_offset_light = (int) get_theme_mod( 'font_lightness_offset_light', 0 );
-  $site_width = (int) get_theme_mod( 'site_width', 960 );
+  $site_width = (int) get_theme_mod( 'site_width', FICTIONEER_DEFAULT_SITE_WIDTH );
   $main_offset = (int) get_theme_mod( 'main_offset', 0 );
   $sidebar_width = (int) get_theme_mod( 'sidebar_width', 256 );
   $sidebar_gap = (int) get_theme_mod( 'sidebar_gap', 48 );

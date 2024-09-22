@@ -636,14 +636,14 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           }
         ?>
         <div class="fictioneer-comment__meta">
-          <div class="fictioneer-comment__author truncate _1-1"><?php
+          <div class="fictioneer-comment__author"><?php
             if ( fictioneer_is_author( $comment->user_id ) ) {
               echo '<a href="' . get_author_posts_url( $comment->user_id ) . '">' . $comment->comment_author . '</a>';
             } else {
               echo "<span>{$comment_author}</span>";
             }
 
-            echo $badge;
+            echo ' ' . $badge;
           ?></div>
           <div class="fictioneer-comment__info truncate _1-1">
             <?php if ( $parent_comment ) : ?>

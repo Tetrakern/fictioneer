@@ -5,6 +5,28 @@
 // =============================================================================
 
 /**
+ * Returns (or creates) secret log hash used to obscure the log file name
+ *
+ * @since 5.24.1
+ *
+ * @return string  The log hash.
+ */
+
+function fictioneer_get_log_hash() {
+  $hash = strval( get_option( 'fictioneer_log_hash' ) );
+
+  if ( ! empty( $hash ) ) {
+    return $hash;
+  }
+
+  $hash = wp_generate_password( 32, false );
+
+  update_option( 'fictioneer_log_hash', $hash, 'no' );
+
+  return $hash;
+}
+
+/**
  * Logs a message to the theme log file
  *
  * @since 5.0.0
@@ -17,7 +39,8 @@ function fictioneer_log( $message, $current_user = null ) {
   // Setup
   $current_user = $current_user ?? wp_get_current_user();
   $username = _x( 'System', 'Default name in logs.', 'fictioneer' );
-  $log_file = WP_CONTENT_DIR . '/fictioneer-logs.log';
+  $log_hash = fictioneer_get_log_hash();
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-log.log";
   $log_limit = 5000;
   $date = current_time( 'mysql', true );
 
@@ -57,6 +80,14 @@ function fictioneer_log( $message, $current_user = null ) {
 
   // Set file permissions
   chmod( $log_file, 0600 );
+
+  // Security
+  $silence = WP_CONTENT_DIR . '/index.php';
+
+  if ( ! file_exists( $silence ) ) {
+    file_put_contents( $silence, "<?php\n// Silence is golden.\n" );
+    chmod( $silence, 0600 );
+  }
 }
 
 /**
@@ -67,7 +98,8 @@ function fictioneer_log( $message, $current_user = null ) {
 
 function fictioneer_get_log() {
   // Setup
-  $log_file = WP_CONTENT_DIR . '/fictioneer-logs.log';
+  $log_hash = fictioneer_get_log_hash();
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-log.log";
   $output = '';
 
   // Check whether log file exists
@@ -141,12 +173,18 @@ function fictioneer_get_wp_debug_log() {
  * Logs post update
  *
  * @since 5.0.0
+ * @since 5.24.1 - Make dependant on option.
  *
  * @param int    $post_id  The post ID.
  * @param string $action   The action performed.
  */
 
 function fictioneer_log_post_update( $post_id, $action ) {
+  // Log posts?
+  if ( ! get_option( 'fictioneer_log_posts' ) ) {
+    return;
+  }
+
   // Setup
   $type_object = get_post_type_object( get_post_type( $post_id ) );
   $post_type_name = $type_object->labels->singular_name;

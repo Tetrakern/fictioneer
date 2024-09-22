@@ -480,11 +480,14 @@ add_action( 'fictioneer_site', 'fictioneer_post_content_header', 20 );
  * Outputs the HTML for the header background
  *
  * @since 5.0.0
+ * @since 5.24.1 - Considered additional arguments.
  *
- * @param int|null       $args['post_id']           Optional. Current post ID.
- * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
- * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
- * @param array          $args['header_args']       Arguments passed to the header.php partial.
+ * @param int|null       $args['post_id']              Optional. Current post ID.
+ * @param string|null    $args['post_type']            Optional. Current post type.
+ * @param int|null       $args['story_id']             Optional. Current story ID (if chapter).
+ * @param string|boolean $args['header_image_url']     URL of the filtered header image or false.
+ * @param string         $args['header_image_source']  Either default, post, or story.
+ * @param array          $args['header_args']          Arguments passed to the header.php partial.
  */
 
 function fictioneer_inner_header_background( $args ) {
@@ -495,7 +498,11 @@ function fictioneer_inner_header_background( $args ) {
 
   // Setup
   $header_image_style = get_theme_mod( 'header_image_style', 'default' );
-  $extra_classes = [ "_style-{$header_image_style}" ];
+  $extra_classes = array(
+    "_style-{$header_image_style}",
+    "_image-source-{$args['header_image_source']}",
+    "_post-{$args['post_id']}"
+  );
 
   if ( absint( get_theme_mod( 'header_image_fading_start', 0 ) ) > 0 ) {
     $extra_classes[] = '_fading-bottom';
@@ -503,6 +510,10 @@ function fictioneer_inner_header_background( $args ) {
 
   if ( get_theme_mod( 'header_image_shadow', true ) ) {
     $extra_classes[] = '_shadow';
+  }
+
+  if ( $args['post_type'] ) {
+    $extra_classes[] = '_' . $args['post_type'];
   }
 
   // Start HTML ---> ?>
@@ -1022,12 +1033,22 @@ if ( FICTIONEER_MU_REGISTRATION ) {
  * Note: The ID of the template element is "term-submenu-{$type}".
  *
  * @since 5.22.1
+ * @since 5.24.1 - Added Transient.
  *
  * @param string $type        Optional. The taxonomy type to build the menu for. Default 'fcn_genre'.
  * @param bool   $hide_empty  Optional. Whether to include empty taxonomies. Default true.
  */
 
 function fictioneer_render_taxonomy_submenu( $type = 'fcn_genre', $hide_empty = true ) {
+  // Transient cache
+  $key = "fictioneer_taxonomy_submenu_{$type}" . ( $hide_empty ? '_1' : '' );
+  $transient = get_transient( $key );
+
+  if ( $transient ) {
+    echo apply_filters( 'fictioneer_filter_cached_taxonomy_submenu_html', $transient, $type, $hide_empty );
+    return;
+  }
+
   // Query terms
   $terms = get_terms(
     apply_filters(
@@ -1066,8 +1087,14 @@ function fictioneer_render_taxonomy_submenu( $type = 'fcn_genre', $hide_empty = 
 
   $html .= '</div></div></template>';
 
+  // Apply filters
+  $html = apply_filters( 'fictioneer_filter_taxonomy_submenu_html', $html, $terms, $type, $hide_empty );
+
+  // Cache as Transient
+  set_transient( $key, $html, HOUR_IN_SECONDS );
+
   // Render
-  echo apply_filters( 'fictioneer_filter_taxonomy_submenu_html', $html, $terms, $type, $hide_empty );
+  echo $html;
 }
 
 /**
@@ -1154,3 +1181,30 @@ function fictioneer_render_character_submenu() {
 function fictioneer_render_warning_submenu() {
   fictioneer_render_taxonomy_submenu( 'fcn_content_warning' );
 }
+
+// =============================================================================
+// DISCORD META FIELD CLEANUP
+// =============================================================================
+
+/**
+ * Removes Discord trigger meta field if outdated
+ *
+ * @since 5.24.1
+ * @global WP_Post $post
+ */
+
+function fictioneer_cleanup_discord_meta() {
+  global $post;
+
+  if ( ! is_singular() || ! $post || ! get_post_meta( $post->ID, 'fictioneer_discord_post_trigger' ) ) {
+    return;
+  }
+
+  $post_timestamp = get_post_time( 'U', true, $post->ID );
+  $current_timestamp = current_time( 'U', true );
+
+  if ( $current_timestamp - $post_timestamp > DAY_IN_SECONDS ) {
+    delete_post_meta( $post->ID, 'fictioneer_discord_post_trigger' );
+  }
+}
+add_action( 'wp_head', 'fictioneer_cleanup_discord_meta' );

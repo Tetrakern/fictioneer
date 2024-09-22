@@ -7,6 +7,8 @@
   --this-rotation-s: calc(1.75deg * var(--this-rotation-mod, 1) * var(--this-flip, 1));
   --this-rotation-xs: calc(1.5deg * var(--this-rotation-mod, 1) * var(--this-flip, 1));
   --this-rotation-xxs: calc(1.25deg * var(--this-rotation-mod, 1) * var(--this-flip, 1));
+  --this-rotation-xxxs: calc(1deg * var(--this-rotation-mod, 1) * var(--this-flip, 1));
+  --this-rotation-xxxxs: calc(0.75deg * var(--this-rotation-mod, 1) * var(--this-flip, 1));
   box-shadow: 0 0 0 var(--card-frame-border-thickness, 2.5px) var(--card-frame-border-color);
 
   &::before {
@@ -34,6 +36,14 @@
 
     @container (min-width: 750px) {
       transform: translate(-50%, -50%) rotate(var(--card-frame-rotation, var(--this-rotation-xxs)));
+    }
+
+    @container (min-width: 900px) {
+      transform: translate(-50%, -50%) rotate(var(--card-frame-rotation, var(--this-rotation-xxxs)));
+    }
+
+    @container (min-width: 1050px) {
+      transform: translate(-50%, -50%) rotate(var(--card-frame-rotation, var(--this-rotation-xxxxs)));
     }
   }
 

@@ -439,13 +439,14 @@
 
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     line-height: 1;
     margin-bottom: .75rem;
 
-    img {
+    .avatar {
       border-radius: var(--layout-border-radius-small);
+      transform: translateY(1.5px);
     }
   }
 
@@ -471,7 +472,7 @@
     text-shadow: none;
     border-radius: 2px;
     padding: 0 4px;
-    margin-left: 4px;
+    margin-left: 1px;
     height: 16px;
     transform: translateY(-1px);
 

@@ -11,6 +11,7 @@
  * @internal $args['post_type']           Array of post types to query. Default 'post'.
  * @internal $args['ignore_sticky']       Whether to ignore sticky flags. Default false.
  * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['only_protected']      Whether to query only protected posts. Default false.
  * @internal $args['count']               Number of posts to display. Default -1.
  * @internal $args['author']              Author to query posts for. Default empty.
  * @internal $args['order']               Order of posts. Default 'DESC'.
@@ -96,11 +97,16 @@ if ( ! empty( $args['excluded_tags'] ) ) {
 }
 
 // Ignore protected?
-if ( ! $args['ignore_protected'] ) {
+if ( ! $args['ignore_protected'] || $args['only_protected'] ) {
   $obfuscation = str_repeat( _x( '&#183; ', 'Protected post content obfuscation character.', 'fictioneer' ), 256 );
   $obfuscation = apply_filters( 'fictioneer_filter_obfuscation_string', $obfuscation, $post );
 } else {
-  add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+  $query_args['has_password'] = false;
+}
+
+// Only protected?
+if ( $args['only_protected'] ) {
+  $query_args['has_password'] = true;
 }
 
 // Apply filters
@@ -108,9 +114,6 @@ $query_args = apply_filters( 'fictioneer_filter_shortcode_article_cards_query_ar
 
 // Query
 $query = fictioneer_shortcode_query( $query_args );
-
-// Remove temporary filters
-remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 // Unique ID
 $unique_id = wp_unique_id( 'article-block-' );

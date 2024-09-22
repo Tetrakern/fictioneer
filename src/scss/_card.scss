@@ -77,7 +77,9 @@
     }
 
     .card__info-toggle {
-      display: none;
+      .fa-chevron-down:before {
+        content: "\f00d";
+      }
     }
 
     .card__overlay-infobox {
@@ -190,7 +192,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 2;
+    z-index: 100;
     color: var(--fg-600);
     font-size: 14px;
     line-height: 1;
@@ -556,7 +558,7 @@
 
   &__overlay-infobox {
     position: absolute;
-    inset: min(var(--card-overlay-inset, 3cqw), 14px);
+    inset: var(--card-overlay-inset, 5px);
     display: none;
     content-visibility: hidden; // Improve performance
     flex-direction: column;
@@ -581,6 +583,14 @@
 
       &._pills {
         --this-mask-offset: 0px;
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        float: right;
+        height: 20px;
+        width: 20px;
       }
     }
 
@@ -676,7 +686,7 @@
       }
     }
 
-    .card__info-toggle {
+    .card__info-toggle:not(.last-clicked) {
       color: #fff;
       opacity: .5;
 
@@ -1019,7 +1029,7 @@
   }
 }
 
-:root:not(.no-covers) .card._vertical:not(._seamless) .card__info-toggle {
+:root:not(.no-covers) .card._vertical:not(._seamless) .card__info-toggle:not(.last-clicked) {
   padding-top: calc(2 * var(--this-spacing));
   padding-right: calc(2 * var(--this-spacing));
 }

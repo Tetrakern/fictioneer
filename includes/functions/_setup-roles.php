@@ -1072,9 +1072,9 @@ if ( ! current_user_can( 'manage_options' ) ) {
     global $current_user, $pagenow;
 
     // Only affect media library on admin side
-    if(
-      'admin-ajax.php' != $pagenow ||
-      $_REQUEST['action'] != 'query-attachments'
+    if (
+      'admin-ajax.php' !== $pagenow ||
+      ( $_REQUEST['action'] ?? 0 ) !== 'query-attachments'
     ) {
       return;
     }
@@ -1528,10 +1528,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   function fictioneer_prevent_publish_date_update( $data, $postarr ) {
     // Setup
-    $first_publish_date = get_post_meta( $postarr['ID'], 'fictioneer_first_publish_date', true );
+    $current_post_date_gmt = get_post_time( 'Y-m-d H:i:s', 1, $postarr['ID'] );
 
     // Remove from update array if already published once
-    if ( ! empty( $first_publish_date ) ) {
+    if ( $current_post_date_gmt !== $data['post_date_gmt'] ) {
       unset( $data['post_date'] );
       unset( $data['post_date_gmt'] );
     }

@@ -22,7 +22,7 @@
 }
 
 :root.no-covers .site {
-  :is(.card__image, .card__text-icon) {
+  :is(.card__image, .card__text-icon, .post-list-item__image) {
     display: none !important;
     content-visibility: hidden !important;
   }

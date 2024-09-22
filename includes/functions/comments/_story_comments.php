@@ -49,7 +49,7 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
         echo get_avatar( $id_or_email, 32 ) ?: '';
       ?>
       <div class="fictioneer-comment__meta">
-        <div class="fictioneer-comment__author truncate _1-1"><span><?php echo $name; ?></span> <?php echo $badge; ?></div>
+        <div class="fictioneer-comment__author"><span><?php echo $name; ?></span> <?php echo $badge; ?></div>
         <div class="fictioneer-comment__info truncate _1-1">
           <?php
             printf(

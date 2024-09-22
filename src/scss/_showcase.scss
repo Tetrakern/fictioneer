@@ -39,6 +39,7 @@
     border-radius: var(--layout-border-radius-small);
     box-shadow: var(--showcase-box-shadow, var(--box-shadow-m));
     overflow: hidden;
+    height: fit-content; // Fix for Safari
     max-width: max(420px, 100%);
     contain: layout paint style; // Improve performance
 

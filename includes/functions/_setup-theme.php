@@ -348,6 +348,47 @@ function fictioneer_purge_caches_after_update() {
 }
 add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 
+/**
+ * Removes default chapter icons from post meta table
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_remove_default_chapter_icons_from_meta() {
+  global $wpdb;
+
+  $wpdb->query(
+    $wpdb->prepare(
+      "
+      DELETE FROM $wpdb->postmeta
+      WHERE meta_key = %s
+      AND meta_value = %s
+      ",
+      'fictioneer_chapter_icon',
+      FICTIONEER_DEFAULT_CHAPTER_ICON
+    )
+  );
+}
+add_action( 'fictioneer_after_update', 'fictioneer_remove_default_chapter_icons_from_meta' );
+
+/**
+ * Removes obsolete fictioneer_first_publish_date from post meta table
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_remove_first_publish_date_from_meta() {
+  global $wpdb;
+
+  $wpdb->query(
+    $wpdb->prepare(
+      "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s",
+      'fictioneer_first_publish_date'
+    )
+  );
+}
+add_action( 'fictioneer_after_update', 'fictioneer_remove_first_publish_date_from_meta' );
+
 // =============================================================================
 // PROTECT META FIELDS
 // =============================================================================
@@ -553,7 +594,7 @@ function fictioneer_root_attributes() {
   // Setup
   $post_author_id = ( $post instanceof WP_Post ) ? $post->post_author : 0;
   $output = [];
-  $classes = ['no-js'];
+  $classes = ['fictioneer-theme', 'no-js'];
 
   if ( is_archive() || is_search() || is_404() ) {
     $post_author_id = 0;
@@ -596,7 +637,7 @@ function fictioneer_root_attributes() {
   // Prepare
   $output['class'] = implode( ' ', $classes );
   $output['data-mode-default'] = get_option( 'fictioneer_dark_mode_as_default', false ) ? 'dark' : 'light';
-  $output['data-site-width-default'] = get_theme_mod( 'site_width', 960 );
+  $output['data-site-width-default'] = get_theme_mod( 'site_width', FICTIONEER_DEFAULT_SITE_WIDTH );
   $output['data-theme'] = 'default';
   $output['data-mode'] = $output['data-mode-default'];
   $output['data-font-weight'] = 'default';
@@ -1388,6 +1429,26 @@ function fictioneer_add_custom_scripts() {
 add_action( 'wp_enqueue_scripts', 'fictioneer_add_custom_scripts' );
 
 /**
+ * Exclude theme scripts from Jetpack Boost
+ *
+ * @since 5.24.1
+ *
+ * @param string $tag     The <script> tag for the enqueued script.
+ * @param string $handle  The script’s registered handle.
+ *
+ * @return string The filtered <script> tag.
+ */
+
+function fictioneer_data_jetpack_boost_tag( $tag, $handle ) {
+  if ( strpos( $handle, 'fictioneer-' ) !== 0 ) {
+    return $tag;
+  }
+
+  return str_replace( ' src', ' data-jetpack-boost="ignore" src', $tag );
+}
+add_filter( 'script_loader_tag', 'fictioneer_data_jetpack_boost_tag', 10, 2 );
+
+/**
  * Enqueue block editor scripts
  *
  * @since 5.6.0
@@ -1702,7 +1763,7 @@ if ( get_option( 'fictioneer_enable_anti_flicker' ) ) {
 
 function fictioneer_output_head_critical_scripts() {
   // Start HTML ---> ?>
-  <script id="fictioneer-critical-scripts" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,s])=>{switch(e){case"minimal":t.classList.toggle("minimal",s);break;case"darken":a=s>=0?1+s**2:1-s**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=s>=0?1+s**2:1-s**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!s)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const s=o.darken?o.darken:0,r=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=s>=0?1+s**2:1-s**2;o=r>=0?1+r**2:1-r**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}(),document.documentElement.classList.remove("no-js");</script>
+  <script id="fictioneer-critical-scripts" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,s])=>{switch(e){case"minimal":t.classList.toggle("minimal",s);break;case"darken":a=s>=0?1+s**2:1-s**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=s>=0?1+s**2:1-s**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!s)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const s=o.darken?o.darken:0,r=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=s>=0?1+s**2:1-s**2;o=r>=0?1+r**2:1-r**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}(),document.documentElement.classList.remove("no-js");</script>
   <?php // <--- End HTML
 }
 add_action( 'wp_head', 'fictioneer_output_head_critical_scripts', 9999 );
@@ -2302,4 +2363,39 @@ function fictioneer_default_cover( $thumbnail_id, $post ) {
 
 if ( ! is_admin() && get_theme_mod( 'default_story_cover' ) ) {
   add_filter( 'post_thumbnail_id', 'fictioneer_default_cover', 10, 2 );
+}
+
+// =============================================================================
+// DISABLE INCOMPATIBLE PLUGINS
+// =============================================================================
+
+/**
+ * Disables the incompatible Page Optimize plugin
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_disable_page_optimize_plugin() {
+  if ( is_plugin_active( 'page-optimize/page-optimize.php' ) ) {
+    deactivate_plugins( 'page-optimize/page-optimize.php' );
+    add_action( 'admin_notices', 'show_page_optimize_deactivated_notice' );
+  }
+}
+add_action( 'admin_init', 'fictioneer_disable_page_optimize_plugin' );
+
+/**
+ * Shows notice when the Page Optimize plugin is disabled
+ *
+ * @since 5.24.1
+ */
+
+function show_page_optimize_deactivated_notice() {
+  wp_admin_notice(
+    __( 'The Page Optimize plugin has been disabled due to compatibility issues.', 'fictioneer' ),
+    array(
+      'type' => 'info',
+      'dismissible' => true,
+      'additional_classes' => ['fictioneer-disabled-plugin-notice']
+    )
+  );
 }

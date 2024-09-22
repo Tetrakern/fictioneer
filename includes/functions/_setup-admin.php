@@ -87,7 +87,7 @@ function fictioneer_admin_scripts( $hook_suffix ) {
   if ( $hook_suffix === 'post.php' || $hook_suffix === 'post-new.php' ) {
     wp_enqueue_script(
       'fictioneer-sortablejs',
-      get_template_directory_uri() . '/js/Sortable-1.15.2.min.js',
+      get_template_directory_uri() . '/js/sortable.min.js',
       ['jquery', 'fictioneer-utility-scripts'],
       FICTIONEER_VERSION,
       true
@@ -870,7 +870,7 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
   foreach ( $chunks as $chunk ) {
     $values_sql = implode( ', ', $chunk );
 
-    if( ! empty( $values_sql ) ) {
+    if ( ! empty( $values_sql ) ) {
       $wpdb->query("
         INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
         VALUES {$values_sql};
@@ -1115,6 +1115,21 @@ function fictioneer_look_for_issues() {
     $issues[] = sprintf(
       __( 'You currently have <strong>%s revisions stored</strong> in your database. This is a lot ot bloat that can slow down your site if you do not really need them. Use a plugin to clean them up.', 'fictioneer' ),
       $revision_count
+    );
+  }
+
+  // Orphaned post meta
+  $orphaned_post_meta_count = $wpdb->get_var("
+    SELECT COUNT(*)
+    FROM $wpdb->postmeta pm
+    LEFT JOIN $wpdb->posts p ON pm.post_id = p.ID
+    WHERE p.ID IS NULL
+  ");
+
+  if ( $orphaned_post_meta_count > 500 ) {
+    $issues[] = sprintf(
+      __( 'You currently have <strong>%s orphaned post meta fields stored</strong> in your database. This is obsolete data that can slow down your site. Optimize your database under <strong>Fictioneer > Tools</strong> or use a plugin to clean them up.', 'fictioneer' ),
+      $orphaned_post_meta_count
     );
   }
 

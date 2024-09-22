@@ -154,11 +154,6 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
 /**
  * Returns sanitized arguments extracted from shortcode attributes
  *
- * Checks for 'count', 'offset', 'order', 'orderby', 'page', 'per_page', 'post_ids',
- * 'author', 'author_ids', 'exclude_author_ids', 'exclude_tag_ids', 'exclude_cat_ids',
- * 'rel', 'ignore_sticky', 'ignore_protected', 'class', and taxonomies with the
- * fictioneer_get_shortcode_taxonomies() helper functions.
- *
  * @since 5.7.3
  *
  * @param array $attr       Attributes passed to the shortcode.
@@ -196,6 +191,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
     'ignore_sticky' => filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'only_protected' => filter_var( $attr['only_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'vertical' => filter_var( $attr['vertical'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'seamless' => filter_var( $attr['seamless'] ?? $seamless_default, FILTER_VALIDATE_BOOLEAN ),
     'aspect_ratio' => sanitize_css_aspect_ratio( $attr['aspect_ratio'] ?? '' ),
@@ -389,6 +385,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * @param string|null $attr['orderby']             Optional. Order argument. Default 'date'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -503,6 +500,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['source']              Optional. Whether to show the author and story.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -607,6 +605,7 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -712,6 +711,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['single']              Optional. Whether to show only one chapter item. Default false.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
@@ -822,6 +822,7 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -911,6 +912,7 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -1511,6 +1513,7 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  * @param string|null $attr['per_page']            Optional. Number of posts per page.
  * @param string|null $attr['ignore_sticky']       Optional. Whether to ignore sticky posts. Default false.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
@@ -1570,7 +1573,7 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Exclude protected
   if ( $args['ignore_protected'] ) {
-    add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+    $query_args['has_password'] = false;
   }
 
   // Apply filters
@@ -1589,9 +1592,6 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Query
   $blog_query = new WP_Query( $query_args );
-
-  // Remove temporary filters
-  remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {
@@ -1664,6 +1664,7 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
  * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['ignore_sticky']       Optional. Whether to ignore sticky posts. Default false.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.

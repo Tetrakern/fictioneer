@@ -20,6 +20,7 @@
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
  * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
  * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['only_protected']      Whether to query only protected posts. Default false.
  * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
  * @internal $args['relation']            Relationship between taxonomies.
  * @internal $args['spoiler']             Whether to obscure or show chapter excerpt.
@@ -113,7 +114,12 @@ if ( ! empty( $args['excluded_authors'] ) ) {
 
 // Ignore protected?
 if ( $args['ignore_protected'] ) {
-  add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+  $query_args['has_password'] = false;
+}
+
+// Only protected?
+if ( $args['only_protected'] ) {
+  $query_args['has_password'] = true;
 }
 
 // Apply filters
@@ -121,9 +127,6 @@ $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_chapters_query_
 
 // Query chapters
 $entries = fictioneer_shortcode_query( $query_args );
-
-// Remove temporary filters
-remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 // Extra attributes
 $attributes = [];
@@ -165,6 +168,10 @@ if ( $splide ) {
             $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
             $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
             $card_classes = [];
+
+            if ( ! $chapter_rating && $story_id ) {
+              $chapter_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
+            }
 
             // Extra card classes
             if ( ! empty( $post->post_password ) ) {

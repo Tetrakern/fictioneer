@@ -5,9 +5,9 @@
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.24.0' );
+define( 'FICTIONEER_VERSION', '5.24.1' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.24.0' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.24.1' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', null );
@@ -205,6 +205,11 @@ if ( ! defined( 'FICTIONEER_STORY_FOOTER_B480_DATE' ) ) {
 /*
  * Integers
  */
+
+// Integer: Default site width
+if ( ! defined( 'FICTIONEER_DEFAULT_SITE_WIDTH' ) ) {
+  define( 'FICTIONEER_DEFAULT_SITE_WIDTH', 960 );
+}
 
 // Integer: Commentcode expiration timer in seconds (-1 for infinite)
 if ( ! defined( 'FICTIONEER_COMMENTCODE_TTL' ) ) {
@@ -410,7 +415,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE' ) ) {
 
 // Boolean: Enable nav menu Transients
 if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
-  define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', true );
+  define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', ! get_option( 'fictioneer_disable_menu_transients', false ) );
 }
 
 // Boolean: Order stories by last updated chapter timestamp

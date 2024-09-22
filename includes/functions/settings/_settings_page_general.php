@@ -32,7 +32,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
                 <div class="fictioneer-card__row fictioneer-card__row--issues">
                   <ul><?php
-                    foreach( $issues as $issue ) {
+                    foreach ( $issues as $issue ) {
                       echo "<li>{$issue}</li>";
                     }
                   ?></ul>
@@ -1158,6 +1158,18 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_log_posts',
+                    __( 'Log all post updates', 'fictioneer' ),
+                    __( 'If you want to track any and all changes.', 'fictioneer' ),
+                    'Enable this option if you want to track every action made to any post: publishing, updating, trashing, and deleting. This may be useful if you have concerns about content changes, but it is not recommended for sites with a high throughput of posts.',
+                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_log_posts.jpg"></div>'
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_restrict_rest_api',
                     __( 'Restrict default REST API', 'fictioneer' ),
                     __( 'Disables API for guests and low-permission users.', 'fictioneer' ),
@@ -1329,6 +1341,17 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( 'Normally, the <a href="%s" target="_blank" rel="noopener noreferrer">Splide slider</a> script and style are only loaded when a shortcode with the required parameter is found in the post content. However, if you want to use Splide in other ways, you can enable the assets globally here.', 'fictioneer' ),
                       'https://splidejs.com/guides/options/'
                     )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_menu_transients',
+                    __( 'Disable menu Transient caching', 'fictioneer' ),
+                    __( 'Only do this if you render dynamic content in the menus.', 'fictioneer' ),
+                    __( 'Compiling navigation menus is an extensive operation that involves multiple database queries. If you are not displaying dynamic content, such as points or other constantly changing data, it is best to cache the menus to avoid repeating the same queries for identical results.', 'fictioneer' )
                   );
                 ?>
               </div>

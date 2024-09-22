@@ -75,7 +75,7 @@
   // --litrpg-ins: var(--green-600);
   // --litrpg-del: var(--red-600);
   // --litrpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
-  --litrpg-drop-shadow: var(--drop-shadow-xs);
+  --litrpg-drop-shadow: var(--drop-shadow-s);
 
   // === CONTENT LISTS =========================================================
 
@@ -111,26 +111,6 @@
   --bg-800-free: #{hsl_code_free(210, 28, 17)}; // #1f2b37
   --bg-900-free: #{hsl_code_free(210, 39, 11)}; // #111c27
   --bg-950-free: #{hsl_code_free(210, 71, 4)}; // #030a11
-
-  // === FOREGROUNDS ===========================================================
-
-  &,
-  .chapter-formatting {
-    // Needs to be repeated to force recalculation in chapters
-
-    --fg-100: #{hsl_font_code(225, 80, 2)}; // #010309 | Contrast ratio vs bg-100 ~ 19.72
-    --fg-200: #{hsl_font_code(224, 71, 4)}; // #030712 (Tailwind Gray 950) | Contrast ratio vs bg-100 ~ 19.28
-    --fg-300: #{hsl_font_code(220, 55, 7)}; // #080f1c | Contrast ratio vs bg-100 ~ 18.38
-    --fg-400: #{hsl_font_code(221, 39, 11)}; // #111827 (Tailwind Gray 900) | Contrast ratio vs bg-100 ~ 16.96
-    --fg-500: #{hsl_font_code(225, 26, 16)}; // #1e2333 | Contrast ratio vs bg-100 ~ 14.87
-    --fg-600: #{hsl_font_code(217, 19, 27)}; // #374151 (Tailwind Gray 700) | Contrast ratio vs bg-100 ~ 9.74
-    --fg-700: #{hsl_font_code(223, 11, 39)}; // #595f6e | Contrast ratio vs bg-100 ~ 6.11
-    --fg-800: #{hsl_font_code(220, 9, 46)}; // #6b7280 (Tailwind Gray 500) | Contrast ratio vs bg-100 ~ 4.64
-    --fg-900: #{hsl_font_code(218, 11, 58)}; // #8891a0 | Contrast ratio vs bg-100 ~ 3.04
-    --fg-950: #{hsl_font_code(218, 11, 65)}; // #9ca3af (Tailwind Gray 400) | Contrast ratio vs bg-100 ~ 2.42
-    --fg-tinted: #{hsl_font_code(217, 33, 17)}; // #1e293b (Tailwind Gray 800) | Contrast ratio vs bg-100 ~ 14.18
-    --fg-inverted: #{hsl_font_code(210, 20, 99)};
-  }
 
   // === LAYOUT ================================================================
 
@@ -455,6 +435,28 @@
   --badge-supporter-background: #ed5e76;
   --badge-override-color: var(--fg-inverted);
   --badge-override-background: #64748b;
+
+  // === FOREGROUNDS ===========================================================
+
+  // Placed here due to SCSS/CSS nesting rules
+
+  &,
+  .chapter-formatting {
+    // Needs to be repeated to force recalculation in chapters
+
+    --fg-100: #{hsl_font_code(225, 80, 2)}; // #010309 | Contrast ratio vs bg-100 ~ 19.72
+    --fg-200: #{hsl_font_code(224, 71, 4)}; // #030712 (Tailwind Gray 950) | Contrast ratio vs bg-100 ~ 19.28
+    --fg-300: #{hsl_font_code(220, 55, 7)}; // #080f1c | Contrast ratio vs bg-100 ~ 18.38
+    --fg-400: #{hsl_font_code(221, 39, 11)}; // #111827 (Tailwind Gray 900) | Contrast ratio vs bg-100 ~ 16.96
+    --fg-500: #{hsl_font_code(225, 26, 16)}; // #1e2333 | Contrast ratio vs bg-100 ~ 14.87
+    --fg-600: #{hsl_font_code(217, 19, 27)}; // #374151 (Tailwind Gray 700) | Contrast ratio vs bg-100 ~ 9.74
+    --fg-700: #{hsl_font_code(223, 11, 39)}; // #595f6e | Contrast ratio vs bg-100 ~ 6.11
+    --fg-800: #{hsl_font_code(220, 9, 46)}; // #6b7280 (Tailwind Gray 500) | Contrast ratio vs bg-100 ~ 4.64
+    --fg-900: #{hsl_font_code(218, 11, 58)}; // #8891a0 | Contrast ratio vs bg-100 ~ 3.04
+    --fg-950: #{hsl_font_code(218, 11, 65)}; // #9ca3af (Tailwind Gray 400) | Contrast ratio vs bg-100 ~ 2.42
+    --fg-tinted: #{hsl_font_code(217, 33, 17)}; // #1e293b (Tailwind Gray 800) | Contrast ratio vs bg-100 ~ 14.18
+    --fg-inverted: #{hsl_font_code(210, 20, 99)};
+  }
 
   // === SCOPES ================================================================
 

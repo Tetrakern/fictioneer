@@ -13,6 +13,10 @@ html:is(:root) {
   outline: none;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 *:not(input, textarea, select, .wp-block-file a, .button-unset-oauth):focus-visible,
 input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visible,
 .user-is-tabbing select:focus-visible,

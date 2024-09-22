@@ -25,14 +25,6 @@
   --hue-rotate: 0deg + var(--hue-offset);
   --wp--style--block-gap: 1.5rem;
 
-  // === NAVIGATION ============================================================
-
-  --navigation-height: 48px;
-
-  @include bp(desktop) {
-    --navigation-height: 40px;
-  }
-
   // === SIDEBAR ===============================================================
 
   --sidebar-width: 256px; // Overridden by theme customizer
@@ -72,6 +64,14 @@
   // === ASSETS ================================================================
 
   --data-image-2x2-black: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAAC0lEQVQI12NgwAQAABQAAeWGsEoAAAAASUVORK5CYII=");
+
+  // === NAVIGATION ============================================================
+
+  --navigation-height: 48px;
+
+  @include bp(desktop) {
+    --navigation-height: 40px;
+  }
 }
 
 // =============================================================================
@@ -239,26 +239,6 @@
   --bg-800: hsl(var(--bg-800-free));
   --bg-900: hsl(var(--bg-900-free));
   --bg-950: hsl(var(--bg-950-free));
-
-  // === FOREGROUNDS ===========================================================
-
-  &,
-  .chapter-formatting {
-    // Needs to be repeated to force recalculation in chapters
-    // Contrast vs bg-700
-    --fg-100: #{hsl_font_code(222, 40, 93)}; // Contrast ratio vs bg-700 ~ 11
-    --fg-200: #{hsl_font_code(222, 26, 89)}; // Contrast ratio vs bg-700 ~ 10
-    --fg-300: #{hsl_font_code(224, 20, 85)}; // Contrast ratio vs bg-700 ~ 9.02
-    --fg-400: #{hsl_font_code(222, 18, 80.5)}; // Contrast ratio vs bg-700 ~ 8.02
-    --fg-500: #{hsl_font_code(222, 18, 77)}; // Contrast ratio vs bg-700 ~ 7.26
-    --fg-600: #{hsl_font_code(224, 18, 71)}; // Contrast ratio vs bg-700 ~ 6.01
-    --fg-700: #{hsl_font_code(224, 16, 65)}; // Contrast ratio vs bg-700 ~ 5
-    --fg-800: #{hsl_font_code(222, 12, 61)}; // Contrast ratio vs bg-700 ~ 4.5
-    --fg-900: #{hsl_font_code(222, 11, 54)}; // Contrast ratio vs bg-700 ~ 3.55
-    --fg-950: #{hsl_font_code(222, 9, 49)}; // Contrast ratio vs bg-700 ~ 3
-    --fg-tinted: #{hsl_font_code(224, 22, 76)}; // Contrast ratio vs bg-700 ~ 6.92
-    --fg-inverted: #{hsl_font_code(222, 20, 5)}; // Contrast ratio vs bg-200 ~ 4.51
-  }
 
   // === CUSTOMIZER (FOR REFERENCE) ============================================
 
@@ -617,6 +597,28 @@
   --badge-author-background: #b37819;
   --badge-override-color: var(--fg-300);
   --badge-override-background: #5a5a7f;
+
+  // === FOREGROUNDS ===========================================================
+
+  // Placed here due to SCSS/CSS nesting rules
+
+  &,
+  .chapter-formatting {
+    // Needs to be repeated to force recalculation in chapters
+    // Contrast vs bg-700
+    --fg-100: #{hsl_font_code(222, 40, 93)}; // Contrast ratio vs bg-700 ~ 11
+    --fg-200: #{hsl_font_code(222, 26, 89)}; // Contrast ratio vs bg-700 ~ 10
+    --fg-300: #{hsl_font_code(224, 20, 85)}; // Contrast ratio vs bg-700 ~ 9.02
+    --fg-400: #{hsl_font_code(222, 18, 80.5)}; // Contrast ratio vs bg-700 ~ 8.02
+    --fg-500: #{hsl_font_code(222, 18, 77)}; // Contrast ratio vs bg-700 ~ 7.26
+    --fg-600: #{hsl_font_code(224, 18, 71)}; // Contrast ratio vs bg-700 ~ 6.01
+    --fg-700: #{hsl_font_code(224, 16, 65)}; // Contrast ratio vs bg-700 ~ 5
+    --fg-800: #{hsl_font_code(222, 12, 61)}; // Contrast ratio vs bg-700 ~ 4.5
+    --fg-900: #{hsl_font_code(222, 11, 54)}; // Contrast ratio vs bg-700 ~ 3.55
+    --fg-950: #{hsl_font_code(222, 9, 49)}; // Contrast ratio vs bg-700 ~ 3
+    --fg-tinted: #{hsl_font_code(224, 22, 76)}; // Contrast ratio vs bg-700 ~ 6.92
+    --fg-inverted: #{hsl_font_code(222, 20, 5)}; // Contrast ratio vs bg-200 ~ 4.51
+  }
 
   // === SCOPES ================================================================
 

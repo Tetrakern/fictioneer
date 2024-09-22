@@ -14,7 +14,8 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
    * @param string $webhook  The webhook for the Discord channel.
    * @param array  $message  The message to be sent.
    *
-   * @param array|WP_Error  The response or WP_Error on failure.
+   * @return array|WP_Error|null Null if not in debug mode, otherwise
+   *                             the response or WP_Error on failure.
    */
 
   function fictioneer_discord_send_message( $webhook, $message ) {
@@ -30,7 +31,8 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
         ),
         'body' => json_encode( $message, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ),
         'method' => 'POST',
-        'data_format' => 'body'
+        'data_format' => 'body',
+        'blocking' => ! WP_DEBUG
       )
     );
   }
@@ -54,7 +56,7 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
 function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
   // Setup
   $comment = get_comment( $comment_id );
-  $comment_type = ucfirst( get_comment_type( $comment_id ) );
+  $comment_type = get_comment_type( $comment_id );
   $comment_status = wp_get_comment_status( $comment );
   $comment_avatar_url = get_avatar_url( $comment );
   $post = get_post( $comment->comment_post_ID );
@@ -76,7 +78,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
         'fields' => array(
           array(
             'name' => _x( 'Status', 'Discord message "Status" field.', 'fictioneer' ),
-            'value' => ucfirst( $comment_status ),
+            'value' => fcntr( "{$comment_status}_comment_status" ),
             'inline' => true
           ),
           array(
@@ -87,7 +89,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
         ),
         'author' => array(
           'name' => $comment->comment_author,
-          'icon_url' => $comment_avatar_url
+          'icon_url' => $comment_avatar_url ?: ''
         ),
         'timestamp' => date_format( date_create( $comment->comment_date ), 'c' )
       )
@@ -155,7 +157,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
   // Comment type
   $message['embeds'][0]['fields'][] = array(
     'name' => _x( 'Type', 'Discord message comment "Type" field.', 'fictioneer' ),
-    'value' => $comment_type,
+    'value' => fcntr( "{$comment_type}_comment" ),
     'inline' => true
   );
 
@@ -171,6 +173,9 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
 
   // Send to Discord
   fictioneer_discord_send_message( $webhook, $message );
+
+  // Unhook if done to avoid additional triggers (if any)
+  remove_action( 'comment_post', 'fictioneer_post_comment_to_discord', 99 );
 }
 
 if ( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) {
@@ -198,8 +203,8 @@ function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
     return;
   }
 
-  // Already triggered once?
-  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true ) ) {
+  // Already triggered (this field will eventually be deleted in favor of the time check)?
+  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger' ) ) {
     return;
   }
 
@@ -249,8 +254,11 @@ function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
   // Send to Discord
   fictioneer_discord_send_message( $webhook, $message );
 
-  // Set trigger true
+  // Remember trigger
   update_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true );
+
+  // Unhook if done to avoid additional triggers (if any)
+  remove_action( 'transition_post_status', 'fictioneer_post_story_to_discord', 99 );
 }
 
 if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
@@ -266,20 +274,34 @@ if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
  *
  * @since 5.6.0
  * @since 5.21.2 - Refactored.
+ * @since 5.24.1 - Switch back to save_post hook to ensure the story ID is set.
  *
- * @param string  $new_status  New post status.
- * @param string  $new_status  Old post status.
- * @param WP_Post $post        Post object.
+ * @param int     $post_id  Post ID.
+ * @param WP_Post $post     Post object.
+ * @param bool    $update   Whether this is an existing post being updated.
  */
 
-function fictioneer_post_chapter_to_discord( $new_status, $old_status, $post ) {
-  // Only if chapter going from non-publish status to publish
-  if ( $post->post_type !== 'fcn_chapter' || $new_status !== 'publish' || $old_status === 'publish' ) {
+function fictioneer_post_chapter_to_discord( $post_id, $post, $update ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
     return;
   }
 
-  // Already triggered once?
-  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true ) ) {
+  // Only if published chapter
+  if ( $post->post_type !== 'fcn_chapter' || $post->post_status !== 'publish' ) {
+    return;
+  }
+
+  // Only if published less than 10 minutes ago
+  $post_timestamp = get_post_time( 'U', true, $post_id );
+  $current_timestamp = current_time( 'U', true );
+
+  if ( $update && ( $current_timestamp - $post_timestamp ) >= 600 ) {
+    return;
+  }
+
+  // Already triggered (this field will eventually be deleted in favor of the time check)?
+  if ( get_post_meta( $post_id, 'fictioneer_discord_post_trigger' ) ) {
     return;
   }
 
@@ -346,12 +368,15 @@ function fictioneer_post_chapter_to_discord( $new_status, $old_status, $post ) {
   // Send to Discord
   fictioneer_discord_send_message( $webhook, $message );
 
-  // Set trigger true
-  update_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true );
+  // Remember trigger
+  update_post_meta( $post_id, 'fictioneer_discord_post_trigger', true );
+
+  // Unhook if done to avoid additional triggers (if any)
+  remove_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );
 }
 
 if ( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) {
-  add_action( 'transition_post_status', 'fictioneer_post_chapter_to_discord', 99, 3 );
+  add_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99, 3 );
 }
 
 // =============================================================================
