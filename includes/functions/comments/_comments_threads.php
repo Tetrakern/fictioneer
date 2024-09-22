@@ -419,7 +419,6 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     $edit_stack = get_comment_meta( $comment->comment_ID, 'fictioneer_user_edit_stack', true );
     $parent_comment = $comment->comment_parent ? get_comment( absint( $comment->comment_parent ) ) : false;
     $reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );
-    $visibility_code = get_comment_meta( $comment->comment_ID, 'fictioneer_visibility_code', true );
     $commentcode = sanitize_text_field( $_GET['commentcode'] ?? '' ) ?: false;
 
     if ( wp_doing_ajax() || $is_new ) {
@@ -523,15 +522,20 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 
     /**
      * Show or hide comment if not approved, no moderation capabilities, no email has been set
-     * or it doesn't match the cookie (if any), and the comment code doesn't match either.
+     * or it doesn't match the cookie (if any), and the comment code doesn't match either or
+     * is expired.
     */
 
     // Commentcode will be valid for n seconds (default: 600) after posting (-1 for infinite)
-    if ( $commentcode && is_array( $visibility_code ) ) {
-      $commentcode = $visibility_code['code'] == $commentcode;
+    if ( $commentcode ) {
+      $commentcode = hash_equals( $commentcode, wp_hash( $comment->comment_date_gmt ) );
 
-      if ( FICTIONEER_COMMENTCODE_TTL > 0 ) {
-        $commentcode = $commentcode && $visibility_code['timestamp'] + FICTIONEER_COMMENTCODE_TTL >= time();
+      if (
+        $commentcode &&
+        FICTIONEER_COMMENTCODE_TTL > 0 &&
+        time() > strtotime( $comment->comment_date_gmt ) + FICTIONEER_COMMENTCODE_TTL
+      ) {
+        $commentcode = false;
       }
     }
 

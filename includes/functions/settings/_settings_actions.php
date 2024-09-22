@@ -1298,7 +1298,7 @@ function fictioneer_tools_optimize_database() {
     WHERE p.ID IS NULL
   ");
 
-  // Delete comment meta
+  // Delete comment meta (legacy)
   $comment_meta_count = $wpdb->query("
     DELETE FROM $wpdb->commentmeta
     WHERE (
@@ -1390,7 +1390,7 @@ function fictioneer_tools_optimize_database_preview() {
     WHERE p.ID IS NULL
   ");
 
-  // Comment meta
+  // Comment meta (legacy)
   $comment_meta_count = $wpdb->get_var("
     SELECT COUNT(*) FROM $wpdb->commentmeta
     WHERE (

@@ -28,18 +28,14 @@ function fictioneer_redirect_comment( $location, $commentdata ) {
 
   // Setup
   $order = fictioneer_sanitize_query_var( $_REQUEST['corder'] ?? 0, ['desc', 'asc'], get_option( 'comment_order' ) );
-  $visibility_code = get_comment_meta(
-    $commentdata->comment_ID,
-    'fictioneer_visibility_code',
-    true
-  );
+  $commentcode = wp_hash( $commentdata->comment_date_gmt );
 
   // Redirect to last page
   if ( $order === 'asc' && ! $commentdata->comment_parent ) {
     return add_query_arg(
       array(
         'corder' => $order,
-        'commentcode' => $visibility_code['code']
+        'commentcode' => $commentcode
       ),
       $location
     );
@@ -47,10 +43,10 @@ function fictioneer_redirect_comment( $location, $commentdata ) {
 
   // Redirect to current page
   if ( wp_get_referer() ) {
-    if ( $visibility_code && ! $commentdata->comment_approved ) {
+    if ( $commentcode && ! $commentdata->comment_approved ) {
       return add_query_arg(
         'commentcode',
-        $visibility_code['code'],
+        $commentcode,
         wp_get_referer() . '#comment-' . $commentdata->comment_ID
       );
     } else {
@@ -282,19 +278,6 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
  */
 
 function fictioneer_comment_post( $comment_id, $comment_approved, $commentdata ) {
-  // Store visibility code for unapproved comments based on Unix seconds
-  if ( $comment_approved === 0 ) {
-    add_comment_meta(
-      $comment_id,
-      'fictioneer_visibility_code',
-      array(
-        'timestamp' => time(),
-        'code' => uniqid() // Sufficiently unique for this purpose
-      ),
-      true
-    );
-  }
-
   // Hold for moderation if user is flagged
   if ( get_user_meta( $commentdata['user_id'], 'fictioneer_admin_always_moderate_comments', true ) ) {
     wp_set_comment_status( $comment_id, 'hold' );

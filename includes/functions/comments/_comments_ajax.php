@@ -393,8 +393,15 @@ function fictioneer_ajax_submit_comment() {
 
   // Prepare arguments to build HTML
   if ( ! $comment->comment_approved || get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
-    $visibility_code = get_comment_meta( $comment->comment_ID, 'fictioneer_visibility_code', true );
-    $commentcode = isset( $visibility_code['code'] ) ? $visibility_code['code'] : false;
+    $commentcode = wp_hash( $comment->comment_date_gmt );
+
+    if (
+      $commentcode &&
+      FICTIONEER_COMMENTCODE_TTL > 0 &&
+      time() > strtotime( $comment->comment_date_gmt ) + FICTIONEER_COMMENTCODE_TTL
+    ) {
+      $commentcode = false;
+    }
   }
 
   $build_args = array(
