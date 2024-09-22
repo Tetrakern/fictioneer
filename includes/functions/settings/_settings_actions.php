@@ -1301,10 +1301,9 @@ function fictioneer_tools_optimize_database() {
   // Delete comment meta (legacy)
   $comment_meta_count = $wpdb->query("
     DELETE FROM $wpdb->commentmeta
-    WHERE (
-      meta_key = 'fictioneer_visibility_code'
-      AND SUBSTRING_INDEX(SUBSTRING_INDEX(meta_value, ';', 2), ':', -1) < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 24 HOUR))
-    ) OR (
+    WHERE
+    meta_key = 'fictioneer_visibility_code'
+    OR (
       meta_key LIKE 'fictioneer%'
       AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
     )
@@ -1393,10 +1392,9 @@ function fictioneer_tools_optimize_database_preview() {
   // Comment meta (legacy)
   $comment_meta_count = $wpdb->get_var("
     SELECT COUNT(*) FROM $wpdb->commentmeta
-    WHERE (
-      meta_key = 'fictioneer_visibility_code'
-      AND SUBSTRING_INDEX(SUBSTRING_INDEX(meta_value, ';', 2), ':', -1) < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 24 HOUR))
-    ) OR (
+    WHERE
+    meta_key = 'fictioneer_visibility_code'
+    OR (
       meta_key LIKE 'fictioneer%'
       AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
     )
