@@ -1589,7 +1589,7 @@ function fictioneer_replace_br_with_whitespace( $text ) {
  */
 
 function fictioneer_block_pages_from_indexing() {
-  $params = ['oauth_nonce', 'nonce', 'return_url', 'commentcode'];
+  $params = ['oauth_nonce', 'nonce', 'return_url', 'commentcode', 'moderation-hash'];
 
   foreach ( $params as $param ) {
     if ( isset( $_GET[ $param ] ) ) {
