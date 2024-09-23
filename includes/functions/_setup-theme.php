@@ -78,6 +78,51 @@ add_action( 'admin_init', 'fictioneer_bring_out_legacy_trash' );
 // =============================================================================
 
 /**
+ * Get basic theme info
+ *
+ * @since 5.19.1
+ *
+ * @return array Associative array with theme info.
+ */
+
+function fictioneer_get_theme_info() {
+  // Setup
+  $info = get_option( 'fictioneer_theme_info' ) ?: [];
+
+  // Set up if missing
+  if ( ! $info || ! is_array( $info ) ) {
+    $info = array(
+      'last_update_check' => current_time( 'mysql', 1 ),
+      'last_update_version' => '',
+      'last_update_nag' => current_time( 'mysql', 1 ),
+      'last_update_notes' => '',
+      'last_version_download_url' => '',
+      'setup' => 0,
+      'version' => FICTIONEER_VERSION
+    );
+
+    update_option( 'fictioneer_theme_info', $info, 'yes' );
+  }
+
+  // Merge with defaults (in case of incomplete data)
+  $info = array_merge(
+    array(
+      'last_update_check' => current_time( 'mysql', 1 ),
+      'last_update_version' => '',
+      'last_update_nag' => '',
+      'last_update_notes' => '',
+      'last_version_download_url' => '',
+      'setup' => 0,
+      'version' => FICTIONEER_VERSION
+    ),
+    $info
+  );
+
+  // Return info
+  return $info;
+}
+
+/**
  * Sets up theme defaults and registers support for various WordPress features
  *
  * @since 1.0.0
@@ -181,143 +226,6 @@ function fictioneer_theme_setup() {
 }
 add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
 
-/**
- * Get basic theme info
- *
- * @since 5.19.1
- *
- * @return array Associative array with theme info.
- */
-
-function fictioneer_get_theme_info() {
-  // Setup
-  $info = get_option( 'fictioneer_theme_info' ) ?: [];
-
-  // Set up if missing
-  if ( ! $info || ! is_array( $info ) ) {
-    $info = array(
-      'last_update_check' => current_time( 'mysql', 1 ),
-      'last_update_version' => '',
-      'last_update_nag' => current_time( 'mysql', 1 ),
-      'last_update_notes' => '',
-      'last_version_download_url' => '',
-      'setup' => 0,
-      'version' => FICTIONEER_VERSION
-    );
-
-    update_option( 'fictioneer_theme_info', $info, 'yes' );
-  }
-
-  // Merge with defaults (in case of incomplete data)
-  $info = array_merge(
-    array(
-      'last_update_check' => current_time( 'mysql', 1 ),
-      'last_update_version' => '',
-      'last_update_nag' => '',
-      'last_update_notes' => '',
-      'last_version_download_url' => '',
-      'setup' => 0,
-      'version' => FICTIONEER_VERSION
-    ),
-    $info
-  );
-
-  // Return info
-  return $info;
-}
-
-// =============================================================================
-// SIDEBAR
-// =============================================================================
-
-/**
- * Registers sidebar
- *
- * @since 5.20.0
- */
-
-function fictioneer_register_sidebar() {
-  register_sidebar(
-    array(
-      'name' => __( 'Fictioneer Sidebar', 'fictioneer' ),
-      'id' => 'fictioneer-sidebar',
-      'description' => __( 'To render this sidebar, enable it in the Customizer or insert it with the <code>[fictioneer_sidebar]</code> shortcode. It can also be rendered with the Elementor plugin.', 'fictioneer' ),
-      'before_widget' => '<div id="%1$s" class="widget %2$s">',
-      'after_widget' => '</div>',
-      'before_title' => '<h2 class="widgettitle">',
-      'after_title' => '</h2>'
-    )
-  );
-}
-
-if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
-  add_action( 'widgets_init', 'fictioneer_register_sidebar' );
-}
-
-/**
- * Renders sidebar
- *
- * @since 5.22.0
- *
- * @param string $context  Render context (story, chapter, etc.) of the sidebar.
- */
-
-function fictioneer_sidebar( $context ) {
-  // Do not render sidebar if...
-  if ( get_theme_mod( 'sidebar_style', 'none' ) === 'none' || ! is_active_sidebar( 'fictioneer-sidebar' ) ) {
-    return;
-  }
-
-  // Setup
-  $post = get_post();
-  $sidebar_disabled = array(
-    'fcn_story' => get_theme_mod( 'sidebar_disable_in_stories' ),
-    'fcn_chapter' => get_theme_mod( 'sidebar_disable_in_chapters' ),
-    'fcn_collection' => get_theme_mod( 'sidebar_disable_in_collections' ),
-    'fcn_recommendation' => get_theme_mod( 'sidebar_disable_in_recommendations' )
-  );
-
-  // If not archive or search and post exists...
-  if ( $post && ! is_archive() && ! is_search() ) {
-    // .. check specific escape conditions
-    if (
-      ( $sidebar_disabled[ $post->post_type ] ?? 0 ) ||
-      get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
-    ) {
-      return;
-    }
-  }
-
-  // Classes
-  $classes = [];
-
-  if ( get_theme_mod( 'sidebar_hide_on_mobile' ) ) {
-    $classes[] = '_hide-on-mobile';
-  }
-
-  // Remove filters
-  remove_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
-  remove_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
-
-  // Start HTML ---> ?>
-  <aside class="fictioneer-sidebar _layout <?php echo implode( ' ', $classes ); ?>">
-    <div class="fictioneer-sidebar__wrapper _layout"><?php dynamic_sidebar( 'fictioneer-sidebar' ); ?></div>
-  </aside>
-  <?php // <--- End HTML
-
-  // Restore filters
-  add_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
-  add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
-}
-
-if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
-  if ( get_theme_mod( 'sidebar_style' ) === 'right' ) {
-    add_action( 'fictioneer_main_end', 'fictioneer_sidebar' );
-  } else {
-    add_action( 'fictioneer_main', 'fictioneer_sidebar' );
-  }
-}
-
 // =============================================================================
 // AFTER UPDATE
 // =============================================================================
@@ -418,6 +326,98 @@ function fictioneer_migrate_deleted_comment_meta() {
   );
 }
 add_action( 'fictioneer_after_update', 'fictioneer_migrate_deleted_comment_meta' );
+
+// =============================================================================
+// SIDEBAR
+// =============================================================================
+
+/**
+ * Registers sidebar
+ *
+ * @since 5.20.0
+ */
+
+function fictioneer_register_sidebar() {
+  register_sidebar(
+    array(
+      'name' => __( 'Fictioneer Sidebar', 'fictioneer' ),
+      'id' => 'fictioneer-sidebar',
+      'description' => __( 'To render this sidebar, enable it in the Customizer or insert it with the <code>[fictioneer_sidebar]</code> shortcode. It can also be rendered with the Elementor plugin.', 'fictioneer' ),
+      'before_widget' => '<div id="%1$s" class="widget %2$s">',
+      'after_widget' => '</div>',
+      'before_title' => '<h2 class="widgettitle">',
+      'after_title' => '</h2>'
+    )
+  );
+}
+
+if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
+  add_action( 'widgets_init', 'fictioneer_register_sidebar' );
+}
+
+/**
+ * Renders sidebar
+ *
+ * @since 5.22.0
+ *
+ * @param string $context  Render context (story, chapter, etc.) of the sidebar.
+ */
+
+function fictioneer_sidebar( $context ) {
+  // Do not render sidebar if...
+  if ( get_theme_mod( 'sidebar_style', 'none' ) === 'none' || ! is_active_sidebar( 'fictioneer-sidebar' ) ) {
+    return;
+  }
+
+  // Setup
+  $post = get_post();
+  $sidebar_disabled = array(
+    'fcn_story' => get_theme_mod( 'sidebar_disable_in_stories' ),
+    'fcn_chapter' => get_theme_mod( 'sidebar_disable_in_chapters' ),
+    'fcn_collection' => get_theme_mod( 'sidebar_disable_in_collections' ),
+    'fcn_recommendation' => get_theme_mod( 'sidebar_disable_in_recommendations' )
+  );
+
+  // If not archive or search and post exists...
+  if ( $post && ! is_archive() && ! is_search() ) {
+    // .. check specific escape conditions
+    if (
+      ( $sidebar_disabled[ $post->post_type ] ?? 0 ) ||
+      get_post_meta( $post->ID, 'fictioneer_disable_sidebar', true )
+    ) {
+      return;
+    }
+  }
+
+  // Classes
+  $classes = [];
+
+  if ( get_theme_mod( 'sidebar_hide_on_mobile' ) ) {
+    $classes[] = '_hide-on-mobile';
+  }
+
+  // Remove filters
+  remove_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
+  remove_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
+
+  // Start HTML ---> ?>
+  <aside class="fictioneer-sidebar _layout <?php echo implode( ' ', $classes ); ?>">
+    <div class="fictioneer-sidebar__wrapper _layout"><?php dynamic_sidebar( 'fictioneer-sidebar' ); ?></div>
+  </aside>
+  <?php // <--- End HTML
+
+  // Restore filters
+  add_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
+  add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
+}
+
+if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
+  if ( get_theme_mod( 'sidebar_style' ) === 'right' ) {
+    add_action( 'fictioneer_main_end', 'fictioneer_sidebar' );
+  } else {
+    add_action( 'fictioneer_main', 'fictioneer_sidebar' );
+  }
+}
 
 // =============================================================================
 // PROTECT META FIELDS
