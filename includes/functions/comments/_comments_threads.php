@@ -648,7 +648,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
               echo "<span>{$comment_author}</span>";
             }
 
-            echo ' ' . $badge;
+            echo $badge;
           ?></div>
           <div class="fictioneer-comment__info truncate _1-1">
             <?php if ( $parent_comment ) : ?>
