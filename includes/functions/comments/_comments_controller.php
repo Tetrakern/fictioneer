@@ -22,13 +22,26 @@
  */
 
 function fictioneer_redirect_comment( $location, $commentdata ) {
-  if ( ! isset( $commentdata ) || empty( $commentdata->comment_post_ID ) || ( $_REQUEST['for'] ?? 0 ) === 'jetpack' ) {
+  if ( ! isset( $commentdata ) || empty( $commentdata->comment_post_ID ) ) {
     return $location;
   }
 
   // Setup
   $order = fictioneer_sanitize_query_var( $_REQUEST['corder'] ?? 0, ['desc', 'asc'], get_option( 'comment_order' ) );
   $commentcode = wp_hash( $commentdata->comment_date_gmt );
+
+  if ( ( $_REQUEST['for'] ?? 0 ) === 'jetpack' ) {
+    $location = get_option( 'default_comments_page', 'oldest' ) ?
+      get_permalink( $commentdata->comment_post_ID ) . '#comments' : $location;
+
+    return add_query_arg(
+      array(
+        'corder' => $order,
+        'commentcode' => $commentcode
+      ),
+      $location
+    );
+  }
 
   // Redirect to last page
   if ( $order === 'asc' && ! $commentdata->comment_parent ) {
