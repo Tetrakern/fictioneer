@@ -303,7 +303,7 @@ add_action( 'fictioneer_after_update', 'fictioneer_remove_first_publish_date_fro
  * @since 5.24.1
  */
 
-function fictioneer_migrate_deleted_comment_meta() {
+function fictioneer_migrate_deleted_comments() {
   global $wpdb;
 
   $wpdb->query(
@@ -325,7 +325,7 @@ function fictioneer_migrate_deleted_comment_meta() {
     "
   );
 }
-add_action( 'fictioneer_after_update', 'fictioneer_migrate_deleted_comment_meta' );
+add_action( 'fictioneer_after_update', 'fictioneer_migrate_deleted_comments' );
 
 // =============================================================================
 // SIDEBAR
