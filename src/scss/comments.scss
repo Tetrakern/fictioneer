@@ -808,5 +808,9 @@
 }
 
 .comment-reply-title {
-  margin-bottom: 8px;
+  margin: 16px 0 8px;
+
+  small {
+    float: right;
+  }
 }
