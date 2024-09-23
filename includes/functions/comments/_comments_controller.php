@@ -107,6 +107,7 @@ function fictioneer_preprocess_comment( $commentdata ) {
   // Setup
   $current_user = wp_get_current_user();
   $is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+  $jetpack_comments = class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'comments' );
 
   // Commenting disabled
   if ( fictioneer_is_commenting_disabled( $commentdata['comment_post_ID'] ) ) {
@@ -119,7 +120,11 @@ function fictioneer_preprocess_comment( $commentdata ) {
 
   // Require JS to comment unless the commenter is logged-in
   // and has comment moderation capabilities.
-  if ( get_option( 'fictioneer_require_js_to_comment' ) && ! current_user_can( 'moderate_comments' ) ) {
+  if (
+    get_option( 'fictioneer_require_js_to_comment' ) &&
+    ! current_user_can( 'moderate_comments' ) &&
+    ! $jetpack_comments
+  ) {
     if ( ! isset( $_POST['fictioneer_comment_validator'] ) || ! $_POST['fictioneer_comment_validator'] ) {
       if ( $is_ajax ) {
         wp_send_json_error( array( 'error' => __( 'Comment did not pass validation.', 'fictioneer' ) ) );
@@ -185,9 +190,14 @@ function fictioneer_validate_comment_form( $commentdata ) {
   // Setup
   $parent_id = absint( $commentdata['comment_parent'] ?? 0 );
   $is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+  $jetpack_comments = class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'comments' );
 
   // Check privacy consent for guests
-  if ( ! is_user_logged_in() && ! $is_ajax && get_option( 'wp_page_for_privacy_policy' ) ) {
+  if (
+    ! is_user_logged_in() &&
+    ! $is_ajax && get_option( 'wp_page_for_privacy_policy' ) &&
+    ! $jetpack_comments
+  ) {
     // You cannot post a comment without accepting the privacy policy (tested earlier on AJAX submit!)
     if ( ! filter_var( $_POST['fictioneer-privacy-policy-consent'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
       wp_die( __( 'You did not accept the privacy policy.', 'fictioneer' ) );
