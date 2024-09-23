@@ -443,7 +443,6 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
     $comment_count = count( $comments );
     $count = 0;
     $complete_one = true;
-    $complete_two = true;
 
     // Not found or empty
     if ( empty( $comments ) ) {
@@ -455,7 +454,8 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
       $result_one = wp_update_comment(
         array(
           'user_ID' => 0,
-          'comment_author' => __( 'Deleted', 'fictioneer' ),
+          'comment_type' => 'user_deleted',
+          'comment_author' => _x( 'Deleted', 'Deleted comment author name.', 'fictioneer' ),
           'comment_ID' => $comment->comment_ID,
           'comment_content' => __( 'Comment has been deleted by user.', 'fictioneer' ),
           'comment_author_email' => '',
@@ -465,10 +465,8 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
         )
       );
 
-      $result_two = fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
-
       // Keep track of updated comments
-      if ( $result_one && $result_two ) {
+      if ( $result_one ) {
         $count++;
       }
 
@@ -476,17 +474,13 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
       if ( ! $result_one || is_wp_error( $result_one ) ) {
         $complete_one = false;
       }
-
-      if ( ! $result_two || is_wp_error( $result_two ) ) {
-        $complete_two = false;
-      }
     }
 
     // Report result
     return array(
-      'complete' => $complete_one && $complete_two,
+      'complete' => $complete_one,
       'failure' => $count == 0,
-      'success' => $count == $comment_count && $complete_one && $complete_two,
+      'success' => $count == $comment_count && $complete_one,
       'comment_count' => $comment_count,
       'updated_count' => $count
     );

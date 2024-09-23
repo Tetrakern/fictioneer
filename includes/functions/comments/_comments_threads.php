@@ -55,7 +55,8 @@ function fictioneer_shift_sticky_comments( $comments ) {
     if (
       get_comment_meta( $comment->comment_ID, 'fictioneer_sticky', true ) &&
       ! get_comment_meta( $comment->comment_ID, 'fictioneer_marked_offensive', true ) &&
-      ! get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true )
+      $comment->comment_approved &&
+      $comment->comment_type !== 'user_deleted'
     ) {
       $sticky_comments[] = $comment;
     }
@@ -437,7 +438,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     $is_approved = $comment->comment_approved;
     $is_offensive = get_comment_meta( $comment->comment_ID, 'fictioneer_marked_offensive', true );
     $is_closed = get_comment_meta( $comment->comment_ID, 'fictioneer_thread_closed', true );
-    $is_deleted_by_owner = get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
+    $is_deleted_by_owner = $comment->comment_type === 'user_deleted';
     $is_ignoring_reports = get_comment_meta( $comment->comment_ID, 'fictioneer_ignore_reports', true );
     $is_child_of_private = false;
     $is_report_hidden = false;

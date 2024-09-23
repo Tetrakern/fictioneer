@@ -121,7 +121,7 @@ function fictioneer_ajax_get_comment_section() {
   $query_args = array( 'post_id' => $post_id );
 
   if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
-    $query_args['type'] = ['comment', 'private'];
+    $query_args['type'] = ['comment', 'private', 'user_deleted'];
     $query_args['order'] = $order;
   } else {
     // Still hide private comments but do not limit the types preemptively
@@ -619,11 +619,10 @@ function fictioneer_ajax_delete_my_comment() {
   }
 
   // Soft-delete comment
-  fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
-
   $result = wp_update_comment(
     array(
       'user_ID' => 0,
+      'comment_type' => 'user_deleted',
       'comment_author' => _x( 'Deleted', 'Deleted comment author name.', 'fictioneer' ),
       'comment_ID' => $comment->comment_ID,
       'comment_content' => __( 'Comment has been deleted by user.', 'fictioneer' ),

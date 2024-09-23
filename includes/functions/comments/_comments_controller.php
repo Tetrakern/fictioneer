@@ -182,7 +182,7 @@ function fictioneer_validate_comment_form( $commentdata ) {
   }
 
   // Abort if direct parent comment is deleted
-  if ( $parent_id && get_comment_meta( $parent_id, 'fictioneer_deleted_by_user', true ) ) {
+  if ( $parent_id && $commentdata['comment_type'] === 'user_deleted' ) {
     if ( $is_ajax ) {
       wp_send_json_error( array( 'error' => __( 'You cannot reply to deleted comments.', 'fictioneer' ) ) );
     } else {

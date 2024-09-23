@@ -74,7 +74,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
         'title' => html_entity_decode( get_the_title( $post ) ),
         'description' => html_entity_decode( get_comment_excerpt( $comment ) ),
         'url' => get_comment_link( $comment ),
-        'color' => $comment_status == 'approved' ? '9692513' : '14112322',
+        'color' => $comment_status === 'approved' ? '9692513' : '14112322',
         'fields' => array(
           array(
             'name' => _x( 'Status', 'Discord message "Status" field.', 'fictioneer' ),

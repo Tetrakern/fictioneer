@@ -47,7 +47,7 @@ function fictioneer_user_can_moderate( $comment, $user_id = null ) {
 }
 
 // =============================================================================
-// ADD PRIVATE TYPE TO FILTER
+// ADD CUSTOM COMMENT TYPES TO FILTER
 // =============================================================================
 
 /**
@@ -61,8 +61,20 @@ function fictioneer_add_private_to_comment_filter( $comment_types ) {
 
   return $comment_types;
 }
-
 add_filter( 'admin_comment_types_dropdown', 'fictioneer_add_private_to_comment_filter' );
+
+/**
+ * Add user_deleted comments to dropdown filter menu
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_add_user_deleted_to_comment_filter( $comment_types ) {
+  $comment_types['user_deleted'] = _x( 'Deleted', 'Deleted comments filter in comment screen dropdown.', 'fictioneer' );
+
+  return $comment_types;
+}
+add_filter( 'admin_comment_types_dropdown', 'fictioneer_add_user_deleted_to_comment_filter' );
 
 // =============================================================================
 // ADD METABOX TO COMMENT EDIT SCREEN
@@ -570,7 +582,7 @@ function fictioneer_ajax_moderate_comment() {
         wp_send_json_error( ['error' => __( 'Child comments cannot be sticky.', 'fictioneer' )] );
         break;
       }
-      if ( get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true ) ) {
+      if ( $comment->comment_type === 'user_deleted' ) {
         wp_send_json_error( ['error' => __( 'Deleted comments cannot be sticky.', 'fictioneer' )] );
         break;
       }

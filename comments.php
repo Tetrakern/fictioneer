@@ -39,7 +39,7 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
     );
 
     if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
-      $query_args['type'] = ['comment', 'private'];
+      $query_args['type'] = ['comment', 'private', 'user_deleted'];
     } else {
       $query_args['type'] = ['comment'];
     }

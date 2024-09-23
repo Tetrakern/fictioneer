@@ -229,7 +229,7 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
       $reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );
 
       // Render empty if...
-      if ( get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true ) ) {
+      if ( $comment->comment_type === 'user_deleted' ) {
         // Start HTML ---> ?>
         <li class="fictioneer-comment _deleted">
           <div class="fictioneer-comment__container">

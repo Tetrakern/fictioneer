@@ -389,6 +389,36 @@ function fictioneer_remove_first_publish_date_from_meta() {
 }
 add_action( 'fictioneer_after_update', 'fictioneer_remove_first_publish_date_from_meta' );
 
+/**
+ * Convert user deleted comments to user_deleted type and delete meta fields
+ *
+ * @since 5.24.1
+ */
+
+function fictioneer_migrate_deleted_comment_meta() {
+  global $wpdb;
+
+  $wpdb->query(
+    "
+    UPDATE $wpdb->comments
+    SET comment_type = 'user_deleted'
+    WHERE comment_ID IN (
+      SELECT comment_id
+      FROM $wpdb->commentmeta
+      WHERE meta_key = 'fictioneer_deleted_by_user'
+    )
+    "
+  );
+
+  $wpdb->query(
+    "
+    DELETE FROM $wpdb->commentmeta
+    WHERE meta_key = 'fictioneer_deleted_by_user'
+    "
+  );
+}
+add_action( 'fictioneer_after_update', 'fictioneer_migrate_deleted_comment_meta' );
+
 // =============================================================================
 // PROTECT META FIELDS
 // =============================================================================
