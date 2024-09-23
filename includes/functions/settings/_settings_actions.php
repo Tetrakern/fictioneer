@@ -1265,6 +1265,9 @@ function fictioneer_tools_optimize_database() {
 
   global $wpdb;
 
+  // Clean up deleted comments
+  fictioneer_migrate_deleted_comments();
+
   // Delete post meta
   $allowed_meta_keys = fictioneer_get_falsy_meta_allow_list();
   $not_like_sql = '';
