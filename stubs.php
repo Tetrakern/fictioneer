@@ -165,3 +165,17 @@ function wpfc_clear_all_cache() {}
  */
 
 function wpfc_clear_post_cache_by_id( $post_id ) {}
+
+/**
+ * Jetpack class
+ */
+
+class Jetpack {
+  /**
+   * Probably checks whether a module is active
+   *
+   * @param string $module  Probably the module name. This is just a stub.
+   */
+
+  public static function is_module_active( $module ) {}
+}
