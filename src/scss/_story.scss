@@ -553,6 +553,12 @@ $header_breakpoint: 640px;
     content-visibility: hidden;
   }
 
+  // Fix render bug in Chromium that sometimes makes the grid item vanish
+  .chapter-group__folding-toggle {
+    display: flex;
+    justify-content: center;
+  }
+
   .chapter-group {
     &__list {
       display: grid;
