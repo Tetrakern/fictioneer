@@ -1462,6 +1462,7 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_add_custom_scripts' );
  * Exclude theme scripts from Jetpack Boost
  *
  * @since 5.24.1
+ * @since 5.24.2 - Remove filter if Jetpack is not running.
  *
  * @param string $tag     The <script> tag for the enqueued script.
  * @param string $handle  The script’s registered handle.
@@ -1470,6 +1471,12 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_add_custom_scripts' );
  */
 
 function fictioneer_data_jetpack_boost_tag( $tag, $handle ) {
+  if ( ! fictioneer_is_plugin_active( 'jetpack/jetpack.php' ) ) {
+    remove_filter( 'script_loader_tag', 'fictioneer_data_jetpack_boost_tag' );
+
+    return $tag;
+  }
+
   if ( strpos( $handle, 'fictioneer-' ) !== 0 ) {
     return $tag;
   }
