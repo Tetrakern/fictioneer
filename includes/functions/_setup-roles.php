@@ -1527,6 +1527,11 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_prevent_publish_date_update( $data, $postarr ) {
+    // New post?
+    if ( $postarr['post_status'] === 'auto-draft' || empty( $postarr['post_date_gmt'] ) ) {
+      return $data;
+    }
+
     // Setup
     $current_post_date_gmt = get_post_time( 'Y-m-d H:i:s', 1, $postarr['ID'] );
 
