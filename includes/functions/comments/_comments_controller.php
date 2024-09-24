@@ -31,16 +31,25 @@ function fictioneer_redirect_comment( $location, $commentdata ) {
   $commentcode = wp_hash( $commentdata->comment_date_gmt );
 
   if ( ( $_REQUEST['for'] ?? 0 ) === 'jetpack' ) {
-    $location = get_option( 'default_comments_page', 'oldest' ) ?
+    $location = get_option( 'default_comments_page' ) === 'oldest' ?
       get_permalink( $commentdata->comment_post_ID ) . '#comments' : $location;
 
-    return add_query_arg(
-      array(
-        'corder' => $order,
-        'commentcode' => $commentcode
-      ),
-      $location
-    );
+    if ( $commentcode && ! $commentdata->comment_approved ) {
+      return add_query_arg(
+        array(
+          'corder' => $order,
+          'commentcode' => $commentcode
+        ),
+        $location
+      );
+    } else {
+      return add_query_arg(
+        array(
+          'corder' => $order
+        ),
+        $location
+      );
+    }
   }
 
   // Redirect to last page
