@@ -315,8 +315,11 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   $post_status = get_post_status( $post_id );
   $unlisted = get_post_meta( $post_id, 'fictioneer_chapter_hidden', true );
 
+  // Filter allowed status
+  $allowed_status = apply_filters( 'fictioneer_filter_chapter_nav_buttons_allowed_status', array( 'publish' ), $post_id );
+
   // Do not render on hidden posts
-  if ( $post_status !== 'publish' ) {
+  if ( ! in_array( $post_status, $allowed_status ) ) {
     return;
   }
 

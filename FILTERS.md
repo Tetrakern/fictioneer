@@ -258,6 +258,15 @@ Filters the intermediate output array of the chapter micro menu in the `fictione
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_nav_buttons_allowed_status', $statuses, $post_id )`
+Filters the array of allowed post statuses for the chapter navigation buttons in the `fictioneer_chapter_nav_buttons( $args, $location )` function. The default is `array('publish')`, but you could add `'private'` or `'future'` if you want to allow the navigation to render with these statuses.
+
+**Parameters:**
+* $statuses (array) – Array of allowed post statuses.
+* $post_id (int) – Current post ID.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_support_links', $support_links, $args )`
 Filters the intermediate output array of the chapter support links in the `fictioneer_chapter_support_links( $args )` function before it is looped and rendered. Each item is another array with `'label'`, `'icon'` markup, and `'link'`.
 
