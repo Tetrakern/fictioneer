@@ -394,7 +394,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $visible_chapter_ids = [];
     $indexed_chapter_ids = [];
 
-    $allowed_indexed_statuses = apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', [ 'publish' ] );
+    $allowed_indexed_statuses = apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', ['publish'] );
 
     // Assign correct icon
     if ( $status != 'Ongoing' ) {
@@ -428,7 +428,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           // ... but they are still listed!
           $visible_chapter_ids[] = $chapter->ID;
 
-          // Indexed chapters (accounts for custom filers)
+          // Indexed chapters (accounts for custom filters)
           if ( in_array( $chapter->post_status, $allowed_indexed_statuses ) ) {
             $indexed_chapter_ids[] = $chapter->ID;
           }
@@ -1398,9 +1398,15 @@ function fictioneer_get_falsy_meta_allow_list() {
  */
 
 function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false ) {
-  $allowed_statuses = apply_filters( 'fictioneer_filter_append_chapter_to_story_statuses', [ 'publish' ], $post_id, $story_id, $force );
+  $allowed_statuses = apply_filters(
+    'fictioneer_filter_append_chapter_to_story_statuses',
+    ['publish'],
+    $post_id,
+    $story_id,
+    $force
+  );
 
-  // Abort if chapter is not published
+  // Abort if chapter status is not allowed
   if ( ! in_array( get_post_status( $post_id ), $allowed_statuses ) ) {
     return;
   }

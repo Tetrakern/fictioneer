@@ -704,7 +704,7 @@ Filters the sanitized POST meta box fields before they are saved, see `_setup-me
 ---
 
 ### `apply_filters( 'fictioneer_filter_append_chapter_to_story_statuses', $statuses, $post_id, $story_id, $force )`
-Filters the array of chapter statuses that can be appended to a story `fictioneer_story_chapters` metadata in the `function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false )`. By default, the statuses are `[ 'publish' ]`.
+Filters the array of chapter statuses that can be appended to a story’s `fictioneer_story_chapters` metadata in the `function fictioneer_append_chapter_to_story()`. By default, the statuses are `['publish']`.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
@@ -715,7 +715,7 @@ Filters the array of chapter statuses that can be appended to a story `fictionee
 ---
 
 ### `apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', $statuses )`
-Filters the array of chapter statuses that can be appended to a story `indexed_chapter_ids` array data in the `function fictioneer_get_story_data( $story_id, $show_comments = true, $args = [] )`. By default, the statuses are `[ 'publish' ]`.
+Filters the array of chapter statuses that can be appended to a story’s `indexed_chapter_ids` array data in the `function fictioneer_get_story_data()`. By default, the statuses are `['publish']`.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
