@@ -2769,45 +2769,46 @@ if ( ! function_exists( 'fictioneer_verify_unpublish_access' ) ) {
   function fictioneer_verify_unpublish_access( $post_id ) {
     // Setup
     $post = get_post( $post_id );
+    $authorized = false;
 
     // Always let owner to pass
     if ( get_current_user_id() === absint( $post->post_author ) ) {
-      return true;
+      $authorized = true;
     }
 
     // Always let administrators pass
     if ( current_user_can( 'manage_options' ) ) {
-      return true;
+      $authorized = true;
     }
 
     // Check capability for post type
     if ( $post->post_status === 'private' ) {
       switch ( $post->post_type ) {
         case 'post':
-          return current_user_can( 'edit_private_posts' );
+          $authorized = current_user_can( 'edit_private_posts' );
           break;
         case 'page':
-          return current_user_can( 'edit_private_pages' );
+          $authorized = current_user_can( 'edit_private_pages' );
           break;
         case 'fcn_chapter':
-          return current_user_can( 'read_private_fcn_chapters' );
+          $authorized = current_user_can( 'read_private_fcn_chapters' );
           break;
         case 'fcn_story':
-          return current_user_can( 'read_private_fcn_stories' );
+          $authorized = current_user_can( 'read_private_fcn_stories' );
           break;
         case 'fcn_recommendation':
-          return current_user_can( 'read_private_fcn_recommendations' );
+          $authorized = current_user_can( 'read_private_fcn_recommendations' );
           break;
         case 'fcn_collection':
-          return current_user_can( 'read_private_fcn_collections' );
+          $authorized = current_user_can( 'read_private_fcn_collections' );
           break;
         default:
-          return current_user_can( 'edit_others_posts' );
+          $authorized = current_user_can( 'edit_others_posts' );
       }
     }
 
     // Drafts are handled by WordPress
-    return false;
+    return apply_filters( 'fictioneer_filter_verify_unpublish_access', $authorized, $post_id, $post );
   }
 }
 

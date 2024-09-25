@@ -1605,6 +1605,16 @@ Filters the arguments for the story chapter posts query, an utility function cal
 
 ---
 
+### `apply_filters( 'fictioneer_filter_verify_unpublish_access', $authorized, $post_id, $post )`
+Filters the boolean return value of the `fictioneer_verify_unpublish_access( $post )` function. By default, this verifies current user has access to unpublished posts (not drafts).
+
+**Parameters:**
+* $authorized (boolean) – Whether the current user can unpublish the post.
+* $post_id (int) – The post ID.
+* $post (WP_Post) – The post object.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_story_footer_meta', $meta_output, $args, $post )`
 Filters the intermediate output array of story meta data in the `_story-footer.php` partial before it is imploded and rendered. Contains the status, publish date, word count, age rating, and checkmark (if enabled).
 
