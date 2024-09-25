@@ -527,7 +527,7 @@ function fictioneer_story_chapters( $args ) {
       $chapters = fictioneer_get_story_chapter_posts( $story_id );
       $chapter_groups = [];
       $group_classes = [];
-      $allowed_permalinks = ['publish'];
+      $allowed_permalinks = apply_filters( 'fictioneer_filter_allowed_chapter_permalinks', array( 'publish' ) );
 
       if ( $hide_icons ) {
         $group_classes[] = '_no-icons';

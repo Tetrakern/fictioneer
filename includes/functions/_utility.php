@@ -1396,8 +1396,10 @@ function fictioneer_get_falsy_meta_allow_list() {
  */
 
 function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false ) {
+  $allowed_statuses = apply_filters( 'fictioneer_filter_append_chapter_to_story_statuses', [ 'publish' ], $post_id, $story_id, $force );
+
   // Abort if chapter is not published
-  if ( get_post_status( $post_id ) !== 'publish' ) {
+  if ( ! in_array( get_post_status( $post_id ), $allowed_statuses ) ) {
     return;
   }
 
