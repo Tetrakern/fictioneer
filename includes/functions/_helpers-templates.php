@@ -1282,7 +1282,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
     $chapters = fictioneer_get_story_chapter_posts( $story_id );
     $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) || get_option( 'fictioneer_hide_chapter_icons' );
     $html = '';
-    $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_list_statuses', [ 'publish' ], $story_id );
+    $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_list_statuses', ['publish'], $story_id );
 
     // Loop chapters...
     foreach ( $chapters as $chapter ) {
