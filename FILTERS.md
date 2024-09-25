@@ -1605,16 +1605,6 @@ Filters the arguments for the story chapter posts query, an utility function cal
 
 ---
 
-### `apply_filters( 'fictioneer_filter_verify_unpublish_access', $authorized, $post_id, $post )`
-Filters the boolean return value of the `fictioneer_verify_unpublish_access( $post )` function. By default, this verifies current user has access to unpublished posts (not drafts).
-
-**Parameters:**
-* $authorized (boolean) – Whether the current user can access unpublished posts.
-* $post_id (int) – The post ID.
-* $post (WP_Post) – The post object.
-
----
-
 ### `apply_filters( 'fictioneer_filter_story_footer_meta', $meta_output, $args, $post )`
 Filters the intermediate output array of story meta data in the `_story-footer.php` partial before it is imploded and rendered. Contains the status, publish date, word count, age rating, and checkmark (if enabled).
 
@@ -1752,6 +1742,16 @@ Filters the check result of whether the user’s Patreon data is still valid. Be
 * $valid (boolean) – Result of the check. True if valid, false if expired.
 * $user_id (int) – The user the check is for. 0 if not logged in.
 * $patreon_tiers (array) – The user’s Patreon tiers. Can be empty.
+
+---
+
+### `apply_filters( 'fictioneer_filter_verify_unpublish_access', $authorized, $post_id, $post )`
+Filters the boolean return value of the `fictioneer_verify_unpublish_access()` function. By default, this verifies whether the current user has access to unpublished posts (not drafts).
+
+**Parameters:**
+* $authorized (boolean) – Whether the current user can access unpublished posts.
+* $post_id (int) – The post ID.
+* $post (WP_Post) – The post object.
 
 ---
 
