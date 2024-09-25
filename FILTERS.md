@@ -703,6 +703,25 @@ Filters the sanitized POST meta box fields before they are saved, see `_setup-me
 
 ---
 
+### `apply_filters( 'fictioneer_filter_append_chapter_to_story_statuses', $statuses, $post_id, $story_id, $force )`
+Filters the array of chapter statuses that can be appended to a story `fictioneer_story_chapters` metadata in the `function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false )`. By default, the statuses are `[ 'publish' ]`.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
+* $post_id (int) – The chapter post ID.
+* $story_id (int) – The story post ID.
+* $force (boolean) – Whether to skip some guard clauses. Default false.
+
+---
+
+### `apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', $statuses )`
+Filters the array of chapter statuses that can be appended to a story `indexed_chapter_ids` array data in the `function fictioneer_get_story_data( $story_id, $show_comments = true, $args = [] )`. By default, the statuses are `[ 'publish' ]`.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_mobile_quick_buttons', $buttons )`
 Filters the intermediate output array of the `fictioneer_mobile_quick_buttons()` function before it is imploded and rendered via the `fictioneer_mobile_menu_bottom` hook. By default and depending on the page, the output can contain buttons to darken and brighten the site, toggle chapter options, open the formatting modal, or change site settings.
 
