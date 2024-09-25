@@ -563,7 +563,7 @@ function fictioneer_story_chapters( $args ) {
             'id' => $chapter_id,
             'story_id' => $story_id,
             'status' => $post->post_status,
-            'link' => in_array( $post->post_status, $allowed_permalinks ) ? get_permalink() : '',
+            'link' => in_array( $post->post_status, $allowed_permalinks ) ? get_permalink( $post->ID ) : '',
             'timestamp' => get_the_time( 'c' ),
             'password' => ! empty( $post->post_password ),
             'list_date' => get_the_date( '', $post ),
