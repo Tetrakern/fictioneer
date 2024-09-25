@@ -394,6 +394,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $visible_chapter_ids = [];
     $indexed_chapter_ids = [];
 
+    $allowed_indexed_statuses = apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', [ 'publish' ] );
+
     // Assign correct icon
     if ( $status != 'Ongoing' ) {
       switch ( $status ) {
@@ -427,7 +429,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           $visible_chapter_ids[] = $chapter->ID;
 
           // Indexed chapters (accounts for custom filers)
-          if ( $chapter->post_status === 'publish' ) {
+          if ( in_array( $chapter->post_status, $allowed_indexed_statuses ) ) {
             $indexed_chapter_ids[] = $chapter->ID;
           }
         }
