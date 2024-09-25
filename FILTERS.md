@@ -1609,7 +1609,7 @@ Filters the arguments for the story chapter posts query, an utility function cal
 Filters the boolean return value of the `fictioneer_verify_unpublish_access( $post )` function. By default, this verifies current user has access to unpublished posts (not drafts).
 
 **Parameters:**
-* $authorized (boolean) – Whether the current user can unpublish the post.
+* $authorized (boolean) – Whether the current user can access unpublished posts.
 * $post_id (int) – The post ID.
 * $post (WP_Post) – The post object.
 
