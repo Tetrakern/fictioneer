@@ -215,6 +215,15 @@ Filters the intermediate output array in the `_chapter-header.php` partial befor
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_list_statuses', $statuses, $story_id )`
+Filters the list of allowed chapter statuses during building chapter lists in the `function fictioneer_get_chapter_list_items( $story_id, $data, $current_index )` function. By default, only `['publish']` chapters are shown.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
+* $story_id (int) – Post ID of the story.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_list_item', $item, $post, $args )`
 Filters each list item HTML string used in the chapter index popup and mobile menu section (only visible on chapter pages), build inside the `fictioneer_get_chapter_list_items()` function. Not to be confused with the chapter list shown on story pages. You can either modify the string or build a new one from the given parameters.
 
