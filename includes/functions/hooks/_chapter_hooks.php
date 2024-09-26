@@ -315,8 +315,17 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   $post_status = get_post_status( $post_id );
   $unlisted = get_post_meta( $post_id, 'fictioneer_chapter_hidden', true );
 
+  // Filter allowed status
+  $allowed_statuses = apply_filters(
+    'fictioneer_filter_chapter_nav_buttons_allowed_statuses',
+    ['publish'],
+    $post_id,
+    $args,
+    $location
+  );
+
   // Do not render on hidden posts
-  if ( $post_status !== 'publish' ) {
+  if ( ! in_array( $post_status, $allowed_statuses ) ) {
     return;
   }
 
@@ -371,8 +380,10 @@ function fictioneer_chapter_subscribe_button() {
   $subscribe_buttons = fictioneer_get_subscribe_options();
   $post_status = get_post_status( get_the_ID() );
 
+  $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_subscribe_button_statuses', ['publish'], get_the_ID() );
+
   // Do not render on hidden posts
-  if ( $post_status !== 'publish' ) {
+  if ( ! in_array( $post_status, $allowed_statuses ) ) {
     return;
   }
 
@@ -428,8 +439,15 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscr
 function fictioneer_chapter_index_popup_menu( $args ) {
   $post_status = get_post_status( get_the_ID() );
 
+  $allowed_statuses = apply_filters(
+    'fictioneer_filter_chapter_index_popup_menu_statuses',
+    ['publish'],
+    get_the_ID(),
+    $args['story_post']
+  );
+
   // Do not render on hidden posts
-  if ( $post_status !== 'publish' ) {
+  if ( ! in_array( $post_status, $allowed_statuses ) ) {
     return;
   }
 
@@ -496,8 +514,10 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_book
 function fictioneer_chapter_media_buttons() {
   $post_status = get_post_status( get_the_ID() );
 
+  $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_media_buttons_statuses', ['publish'], get_the_ID() );
+
   // Do not render on hidden posts
-  if ( $post_status !== 'publish' ) {
+  if ( ! in_array( $post_status, $allowed_statuses ) ) {
     return;
   }
 

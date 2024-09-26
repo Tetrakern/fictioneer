@@ -272,8 +272,53 @@ Filters the intermediate output array of the chapter micro menu in the `fictione
 * $chapter_password (string) – Chapter password or empty string.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapter list.
-* $prev_index (int|boolean) – Index of previous chapter or false.
-* $next_index (int|boolean) – Index of next chapter or false.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+---
+
+### `apply_filters( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', $statuses, $post_id, $args, $location )`
+Filters the array of allowed post statuses for the chapter navigation buttons in the `fictioneer_chapter_nav_buttons()` function. The default is `['publish']`, but you could add `'private'` or `'future'` if you want to allow the navigation to render with these statuses.
+
+**Parameters:**
+* $statuses (array) – Array of allowed post statuses.
+* $post_id (int) – Current post ID.
+* $args (array) – Arguments passed to the function.
+* $location (string) – Location of the navigation. Either `'top'` or `'bottom'`.
+
+**$args:**
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $indexed_chapter_ids (array) – IDs of accessible chapters in the same story or empty array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+---
+
+### `apply_filters( 'fictioneer_filter_chapter_subscribe_button_statuses', $statuses, $post_id )`
+Filters the array of allowed post statuses for the chapter subscribe button in the `fictioneer_chapter_subscribe_button()` function. The default is `['publish']`, but you could add `'private'` or `'future'` if you want to allow the button to render with these statuses.
+
+**Parameters:**
+* $statuses (array) – Array of allowed post statuses.
+* $post_id (int) – Current post ID.
+
+---
+
+### `apply_filters( 'fictioneer_filter_chapter_index_popup_menu_statuses', $statuses, $post_id, $story_id )`
+Filters the array of allowed post statuses for the chapter index popup menu in the `fictioneer_chapter_index_popup_menu()` function. The default is `['publish']`, but you could add `'private'` or `'future'` if you want to allow the menu to render with these statuses.
+
+**Parameters:**
+* $statuses (array) – Array of allowed post statuses.
+* $post_id (int) – Current post ID.
+* $story_id (int) – Story ID of the chapter.
+
+---
+
+### `apply_filters( 'fictioneer_filter_chapter_media_buttons_statuses', $statuses, $post_id )`
+Filters the array of allowed post statuses for the chapter media buttons in the `fictioneer_chapter_media_buttons()` function. The default is `['publish']`, but you could add `'private'` or `'future'` if you want to allow the buttons to render with these statuses.
+
+**Parameters:**
+* $statuses (array) – Array of allowed post statuses.
+* $post_id (int) – Current post ID.
 
 ---
 
@@ -297,8 +342,8 @@ Filters the intermediate output array of the chapter support links in the `ficti
 * $chapter_password (string) – Chapter password or empty string.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapter list.
-* $prev_index (int|boolean) – Index of previous chapter or false.
-* $next_index (int|boolean) – Index of next chapter or false.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
 ---
 
