@@ -725,11 +725,14 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
  * Deletes the current user's account and anonymized their comments
  *
  * @since 5.6.0
+ * @since 5.24.4 - Optimized with bulk SQL queries.
  *
  * @return bool True if the user was successfully deleted, false otherwise.
  */
 
 function fictioneer_delete_my_account() {
+  global $wpdb;
+
   // Setup
   $current_user = wp_get_current_user();
 
@@ -748,20 +751,37 @@ function fictioneer_delete_my_account() {
   $comments = get_comments( array( 'user_id' => $current_user->ID ) );
 
   foreach ( $comments as $comment ) {
-    wp_update_comment(
-      array(
-        'comment_ID' => $comment->comment_ID,
-        'user_ID' => 0,
-        'comment_author' => fcntr( 'deleted_user' ),
-        'comment_author_email' => '',
-        'comment_author_IP' => '',
-        'comment_agent' => '',
-        'comment_author_url' => ''
+    $comment_ids = [];
+
+    foreach ( $comments as $comment ) {
+      $comment_ids[] = $comment->comment_ID;
+    }
+
+    $placeholders = implode( ',', array_fill( 0, count( $comment_ids ), '%d' ) );
+
+    $wpdb->query(
+      $wpdb->prepare(
+        "UPDATE {$wpdb->comments}
+        SET user_id = 0,
+          comment_author = %s,
+          comment_author_email = %s,
+          comment_author_IP = %s,
+          comment_agent = %s,
+          comment_author_url = %s
+        WHERE comment_ID IN ({$placeholders})",
+        fcntr( 'deleted_user' ), '', '', '', '', ...$comment_ids
       )
     );
 
     // Make absolutely sure no comment subscriptions remain
-    fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
+    $wpdb->query(
+     $wpdb->prepare(
+        "DELETE FROM {$wpdb->commentmeta}
+        WHERE meta_key = %s
+        AND comment_id IN ({$placeholders})",
+        'fictioneer_send_notifications', ...$comment_ids
+      )
+    );
   }
 
   // Delete user
