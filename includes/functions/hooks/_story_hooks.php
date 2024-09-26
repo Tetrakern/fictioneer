@@ -541,8 +541,8 @@ function fictioneer_story_chapters( $args ) {
           setup_postdata( $post );
           $chapter_id = get_the_ID();
 
-          // Skip not visible chapters
-          if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
+          // Skip missing or not visible chapters
+          if ( ! $post || get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
             continue;
           }
 
