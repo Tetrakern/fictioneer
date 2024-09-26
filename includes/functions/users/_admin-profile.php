@@ -722,6 +722,30 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
 // =============================================================================
 
 /**
+ * Returns unique username for deleted user discriminated by number
+ *
+ * @since 5.24.4
+ *
+ * @return string Unique username.
+ */
+
+function fictioneer_get_username_for_deleted() {
+  $base_username = _x( 'DeletedUser', 'Deleted user base name.', 'fictioneer' );
+  $base_username = sanitize_user( $base_username, true );
+  $unique_username = $base_username;
+  $suffix = 0;
+
+  while ( username_exists( $unique_username ) ) {
+    $suffix++;
+
+    $unique_username = $base_username . $suffix;
+    $unique_username = sanitize_user( $unique_username, true );
+  }
+
+  return $unique_username;
+}
+
+/**
  * Deletes the current user's account and anonymized their comments
  *
  * @since 5.6.0
@@ -735,11 +759,13 @@ function fictioneer_delete_my_account() {
 
   // Setup
   $current_user = wp_get_current_user();
+  $id_to_delete = $current_user->ID;
+  $success = false;
 
   // Guard
   if (
     ! $current_user ||
-    $current_user->ID === 1 ||
+    $id_to_delete === 1 ||
     in_array( 'administrator', $current_user->roles ) ||
     ! current_user_can( 'fcn_allow_self_delete' ) ||
     current_user_can( 'manage_options' )
@@ -747,8 +773,41 @@ function fictioneer_delete_my_account() {
     return false;
   }
 
+  // Prepare reassign user for posts
+  $reassign_id = null;
+
+  $user_has_posts = get_posts(
+    array(
+      'author' => $id_to_delete,
+      'posts_per_page' => 1,
+      'post_type' => 'any'
+    )
+  );
+
+  if ( ! empty( $user_has_posts ) ) {
+    $replacement_username = fictioneer_get_username_for_deleted();
+    $replacement_user = get_user_by( 'login', $replacement_username );
+
+    if ( ! $replacement_user ) {
+      $reassign_id = wp_insert_user(
+        array(
+          'user_login' => $replacement_username,
+          'user_pass' => wp_generate_password( 32 ),
+          'user_email' => 'deleted_' . $id_to_delete . '@example.com',
+          'role' => 'author'
+        )
+      );
+
+      if ( is_wp_error( $reassign_id ) ) {
+        return false;
+      }
+    } else {
+      $reassign_id = $replacement_user->ID;
+    }
+  }
+
   // Update comments
-  $comments = get_comments( array( 'user_id' => $current_user->ID ) );
+  $comments = get_comments( array( 'user_id' => $id_to_delete ) );
 
   foreach ( $comments as $comment ) {
     $comment_ids = [];
@@ -785,12 +844,21 @@ function fictioneer_delete_my_account() {
   }
 
   // Delete user
-  if ( wp_delete_user( $current_user->ID ) ) {
-    return true;
+  if ( wp_delete_user( $id_to_delete, $reassign_id ) ) {
+    $success = true;
+  }
+
+  // Multi-site?
+  if ( $success && is_multisite() ) {
+    if ( ! function_exists( 'wpmu_delete_user' ) ) {
+      require_once ABSPATH . '/wp-admin/includes/ms.php';
+    }
+
+    $success = wpmu_delete_user( $id_to_delete );
   }
 
   // Failure
-  return false;
+  return $success;
 }
 
 // =============================================================================
