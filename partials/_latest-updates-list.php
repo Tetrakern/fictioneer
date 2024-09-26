@@ -254,6 +254,10 @@ if ( $splide ) {
             foreach ( $search_list as $chapter_id ) {
               $chapter_post = get_post( $chapter_id );
 
+              if ( ! $chapter_post ) {
+                continue;
+              }
+
               if ( ! $chapter_post || get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
                 continue;
               }
