@@ -298,7 +298,7 @@ function fictioneer_remove_first_publish_date_from_meta() {
 add_action( 'fictioneer_after_update', 'fictioneer_remove_first_publish_date_from_meta' );
 
 /**
- * Convert user deleted comments to user_deleted type and delete meta fields
+ * Converts user deleted comments to user_deleted type and delete meta fields
  *
  * @since 5.24.1
  */
@@ -326,6 +326,30 @@ function fictioneer_migrate_deleted_comments() {
   );
 }
 add_action( 'fictioneer_after_update', 'fictioneer_migrate_deleted_comments' );
+
+/**
+ * Deletes obsolete comment meta fields
+ *
+ * @since 5.24.4
+ */
+
+function fictioneer_remove_obsolete_comment_meta() {
+  global $wpdb;
+
+  $meta_keys = ['fictioneer_deleted_user_id', 'fictioneer_deleted_username_substr', 'fictioneer_deleted_email_substr'];
+  $placeholders = implode( ',', array_fill( 0, count( $meta_keys ), '%s' ) );
+
+  $wpdb->query(
+    $wpdb->prepare(
+      "
+      DELETE FROM {$wpdb->commentmeta}
+      WHERE meta_key IN ($placeholders)
+      ",
+      ...$meta_keys
+    )
+  );
+}
+add_action( 'fictioneer_after_update', 'fictioneer_remove_obsolete_comment_meta' );
 
 // =============================================================================
 // SIDEBAR

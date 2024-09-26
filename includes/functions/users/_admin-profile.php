@@ -762,11 +762,6 @@ function fictioneer_delete_my_account() {
 
     // Make absolutely sure no comment subscriptions remain
     fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
-
-    // Retain some (redacted) data in case there was a mistake
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_user_id', $current_user->ID );
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_username_substr', substr( $current_user->user_login, 0, 3 ) );
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_email_substr', substr( $comment->comment_author_email, 0, 3 ) );
   }
 
   // Delete user
