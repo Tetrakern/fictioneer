@@ -780,7 +780,11 @@ function fictioneer_delete_my_account() {
     array(
       'author' => $id_to_delete,
       'posts_per_page' => 1,
-      'post_type' => 'any'
+      'post_type' => 'any',
+      'post_status' => 'any',
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'no_found_rows' => true
     )
   );
 
