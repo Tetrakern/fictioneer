@@ -813,13 +813,8 @@ function fictioneer_delete_my_account() {
   // Update comments
   $comments = get_comments( array( 'user_id' => $id_to_delete ) );
 
-  foreach ( $comments as $comment ) {
-    $comment_ids = [];
-
-    foreach ( $comments as $comment ) {
-      $comment_ids[] = $comment->comment_ID;
-    }
-
+  if ( ! empty( $comments ) ) {
+    $comment_ids = wp_list_pluck( $comments, 'comment_ID' );
     $placeholders = implode( ',', array_fill( 0, count( $comment_ids ), '%d' ) );
 
     $wpdb->query(
