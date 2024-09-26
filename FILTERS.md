@@ -53,6 +53,14 @@ Filters the data to be returned as JSON by the `fictioneer_ajax_get_user_data()`
 
 ---
 
+### `apply_filters( 'fictioneer_filter_allowed_chapter_permalinks', $statuses )`
+Filters the array of chapter statuses that control whether the chapter permalink is rendered in the `fictioneer_story_chapters()` function. By default, the statuses only include `['publish']`.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_allowed_orderby', $defaults )`
 Filters the array of allowed orderby arguments for WP_Query.
 
@@ -67,6 +75,17 @@ Filters the array of allowed orderby arguments for WP_Query.
 * $7 (string) – `type`
 * $8 (string) – `post__in`
 * $9 (string) – `author`
+
+---
+
+### `apply_filters( 'fictioneer_filter_append_chapter_to_story_statuses', $statuses, $post_id, $story_id, $force )`
+Filters the array of chapter statuses that can be appended to a story’s `fictioneer_story_chapters` metadata in the `fictioneer_append_chapter_to_story()` function. By default, the statuses are `['publish']`.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
+* $post_id (int) – The chapter post ID.
+* $story_id (int) – The story post ID.
+* $force (boolean) – Whether to skip some guard clauses. Default false.
 
 ---
 
@@ -298,6 +317,14 @@ Filters the array of support links returned for the current post (or post ID if 
 * $post_id (int|null) – Post ID. Unsafe.
 * $parent_id (int|null) – Parent (story) post ID. Unsafe.
 * $author_id (int|null) – Author ID. Unsafe.
+
+---
+
+### `apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', $statuses )`
+Filters the array of chapter statuses that can be appended to a story’s `indexed_chapter_ids` array in the `fictioneer_get_story_data()` function. By default, the statuses are `['publish']`.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
 
 ---
 

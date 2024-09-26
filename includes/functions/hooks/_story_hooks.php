@@ -512,7 +512,7 @@ function fictioneer_story_chapters( $args ) {
   $story = $args['story_data'];
   $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
   $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) ||
-  get_option( 'fictioneer_hide_chapter_icons' );
+    get_option( 'fictioneer_hide_chapter_icons' );
   $enable_groups = get_option( 'fictioneer_enable_chapter_groups' ) &&
     ! get_post_meta( $story_id, 'fictioneer_story_disable_groups', true );
   $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true );
@@ -527,7 +527,7 @@ function fictioneer_story_chapters( $args ) {
       $chapters = fictioneer_get_story_chapter_posts( $story_id );
       $chapter_groups = [];
       $group_classes = [];
-      $allowed_permalinks = ['publish'];
+      $allowed_permalinks = apply_filters( 'fictioneer_filter_allowed_chapter_permalinks', ['publish'] );
 
       if ( $hide_icons ) {
         $group_classes[] = '_no-icons';
