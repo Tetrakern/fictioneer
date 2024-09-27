@@ -293,6 +293,10 @@ function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
     }
   }
 
+  if ( $option === 'fictioneer_hide_large_card_chapter_list' ) {
+    fictioneer_purge_story_card_cache();
+  }
+
   // Relay
   fictioneer_log_checkbox_update(
     fictioneer_get_option_label( $option ),
