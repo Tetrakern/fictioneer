@@ -130,11 +130,20 @@ fcn_applyStorySettings();
 // ORDER & VIEW
 // =============================================================================
 
+var fcn_isToggling = false;
+
 // Event listener for to toggle chapter order
 _$$('[data-click-action*="toggle-chapter-order"]').forEach(button => {
   button.addEventListener(
     'click',
     event => {
+      if (fcn_isToggling) {
+        return; // Prevent multi-fire
+      }
+
+      fcn_isToggling = true;
+      setTimeout( () => fcn_isToggling = false, 50 );
+
       fcn_storySettings['order'] = event.currentTarget.dataset.order === 'asc' ? 'desc' : 'asc';
       fcn_setStorySettings(fcn_storySettings);
       fcn_applyStorySettings();
@@ -147,6 +156,13 @@ _$$('[data-click-action*="toggle-chapter-view"]').forEach(button => {
   button.addEventListener(
     'click',
     event => {
+      if (fcn_isToggling) {
+        return; // Prevent multi-fire
+      }
+
+      fcn_isToggling = true;
+      setTimeout( () => fcn_isToggling = false, 50 );
+
       fcn_storySettings['view'] = event.currentTarget.dataset.view === 'list' ? 'grid' : 'list';
       fcn_setStorySettings(fcn_storySettings);
       fcn_applyStorySettings();
