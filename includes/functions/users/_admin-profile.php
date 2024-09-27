@@ -2167,7 +2167,7 @@ function fictioneer_admin_danger_zone( $profile_user ) {
   <tr class="user-danger-zone-wrap">
     <th><label for=""><?php _e( 'Delete Account', 'fictioneer' ); ?></label></th>
     <td>
-      <p style="margin: 0.35em 0 1em !important;"><?php _e( 'You can delete your account and associated data with it. Submitted <em>content</em> such as comments will remain under the “Deleted User” name unless you clear that <em>prior</em>. Be aware that once you delete your account, there is no going back.', 'fictioneer' ); ?></p>
+      <p style="margin: 0.35em 0 1em !important;"><?php _e( 'You can delete your account and associated user data with it. Submitted <em>content</em> such as comments and posts will remain under the “Deleted User” name unless you remove them <em>prior</em>. Be aware that once you delete your account, there is no going back.', 'fictioneer' ); ?></p>
       <fieldset>
         <div>
           <a
