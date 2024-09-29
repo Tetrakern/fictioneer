@@ -1002,7 +1002,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     array(
       'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
-      'default' => 210
+      'default' => absint( get_theme_mod( 'logo_height', 210 ) )
     )
   );
 
