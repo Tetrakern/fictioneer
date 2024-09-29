@@ -709,7 +709,8 @@ function fictioneer_build_customize_css( $context = null ) {
   $main_offset = (int) get_theme_mod( 'main_offset', 0 );
   $sidebar_width = (int) get_theme_mod( 'sidebar_width', 256 );
   $sidebar_gap = (int) get_theme_mod( 'sidebar_gap', 48 );
-  $logo_height = (int) get_theme_mod( 'logo_height', 210 );
+  $logo_min_height = (int) get_theme_mod( 'logo_min_height', 210 );
+  $logo_max_height = (int) get_theme_mod( 'logo_height', 210 );
   $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
   $title_max = (int) get_theme_mod( 'site_title_font_size_max', 60 );
   $tagline_min = (int) get_theme_mod( 'site_tagline_font_size_min', 13 );
@@ -743,6 +744,12 @@ function fictioneer_build_customize_css( $context = null ) {
   $dark_shade = fictioneer_hex_to_rgb( get_theme_mod( 'dark_shade', '000000' ) );
   $dark_shade = is_array( $dark_shade ) ? $dark_shade : [0, 0, 0];
 
+  if ( $logo_min_height < $logo_max_height ) {
+    $logo_height = fictioneer_get_css_clamp( $logo_min_height, $logo_max_height, 320, $site_width );
+  } else {
+    $logo_height = $logo_max_height . 'px';
+  }
+
   $css .= ":root {
     --site-width: {$site_width}px;
     --main-offset: {$main_offset}px;
@@ -755,7 +762,9 @@ function fictioneer_build_customize_css( $context = null ) {
     --font-lightness-offset: " . $font_lightness_offset_dark / 100 . ";
     --header-image-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
     --header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--page-inset-top, 0px));
-    --header-logo-height: {$logo_height}px;
+    --header-logo-height: {$logo_height};
+    --header-logo-min-height: {$logo_min_height};
+    --header-logo-max-height: {$logo_max_height};
     --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
     --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
     --grid-columns-min: {$card_grid_column_min}px;

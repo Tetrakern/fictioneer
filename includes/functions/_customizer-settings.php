@@ -996,7 +996,33 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
  */
 
 function fictioneer_add_header_customizer_settings( $manager ) {
-  // Logo height (limited by header height)
+  // Logo min height
+  $manager->add_setting(
+    'logo_min_height',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'absint',
+      'default' => 210
+    )
+  );
+
+  $manager->add_control(
+    'logo_min_height',
+    array(
+      'type' => 'number',
+      'priority' => 8,
+      'section' => 'title_tagline',
+      'label' => __( 'Logo Height - Minimum', 'fictioneer' ),
+      'description' => __( 'Minimum height of the logo in pixels on 320px viewports, which some header types limit further. Default 210.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '210',
+        'style' => 'width: 80px',
+        'min' => 0
+      )
+    )
+  );
+
+  // Logo max height
   $manager->add_setting(
     'logo_height',
     array(
@@ -1012,8 +1038,8 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'type' => 'number',
       'priority' => 9,
       'section' => 'title_tagline',
-      'label' => __( 'Logo Height', 'fictioneer' ),
-      'description' => __( 'Height of the logo in pixel, which will be limited by the header height. Default 210. Further adjustments require custom CSS.', 'fictioneer' ),
+      'label' => __( 'Logo Height - Maximum', 'fictioneer' ),
+      'description' => __( 'Maximum height of the logo in pixels on [site-width] viewports, which some header types limit further. Default 210.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '210',
         'style' => 'width: 80px',
