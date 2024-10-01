@@ -45,6 +45,10 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
   }
 }
 
+body:not(.user-is-tabbing) :is(.modal__close, .dialog-modal__close) {
+  outline: none;
+}
+
 body {
   background-color: var(--body-bg-color);
   color: var(--fg-500);
