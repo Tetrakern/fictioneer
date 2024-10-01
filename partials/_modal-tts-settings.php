@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) OR exit;
 
     <div class="modal__header drag-anchor"><?php _ex( 'TTS Settings', 'TTS modal heading.', 'fictioneer' ); ?></div>
 
-    <div class="modal__description modal__row">
+    <div class="modal__description modal__row _small-top">
       <p><?php _e( 'The text-to-speech engine is an experimental browser feature. It might not always work as intended. On Android, you need the following app permissions for this to work: ', 'fictioneer' ); ?></p>
       <p><?php _e( '<strong>[Microphone]</strong> and <strong>[Music and audio]</strong>', 'fictioneer' ); ?></p>
     </div>

@@ -30,7 +30,7 @@ foreach ( $changelog as $entry ) {
     </label>
     <div class="modal__header drag-anchor"><?php _e( 'Changelog', 'fictioneer' ); ?></div>
 
-    <div class="modal__row _textarea">
+    <div class="modal__row _textarea _small-top">
       <textarea class="modal__textarea _changelog" readonly><?php echo $output; ?></textarea>
     </div>
   </div>

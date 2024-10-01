@@ -37,7 +37,7 @@ if ( empty( $redirect_url ) ) {
         echo get_option( 'fictioneer_phrase_site_age_confirmation' ) ?: __( 'This website is intended for an adult audience. Please confirm that you are of legal age (18+) or leave the website.', 'fictioneer' );
       ?></div>
     <?php else : ?>
-      <div class="modal__row modal__description _large"><?php
+      <div class="modal__row modal__description _large _small-top"><?php
         echo get_option( 'fictioneer_phrase_post_age_confirmation' ) ?: __( 'This content is intended for an adult audience. Please confirm that you are of legal age (18+) or leave the website.', 'fictioneer' );
       ?></div>
     <?php endif; ?>

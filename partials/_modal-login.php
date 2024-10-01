@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) OR exit;
       );
     ?>
 
-    <div class="modal__row modal__description"><?php echo $info; ?></div>
+    <div class="modal__row modal__description _small-top"><?php echo $info; ?></div>
 
     <div class="modal__row login__options"><?php do_action( 'fictioneer_modal_login_option' ); ?></div>
   </div>

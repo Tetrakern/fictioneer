@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) OR exit;
     </label>
     <div class="modal__header drag-anchor"><?php echo fcntr( 'bbcodes_modal' ); ?></div>
 
-    <div class="modal__row modal__description _bbcodes">
+    <div class="modal__row modal__description _bbcodes _small-top">
       <div><?php echo fcntr( 'bbcode_b' ); ?></div>
       <div><?php echo fcntr( 'bbcode_i' ); ?></div>
       <div><?php echo fcntr( 'bbcode_s' ); ?></div>

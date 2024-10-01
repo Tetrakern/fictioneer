@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) OR exit;
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
     <div class="modal__header drag-anchor"><?php echo fcntr( 'site_settings' ); ?></div>
-    <div class="modal__description modal__row site-settings__description site-settings__row">
+    <div class="modal__description modal__row site-settings__description site-settings__row _small-top">
       <p><?php _e( 'You can toggle selected features and styles per device/browser to boost performance. Some options may not be available.', 'fictioneer' ); ?></p>
     </div>
     <hr>
