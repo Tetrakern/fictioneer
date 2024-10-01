@@ -3407,6 +3407,7 @@ if ( ! function_exists( 'mb_strlen' ) ) {
  * Note: Qualified post types are fcn_story, fcn_chapter, fcn_recommendation,
  * and post. The result is cached for 12 hours as Transient.
  *
+ * @since 5.24.0
  * @link https://developer.wordpress.org/reference/functions/get_users/
  *
  * @param array $args  Optional. Array of additional query arguments.
@@ -3437,4 +3438,35 @@ function fictioneer_get_publishing_authors( $args = [] ) {
   set_transient( $key, $authors, 12 * HOUR_IN_SECONDS );
 
   return $authors;
+}
+
+// =============================================================================
+// GET POST STATUS LABEL
+// =============================================================================
+
+/**
+ * Returns the translated label of the post status
+ *
+ * @since 5.24.5
+ *
+ * @param string $status  Post status.
+ *
+ * @return string Translated label of the post status or the post status if custom.
+ */
+
+function fictioneer_get_post_status_label( $status ) {
+  static $labels = null;
+
+  if ( ! $labels ) {
+    $labels = array(
+      'draft' => get_post_status_object( 'draft' )->label,
+      'pending' => get_post_status_object( 'pending' )->label,
+      'publish' => get_post_status_object( 'publish' )->label,
+      'private' => get_post_status_object( 'private' )->label,
+      'future' => get_post_status_object( 'future' )->label,
+      'trash' => get_post_status_object( 'trash' )->label
+    );
+  }
+
+  return $labels[ $status ] ?? $status;
 }

@@ -1118,27 +1118,18 @@ add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax
  */
 
 function fictioneer_callback_relationship_chapters( $selected, $meta_key, $args = [] ) {
-  // Setup
-  $status_labels = array(
-    'draft' => get_post_status_object( 'draft' )->label,
-    'pending' => get_post_status_object( 'pending' )->label,
-    'publish' => get_post_status_object( 'publish' )->label,
-    'private' => get_post_status_object( 'private' )->label,
-    'future' => get_post_status_object( 'future' )->label,
-    'trash' => get_post_status_object( 'trash' )->label,
-  );
-
   // Build HTML
   foreach ( $selected as $chapter ) {
     $title = fictioneer_get_safe_title( $chapter, 'admin-callback-relationship-chapters' );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
+    $label = fictioneer_get_post_status_label( $chapter->post_status );
 
     if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
       $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
     }
 
     if ( $chapter->post_status !== 'publish' ) {
-      $title = "{$title} ({$status_labels[ $chapter->post_status ]})";
+      $title = "{$title} ({$label})";
     }
 
     // Start HTML ---> ?>
@@ -1206,20 +1197,13 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
   // Setup
   $nonce = wp_create_nonce( "relationship_posts_{$meta_key}_{$post_id}" );
   $output = [];
-  $status_labels = array(
-    'draft' => get_post_status_object( 'draft' )->label,
-    'pending' => get_post_status_object( 'pending' )->label,
-    'publish' => get_post_status_object( 'publish' )->label,
-    'private' => get_post_status_object( 'private' )->label,
-    'future' => get_post_status_object( 'future' )->label,
-    'trash' => get_post_status_object( 'trash' )->label,
-  );
 
   // Build HTML for items
   foreach ( $query->posts as $chapter ) {
     // Chapter setup
     $title = fictioneer_get_safe_title( $chapter, 'admin-ajax-get-relationship-chapters' );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
+    $label = fictioneer_get_post_status_label( $chapter->post_status );
 
     // Update title if necessary
     if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
@@ -1227,7 +1211,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
     }
 
     if ( $chapter->post_status !== 'publish' ) {
-      $title = "{$title} ({$status_labels[ $chapter->post_status ]})";
+      $title = "{$title} ({$label})";
     }
 
     // Build and append item
@@ -1286,15 +1270,6 @@ function fictioneer_get_relationship_chapter_details( $chapter ) {
   $warning = get_post_meta( $chapter->ID, 'fictioneer_chapter_warning', true );
   $group = get_post_meta( $chapter->ID, 'fictioneer_chapter_group', true );
   $flags = [];
-  $status_labels = array(
-    'draft' => get_post_status_object( 'draft' )->label,
-    'pending' => get_post_status_object( 'pending' )->label,
-    'publish' => get_post_status_object( 'publish' )->label,
-    'private' => get_post_status_object( 'private' )->label,
-    'future' => get_post_status_object( 'future' )->label,
-    'trash' => get_post_status_object( 'trash' )->label,
-  );
-  $status = $status_labels[ $chapter->post_status ];
   $info = [];
 
   // Build
@@ -1310,7 +1285,7 @@ function fictioneer_get_relationship_chapter_details( $chapter ) {
 
   $info[] = sprintf(
     _x( '<strong>Status:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ),
-    $status
+    fictioneer_get_post_status_label( $chapter->post_status )
   );
 
   $info[] = sprintf(
@@ -2800,13 +2775,10 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   if ( $selectable_stories->have_posts() ) {
     foreach ( $selectable_stories->posts as $story ) {
       if ( $story->post_status !== 'publish' ) {
-        $status_object = get_post_status_object( $story->post_status );
-        $status_label = $status_object ? $status_object->label : $story->post_status;
-
         $stories[ $story->ID ] = sprintf(
           _x( '%s (%s)', 'Chapter story meta field option with status label.', 'fictioneer' ),
           fictioneer_get_safe_title( $story->ID, 'admin-render-chapter-data-metabox-selectable-suffix' ),
-          $status_label
+          fictioneer_get_post_status_label( $story->post_status )
         );
       } else {
         $stories[ $story->ID ] = fictioneer_get_safe_title( $story->ID, 'admin-render-chapter-data-metabox-selectable' );
@@ -2828,10 +2800,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 
       // Other status
       if ( get_post_status( $current_story_id ) === 'publish' ) {
-        $status_object = get_post_status_object( $story->post_status );
-        $status_label = $status_object ? $status_object->label : $story->post_status;
-
-        $suffix['status'] = $status_label;
+        $suffix['status'] = fictioneer_get_post_status_label( $story->post_status );
       }
 
       // Prepare suffix
