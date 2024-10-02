@@ -248,7 +248,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    */
 
   function fictioneer_get_icon( $icon, $classes = '', $id = '', $inserts = '' ) {
-    return '<svg id="' . $id . '" ' . $inserts . ' class="icon _' . $icon . ' ' . $classes . '">' . '<use xlink:href="' . esc_url( get_template_directory_uri() ) . '/img/icon-sprite.svg?ver=' . FICTIONEER_VERSION . '#icon-' . $icon . '"></use></svg>';
+    return '<svg id="' . $id . '" ' . $inserts . ' class="icon _' . $icon . ' ' . $classes . '">' . '<use xlink:href="' . esc_url( home_url( '/wp-content/themes/fictioneer/img/icon-sprite.svg?ver=' . FICTIONEER_VERSION . '#icon-' . $icon ) ) . '"></use></svg>';
   }
 }
 
