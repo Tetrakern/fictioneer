@@ -149,7 +149,7 @@ if ( $splide ) {
 
     <?php if ( $query->have_posts() ) : ?>
 
-      <ul class="grid-columns _collapse-on-mobile <?php if ( $splide ) { echo 'splide__list'; } ?>">
+      <ul class="grid-columns <?php if ( $splide ) { echo 'splide__list'; } ?>">
         <?php
           while ( $query->have_posts() ) {
             $query->the_post();

@@ -60,16 +60,6 @@ body:not(.is-editor):not(.is-admin) {
     calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1))
     calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));
   contain: style layout;
-
-  &._collapse-on-mobile {
-    @media only screen and (max-width: 767px) {
-      display: block;
-
-      > :not(:last-child) {
-        margin-bottom: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1));
-      }
-    }
-  }
 }
 
 .text-overflow-ellipsis {
