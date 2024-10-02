@@ -1,3 +1,7 @@
+@import 'common/_functions';
+@import 'common/_mixins';
+@import 'common/_variables';
+
 .post-list {
   display: flex;
   flex-direction: column;
@@ -125,7 +129,7 @@
     color: var(--post-list-title-color, var(--heading-link-color));
     font-family: var(--ff-post-list-title, var(--ff-heading));
     font-weight: var(--font-weight-medium);
-    font-size: get_clamp(13, 14, 320, 768); // Fallback
+    font-size: var(--post-list-title-font-size, #{get_clamp(13, 14, 320, 768)}); // Fallback
     font-size: var(--post-list-title-font-size, clamp(13px, 4.1cqw, 14px));
     margin-right: 128px;
     width: fit-content;
@@ -147,7 +151,7 @@
     grid-area: meta;
     color: var(--post-list-meta-color, var(--fg-600));
     font-family: var(--ff-post-list-meta, var(--ff-note));
-    font-size: var(--post-list-meta-font-size, 13px); // Fallback
+    font-size: var(--post-list-meta-font-size, #{get_clamp(12, 13, 320, 768)}); // Fallback
     font-size: var(--post-list-meta-font-size, clamp(12px, 3.5cqw, 13px));
     line-height: 1.5;
     margin-top: 4px;
@@ -205,6 +209,49 @@
       opacity: 1;
 
       &::before {
+        display: inline;
+      }
+    }
+  }
+}
+
+.elementor {
+  @media only screen and (max-width: 767.999px) {
+    .post-list {
+      container-type: normal;
+
+      &-item {
+        &__title {
+          font-size: var(--post-list-title-font-size, #{get_clamp(13, 14, 320, 768)});
+        }
+
+        &__meta,
+        &__tax {
+          font-size: var(--post-list-meta-font-size, #{get_clamp(12, 13, 320, 768)});
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 639px) {
+    .post-list-item__title {
+      margin-right: 0;
+    }
+
+    :where(._floating-right) {
+      position: static;
+      opacity: 1;
+
+      &::before {
+        display: inline;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 549.999px) {
+    .post-list-item__meta {
+      &-chapter,
+      &-in-story {
         display: inline;
       }
     }
