@@ -688,6 +688,26 @@ Filters the URL of the header image in the `header.php` template.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_icon_menu_items', $items, $args )`
+Filters the intermediate item array of the `fictioneer_render_icon_menu()` function before it is imploded and rendered.
+
+**$items:**
+* $login (string|null) – HTML for the login modal icon toggle.
+* $profile (string|null) – HTML for the profile icon link.
+* $bookmarks (string|null) – HTML for the bookmarks icon link.
+* $discord (string|null) – HTML for the Discord icon link.
+* $follows (string|null) – HTML for the Follows icon menu.
+* $search (string|null) – HTML for the search icon link.
+* $lightswitch (string) – HTML for the dark/light mode icon toggle.
+* $settings (string) – HTML for the setting modal icon toggle.
+* $rss (string|null) – HTML for the RSS icon link.
+* $logout (string|null) – HTML for the logout icon link.
+
+**$args:**
+* $location (string) – Name of the render location, either `'in-navigation'` or `'in-mobile-menu'`.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_inline_storage', $attributes )`
 Filters the intermediate output array (tuples) for the `#inline-storage` data attributes before it is mapped, imploded, and rendered in the `header.php` template. These values are important for several scripts and stored in the `fcn_inlineStorage` JavaScript constant.
 

@@ -2384,6 +2384,9 @@ function fictioneer_render_icon_menu( $args ) {
     );
   }
 
+  // Apply filters
+  $output = apply_filters( 'fictioneer_filter_icon_menu_items', $output, $args );
+
   // Render
   echo '<div class="icon-menu _' . $location . '" data-nosnippet>' . implode( '', $output ) . '</div>';
 }
