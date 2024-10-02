@@ -2385,5 +2385,5 @@ function fictioneer_render_icon_menu( $args ) {
   }
 
   // Render
-  echo '<div class="icon-menu ' . $location . '" data-nosnippet>' . implode( '', $output ) . '</div>';
+  echo '<div class="icon-menu _' . $location . '" data-nosnippet>' . implode( '', $output ) . '</div>';
 }
