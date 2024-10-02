@@ -2247,8 +2247,6 @@ function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anch
 /**
  * Returns the HTML of the bullet separator
  *
- * Note:
- *
  * @since 5.23.0
  *
  * @param string|null $context  Optional. The render context.
@@ -2264,4 +2262,128 @@ function fictioneer_get_bullet_separator( $context = null, $blank = false ) {
     $blank ? '' : '<span class="separator-dot">&#8196;&bull;&#8196;</span>',
     $context
   );
+}
+
+// =============================================================================
+// ICON MENU
+// =============================================================================
+
+/**
+ * Renders the icon menu
+ *
+ * @since 5.25.0
+ *
+ * @param array $args['location']  Either 'in-navigation' or 'in-mobile-menu'.
+ */
+
+function fictioneer_render_icon_menu( $args ) {
+  // Setup
+  $output = [];
+  $location = $args['location'] ?? 'location-missing';
+  $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
+  $discord_invite_link = get_option( 'fictioneer_discord_invite_link' );
+  $profile_link = get_edit_profile_url();
+  $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
+
+  if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
+    $profile_link = fictioneer_get_assigned_page_link( 'fictioneer_user_profile_page' );
+  }
+
+  // Build items
+  if ( fictioneer_show_login() ) {
+    $output['login'] = sprintf(
+      '<div class="menu-item menu-item-icon subscriber-login hide-if-logged-in"><label for="modal-login-toggle" title="%1$s" tabindex="0" aria-label="%2$s">%3$s</label></div>',
+      esc_attr__( 'Login', 'fictioneer' ),
+      esc_attr__( 'Open login modal', 'fictioneer' ),
+      fictioneer_get_icon( 'fa-login' )
+    );
+  }
+
+  if ( fictioneer_show_auth_content() ) {
+    $output['profile'] = sprintf(
+      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><a href="%1$s" title="%2$s" class="subscriber-profile" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-circle-user user-icon"></i></a><ul class="sub-menu">%4$s</ul></div>',
+      esc_url( $profile_link ),
+      esc_attr__( 'User Profile', 'fictioneer' ),
+      esc_attr__( 'Link to user profile', 'fictioneer' ),
+      fictioneer_user_menu_items()
+    );
+  }
+
+  if ( ! empty( $bookmarks_link ) ) {
+    $output['bookmarks'] = sprintf(
+      '<div class="menu-item menu-item-icon icon-menu-bookmarks hidden hide-if-logged-in"><a href="%1$s" title="%2$s" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-bookmark"></i></a></div>',
+      esc_url( $bookmarks_link ),
+      esc_attr__( 'Bookmarks Page', 'fictioneer' ),
+      esc_attr__( 'Link to bookmarks page', 'fictioneer' )
+    );
+  }
+
+  if ( ! empty( $discord_invite_link ) ) {
+    $output['discord'] = sprintf(
+      '<div class="menu-item menu-item-icon icon-menu-discord hide-if-logged-in"><a href="%1$s" title="%2$s" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-brands fa-discord"></i></a></div>',
+      esc_url( $discord_invite_link ),
+      esc_attr__( 'Join Discord', 'fictioneer' ),
+      esc_attr__( 'Discord invite link', 'fictioneer' )
+    );
+  }
+
+  if (
+    $location === 'in-navigation' &&
+    get_option( 'fictioneer_enable_follows' ) &&
+    fictioneer_show_auth_content()
+  ) {
+    $output['follows'] = sprintf(
+      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><button id="follow-menu-button" class="icon-menu__item _with-submenu follow-menu-item follows-alert-number mark-follows-read" aria-label="%1$s">%2$s<i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i><span class="follow-menu-item__read">%3$s</span></button><div class="follow-notifications sub-menu"><div id="follow-menu-scroll" class="follow-notifications__scroll"><div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">%4$s</div></div></div></div></div></div>',
+      esc_attr__( 'Mark follows as read', 'fictioneer' ),
+      fictioneer_get_icon( 'fa-bell' ),
+      _x( 'Read', 'Mark as read button.', 'fictioneer' ),
+      __( 'Looking for updates...', 'fictioneer' )
+    );
+  }
+
+  if ( $location === 'in-navigation' && FICTIONEER_SHOW_SEARCH_IN_MENUS ) {
+    $output['search'] = sprintf(
+      '<div class="menu-item menu-item-icon"><a href="%1$s" title="%2$s" rel="nofollow" aria-label="%3$s"><i class="fa-solid fa-magnifying-glass"></i></a></div>',
+      esc_url( home_url( '/?s=' ) ),
+      esc_attr__( 'Search Page', 'fictioneer' ),
+      esc_attr__( 'Link to search page', 'fictioneer' )
+    );
+  }
+
+  $output['lightswitch'] = sprintf(
+    '<div class="menu-item menu-item-icon toggle-light-mode"><button title="%1$s" role="checkbox" aria-checked="false" aria-label="%2$s">%3$s</button></div>',
+    esc_attr__( 'Toggle Dark/Light Mode', 'fictioneer' ),
+    esc_attr__( 'Toggle between dark mode and light mode', 'fictioneer' ),
+    fictioneer_get_icon( 'fa-sun', 'only-darkmode' ) . fictioneer_get_icon( 'fa-moon', 'only-lightmode' )
+  );
+
+  $output['settings'] = sprintf(
+    '<div class="menu-item menu-item-icon site-setting"><label for="modal-site-settings-toggle" title="%1$s" tabindex="0" aria-label="%2$s">%3$s</label></div>',
+    esc_attr__( 'Site Settings', 'fictioneer' ),
+    esc_attr__( 'Open site settings modal', 'fictioneer' ),
+    fictioneer_get_icon( 'fa-tools' )
+  );
+
+  if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
+    $output['rss'] = sprintf(
+      '<div class="menu-item menu-item-icon rss-main-link"><a href="%1$s" title="%2$s" aria-label="%3$s">%4$s</a></div>',
+      esc_url( home_url( 'feed' ) ),
+      esc_attr__( 'Site RSS', 'fictioneer' ),
+      esc_attr__( 'Link to site RSS feed', 'fictioneer' ),
+      fictioneer_get_icon( 'fa-rss' )
+    );
+  }
+
+  if ( $location === 'in-mobile-menu' && fictioneer_show_auth_content() ) {
+    $output['logout'] = sprintf(
+      '<div class="menu-item menu-item-icon hide-if-logged-out"><a href="%1$s" title="%2$s" data-click="logout" rel="noopener noreferrer nofollow" aria-label="%3$s">%4$s</a></div>',
+      fictioneer_get_logout_url(),
+      esc_attr__( 'Logout', 'fictioneer' ),
+      esc_attr__( 'Click to log out', 'fictioneer' ),
+      fictioneer_get_icon( 'fa-logout' )
+    );
+  }
+
+  // Render
+  echo '<div class="icon-menu ' . $location . '" data-nosnippet>' . implode( '', $output ) . '</div>';
 }

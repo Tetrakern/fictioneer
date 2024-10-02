@@ -59,7 +59,7 @@ add_action( 'fictioneer_body', 'fictioneer_output_mobile_menu', 20 );
  */
 
 function fictioneer_mobile_user_icon_menu() {
-  get_template_part( 'partials/_icon-menu', null, array( 'location' => 'in-mobile-menu' ) );
+  fictioneer_render_icon_menu( array( 'location' => 'in-mobile-menu' ) );
 }
 add_action( 'fictioneer_mobile_menu_top', 'fictioneer_mobile_user_icon_menu', 10 );
 
