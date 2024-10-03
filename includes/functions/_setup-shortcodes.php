@@ -2355,8 +2355,8 @@ function fictioneer_shortcode_tooltip( $atts, $content = null ) {
   // Convert _text_ to <em>text</em>
   $modal_content = preg_replace( '/_(.*?)_/', '<em>$1</em>', $modal_content );
 
-  // Convert *text* to <b>text</b>
-  $modal_content = preg_replace( '/\*(.*?)\*/', '<b>$1</b>', $modal_content );
+  // Convert *text* to <strong>text</strong>
+  $modal_content = preg_replace( '/\*(.*?)\*/', '<strong>$1</strong>', $modal_content );
 
   // Cleanup
   $modal_content = str_replace( '$ESCAPED_ASTERISK$', '*', $modal_content );
