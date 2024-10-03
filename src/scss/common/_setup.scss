@@ -80,11 +80,11 @@ article {
   contain: layout style; // Improve performance
 }
 
-:root a:where(:not(.wp-element-button)):is(a) {
+:root a:where(:not(.wp-element-button, .modal-tooltip)):is(a) {
   text-decoration: none; // WP bullshit
 }
 
-a:where(:not(.button, .wp-element-button)) {
+a:where(:not(.button, .wp-element-button, .modal-tooltip)) {
   cursor: pointer;
   color: var(--layout-link-color);
   text-decoration: none;

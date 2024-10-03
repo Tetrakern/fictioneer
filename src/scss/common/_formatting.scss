@@ -62,8 +62,8 @@ img {
   }
 }
 
-p a:not(.wp-element-button),
-.content-section :is(.wp-block-table, .wp-block-pullquote, .wp-block-list) a:not(.wp-element-button),
+p a:not(.wp-element-button, .modal-tooltip),
+.content-section :is(.wp-block-table, .wp-block-pullquote, .wp-block-list) a:not(.wp-element-button, .modal-tooltip),
 .link {
   color: var(--inline-link-color);
   border-bottom: var(--inline-link-color-border);
@@ -80,6 +80,16 @@ p a:not(.wp-element-button),
 
   &:is(.comment-anchor, .comment-image-link) {
     border-bottom: none;
+  }
+}
+
+a.modal-tooltip {
+  cursor: help;
+  text-decoration: underline var(--fg-900) dotted 1px;
+  text-underline-offset: 0.15em;
+
+  &:hover {
+    text-decoration-color: currentColor;
   }
 }
 

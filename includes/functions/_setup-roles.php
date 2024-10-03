@@ -1005,6 +1005,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Exempts shortcodes from being removed by strip_shortcodes()
    *
    * @since 5.14.0
+   * @since 5.25.0 - Allowed 'fcnt' shortcode to pass.
    *
    * @param array $tags_to_remove  Tags to be removed.
    *
@@ -1013,8 +1014,13 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
 
   function fictioneer_exempt_shortcodes_from_removal( $tags_to_remove ) {
-    // Remove shortcodes from tags
+    // Remove 'fictioneer_fa' shortcode from tags
     if ( ( $key = array_search( 'fictioneer_fa', $tags_to_remove ) ) !== false ) {
+      unset( $tags_to_remove[ $key ] );
+    }
+
+    // Remove 'fcnt' shortcode from tags
+    if ( ( $key = array_search( 'fcnt', $tags_to_remove ) ) !== false ) {
       unset( $tags_to_remove[ $key ] );
     }
 

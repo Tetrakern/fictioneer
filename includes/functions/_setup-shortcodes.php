@@ -2311,3 +2311,67 @@ function fictioneer_shortcode_sidebar( $attr ) {
 if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
   add_shortcode( 'fictioneer_sidebar', 'fictioneer_shortcode_sidebar' );
 }
+
+// =============================================================================
+// TOOLTIP SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to add tooltip modal
+ *
+ * @since 5.25.0
+ *
+ * @param string $atts['header']   Optional. Header of the tooltip.
+ * @param string $atts['content']  Content of the tooltip.
+ *
+ * @return string The shortcode HTML.
+ */
+
+function fictioneer_shortcode_tooltip( $atts, $content = null ) {
+  // Setup
+  $data = '';
+  $attributes = shortcode_atts(
+    array( 'header' => '', 'content' => '' ),
+    $atts,
+    'fcnt'
+  );
+
+  // Sanitize
+  $modal_header = trim( wp_kses_post( $attributes['header'] ) );
+  $modal_header = esc_attr( $modal_header );
+
+  $modal_content = trim( wp_kses_post( $attributes['content'] ) );
+  $modal_content = esc_attr( $modal_content );
+
+  // Tooltip content?
+  if ( empty( $modal_content ) ) {
+    return $content;
+  }
+
+  // Escaped markdown (WP strips slashes, so we use $ as escape character)
+  $modal_content = str_replace( '$*', '$ESCAPED_ASTERISK$', $modal_content );
+  $modal_content = str_replace( '$_', '$ESCAPED_UNDERSCORE$', $modal_content );
+
+  // Convert _text_ to <em>text</em>
+  $modal_content = preg_replace( '/_(.*?)_/', '<em>$1</em>', $modal_content );
+
+  // Convert *text* to <b>text</b>
+  $modal_content = preg_replace( '/\*(.*?)\*/', '<b>$1</b>', $modal_content );
+
+  // Cleanup
+  $modal_content = str_replace( '$ESCAPED_ASTERISK$', '*', $modal_content );
+  $modal_content = str_replace( '$ESCAPED_UNDERSCORE$', '_', $modal_content );
+
+  // Build attributes
+  if ( ! empty( $modal_header ) ) {
+    $data .= 'data-dialog-header="' . esc_attr( $modal_header ) . '" ';
+  }
+
+  $data .= 'data-dialog-content="' . esc_attr( $modal_content ) . '"';
+  $title = _x( 'Click to see note', 'Tooltip shortcode.', 'fictioneer' );
+
+  // Return HTML
+  return '<a class="modal-tooltip" title="' . $title . '" ' . $data . ' data-click-action="open-tooltip-modal">' .
+    $content . '</a>';
+}
+add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );

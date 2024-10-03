@@ -1427,6 +1427,20 @@ Renders the theme sidebar (not displayed anywhere by default). Requires the "Dis
 [fictioneer_sidebar name="other-sidebar"]
 ```
 
+### Tooltip (Modal)
+
+Includes a tooltip modal for the wrapped content, indicated by a dotted underline. Just omit the shortcode block and write it directly into the text. You can format words or phrases inside the tooltip content as \***bold**\* or \_*italic*\_, and escape the special characters with a prefixed `$` sign (WP sanitized backslashes). This shortcode also works if your role lacks the shortcode capability.
+
+```
+[fcnt content="This is a note."]note[/fcnt]
+```
+
+```
+[fcnt header="Are you dense?" content="This _typically_ refers to forms that are either literal *skeletons* or the underlying bearing $*structure* of objects."]skeletal shapes[/fcnt]
+```
+
+![Showcase](repo/assets/fcnt_example.jpg?raw=true)
+
 ## Elementor
 
 If you have the Elementor plugin installed, consider using the [Fictioneer 002 Elementor Control](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#recommended-must-use-plugins) plugin if you only need it for the Canvas page templates. If you have the Pro version and want to use the theme builder, this may not be an option, but you can customize the following locations: `header`, `footer`, `nav_bar`, `nav_menu`, `mobile_nav_menu`, `story_header`, and `page_background`.

@@ -601,7 +601,8 @@ Fires outside the `#site` container and before the `wp_footer` hook, near the en
 * $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
 
 **Hooked Actions:**
-* `fictioneer_output_modals( $args )` – Render modals based on login status and page type. Priority 10.
+* `fictioneer_output_modals( $args )` – Renders modal HTML based on login status and page type. Priority 10.
+* `fictioneer_render_tooltip_dialog_modal_html()` – Renders dialog HTML for the tooltip modal. Priority 10.
 * `fictioneer_mu_registration_start( $args )` – Start of the wrapper HTML for wp-signup/wp-activate. Priority 999.
 
 ---

@@ -1607,7 +1607,7 @@ _$$('[data-click-action*="open-dialog-modal"]').forEach(element => {
 });
 
 // Close dialog modal
-_$$('[data-click-action*="close-dialog-modal"]').forEach(element => {
+_$$('[data-click-action*="close-dialog-modal"], button[formmethod="dialog"][value="cancel"]').forEach(element => {
   element.addEventListener('click', event => {
     event.preventDefault();
     event.target.closest('dialog').close();
@@ -1622,6 +1622,26 @@ _$$('dialog').forEach(element => {
       event.target.close();
     }
   });
+});
+
+// Open tooltip modal
+_$('.content-section')?.addEventListener('click', event => {
+  if (event.target.closest('[data-click-action*="open-tooltip-modal"]') && !window.getSelection().toString()) {
+    const modal = _$$$('fictioneer-tooltip-dialog');
+    const header = event.target.dataset.dialogHeader;
+    const content = event.target.dataset.dialogContent;
+
+    if (content.length > 200) {
+      modal.style = '--modal-width: 400px;';
+    }
+
+    if (header) {
+      modal.querySelector('[data-finder="tooltip-dialog-header"]').innerHTML = header;
+    }
+
+    modal.querySelector('[data-finder="tooltip-dialog-content"]').innerHTML = content;
+    modal.showModal();
+  }
 });
 
 // =============================================================================
