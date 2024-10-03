@@ -1431,6 +1431,8 @@ Renders the theme sidebar (not displayed anywhere by default). Requires the "Dis
 
 Includes a tooltip modal for the wrapped content, indicated by a dotted underline. Just omit the shortcode block and write it directly into the text. You can format words or phrases inside the tooltip content as \***bold**\* or \_*italic*\_, and escape the special characters with a prefixed `$` sign (WP sanitized backslashes). This shortcode also works if your role lacks the shortcode capability.
 
+**Note:** You can technically use HTML in the shortcode content attribute, as far as the post sanitizer and the user role allows. However, this would need to be done in the code view and might break on subsequent saves. Also beware nested quotation marks and square brackets, which can break the shortcode — use [HTML entities](https://developer.mozilla.org/en-US/docs/Glossary/Character_reference) instead.
+
 ```
 [fcnt content="This is a note."]note[/fcnt]
 ```
