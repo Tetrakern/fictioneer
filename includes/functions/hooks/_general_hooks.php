@@ -1221,7 +1221,7 @@ add_action( 'wp_head', 'fictioneer_cleanup_discord_meta' );
 
 function fictioneer_render_tooltip_dialog_modal_html() {
   // Start HTML ---> ?>
-  <dialog class="dialog-modal" id="fictioneer-tooltip-dialog">
+  <dialog class="dialog-modal _tooltip" id="fictioneer-tooltip-dialog">
     <div class="dialog-modal__wrapper">
       <button class="dialog-modal__close" data-click-action="close-dialog-modal" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>"><?php fictioneer_icon( 'fa-xmark' ); ?></button>
       <div class="dialog-modal__header" data-finder="tooltip-dialog-header"><?php _ex( 'Note', 'Default tooltip modal header.', 'fictioneer' ); ?></div>

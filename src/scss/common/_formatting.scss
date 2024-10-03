@@ -84,7 +84,7 @@ p a:not(.wp-element-button, .modal-tooltip),
 }
 
 a.modal-tooltip {
-  cursor: help;
+  cursor: pointer;
   text-decoration: underline var(--fg-900) dotted 1px;
   text-underline-offset: 0.15em;
 
