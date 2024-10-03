@@ -225,6 +225,17 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_line_break_fix',
+                    __( 'Enable fixing of chapter paragraphs', 'fictioneer' ),
+                    __( 'If you messed up copy/paste and all paragraphs are one.', 'fictioneer' ),
+                    __( 'If you copy and paste chapters into the editor, particularly the classic editor, paragraphs may be lost. This occurs because WordPress uses double new lines to separate content into paragraphs. If your content only has single new lines, you will get a single line break instead of a paragraph. While it is better to fix this in the content, this option can smooth things out. However, keep in mind that single line breaks will no longer be possible.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_show_protected_excerpt',
                     __( 'Show excerpt on password-protected posts', 'fictioneer' ),
                     __( 'This may be beneficial for search engines.', 'fictioneer' )

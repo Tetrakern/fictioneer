@@ -647,6 +647,38 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
 }
 add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
 
+/**
+ * Fixes line breaks before paragraphs are added
+ *
+ * @since 5.25.0
+ *
+ * @param string $content  The content.
+ *
+ * @return string The modified content.
+ */
+
+function fictioneer_fix_line_breaks( $content ) {
+  // Return early if...
+  if (
+    get_post_type() !== 'fcn_chapter' ||
+    ! in_the_loop() ||
+    ! is_main_query() ||
+    post_password_required()
+  ) {
+    return $content;
+  }
+
+  // Replace single new lines
+  $content = str_replace( ["\r\n", "\r"], "\n", $content );
+  $content = preg_replace( '/([^\n])\n([^\n])/', "$1\n\n$2", $content );
+
+  return $content;
+}
+
+if ( get_option( 'fictioneer_enable_line_break_fix' ) ) {
+  add_filter( 'the_content', 'fictioneer_fix_line_breaks', 1, 1 );
+}
+
 // =============================================================================
 // ADD LIGHTBOX TO POST IMAGES
 // =============================================================================

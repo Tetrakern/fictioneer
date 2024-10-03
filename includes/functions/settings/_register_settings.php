@@ -713,6 +713,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_enable_line_break_fix' => array(
+      'name' => 'fictioneer_enable_line_break_fix',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1183,6 +1189,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_enable_global_splide' => __( 'Enable Splide slider globally', 'fictioneer' ),
       'fictioneer_log_posts' => __( 'Log all post updates', 'fictioneer' ),
       'fictioneer_disable_menu_transients' => __( 'Disable menu Transient caching', 'fictioneer' ),
+      'fictioneer_enable_line_break_fix' => __( 'Enable fixing of chapter paragraphs', 'fictioneer' ),
     );
   }
 
