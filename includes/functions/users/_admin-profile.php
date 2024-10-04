@@ -1453,14 +1453,6 @@ function fictioneer_admin_profile_post_unlocks( $profile_user ) {
 
   // Post data
   $posts = [];
-  $post_type_labels = array(
-    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
-    'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
-    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
-    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
-    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
-    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
-  );
 
   if ( $unlocks ) {
     $query = new WP_Query(
@@ -1532,7 +1524,7 @@ function fictioneer_admin_profile_post_unlocks( $profile_user ) {
 
           <?php foreach ( $posts as $post ) : ?>
             <?php
-              $type = $post_type_labels[ $post->post_type ] ?? '';
+              $type = fictioneer_get_post_type_label( $post->post_type );
               $title = fictioneer_get_safe_title( $post->ID );
               $item_title = sprintf(
                 _x( 'Author: %s | Title: %s', 'Unlock post item.', 'fictioneer' ),
@@ -1610,18 +1602,8 @@ function fictioneer_ajax_search_posts_to_unlock() {
   if ( ! $posts->posts ) {
     wp_send_json_success( array( 'html' => '' ) );
   } else {
-    // Labels
-    $post_type_labels = array(
-      'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
-      'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
-      'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
-      'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
-      'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
-      'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
-    );
-
     foreach ( $posts->posts as $post ) {
-      $type = $post_type_labels[ $post->post_type ] ?? '';
+      $type = fictioneer_get_post_type_label( $post->post_type );
       $title = fictioneer_get_safe_title( $post->ID );
       $item_title = sprintf(
         _x( 'Author: %s | Title: %s', 'Unlock post item.', 'fictioneer' ),

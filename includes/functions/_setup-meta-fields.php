@@ -1475,20 +1475,9 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
  */
 
 function fictioneer_callback_relationship_collection( $selected, $meta_key, $args = [] ) {
-  // Setup
-  $post_type_labels = array(
-    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
-    'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
-    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
-    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
-    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
-    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
-  );
-
-  // Build HTML
   foreach ( $selected as $item ) {
     $title = fictioneer_get_safe_title( $item, 'admin-callback-relationship-collection' );
-    $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
+    $label = esc_html( fictioneer_get_post_type_label( $item->post_type ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
     // Start HTML ---> ?>
@@ -1522,15 +1511,6 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
   $allowed_post_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
   $post_type = sanitize_text_field( $_REQUEST['post_type'] ?? '' );
   $post_type = in_array( $post_type, $allowed_post_types ) ? $post_type : null;
-
-  $post_type_labels = array(
-    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
-    'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
-    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
-    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
-    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
-    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
-  );
 
   $forbidden = array_unique(
     array(
@@ -1587,7 +1567,7 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
   foreach ( $query->posts as $item ) {
     // Chapter setup
     $title = fictioneer_get_safe_title( $item, 'admin-ajax-get-relationship-collection' );
-    $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
+    $label = esc_html( fictioneer_get_post_type_label( $item->post_type ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
     // Build and append item
@@ -1639,19 +1619,9 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
  */
 
 function fictioneer_callback_relationship_featured( $selected, $meta_key, $args = [] ) {
-  // Setup
-  $post_type_labels = array(
-    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
-    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
-    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
-    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
-    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
-  );
-
-  // Build HTML
   foreach ( $selected as $item ) {
     $title = fictioneer_get_safe_title( $item, 'admin-callback-relationship-featured' );
-    $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
+    $label = esc_html( fictioneer_get_post_type_label( $item->post_type ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
     // Start HTML ---> ?>
@@ -1685,14 +1655,6 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
   $allowed_post_types = ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
   $post_type = sanitize_text_field( $_REQUEST['post_type'] ?? '' );
   $post_type = in_array( $post_type, $allowed_post_types ) ? $post_type : null;
-
-  $post_type_labels = array(
-    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
-    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
-    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
-    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
-    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
-  );
 
   // Validations
   if ( $post->post_type !== 'post' ) {
@@ -1733,7 +1695,7 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
   foreach ( $query->posts as $item ) {
     // Chapter setup
     $title = fictioneer_get_safe_title( $item, 'admin-ajax-get-relationship-featured' );
-    $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
+    $label = esc_html( fictioneer_get_post_type_label( $item->post_type ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
     // Build and append item

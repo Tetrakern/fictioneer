@@ -3441,7 +3441,7 @@ function fictioneer_get_publishing_authors( $args = [] ) {
 }
 
 // =============================================================================
-// GET POST STATUS LABEL
+// GET POST LABELS
 // =============================================================================
 
 /**
@@ -3469,4 +3469,31 @@ function fictioneer_get_post_status_label( $status ) {
   }
 
   return $labels[ $status ] ?? $status;
+}
+
+/**
+ * Returns the translated label of the post type
+ *
+ * @since 5.25.0
+ *
+ * @param string $type  Post type.
+ *
+ * @return string Translated label of the post type or the post type if custom.
+ */
+
+function fictioneer_get_post_type_label( $type ) {
+  static $labels = null;
+
+  if ( ! $labels ) {
+    $labels = array(
+      'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
+      'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
+      'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
+      'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
+      'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
+      'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
+    );
+  }
+
+  return $labels[ $type ] ?? $type;
 }
