@@ -2289,7 +2289,7 @@ function fcn_showAgeConfirmationModal() {
 
 document.addEventListener('DOMContentLoaded', () => {
   _$$('.splide:not(.no-auto-splide, .is-initialized)').forEach(slider => {
-    if (typeof Splide !== 'undefined') {
+    if (slider.querySelector('.splide__list') && typeof Splide !== 'undefined') {
       new Splide(slider).mount();
     }
   });
