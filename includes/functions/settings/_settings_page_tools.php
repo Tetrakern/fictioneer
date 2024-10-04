@@ -234,6 +234,20 @@ global $wpdb;
             <hr>
 
             <div class="fictioneer-card__row">
+              <p><?php _e( '<strong>Fix post paragraphs.</strong> This action converts single new lines into double new lines, which WordPress uses to separate paragraphs. Enter the post ID or a comma-separated list of post IDs, which can be found in the URL of the editor page.', 'fictioneer' ); ?></p>
+            </div>
+
+            <form class="fictioneer-card__row fictioneer-card__row--single-form-submit" action="<?php echo admin_url( 'admin-post.php' ); ?>" method="post">
+              <input type="hidden" name="action" value="fictioneer_convert_line_breaks">
+              <?php wp_nonce_field( 'fictioneer_convert_line_breaks', 'fictioneer_nonce' ); ?>
+              <input name="post_id" placeholder="<?php _e( 'Post IDs', 'fictioneer' ); ?>" type="text" autocomplete="off" required>
+              <input type="submit" name="preview" class="button button--secondary" value="<?php echo esc_attr_x( 'Preview', 'Fix post paragraphs preview button.', 'fictioneer' ); ?>">
+              <input type="submit" name="perform" class="button button--secondary" value="<?php echo esc_attr__( 'Fix Paragraphs', 'fictioneer' ); ?>">
+            </form>
+
+            <hr>
+
+            <div class="fictioneer-card__row">
               <p><?php _e( '<strong>Purge theme caches.</strong> In order to accelerate page rendering, certain content is composed once and then cached. These caches get purged whenever you make relevant updates. If you need to purge them manually, you can do so here.', 'fictioneer' ); ?></p>
             </div>
 

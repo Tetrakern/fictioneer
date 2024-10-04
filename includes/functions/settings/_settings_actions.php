@@ -144,7 +144,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-mu-plugin-copy-success' => __( 'MU-Plugin enabled successfully.', 'fictioneer' ),
       'fictioneer-mu-plugin-copy-failure' => __( 'Error. MU-Plugin could not be enabled.', 'fictioneer' ),
       'fictioneer-mu-plugin-delete-success' => __( 'MU-Plugin disabled successfully.', 'fictioneer' ),
-      'fictioneer-mu-plugin-delete-failure' => __( 'Error. MU-Plugin could not be disabled..', 'fictioneer' )
+      'fictioneer-mu-plugin-delete-failure' => __( 'Error. MU-Plugin could not be disabled..', 'fictioneer' ),
+      'fictioneer-fix-line-breaks-success' => __( '%s successful post update(s). %s failure(s).', 'fictioneer' )
     )
   );
 }
@@ -1590,7 +1591,7 @@ function fictioneer_tools_append_chapters() {
     }
 
     wp_die(
-      '<h1>' . __( 'Appending Preview', 'fictioneer' ) . '</h1>' . $description .
+      '<h1>' . __( 'Preview', 'fictioneer' ) . '</h1>' . $description .
         '<table style="text-align: left;"><thead>' . $thead . '</thead><tbody>' . implode( '', $previews ) . '</tbody></table>',
       __( 'Preview', 'fictioneer' ),
       200
@@ -1928,6 +1929,110 @@ function fictioneer_after_install_setup() {
 
   // Redirect to general theme settings
   wp_safe_redirect( admin_url( 'admin.php?page=fictioneer' ) );
+
   exit;
 }
 add_action( 'admin_post_fictioneer_after_install_setup', 'fictioneer_after_install_setup' );
+
+// =============================================================================
+// FIX LINE BREAKS
+// =============================================================================
+
+/**
+ * Converts single new lines into double new lines
+ *
+ * @since 5.25.0
+ */
+
+function fictioneer_convert_line_breaks() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_convert_line_breaks' );
+
+  // Setup
+  $action = $_REQUEST['preview'] ?? 0 ? 'preview' : 'perform';
+  $post_ids = fictioneer_explode_list( $_REQUEST['post_id'] ?? '' );
+  $post_ids = array_map( 'absint', $post_ids );
+  $successes = 0;
+  $failures = 0;
+
+  // Empty?
+  if ( empty( $post_ids ) ) {
+    wp_safe_redirect( admin_url( 'admin.php?page=fictioneer_tools' ) );
+
+    exit;
+  }
+
+  // Preview?
+  if ( $action === 'preview' ) {
+    $output = [];
+
+    foreach ( $post_ids as $post_id ) {
+      $post = get_post( $post_id );
+
+      if ( $post ) {
+        $title = fictioneer_get_safe_title( $post );
+        $type = fictioneer_get_post_type_label( $post->post_type );
+
+        $output[] = "<tr><td style='padding-right: 24px;'>{$post_id}</td><td style='padding-right: 24px;'>{$type}</td><td>{$title}</td></tr>";
+      }
+    }
+
+    if ( empty( $output ) ) {
+      wp_die( __( 'No matching posts found.', 'fictioneer' ) );
+    } else {
+      $thead = '<tr><th style="padding-right: 24px;">' . __( 'ID', 'fictioneer' ) . '</th><th style="padding-right: 24px;">'
+      . __( 'Post Type', 'fictioneer' ) . '</th><th>' . __( 'Title', 'fictioneer' ) . '</th></tr>';
+
+      wp_die(
+        '<h1>' . __( 'Preview', 'fictioneer' ) . '</h1><br><table style="text-align: left;">' .
+        "<thead>{$thead}</thead>" .
+        '<tbody>' . implode( '', $output ) . '</tbody></table>'
+      );
+    }
+  }
+
+  // Fix new lines...
+  foreach ( $post_ids as $post_id ) {
+    $post = get_post( $post_id );
+
+    if ( ! $post ) {
+      continue;
+    }
+
+    $content = $post->post_content;
+
+    // Normalize line endings
+    $content = str_replace( ["\r\n", "\r"], "\n", $content );
+
+    // Convert any single line breaks to double line breaks
+    $content = preg_replace( '/([^\n])\n([^\n])/', "$1\n\n$2", $content );
+
+    // Update post
+    $result = wp_update_post(
+      array(
+        'ID' => $post_id,
+        'post_content' => $content
+      )
+    );
+
+    if ( $result && ! is_wp_error( $result ) ) {
+      $successes++;
+    } else {
+      $failures++;
+    }
+  }
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-fix-line-breaks-success',
+        'data' => "{$successes},{$failures}"
+      ),
+      admin_url( 'admin.php?page=fictioneer_tools' )
+    )
+  );
+
+  exit;
+}
+add_action( 'admin_post_fictioneer_convert_line_breaks', 'fictioneer_convert_line_breaks' );
