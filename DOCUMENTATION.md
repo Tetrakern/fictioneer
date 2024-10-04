@@ -1429,16 +1429,16 @@ Renders the theme sidebar (not displayed anywhere by default). Requires the "Dis
 
 ### Tooltip (Modal)
 
-Includes a tooltip modal for the wrapped content, indicated by a dotted underline. Just omit the shortcode block and write it directly into the text. You can format words or phrases inside the tooltip content as \***bold**\* or \_*italic*\_ and escape the special characters with a `$` prefix (WP sanitized backslashes). This shortcode also works if your role lacks the shortcode capability.
+Includes a tooltip modal for the wrapped content, indicated by a dotted underline. Just omit the shortcode block and write it directly into the text. This shortcode also works if your role lacks the shortcode capability.
 
-**Note:** You can technically use HTML in the shortcode content attribute, as far as the post sanitizer and user role allows. However, be cautious of nested quotation marks and square brackets, as they can break the shortcode — use [HTML entities](https://developer.mozilla.org/en-US/docs/Glossary/Character_reference) instead.
-
-```
-[fcnt content="This is a note."]note[/fcnt]
-```
+**Note:** You can use HTML in the shortcode content attribute, as far as the post sanitizer and user role allows. However, be cautious of nested quotation marks and square brackets, as they can break the shortcode — use [HTML entities](https://developer.mozilla.org/en-US/docs/Glossary/Character_reference) instead.
 
 ```
-[fcnt header="Are you dense?" content="This _typically_ refers to forms that are either literal *skeletons* or the underlying bearing $*structure* of objects."]skeletal shapes[/fcnt]
+[fcnt content='This is a note.']note[/fcnt]
+```
+
+```
+[fcnt header='Are you dense?' content='This <em>typically</em> refers to forms that are either literal <strong>skeletons</strong> or the underlying bearing *structure* of objects.']skeletal shapes[/fcnt]
 ```
 
 ![Showcase](repo/assets/fcnt_example.jpg?raw=true)
