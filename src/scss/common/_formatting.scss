@@ -67,12 +67,13 @@ p a:not(.wp-element-button, .modal-tooltip),
 .link,
 :is(.modal, .dialog-modal) a[href]:not(.button, .wp-element-button, .modal-tooltip) {
   color: var(--inline-link-color);
-  border-bottom: var(--inline-link-color-border);
-  transition: border-color var(--transition-duration);
+  text-decoration: var(--inline-link-text-decoration);
+  text-underline-offset: 0.2em;
+  transition: text-decoration var(--transition-duration);
 
   &:hover {
     color: var(--inline-link-color-hover);
-    border-bottom: var(--inline-link-color-border-hover);
+    text-decoration: var(--inline-link-text-decoration-hover);
   }
 
   &:visited {

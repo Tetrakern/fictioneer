@@ -421,7 +421,7 @@
 
   --fs-widget: #{clamp(13px, 5.5cqw, 15px)};
 
-  // === COLORS - LINKS ========================================================
+  // === LINKS =================================================================
 
   --heading-link-color: var(--fg-400);
   --heading-link-color-hover: var(--fg-200);
@@ -429,8 +429,9 @@
   --inline-link-color: var(--primary-500);
   --inline-link-color-hover: var(--primary-400);
   --inline-link-color-visited: var(--primary-600);
-  --inline-link-color-border: 1px solid transparent;
-  --inline-link-color-border-hover: 1px solid currentColor;
+
+  --inline-link-text-decoration: underline transparent solid 1px;
+  --inline-link-text-decoration-hover: underline currentColor solid 1px;
 
   --widget-link-color: inherit;
   --widget-link-color-hover: var(--fg-200);
