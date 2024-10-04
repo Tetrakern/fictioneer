@@ -64,7 +64,8 @@ img {
 
 p a:not(.wp-element-button, .modal-tooltip),
 .content-section :is(.wp-block-table, .wp-block-pullquote, .wp-block-list) a:not(.wp-element-button, .modal-tooltip),
-.link {
+.link,
+:is(.modal, .dialog-modal) a[href]:not(.button, .wp-element-button, .modal-tooltip) {
   color: var(--inline-link-color);
   border-bottom: var(--inline-link-color-border);
   transition: border-color var(--transition-duration);
