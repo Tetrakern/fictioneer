@@ -340,7 +340,7 @@ function fictioneer_oauth2_process() {
   wp_safe_redirect( $return_url . ( $anchor ? '#' . $anchor : '' ) );
   exit;
 }
-add_action( 'template_redirect', 'fictioneer_oauth2_process', 10 );
+add_action( 'template_redirect', 'fictioneer_oauth2_process' );
 
 /**
  * Log in or register user

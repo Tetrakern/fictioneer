@@ -215,7 +215,7 @@ function fictioneer_save_seo_metabox( $post_id ) {
 }
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
-  add_action( 'save_post', 'fictioneer_save_seo_metabox', 10 );
+  add_action( 'save_post', 'fictioneer_save_seo_metabox' );
 }
 
 // =============================================================================

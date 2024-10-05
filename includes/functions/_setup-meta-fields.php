@@ -3332,7 +3332,7 @@ function fictioneer_render_extra_metabox( $post ) {
 }
 
 /**
- * Save advanced metabox
+ * Save extra metabox
  *
  * @since 5.7.4
  *

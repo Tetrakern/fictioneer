@@ -57,7 +57,7 @@ if ( ! defined( 'FICTIONEER_LOGOUT_ENDPOINT' ) ) {
 function fictioneer_add_oauth2_endpoint() {
   add_rewrite_endpoint( FICTIONEER_OAUTH_ENDPOINT, EP_ROOT );
 }
-add_action( 'init', 'fictioneer_add_oauth2_endpoint', 10 );
+add_action( 'init', 'fictioneer_add_oauth2_endpoint' );
 
 /**
  * Adds route to ePUB script
@@ -68,7 +68,7 @@ add_action( 'init', 'fictioneer_add_oauth2_endpoint', 10 );
 function fictioneer_add_epub_download_endpoint() {
   add_rewrite_endpoint( FICTIONEER_EPUB_ENDPOINT, EP_ROOT );
 }
-add_action( 'init', 'fictioneer_add_epub_download_endpoint', 10 );
+add_action( 'init', 'fictioneer_add_epub_download_endpoint' );
 
 /*
  * Strings

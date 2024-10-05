@@ -752,11 +752,11 @@ function fictioneer_toggle_update_tracker_hooks( $add = true ) {
 
   if ( $add ) {
     foreach ( $hooks as $hook ) {
-      add_action( $hook, 'fictioneer_track_chapter_and_story_updates', 10 );
+      add_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
     }
   } else {
     foreach ( $hooks as $hook ) {
-      remove_action( $hook, 'fictioneer_track_chapter_and_story_updates', 10 );
+      remove_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
     }
   }
 }

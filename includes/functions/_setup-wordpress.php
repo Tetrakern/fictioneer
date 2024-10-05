@@ -214,7 +214,7 @@ function fictioneer_logout() {
 }
 
 if ( FICTIONEER_LOGOUT_ENDPOINT && ! get_option( 'fictioneer_disable_theme_logout' ) ) {
-  add_action( 'template_redirect', 'fictioneer_logout', 10 );
+  add_action( 'template_redirect', 'fictioneer_logout' );
 }
 
 if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
@@ -349,7 +349,7 @@ if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
   add_action( 'init', 'fictioneer_story_rss' );
 
   // Add new main feed
-  add_action( 'do_feed_rss2', 'fictioneer_main_rss_template', 10, 1 );
+  add_action( 'do_feed_rss2', 'fictioneer_main_rss_template' );
 } else {
   // Default feed links
   add_theme_support( 'automatic-feed-links' );
@@ -978,7 +978,7 @@ function fictioneer_disable_attachment_pages() {
 }
 
 if ( ! FICTIONEER_ATTACHMENT_PAGES ) {
-  add_action( 'template_redirect', 'fictioneer_disable_attachment_pages', 10 );
+  add_action( 'template_redirect', 'fictioneer_disable_attachment_pages' );
 }
 
 // =============================================================================

@@ -1176,7 +1176,7 @@ function fictioneer_generate_epub() {
   // Download
   fictioneer_download_epub( "{$folder}.epub", $story );
 }
-add_action( 'template_redirect', 'fictioneer_generate_epub', 10 );
+add_action( 'template_redirect', 'fictioneer_generate_epub' );
 
 // =============================================================================
 // AJAX REQUESTS
