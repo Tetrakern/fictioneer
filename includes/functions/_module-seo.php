@@ -67,6 +67,10 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
     $seo_description_placeholder = wp_strip_all_tags( get_the_excerpt( $post ), true );
     $seo_description_placeholder = fictioneer_truncate( $seo_description_placeholder, 155 );
 
+    if ( get_option( 'page_on_front' ) == $post->ID ) {
+      $seo_description_placeholder = get_bloginfo( 'description' );
+    }
+
     // Open Graph image...
     $seo_og_image = $seo_fields['og_image_id'] ?? 0;
     $seo_og_image_display = wp_get_attachment_url( $seo_og_image );
@@ -166,7 +170,6 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 function fictioneer_save_seo_metabox( $post_id ) {
   // Always purge meta cache
   delete_post_meta( $post_id, 'fictioneer_seo_cache' );
-
 
   // Validations
   if (
@@ -403,7 +406,12 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     // Setup
     $post_id = $post_id ? $post_id : get_queried_object_id();
     $skip_cache = $args['skip_cache'] ?? false;
-    $default = ! empty( trim( $args['default'] ?? '' ) ) ? $args['default'] : false;
+    $default = trim( $args['default'] ?? '' );
+
+    // Special Case: Frontpage
+    if ( ( is_front_page() || ! $post_id ) && empty( $default ) ) {
+      $default = get_bloginfo( 'description' );
+    }
 
     // Search?
     if ( is_search() ) {

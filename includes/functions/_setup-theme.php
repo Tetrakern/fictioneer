@@ -351,6 +351,19 @@ function fictioneer_remove_obsolete_comment_meta() {
 }
 add_action( 'fictioneer_after_update', 'fictioneer_remove_obsolete_comment_meta' );
 
+/**
+ * Deletes the cached SEO meta data of the front page
+ *
+ * @since 5.25.0
+ */
+
+function fictioneer_purge_front_page_seo_cache() {
+  if ( $font_page_id = get_option( 'page_on_front' ) ) {
+    delete_post_meta( $font_page_id, 'fictioneer_seo_cache' );
+  }
+}
+add_action( 'fictioneer_after_update', 'fictioneer_purge_frontpage_seo_cache' );
+
 // =============================================================================
 // SIDEBAR
 // =============================================================================
