@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 20:21+0000\n"
-"PO-Revision-Date: 2024-10-01 14:55-0300\n"
+"PO-Revision-Date: 2024-10-05 14:07-0300\n"
 "Last-Translator: \n"
 "Language-Team: Português do Brasil\n"
 "Language: es_CL\n"
@@ -53,14 +53,14 @@ msgstr "se han borrado %s comentarios."
 #: partials/account/_oauth.php:34
 #, php-format
 msgid "%s connection successfully unset."
-msgstr "%s Conexión desecha exitosamente"
+msgstr "%s Conexión desecha exitosamente."
 
 #: partials/_showcase.php:192 partials/_card-story.php:93
 #: partials/_card-chapter.php:87 includes/functions/_helpers-templates.php:603
 #: includes/functions/_helpers-templates.php:643
 #, php-format
 msgid "%s Cover"
-msgstr "%s Cover"
+msgstr "%s Portada"
 
 #: includes/functions/_helpers-templates.php:397
 #, php-format
@@ -171,11 +171,11 @@ msgstr "404"
 
 #: includes/functions/settings/_settings_page_general.php:582
 msgid "404 page &bull; Add content to your 404 page, make it useful!"
-msgstr "PAGINA 404 &bull; Agrega contenido a tu pagina 404 para hacer útil!"
+msgstr "PAGINA 404 &bull; Agrega contenido a tu pagina 404, Hazla útil!"
 
 #: includes/functions/settings/_register_settings.php:1128
 msgid "404 page assignment"
-msgstr "Asignación de la página 404"
+msgstr "Asignar página 404"
 
 #: includes/functions/settings/_settings_page_plugins.php:58
 #, php-format
@@ -199,7 +199,7 @@ msgstr "<br><fieldset><legend>Potencial JavaScript</legend>%s</fieldset>"
 #: includes/functions/_setup-wordpress.php:1200
 #, php-format
 msgid "<br><fieldset><legend>Sender</legend>%s</fieldset>"
-msgstr "<br><fieldset><legend>Enviado</legend>%s</fieldset>"
+msgstr "<br><fieldset><legend>Emisor</legend>%s</fieldset>"
 
 #: includes/functions/_setup-admin.php:984
 #, php-format
@@ -239,7 +239,7 @@ msgstr ""
 
 #: includes/functions/_setup-wordpress.php:20
 msgid "<h1>Under Maintenance</h1><br>"
-msgstr "<h1>Bajo Mantenimiento</h1><br>"
+msgstr "<h1>En Mantenimiento</h1><br>"
 
 #: includes/functions/_setup-wordpress.php:1160
 msgid ""
@@ -293,8 +293,8 @@ msgstr ""
 "p><p>Este script evita tales parpadeos haciendo que el sitio sea invisible "
 "hasta que se haya analizado todo el documento, lo que significa que el sitio "
 "técnicamente aparece una fracción de segundo más tarde. Sin embargo, si el "
-"script está bloqueado, el sitio permanecerá invisible. Esto es extremadamente "
-"improbable, aunque.</p>"
+"script está bloqueado, el sitio permanecerá invisible, Aunquesto es "
+"extremadamente improbable.</p>"
 
 #: includes/functions/settings/_settings_page_general.php:1307
 msgid ""
@@ -392,8 +392,8 @@ msgstr ""
 "<p>Con esta función activada, el tema almacena en caché partes de la página que "
 "nunca cambian como archivos HTML estáticos, recuperándolos en posteriores "
 "peticiones para ahorrar recursos. A diferencia de la caché completa, esto sólo "
-"afecta a algunos modales, menús y contenidos de los capítulos. Utilícelo sólo "
-"si los plugins de caché no son una opción.</p><p>Los plugins que cambian el "
+"afecta a algunos modos, menús y contenidos de los capítulos. Utilícelo sólo si "
+"los plugins de caché no son una opción.</p><p>Los plugins que cambian el "
 "contenido de los capítulos pueden no funcionar sin ajustes adicionales. Si "
 "necesitas aplicar contenido dinámico a los capítulos, que sólo se actualizan al "
 "actualizar o cuando caduca la caché, puedes hacerlo con el filtro "
@@ -454,7 +454,7 @@ msgstr ""
 "marcadores entre navegadores y dispositivos, aunque no es necesaria una cuenta "
 "para la funcionalidad básica.</p><p>Mientras que el menú móvil tiene un panel "
 "para marcadores, para la vista de escritorio tendrás que configurar una página "
-"con la plantilla Marcadores o añadir el shortcode <code>fictioneer_bookmarks</"
+"con la plantilla Favoritos o añadir el shortcode <code>fictioneer_bookmarks</"
 "code> a otra página. Consulta la <a href=\"%s\" "
 "target=\"_blank\">documentación</a> en GitHub para obtener más información.</p>"
 
@@ -502,7 +502,7 @@ msgid "<span class=\"search-results__number\">%s</span> Search Result"
 msgid_plural "<span class=\"search-results__number\">%s</span> Search Results"
 msgstr[0] "<span class=\"search-results__number\">%s</span> Resultado de búsqueda"
 msgstr[1] ""
-"<span class=\"search-results__number\">%s</span> Resultados de búsqueda"
+"<span class=\"search-results__number\">%s</span> Resultados de la búsqueda"
 
 #: category.php:39
 #, php-format
@@ -549,8 +549,10 @@ msgid ""
 "reports."
 msgstr ""
 "<span>Moderar automáticamente los comentarios con</span> %s <span>informes</"
-"span>. Esto solo se activará una vez, pero los comentarios permanecerán ocultos "
-"a menos que se configuren para ignorar los informes."
+"span>. \n"
+"\n"
+"Esto solo se activará una vez, pero los comentarios permanecerán ocultos a "
+"menos que se configuren para ignorar los informes."
 
 #: includes/functions/settings/_settings_page_general.php:376
 #, php-format
@@ -635,9 +637,11 @@ msgstr ""
 "<strong>Agrega campos de base de datos faltantes.</strong> Para ahorrar miles "
 "de filas, el tema solo almacena valores “verdaderos” y elimina los “falsos”, "
 "Sin embargo, algunos campos son relevantes en las consultas y eso puede causar "
-"problemas, por ejemplo, si usas complementos de búsqueda. Puedes agregar campos "
-"faltantes aquí, pero asegúrate de incluirlos en la lista permitida del filtro "
-"<code>fictioneer_filter_falsy_meta_allow_list</code> también."
+"problemas, por ejemplo, si usas complementos de búsqueda. \n"
+"\n"
+"Puedes agregar campos faltantes aquí, pero asegúrate de incluirlos en la lista "
+"permitida del filtro <code>fictioneer_filter_falsy_meta_allow_list</code> "
+"también."
 
 #: includes/functions/settings/_settings_page_tools.php:31
 msgid ""
@@ -682,8 +686,10 @@ msgid ""
 msgstr ""
 "<strong>Adjuntar capítulos <em>publicados</em> asociados</strong> que no estén "
 "ya en la lista de capítulos de la historia. Introduce el ID de la historia, que "
-"se puede encontrar en la URL de la página del editor. Los capítulos deben estar "
-"asignados a la historia. ¡Cuidado, se ignorarán las restricciones de propiedad!"
+"se puede encontrar en la URL de la página del editor. \n"
+"\n"
+"Los capítulos deben estar asignados a la historia. ¡Cuidado, se ignorarán las "
+"restricciones de propiedad!"
 
 #: includes/functions/settings/_settings_page_tools.php:210
 msgid "<strong>Comment Meta Rows:</strong> %d"
@@ -696,9 +702,9 @@ msgid ""
 "will turn all tags into genres, duplicating will copy and append them as genres "
 "but also keep the originals."
 msgstr ""
-"<strong>Convierte o duplica las etiquetas de capítulos a géneros.</strong> Si "
+"<strong>Convierte o duplica las etiquetas de capítulos a géneros.</strong> , Si "
 "deseas cambiar tus elecciones de etiquetado anteriores en bloque, puedes "
-"comenzar aquí. Convertir transformará todas las etiquetas en géneros, duplicar "
+"comenzar aquí, Convertir transformará todas las etiquetas en géneros, duplicar "
 "copiará y añadirá como géneros pero también mantendrá los originales."
 
 #: includes/functions/settings/_settings_page_tools.php:58
@@ -717,7 +723,7 @@ msgstr ""
 #: taxonomy-fcn_genre.php:56 taxonomy-fcn_fandom.php:56
 #, php-format
 msgid "<strong>Definition:</strong> %s"
-msgstr "<strong>Definicion</strong> %s"
+msgstr "<strong>Definición:</strong> %s"
 
 #: includes/functions/settings/_settings_page_general.php:57
 #, php-format
@@ -726,8 +732,8 @@ msgid ""
 "target=\"_blank\">download</a> and install the latest version at your next "
 "convenience."
 msgstr ""
-"<strong>Fictioneer %1$s</strong> esta disponible. por favor <a href=“%2$s” "
-"target=“_blank”>descarga</a> e instala la siguiente versión."
+"<strong>Fictioneer %1$s</strong> esta disponible,  Por favor <a href=“%2$s” "
+"target=“_blank”>Descarga</a> e instala la siguiente versión cuando puedas."
 
 #: includes/functions/_setup-admin.php:254
 #, php-format
@@ -823,7 +829,7 @@ msgstr ""
 "Advertencia, esto solo debe hacerse si el registro causa problemas o se ha "
 "corrompido. Sin el registro, la asistencia para purgar la caché no puede "
 "encontrar las publicaciones referenciadas. Tendrás que volver a guardar cada "
-"publicación relevante para reconstruir el registro.(es super divertido)"
+"publicación relevante para reconstruir el registro.(Será super divertido haha)"
 
 #: includes/functions/_setup-meta-fields.php:2826
 msgid ""
@@ -880,7 +886,7 @@ msgstr "Cuenta"
 #: includes/functions/_setup-theme.php:1890
 #: includes/functions/users/_admin-profile.php:805
 msgid "Account already linked to another profile."
-msgstr "La cuenta ya esta vinculada a otro perfil"
+msgstr "La cuenta ya esta vinculada a otro perfil."
 
 #: partials/account/_oauth.php:45 includes/functions/users/_admin-profile.php:1957
 msgid "Account Bindings"
@@ -999,7 +1005,7 @@ msgstr ""
 #: includes/functions/settings/_settings_actions.php:955
 #, php-format
 msgid "Added \"%s\" role."
-msgstr "Agregar “%s” rol"
+msgstr "Agregar “%s” rol."
 
 #: includes/functions/settings/_settings_actions.php:588
 msgid "Added default genres."
@@ -1114,7 +1120,7 @@ msgstr "<strong>Estado de la última carga:</strong> %s"
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Lifetime Support Cents:</strong> %s"
-msgstr "<strong>Céntimos de soporte vitalicio:</strong> %s"
+msgstr "<strong>Centro de soporte vitalicio:</strong> %s"
 
 #: includes/functions/users/_admin-profile.php:1709
 #, php-format
@@ -1216,7 +1222,7 @@ msgstr "Géneros"
 #: searchform.php:336
 msgctxt "Advanced search heading."
 msgid "Match"
-msgstr "Partido"
+msgstr "Coincide"
 
 #: includes/functions/hooks/_general_hooks.php:891
 msgctxt "Advanced search heading."
@@ -1231,7 +1237,7 @@ msgstr "Palabras mínimas"
 #: searchform.php:354
 msgctxt "Advanced search heading."
 msgid "Order"
-msgstr "Pida"
+msgstr "Orden"
 
 #: searchform.php:344
 msgctxt "Advanced search heading."
@@ -1380,7 +1386,7 @@ msgstr "Frase"
 #: searchform.php:164 searchform.php:331
 msgctxt "Advanced search option."
 msgid "Posts"
-msgstr "Puestos"
+msgstr "Entradas"
 
 #: searchform.php:188 searchform.php:347
 msgctxt "Advanced search option."
@@ -1440,7 +1446,7 @@ msgstr "Buscar en"
 #: searchform.php:272
 msgctxt "Advanced search summary AND operation note."
 msgid "[&] "
-msgstr "[&]"
+msgstr "[&] "
 
 #: searchform.php:252
 #, php-format
@@ -1578,16 +1584,16 @@ msgstr "Confirmación de edad"
 #: partials/_modal-age.php:47
 msgctxt "Age confirmation modal button."
 msgid "Confirm"
-msgstr "Confirme"
+msgstr "Confirmar"
 
 #: partials/_modal-age.php:46
 msgctxt "Age confirmation modal button."
 msgid "Leave"
-msgstr "Deja"
+msgstr "Dejar"
 
 #: includes/functions/settings/_register_settings.php:1140
 msgid "Age confirmation modal content for posts"
-msgstr "Contenido modal de confirmación de edad para los mensajes"
+msgstr "Contenido modal de confirmación de edad para los Entradas"
 
 #: includes/functions/settings/_register_settings.php:1139
 msgid "Age confirmation modal content for the site"
@@ -1595,11 +1601,11 @@ msgstr "Confirmación de la edad del contenido modal del sitio"
 
 #: includes/functions/settings/_settings_page_phrases.php:145
 msgid "Age Confirmation Modal: Posts"
-msgstr "Confirmación de edad Modal: Puestos"
+msgstr "Confirmación de edad Modal: Entradas"
 
 #: includes/functions/settings/_settings_page_phrases.php:112
 msgid "Age Confirmation Modal: Site"
-msgstr "Confirmación de edad Modal: Site"
+msgstr "Confirmación de edad Modal: Sitio"
 
 # Classificação indicativa. A para Adulto.
 #: includes/functions/_utility.php:1924
@@ -1707,7 +1713,7 @@ msgstr "Todos los géneros"
 
 #: includes/functions/hooks/_general_hooks.php:607
 msgid "All Posts"
-msgstr "Todos los mensajes"
+msgstr "Todos las entradas"
 
 #: includes/functions/_setup-types-and-terms.php:404
 msgid "All Recommend."
@@ -1862,32 +1868,32 @@ msgstr "Aprobar"
 #: includes/functions/_module-seo.php:441
 #, php-format
 msgid "Archive of all posts in the %s category."
-msgstr "Archivo de todos los mensajes de la categoría %s."
+msgstr "Archivar de todas las entradas de la categoría %s."
 
 #: includes/functions/_module-seo.php:471
 #, php-format
 msgid "Archive of all posts in the %s fandom."
-msgstr "Archivo de todos los mensajes en el %s fandom."
+msgstr "Archivar de todas las entradas en el %s fandom."
 
 #: includes/functions/_module-seo.php:481
 #, php-format
 msgid "Archive of all posts with the %s genre."
-msgstr "Archivo de todos los mensajes con el género %s."
+msgstr "Archivar de todas las entradas con el género %s."
 
 #: includes/functions/_module-seo.php:451
 #, php-format
 msgid "Archive of all posts with the %s tag."
-msgstr "Archivo de todos los mensajes con la etiqueta %s."
+msgstr "Archivar todas las entradas con la etiqueta %s."
 
 #: includes/functions/_module-seo.php:461
 #, php-format
 msgid "Archive of all posts with the character %s."
-msgstr "Archivo de todos los mensajes con el carácter %s."
+msgstr "Archivar todas las entradas con el carácter %s."
 
 #: includes/functions/_module-seo.php:488
 #, php-format
 msgid "Archived posts on %s."
-msgstr "Mensajes archivados sobre %s."
+msgstr "Entradas archivadas sobre %s."
 
 #: includes/functions/users/_admin-profile.php:1306
 #, php-format
@@ -2083,12 +2089,12 @@ msgstr "Color de fondo del distintivo de comentario del moderador."
 #: includes/functions/_customizer-settings.php:537
 #: includes/functions/_customizer-settings.php:968
 msgid "Background color of the override comment badge."
-msgstr "Color de fondo de la insignia de comentario de anulación."
+msgstr "Color de fondo de la insignia de la sobre escritura del comentario"
 
 #: includes/functions/_customizer-settings.php:533
 #: includes/functions/_customizer-settings.php:964
 msgid "Background color of the supporter comment badge."
-msgstr "Color de fondo de la insignia del comentario del seguidor."
+msgstr "Color de fondo de la insignia del comentario del apoyador,"
 
 #: partials/_modal-site-settings.php:34
 msgid "Background textures"
@@ -2213,11 +2219,11 @@ msgstr "Marca los párrafos de los capítulos. No se necesita cuenta."
 #. Name of the template
 #: singular-bookmarks.php:2 includes/functions/_utility.php:1888
 msgid "Bookmarks"
-msgstr "Marcadores"
+msgstr "Favoritos"
 
 #: includes/functions/users/_admin-profile.php:800
 msgid "Bookmarks could not be cleared."
-msgstr "No se han podido borrar los marcadores."
+msgstr "No se han podido borrar los favoritos."
 
 #: partials/_icon-menu.php:60
 msgid "Bookmarks Page"
@@ -2233,7 +2239,7 @@ msgstr "Asignación de páginas de favoritos"
 
 #: includes/functions/users/_admin-profile.php:804
 msgid "Bookmarks successfully cleared."
-msgstr "Marcadores borrados correctamente."
+msgstr "Favoritos borrados correctamente."
 
 #. Name of the template
 #: singular-bookshelf.php:2 singular-bookshelf.php:107
@@ -2244,7 +2250,7 @@ msgstr "Estantería"
 #. Name of the template
 #: singular-bookshelf-ajax.php:2
 msgid "Bookshelf AJAX"
-msgstr "Librería AJAX"
+msgstr "Estanteria AJAX"
 
 #: includes/functions/settings/_settings_page_general.php:573
 msgid "Bookshelf page (Template: Bookshelf) &bull; Do not cache!"
@@ -2292,7 +2298,7 @@ msgstr "Agrupar archivos JavaScript en uno"
 
 #: includes/functions/_setup-admin.php:642
 msgid "Buy me a coffee on <strong>Ko-fi</strong>"
-msgstr "Invítame a un café en <strong>Ko-fi</strong>."
+msgstr "Invítame a un café en <strong>Ko-fi</strong>"
 
 #: includes/functions/settings/_settings_page_plugins.php:63
 #, php-format
@@ -2373,12 +2379,12 @@ msgstr "Canvas (Main)"
 #. Name of the template
 #: singular-canvas-page.php:2
 msgid "Canvas (Page)"
-msgstr "Canvas (Page)"
+msgstr "Canvas (Pagina)"
 
 #. Name of the template
 #: singular-canvas-site.php:2
 msgid "Canvas (Site)"
-msgstr "Lienzo (Sitio)"
+msgstr "Canvas (Sitio)"
 
 #: includes/functions/_setup-admin.php:710
 msgctxt "Capability translation"
@@ -2468,7 +2474,7 @@ msgstr "Encabezado de página personalizado"
 #: includes/functions/_setup-admin.php:711
 msgctxt "Capability translation"
 msgid "Dashboard Access"
-msgstr "Acceso al salpicadero"
+msgstr "Acceso al Dashboard"
 
 #: includes/functions/_setup-admin.php:735
 msgctxt "Capability translation"
@@ -2483,7 +2489,7 @@ msgstr "Eliminar capítulos"
 #: includes/functions/_setup-admin.php:751
 msgctxt "Capability translation"
 msgid "Delete Characters"
-msgstr "Borrar caracteres"
+msgstr "Borrar Personajes"
 
 #: includes/functions/_setup-admin.php:802
 msgctxt "Capability translation"
@@ -2528,7 +2534,7 @@ msgstr "Borrar otras páginas"
 #: includes/functions/_setup-admin.php:762
 msgctxt "Capability translation"
 msgid "Delete Others Posts"
-msgstr "Borrar otros mensajes"
+msgstr "Borrar otras entradas"
 
 #: includes/functions/_setup-admin.php:817
 msgctxt "Capability translation"
@@ -2548,12 +2554,12 @@ msgstr "Borrar páginas"
 #: includes/functions/_setup-admin.php:739
 msgctxt "Capability translation"
 msgid "Delete Post Tags"
-msgstr "Borrar etiquetas de entrada"
+msgstr "Borrar tags de entradas"
 
 #: includes/functions/_setup-admin.php:758
 msgctxt "Capability translation"
 msgid "Delete Posts"
-msgstr "Borrar mensajes"
+msgstr "Borrar entradas"
 
 #: includes/functions/_setup-admin.php:798
 msgctxt "Capability translation"
@@ -2573,7 +2579,7 @@ msgstr "Eliminar páginas privadas"
 #: includes/functions/_setup-admin.php:765
 msgctxt "Capability translation"
 msgid "Delete Private Posts"
-msgstr "Borrar mensajes privados"
+msgstr "Borrar Entradas privados"
 
 #: includes/functions/_setup-admin.php:820
 msgctxt "Capability translation"
@@ -2603,12 +2609,12 @@ msgstr "Borrar páginas publicadas"
 #: includes/functions/_setup-admin.php:760
 msgctxt "Capability translation"
 msgid "Delete Published Posts"
-msgstr "Borrar mensajes publicados"
+msgstr "Borrar entradas publicadas"
 
 #: includes/functions/_setup-admin.php:815
 msgctxt "Capability translation"
 msgid "Delete Published Recommendations"
-msgstr "Suprimir recomendaciones publicadas"
+msgstr "Borrar recomendaciones publicadas"
 
 #: includes/functions/_setup-admin.php:782
 msgctxt "Capability translation"
@@ -2638,7 +2644,7 @@ msgstr "Editar capítulos"
 #: includes/functions/_setup-admin.php:750
 msgctxt "Capability translation"
 msgid "Edit Characters"
-msgstr "Editar caracteres"
+msgstr "Editar Personajes"
 
 #: includes/functions/_setup-admin.php:801
 msgctxt "Capability translation"
@@ -2693,7 +2699,7 @@ msgstr "Editar otras páginas"
 #: includes/functions/_setup-admin.php:761
 msgctxt "Capability translation"
 msgid "Edit Others Posts"
-msgstr "Editar otros mensajes"
+msgstr "Editar otras Entradas"
 
 #: includes/functions/_setup-admin.php:816
 msgctxt "Capability translation"
@@ -2703,7 +2709,7 @@ msgstr "Editar otras recomendaciones"
 #: includes/functions/_setup-admin.php:783
 msgctxt "Capability translation"
 msgid "Edit Others Stories"
-msgstr "Editar historias de otros"
+msgstr "Editar otras historias "
 
 #: includes/functions/_setup-admin.php:768
 msgctxt "Capability translation"
@@ -2723,7 +2729,7 @@ msgstr "Editar etiquetas"
 #: includes/functions/_setup-admin.php:757
 msgctxt "Capability translation"
 msgid "Edit Posts"
-msgstr "Editar mensajes"
+msgstr "Editar entradas"
 
 #: includes/functions/_setup-admin.php:797
 msgctxt "Capability translation"
@@ -2743,7 +2749,7 @@ msgstr "Editar páginas privadas"
 #: includes/functions/_setup-admin.php:764
 msgctxt "Capability translation"
 msgid "Edit Private Posts"
-msgstr "Editar mensajes privados"
+msgstr "Editar entradas privados"
 
 #: includes/functions/_setup-admin.php:819
 msgctxt "Capability translation"
@@ -2773,7 +2779,7 @@ msgstr "Editar páginas publicadas"
 #: includes/functions/_setup-admin.php:759
 msgctxt "Capability translation"
 msgid "Edit Published Posts"
-msgstr "Editar mensajes publicados"
+msgstr "Editar Entradas publicadas"
 
 #: includes/functions/_setup-admin.php:814
 msgctxt "Capability translation"
@@ -2918,7 +2924,7 @@ msgstr "Publicar páginas"
 #: includes/functions/_setup-admin.php:756
 msgctxt "Capability translation"
 msgid "Publish Posts"
-msgstr "Publicar mensajes"
+msgstr "Publicar Entradas"
 
 #: includes/functions/_setup-admin.php:811
 msgctxt "Capability translation"
@@ -2958,7 +2964,7 @@ msgstr "Leer páginas privadas"
 #: includes/functions/_setup-admin.php:763
 msgctxt "Capability translation"
 msgid "Read Private Posts"
-msgstr "Leer mensajes privados"
+msgstr "Leer Entradas privadas"
 
 #: includes/functions/_setup-admin.php:818
 msgctxt "Capability translation"
@@ -2993,7 +2999,7 @@ msgstr "SEO Meta"
 #: includes/functions/_setup-admin.php:690
 msgctxt "Capability translation"
 msgid "Shortcodes"
-msgstr "Códigos cortos"
+msgstr "shortcodes"
 
 #: includes/functions/_setup-admin.php:712
 msgctxt "Capability translation"
@@ -3003,7 +3009,7 @@ msgstr "Mostrar insignia"
 #: includes/functions/_setup-admin.php:700
 msgctxt "Capability translation"
 msgid "Story Pages"
-msgstr "Páginas de cuentos"
+msgstr "Páginas de Historias"
 
 #: includes/functions/_setup-admin.php:728
 msgctxt "Capability translation"
@@ -3018,7 +3024,7 @@ msgstr "HTML sin filtrar"
 #: includes/functions/_setup-admin.php:727
 msgctxt "Capability translation"
 msgid "Unlock Posts"
-msgstr "Desbloquear puestos"
+msgstr "Desbloquear Entradas"
 
 #: includes/functions/_setup-admin.php:713
 msgctxt "Capability translation"
@@ -3223,11 +3229,11 @@ msgstr "<strong>Advertencia:</strong>&nbsp;%s"
 
 #: includes/functions/_setup-types-and-terms.php:188
 msgid "Chapter Attributes"
-msgstr "Capítulo Atributos"
+msgstr "Atributos del capitulo"
 
 #: includes/functions/_customizer-settings.php:2919
 msgid "Chapter Body Font"
-msgstr "Fuente del cuerpo del capítulo"
+msgstr "cuerpo de la fuente del capítulo"
 
 #: includes/functions/settings/_settings_page_roles.php:207
 msgid "Chapter Capabilities"
@@ -3439,7 +3445,7 @@ msgstr "Título del capítulo Fuente"
 
 #: includes/functions/settings/_settings_page_tools.php:72
 msgid "Chapter Tools"
-msgstr "Capítulo Herramientas"
+msgstr "Herramientas del capitulo"
 
 #: includes/functions/hooks/_chapter_hooks.php:247
 #, php-format
@@ -3730,7 +3736,7 @@ msgstr "Navegación por la lista de colecciones"
 
 #: includes/functions/_setup-types-and-terms.php:359
 msgid "Collections of stories, chapters, and recommendations."
-msgstr "Recopilación de relatos, capítulos y recomendaciones."
+msgstr "Recopilación de Historias, capítulos y recomendaciones."
 
 #: includes/functions/settings/_settings_page_general.php:564
 msgid "Collections page (Template: Collections)"
@@ -3738,7 +3744,7 @@ msgstr "Página Colecciones (Plantilla: Colecciones)"
 
 #: includes/functions/settings/_register_settings.php:1126
 msgid "Collections page assignment"
-msgstr "Asignación de páginas de colecciones"
+msgstr "Asignar página de colecciones"
 
 #: partials/_modal-formatting.php:97
 msgid "Color"
@@ -3807,14 +3813,14 @@ msgstr "Lista separada por comas de identificadores de autor."
 #: includes/functions/comments/_comments_threads.php:105
 msgid "Comment"
 msgid_plural "Comments"
-msgstr[0] "Comentário"
-msgstr[1] "Comentários"
+msgstr[0] "Comentario"
+msgstr[1] "Comentarios"
 
 #: partials/account/_data.php:127 partials/account/_data.php:150
 msgid "comment"
 msgid_plural "comments"
-msgstr[0] "comentário"
-msgstr[1] "comentários"
+msgstr[0] "comentario"
+msgstr[1] "comentarios"
 
 #: includes/functions/comments/_comments_ajax.php:485
 msgid "Comment cannot be empty."
@@ -3848,12 +3854,12 @@ msgstr "Capacidad de edición de comentarios desactivada."
 
 #: includes/functions/comments/_comments_moderation.php:178
 msgid "Comment Flags:"
-msgstr "Comentario Banderas:"
+msgstr "Comentarios marcados:"
 
 #: includes/functions/_utility.php:1949
 msgctxt "Comment form cookie checkbox."
 msgid "Save in cookie for next time."
-msgstr "Guardar en la galleta para la próxima vez."
+msgstr "Guardar en las cookies para la próxima vez."
 
 #: includes/functions/settings/_register_settings.php:1168
 msgid "Comment form CSS selector"
@@ -3999,7 +4005,7 @@ msgstr "Aprobado"
 #: includes/functions/_utility.php:1957
 msgctxt "Comment status translation."
 msgid "Hold"
-msgstr "Mantenga"
+msgstr "Mantener"
 
 #: includes/functions/_utility.php:1959
 msgctxt "Comment status translation."
@@ -4018,7 +4024,7 @@ msgstr "No aprobado"
 
 #: partials/account/_data.php:142
 msgid "Comment Subscriptions"
-msgstr "Cómo suscribirse"
+msgstr "Suscribirse a comentarios"
 
 #: includes/functions/users/_admin-profile.php:794
 msgid "Comment subscriptions could not be cleared."
@@ -4216,13 +4222,13 @@ msgstr "Campo de mensaje vacío."
 #: includes/functions/_module-forms.php:57
 msgctxt "Contact form."
 msgid "Nameless Form"
-msgstr "Forma sin nombre"
+msgstr "Formulario sin nombre"
 
 #: includes/functions/_module-forms.php:31
 #: includes/functions/_module-forms.php:225
 msgctxt "Contact form."
 msgid "Submission received!"
-msgstr "Presentación recibida."
+msgstr "Información recibida."
 
 #: includes/functions/_module-forms.php:52
 msgctxt "Contact form."
@@ -4319,7 +4325,7 @@ msgstr "Portada de %s"
 
 #: includes/functions/hooks/_mobile_menu_hooks.php:126
 msgid "Covers"
-msgstr "Cubiertas"
+msgstr "Portadas"
 
 #: includes/functions/settings/_settings_page_general.php:836
 msgid ""
@@ -4336,7 +4342,7 @@ msgstr "Estado actual de la historia."
 
 #: includes/functions/hooks/_general_hooks.php:728
 msgid "Custom"
-msgstr "A medida"
+msgstr "Personalizado"
 
 #: partials/account/_discussions.php:48
 #, php-format
@@ -4351,11 +4357,11 @@ msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3200
 msgid "Custom Page CSS"
-msgstr "CSS de página personalizado"
+msgstr "CSS personalizado de pagina"
 
 #: includes/functions/_setup-meta-fields.php:2014
 msgid "Custom Story CSS"
-msgstr "Historia personalizada CSS"
+msgstr "CSS personalizado de Historia"
 
 #: includes/functions/settings/_settings_page_general.php:749
 msgid ""
@@ -4424,7 +4430,7 @@ msgstr "Sin fisuras"
 #: includes/functions/_customizer-settings.php:2453
 msgctxt "Customizer card shadow option."
 msgid "Border Shadow"
-msgstr "Sombra fronteriza"
+msgstr "Sombreado del borde"
 
 #: includes/functions/_customizer-settings.php:2452
 msgctxt "Customizer card shadow option."
@@ -4719,7 +4725,7 @@ msgstr "Desbordamiento superior izquierdo (por defecto)"
 #: includes/functions/_customizer-settings.php:1927
 msgctxt "Customizer story cover shadow option."
 msgid "Border Shadow"
-msgstr "Sombra fronteriza"
+msgstr "Sombreado del borde"
 
 #: includes/functions/_customizer-settings.php:1926
 msgctxt "Customizer story cover shadow option."
@@ -4729,7 +4735,7 @@ msgstr "Sin sombra"
 #: includes/functions/_customizer-settings.php:1933
 msgctxt "Customizer story cover shadow option."
 msgid "Shadow Huge (Default)"
-msgstr "Enorme sombra (por defecto)"
+msgstr "Sombra Enorme (por defecto)"
 
 #: includes/functions/_customizer-settings.php:1932
 msgctxt "Customizer story cover shadow option."
@@ -4770,11 +4776,11 @@ msgstr "Dark &ltins>"
 
 #: includes/functions/_customizer-settings.php:951
 msgid "Dark Admin Badge"
-msgstr "Insignia Dark Admin"
+msgstr "Insignia admin (modo oscuro)"
 
 #: includes/functions/_customizer-settings.php:959
 msgid "Dark Author Badge"
-msgstr "Insignia de Autor Oscuro"
+msgstr "Insignia de Autor  (modo oscuro)"
 
 #: includes/functions/_customizer-settings.php:779
 msgid "Dark Background 100"
@@ -4822,23 +4828,23 @@ msgstr "Fondo oscuro 950"
 
 #: includes/functions/_customizer-settings.php:923
 msgid "Dark Bookmark Alpha"
-msgstr "Marcador oscuro Alfa"
+msgstr "Favoritos Alfa  (modo oscuro)"
 
 #: includes/functions/_customizer-settings.php:927
 msgid "Dark Bookmark Beta"
-msgstr "Marcador oscuro Beta"
+msgstr "Favoritos Beta  (modo oscuro)"
 
 #: includes/functions/_customizer-settings.php:935
 msgid "Dark Bookmark Delta"
-msgstr "Marcador oscuro Delta"
+msgstr "Favoritos Delta  (modo oscuro)"
 
 #: includes/functions/_customizer-settings.php:931
 msgid "Dark Bookmark Gamma"
-msgstr "Marcador oscuro Gamma"
+msgstr "Favoritos gamma  (modo oscuro)"
 
 #: includes/functions/_customizer-settings.php:919
 msgid "Dark Bookmark Line"
-msgstr "Marcapáginas Línea Oscura"
+msgstr "Linea de Marcapáginas  (modo oscuro)"
 
 #: includes/functions/_customizer-settings.php:871
 msgid "Dark Card Frame"
@@ -5154,7 +5160,7 @@ msgstr "Patron"
 
 #: includes/functions/_customizer-settings.php:1378
 msgid "Default Story Cover"
-msgstr "Portada por defecto"
+msgstr "Portada de historia por defecto"
 
 #: includes/functions/settings/_settings_actions.php:102
 msgid "Default tags have been added to the list."
@@ -5363,7 +5369,7 @@ msgstr "Desactivar nuevos comentarios"
 
 #: includes/functions/_setup-meta-fields.php:3379
 msgid "Disable page padding"
-msgstr "Desactivar el relleno de página"
+msgstr "Desactivar el padding de página"
 
 #: includes/functions/_setup-meta-fields.php:2728
 msgid "Disable partial caching of content"
@@ -5502,7 +5508,7 @@ msgstr "Se han encontrado llaves no permitidas."
 
 #: includes/functions/users/_admin-profile.php:1169
 msgid "Disconnect"
-msgstr "Desconecte"
+msgstr "Desconectado"
 
 #: includes/functions/_helpers-templates.php:1580
 #: includes/functions/_helpers-templates.php:2210
@@ -5558,7 +5564,7 @@ msgstr "Enlace de invitación a Discord"
 #: includes/functions/_module-discord.php:85
 msgctxt "Discord message \"Comment ID\" field."
 msgid "Comment ID"
-msgstr "Cómo identificar"
+msgstr "ID de comentario"
 
 #: includes/functions/_module-discord.php:102
 #: includes/functions/_module-discord.php:108
@@ -5581,7 +5587,7 @@ msgstr "ID de usuario"
 #: includes/functions/_module-discord.php:145
 msgctxt "Discord message \"User Role\" field."
 msgid "User Role"
-msgstr "Función del usuario"
+msgstr "Rol del usuario "
 
 #: includes/functions/_module-discord.php:159
 msgctxt "Discord message comment \"Type\" field."
@@ -5631,12 +5637,12 @@ msgstr "Webhook del canal de historias de Discord"
 
 #: partials/account/_discussions.php:27
 msgid "Discussions"
-msgstr "Debates"
+msgstr "Discusiones "
 
 #: includes/functions/settings/_register_settings.php:1022
 #: includes/functions/settings/_settings_page_general.php:98
 msgid "Display authors on cards and posts"
-msgstr "Mostrar autores en tarjetas y mensajes"
+msgstr "Mostrar autores en tarjetas y Entradas"
 
 #: includes/functions/settings/_settings_page_setup.php:46
 msgid "Display authors on cards and posts?"
@@ -5688,7 +5694,7 @@ msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:280
 msgid "Do not collapse long chapter lists."
-msgstr "No colapse las listas de capítulos largos."
+msgstr "No colapsar las listas de capítulos largos."
 
 #: includes/functions/_setup-meta-fields.php:2709
 msgid "Do not count as chapter"
@@ -5721,7 +5727,7 @@ msgstr "Documentación en GitHub"
 
 #: includes/functions/settings/_settings_page_general.php:883
 msgid "Does not reload the page on submit."
-msgstr "No recarga la página al enviar."
+msgstr "No recargar la página al enviar."
 
 #: includes/functions/hooks/_chapter_hooks.php:621
 msgid "Donation"
@@ -5755,7 +5761,7 @@ msgstr "Etiquetas duplicadas &rarr; Géneros"
 
 #: includes/functions/_helpers-templates.php:1039
 msgid "eBook"
-msgstr "Libro electrónico"
+msgstr "eBook"
 
 #: includes/functions/settings/_settings_page_epubs.php:118
 #: includes/functions/settings/_settings_page_seo.php:88
@@ -5885,7 +5891,7 @@ msgstr "Habilitar campos meta avanzados"
 #: includes/functions/settings/_register_settings.php:1112
 #: includes/functions/settings/_settings_page_general.php:219
 msgid "Enable age confirmation modal for posts"
-msgstr "Activar el modal de confirmación de edad para los mensajes"
+msgstr "Activar el modal de confirmación de edad para las Entradas"
 
 #: includes/functions/settings/_register_settings.php:1111
 #: includes/functions/settings/_settings_page_general.php:128
@@ -5934,11 +5940,11 @@ msgstr "Activar el script antiparpadeo"
 #: includes/functions/settings/_register_settings.php:1038
 #: includes/functions/settings/_settings_page_general.php:661
 msgid "Enable Bookmarks"
-msgstr "Activar marcadores"
+msgstr "Activar Favoritos"
 
 #: includes/functions/settings/_settings_page_setup.php:82
 msgid "Enable bookmarks for chapter paragraphs?"
-msgstr "¿Habilitar marcadores para los párrafos de los capítulos?"
+msgstr "¿Habilitar favoritos para los párrafos de los capítulos?"
 
 #: includes/functions/settings/_register_settings.php:1068
 #: includes/functions/settings/_settings_page_general.php:1425
@@ -6522,37 +6528,44 @@ msgid "First Page"
 msgstr "Primera página"
 
 #: includes/functions/settings/_settings_page_tools.php:281
+#, fuzzy
 msgid "Fix Chapters"
-msgstr "Capítulos fijos"
+msgstr "Fix Capitulo"
 
 #: includes/functions/settings/_settings_page_tools.php:283
+#, fuzzy
 msgid "Fix Collections"
-msgstr "Colecciones fijas"
+msgstr "Fix Colecciones "
 
 #: includes/functions/settings/_settings_page_tools.php:284
+#, fuzzy
 msgid "Fix Pages"
-msgstr "Páginas fijas"
+msgstr "Fix Paginas"
 
 #: includes/functions/settings/_settings_page_tools.php:285
+#, fuzzy
 msgid "Fix Posts"
-msgstr "Fijar puestos"
+msgstr "Fin entradas"
 
 #: includes/functions/settings/_settings_page_tools.php:282
+#, fuzzy
 msgid "Fix Recommendations"
-msgstr "Recomendaciones"
+msgstr "Fix Recomendaciones"
 
 #: includes/functions/settings/_settings_page_tools.php:280
+#, fuzzy
 msgid "Fix Stories"
-msgstr "Arreglar historias"
+msgstr "Fin historias"
 
 #: includes/functions/settings/_settings_page_tools.php:279
+#, fuzzy
 msgid "Fix Users"
-msgstr "Usuarios fijos"
+msgstr "Fix fijos"
 
 #: includes/functions/_utility.php:1891
 msgctxt "Follow a story."
 msgid "Follow"
-msgstr "Siga"
+msgstr "Seguir"
 
 #: includes/functions/_helpers-templates.php:960
 #: includes/functions/_helpers-templates.php:962
@@ -6926,7 +6939,7 @@ msgstr ""
 "href=\"[[post_url]]\">[[post_title]]</a>.<br><br><br><strong>[[reply_name]] "
 "respondió en [[reply_date]]:</strong><br><br><fieldset>[[reply_content]]</"
 "fieldset><br><br><a href=\"[[unsubscribe_url]]\">Darse de baja de este "
-"comentario.</a>."
+"comentario.</a>"
 
 #: includes/functions/settings/_settings_page_general.php:1681
 msgid "Help"
@@ -7986,7 +7999,7 @@ msgstr "El texto de la nota es el siguiente"
 #: includes/functions/_utility.php:1906
 msgctxt "Mark story as read."
 msgid "Mark Read"
-msgstr "Mark Leer"
+msgstr "Marcar Leido"
 
 #: includes/functions/_utility.php:1907
 msgctxt "Mark story as unread."
@@ -8336,7 +8349,7 @@ msgstr ""
 #: includes/functions/settings/_register_settings.php:1105
 #: includes/functions/settings/_settings_page_general.php:1234
 msgid "Monitor posts for suspicious content"
-msgstr "Supervisar los mensajes en busca de contenido sospechoso"
+msgstr "Supervisar las Entradas en busca de contenido sospechoso"
 
 #: includes/functions/settings/_settings_page_general.php:858
 msgid ""
@@ -8487,7 +8500,7 @@ msgstr "Nueva historia"
 
 #: includes/functions/hooks/_mobile_menu_hooks.php:121
 msgid "Next Font"
-msgstr "Fuente siguiente"
+msgstr "Siguiente Fuente"
 
 #: partials/account/_profile.php:74
 msgid "Nickname"
@@ -8847,7 +8860,7 @@ msgstr "Opcional, dejar vacío para ocultar."
 
 #: includes/functions/hooks/_general_hooks.php:730
 msgid "Order By"
-msgstr "Pedir por"
+msgstr "Ordenar por"
 
 #: includes/functions/_setup-meta-fields.php:2886
 msgid ""
@@ -8985,19 +8998,19 @@ msgstr "Advertencia de contenido para los padres:"
 
 #: includes/functions/_setup-types-and-terms.php:517
 msgid "Parent Fandom"
-msgstr "Fandom de los padres"
+msgstr "Fandom Padre"
 
 #: includes/functions/_setup-types-and-terms.php:518
 msgid "Parent Fandom:"
-msgstr "Fandom de los padres:"
+msgstr "Fandom Padre"
 
 #: includes/functions/_setup-types-and-terms.php:472
 msgid "Parent Genre"
-msgstr "Padre Género"
+msgstr "Genero Padre"
 
 #: includes/functions/_setup-types-and-terms.php:473
 msgid "Parent Genre:"
-msgstr "Género de los padres:"
+msgstr "Género Padre"
 
 #: includes/functions/users/_user-ajax.php:219
 #, php-format
@@ -9065,19 +9078,22 @@ msgstr "Patreon"
 
 #: includes/functions/users/_admin-profile.php:809
 msgid "Patreon account successfully linked."
-msgstr "Cuenta Patreon vinculada correctamente."
+msgstr "Cuenta de Patreon vinculada correctamente."
 
 #: includes/functions/_setup-meta-fields.php:4530
+#, fuzzy
 msgctxt "Patreon amount cents bulk edit label."
 msgid "Patreon Amount Cents (Override)"
-msgstr "Importe Patreon Céntimos (Anulación)"
+msgstr "Patreon Amount Cents (Override)"
 
 #: includes/functions/_setup-meta-fields.php:4384
+#, fuzzy
 msgctxt "Patreon amount cents list table column title."
 msgid "Patreon Cents"
 msgstr "Céntimos de Patreon"
 
 #: includes/functions/_setup-meta-fields.php:3325
+#, fuzzy
 msgctxt "Patreon amount cents meta field label."
 msgid "Patreon Amount Cents"
 msgstr "Cantidad Patreon Cents"
@@ -9110,6 +9126,7 @@ msgid "Patreon connection successfully removed."
 msgstr "Conexión Patreon eliminada con éxito."
 
 #: includes/functions/settings/_settings_page_connections.php:274
+#, fuzzy
 msgctxt "Patreon connection tier table."
 msgid "Amount Cents"
 msgstr "Importe Céntimos"
@@ -9384,7 +9401,7 @@ msgstr "Página"
 #: includes/functions/users/_admin-profile.php:1533
 msgctxt "Post type label."
 msgid "Post"
-msgstr "Publicar en"
+msgstr "Entrada"
 
 #: includes/functions/_setup-meta-fields.php:1510
 #: includes/functions/_setup-meta-fields.php:1557
@@ -9394,7 +9411,7 @@ msgstr "Publicar en"
 #: includes/functions/users/_admin-profile.php:1538
 msgctxt "Post type label."
 msgid "Rec"
-msgstr "Rec"
+msgstr "Recomendacion"
 
 #: includes/functions/_setup-meta-fields.php:1507
 #: includes/functions/_setup-meta-fields.php:1554
@@ -9801,7 +9818,7 @@ msgstr "?"
 #: includes/functions/_setup-meta-fields.php:938
 msgctxt "Relationship meta field search placeholder."
 msgid "Search…"
-msgstr "Busca..."
+msgstr "Buscar…"
 
 #: includes/functions/_setup-admin.php:257
 msgid "Release Notes"
@@ -9885,7 +9902,7 @@ msgstr "Elimina la contraseña después de la fecha."
 
 #: includes/functions/settings/_settings_page_roles.php:360
 msgid "Rename"
-msgstr "Cambie el nombre de"
+msgstr "Cambiar el nombre"
 
 #: includes/functions/settings/_settings_page_roles.php:339
 #, php-format
@@ -10147,7 +10164,7 @@ msgstr "Se han actualizado las funciones de los roles."
 
 #: includes/functions/settings/_settings_actions.php:129
 msgid "Role removed."
-msgstr "Papel eliminado."
+msgstr "rol eliminado."
 
 #: includes/functions/settings/_settings_actions.php:127
 msgid "Role renamed."
@@ -10205,7 +10222,7 @@ msgstr "Super Admin"
 #: includes/functions/_setup-admin.php:688
 msgctxt "Role translation"
 msgid "Supporter"
-msgstr "Partidario"
+msgstr "Apoyador"
 
 #: includes/functions/_setup-admin.php:689
 msgctxt "Role translation"
@@ -10221,7 +10238,7 @@ msgstr "Traductor"
 #: includes/functions/settings/_settings.php:48
 #: includes/functions/settings/_settings.php:223
 msgid "Roles"
-msgstr "Funciones"
+msgstr "Roles"
 
 #: includes/functions/_helpers-templates.php:358
 #, php-format
@@ -10272,15 +10289,15 @@ msgstr "Esquema del post #%s purgado."
 
 #: partials/_tts-interface.php:37
 msgid "Scroll"
-msgstr "Desplácese por"
+msgstr "Desplazamiento"
 
 #: includes/functions/hooks/_chapter_hooks.php:328
 msgid "Scroll to bottom"
-msgstr "Desplácese hasta abajo"
+msgstr "Ir abajo"
 
 #: includes/functions/hooks/_chapter_hooks.php:328
 msgid "Scroll to bottom of the chapter"
-msgstr "Desplácese hasta el final del capítulo"
+msgstr "ir hasta el final del capítulo"
 
 #: includes/functions/hooks/_chapter_hooks.php:330
 msgid "Scroll to top"
@@ -10305,7 +10322,7 @@ msgstr "Buscar capítulos"
 
 #: includes/functions/_setup-types-and-terms.php:560
 msgid "Search Characters"
-msgstr "Buscar caracteres"
+msgstr "Buscar personajes"
 
 #: includes/functions/_setup-types-and-terms.php:343
 msgid "Search Collections"
@@ -10805,7 +10822,7 @@ msgstr "Mostrar login por defecto de WordPress en modal"
 #: includes/functions/settings/_register_settings.php:1116
 #: includes/functions/settings/_settings_page_general.php:229
 msgid "Show excerpt on password-protected posts"
-msgstr "Mostrar extracto en mensajes protegidos por contraseña"
+msgstr "Mostrar extracto en Entradas protegidos por contraseña"
 
 #: includes/functions/_customizer-settings.php:1176
 msgid "Show header image shadow"
@@ -10956,7 +10973,7 @@ msgstr "Saltar"
 
 #: includes/functions/settings/_settings_page_roles.php:355
 msgid "Slug of the role. Must not be changed."
-msgstr "Slug del papel. No debe modificarse."
+msgstr "Slug del rol. No debe modificarse."
 
 #: includes/functions/_customizer-settings.php:2260
 msgid "Small Border Radius"
@@ -11050,7 +11067,7 @@ msgstr ""
 #: includes/functions/hooks/_general_hooks.php:642
 msgctxt "Sort and filter option."
 msgid "Published"
-msgstr "Publicado en"
+msgstr "Publicado"
 
 #: includes/functions/hooks/_general_hooks.php:646
 msgctxt "Sort and filter option."
@@ -11199,8 +11216,8 @@ msgstr "Historia"
 #: partials/account/_data.php:246
 msgid "story"
 msgid_plural "stories"
-msgstr[0] "história"
-msgstr[1] "histórias"
+msgstr[0] "historia"
+msgstr[1] "historias"
 
 #: includes/functions/_setup-meta-fields.php:1912
 msgctxt "Story age rating meta field label."
@@ -11366,7 +11383,7 @@ msgstr "Historia oculta"
 
 #: includes/functions/settings/_settings_page_tools.php:260
 msgid "Story ID"
-msgstr "Identificación de la historia"
+msgstr "ID de la historia"
 
 #: includes/functions/_setup-admin.php:1173
 msgid "Story ID did not pass validation."
@@ -11393,13 +11410,14 @@ msgid "Read later"
 msgstr "Leer más"
 
 #: includes/functions/_setup-meta-fields.php:1859
+#, fuzzy
 msgid "Story Meta"
 msgstr "Metahistoria"
 
 #. Name of the template
 #: singular-mirror-story.php:2
 msgid "Story Mirror"
-msgstr "Espejo de historias"
+msgstr "Historia Espejo"
 
 #: includes/functions/_utility.php:1898
 msgctxt "Story or chapter is marked as read."
@@ -11536,16 +11554,16 @@ msgstr "Enviar solicitud de búsqueda"
 
 #: includes/functions/settings/_settings_loggers.php:646
 msgid "submitted for review"
-msgstr "presentado para revisión"
+msgstr "Enviado para revisión"
 
 #: includes/functions/_utility.php:1918
 msgctxt "Subscribe to a story."
 msgid "Subscribe"
-msgstr "Suscríbase a"
+msgstr "Suscríbirse"
 
 #: includes/functions/settings/_settings_actions.php:122
 msgid "Subscriber capabilities have been updated."
-msgstr "Se han actualizado las capacidades de los abonados."
+msgstr "Se han actualizado las capacidades de los suscriptores,"
 
 #: includes/functions/hooks/_chapter_hooks.php:603
 msgid "SubscribeStar"
@@ -12141,7 +12159,7 @@ msgstr ""
 
 #: includes/functions/settings/_settings_actions.php:994
 msgid "This role cannot be removed."
-msgstr "Esta función no puede suprimirse."
+msgstr "Esta función no puede ser removido."
 
 #: includes/functions/settings/_settings_actions.php:1065
 msgid "This role cannot be renamed."
@@ -12268,7 +12286,7 @@ msgstr "Active la casilla de suscripción en los comentarios por defecto."
 
 #: partials/_modal-formatting.php:126
 msgid "Toggles"
-msgstr "Conmuta"
+msgstr "Alternaciones"
 
 #: includes/functions/settings/_settings.php:110
 #: includes/functions/settings/_settings.php:111
@@ -12320,7 +12338,7 @@ msgstr "ID de cliente de Twitch"
 #: includes/functions/settings/_register_settings.php:1152
 #: includes/functions/settings/_settings_page_connections.php:115
 msgid "Twitch Client Secret"
-msgstr "Secreto del cliente de Twitch"
+msgstr "código secreto del cliente de Twitch"
 
 #: includes/functions/users/_admin-profile.php:791
 msgid "Twitch connection successfully removed."
