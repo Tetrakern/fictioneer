@@ -513,7 +513,7 @@ function fictioneer_password_form() {
   // Continue filter
   return $form;
 }
-add_filter( 'the_password_form', 'fictioneer_password_form', 10, 1 );
+add_filter( 'the_password_form', 'fictioneer_password_form' );
 
 /**
  * Append Patreon unlock info after password form
@@ -599,7 +599,7 @@ function fictioneer_unlock_with_patreon( $form ) {
   // Continue filter
   return $form;
 }
-add_filter( 'the_password_form', 'fictioneer_unlock_with_patreon', 20, 1 );
+add_filter( 'the_password_form', 'fictioneer_unlock_with_patreon', 20 );
 
 // =============================================================================
 // ADD ID TO CONTENT PARAGRAPHS IN CHAPTERS
@@ -645,7 +645,7 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
     $content
   );
 }
-add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
+add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id' );
 
 /**
  * Fixes line breaks before paragraphs are added
@@ -676,7 +676,7 @@ function fictioneer_fix_line_breaks( $content ) {
 }
 
 if ( get_option( 'fictioneer_enable_line_break_fix' ) ) {
-  add_filter( 'the_content', 'fictioneer_fix_line_breaks', 1, 1 );
+  add_filter( 'the_content', 'fictioneer_fix_line_breaks', 1 );
 }
 
 // =============================================================================

@@ -323,74 +323,77 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 
 | WORDPRESS HOOK | FICTIONEER FILTERS
 | ---: | :--- |
-| `admin_body_class` | `fictioneer_add_classes_to_admin_body`
-| `admin_comment_types_dropdown` | `fictioneer_add_private_to_comment_filter`, `fictioneer_add_user_deleted_to_comment_filter`
-| `allowed_block_types_all` | `fictioneer_allowed_block_types`, `fictioneer_restrict_block_types`
-| `block_editor_settings_all` | `fictioneer_disable_font_library`
-| `body_class` | `fictioneer_add_classes_to_body`
-| `cancel_comment_reply_link` | `__return_empty_string`
-| `comment_email` | `__return_false`
-| `comment_form_default_fields` | `fictioneer_change_comment_fields`
-| `comment_form_defaults` | `fictioneer_comment_form_args`
-| `comment_form_submit_field` | `fictioneer_change_submit_field`
-| `comment_post_redirect` | `fictioneer_redirect_comment`
-| `comment_reply_link` | `fictioneer_comment_login_to_reply`
-| `comment_row_actions` | `fictioneer_remove_quick_edit`
-| `comment_text` | `fictioneer_bbcodes`
-| `customize_refresh_nonces` | `fictioneer_add_customizer_refresh_nonces`
-| `excerpt_length` | `fictioneer_custom_excerpt_length`
-| `excerpt_more` | `fictioneer_excerpt_ellipsis`
-| `get_avatar` | `fictioneer_avatar_fallback`
-| `get_avatar_url` | `fictioneer_get_avatar_url`
-| `get_comment_author_IP` | `__return_empty_string`
-| `get_comment_text` | `fictioneer_replace_comment_line_breaks`
-| `get_the_excerpt` | `fictioneer_fix_excerpt`
-| `is_protected_meta` | `fictioneer_make_theme_meta_protected`
-| `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
-| `logout_url` | `fictioneer_logout_redirect`
-| `manage_edit-comments_columns` | `fictioneer_add_comments_report_column`
-| `manage_{$type}_posts_columns` | `fictioneer_add_posts_columns_patreon`
-| `manage_pages_columns` | `fictioneer_remove_comments_column`
-| `manage_posts_columns` | `fictioneer_remove_comments_column`
-| `manage_users_columns` | `fictioneer_hide_users_columns`
-| `map_meta_cap` | `fcn_read_others_files`, `fictioneer_edit_others_files`, `fictioneer_delete_others_files`, `fictioneer_override_default_taxonomy_capability_check`, `fictioneer_edit_comments`
-| `navigation_markup_template` | `fictioneer_pagination_markup`
-| `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
-| `post_password_required` | `fictioneer_bypass_password`, `fictioneer_expire_post_password`
-| `post_stuck` | `fictioneer_prevent_post_sticky`
-| `postbox_classes_{$screen_id}_{$box_id}` | `fictioneer_append_metabox_classes`
-| `pre_comment_user_ip` | `__return_empty_string`
-| `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_edit_others_fictioneer_posts`, `fictioneer_add_sof_to_taxonomy_query`
-| `pre_insert_term` | `fictioneer_restrict_tag_creation`
-| `preprocess_comment` | `fictioneer_preprocess_comment`, `fictioneer_validate_comment_form`
-| `protected_title_format` | `fictioneer_remove_protected_text`
-| `query_vars` | `fictioneer_query_vars`
-| `removable_query_args` | `fictioneer_removable_args`
-| `render_block` | `fictioneer_download_block_wrapper`
-| `rest_authentication_errors` | `fictioneer_restrict_rest_api`
-| `script_loader_tag` | `fictioneer_data_jetpack_boost_tag`
-| `show_admin_bar` | `__return_false`
-| `strip_shortcodes_tagnames` | `fictioneer_exempt_shortcodes_from_removal`
+| `admin_body_class` | `fictioneer_add_classes_to_admin_body` (10)
+| `admin_comment_types_dropdown` | `fictioneer_add_private_to_comment_filter` (10), `fictioneer_add_user_deleted_to_comment_filter` (10)
+| `allowed_block_types_all` | `fictioneer_allowed_block_types` (10), `fictioneer_restrict_block_types` (20)
+| `block_editor_settings_all` | `fictioneer_disable_font_library` (10)
+| `body_class` | `fictioneer_add_classes_to_body` (10)
+| `cancel_comment_reply_link` | `__return_empty_string` (10)
+| `comment_email` | `__return_false` (10)
+| `comment_form_default_fields` | `fictioneer_change_comment_fields` (10)
+| `comment_form_defaults` | `fictioneer_comment_form_args` (10)
+| `comment_form_submit_field` | `fictioneer_change_submit_field` (10)
+| `comment_post_redirect` | `fictioneer_redirect_comment` (10)
+| `comment_reply_link` | `fictioneer_comment_login_to_reply` (10)
+| `comment_row_actions` | `fictioneer_remove_quick_edit` (10)
+| `comment_text` | `fictioneer_bbcodes` (10)
+| `customize_refresh_nonces` | `fictioneer_add_customizer_refresh_nonces` (10)
+| `excerpt_length` | `fictioneer_custom_excerpt_length` (10)
+| `excerpt_more` | `fictioneer_excerpt_ellipsis` (10)
+| `feed_links_show_comments_feed` | `__return_false` (10)
+| `get_avatar` | `fictioneer_avatar_fallback` (1)
+| `get_avatar_url` | `fictioneer_get_avatar_url` (10)
+| `get_comment_author_IP` | `__return_empty_string` (10)
+| `get_comment_text` | `fictioneer_replace_comment_line_breaks` (10)
+| `get_the_excerpt` | `fictioneer_fix_excerpt` (10)
+| `is_protected_meta` | `fictioneer_make_theme_meta_protected` (10)
+| `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols` (10)
+| `logout_url` | `fictioneer_logout_redirect` (10)
+| `manage_edit-comments_columns` | `fictioneer_add_comments_report_column` (10)
+| `manage_{$type}_posts_columns` | `fictioneer_add_posts_columns_patreon` (10)
+| `manage_pages_columns` | `fictioneer_remove_comments_column` (10)
+| `manage_posts_columns` | `fictioneer_remove_comments_column` (10)
+| `manage_users_columns` | `fictioneer_hide_users_columns` (10)
+| `map_meta_cap` | `fictioneer_edit_others_files` (10), `fictioneer_delete_others_files` (9999), `fictioneer_override_default_taxonomy_capability_check` (9999), `fictioneer_edit_comments` (10)
+| `navigation_markup_template` | `fictioneer_pagination_markup` (10)
+| `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes` (10)
+| `post_comments_feed_link` | `__return_empty_string` (10)
+| `post_password_required` | `fictioneer_bypass_password` (10), `fictioneer_expire_post_password` (5)
+| `post_stuck` | `fictioneer_prevent_post_sticky` (10)
+| `postbox_classes_{$screen_id}_{$box_id}` | `fictioneer_append_metabox_classes` (10)
+| `pre_comment_user_ip` | `__return_empty_string` (10)
+| `pre_get_posts` | `fictioneer_extend_taxonomy_pages` (10), `fictioneer_edit_others_fictioneer_posts` (10), `fictioneer_add_sof_to_taxonomy_query` (10)
+| `pre_insert_term` | `fictioneer_restrict_tag_creation` (9999)
+| `preprocess_comment` | `fictioneer_preprocess_comment` (30), `fictioneer_validate_comment_form` (20)
+| `protected_title_format` | `fictioneer_remove_protected_text` (10)
+| `query_vars` | `fictioneer_query_vars` (10)
+| `removable_query_args` | `fictioneer_removable_args` (10)
+| `render_block` | `fictioneer_download_block_wrapper` (10)
+| `rest_authentication_errors` | `fictioneer_restrict_rest_api` (10)
+| `script_loader_tag` | `fictioneer_data_jetpack_boost_tag` (10)
+| `show_admin_bar` | `__return_false` (10)
+| `strip_shortcodes_tagnames` | `fictioneer_exempt_shortcodes_from_removal` (10)
 | `style_loader_tag` | `fictioneer_add_font_awesome_integrity` (10)
-| `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`, `fictioneer_replace_br_with_whitespace`, `fictioneer_fix_line_breaks`
-| `the_password_form` | `fictioneer_password_form`, `fictioneer_unlock_with_patreon`
-| `the_content_more_link` | `fictioneer_wrap_read_more_link`
-| `the_excerpt_rss` | `fictioneer_filter_rss_excerpt`
-| `theme_templates` | `fictioneer_disallow_page_template_select`
-| `tiny_mce_plugins` | `fictioneer_disable_tiny_mce_emojis`
-| `update_post_metadata` | `fictioneer_prevent_page_template_update`
-| `upload_size_limit` | `fictioneer_upload_size_limit`
-| `use_block_editor_for_post_type` | `__return_false`
-| `user_contactmethods` | `fictioneer_user_contact_methods`
-| `user_has_cap` | `fictioneer_edit_only_comments`
-| `wp_list_comments_args` | `fictioneer_comment_list_args`
-| `wp_handle_upload_prefilter` | `fictioneer_upload_restrictions`
-| `wp_insert_post_data` | `fictioneer_remove_restricted_block_content`, `fictioneer_strip_shortcodes_on_save`, `fictioneer_see_some_evil`, `fictioneer_enforce_permalink`, `fictioneer_prevent_publish_date_update`, `fictioneer_prevent_parent_and_order_update`, `fictioneer_prevent_track_and_ping_updates`
-| `wp_is_application_passwords_available` | `__return_false`
-| `wp_resource_hints` | `fictioneer_remove_emoji_resource_hint`
-| `wp_robots` | `wp_robots_no_robots`
-| `wp_sitemaps_enabled` | `__return_false`
-| `wp_unique_post_slug` | `fictioneer_protect_reserved_post_slugs`
+| `the_content` | `fictioneer_embed_consent_wrappers` (20), `fictioneer_add_lightbox_to_post_images` (15), `fictioneer_add_chapter_paragraph_id` (10), `fictioneer_replace_br_with_whitespace` (6), `fictioneer_fix_line_breaks` (1)
+| `the_password_form` | `fictioneer_password_form` (10), `fictioneer_unlock_with_patreon` (20)
+| `the_content_more_link` | `fictioneer_wrap_read_more_link` (10)
+| `the_excerpt_rss` | `fictioneer_filter_rss_excerpt` (10)
+| `theme_templates` | `fictioneer_disallow_page_template_select` (1)
+| `tiny_mce_plugins` | `fictioneer_disable_tiny_mce_emojis` (10)
+| `update_post_metadata` | `fictioneer_prevent_page_template_update` (1)
+| `upload_size_limit` | `fictioneer_upload_size_limit` (10)
+| `use_block_editor_for_post_type` | `__return_false` (10)
+| `user_contactmethods` | `fictioneer_user_contact_methods` (10)
+| `user_has_cap` | `fictioneer_edit_only_comments` (10)
+| `wp_list_comments_args` | `fictioneer_comment_list_args` (10)
+| `wp_handle_upload_prefilter` | `fictioneer_upload_restrictions` (10)
+| `wp_insert_post_data` | `fictioneer_remove_restricted_block_content` (1), `fictioneer_strip_shortcodes_on_save` (1), `fictioneer_see_some_evil` (1), `fictioneer_prevent_publish_date_update` (1), `fictioneer_prevent_parent_and_order_update` (1), `fictioneer_prevent_track_and_ping_updates` (1)
+| `wp_is_application_passwords_available` | `__return_false` (10)
+| `wp_resource_hints` | `fictioneer_remove_emoji_resource_hint` (10)
+| `wp_robots` | `wp_robots_no_robots` (10)
+| `wp_sitemaps_enabled` | `__return_false` (10)
+| `wp_unique_post_slug` | `fictioneer_protect_reserved_post_slugs` (10)
+| `xmlrpc_enabled` | `__return_false` (10)
 
 ## Caching
 

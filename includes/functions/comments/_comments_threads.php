@@ -872,5 +872,5 @@ function fictioneer_pagination_markup( $template ) {
 }
 
 if ( ! get_option( 'fictioneer_disable_comment_pagination' ) )  {
-  add_filter( 'navigation_markup_template', 'fictioneer_pagination_markup', 10 );
+  add_filter( 'navigation_markup_template', 'fictioneer_pagination_markup' );
 }
