@@ -211,6 +211,37 @@ Filters the default chapter formatting settings. The passed array is empty becau
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_group', $group, $group_index, $story_id )`
+Filters the array of grouped chapter data in the `fictioneer_story_chapters()` function before it is rendered in the chapter list on story pages.
+
+**$group:**
+* $group (string) – Name of the group.
+* $toggle_icon (string) – CSS classes for the group toggle icon (Font Awesome).
+* $data (array) – Array of chapter post data in render order.
+  * $id (int) – Post ID
+  * $story_id (int) – Story ID.
+  * $status (string) – Status of the post.
+  * $link (string) – Permalink of the post. Can be empty.
+  * $timestamp (string) – Publish date of the post (Unix).
+  * $password (boolean) – Whether the post has a password.
+  * $list_date (string) – Publish date formatted for lists.
+  * $grid_date (string) – Publish date formatted for grids.
+  * $icon (string) – CSS classes for the chapter icon (Font Awesome).
+  * $text_icon (string) – Text icon (if any).
+  * $prefix (string) – Prefix for the title (if any).
+  * $title (string) – Title of the post (never empty).
+  * $list_title (string) – Alternative title of the post (used on small cards).
+  * $words (int) – Word count of the post.
+  * $warning (string) – Warning note of the post (if any).
+* $count (int) – Number of items in the group to be rendered.
+* $classes (array) – Array of CSS classes to be added to the group button.
+
+**Parameters:**
+* $group_index (int) – The current group index in render order, starting at 1.
+* $story_id (int) – Story ID.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_icon', $icon_html, $chapter_id, $story_id )`
 Filters the HTML of the chapter icon before it is rendered. The display hierarchy is password icon > scheduled icon > text icon > chapter icon.
 

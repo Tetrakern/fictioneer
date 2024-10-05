@@ -555,7 +555,13 @@ function fictioneer_story_chapters( $args ) {
           if ( ! array_key_exists( $group_key, $chapter_groups ) ) {
             $chapter_groups[ $group_key ] = array(
               'group' => $group,
-              'data' => []
+              'toggle_icon' => 'fa-solid fa-chevron-down',
+              'data' => [],
+              'count' => 0,
+              'classes' => array(
+                '_group-' . sanitize_title( $group ),
+                "_story-{$story_id}"
+              )
             );
           }
 
@@ -564,7 +570,7 @@ function fictioneer_story_chapters( $args ) {
             'story_id' => $story_id,
             'status' => $post->post_status,
             'link' => in_array( $post->post_status, $allowed_permalinks ) ? get_permalink( $post->ID ) : '',
-            'timestamp' => get_the_time( 'c' ),
+            'timestamp' => get_the_time( 'U' ),
             'password' => ! empty( $post->post_password ),
             'list_date' => get_the_date( '', $post ),
             'grid_date' => get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ),
@@ -576,6 +582,8 @@ function fictioneer_story_chapters( $args ) {
             'words' => fictioneer_get_word_count( $chapter_id ),
             'warning' => get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true )
           );
+
+          $chapter_groups[ $group_key ]['count'] += 1;
         }
 
         // Reset postdata
@@ -593,25 +601,32 @@ function fictioneer_story_chapters( $args ) {
         $has_groups = count( $chapter_groups ) > 1 && get_option( 'fictioneer_enable_chapter_groups' );
 
         foreach ( $chapter_groups as $group ) {
+          $group_index++;
+
+          $group = apply_filters( 'fictioneer_filter_chapter_group', $group, $group_index, $story_id );
+
           $index = 0;
-          $group_chapter_count = count( $group['data'] );
           $reverse_order = 99999;
+          $group_item_count = count( $group['data'] );
           $chapter_folding = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
           $chapter_folding = $chapter_folding && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
           $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
-          $group_index++;
 
           // Start HTML ---> ?>
           <div class="chapter-group <?php echo implode( ' ', $group_classes ); ?>" data-folded="true">
 
             <?php if ( $has_groups ) : ?>
               <button
-                class="chapter-group__name"
+                class="chapter-group__name <?php echo implode( ' ', $group['classes'] ?? [] ); ?>"
                 aria-label="<?php echo esc_attr( sprintf( $aria_label, $group['group'] ) ); ?>"
+                data-item-count="<?php echo esc_attr( $group_item_count ); ?>"
+                data-group-index="<?php echo esc_attr( $group_index ); ?>"
                 tabindex="0"
               >
-                <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
-                <span><?php echo $group['group']; ?></span>
+                <i class="<?php echo $group['toggle_icon']; ?> chapter-group__heading-icon"></i>
+                <span data-item-count="<?php echo esc_attr( $group_item_count ); ?>"><?php
+                  echo $group['group'];
+                ?></span>
               </button>
             <?php endif; ?>
 
@@ -623,7 +638,7 @@ function fictioneer_story_chapters( $args ) {
 
                   // Must account for extra toggle row and start at 1
                   $is_folded = $chapter_folding && $index > FICTIONEER_CHAPTER_FOLDING_THRESHOLD &&
-                    $index < ( $group_chapter_count + 2 - FICTIONEER_CHAPTER_FOLDING_THRESHOLD );
+                    $index < ( $group_item_count + 2 - FICTIONEER_CHAPTER_FOLDING_THRESHOLD );
 
                   if ( $is_folded ) {
                     $extra_classes .= ' _foldable';
@@ -640,7 +655,7 @@ function fictioneer_story_chapters( $args ) {
                       <?php
                         printf(
                           __( 'Show %s more', 'fictioneer' ),
-                          $group_chapter_count - FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2
+                          $group_item_count - FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2
                         );
                       ?>
                     </button>
