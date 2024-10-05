@@ -39,7 +39,7 @@ function fictioneer_add_fiction_css() {
     echo '<style id="fictioneer-custom-styles">' . str_replace( '<', '', $custom_css ). '</style>';
   }
 }
-add_action( 'wp_head', 'fictioneer_add_fiction_css', 10 );
+add_action( 'wp_head', 'fictioneer_add_fiction_css' );
 
 // =============================================================================
 // BREADCRUMBS
