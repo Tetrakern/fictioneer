@@ -35,8 +35,13 @@ $meta_output = [];
 // Status
 $meta_output['status'] = '<span class="story__meta-item story__status"><i class="' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
 
-// Date
-$meta_output['date'] = '<span class="story__meta-item story__date _published" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"><i class="fa-solid fa-clock"></i> <span class="hide-below-480">' . get_the_time( get_option( 'date_format' ), $post ) . '</span><span class="show-below-480">' . get_the_time( FICTIONEER_STORY_FOOTER_B480_DATE, $post ) . '</span></span>';
+if ( get_option( 'fictioneer_show_story_modified_date' ) ) {
+  // Modified
+  $meta_output['modified'] = '<span class="story__meta-item story__date _modified" title="' . esc_attr__( 'Updated', 'fictioneer' ) . '"><i class="fa-regular fa-clock"></i> <span class="hide-below-480">' . get_the_modified_date( get_option( 'date_format' ), $post ) . '</span><span class="show-below-480">' . get_the_modified_date( FICTIONEER_STORY_FOOTER_B480_DATE, $post ) . '</span></span>';
+} else {
+  // Publish
+  $meta_output['date'] = '<span class="story__meta-item story__date _published" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"><i class="fa-solid fa-clock"></i> <span class="hide-below-480">' . get_the_time( get_option( 'date_format' ), $post ) . '</span><span class="show-below-480">' . get_the_time( FICTIONEER_STORY_FOOTER_B480_DATE, $post ) . '</span></span>';
+}
 
 // Words
 $meta_output['words'] = '<span class="story__meta-item story__words" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"><i class="fa-solid fa-font"></i> ' . $story['word_count_short'] . '</span>';

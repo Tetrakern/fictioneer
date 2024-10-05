@@ -719,6 +719,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_show_story_modified_date' => array(
+      'name' => 'fictioneer_show_story_modified_date',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1190,6 +1196,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_log_posts' => __( 'Log all post updates', 'fictioneer' ),
       'fictioneer_disable_menu_transients' => __( 'Disable menu Transient caching', 'fictioneer' ),
       'fictioneer_enable_line_break_fix' => __( 'Enable fixing of chapter paragraphs', 'fictioneer' ),
+      'fictioneer_show_story_modified_date' => __( 'Show the modified date on story pages', 'fictioneer' ),
     );
   }
 

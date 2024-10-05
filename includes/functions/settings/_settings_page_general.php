@@ -345,6 +345,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_show_story_modified_date',
+                    __( 'Show the modified date on story pages', 'fictioneer' ),
+                    __( 'Below the chapter list and instead of the publish date.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_hide_large_card_chapter_list',
                     __( 'Hide chapter list on large story cards', 'fictioneer' ),
                     __( 'Less informative but also less cluttered.', 'fictioneer' )
