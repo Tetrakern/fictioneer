@@ -1075,14 +1075,14 @@ function fictioneer_look_for_issues() {
   $site_url = get_option( 'siteurl' );
   $home_url = get_option( 'home' );
 
-  if ( strpos( $site_url, 'https://' ) !== 0 ) {
+  if ( strpos( $site_url, 'https://' ) !== 0 && ! fictioneer_is_local_environment() ) {
     $issues[] = sprintf(
       __( 'Your <strong>Site URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
       'https://'
     );
   }
 
-  if ( strpos( $home_url, 'https://' ) !== 0 ) {
+  if ( strpos( $home_url, 'https://' ) !== 0 && ! fictioneer_is_local_environment() ) {
     $issues[] = sprintf(
       __( 'Your <strong>Home URL</strong> does not start with <code>%s</code>. This can lead to security issues, browsers refusing to access the page, and required scripts not loading.', 'fictioneer' ),
       'https://'

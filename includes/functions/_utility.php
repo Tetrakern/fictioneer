@@ -1,6 +1,28 @@
 <?php
 
 // =============================================================================
+// CHECK FOR LOCAL DEV ENVIRONMENT
+// =============================================================================
+
+/**
+ * Checks whether the site runs on a local environment
+ *
+ * @since 5.25.0
+ *
+ * @return bool True or false.
+ */
+
+function fictioneer_is_local_environment() {
+  $local_hosts = ['localhost', '127.0.0.1', '::1'];
+
+  if ( in_array( $_SERVER['HTTP_HOST'], $local_hosts ) || in_array( $_SERVER['SERVER_ADDR'], $local_hosts ) ) {
+    return true;
+  }
+
+  return false;
+}
+
+// =============================================================================
 // CHECK IF URL EXISTS
 // =============================================================================
 
