@@ -321,7 +321,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 
 <br>
 
-| WORDPRESS HOOK | FICTIONEER FILTERS
+| WORDPRESS HOOK | FICTIONEER FILTERS (PRIORITY)
 | ---: | :--- |
 | `admin_body_class` | `fictioneer_add_classes_to_admin_body` (10)
 | `admin_comment_types_dropdown` | `fictioneer_add_private_to_comment_filter` (10), `fictioneer_add_user_deleted_to_comment_filter` (10)
