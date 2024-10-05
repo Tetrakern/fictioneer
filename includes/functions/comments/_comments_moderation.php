@@ -320,7 +320,7 @@ function fictioneer_edit_comment( $comment_id ) {
 // Add filters and actions if not disabled
 if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
   add_action( 'add_meta_boxes_comment', 'fictioneer_add_comment_meta_box' );
-  add_action( 'edit_comment', 'fictioneer_edit_comment', 10 );
+  add_action( 'edit_comment', 'fictioneer_edit_comment' );
 }
 
 /**
