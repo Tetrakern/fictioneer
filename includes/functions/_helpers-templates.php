@@ -656,7 +656,7 @@ if ( ! function_exists( 'fictioneer_get_small_card_thumbnail' ) ) {
     if ( $landscape_image_id && $aspect_ratio ) {
       $ratio = fictioneer_get_split_aspect_ratio( $aspect_ratio );
 
-      if ( $ratio[0] - $ratio[1] > 1 ) {
+      if ( ( $ratio[1] / $ratio[0] ) < 1 ) {
         $thumbnail = wp_get_attachment_image( $landscape_image_id, $thumbnail_size, false, $thumbnail_args );
         $thumbnail_url = wp_get_attachment_url( $landscape_image_id, $thumbnail_size, false, $thumbnail_args );
         $thumbnail_full_url = wp_get_attachment_url( $landscape_image_id, 'full', false, $thumbnail_args );
