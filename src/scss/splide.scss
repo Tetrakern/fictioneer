@@ -16,7 +16,7 @@
   padding-bottom: var(--this-arrow-vertical-padding, 0px);
   padding-right: calc(var(--this-arrow-horizontal-padding, 0px) + var(--this-pagination-side-padding, 0px));
 
-  &:not(.is-initialized) {
+  &._splide-placeholder {
     visibility: visible;
 
     .splide__slide:first-child {
