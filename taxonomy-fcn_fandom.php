@@ -31,7 +31,6 @@ get_header();
             $current_count = get_queried_object()->count;
             $current_description = get_queried_object()->description;
             $parent = get_term_by( 'id', get_queried_object()->parent, get_query_var( 'taxonomy' ) );
-            $parent_snippet = ( $parent ) ? " ($parent->name)" : '';
           ?>
 
           <div class="tax-cloud__header">
@@ -39,13 +38,14 @@ get_header();
               <?php
                 printf(
                   _n(
-                    '<span class="tax-cloud__number">%1$s</span> Result in the <em>"%2$s"</em> fandom' . $parent_snippet,
-                    '<span class="tax-cloud__number">%1$s</span> Results in the <em>"%2$s"</em> fandom' . $parent_snippet,
+                    '<span class="tax-cloud__number">%1$s</span> Result in the <em>"%2$s"</em> fandom %3$s',
+                    '<span class="tax-cloud__number">%1$s</span> Results in the <em>"%2$s"</em> fandom %3$s',
                     $current_count,
                     'fictioneer'
                   ),
                   $current_count,
-                  single_tag_title( '', false )
+                  single_tag_title( '', false ),
+                  $parent ? sprintf( _x( '(%s)', 'Taxonomy page parent suffix.', 'fictioneer' ), $parent->name ) : ''
                 )
               ?>
             </h1>
