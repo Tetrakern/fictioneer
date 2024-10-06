@@ -333,7 +333,12 @@ add_action( 'private_to_draft', 'fictioneer_chapter_to_draft' );
 
 function fictioneer_chapter_future_to_publish( $new_status, $old_status, $post ) {
   // Validate transition...
-  if ( $post->post_type !== 'fcn_chapter' || $old_status !== 'future' || $new_status !== 'publish' ) {
+  if (
+    $post->post_type !== 'fcn_chapter' ||
+    $old_status !== 'future' ||
+    $new_status !== 'publish' ||
+    get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true )
+  ) {
     return;
   }
 

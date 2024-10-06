@@ -2390,8 +2390,43 @@ function fictioneer_save_story_metaboxes( $post_id ) {
       update_post_meta( $post_id, 'fictioneer_chapters_modified', current_time( 'mysql', true ) );
     }
 
-    if ( count( $previous_chapter_ids ) < count( $chapter_ids ) ) {
-      update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
+    // Remember when chapters have been added
+    $chapter_diff = array_diff( $chapter_ids, $previous_chapter_ids );
+
+    if ( ! empty( $chapter_diff ) ) {
+      $allowed_statuses = apply_filters(
+        'fictioneer_filter_chapters_added_statuses',
+        ['publish'],
+        $post_id
+      );
+
+      $new_chapters = new WP_Query(
+        array(
+          'post_type' => 'fcn_chapter',
+          'post_status' => $allowed_statuses,
+          'post__in' => $chapter_diff,
+          'fields' => 'ids',
+          'posts_per_page' => 10, // Sensible limit in case of bulks
+          'update_post_meta_cache' => true,
+          'update_post_term_cache' => false, // Improve performance
+          'no_found_rows' => true // Improve performance
+        )
+      );
+
+      if ( $new_chapters->have_posts() ) {
+        $valid_new_chapters = false;
+
+        foreach ( $new_chapters->posts as $chapter_id ) {
+          if ( ! get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
+            $valid_new_chapters = true;
+            break;
+          }
+        }
+
+        if ( $valid_new_chapters ) {
+          update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
+        }
+      }
     }
 
     // Log changes

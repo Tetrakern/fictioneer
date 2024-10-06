@@ -1422,7 +1422,7 @@ function fictioneer_get_falsy_meta_allow_list() {
 function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false ) {
   $allowed_statuses = apply_filters(
     'fictioneer_filter_append_chapter_to_story_statuses',
-    ['publish'],
+    ['publish', 'future'],
     $post_id,
     $story_id,
     $force
@@ -1462,9 +1462,21 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
     // Save updated list
     update_post_meta( $story_id, 'fictioneer_story_chapters', $story_chapters );
 
-    // Remember when chapter list has been last updated
+    // Remember when chapters have been changed
     update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql', true ) );
-    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
+
+    // Remember when chapters have been added
+    $allowed_statuses = apply_filters(
+      'fictioneer_filter_chapters_added_statuses',
+      ['publish'],
+      $post_id
+    );
+
+    if ( in_array( get_post_status( $post_id ), $allowed_statuses ) ) {
+      if ( ! get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ) {
+        update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
+      }
+    }
 
     // Log changes
     fictioneer_log_story_chapter_changes( $story_id, $story_chapters, $previous_chapters );

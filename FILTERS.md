@@ -79,7 +79,7 @@ Filters the array of allowed orderby arguments for WP_Query.
 ---
 
 ### `apply_filters( 'fictioneer_filter_append_chapter_to_story_statuses', $statuses, $post_id, $story_id, $force )`
-Filters the array of chapter statuses that can be appended to a story’s `fictioneer_story_chapters` metadata in the `fictioneer_append_chapter_to_story()` function. By default, the statuses are `['publish']`.
+Filters the array of chapter statuses that can be auto-appended to a story’s `fictioneer_story_chapters` metadata in the `fictioneer_append_chapter_to_story()` function. By default, the statuses are `['publish', 'future']`.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
@@ -410,6 +410,15 @@ Filters the array of chapter statuses that can be appended to a story’s `index
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
+
+---
+
+### `apply_filters( 'fictioneer_filter_chapters_added_statuses', $statuses, $story_id )`
+Filters the array of chapter statuses that are eligible to update the `fictioneer_chapters_modified` story meta field in several functions. By default, the statuses are `['publish']`. Note that hidden chapters (meta flag) will still be ignored regardless of status since they are not listed.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
+* $story_id (int) – The story post ID.
 
 ---
 

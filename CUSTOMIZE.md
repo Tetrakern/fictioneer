@@ -359,7 +359,7 @@ If the "Next Chapter" note above the chapter list is not enough and you want to 
 
 ```php
 /**
- * Show scheduled (future) chapter in story chapter list
+ * Shows scheduled (future) chapter in story chapter list
  *
  * @since x.x.x
  *
@@ -378,7 +378,7 @@ add_filter( 'fictioneer_filter_story_chapter_posts_query', 'child_show_scheduled
 // If you want to remove the "Next Chapter" note above the list:
 
 /**
- * Remove "Next Chapter" note above list
+ * Removes "Next Chapter" note above list
  *
  * @since x.x.x
  */
@@ -387,6 +387,24 @@ function child_remove_scheduled_chapter() {
   remove_action( 'fictioneer_story_after_content', 'fictioneer_story_scheduled_chapter', 41 );
 }
 add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added late, so you need to be even later
+
+// If you want scheduled chapters to be considered a story update,
+// which is important for the Stories page template and shortcodes:
+
+/**
+ * Adds the 'future' post status to the update allow list
+ *
+ * Note: Hidden chapters are still ignored.
+ *
+ * @since x.x.x
+ */
+
+function child_consider_scheduled_chapters_as_update( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_action( 'fictioneer_filter_chapters_added_statuses', 'child_consider_scheduled_chapters_as_update' );
 ```
 
 ## Modify or remove items from card footers
