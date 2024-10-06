@@ -106,7 +106,7 @@ get_header();
                     <div class="glossary__entry-body">
                       <span class="glossary__entry-description"><?php
                         if ( empty( $term->description ) ) {
-                          _e( 'No description provided yet.' );
+                          _e( 'No description provided yet.', 'fictioneer' );
                         } else {
                           echo $term->description;
                         }
