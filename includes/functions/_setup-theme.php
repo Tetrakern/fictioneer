@@ -362,7 +362,7 @@ function fictioneer_purge_front_page_seo_cache() {
     delete_post_meta( $font_page_id, 'fictioneer_seo_cache' );
   }
 }
-add_action( 'fictioneer_after_update', 'fictioneer_purge_frontpage_seo_cache' );
+add_action( 'fictioneer_after_update', 'fictioneer_purge_front_page_seo_cache' );
 
 // =============================================================================
 // SIDEBAR
