@@ -209,7 +209,6 @@ function fictioneer_extend_search_query( $query ) {
 
   // Setup
   $tax_array = [];
-  $authors = [];
   $author_name = sanitize_text_field( $_GET['author_name'] ?? '' );
   $min_words = absint( $_GET['miw'] ?? 0 );
   $max_words = absint( $_GET['maw'] ?? 0 );

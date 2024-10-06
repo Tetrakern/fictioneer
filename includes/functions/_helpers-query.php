@@ -210,7 +210,7 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
       // ... for number as days
       $query_args['date_query'] = array(
         array(
-          'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
+          'column' => $orderby === 'modified' ? 'post_modified_gmt' : 'post_date_gmt',
           'after' => absint( $ago ) . ' days ago',
           'inclusive' => true,
         )
@@ -219,7 +219,7 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
       // ... for valid strtotime() string
       $query_args['date_query'] = array(
         array(
-          'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
+          'column' => $orderby === 'modified' ? 'post_modified_gmt' : 'post_date_gmt',
           'after' => sanitize_text_field( $ago ),
           'inclusive' => true,
         )
