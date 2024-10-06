@@ -13,6 +13,8 @@
  * @see taxonomy-fcn_content_warning.php
  * @see taxonomy-fcn_fandom.php
  * @see taxonomy-fcn_genre.php
+ *
+ * @internal $args['taxonomy']  The current taxonomy type.
  */
 
 
@@ -31,7 +33,8 @@ $hook_args = array(
   'page' => $page,
   'order' => $order,
   'orderby' => $orderby,
-  'ago' => $ago
+  'ago' => $ago,
+  'taxonomy' => $args['taxonomy']
 );
 
 ?>

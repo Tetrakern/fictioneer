@@ -150,6 +150,7 @@ Archive template hook. Fires right after the result loop section in any archive 
 * $order (string) – Current order query argument. Default 'desc'.
 * $orderby (string) – Current orderby query argument. Default 'date'.
 * $ago (int|string) – Current value for the date query. Default 0.
+* $taxonomy (string) – Current taxonomy.
 
 ---
 
@@ -161,6 +162,7 @@ Archive template hook. Fires right before the result loop section in any archive
 * $order (string) – Current order query argument. Default 'desc'.
 * $orderby (string) – Current orderby query argument. Default 'date'.
 * $ago (int|string) – Current value for the date query. Default 0.
+* $taxonomy (string) – Current taxonomy.
 
 **Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 10.

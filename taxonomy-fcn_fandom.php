@@ -78,7 +78,7 @@ get_header();
         </div>
       </header>
 
-      <?php get_template_part( 'partials/_archive-loop' ); ?>
+      <?php get_template_part( 'partials/_archive-loop', null, array( 'taxonomy' => 'fcn_fandom' ) ); ?>
 
     </article>
 
