@@ -630,6 +630,33 @@ Refer to `/includes/functions/_customizer.php` to see all snippets.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_default_search_form_args', $args )`
+Filters the default search form arguments for the search page (not the shortcode). Most of them do not make sense to change for the search page, likely only the preselect type ('any', 'post', 'fcn_story', 'fcn_chapter', 'fcn_collection', or 'fcn_recommendation').
+
+**$args:**
+* $simple (boolean|null) – Whether to show the simple form. Default null.
+* $expanded (boolean|null) – Whether the form should be expanded. Default null.
+* $placeholder (string|null) – The placeholder message. Default null.
+* $preselect_type (string|null) – The preselected post type. Default null.
+* $preselect_tags (string|null) – Comma-separated list of tag IDs. Default null.
+* $preselect_genres (string|null) – Comma-separated list of genre IDs. Default null.
+* $preselect_fandoms (string|null) – Comma-separated list of fandom IDs. Default null.
+* $preselect_characters (string|null) – Comma-separated list of character IDs. Default null.
+* $preselect_warnings (string|null) – Comma-separated list of content warning IDs. Default null.
+* $cache (boolean|null) – Whether to account for caching. Default null.
+
+**Example:**
+```php
+function child_change_default_search_page_post_type( $args ) {
+  $args['preselect_type'] = 'fcn_story';
+
+  return $args;
+}
+add_filter( 'fictioneer_filter_default_search_form_args', 'child_change_default_search_page_post_type' );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_discord_chapter_message', $message, $post, $story_id )`
 Filters the chapter message array passed to `fictioneer_discord_send_message()` in `_module-discord.php` before it is encoded as JSON. Allows you to customize the webhook message. If made falsy, the message will not be sent.
 

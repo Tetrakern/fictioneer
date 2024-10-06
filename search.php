@@ -105,7 +105,7 @@ get_header();
 
       <?php
         // Output search form ('pre_get_search_form' action fires here)
-        get_search_form();
+        get_search_form( apply_filters( 'fictioneer_filter_default_search_form_args', [] ) );
 
         // Actions after search form
         do_action( 'fictioneer_search_form_after' );
