@@ -1360,6 +1360,7 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **width:** Override the item minimum width (it will still be stretched to fill the space).
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
+* **quality:** Either `'snippet'`, `'thumbnail'`, `'cover'`, `'medium'`, `'medium_large'`, `'large'`, or `'full'`. Default `'medium'`.
 * **cache:** Whether the shortcode should be cached. Default `true`.
 
 ```

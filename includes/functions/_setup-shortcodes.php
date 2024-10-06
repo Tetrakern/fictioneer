@@ -404,7 +404,8 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true (Customizer).
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
- * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
+ * @param string|null $args['splide']              Optional. Configuration JSON for the Splide slider. Default empty.
+ * @param string|null $args['quality']             Optional. Size of the images. Default 'medium'.
  *
  * @return string The captured shortcode HTML.
  */
@@ -418,9 +419,10 @@ function fictioneer_shortcode_showcase( $attr ) {
   // Defaults
   $args = fictioneer_get_default_shortcode_args( $attr, 8 );
 
-  // Height/Width
+  // Height/Width/Quality
   $args['height'] = sanitize_text_field( $attr['height'] ?? '' );
   $args['min_width'] = sanitize_text_field( $attr['min_width'] ?? '' );
+  $args['quality'] = sanitize_text_field( $attr['quality'] ?? 'medium' );
 
   // Specifics
   $args['no_cap'] = filter_var( $attr['no_cap'] ?? 0, FILTER_VALIDATE_BOOLEAN );

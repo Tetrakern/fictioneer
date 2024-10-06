@@ -31,6 +31,7 @@
  * @internal $args['height']            Override the item height. Default empty.
  * @internal $args['min_width']         Override the item minimum width. Default empty.
  * @internal $args['aspect_ratio']      Aspect ratio of the item. Default empty.
+ * @internal $args['quality']           Size of the images. Default 'medium'.
  */
 
 
@@ -195,15 +196,16 @@ if ( $args['min_width'] ) {
 
                   // Output image or placeholder
                   $ratio = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] ?: '4/2' );
+                  $quality = $args['quality'] ?? 'medium';
 
                   if ( ! empty( $landscape_image_id ) && $ratio[0] - $ratio[1] > 1 ) {
-                    echo wp_get_attachment_image( $landscape_image_id, 'medium', false, $image_args );
+                    echo wp_get_attachment_image( $landscape_image_id, $quality, false, $image_args );
                   } elseif ( has_post_thumbnail() ) {
-                    the_post_thumbnail( 'medium', $image_args );
+                    the_post_thumbnail( $quality, $image_args );
                   } elseif ( $story_id && has_post_thumbnail( $story_id ) ) {
-                    echo get_the_post_thumbnail( $story_id, 'medium', $image_args );
+                    echo get_the_post_thumbnail( $story_id, $quality, $image_args );
                   } elseif ( $default_cover_id = get_theme_mod( 'default_story_cover', 0 ) ) {
-                    echo wp_get_attachment_image( $default_cover_id, 'medium', false, $image_args );
+                    echo wp_get_attachment_image( $default_cover_id, $quality, false, $image_args );
                   } else {
                     echo '<div class="showcase__image _no-cover"></div>';
                   }
