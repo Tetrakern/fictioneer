@@ -173,7 +173,10 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
   $seamless_default = get_theme_mod( 'card_image_style', 'default' ) === 'seamless';
   $thumbnail_default = get_theme_mod( 'card_image_style', 'default' ) !== 'none';
 
+  $uid = wp_unique_id( 'shortcode-id-' );
+
   $args = array(
+    'uid' => $uid,
     'type' => $attr['type'] ?? 'default',
     'count' => max( -1, intval( $attr['count'] ?? $def_count ) ),
     'offset' => max( 0, intval( $attr['offset'] ?? 0 ) ),
@@ -209,7 +212,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'footer_comments' => filter_var( $attr['footer_comments'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'footer_status' => filter_var( $attr['footer_status'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'footer_rating' => filter_var( $attr['footer_rating'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
-    'classes' => esc_attr( wp_strip_all_tags( $attr['classes'] ?? $attr['class'] ?? '' ) ),
+    'classes' => esc_attr( wp_strip_all_tags( $attr['classes'] ?? $attr['class'] ?? '' ) ) . " {$uid}",
     'infobox' => filter_var( $attr['infobox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'source' => filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'splide' => sanitize_text_field( $attr['splide'] ?? '' ),

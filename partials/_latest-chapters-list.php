@@ -8,6 +8,7 @@
  * @subpackage Fictioneer
  * @since 5.23.0
  *
+ * @internal $args['uid']                 Unique ID of the shortcode. Pattern: shortcode-id-{id}.
  * @internal $args['type']                Type argument passed from shortcode. Default 'default'.
  * @internal $args['count']               Number of posts provided by the shortcode.
  * @internal $args['author']              Author provided by the shortcode.

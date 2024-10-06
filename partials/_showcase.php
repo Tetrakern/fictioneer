@@ -11,6 +11,7 @@
  * @subpackage Fictioneer
  * @since 4.0.0
  *
+ * @internal $args['uid']               Unique ID of the shortcode. Pattern: shortcode-id-{id}.
  * @internal $args['post_type']         Post type if the showcase.
  * @internal $args['count']             Maximum number of items. Default 8.
  * @internal $args['order']             Order direction. Default 'DESC'.
