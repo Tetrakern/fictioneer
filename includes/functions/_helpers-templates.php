@@ -2390,3 +2390,208 @@ function fictioneer_render_icon_menu( $args ) {
   // Render
   echo '<div class="icon-menu _' . $location . '" data-nosnippet>' . implode( '', $output ) . '</div>';
 }
+
+// =============================================================================
+// SPLIDE
+// =============================================================================
+
+/**
+ * Returns associative array of Splide breakpoints
+ *
+ * @since 5.25.0
+ *
+ * @param string      $json_string  The Splide json string.
+ * @param string|null $uid          Optional. Unique ID of the target element.
+ *
+ * @return array Breakpoint data or empty.
+ */
+
+function fictioneer_extract_splide_breakpoints( $json_string, $uid = null ) {
+  // Static variable cache
+  static $cache = [];
+
+  $cache_key = wp_hash( $json_string );
+
+  if ( isset( $cache[ $cache_key] ) ) {
+    return apply_filters( 'fictioneer_filter_splide_breakpoints', $cache[ $cache_key ], $json_string, $uid );
+  }
+
+  // Valid JSON?
+  if ( ! fictioneer_is_valid_json( $json_string ) ) {
+    return apply_filters( 'fictioneer_filter_splide_breakpoints', [], $json_string, $uid );
+  }
+
+  // Setup
+  $splide = json_decode( $json_string, true );
+  $breakpoints = array(
+    'base' => []
+  );
+
+  // Base settings
+  if ( ! is_null( $splide['arrows'] ?? null ) ) {
+    $breakpoints['base']['arrows'] = $splide['arrows'];
+  }
+
+  if ( ! is_null( $splide['pagination'] ?? null ) ) {
+    $breakpoints['base']['pagination'] = $splide['pagination'];
+  }
+
+  if ( ! is_null( $splide['paginationDirection'] ?? null ) ) {
+    $breakpoints['base']['pagination_direction'] = $splide['paginationDirection'];
+  }
+
+  if ( ! is_null( $splide['perPage'] ?? null ) ) {
+    $breakpoints['base']['per_page'] = $splide['perPage'];
+  }
+
+  // Breakpoints
+  if ( isset( $splide['breakpoints'] ) && is_array( $splide['breakpoints'] ) ) {
+    foreach ( $splide['breakpoints'] as $breakpoint => $settings ) {
+      $arrows = $settings['arrows'] ?? null;
+      $pagination = $settings['pagination'] ?? null;
+      $direction = $settings['paginationDirection'] ?? null;
+      $per_page = $settings['perPage'] ?? null;
+
+      $breakpoints[ $breakpoint ] = [];
+
+      if ( ! is_null( $arrows ) ) {
+        $breakpoints[ $breakpoint ]['arrows'] = $arrows;
+      }
+
+      if ( ! is_null( $pagination ) ) {
+        $breakpoints[ $breakpoint ]['pagination'] = $pagination;
+      }
+
+      if ( ! is_null( $direction ) ) {
+        $breakpoints[ $breakpoint ]['pagination_direction'] = $direction;
+      }
+
+      if ( ! is_null( $per_page ) ) {
+        $breakpoints[ $breakpoint ]['per_page'] = $per_page;
+      }
+    }
+  }
+
+  // Apply filters and cache
+  $cache[ $cache_key ] = $breakpoints;
+
+  // Return
+  return apply_filters( 'fictioneer_filter_splide_breakpoints', $breakpoints, $json_string, $uid );
+}
+
+/**
+ * Returns Splide placeholder style for a specific UID
+ *
+ * @since 5.25.0
+ *
+ * @param string $json_string  The Splide json string.
+ * @param string $uid          Unique ID of the target element.
+ *
+ * @return array The style.
+ */
+
+function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
+  // Setup
+  $breakpoints = fictioneer_extract_splide_breakpoints( $json_string, $uid );
+
+  if ( empty( $breakpoints ) ) {
+    apply_filters( 'fictioneer_filter_splide_placeholder_style', '', $uid, $breakpoints, $json_string );
+  }
+
+  $base = $breakpoints['base'];
+  $style = '';
+
+  unset( $breakpoints['base'] );
+
+  // Base settings (typically desktop)
+  if ( ! empty( $base ) ) {
+    $per_page = $base['per_page'] ?? 1;
+    $ttb = ( $base['pagination_direction'] ?? 0 ) === 'ttb';
+
+    if ( ( $base['arrows'] ?? 0 ) && ! $ttb ) {
+      $style .= ".{$uid}._splide-placeholder {--this-arrow-horizontal-padding: var(--this-arrow-size); overflow: hidden;}";
+    }
+
+    if ( $base['pagination'] ?? 1 ) {
+      if ( $ttb ) {
+        $style .= ".{$uid}._splide-placeholder {--this-pagination-side-padding: 24px;}";
+      } else {
+        $style .= ".{$uid}._splide-placeholder {--this-pagination-vertical-padding: 32px;}";
+      }
+    }
+
+    if ( $per_page < 2 ) {
+      $style .= ".{$uid}._splide-placeholder .splide__slide:first-child {width: 100%;}";
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: 100%;}";
+    } else {
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: calc((100% - var(--grid-columns-col-gap, 1.5rem) * ({$per_page} - 1)) / {$per_page});}";
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {display: flex; gap: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1)) calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));}";
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) > .splide__slide {flex: 1 1 auto; width: auto; min-width: var(--this-placeholder-width, auto);}";
+    }
+  }
+
+  // Lower breakpoints
+  foreach ( $breakpoints as $break => $settings ) {
+    $per_page = $settings['per_page'] ?? 1;
+    $ttb = ( $settings['pagination_direction'] ?? 0 ) === 'ttb';
+
+    // Arrows...
+    if ( ! is_null( $settings['arrows'] ?? null ) ) {
+      if ( $settings['arrows'] && ! $ttb ) {
+        $style .= "@media only screen and (max-width: {$break}px) {
+          .{$uid}._splide-placeholder {--this-arrow-horizontal-padding: var(--this-arrow-size);}
+        }";
+      } else {
+        $style .= "@media only screen and (max-width: {$break}px) {
+          .{$uid}._splide-placeholder {--this-arrow-horizontal-padding: 0px;}
+        }";
+      }
+    }
+
+    // Pagination...
+    if ( ! is_null( $settings['pagination'] ?? null ) ) {
+      if ( $settings['pagination'] && ! $ttb ) {
+        $style .= "@media only screen and (max-width: {$break}px) {
+          .{$uid}._splide-placeholder {--this-pagination-vertical-padding: 32px;}
+        }";
+      } else {
+        $style .= "@media only screen and (max-width: {$break}px) {
+          .{$uid}._splide-placeholder {--this-pagination-vertical-padding: 0px;}
+        }";
+      }
+
+      if ( $ttb ) {
+        $style .= "@media only screen and (max-width: {$break}px) {
+          .{$uid}._splide-placeholder {--this-pagination-side-padding: 24px;}
+        }";
+      } else {
+        $style .= "@media only screen and (max-width: {$break}px) {
+          .{$uid}._splide-placeholder {--this-pagination-side-padding: 0px;}
+        }";
+      }
+    }
+
+    // Per page...
+    if ( $per_page < 2 ) {
+      $style .= "@media only screen and (max-width: {$break}px) {
+        .{$uid}._splide-placeholder .splide__slide:first-child {width: 100%;}
+        .{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: 100%;}
+      }";
+    } else {
+      $style .= "@media only screen and (max-width: {$break}px) {
+        .{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: calc((100% - var(--grid-columns-col-gap, 1.5rem) * ({$per_page} - 1)) / {$per_page});}
+        .{$uid}._splide-placeholder .splide__list:not(.post-list) {display: flex; gap: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1)) calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));}
+        .{$uid}._splide-placeholder .splide__list:not(.post-list) > .splide__slide {flex: 1 1 auto; width: auto; min-width: var(--this-placeholder-width, auto);}
+      }";
+    }
+  }
+
+  // Apply filters
+  $style = apply_filters( 'fictioneer_filter_splide_placeholder_style', $style, $uid, $breakpoints, $json_string );
+
+  // Minify
+  $style = fictioneer_minify_css( $style );
+
+  // Return style
+  return "<style class='splide-placeholder-styles'>{$style}</style>";
+}
