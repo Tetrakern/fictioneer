@@ -3609,15 +3609,16 @@ function fictioneer_get_post_type_label( $type ) {
  *
  * @since 5.25.0
  *
- * @param string $json_string  The Splide json string.
+ * @param string      $json_string  The Splide json string.
+ * @param string|null $uid          Optional. Unique ID of the target element.
  *
  * @return array Breakpoint data or empty.
  */
 
-function fictioneer_extract_splide_breakpoints( $json_string ) {
+function fictioneer_extract_splide_breakpoints( $json_string, $uid = null ) {
   // Valid JSON?
   if ( ! fictioneer_is_valid_json( $json_string ) ) {
-    return [];
+    return apply_filters( 'fictioneer_filter_splide_breakpoints', [], $json_string, $uid );
   }
 
   // Setup
@@ -3671,8 +3672,8 @@ function fictioneer_extract_splide_breakpoints( $json_string ) {
     }
   }
 
-  // Return result
-  return $breakpoints;
+  // Apply filters and return result
+  return apply_filters( 'fictioneer_filter_splide_breakpoints', $breakpoints, $json_string, $uid );
 }
 
 /**
@@ -3688,7 +3689,7 @@ function fictioneer_extract_splide_breakpoints( $json_string ) {
 
 function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
   // Setup
-  $breakpoints = fictioneer_extract_splide_breakpoints( $json_string );
+  $breakpoints = fictioneer_extract_splide_breakpoints( $json_string, $uid );
 
   if ( empty( $breakpoints ) ) {
     return '';
@@ -3700,28 +3701,30 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
   unset( $breakpoints['base'] );
 
   // Base settings (typically desktop)
-  $per_page = $base['per_page'] ?? 1;
-  $ttb = ( $base['pagination_direction'] ?? 0 ) === 'ttb';
+  if ( ! empty( $base ) ) {
+    $per_page = $base['per_page'] ?? 1;
+    $ttb = ( $base['pagination_direction'] ?? 0 ) === 'ttb';
 
-  if ( ( $base['arrows'] ?? 0 ) && ! $ttb ) {
-    $style .= ".{$uid}._splide-placeholder {--this-arrow-horizontal-padding: var(--this-arrow-size); overflow: hidden;}";
-  }
-
-  if ( $base['pagination'] ?? 1 ) {
-    if ( $ttb ) {
-      $style .= ".{$uid}._splide-placeholder {--this-pagination-side-padding: 24px;}";
-    } else {
-      $style .= ".{$uid}._splide-placeholder {--this-pagination-vertical-padding: 32px;}";
+    if ( ( $base['arrows'] ?? 0 ) && ! $ttb ) {
+      $style .= ".{$uid}._splide-placeholder {--this-arrow-horizontal-padding: var(--this-arrow-size); overflow: hidden;}";
     }
-  }
 
-  if ( $per_page < 2 ) {
-    $style .= ".{$uid}._splide-placeholder .splide__slide:first-child {width: 100%;}";
-    $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: 100%;}";
-  } else {
-    $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: calc((100% - var(--grid-columns-col-gap, 1.5rem) * ({$per_page} - 1)) / {$per_page});}";
-    $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {display: flex; gap: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1)) calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));}";
-    $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) > .splide__slide {flex: 1 1 auto; width: auto; min-width: var(--this-placeholder-width, auto);}";
+    if ( $base['pagination'] ?? 1 ) {
+      if ( $ttb ) {
+        $style .= ".{$uid}._splide-placeholder {--this-pagination-side-padding: 24px;}";
+      } else {
+        $style .= ".{$uid}._splide-placeholder {--this-pagination-vertical-padding: 32px;}";
+      }
+    }
+
+    if ( $per_page < 2 ) {
+      $style .= ".{$uid}._splide-placeholder .splide__slide:first-child {width: 100%;}";
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: 100%;}";
+    } else {
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {--this-placeholder-width: calc((100% - var(--grid-columns-col-gap, 1.5rem) * ({$per_page} - 1)) / {$per_page});}";
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) {display: flex; gap: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1)) calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));}";
+      $style .= ".{$uid}._splide-placeholder .splide__list:not(.post-list) > .splide__slide {flex: 1 1 auto; width: auto; min-width: var(--this-placeholder-width, auto);}";
+    }
   }
 
   // Lower breakpoints
@@ -3779,6 +3782,12 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
       }";
     }
   }
+
+  // Apply filters
+  $style = apply_filters( 'fictioneer_filter_splide_placeholder_style', $style, $uid, $breakpoints, $json_string );
+
+  // Minify
+  $style = fictioneer_minify_css( $style );
 
   // Return style
   return "<style class='splide-placeholder-styles'>{$style}</style>";

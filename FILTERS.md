@@ -647,6 +647,8 @@ Filters the default search form arguments for the search page (not the shortcode
 
 **Example:**
 ```php
+// Pre-select "Stories" on the search page form
+
 function child_change_default_search_page_post_type( $args ) {
   $args['preselect_type'] = 'fcn_story';
 
@@ -1712,6 +1714,39 @@ Filters the intermediate output array of the `fictioneer_filter_media_buttons( $
 * $post_type (string|null) – Optional. The post type to use. Defaults to current post type. Unsafe.
 * $share (bool|null) – Optional. Whether to show the share modal button. Default true. Unsafe.
 * $rss (bool|null) – Optional. Whether to show the RSS feed buttons. Default true. Unsafe.
+
+---
+
+### `apply_filters( 'fictioneer_filter_splide_breakpoints', $breakpoints, $json_string, $uid )`
+Filters the associative array of Splide breakpoints returned by the `fictioneer_extract_splide_breakpoints()` function. These breakpoints are used to generate dynamic placeholder styles for a specific slider. Modifying the breakpoints at this stage is generally inadvisable, the filter exists primarily for completeness and edge cases.
+
+**Parameters:**
+* $breakpoints (array) – Breakpoint data or empty if Splide JSON is invalid.
+* $json_string (string) – Stringified Splide JSON.
+* $uid (string|null) – Optional. Unique ID of the target element (only for reference).
+
+---
+
+### `apply_filters( 'fictioneer_filter_splide_placeholder_style', $style, $uid, $breakpoints, $json_string )`
+Filters the dynamically generated placeholder style for a specific Splide slider before it is minified, wrapped in a `<style>` tag, and returned by the `fictioneer_get_splide_breakpoint_style()` function. The style is rendered within the `<body>` and is removed once the slider is initialized.
+
+**Parameters:**
+* $style (string) – The placeholder style.
+* $uid (string) – Unique ID of the target element (used as CSS class).
+* $breakpoints (array) – Breakpoint data or empty if Splide JSON is invalid.
+* $json_string (string) – Stringified Splide JSON.
+
+**Example:**
+```php
+// Reduce opacity of the placeholder.
+
+function child_extend_splide_placeholder_style( $style, $uid ) {
+  $style .= ".{$uid}._splide-placeholder {opacity: 0.5;}";
+
+  return $style;
+}
+add_filter( 'fictioneer_filter_splide_placeholder_style', 'child_extend_splide_placeholder_style', 10, 2 );
+```
 
 ---
 
