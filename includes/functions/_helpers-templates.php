@@ -2601,9 +2601,10 @@ function fictioneer_get_splide_loading_style( $json_string, $uid ) {
  *
  * @since 5.25.0
  * @link https://splidejs.com/guides/arrows/#custom-arrows
+ * @link https://splidejs.com/guides/pagination/#placeholder
  *
  * @param string $uid  Optional. Unique ID of the target element.
- * @param bool   $ttb  Optional. Whether the arrows are top-to-bottom. Default false.
+ * @param bool   $ttb  Optional. Whether the arrows are in a list-type shortcode (top-to-bottom). Default false
  *
  * @return array The HTML for the Splide placeholders (default empty).
  */
