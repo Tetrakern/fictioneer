@@ -19,8 +19,21 @@
   &._splide-placeholder {
     visibility: visible;
 
-    .splide__slide:first-child {
+    // Emergency fallback
+    &:not(.showcase) .splide__slide:first-child {
       width: 100%;
+    }
+
+    // Emergency fallback
+    &.showcase {
+      .splide__list {
+        gap: 1.5rem;
+      }
+
+      .splide__slide {
+        flex: 1 1 auto;
+        min-width: 22%;
+      }
     }
   }
 
@@ -76,9 +89,12 @@
     top: calc(50% - var(--this-arrow-offset, 0px));
     display: grid;
     place-content: center;
+    color: var(--splide-arrow);
+    font-size: 24px;
     line-height: 1;
     height: calc(var(--this-arrow-size) * 2);
     width: var(--this-arrow-size);
+    transition: color .15s ease-in-out;
 
     &--prev {
       left: 0;
@@ -90,19 +106,12 @@
       transform: translateY(-50%);
     }
 
-    svg {
-      height: calc(var(--this-arrow-size) * .675);
-      width: calc(var(--this-arrow-size) * .675);
-      fill: var(--splide-arrow);
-      transition: fill .15s;
+    &:hover {
+      color: var(--splide-arrow-hover);
     }
 
-    &:hover svg {
-      fill: var(--splide-arrow-hover);
-    }
-
-    &:active svg {
-      fill: var(--splide-arrow-active);
+    &:active {
+      color: var(--splide-arrow-active);
     }
   }
 

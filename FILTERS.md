@@ -1717,6 +1717,25 @@ Filters the intermediate output array of the `fictioneer_filter_media_buttons( $
 
 ---
 
+### `apply_filters( 'fictioneer_filter_splide_arrows', $html, $uid )`
+Filters the HTML of the Splide arrows returned by the `fictioneer_get_splide_arrows()` function. These arrows are only used in shortcodes. For custom HTML setups, please refer to the [Splide documentation](https://splidejs.com/guides/arrows/#custom-arrows).
+
+**Parameters:**
+* $html (string) – The HTML for the Splide arrows.
+* $uid (string|null) – Optional. Unique ID of the target element (only for reference).
+
+**Example:**
+```php
+// Change the Splide arrow icons (right, because they get rotated)
+
+function child_change_splide_arrows( $html, $uid ) {
+  return '<div class="splide__arrows"><button class="splide__arrow splide__arrow--prev"><i class="fa-regular fa-circle-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-regular fa-circle-right"></i></button></div>';
+}
+add_filter( 'fictioneer_filter_splide_arrows', 'child_change_splide_arrows', 10, 2 );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_splide_breakpoints', $breakpoints, $json_string, $uid )`
 Filters the associative array of Splide breakpoints returned by the `fictioneer_extract_splide_breakpoints()` function. These breakpoints are used to generate dynamic placeholder styles for a specific slider. Modifying the breakpoints at this stage is generally inadvisable, the filter exists primarily for completeness and edge cases.
 

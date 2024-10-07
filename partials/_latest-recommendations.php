@@ -117,6 +117,7 @@ if ( $splide ) {
 
     if ( $splide ) {
       echo fictioneer_get_splide_breakpoint_style( $splide, $args['uid'] );
+      echo fictioneer_get_splide_arrows( $args['uid'] );
       echo '<div class="splide__track">';
     }
   ?>

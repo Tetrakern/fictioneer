@@ -2516,7 +2516,7 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
       if ( $ttb ) {
         $style .= ".{$uid}._splide-placeholder {--this-pagination-side-padding: 24px;}";
       } else {
-        $style .= ".{$uid}._splide-placeholder {--this-pagination-vertical-padding: 32px;}";
+        $style .= ".{$uid}._splide-placeholder {--this-pagination-vertical-padding: 32px; --this-arrow-offset: 9px;}";
       }
     }
 
@@ -2566,7 +2566,7 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
         }";
       } else {
         $style .= "@media only screen and (max-width: {$break}px) {
-          .{$uid}._splide-placeholder {--this-pagination-side-padding: 0px;}
+          .{$uid}._splide-placeholder {--this-pagination-side-padding: 0px; --this-arrow-offset: 9px;}
         }";
       }
     }
@@ -2594,4 +2594,23 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
 
   // Return style
   return "<style class='splide-placeholder-styles'>{$style}</style>";
+}
+
+/**
+ * Returns the HTML for the Splide arrows
+ *
+ * @since 5.25.0
+ * @link https://splidejs.com/guides/arrows/#custom-arrows
+ *
+ * @param string $uid  Optional. Unique ID of the target element.
+ *
+ * @return array The HTML for the Splide arrows.
+ */
+
+function fictioneer_get_splide_arrows( $uid = null ) {
+  return apply_filters(
+    'fictioneer_filter_splide_arrows',
+    '<div class="splide__arrows"><button class="splide__arrow splide__arrow--prev"><i class="fa-solid fa-chevron-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-solid fa-chevron-right"></i></button></div>',
+    $uid
+  );
 }
