@@ -676,7 +676,6 @@
   &._vertical {
     .cell-img {
       display: block;
-      aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
       margin-right: var(--this-spacing);
       margin-bottom: 0;
 
