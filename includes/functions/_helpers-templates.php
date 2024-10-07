@@ -2490,12 +2490,12 @@ function fictioneer_extract_splide_breakpoints( $json_string, $uid = null ) {
  * @return array The style.
  */
 
-function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
+function fictioneer_get_splide_loading_style( $json_string, $uid ) {
   // Setup
   $breakpoints = fictioneer_extract_splide_breakpoints( $json_string, $uid );
 
   if ( empty( $breakpoints ) ) {
-    apply_filters( 'fictioneer_filter_splide_placeholder_style', '', $uid, $breakpoints, $json_string );
+    apply_filters( 'fictioneer_filter_splide_loading_style', '', $uid, $breakpoints, $json_string );
   }
 
   $base = $breakpoints['base'];
@@ -2510,11 +2510,6 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
 
     if ( ( $base['arrows'] ?? 0 ) && ! $ttb ) {
       $style .= ".{$uid}._splide-placeholder {--this-arrow-horizontal-padding: var(--this-arrow-size); overflow: hidden;}";
-    }
-
-    if ( ! ( $base['arrows'] ?? 0 ) ) {
-      $style .= ".{$uid}._splide-placeholder {--this-arrow-padding-multiplier: 0;}";
-      $style .= ".{$uid}._splide-placeholder .splide__arrows {display: none;}";
     }
 
     if ( $base['pagination'] ?? 1 ) {
@@ -2549,18 +2544,6 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
       } else {
         $style .= "@media only screen and (max-width: {$break}px) {
           .{$uid}._splide-placeholder {--this-arrow-horizontal-padding: 0px;}
-        }";
-      }
-
-      if ( $settings['arrows'] ) {
-        $style .= "@media only screen and (max-width: {$break}px) {
-        .{$uid}._splide-placeholder {--this-arrow-padding-multiplier: 1;}
-          .{$uid}._splide-placeholder .splide__arrows {display: block;}
-        }";
-      } else {
-        $style .= "@media only screen and (max-width: {$break}px) {
-          .{$uid}._splide-placeholder {--this-arrow-padding-multiplier: 0;}
-          .{$uid}._splide-placeholder .splide__arrows {display: none;}
         }";
       }
     }
@@ -2604,7 +2587,7 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
   }
 
   // Apply filters
-  $style = apply_filters( 'fictioneer_filter_splide_placeholder_style', $style, $uid, $breakpoints, $json_string );
+  $style = apply_filters( 'fictioneer_filter_splide_loading_style', $style, $uid, $breakpoints, $json_string );
 
   // Minify
   $style = fictioneer_minify_css( $style );
@@ -2614,7 +2597,7 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
 }
 
 /**
- * Returns the HTML for the Splide arrows
+ * Returns the HTML for the Splide placeholders
  *
  * @since 5.25.0
  * @link https://splidejs.com/guides/arrows/#custom-arrows
@@ -2622,16 +2605,10 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
  * @param string $uid  Optional. Unique ID of the target element.
  * @param bool   $ttb  Optional. Whether the arrows are top-to-bottom. Default false.
  *
- * @return array The HTML for the Splide arrows.
+ * @return array The HTML for the Splide placeholders (default empty).
  */
 
-function fictioneer_get_splide_arrows( $uid = null, $ttb = false ) {
-  $ttb_class = $ttb ? 'splide__arrows--ttb' : '';
-
-  return apply_filters(
-    'fictioneer_filter_splide_arrows',
-    '<div class="splide__arrows ' . $ttb_class . '"><button class="splide__arrow splide__arrow--prev"><i class="fa-solid fa-chevron-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-solid fa-chevron-right"></i></button></div>',
-    $uid,
-    $ttb
+function fictioneer_get_splide_placeholders( $uid = null, $ttb = false ) {
+  return apply_filters( 'fictioneer_filter_splide_placeholders', '', $uid, $ttb
   );
 }

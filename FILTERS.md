@@ -1717,28 +1717,6 @@ Filters the intermediate output array of the `fictioneer_filter_media_buttons( $
 
 ---
 
-### `apply_filters( 'fictioneer_filter_splide_arrows', $html, $uid, $ttb )`
-Filters the HTML of the Splide arrows returned by the `fictioneer_get_splide_arrows()` function. These arrows are only used in shortcodes. For custom HTML setups, please refer to the [Splide documentation](https://splidejs.com/guides/arrows/#custom-arrows).
-
-**Parameters:**
-* $html (string) – The HTML for the Splide arrows.
-* $uid (string|null) – Optional. Unique ID of the target element (only for reference).
-* $ttb (bool) – Whether the arrows are top-to-bottom. Default `false`.
-
-**Example:**
-```php
-// Change the Splide arrow icons (right, because they get rotated)
-
-function child_change_splide_arrows( $html, $uid, $ttb ) {
-  $ttb_class = $ttb ? 'splide__arrows--ttb' : '';
-
-  return '<div class="splide__arrows ' . $ttb_class . '"><button class="splide__arrow splide__arrow--prev"><i class="fa-regular fa-circle-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-regular fa-circle-right"></i></button></div>';
-}
-add_filter( 'fictioneer_filter_splide_arrows', 'child_change_splide_arrows', 10, 3 );
-```
-
----
-
 ### `apply_filters( 'fictioneer_filter_splide_breakpoints', $breakpoints, $json_string, $uid )`
 Filters the associative array of Splide breakpoints returned by the `fictioneer_extract_splide_breakpoints()` function. These breakpoints are used to generate dynamic placeholder styles for a specific slider. Modifying the breakpoints at this stage is generally inadvisable, the filter exists primarily for completeness and edge cases.
 
@@ -1749,25 +1727,47 @@ Filters the associative array of Splide breakpoints returned by the `fictioneer_
 
 ---
 
-### `apply_filters( 'fictioneer_filter_splide_placeholder_style', $style, $uid, $breakpoints, $json_string )`
-Filters the dynamically generated placeholder style for a specific Splide slider before it is minified, wrapped in a `<style>` tag, and returned by the `fictioneer_get_splide_breakpoint_style()` function. The style is rendered within the `<body>` and is removed once the slider is initialized.
+### `apply_filters( 'fictioneer_filter_splide_loading_style', $style, $uid, $breakpoints, $json_string )`
+Filters the dynamically generated loading style for a specific Splide slider before it is minified, wrapped in a `<style>` tag, and returned by the `fictioneer_get_splide_loading_style()` function. The style is rendered within the `<body>` and is removed once the slider is initialized.
 
 **Parameters:**
-* $style (string) – The placeholder style or empty.
+* $style (string) – The loading style or empty.
 * $uid (string) – Unique ID of the target element (used as CSS class).
 * $breakpoints (array) – Breakpoint data or empty.
 * $json_string (string) – Stringified Splide JSON.
 
 **Example:**
 ```php
-// Reduce opacity of the placeholder.
+// Reduce opacity of the uninitialized slider.
 
-function child_extend_splide_placeholder_style( $style, $uid ) {
+function child_extend_splide_loading_style( $style, $uid ) {
   $style .= ".{$uid}._splide-placeholder {opacity: 0.5;}";
 
   return $style;
 }
-add_filter( 'fictioneer_filter_splide_placeholder_style', 'child_extend_splide_placeholder_style', 10, 2 );
+add_filter( 'fictioneer_filter_splide_loading_style', 'child_extend_splide_loading_style', 10, 2 );
+```
+
+---
+
+### `apply_filters( 'fictioneer_filter_splide_placeholders', $html, $uid, $ttb )`
+Filters the HTML of the Splide placeholders returned by the `fictioneer_get_splide_placeholders()` function (default is an empty string). These placeholders are only used in shortcodes and can inject custom markup for arrows and pagination, though additional CSS may be required. For more information, refer to the [Splide documentation](https://splidejs.com/guides/arrows/#custom-arrows).
+
+**Parameters:**
+* $html (string) – The HTML for the Splide arrows. Default empty.
+* $uid (string|null) – Optional. Unique ID of the target element (only for reference).
+* $ttb (bool) – Whether the arrows are in a list-type shortcode (top-to-bottom). Default `false`.
+
+**Example:**
+```php
+// Adds custom Splide arrow HTML (right-aligned icons, because they get rotated)
+
+function child_add_custom_splide_arrows( $html, $uid, $ttb ) {
+  $ttb_class = $ttb ? 'splide__arrows--ttb' : '';
+
+  return '<div class="splide__arrows ' . $ttb_class . '"><button class="splide__arrow splide__arrow--prev"><i class="fa-regular fa-circle-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-regular fa-circle-right"></i></button></div>';
+}
+add_filter( 'fictioneer_filter_splide_placeholders', 'child_add_custom_splide_arrows', 10, 3 );
 ```
 
 ---

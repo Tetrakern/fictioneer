@@ -234,6 +234,10 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
         $splide['arrows'] = false;
       }
 
+      if ( ! isset( $splide['arrowPath'] ) ) {
+        $splide['arrowPath'] = 'M31.89 18.24c0.98 0.98 0.98 2.56 0 3.54l-15 15c-0.98 0.98-2.56 0.98-3.54 0s-0.98-2.56 0-3.54L26.45 20 13.23 6.76c-0.98-0.98-0.98-2.56 0-3.54s2.56-0.98 3.54 0l15 15';
+      }
+
       $args['splide'] = json_encode( $splide );
     }
   }

@@ -7,7 +7,6 @@
 
 .splide {
   --this-arrow-size: #{get_clamp(20, 40, 320, 640)};
-  --this-arrow-padding-multiplier: 1;
   --this-outset: 6px;
   width: calc(100% + 2 * var(--this-outset));
   max-width: 100vw;
@@ -42,14 +41,14 @@
     --this-arrow-offset: 9px; // Offset bottom pagination
   }
 
-  &:has(.splide__arrows:where(:not([style*="display: none"], [style*="display:none"]))) {
-    --this-arrow-horizontal-padding: calc(var(--this-arrow-size) * var(--this-arrow-padding-multiplier, 1));
+  &:has(.splide__arrows) {
+    --this-arrow-horizontal-padding: calc(var(--this-arrow-size));
   }
 
   &:has(.splide__arrows--ttb) {
     --this-arrow-offset: 0px; // No bottom pagination
     --this-arrow-horizontal-padding: 0px;
-    --this-arrow-vertical-padding: calc(var(--this-arrow-size) * var(--this-arrow-padding-multiplier, 1));
+    --this-arrow-vertical-padding: calc(var(--this-arrow-size));
   }
 
   &:has(.splide__pagination--ttb) {
@@ -78,9 +77,6 @@
     top: calc(50% - var(--this-arrow-offset, 0px));
     display: grid;
     place-content: center;
-    color: var(--splide-arrow);
-    font-size: 24px;
-    line-height: 1;
     height: calc(var(--this-arrow-size) * 2);
     width: var(--this-arrow-size);
     transition: color .15s ease-in-out;
@@ -95,12 +91,19 @@
       transform: translateY(-50%);
     }
 
-    &:hover {
-      color: var(--splide-arrow-hover);
+    svg {
+      height: calc(var(--this-arrow-size) * .675);
+      width: calc(var(--this-arrow-size) * .675);
+      fill: var(--splide-arrow);
+      transition: fill .15s;
     }
 
-    &:active {
-      color: var(--splide-arrow-active);
+    &:hover svg {
+      fill: var(--splide-arrow-hover);
+    }
+
+    &:active svg {
+      fill: var(--splide-arrow-active);
     }
   }
 
