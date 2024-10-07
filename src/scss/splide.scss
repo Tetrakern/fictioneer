@@ -7,6 +7,7 @@
 
 .splide {
   --this-arrow-size: #{get_clamp(20, 40, 320, 640)};
+  --this-arrow-padding-multiplier: 1;
   --this-outset: 6px;
   width: calc(100% + 2 * var(--this-outset));
   max-width: 100vw;
@@ -22,18 +23,6 @@
     // Emergency fallback
     &:not(.showcase) .splide__slide:first-child {
       width: 100%;
-    }
-
-    // Emergency fallback
-    &.showcase {
-      .splide__list {
-        gap: 1.5rem;
-      }
-
-      .splide__slide {
-        flex: 1 1 auto;
-        min-width: 22%;
-      }
     }
   }
 
@@ -53,14 +42,14 @@
     --this-arrow-offset: 9px; // Offset bottom pagination
   }
 
-  &:has(.splide__arrows) {
-    --this-arrow-horizontal-padding: var(--this-arrow-size);
+  &:has(.splide__arrows:where(:not([style*="display: none"], [style*="display:none"]))) {
+    --this-arrow-horizontal-padding: calc(var(--this-arrow-size) * var(--this-arrow-padding-multiplier, 1));
   }
 
   &:has(.splide__arrows--ttb) {
     --this-arrow-offset: 0px; // No bottom pagination
     --this-arrow-horizontal-padding: 0px;
-    --this-arrow-vertical-padding: var(--this-arrow-size);
+    --this-arrow-vertical-padding: calc(var(--this-arrow-size) * var(--this-arrow-padding-multiplier, 1));
   }
 
   &:has(.splide__pagination--ttb) {

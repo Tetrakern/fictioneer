@@ -2512,6 +2512,11 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
       $style .= ".{$uid}._splide-placeholder {--this-arrow-horizontal-padding: var(--this-arrow-size); overflow: hidden;}";
     }
 
+    if ( ! ( $base['arrows'] ?? 0 ) ) {
+      $style .= ".{$uid}._splide-placeholder {--this-arrow-padding-multiplier: 0;}";
+      $style .= ".{$uid}._splide-placeholder .splide__arrows {display: none;}";
+    }
+
     if ( $base['pagination'] ?? 1 ) {
       if ( $ttb ) {
         $style .= ".{$uid}._splide-placeholder {--this-pagination-side-padding: 24px;}";
@@ -2544,6 +2549,18 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
       } else {
         $style .= "@media only screen and (max-width: {$break}px) {
           .{$uid}._splide-placeholder {--this-arrow-horizontal-padding: 0px;}
+        }";
+      }
+
+      if ( $settings['arrows'] ) {
+        $style .= "@media only screen and (max-width: {$break}px) {
+        .{$uid}._splide-placeholder {--this-arrow-padding-multiplier: 1;}
+          .{$uid}._splide-placeholder .splide__arrows {display: block;}
+        }";
+      } else {
+        $style .= "@media only screen and (max-width: {$break}px) {
+          .{$uid}._splide-placeholder {--this-arrow-padding-multiplier: 0;}
+          .{$uid}._splide-placeholder .splide__arrows {display: none;}
         }";
       }
     }
