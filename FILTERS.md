@@ -1717,21 +1717,24 @@ Filters the intermediate output array of the `fictioneer_filter_media_buttons( $
 
 ---
 
-### `apply_filters( 'fictioneer_filter_splide_arrows', $html, $uid )`
+### `apply_filters( 'fictioneer_filter_splide_arrows', $html, $uid, $ttb )`
 Filters the HTML of the Splide arrows returned by the `fictioneer_get_splide_arrows()` function. These arrows are only used in shortcodes. For custom HTML setups, please refer to the [Splide documentation](https://splidejs.com/guides/arrows/#custom-arrows).
 
 **Parameters:**
 * $html (string) – The HTML for the Splide arrows.
 * $uid (string|null) – Optional. Unique ID of the target element (only for reference).
+* $ttb (bool) – Whether the arrows are top-to-bottom. Default `false`.
 
 **Example:**
 ```php
 // Change the Splide arrow icons (right, because they get rotated)
 
-function child_change_splide_arrows( $html, $uid ) {
-  return '<div class="splide__arrows"><button class="splide__arrow splide__arrow--prev"><i class="fa-regular fa-circle-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-regular fa-circle-right"></i></button></div>';
+function child_change_splide_arrows( $html, $uid, $ttb ) {
+  $ttb_class = $ttb ? 'splide__arrows--ttb' : '';
+
+  return '<div class="splide__arrows ' . $ttb_class . '"><button class="splide__arrow splide__arrow--prev"><i class="fa-regular fa-circle-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-regular fa-circle-right"></i></button></div>';
 }
-add_filter( 'fictioneer_filter_splide_arrows', 'child_change_splide_arrows', 10, 2 );
+add_filter( 'fictioneer_filter_splide_arrows', 'child_change_splide_arrows', 10, 3 );
 ```
 
 ---

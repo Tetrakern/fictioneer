@@ -2620,14 +2620,18 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
  * @link https://splidejs.com/guides/arrows/#custom-arrows
  *
  * @param string $uid  Optional. Unique ID of the target element.
+ * @param bool   $ttb  Optional. Whether the arrows are top-to-bottom. Default false.
  *
  * @return array The HTML for the Splide arrows.
  */
 
-function fictioneer_get_splide_arrows( $uid = null ) {
+function fictioneer_get_splide_arrows( $uid = null, $ttb = false ) {
+  $ttb_class = $ttb ? 'splide__arrows--ttb' : '';
+
   return apply_filters(
     'fictioneer_filter_splide_arrows',
-    '<div class="splide__arrows"><button class="splide__arrow splide__arrow--prev"><i class="fa-solid fa-chevron-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-solid fa-chevron-right"></i></button></div>',
-    $uid
+    '<div class="splide__arrows ' . $ttb_class . '"><button class="splide__arrow splide__arrow--prev"><i class="fa-solid fa-chevron-right"></i></button><button class="splide__arrow splide__arrow--next"><i class="fa-solid fa-chevron-right"></i></button></div>',
+    $uid,
+    $ttb
   );
 }

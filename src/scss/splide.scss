@@ -26,7 +26,7 @@
     }
   }
 
-  &.splide--ttb {
+  &:is(.splide--ttb, ._list) {
     --this-outset: 0px;
 
     .splide__slide {
