@@ -755,7 +755,7 @@ For simplicity, here is the copied content of the demo home page (minus some sit
 <!-- /wp:heading -->
 
 <!-- wp:shortcode -->
-[fictioneer_chapter_cards count="6"]
+[fictioneer_latest_chapters count="6"]
 <!-- /wp:shortcode -->
 
 <!-- wp:heading -->

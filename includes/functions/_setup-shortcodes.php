@@ -100,7 +100,7 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
   }
 
   // Look for post-related shortcode
-  if ( str_contains( $post->post_content, 'fictioneer_latest_post' ) ) {
+  if ( str_contains( $post->post_content, 'fictioneer_latest_posts' ) ) {
     $registry['ref_posts'][ $post_id ] = 'shortcode';
   } else {
     unset( $registry['ref_posts'][ $post_id ] );
@@ -109,8 +109,7 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
   // Look for chapter-related shortcodes
   if (
     str_contains( $post->post_content, 'fictioneer_chapter_list' ) ||
-    str_contains( $post->post_content, 'fictioneer_latest_chapter' ) ||
-    str_contains( $post->post_content, 'fictioneer_chapter_cards' )
+    str_contains( $post->post_content, 'fictioneer_latest_chapters' )
   ) {
     $registry['ref_chapters'][ $post_id ] = 'shortcode';
   } else {
@@ -119,10 +118,8 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
 
   // Look for story-related shortcodes
   if (
-    str_contains( $post->post_content, 'fictioneer_latest_stor' ) ||
-    str_contains( $post->post_content, 'fictioneer_story_cards' ) ||
-    str_contains( $post->post_content, 'fictioneer_latest_update' ) ||
-    str_contains( $post->post_content, 'fictioneer_update_cards' )
+    str_contains( $post->post_content, 'fictioneer_latest_stories' ) ||
+    str_contains( $post->post_content, 'fictioneer_latest_updates' )
   ) {
     $registry['ref_stories'][ $post_id ] = 'shortcode';
   } else {
@@ -130,10 +127,7 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
   }
 
   // Look for recommendation-related shortcodes
-  if (
-    str_contains( $post->post_content, 'fictioneer_latest_recommendation' ) ||
-    str_contains( $post->post_content, 'fictioneer_recommendation_cards' )
-  ) {
+  if ( str_contains( $post->post_content, 'fictioneer_latest_recommendations' ) ) {
     $registry['ref_recommendations'][ $post_id ] = 'shortcode';
   } else {
     unset( $registry['ref_recommendations'][ $post_id ] );
@@ -591,8 +585,6 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_latest_chapters', 'fictioneer_shortcode_latest_chapters' );
-add_shortcode( 'fictioneer_latest_chapter', 'fictioneer_shortcode_latest_chapters' ); // Alias
-add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters' ); // Alias
 
 // =============================================================================
 // LATEST STORIES SHORTCODE
@@ -698,8 +690,6 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_latest_stories', 'fictioneer_shortcode_latest_stories' );
-add_shortcode( 'fictioneer_latest_story', 'fictioneer_shortcode_latest_stories' ); // Alias
-add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' ); // Alias
 
 // =============================================================================
 // LATEST UPDATES SHORTCODE
@@ -808,8 +798,6 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_latest_updates', 'fictioneer_shortcode_latest_story_updates' );
-add_shortcode( 'fictioneer_latest_update', 'fictioneer_shortcode_latest_story_updates' ); // Alias
-add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_updates' ); // Alias
 
 // =============================================================================
 // LATEST RECOMMENDATIONS SHORTCODE
@@ -901,8 +889,6 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_latest_recommendations', 'fictioneer_shortcode_latest_recommendations' );
-add_shortcode( 'fictioneer_latest_recommendation', 'fictioneer_shortcode_latest_recommendations' ); // Alias
-add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_recommendations' ); // Alias
 
 // =============================================================================
 // LATEST POST SHORTCODE
@@ -960,7 +946,6 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_latest_posts', 'fictioneer_shortcode_latest_posts' );
-add_shortcode( 'fictioneer_latest_post', 'fictioneer_shortcode_latest_posts' ); // Alias
 
 // =============================================================================
 // BOOKMARKS SHORTCODE
