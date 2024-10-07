@@ -1721,7 +1721,7 @@ Filters the intermediate output array of the `fictioneer_filter_media_buttons( $
 Filters the associative array of Splide breakpoints returned by the `fictioneer_extract_splide_breakpoints()` function. These breakpoints are used to generate dynamic placeholder styles for a specific slider. Modifying the breakpoints at this stage is generally inadvisable, the filter exists primarily for completeness and edge cases.
 
 **Parameters:**
-* $breakpoints (array) – Breakpoint data or empty if Splide JSON is invalid.
+* $breakpoints (array) – Breakpoint data or empty.
 * $json_string (string) – Stringified Splide JSON.
 * $uid (string|null) – Optional. Unique ID of the target element (only for reference).
 
@@ -1731,9 +1731,9 @@ Filters the associative array of Splide breakpoints returned by the `fictioneer_
 Filters the dynamically generated placeholder style for a specific Splide slider before it is minified, wrapped in a `<style>` tag, and returned by the `fictioneer_get_splide_breakpoint_style()` function. The style is rendered within the `<body>` and is removed once the slider is initialized.
 
 **Parameters:**
-* $style (string) – The placeholder style.
+* $style (string) – The placeholder style or empty.
 * $uid (string) – Unique ID of the target element (used as CSS class).
-* $breakpoints (array) – Breakpoint data or empty if Splide JSON is invalid.
+* $breakpoints (array) – Breakpoint data or empty.
 * $json_string (string) – Stringified Splide JSON.
 
 **Example:**

@@ -3616,6 +3616,15 @@ function fictioneer_get_post_type_label( $type ) {
  */
 
 function fictioneer_extract_splide_breakpoints( $json_string, $uid = null ) {
+  // Static variable cache
+  static $cache = [];
+
+  $cache_key = wp_hash( $json_string );
+
+  if ( isset( $cache[ $cache_key] ) ) {
+    return apply_filters( 'fictioneer_filter_splide_breakpoints', $cache[ $cache_key ], $json_string, $uid );
+  }
+
   // Valid JSON?
   if ( ! fictioneer_is_valid_json( $json_string ) ) {
     return apply_filters( 'fictioneer_filter_splide_breakpoints', [], $json_string, $uid );
@@ -3672,7 +3681,10 @@ function fictioneer_extract_splide_breakpoints( $json_string, $uid = null ) {
     }
   }
 
-  // Apply filters and return result
+  // Apply filters and cache
+  $cache[ $cache_key ] = $breakpoints;
+
+  // Return
   return apply_filters( 'fictioneer_filter_splide_breakpoints', $breakpoints, $json_string, $uid );
 }
 
@@ -3692,7 +3704,7 @@ function fictioneer_get_splide_breakpoint_style( $json_string, $uid ) {
   $breakpoints = fictioneer_extract_splide_breakpoints( $json_string, $uid );
 
   if ( empty( $breakpoints ) ) {
-    return '';
+    apply_filters( 'fictioneer_filter_splide_placeholder_style', '', $uid, $breakpoints, $json_string );
   }
 
   $base = $breakpoints['base'];
