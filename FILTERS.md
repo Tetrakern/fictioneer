@@ -534,7 +534,7 @@ Filters the prepared raw SQL used to query chapters in the `fictioneer_get_story
 * $sql (string) – Prepared and safe SQL query.
 * $story_id (int) – ID of the story.
 * $chapter_ids (array) – IDs of all associated chapters, in order.
-* $statuses (array) – Array of allows post statuses to query. Default `['publish']`.
+* $statuses (array) – Array of allowed post statuses to query (already filtered).
 
 ---
 
