@@ -221,6 +221,22 @@ Filters the default chapter formatting settings. The passed array is empty becau
 * $formatting\['show-comments'] (boolean) – Whether the comment section is shown. Default true.
 * $formatting\['show-sensitive-content'] (boolean) – Whether sensitive content is shown. Default true.
 
+**Example:**
+```php
+function child_modify_chapter_formatting_defaults( $formatting ) {
+  $changes = array(
+    'font-size' => 90,
+    'letter-spacing' => 0.02,
+    'line-height' => 1.8,
+    'paragraph-spacing' => 2,
+    'indent' => false
+  );
+
+  return array_merge( $formatting, $changes );
+}
+add_filter( 'fictioneer_filter_chapter_default_formatting', 'child_modify_chapter_formatting_defaults' );
+```
+
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapter_group', $group, $group_index, $story_id )`
@@ -1480,6 +1496,16 @@ Filters the intermediate output array in the `_latest-updates.php` partial befor
 * $story (array) – Collection of story post data.
 * $args (array) – Arguments passed to the partial.
 
+**Example:**
+```php
+function child_remove_modified_date_from_latest_updates( $footer_items ) {
+  unset( $footer_items['modified_date'] );
+
+  return $footer_items;
+}
+add_filter( 'fictioneer_filter_shortcode_latest_updates_card_footer', 'child_remove_modified_date_from_latest_updates' );
+```
+
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_latest_updates_query_args', $query_args, $args )`
@@ -1885,6 +1911,16 @@ Filters the intermediate output array in the `_card-story.php` partial before it
 * $post (WP_Post) – The post object.
 * $story (array) – Story data.
 * $args (array) – Arguments passed to the partial.
+
+**Example:**
+```php
+function child_add_item_to_story_card_footers( $footer_items ) {
+  $footer_items['star'] = '<span class="card__footer-star"><i class="card-footer-icon fa-solid fa-star" title="Star"></i> Star</span>';
+
+  return $footer_items;
+}
+add_filter( 'fictioneer_filter_story_card_footer', 'child_add_item_to_story_card_footers' );
+```
 
 ---
 
