@@ -56,8 +56,20 @@ Filters the data to be returned as JSON by the `fictioneer_ajax_get_user_data()`
 ### `apply_filters( 'fictioneer_filter_allowed_chapter_permalinks', $statuses )`
 Filters the array of chapter statuses that control whether the chapter permalink is rendered in the `fictioneer_story_chapters()` function. By default, the statuses only include `['publish']`.
 
+**Note:** `fictioneer_story_chapters()` is hooked as action into `fictioneer_story_after_content` (priority 43).
+
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
+
+**Example:**
+```php
+function child_render_scheduled_chapters_permalinks( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'child_render_scheduled_chapters_permalinks' );
+```
 
 ---
 
@@ -345,6 +357,16 @@ Filters the array of allowed post statuses for the chapter navigation buttons in
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
 * $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
+**Example:**
+```php
+function child_allow_nav_buttons_for_scheduled_chapters( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'child_allow_nav_buttons_for_scheduled_chapters' );
+```
+
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapter_subscribe_button_statuses', $statuses, $post_id )`
@@ -363,6 +385,16 @@ Filters the array of allowed post statuses for the chapter index popup menu in t
 * $statuses (array) – Array of allowed post statuses.
 * $post_id (int) – Current post ID.
 * $story_id (int) – Story ID of the chapter.
+
+**Example:**
+```php
+function child_add_scheduled_chapters_to_index_popup( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_chapter_index_popup_menu_statuses', 'child_add_scheduled_chapters_to_index_popup' );
+```
 
 ---
 
@@ -427,8 +459,6 @@ Filters the array of chapter statuses that can be appended to a story’s `index
 
 **Example:**
 ```php
-// Adds 'future' chapters to the indexed list in fictioneer_get_story_data()
-
 function child_index_scheduled_chapters( $statuses ) {
   $statuses[] = 'future';
 
@@ -448,8 +478,6 @@ Filters the array of queried chapter statuses in the `fictioneer_get_story_data(
 
 **Example:**
 ```php
-// Adds 'future' chapters to the query and visible list in fictioneer_get_story_data()
-
 function child_query_scheduled_chapters( $statuses ) {
   $statuses[] = 'future';
 
@@ -466,6 +494,16 @@ Filters the array of chapter statuses that are eligible to update the `fictionee
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
 * $story_id (int) – The story post ID.
+
+**Example:**
+```php
+function child_consider_scheduled_chapters_as_update( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_chapters_added_statuses', 'child_consider_scheduled_chapters_as_update' );
+```
 
 ---
 
@@ -694,14 +732,12 @@ Filters the default search form arguments for the search page (not the shortcode
 
 **Example:**
 ```php
-// Pre-select "Stories" on the search page form
-
-function child_change_default_search_page_post_type( $args ) {
+function child_pre_select_search_page_post_type( $args ) {
   $args['preselect_type'] = 'fcn_story';
 
   return $args;
 }
-add_filter( 'fictioneer_filter_default_search_form_args', 'child_change_default_search_page_post_type' );
+add_filter( 'fictioneer_filter_default_search_form_args', 'child_pre_select_search_page_post_type' );
 ```
 
 ---
@@ -1785,8 +1821,6 @@ Filters the dynamically generated loading style for a specific Splide slider bef
 
 **Example:**
 ```php
-// Reduce opacity of the uninitialized slider.
-
 function child_extend_splide_loading_style( $style, $uid ) {
   $style .= ".{$uid}._splide-placeholder {opacity: 0.5;}";
 
@@ -1807,8 +1841,6 @@ Filters the HTML of the Splide placeholders returned by the `fictioneer_get_spli
 
 **Example:**
 ```php
-// Adds custom Splide arrow HTML (right-aligned icons, because they get rotated)
-
 function child_add_custom_splide_arrows( $html, $uid, $ttb ) {
   $ttb_class = $ttb ? 'splide__arrows--ttb' : '';
 
