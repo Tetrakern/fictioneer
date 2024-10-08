@@ -93,7 +93,7 @@ get_header(
       <?php if ( $story_post && $indexed_chapters ): ?>
         <div id="story-chapter-list" class="hidden" data-story-id="<?php echo $story_id; ?>">
           <ul data-current-id="<?php echo $post_id; ?>"><?php
-            echo fictioneer_get_chapter_list_items( $story_id, $story_data, $current_index );
+            echo fictioneer_get_simple_chapter_list_items( $story_id, $story_data, $current_index );
           ?></ul>
         </div>
       <?php endif; ?>

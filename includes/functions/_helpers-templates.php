@@ -1246,6 +1246,8 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
   /**
    * Returns the HTML for chapter list items with icon and link
    *
+   * @deprecated 5.25.0
+   *
    * @since 5.0.0
    * @since 5.9.3 - Added meta field caching.
    * @since 5.9.4 - Removed output buffer.
@@ -1260,6 +1262,27 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
    */
 
   function fictioneer_get_chapter_list_items( $story_id, $data, $current_index ) {
+    return fictioneer_get_simple_chapter_list_items( $story_id, $data, $current_index );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_get_simple_chapter_list_items' ) ) {
+  /**
+   * Returns the HTML for chapter list items with icon and link
+   *
+   * Alias: For legacy purposes, the fictioneer_get_chapter_list_items()
+   * is kept as alias for now but should no longer be used.
+   *
+   * @since 5.25.0 - Replaces fictioneer_get_chapter_list_items()
+   *
+   * @param int   $story_id       ID of the story.
+   * @param array $data           Prepared data of the story.
+   * @param int   $current_index  Index in chapter ID array.
+   *
+   * @return string HTML list of chapters.
+   */
+
+  function fictioneer_get_simple_chapter_list_items( $story_id, $data, $current_index ) {
     // Meta cache?
     $cache_plugin_active = fictioneer_caching_active( 'chapter_list_items' );
 
@@ -1283,6 +1306,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
     $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) || get_option( 'fictioneer_hide_chapter_icons' );
     $html = '';
     $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_list_statuses', ['publish'], $story_id );
+    $allowed_statuses = apply_filters( 'fictioneer_filter_simple_chapter_list_items_statuses', $allowed_statuses, $story_id );
 
     // Loop chapters...
     foreach ( $chapters as $chapter ) {

@@ -265,17 +265,30 @@ Filters the intermediate output array in the `_chapter-header.php` partial befor
 
 ---
 
+### `apply_filters( 'fictioneer_filter_simple_chapter_list_items_statuses', $statuses, $story_id )`
 ### `apply_filters( 'fictioneer_filter_chapter_list_statuses', $statuses, $story_id )`
-Filters the list of allowed chapter statuses during building chapter lists in the `function fictioneer_get_chapter_list_items()` function. By default, only `['publish']` chapters are shown.
+Filters the array of allowed chapter statuses when building the simple chapter list items in the `function fictioneer_get_simple_chapter_list_items()` function. By default, only `['publish']` chapters are shown.
+
+**Note:** `fictioneer_filter_chapter_list_statuses` is deprecated as of 5.25.0.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
 * $story_id (int) – Post ID of the story.
 
+**Example:**
+```php
+function child_add_scheduled_chapters_to_simple_list_items( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_simple_chapter_list_items_statuses', 'child_add_scheduled_chapters_to_simple_list_items' );
+```
+
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapter_list_item', $item, $post, $args )`
-Filters each list item HTML string used in the chapter index popup and mobile menu section (only visible on chapter pages), build inside the `fictioneer_get_chapter_list_items()` function. Not to be confused with the chapter list shown on story pages. You can either modify the string or build a new one from the given parameters.
+Filters each list item HTML string used in the chapter index popup and mobile menu section (only visible on chapter pages), build inside the `fictioneer_get_simple_chapter_list_items()` function. Not to be confused with the chapter list shown on story pages. You can either modify the string or build a new one from the given parameters.
 
 **Parameters:**
 * $item (string) – HTML for the list item with icon, ID, link, and title.
