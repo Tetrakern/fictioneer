@@ -468,6 +468,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         ...$chapter_ids // WHERE clause
       );
 
+      $query = apply_filters( 'fictioneer_filter_get_story_data_sql', $query, $story_id, $chapter_ids, $queried_statuses );
+
       $chapters = $wpdb->get_results( $query );
 
       usort( $chapters, function( $a, $b ) use ( $chapter_ids ) {

@@ -525,6 +525,19 @@ add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'child_
 
 ---
 
+### `apply_filters( 'fictioneer_filter_get_story_data_sql', $sql, $story_id, $chapter_ids, $statuses )`
+Filters the prepared raw SQL used to query chapters in the `fictioneer_get_story_data()` function. For performance reasons, this function does not use `WP_Query`, as it would be 10-15 times slower. There is generally little need to modify this SQL, so the filter primarily exists to handle edge cases.
+
+**Warning:** Of all filters that can mess up your site, this one can mess up your site the most.
+
+**Parameters:**
+* $sql (string) – Prepared and safe SQL query.
+* $story_id (int) – ID of the story.
+* $chapter_ids (array) – IDs of all associated chapters, in order.
+* $statuses (array) – Array of allows post statuses to query. Default `['publish']`.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapters_added_statuses', $statuses, $story_id )`
 Filters the array of chapter statuses that are eligible to update the `fictioneer_chapters_modified` story meta field in several functions. By default, the statuses are `['publish']`. Note that hidden chapters (meta flag) will still be ignored regardless of status since they are not listed.
 
