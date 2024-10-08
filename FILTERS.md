@@ -293,8 +293,8 @@ Filters the intermediate output array in the `_chapter-header.php` partial befor
 
 ---
 
-### `apply_filters( 'fictioneer_filter_simple_chapter_list_items_statuses', $statuses, $story_id )`
 ### `apply_filters( 'fictioneer_filter_chapter_list_statuses', $statuses, $story_id )`
+### `apply_filters( 'fictioneer_filter_simple_chapter_list_items_statuses', $statuses, $story_id )`
 Filters the array of allowed chapter statuses when building the simple chapter list items in the `function fictioneer_get_simple_chapter_list_items()` function. By default, only `['publish']` chapters are shown.
 
 **Note:** `fictioneer_filter_chapter_list_statuses` is deprecated as of 5.25.0.
