@@ -359,6 +359,23 @@ If the "Next Chapter" note above the chapter list is not enough and you want to 
 
 ```php
 /**
+ * Allows scheduled (future) chapters to be queried
+ *
+ * @since x.x.x
+ *
+ * @param array $statuses  Statuses that are queried. Default ['publish].
+ *
+ * @return array The updated array of statuses.
+ */
+
+function child_query_scheduled_chapters( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'child_query_scheduled_chapters' );
+
+/**
  * Shows scheduled (future) chapter in story chapter list
  *
  * @since x.x.x
@@ -405,6 +422,32 @@ function child_consider_scheduled_chapters_as_update( $statuses ) {
   return $statuses;
 }
 add_action( 'fictioneer_filter_chapters_added_statuses', 'child_consider_scheduled_chapters_as_update' );
+
+// If you want scheduled chapters to be treated like published ones;
+// you still need a function or plugin to make them accessible or
+// they will lead to a 404 error page. Yes, that's a lot of filters.
+
+/**
+ * Adds the 'future' post status to an allowed statuses array
+ *
+ * @since x.x.x
+ *
+ * @param array $statuses  Statuses that are queried. Default ['publish].
+ *
+ * @return array The updated array of statuses.
+ */
+
+function child_treat_scheduled_chapters_as_published( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_chapter_list_statuses', 'child_treat_scheduled_chapters_as_published' );
+add_filter( 'fictioneer_filter_chapter_index_popup_menu_statuses', 'child_treat_scheduled_chapters_as_published' );
+add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'child_treat_scheduled_chapters_as_published' );
+add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_treat_scheduled_chapters_as_published' );
+add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'child_treat_scheduled_chapters_as_published' );
+
 ```
 
 ## Modify or remove items from card footers

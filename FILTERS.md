@@ -405,11 +405,45 @@ Filters the array of support links returned for the current post (or post ID if 
 
 ---
 
-### `apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', $statuses )`
-Filters the array of chapter statuses that can be appended to a story’s `indexed_chapter_ids` array in the `fictioneer_get_story_data()` function. By default, the statuses are `['publish']`.
+### `apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', $statuses, $story_id )`
+Filters the array of chapter statuses that can be appended to a story’s `indexed_chapter_ids` array in the `fictioneer_get_story_data()` function. These chapters are a subset of the queried chapters, which need to be filtered separately. By default, the statuses are `['publish']`.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
+* $story_id (int) – The story post ID.
+
+**Example:**
+```php
+// Adds 'future' chapters to the indexed list in fictioneer_get_story_data()
+
+function child_index_scheduled_chapters( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_index_scheduled_chapters' );
+```
+
+---
+
+### `apply_filters( 'fictioneer_filter_get_story_data_queried_chapter_statuses', $statuses, $story_id )`
+Filters the array of queried chapter statuses in the `fictioneer_get_story_data()` function. These chapters may appear in lists but cannot necessarily be navigated to (for example, `'future'` chapters). By default, the statuses are `['publish']`.
+
+**Parameters:**
+* $statuses (array) – Array of chapter statuses.
+* $story_id (int) – The story post ID.
+
+**Example:**
+```php
+// Adds 'future' chapters to the query and visible list in fictioneer_get_story_data()
+
+function child_query_scheduled_chapters( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'child_query_scheduled_chapters' );
+```
 
 ---
 

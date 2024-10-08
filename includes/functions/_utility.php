@@ -344,6 +344,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
    * Get collection of a story's data
    *
    * @since 4.3.0
+   * @since 5.25.0 - Refactored with custom SQL query.
    *
    * @param int     $story_id       ID of the story.
    * @param boolean $show_comments  Optional. Whether the comment count is needed.
@@ -354,6 +355,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
    */
 
   function fictioneer_get_story_data( $story_id, $show_comments = true, $args = [] ) {
+    global $wpdb;
+
     $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
     $meta_cache = null;
 
@@ -402,7 +405,6 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     }
 
     // Setup
-    $chapters = fictioneer_get_story_chapter_posts( $story_id );
     $tags = get_the_tags( $story_id );
     $fandoms = get_the_terms( $story_id, 'fcn_fandom' );
     $characters = get_the_terms( $story_id, 'fcn_character' );
@@ -415,8 +417,6 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $comment_count = 0;
     $visible_chapter_ids = [];
     $indexed_chapter_ids = [];
-
-    $allowed_indexed_statuses = apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', ['publish'] );
 
     // Assign correct icon
     if ( $status != 'Ongoing' ) {
@@ -436,29 +436,66 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       }
     }
 
-    // Count chapters, words, comments, etc.
-    if ( ! empty( $chapters ) ) {
-      foreach ( $chapters as $chapter ) {
-        // This is about 50 times faster than using a meta query lol
-        if ( ! get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
-          // Do not count non-chapters...
-          if ( ! get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ) {
-            $chapter_count += 1;
-            $word_count += get_post_meta( $chapter->ID, '_word_count', true );
-          }
+    // Custom SQL query to count chapters, words, comments, etc.
+    // This significantly faster than WP_Query (up to 15 times with 500 chapters)
+    $queried_statuses = apply_filters( 'fictioneer_filter_get_story_data_queried_chapter_statuses', ['publish'], $story_id );
+    $indexed_statuses = apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', ['publish'], $story_id );
+    $chapter_ids = fictioneer_get_story_chapter_ids( $story_id );
+    $chapters = [];
 
-          // ... but they are still listed!
-          $visible_chapter_ids[] = $chapter->ID;
+    if ( ! empty( $chapter_ids ) ) {
+      $chapter_ids_placeholder = implode( ',', array_fill( 0, count( $chapter_ids ), '%d' ) );
 
-          // Indexed chapters (accounts for custom filters)
-          if ( in_array( $chapter->post_status, $allowed_indexed_statuses ) ) {
-            $indexed_chapter_ids[] = $chapter->ID;
-          }
+      $status_list = array_map( function( $status ) use ( $wpdb ) {
+        return $wpdb->prepare( '%s', $status );
+      }, $queried_statuses );
+
+      $status_list = implode( ',', $status_list );
+
+      $query = $wpdb->prepare(
+        "SELECT
+          c.ID as chapter_id,
+          c.comment_count,
+          SUM(CASE WHEN pm.meta_key = '_word_count' THEN CAST(pm.meta_value AS UNSIGNED) ELSE 0 END) AS word_count,
+          MAX(CASE WHEN pm.meta_key = 'fictioneer_chapter_hidden' THEN pm.meta_value ELSE '' END) AS is_hidden,
+          MAX(CASE WHEN pm.meta_key = 'fictioneer_chapter_no_chapter' THEN pm.meta_value ELSE '' END) AS is_no_chapter,
+          c.post_status
+        FROM {$wpdb->posts} c
+        LEFT JOIN {$wpdb->postmeta} pm ON pm.post_id = c.ID
+        WHERE c.ID IN ($chapter_ids_placeholder)
+          AND c.post_status IN ($status_list)
+        GROUP BY c.ID",
+        ...$chapter_ids // WHERE clause
+      );
+
+      $chapters = $wpdb->get_results( $query );
+
+      usort( $chapters, function( $a, $b ) use ( $chapter_ids ) {
+        $position_a = array_search( $a->chapter_id, $chapter_ids );
+        $position_b = array_search( $b->chapter_id, $chapter_ids );
+        return $position_a - $position_b;
+      });
+    }
+
+    foreach ( $chapters as $chapter ) {
+      if ( empty( $chapter->is_hidden ) ) {
+        // Do not count non-chapters...
+        if ( empty( $chapter->is_no_chapter ) ) {
+          $chapter_count++;
+          $word_count += intval( $chapter->word_count );
         }
 
-        // Count ALL comments
-        $comment_count += $chapter->comment_count;
+        // ... but they are still listed!
+        $visible_chapter_ids[] = $chapter->chapter_id;
+
+        // Indexed chapters (accounts for custom filters)
+        if ( in_array( $chapter->post_status, $indexed_statuses ) ) {
+          $indexed_chapter_ids[] = $chapter->chapter_id;
+        }
       }
+
+      // Count ALL comments
+      $comment_count += intval( $chapter->comment_count );
     }
 
     // Add story word count
