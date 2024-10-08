@@ -1185,7 +1185,7 @@ if ( ! function_exists( 'fictioneer_add_font_awesome_integrity' ) ) {
 
     // Modify HTML
     if ( $handle === 'font-awesome-cdn-webfont-fictioneer' ) {
-      $tag = preg_replace( '/\/>$/', 'integrity="' . FICTIONEER_FA_INTEGRITY . '" crossorigin="anonymous" />', $tag, 1 );
+      $tag = preg_replace( '/\/>$/', 'integrity="' . FICTIONEER_FA_INTEGRITY . '" data-jetpack-boost="ignore" data-no-defer="1" data-no-optimize="1" data-no-minify="1" crossorigin="anonymous" />', $tag, 1 );
     }
 
     // Continue filter
@@ -1653,7 +1653,7 @@ if ( ! is_admin() && ! get_option( 'fictioneer_enable_jquery_migrate' ) ) {
  */
 
 function fictioneer_ao_exclude_css( $exclude ) {
-  return $exclude . ', fonts-base.css, fonts-full.css, bundled-fonts.css';
+  return $exclude . ', fonts-base.css, fonts-full.css, bundled-fonts.css, fontawesome';
 }
 add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css' );
 
