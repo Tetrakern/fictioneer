@@ -171,12 +171,12 @@ add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 1
 Or change them completely, if you want even depending on the chapter or associated story. Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/31). Using a filter, you can rebuild the list item HTML to your liking. In the following example, the chapter prefix has been prepended (if there is one).
 
 **References**
-* Filter: [fictioneer_filter_chapter_list_item](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_chapter_list_item-item-post-args-)
+* Filter: [fictioneer_filter_simple_chapter_list_item](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_simple_chapter_list_item-item-post-args-)
 * Include: [_helpers-templates.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_helpers-templates.php)
 
 ```php
 /**
- * Overwrites the chapter list item string with a prefixed title
+ * Overwrites the simple chapter list item string with a prefixed title
  *
  * Note: Warning, this replaces the complete string and should be
  * executed early in case there are more, less extreme filters.
@@ -190,7 +190,7 @@ Or change them completely, if you want even depending on the chapter or associat
  * @return string New HTML list of list item.
  */
 
-function child_prefix_chapter_index_items( $item, $post, $args ) {
+function child_prefix_simple_chapter_list_item( $item, $post, $args ) {
   $prefix = get_post_meta( $post->ID, 'fictioneer_chapter_prefix', true );
 
   return sprintf(
@@ -205,7 +205,7 @@ function child_prefix_chapter_index_items( $item, $post, $args ) {
 }
 
 // Priority 1 to execute the filter early
-add_filter( 'fictioneer_filter_chapter_list_item', 'child_prefix_chapter_index_items', 1, 3 );
+add_filter( 'fictioneer_filter_simple_chapter_list_item', 'child_prefix_simple_chapter_list_item', 1, 3 );
 ```
 
 ## Only show a specific advanced meta field

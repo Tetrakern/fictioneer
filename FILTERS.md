@@ -316,7 +316,10 @@ add_filter( 'fictioneer_filter_simple_chapter_list_items_statuses', 'child_add_s
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapter_list_item', $item, $post, $args )`
+### `apply_filters( 'fictioneer_filter_simple_chapter_list_item', $item, $post, $args )`
 Filters each list item HTML string used in the chapter index popup and mobile menu section (only visible on chapter pages), build inside the `fictioneer_get_simple_chapter_list_items()` function. Not to be confused with the chapter list shown on story pages. You can either modify the string or build a new one from the given parameters.
+
+**Note:** `fictioneer_filter_chapter_list_item` is deprecated as of 5.25.0.
 
 **Parameters:**
 * $item (string) – HTML for the list item with icon, ID, link, and title.
@@ -327,6 +330,24 @@ Filters each list item HTML string used in the chapter index popup and mobile me
 * $list_title (string) – HTML for the list title or empty.
 * $icon (string) – HTML for the (text) icon or empty.
 * $classes (array) – Array of CSS classes or empty.
+
+**Example:**
+```php
+function child_prefix_simple_chapter_list_item( $item, $post, $args ) {
+  $prefix = get_post_meta( $post->ID, 'fictioneer_chapter_prefix', true );
+
+  return sprintf(
+    '<li class="%1$s" data-id="%2$s"><a href="%3$s">%4$s<span>%5$s%6$s</span></a></li>',
+    implode( ' ', $args['classes'] ),
+    $post->ID,
+    get_the_permalink( $post->ID ),
+    $args['icon'],
+    $prefix ? $prefix . ' ' : '',
+    $args['list_title'] ?: $args['title']
+  );
+}
+add_filter( 'fictioneer_filter_simple_chapter_list_item', 'child_prefix_simple_chapter_list_item', 1, 3 );
+```
 
 ---
 

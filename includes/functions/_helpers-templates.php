@@ -1348,8 +1348,21 @@ if ( ! function_exists( 'fictioneer_get_simple_chapter_list_items' ) ) {
         $list_title ?: $title
       );
 
-      $html .= apply_filters(
+      // Deprecated
+      $item = apply_filters(
         'fictioneer_filter_chapter_list_item',
+        $item,
+        $chapter,
+        array(
+          'title' => $title,
+          'list_title' => $list_title,
+          'icon' => $icon,
+          'classes' => $classes
+        )
+      );
+
+      $html .= apply_filters(
+        'fictioneer_filter_simple_chapter_list_item',
         $item,
         $chapter,
         array(
