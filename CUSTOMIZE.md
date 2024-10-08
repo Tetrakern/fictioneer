@@ -442,7 +442,7 @@ function child_treat_scheduled_chapters_as_published( $statuses ) {
 
   return $statuses;
 }
-add_filter( 'fictioneer_filter_chapter_list_statuses', 'child_treat_scheduled_chapters_as_published' );
+add_filter( 'fictioneer_filter_simple_chapter_list_items_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_chapter_index_popup_menu_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_treat_scheduled_chapters_as_published' );
