@@ -1889,7 +1889,7 @@ Filters the intermediate output array in the `_card-story.php` partial before it
 ---
 
 ### `apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args, $story_id, $chapter_ids )`
-Filters the arguments for the story chapter posts query, an utility function called in various places. There are two variants depending on whether the `FICTIONEER_QUERY_ID_ARRAY_LIMIT` is exceeded or not.
+Filters the arguments for the story chapter posts query, an utility function called on story and chapter pages. There are two query variants depending on whether the `FICTIONEER_QUERY_ID_ARRAY_LIMIT` (1000) is exceeded or not.
 
 **$query_args:**
 * $post_type (string) - Which post types to query. Default `'fcn_chapter'`.
@@ -1906,6 +1906,16 @@ Filters the arguments for the story chapter posts query, an utility function cal
 **Parameters:**
 * $story_id (int) – The story ID.
 * $chapter_ids (array) – Array with chapter IDs assigned to the story.
+
+**Example:**
+```php
+function child_show_scheduled_chapters( $query_args ) {
+  $query_args['post_status'] = ['publish', 'future'];
+
+  return $query_args;
+}
+add_filter( 'fictioneer_filter_story_chapter_posts_query', 'child_show_scheduled_chapters' );
+```
 
 ---
 
