@@ -1218,6 +1218,26 @@ Filters the string returned by the `fictioneer_get_safe_title( $post_id )` funct
 * `fictioneer_prefix_sticky_safe_title( $comments )` – Prepends icon to sticky blog posts.
 * `fictioneer_prefix_draft_safe_title( $comments )` – Prepends "Draft:" to drafts.
 
+**Example:**
+```php
+function child_modify_chapter_list_title( $title, $post_id, $context ) {
+  if ( ! in_array( $context, ['story-chapter-list', 'shortcode-chapter-list'] ) ) {
+    return $title;
+  }
+
+  $other_title = 'Where you get that from';
+
+  if ( empty( $other_title ) ) {
+    return $title;
+  }
+
+  $title = $title . ' — ' . $other_title;
+
+  return $title;
+}
+add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 10, 3 );
+```
+
 ---
 
 ### `apply_filters( 'fictioneer_filter_search_title', $html, $args )`
