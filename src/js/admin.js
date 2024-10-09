@@ -1223,3 +1223,69 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
     modal.querySelector('[data-target="fcn-help-modal-content"]').innerHTML = target.dataset.help;
   }
 });
+
+// =============================================================================
+// INTERVAL ACTION
+// =============================================================================
+
+/**
+ * Repeats AJAX action until a specific goal is reached
+ *
+ * @since 5.25.0
+ * @param {HTMLElement} trigger - The element that triggered the action.
+ * @param {String} action - The action to perform
+ * @param {JSON} payload - Data for the action.
+ */
+
+function fcn_intervalAction(trigger, action, payload = {}) {
+  // Current index?
+  const index = parseInt(payload['index'] ?? 0);
+  const goal = parseInt(payload['goal'] ?? 10);
+  const progress = (index / goal * 100).toFixed(0);
+
+  // Payload
+  payload = {
+    ...{
+      'action': action,
+      'nonce': document.getElementById('fictioneer_admin_nonce').value
+    },
+    ...payload
+  };
+
+  // Indicate process
+  if (index < 1 || index >= goal) {
+    fcn_toggleInProgress(trigger, index < 1);
+  }
+
+  if (index < goal) {
+    trigger.innerHTML = `${trigger.dataset.disableWith} ${progress} %`;
+  }
+
+  // Stop if done
+  if (index > goal) {
+    return;
+  }
+
+  // Request
+  fcn_ajaxPost(payload)
+  .then(response => {
+    if (!response?.data?.done) {
+      fcn_intervalAction(
+        trigger,
+        action,
+        {...payload, ...{ 'index': response.data.index + 1, 'goal': response.data.goal }}
+      );
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+_$$('[data-click-action="fictioneer_ajax_recount_words"]').forEach(button => {
+  button.addEventListener('click', e => {
+    if (confirm(button.dataset.dialog)) {
+      fcn_intervalAction(e.currentTarget, e.currentTarget.dataset.clickAction);
+    }
+  });
+});

@@ -51,6 +51,8 @@ fictioneer_add_stud_post_actions( 'fictioneer_update_modified_date_on_story_for_
  *
  * @since 3.0.0
  * @since 5.23.0 - Account for non-Latin scripts.
+ * @since 5.25.0 - Split into action and utility function.
+ * @see fictioneer_count_words()
  * @see update_post_meta()
  *
  * @param int $post_id  Post ID.
@@ -62,16 +64,10 @@ function fictioneer_save_word_count( $post_id ) {
     return;
   }
 
-  // Prepare
-  $content = get_post_field( 'post_content', $post_id );
-  $content = strip_shortcodes( $content );
-  $content = strip_tags( $content );
-  $content = preg_replace( ['/--/', "/['’‘-]/"], ['—', ''], $content );
-
   // Count
-  $word_count = count( preg_split( '/\s+/', $content ) ?: [] );
+  $word_count = fictioneer_count_words( $post_id );
 
-  // Remember
+  // Save
   update_post_meta( $post_id, '_word_count', $word_count );
 }
 

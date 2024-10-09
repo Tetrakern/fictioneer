@@ -248,6 +248,29 @@ global $wpdb;
             <hr>
 
             <div class="fictioneer-card__row">
+              <p><?php
+                printf(
+                  __( '<strong>Recalculate word counts.</strong> This action recalculates the word count for every post that is not trashed. Only perform this action if necessary, as it is a resource-intensive operation. While generally considered safe, you should <a href="%s" target="_blank">always make a backup</a> before performing database operations.', 'fictioneer' ),
+                  'https://developer.wordpress.org/advanced-administration/security/backup/database/#using-wordpress-database-backup-plugin'
+                );
+              ?></p>
+            </div>
+
+            <div class="fictioneer-card__row fictioneer-card__row--buttons">
+              <?php
+                printf(
+                  '<button class="button" data-click-action="%s" data-disable-with="%s" data-dialog="%s">%s</button>',
+                  'fictioneer_ajax_recount_words',
+                  esc_html( __( 'Counting…', 'fictioneer' ) ),
+                  __( 'This operation is safe, but making a database backup is still recommended to account for the unexpected.', 'fictioneer' ),
+                  __( 'Recount Words', 'fictioneer' )
+                );
+              ?>
+            </div>
+
+            <hr>
+
+            <div class="fictioneer-card__row">
               <p><?php _e( '<strong>Purge theme caches.</strong> In order to accelerate page rendering, certain content is composed once and then cached. These caches get purged whenever you make relevant updates. If you need to purge them manually, you can do so here.', 'fictioneer' ); ?></p>
             </div>
 

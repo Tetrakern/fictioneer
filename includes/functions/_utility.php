@@ -1170,6 +1170,30 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
 // GET META FIELDS
 // =============================================================================
 
+if ( ! function_exists( 'fictioneer_count_words' ) ) {
+  /**
+   * Returns word count of a post
+   *
+   * @since 5.25.0
+   *
+   * @param int         $post_id  ID of the post to count the words of.
+   * @param string|null $content  Optional. The post content. Queries the field by default.
+   *
+   * @return int The word count.
+   */
+
+  function fictioneer_count_words( $post_id, $content = null ) {
+    // Prepare
+    $content = $content ?? get_post_field( 'post_content', $post_id );
+    $content = strip_shortcodes( $content );
+    $content = strip_tags( $content );
+    $content = preg_replace( ['/--/', "/['’‘-]/"], ['—', ''], $content );
+
+    // Count and return result
+    return count( preg_split( '/\s+/', $content ) ?: [] );
+  }
+}
+
 if ( ! function_exists( 'fictioneer_get_story_chapter_ids' ) ) {
   /**
    * Wrapper for get_post_meta() to get story chapter IDs

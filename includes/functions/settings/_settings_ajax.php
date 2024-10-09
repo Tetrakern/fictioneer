@@ -234,3 +234,62 @@ function fictioneer_ajax_purge_all_schemas() {
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_purge_all_schemas', 'fictioneer_ajax_purge_all_schemas' );
+
+// =============================================================================
+// RECOUNT WORDS
+// =============================================================================
+
+/**
+ * AJAX: Recalculate word counts
+ *
+ * @since 5.25.0
+ */
+
+function fictioneer_ajax_recount_words() {
+  global $wpdb;
+
+  // Validate
+  if ( ! fictioneer_validate_settings_ajax() ) {
+    wp_send_json_error( array( 'notice' => __( 'Invalid request.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  $page = intval( $_REQUEST['index'] ?? 0 );
+  $max_pages = intval( $_REQUEST['goal'] ?? null );
+  $posts_per_page = 50;
+  $done = false;
+
+  // Query ID and content only
+  $results = $wpdb->get_results(
+    $wpdb->prepare(
+      "SELECT ID, post_content
+      FROM {$wpdb->posts}
+      WHERE post_status != 'trash'
+      LIMIT %d OFFSET %d",
+      $posts_per_page,
+      $page * $posts_per_page
+    )
+  );
+
+  // Count words and update
+  if ( ! empty( $results ) ) {
+    foreach ( $results as $post ) {
+      update_post_meta( $post->ID, '_word_count', fictioneer_count_words( $post->ID, $post->post_content ) );
+    }
+
+    if ( ! $max_pages ) {
+      $total_posts = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_status != 'trash'" );
+      $max_pages = ceil( $total_posts / $posts_per_page );
+    }
+
+    if ( $page >= $max_pages ) {
+      $done = true;
+    }
+  } else {
+    $done = true;
+  }
+
+  // Report back to client
+  wp_send_json_success( array( 'index' => $page, 'goal' => $max_pages ?? 1, 'done' => $done ) );
+}
+add_action( 'wp_ajax_fictioneer_ajax_recount_words', 'fictioneer_ajax_recount_words' );
