@@ -121,7 +121,7 @@ function fictioneer_get_log() {
 
   // Build list items
   foreach ( $log_entries as $entry ) {
-    $output .= '<li class="fictioneer-log__item">' . $entry . '</li>';
+    $output .= '<li class="fictioneer-log__item">' . esc_html( $entry ) . '</li>';
   }
 
   // Return HTML
@@ -158,7 +158,7 @@ function fictioneer_get_wp_debug_log() {
 
   // Build list items
   foreach ( $log_entries as $entry ) {
-    $output .= '<li class="fictioneer-log__item _wp-debug-log">' . $entry . '</li>';
+    $output .= '<li class="fictioneer-log__item _wp-debug-log">' . esc_html( $entry ) . '</li>';
   }
 
   // Return HTML
