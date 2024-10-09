@@ -1085,7 +1085,7 @@ function fictioneer_style_queue() {
   // Enqueue Splide CSS
   if (
     get_option( 'fictioneer_enable_global_splide' ) ||
-    ( $post && preg_match( '/\[fictioneer_[a-zA-Z0-9_]*[^\]]*splide="([^"]+)"[^\]]*\]/', $post->post_content ) ) ||
+    ( $post && preg_match( '/\[fictioneer_[a-zA-Z0-9_]*[^\]]*splide=["\']([^"\']+)["\'][^\]]*\]/', $post->post_content ) ) ||
     strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false // Accounts for page editors like Elementor
   ) {
     wp_enqueue_style(
@@ -1481,7 +1481,7 @@ function fictioneer_add_custom_scripts() {
   // Enqueue Splide
   if (
     get_option( 'fictioneer_enable_global_splide' ) ||
-    ( $post && preg_match( '/\[fictioneer_[a-zA-Z0-9_]*[^\]]*splide="([^"]+)"[^\]]*\]/', $post->post_content ) ) ||
+    ( $post && preg_match( '/\[fictioneer_[a-zA-Z0-9_]*[^\]]*splide=["\']([^"\']+)["\'][^\]]*\]/', $post->post_content ) ) ||
     strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false // Accounts for page editors like Elementor
   ) {
     wp_enqueue_script( 'fictioneer-splide', get_template_directory_uri() . '/js/splide.min.js', [], $cache_bust, false );
