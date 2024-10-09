@@ -475,7 +475,6 @@ body[class*="fictioneer_page_"] {
 
     &__row {
       padding: 0 12px;
-      overflow: auto;
 
       &:not(:last-child) {
         margin-bottom: 12px;
@@ -484,6 +483,10 @@ body[class*="fictioneer_page_"] {
       &-heading {
         font-weight: 700;
         font-size: 15px;
+      }
+
+      &--table {
+        overflow: auto;
       }
 
       &--inline-input {

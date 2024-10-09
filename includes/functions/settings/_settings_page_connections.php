@@ -265,7 +265,7 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
               </div>
 
               <?php if ( $patreon_tiers ) : ?>
-                <div class="fictioneer-card__row">
+                <div class="fictioneer-card__row fictioneer-card__row--table">
                   <table class="fictioneer-card__table">
                     <thead>
                       <tr>
