@@ -66,15 +66,10 @@ function fictioneer_save_word_count( $post_id ) {
   $content = get_post_field( 'post_content', $post_id );
   $content = strip_shortcodes( $content );
   $content = strip_tags( $content );
+  $content = preg_replace( ['/--/', "/['’‘-]/"], ['—', ''], $content );
 
-  // Count (check for presence of common non-Latin scripts)
-  $pattern = '/[\x{0400}-\x{04FF}\x{0600}-\x{06FF}\x{4E00}-\x{9FFF}\x{0370}-\x{03FF}\x{0590}-\x{05FF}\x{0900}-\x{097F}\x{0E00}-\x{0E7F}]/u';
-
-  if ( preg_match( $pattern, $content ) ) {
-    $word_count = count( preg_split( '/\s+/', strip_tags( $content ) ) ?: [] );
-  } else {
-    $word_count = str_word_count( $content );
-  }
+  // Count
+  $word_count = count( preg_split( '/\s+/', $content ) ?: [] );
 
   // Remember
   update_post_meta( $post_id, '_word_count', $word_count );
