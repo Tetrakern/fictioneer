@@ -2291,8 +2291,11 @@ document.addEventListener('DOMContentLoaded', () => {
   _$$('.splide:not(.no-auto-splide, .is-initialized)').forEach(slider => {
     if (slider.querySelector('.splide__list') && typeof Splide !== 'undefined') {
       slider.classList.remove('_splide-placeholder');
-      slider.closest('section').querySelector('.splide-placeholder-styles')?.remove();
       new Splide(slider).mount();
     }
+  });
+
+  _$$('.temp-script, .splide-placeholder-styles').forEach(element => {
+    element.remove();
   });
 });
