@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-06 14:52+0000\n"
+"POT-Creation-Date: 2024-10-10 08:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "%s chapters have been appended."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1670
+#: includes/functions/_helpers-templates.php:1707
 #, php-format
 msgid "%s Comment"
 msgid_plural "%s Comments"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "%s connection successfully unset."
 msgstr ""
 
-#: partials/_showcase.php:193 partials/_card-story.php:93
+#: partials/_showcase.php:196 partials/_card-story.php:93
 #: partials/_card-chapter.php:87 includes/functions/_helpers-templates.php:603
 #: includes/functions/_helpers-templates.php:643
 #, php-format
@@ -185,7 +185,7 @@ msgstr ""
 msgid "<b>Patreon:</b> Data expired. Log in with Patreon again to refresh."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1388
+#: includes/functions/_helpers-templates.php:1425
 #, php-format
 msgid "<b>Warning:</b> %s"
 msgstr ""
@@ -376,13 +376,13 @@ msgid ""
 "Permalinks</strong> when you toggle this setting to avoid 404s.</p>"
 msgstr ""
 
-#: includes/functions/_utility.php:1956
+#: includes/functions/_utility.php:2019
 msgid ""
 "<span class=\"off\"><i class=\"fa-solid fa-caret-left\"></i></span><span "
 "class=\"on\">Previous</span>"
 msgstr ""
 
-#: includes/functions/_utility.php:1953
+#: includes/functions/_utility.php:2016
 msgid ""
 "<span class=\"on\">Next</span><span class=\"off\"><i class=\"fa-solid fa-"
 "caret-right\"></i></span>"
@@ -571,7 +571,7 @@ msgid ""
 "target=\"_blank\">Fictioneer Taxonomy Project</a>."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:268
+#: includes/functions/settings/_settings_page_tools.php:291
 msgid ""
 "<strong>Append associated <em>published</em> chapters </strong> that are not "
 "already in the story’s chapter list. Enter the ID of the story, which can be "
@@ -661,7 +661,7 @@ msgstr ""
 msgid "<strong>Post Meta Rows:</strong> %d"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:251
+#: includes/functions/settings/_settings_page_tools.php:274
 msgid ""
 "<strong>Purge theme caches.</strong> In order to accelerate page rendering, "
 "certain content is composed once and then cached. These caches get purged "
@@ -669,7 +669,17 @@ msgid ""
 "can do so here."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:289
+#: includes/functions/settings/_settings_page_tools.php:253
+#, php-format
+msgid ""
+"<strong>Recalculate word counts.</strong> This action recalculates the word "
+"count for every post that is not trashed. Only perform this action if "
+"necessary, as it is a resource-intensive operation. While generally "
+"considered safe, you should <a href=\"%s\" target=\"_blank\">always make a "
+"backup</a> before performing database operations."
+msgstr ""
+
+#: includes/functions/settings/_settings_page_tools.php:312
 msgid ""
 "<strong>Reset post relationship registry.</strong> Warning, this should only "
 "ever be done if the registry either causes problems or has become corrupted. "
@@ -723,7 +733,7 @@ msgstr ""
 msgid "Access denied."
 msgstr ""
 
-#: includes/functions/_utility.php:1924
+#: includes/functions/_utility.php:1987
 msgid "Account"
 msgstr ""
 
@@ -1430,42 +1440,42 @@ msgstr ""
 msgid "Age Confirmation Modal: Site"
 msgstr ""
 
-#: includes/functions/_utility.php:1968
+#: includes/functions/_utility.php:2031
 msgctxt "Age rating A for Adult."
 msgid "A"
 msgstr ""
 
-#: includes/functions/_utility.php:1972
+#: includes/functions/_utility.php:2035
 msgctxt "Age rating Adult."
 msgid "Adult"
 msgstr ""
 
-#: includes/functions/_utility.php:1965
+#: includes/functions/_utility.php:2028
 msgctxt "Age rating E for Everyone."
 msgid "E"
 msgstr ""
 
-#: includes/functions/_utility.php:1969
+#: includes/functions/_utility.php:2032
 msgctxt "Age rating Everyone."
 msgid "Everyone"
 msgstr ""
 
-#: includes/functions/_utility.php:1967
+#: includes/functions/_utility.php:2030
 msgctxt "Age rating M for Mature."
 msgid "M"
 msgstr ""
 
-#: includes/functions/_utility.php:1971
+#: includes/functions/_utility.php:2034
 msgctxt "Age rating Mature."
 msgid "Mature"
 msgstr ""
 
-#: includes/functions/_utility.php:1966
+#: includes/functions/_utility.php:2029
 msgctxt "Age rating T for Teen."
 msgid "T"
 msgstr ""
 
-#: includes/functions/_utility.php:1970
+#: includes/functions/_utility.php:2033
 msgctxt "Age rating Teen."
 msgid "Teen"
 msgstr ""
@@ -1627,7 +1637,7 @@ msgstr ""
 msgid "Anonymous"
 msgstr ""
 
-#: includes/functions/_utility.php:1927
+#: includes/functions/_utility.php:1990
 msgid "Anonymous Guest"
 msgstr ""
 
@@ -1770,7 +1780,7 @@ msgid ""
 "Are you sure? Reminders will be irrevocably deleted. Enter %s to confirm."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:302
+#: includes/functions/settings/_settings_page_tools.php:325
 msgid ""
 "Are you sure? Repopulating the registry requires re-saving every single post "
 "or page you want to be covered. Manually."
@@ -1900,45 +1910,45 @@ msgstr ""
 msgid "Base success and confirmation color."
 msgstr ""
 
-#: includes/functions/_utility.php:1986
+#: includes/functions/_utility.php:2049
 msgctxt "BBCode example."
 msgid ""
 "<blockquote><code>[quote]</code>… me like my landlord!<code>[/quote]</code>"
 "</blockquote>"
 msgstr ""
 
-#: includes/functions/_utility.php:1989
+#: includes/functions/_utility.php:2052
 msgctxt "BBCode example."
 msgid ""
 "<code>[del]</code><del>Delete</del><code>[/del]</code> your browser history!"
 msgstr ""
 
-#: includes/functions/_utility.php:1983
+#: includes/functions/_utility.php:2046
 #, php-format
 msgctxt "BBCode example."
 msgid "<code>[img]</code>https://www.agine.this<code>[/img]</code> %s"
 msgstr ""
 
-#: includes/functions/_utility.php:1988
+#: includes/functions/_utility.php:2051
 msgctxt "BBCode example."
 msgid "<code>[ins]</code><ins>Insert</ins><code>[/ins]</code> more bad puns!"
 msgstr ""
 
-#: includes/functions/_utility.php:1985
+#: includes/functions/_utility.php:2048
 msgctxt "BBCode example."
 msgid ""
 "<code>[link=https://www.n.ot]</code><a href=\"http://topwebfiction.com/\" "
 "class=\"link\">clickbait</a><code>[/link]</code>."
 msgstr ""
 
-#: includes/functions/_utility.php:1984
+#: includes/functions/_utility.php:2047
 msgctxt "BBCode example."
 msgid ""
 "<code>[link]</code><a href=\"http://topwebfiction.com/\" target=\"_blank\" "
 "class=\"link\">http://topwebfiction.com</a><code>[/link]</code>."
 msgstr ""
 
-#: includes/functions/_utility.php:1987
+#: includes/functions/_utility.php:2050
 msgctxt "BBCode example."
 msgid ""
 "<code>[spoiler]</code><span class=\"spoiler\">Spanish Inquisition!</span>"
@@ -1965,7 +1975,7 @@ msgctxt "Blog card label."
 msgid "Page"
 msgstr ""
 
-#: includes/functions/_utility.php:1930
+#: includes/functions/_utility.php:1993
 msgctxt "Blog page name, mainly used in breadcrumbs."
 msgid "Blog"
 msgstr ""
@@ -1974,12 +1984,12 @@ msgstr ""
 msgid "Blog Posts"
 msgstr ""
 
-#: includes/functions/_utility.php:1961
+#: includes/functions/_utility.php:2024
 msgctxt "Blog tab of the story."
 msgid "Blog"
 msgstr ""
 
-#: includes/functions/_utility.php:1931
+#: includes/functions/_utility.php:1994
 msgid "Bookmark"
 msgstr ""
 
@@ -1988,7 +1998,7 @@ msgid "Bookmark paragraphs in chapters. No account needed."
 msgstr ""
 
 #. Name of the template
-#: singular-bookmarks.php:2 includes/functions/_utility.php:1932
+#: singular-bookmarks.php:2 includes/functions/_utility.php:1995
 msgid "Bookmarks"
 msgstr ""
 
@@ -1996,7 +2006,7 @@ msgstr ""
 msgid "Bookmarks could not be cleared."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2316
+#: includes/functions/_helpers-templates.php:2353
 msgid "Bookmarks Page"
 msgstr ""
 
@@ -2014,7 +2024,7 @@ msgstr ""
 
 #. Name of the template
 #: singular-bookshelf.php:2 singular-bookshelf.php:107
-#: singular-bookshelf-ajax.php:97 includes/functions/_utility.php:1925
+#: singular-bookshelf-ajax.php:97 includes/functions/_utility.php:1988
 msgid "Bookshelf"
 msgstr ""
 
@@ -2116,7 +2126,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: includes/functions/_utility.php:1977
+#: includes/functions/_utility.php:2040
 msgctxt "Canceled story status"
 msgid "Canceled"
 msgstr ""
@@ -2791,17 +2801,17 @@ msgctxt "Capability translation"
 msgid "Upload Restrictions"
 msgstr ""
 
-#: includes/functions/_utility.php:1926
+#: includes/functions/_utility.php:1989
 msgctxt "Caption for administrator badge label."
 msgid "Admin"
 msgstr ""
 
-#: includes/functions/_utility.php:1928
+#: includes/functions/_utility.php:1991
 msgctxt "Caption for author badge label."
 msgid "Author"
 msgstr ""
 
-#: includes/functions/_utility.php:1952
+#: includes/functions/_utility.php:2015
 msgctxt "Caption for moderator badge label"
 msgid "Mod"
 msgstr ""
@@ -2997,7 +3007,7 @@ msgctxt "Chapter card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1294
+#: includes/functions/_setup-shortcodes.php:1314
 #: includes/functions/hooks/_story_hooks.php:734
 #, php-format
 msgid "Chapter checkmark for %s."
@@ -3016,57 +3026,57 @@ msgstr ""
 msgid "Chapter Data"
 msgstr ""
 
-#: includes/functions/_utility.php:2414
+#: includes/functions/_utility.php:2477
 msgctxt "Chapter font color name."
 msgid "Baseline"
 msgstr ""
 
-#: includes/functions/_utility.php:2423
+#: includes/functions/_utility.php:2486
 msgctxt "Chapter font color name."
 msgid "Black"
 msgstr ""
 
-#: includes/functions/_utility.php:2422
+#: includes/functions/_utility.php:2485
 msgctxt "Chapter font color name."
 msgid "Gray"
 msgstr ""
 
-#: includes/functions/_utility.php:2418
+#: includes/functions/_utility.php:2481
 msgctxt "Chapter font color name."
 msgid "High"
 msgstr ""
 
-#: includes/functions/_utility.php:2419
+#: includes/functions/_utility.php:2482
 msgctxt "Chapter font color name."
 msgid "Higher"
 msgstr ""
 
-#: includes/functions/_utility.php:2420
+#: includes/functions/_utility.php:2483
 msgctxt "Chapter font color name."
 msgid "Highest"
 msgstr ""
 
-#: includes/functions/_utility.php:2415
+#: includes/functions/_utility.php:2478
 msgctxt "Chapter font color name."
 msgid "Low"
 msgstr ""
 
-#: includes/functions/_utility.php:2416
+#: includes/functions/_utility.php:2479
 msgctxt "Chapter font color name."
 msgid "Lower"
 msgstr ""
 
-#: includes/functions/_utility.php:2417
+#: includes/functions/_utility.php:2480
 msgctxt "Chapter font color name."
 msgid "Lowest"
 msgstr ""
 
-#: includes/functions/_utility.php:2413
+#: includes/functions/_utility.php:2476
 msgctxt "Chapter font color name."
 msgid "Tinted"
 msgstr ""
 
-#: includes/functions/_utility.php:2421
+#: includes/functions/_utility.php:2484
 msgctxt "Chapter font color name."
 msgid "White"
 msgstr ""
@@ -3076,7 +3086,7 @@ msgctxt "Chapter foreword meta field label."
 msgid "Foreword"
 msgstr ""
 
-#: includes/functions/_utility.php:1939
+#: includes/functions/_utility.php:2002
 msgctxt "Chapter formatting modal heading."
 msgid "Formatting"
 msgstr ""
@@ -3101,17 +3111,17 @@ msgctxt "Chapter icon meta field label."
 msgid "Icon"
 msgstr ""
 
-#: includes/functions/_utility.php:1996
+#: includes/functions/_utility.php:2059
 msgctxt "Chapter list status prefix."
 msgid "Private:"
 msgstr ""
 
-#: includes/functions/_utility.php:1994
+#: includes/functions/_utility.php:2057
 msgctxt "Chapter list status prefix."
 msgid "Scheduled:"
 msgstr ""
 
-#: includes/functions/_utility.php:1995
+#: includes/functions/_utility.php:2058
 msgctxt "Chapter list status prefix."
 msgid "Trashed:"
 msgstr ""
@@ -3212,9 +3222,9 @@ msgstr ""
 
 #. Name of the template
 #: chapters.php:2 chapters.php:107 author.php:53 author.php:141
-#: partials/_card-story.php:251 partials/_latest-stories.php:326
-#: partials/_latest-stories-compact.php:339 partials/_card-collection.php:209
-#: partials/_latest-updates.php:446 partials/_collection-statistics.php:39
+#: partials/_card-story.php:251 partials/_latest-stories.php:329
+#: partials/_latest-stories-compact.php:342 partials/_card-collection.php:209
+#: partials/_latest-updates.php:449 partials/_collection-statistics.php:39
 #: includes/functions/_setup-types-and-terms.php:185
 #: includes/functions/settings/_settings_page_epubs.php:82
 #: includes/functions/hooks/_mobile_menu_hooks.php:320
@@ -3234,7 +3244,7 @@ msgstr ""
 msgid "Chapters list navigation"
 msgstr ""
 
-#: includes/functions/_utility.php:1963
+#: includes/functions/_utility.php:2026
 msgctxt "Chapters not assigned to group."
 msgid "Unassigned"
 msgstr ""
@@ -3363,7 +3373,7 @@ msgstr ""
 msgid "Clear %s (%s)"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1022
+#: includes/functions/_setup-shortcodes.php:1042
 msgid "Clear Cookies"
 msgstr ""
 
@@ -3374,7 +3384,7 @@ msgstr ""
 msgid "Click to load %s with third-party consent."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2382
+#: includes/functions/_helpers-templates.php:2419
 msgid "Click to log out"
 msgstr ""
 
@@ -3580,7 +3590,7 @@ msgstr ""
 msgid "Comment Flags:"
 msgstr ""
 
-#: includes/functions/_utility.php:1993
+#: includes/functions/_utility.php:2056
 msgctxt "Comment form cookie checkbox."
 msgid "Save in cookie for next time."
 msgstr ""
@@ -3594,7 +3604,7 @@ msgctxt "Comment form email notification toggle."
 msgid "Toggle to get email notifications about direct replies."
 msgstr ""
 
-#: includes/functions/_utility.php:1991
+#: includes/functions/_utility.php:2054
 #, php-format
 msgctxt "Comment form logged-in note."
 msgid ""
@@ -3602,12 +3612,12 @@ msgid ""
 "class=\"logout-link\" href=\"%3$s\" data-click=\"logout\">Log out?</a></span>"
 msgstr ""
 
-#: includes/functions/_utility.php:1990
+#: includes/functions/_utility.php:2053
 msgctxt "Comment form login note."
 msgid "Enter your details or log in with:"
 msgstr ""
 
-#: includes/functions/_utility.php:1992
+#: includes/functions/_utility.php:2055
 #, php-format
 msgctxt "Comment form privacy checkbox."
 msgid ""
@@ -3637,7 +3647,7 @@ msgstr ""
 msgid "Comment has been marked as private."
 msgstr ""
 
-#: includes/functions/_utility.php:2254 includes/functions/_utility.php:2255
+#: includes/functions/_utility.php:2317 includes/functions/_utility.php:2318
 msgctxt "Comment image consent wrapper button."
 msgid "<i class=\"fa-solid fa-image\"></i> Show Image"
 msgstr ""
@@ -3714,27 +3724,27 @@ msgstr ""
 msgid "Comment reply notification email"
 msgstr ""
 
-#: includes/functions/_utility.php:2000
+#: includes/functions/_utility.php:2063
 msgctxt "Comment status translation."
 msgid "Approved"
 msgstr ""
 
-#: includes/functions/_utility.php:2001
+#: includes/functions/_utility.php:2064
 msgctxt "Comment status translation."
 msgid "Hold"
 msgstr ""
 
-#: includes/functions/_utility.php:2003
+#: includes/functions/_utility.php:2066
 msgctxt "Comment status translation."
 msgid "Spam"
 msgstr ""
 
-#: includes/functions/_utility.php:2004
+#: includes/functions/_utility.php:2067
 msgctxt "Comment status translation."
 msgid "Trash"
 msgstr ""
 
-#: includes/functions/_utility.php:2002
+#: includes/functions/_utility.php:2065
 msgctxt "Comment status translation."
 msgid "Unapproved"
 msgstr ""
@@ -3770,12 +3780,12 @@ msgctxt "Comment time format string."
 msgid "%1$s \\a\\t %2$s"
 msgstr ""
 
-#: includes/functions/_utility.php:1998
+#: includes/functions/_utility.php:2061
 msgctxt "Comment type translation."
 msgid "Private Comment"
 msgstr ""
 
-#: includes/functions/_utility.php:1999
+#: includes/functions/_utility.php:2062
 msgctxt "Comment type translation."
 msgid "Public Comment"
 msgstr ""
@@ -3797,9 +3807,9 @@ msgid "Commenting is disabled."
 msgstr ""
 
 #: author.php:149 partials/_card-story.php:268 partials/_card-story.php:268
-#: partials/_card-page.php:91 partials/_article-cards.php:305
+#: partials/_card-page.php:91 partials/_article-cards.php:308
 #: partials/_card-collection.php:219 partials/_collection-statistics.php:47
-#: partials/_card-post.php:114 partials/_latest-chapters.php:352
+#: partials/_card-post.php:114 partials/_latest-chapters.php:355
 #: partials/_card-chapter.php:265 partials/account/_data.php:119
 #: includes/functions/settings/_settings_page_general.php:846
 #: includes/functions/hooks/_story_hooks.php:41
@@ -3850,7 +3860,7 @@ msgid ""
 "repeating the same queries for identical results."
 msgstr ""
 
-#: includes/functions/_utility.php:1973
+#: includes/functions/_utility.php:2036
 msgctxt "Completed story status."
 msgid "Completed"
 msgstr ""
@@ -3924,7 +3934,7 @@ msgctxt "Contact form."
 msgid "Message field empty."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1347
+#: includes/functions/_setup-shortcodes.php:1367
 #: includes/functions/_module-forms.php:57
 msgctxt "Contact form."
 msgid "Nameless Form"
@@ -3979,7 +3989,7 @@ msgstr ""
 msgid "Cookie consent banner"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1022
+#: includes/functions/_setup-shortcodes.php:1042
 msgid ""
 "Cookies and local storage have been cleared. To keep it that way, you should "
 "leave the site."
@@ -4003,6 +4013,10 @@ msgid ""
 "Counting words does not work well for logographic writing systems, so you "
 "may want to count characters instead. You can further refine this count by "
 "applying a multiplier in the theme settings."
+msgstr ""
+
+#: includes/functions/settings/_settings_page_tools.php:264
+msgid "Counting…"
 msgstr ""
 
 #: includes/functions/_module-epub.php:753
@@ -4910,7 +4924,7 @@ msgstr ""
 msgid "Deleted global Patreon tiers."
 msgstr ""
 
-#: includes/functions/_utility.php:1934
+#: includes/functions/_utility.php:1997
 msgid "Deleted User"
 msgstr ""
 
@@ -5192,8 +5206,8 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1581
-#: includes/functions/_helpers-templates.php:2211
+#: includes/functions/_helpers-templates.php:1618
+#: includes/functions/_helpers-templates.php:2248
 #: includes/functions/settings/_settings_page_connections.php:30
 #: includes/functions/hooks/_mobile_menu_hooks.php:399
 msgid "Discord"
@@ -5235,7 +5249,7 @@ msgstr ""
 msgid "Discord ID Hash"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2326
+#: includes/functions/_helpers-templates.php:2363
 #: includes/functions/settings/_register_settings.php:1162
 #: includes/functions/settings/_settings_page_connections.php:55
 msgid "Discord invite link"
@@ -6163,7 +6177,7 @@ msgctxt "Fix post paragraphs preview button."
 msgid "Preview"
 msgstr ""
 
-#: includes/functions/_utility.php:1935
+#: includes/functions/_utility.php:1998
 msgctxt "Follow a story."
 msgid "Follow"
 msgstr ""
@@ -6227,7 +6241,7 @@ msgstr ""
 msgid "Font Lightness Offset"
 msgstr ""
 
-#: includes/functions/_utility.php:2348
+#: includes/functions/_utility.php:2411
 msgctxt "Font name."
 msgid "System Font"
 msgstr ""
@@ -6324,7 +6338,7 @@ msgid ""
 "and moderators are recommended."
 msgstr ""
 
-#: includes/functions/_utility.php:1937
+#: includes/functions/_utility.php:2000
 msgctxt "Forget story set to be read later."
 msgid "Forget"
 msgstr ""
@@ -6344,7 +6358,7 @@ msgctxt "Formatting modal font weight selection."
 msgid "Thinner Font Weight"
 msgstr ""
 
-#: includes/functions/_utility.php:1997
+#: includes/functions/_utility.php:2060
 msgctxt "Free Patreon tier (follower)."
 msgid "Follower (Free)"
 msgstr ""
@@ -6364,7 +6378,7 @@ msgctxt "Frontend profile headline."
 msgid "Password"
 msgstr ""
 
-#: includes/functions/_utility.php:1940
+#: includes/functions/_utility.php:2003
 msgctxt "Frontpage page name, mainly used in breadcrumbs."
 msgid "Home"
 msgstr ""
@@ -6437,7 +6451,7 @@ msgstr ""
 msgid "Global unlock gate pledge threshold in cents"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2213
+#: includes/functions/_helpers-templates.php:2250
 #: includes/functions/settings/_settings_page_connections.php:126
 msgid "Google"
 msgstr ""
@@ -6496,7 +6510,7 @@ msgstr ""
 msgid "Heading Font"
 msgstr ""
 
-#: includes/functions/_utility.php:1929
+#: includes/functions/_utility.php:1992
 msgctxt "Heading for BBCodes tutorial modal."
 msgid "BBCodes"
 msgstr ""
@@ -6520,7 +6534,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: includes/functions/_utility.php:1975
+#: includes/functions/_utility.php:2038
 msgctxt "Hiatus story status"
 msgid "Hiatus"
 msgstr ""
@@ -6719,17 +6733,17 @@ msgstr ""
 msgid "Hue Offset"
 msgstr ""
 
-#: includes/functions/_utility.php:3121
+#: includes/functions/_utility.php:3252
 msgctxt "Human readable list joining the last two of three or more items."
 msgid ", or "
 msgstr ""
 
-#: includes/functions/_utility.php:3119
+#: includes/functions/_utility.php:3250
 msgctxt "Human readable list joining three or more items except the last two."
 msgid ", "
 msgstr ""
 
-#: includes/functions/_utility.php:3120
+#: includes/functions/_utility.php:3251
 msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr ""
@@ -6965,6 +6979,7 @@ msgstr ""
 #: includes/functions/settings/_settings_ajax.php:87
 #: includes/functions/settings/_settings_ajax.php:152
 #: includes/functions/settings/_settings_ajax.php:165
+#: includes/functions/settings/_settings_ajax.php:253
 msgid "Invalid request."
 msgstr ""
 
@@ -6990,15 +7005,15 @@ msgstr ""
 msgid "Items per page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2325
+#: includes/functions/_helpers-templates.php:2362
 msgid "Join Discord"
 msgstr ""
 
-#: includes/functions/_utility.php:1945
+#: includes/functions/_utility.php:2008
 msgid "Jump: Bookmark"
 msgstr ""
 
-#: includes/functions/_utility.php:1944
+#: includes/functions/_utility.php:2007
 msgid "Jump: Comments"
 msgstr ""
 
@@ -7042,10 +7057,10 @@ msgid ""
 "more</strong> is met unless the comment is set to ignore reports."
 msgstr ""
 
-#: partials/_card-story.php:261 partials/_latest-stories.php:337
-#: partials/_latest-stories-compact.php:350 partials/_article-cards.php:298
-#: partials/_card-collection.php:216 partials/_latest-updates.php:456
-#: partials/_latest-chapters.php:345 partials/_card-chapter.php:258
+#: partials/_card-story.php:261 partials/_latest-stories.php:340
+#: partials/_latest-stories-compact.php:353 partials/_article-cards.php:301
+#: partials/_card-collection.php:216 partials/_latest-updates.php:459
+#: partials/_latest-chapters.php:348 partials/_card-chapter.php:258
 msgid "Last Updated"
 msgstr ""
 
@@ -7323,15 +7338,15 @@ msgstr ""
 msgid "Link copied to clipboard!"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2317
+#: includes/functions/_helpers-templates.php:2354
 msgid "Link to bookmarks page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2349
+#: includes/functions/_helpers-templates.php:2386
 msgid "Link to search page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2372
+#: includes/functions/_helpers-templates.php:2409
 msgid "Link to site RSS feed"
 msgstr ""
 
@@ -7342,7 +7357,7 @@ msgid ""
 "."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2307
+#: includes/functions/_helpers-templates.php:2344
 msgid "Link to user profile"
 msgstr ""
 
@@ -7352,12 +7367,12 @@ msgid ""
 "\"Link Name | https://www.address.abc\" (without quotes)."
 msgstr ""
 
-#: includes/functions/_utility.php:1936
+#: includes/functions/_utility.php:1999
 msgctxt "List of followed stories."
 msgid "Follows"
 msgstr ""
 
-#: includes/functions/_utility.php:1959
+#: includes/functions/_utility.php:2022
 msgctxt "List of stories to read later."
 msgid "Reminders"
 msgstr ""
@@ -7418,8 +7433,8 @@ msgstr ""
 msgid "Logged-in users can report comments via flag button."
 msgstr ""
 
-#: includes/functions/_utility.php:1946
-#: includes/functions/_helpers-templates.php:2296
+#: includes/functions/_utility.php:2009
+#: includes/functions/_helpers-templates.php:2333
 msgid "Login"
 msgstr ""
 
@@ -7431,7 +7446,7 @@ msgstr ""
 msgid "Login modal"
 msgstr ""
 
-#: includes/functions/_utility.php:1947
+#: includes/functions/_utility.php:2010
 msgctxt "Login modal heading."
 msgid "Login"
 msgstr ""
@@ -7448,8 +7463,8 @@ msgstr ""
 msgid "Logo Height - Minimum"
 msgstr ""
 
-#: includes/functions/_utility.php:1949
-#: includes/functions/_helpers-templates.php:2381
+#: includes/functions/_utility.php:2012
+#: includes/functions/_helpers-templates.php:2418
 msgid "Logout"
 msgstr ""
 
@@ -7476,7 +7491,7 @@ msgctxt "Long reading time statistics: [h] hours, [m] minutes."
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2340
+#: includes/functions/_helpers-templates.php:2377
 msgid "Looking for updates..."
 msgstr ""
 
@@ -7525,7 +7540,7 @@ msgid ""
 "work as expected."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2339
+#: includes/functions/_helpers-templates.php:2376
 msgctxt "Mark as read button."
 msgid "Read"
 msgstr ""
@@ -7534,16 +7549,16 @@ msgstr ""
 msgid "Mark chapters and stories as \"read\"."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2337
+#: includes/functions/_helpers-templates.php:2374
 msgid "Mark follows as read"
 msgstr ""
 
-#: includes/functions/_utility.php:1950
+#: includes/functions/_utility.php:2013
 msgctxt "Mark story as read."
 msgid "Mark Read"
 msgstr ""
 
-#: includes/functions/_utility.php:1951
+#: includes/functions/_utility.php:2014
 msgctxt "Mark story as unread."
 msgid "Mark Unread"
 msgstr ""
@@ -7612,7 +7627,7 @@ msgstr ""
 msgid "Maximum site width in pixels, should not be less than 896. Default 960."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1420
+#: includes/functions/_setup-shortcodes.php:1440
 msgid "Message sent!"
 msgstr ""
 
@@ -7661,16 +7676,16 @@ msgctxt "Metabox replace button."
 msgid "Replace"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:264
+#: includes/functions/settings/_settings_page_tools.php:287
 msgid "Migration Tools"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:276
+#: includes/functions/settings/_settings_page_tools.php:299
 msgctxt "Migration tools chapter append button."
 msgid "Append Chapters"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:275
+#: includes/functions/settings/_settings_page_tools.php:298
 msgctxt "Migration tools chapter preview button."
 msgid "Preview"
 msgstr ""
@@ -8011,11 +8026,11 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1635
+#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1655
 msgid "No (more) posts found."
 msgstr ""
 
-#: includes/functions/_utility.php:1954
+#: includes/functions/_utility.php:2017
 msgid "No bookmarks."
 msgstr ""
 
@@ -8031,7 +8046,7 @@ msgstr ""
 msgid "No chapters found."
 msgstr ""
 
-#: author.php:62 includes/functions/_setup-shortcodes.php:1057
+#: author.php:62 includes/functions/_setup-shortcodes.php:1077
 #: includes/functions/hooks/_story_hooks.php:750
 msgid "No chapters published yet."
 msgstr ""
@@ -8134,10 +8149,10 @@ msgstr ""
 msgid "No stories published yet."
 msgstr ""
 
-#: partials/_latest-stories.php:310
-#: partials/_latest-recommendations-compact.php:262
-#: partials/_latest-stories-compact.php:322
-#: partials/_latest-recommendations.php:275 partials/_latest-updates.php:430
+#: partials/_latest-stories.php:313
+#: partials/_latest-recommendations-compact.php:265
+#: partials/_latest-stories-compact.php:325
+#: partials/_latest-recommendations.php:278 partials/_latest-updates.php:433
 msgid "No taxonomies specified yet."
 msgstr ""
 
@@ -8171,7 +8186,7 @@ msgstr ""
 msgid "Not a valid JSON string."
 msgstr ""
 
-#: includes/functions/_utility.php:3376
+#: includes/functions/_utility.php:3507
 #: includes/functions/comments/_comments_moderation.php:519
 #: includes/functions/comments/_comments_moderation.php:632
 #: includes/functions/comments/_comments_ajax.php:22
@@ -8192,15 +8207,15 @@ msgstr ""
 msgid "Not the author of the comment."
 msgstr ""
 
-#: partials/_latest-chapters-compact.php:319 partials/_latest-stories.php:380
-#: partials/_latest-recommendations-compact.php:277
-#: partials/_latest-stories-compact.php:394
-#: partials/_latest-updates-list.php:376
-#: partials/_latest-recommendations.php:292 partials/_article-cards.php:335
-#: partials/_latest-chapters-list.php:333 partials/_latest-updates.php:496
-#: partials/_latest-stories-list.php:336
-#: partials/_latest-updates-compact.php:382 partials/_latest-posts.php:140
-#: partials/_latest-chapters.php:392
+#: partials/_latest-chapters-compact.php:322 partials/_latest-stories.php:383
+#: partials/_latest-recommendations-compact.php:280
+#: partials/_latest-stories-compact.php:397
+#: partials/_latest-updates-list.php:379
+#: partials/_latest-recommendations.php:295 partials/_article-cards.php:338
+#: partials/_latest-chapters-list.php:336 partials/_latest-updates.php:499
+#: partials/_latest-stories-list.php:339
+#: partials/_latest-updates-compact.php:385 partials/_latest-posts.php:141
+#: partials/_latest-chapters.php:395
 msgid "Nothing to show."
 msgstr ""
 
@@ -8224,7 +8239,7 @@ msgstr ""
 msgid "OAuth 2.0 Connections"
 msgstr ""
 
-#: includes/functions/_utility.php:1948
+#: includes/functions/_utility.php:2011
 msgctxt "OAuth 2.0 login option plus appended icon."
 msgid "Log in with"
 msgstr ""
@@ -8247,12 +8262,12 @@ msgstr ""
 msgid "Oneshot"
 msgstr ""
 
-#: includes/functions/_utility.php:1976
+#: includes/functions/_utility.php:2039
 msgctxt "Oneshot story status"
 msgid "Oneshot"
 msgstr ""
 
-#: includes/functions/_utility.php:1974
+#: includes/functions/_utility.php:2037
 msgctxt "Ongoing story status"
 msgid "Ongoing"
 msgstr ""
@@ -8305,18 +8320,18 @@ msgid ""
 "snippets. Incompatible with SEO plugins."
 msgstr ""
 
-#: partials/_latest-chapters-compact.php:221
-#: partials/_latest-recommendations-compact.php:191
-#: partials/_latest-stories-compact.php:250
-#: partials/_latest-updates-compact.php:268
+#: partials/_latest-chapters-compact.php:224
+#: partials/_latest-recommendations-compact.php:194
+#: partials/_latest-stories-compact.php:253
+#: partials/_latest-updates-compact.php:271
 msgid "Open info box"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2297
+#: includes/functions/_helpers-templates.php:2334
 msgid "Open login modal"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2363
+#: includes/functions/_helpers-templates.php:2400
 msgid "Open site settings modal"
 msgstr ""
 
@@ -8497,7 +8512,7 @@ msgstr ""
 msgid "Partial database error. Only %1$s of %2$s comments could be cleared."
 msgstr ""
 
-#: includes/functions/_utility.php:1955
+#: includes/functions/_utility.php:2018
 #: includes/functions/_setup-wordpress.php:511
 msgid "Password"
 msgstr ""
@@ -8548,7 +8563,7 @@ msgstr ""
 msgid "Past Year"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2214
+#: includes/functions/_helpers-templates.php:2251
 #: includes/functions/settings/_settings_page_connections.php:153
 #: includes/functions/hooks/_chapter_hooks.php:605
 msgid "Patreon"
@@ -8778,7 +8793,7 @@ msgstr ""
 msgid "Please enter search parameters."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1407
+#: includes/functions/_setup-shortcodes.php:1427
 msgid "Please enter your message."
 msgstr ""
 
@@ -8842,32 +8857,32 @@ msgctxt "Post type general name"
 msgid "Stories"
 msgstr ""
 
-#: includes/functions/_utility.php:3526
+#: includes/functions/_utility.php:3657
 msgctxt "Post type label."
 msgid "Chapter"
 msgstr ""
 
-#: includes/functions/_utility.php:3527
+#: includes/functions/_utility.php:3658
 msgctxt "Post type label."
 msgid "Collection"
 msgstr ""
 
-#: includes/functions/_utility.php:3524
+#: includes/functions/_utility.php:3655
 msgctxt "Post type label."
 msgid "Page"
 msgstr ""
 
-#: includes/functions/_utility.php:3523
+#: includes/functions/_utility.php:3654
 msgctxt "Post type label."
 msgid "Post"
 msgstr ""
 
-#: includes/functions/_utility.php:3528
+#: includes/functions/_utility.php:3659
 msgctxt "Post type label."
 msgid "Rec"
 msgstr ""
 
-#: includes/functions/_utility.php:3525
+#: includes/functions/_utility.php:3656
 msgctxt "Post type label."
 msgid "Story"
 msgstr ""
@@ -9014,7 +9029,7 @@ msgctxt "Prompt deletion confirmation string."
 msgid "DELETE"
 msgstr ""
 
-#: partials/_article-cards.php:101
+#: partials/_article-cards.php:102
 msgctxt "Protected post content obfuscation character."
 msgid "&#183; "
 msgstr ""
@@ -9023,12 +9038,12 @@ msgstr ""
 msgid "Provided post ID is not a story ID."
 msgstr ""
 
-#: partials/_card-story.php:259 partials/_latest-stories.php:339
-#: partials/_story-footer.php:43 partials/_latest-stories-compact.php:352
-#: partials/_card-page.php:88 partials/_article-cards.php:300
+#: partials/_card-story.php:259 partials/_latest-stories.php:342
+#: partials/_story-footer.php:43 partials/_latest-stories-compact.php:355
+#: partials/_card-page.php:88 partials/_article-cards.php:303
 #: partials/_card-collection.php:214 partials/_card-post.php:112
-#: partials/_latest-chapters.php:347 partials/_card-chapter.php:256
-#: includes/functions/_helpers-templates.php:1641
+#: partials/_latest-chapters.php:350 partials/_card-chapter.php:256
+#: includes/functions/_helpers-templates.php:1678
 msgid "Published"
 msgstr ""
 
@@ -9053,7 +9068,7 @@ msgstr ""
 msgid "Purge all caches on content updates"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:255
+#: includes/functions/settings/_settings_page_tools.php:278
 msgid "Purge Theme Caches"
 msgstr ""
 
@@ -9104,13 +9119,13 @@ msgid ""
 "your stories (metadata only)."
 msgstr ""
 
-#: partials/_post.php:23 partials/_latest-posts.php:100
+#: partials/_post.php:23 partials/_latest-posts.php:101
 #, php-format
 msgctxt "Read more link aria label"
 msgid "Continue reading %s"
 msgstr ""
 
-#: includes/functions/_utility.php:1958
+#: includes/functions/_utility.php:2021
 msgctxt "Read more of a post."
 msgid "Read More"
 msgstr ""
@@ -9216,6 +9231,10 @@ msgstr ""
 msgid "Recommendations page assignment"
 msgstr ""
 
+#: includes/functions/settings/_settings_page_tools.php:266
+msgid "Recount Words"
+msgstr ""
+
 #: includes/functions/settings/_settings_page_phrases.php:128
 #: includes/functions/settings/_settings_page_phrases.php:161
 msgid "Redirect to URL on negative response. Purge all caches after change."
@@ -9251,7 +9270,7 @@ msgstr ""
 msgid "Reliable spam protection but can lead to false positives."
 msgstr ""
 
-#: includes/functions/_utility.php:1957
+#: includes/functions/_utility.php:2020
 msgctxt "Remember a story to be read later."
 msgid "Read Later"
 msgstr ""
@@ -9356,7 +9375,7 @@ msgstr ""
 msgid "Renders chapters in groups on story pages (if set)."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:285
+#: includes/functions/settings/_settings_page_tools.php:308
 msgid "Repair Tools"
 msgstr ""
 
@@ -9461,7 +9480,7 @@ msgstr ""
 msgid "Reset Colors"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1021
+#: includes/functions/_setup-shortcodes.php:1041
 msgid "Reset Consent"
 msgstr ""
 
@@ -9473,7 +9492,7 @@ msgstr ""
 msgid "Reset Options"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:302
+#: includes/functions/settings/_settings_page_tools.php:325
 msgid "Reset Registry"
 msgstr ""
 
@@ -9743,7 +9762,7 @@ msgstr ""
 msgid "Search Genres"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2348
+#: includes/functions/_helpers-templates.php:2385
 msgid "Search Page"
 msgstr ""
 
@@ -9864,7 +9883,7 @@ msgstr ""
 msgid "Select which tiers ignore the password."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1420
+#: includes/functions/_setup-shortcodes.php:1440
 msgid "Sending…"
 msgstr ""
 
@@ -10219,7 +10238,7 @@ msgstr ""
 msgid "Show page shadow"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:294
+#: includes/functions/settings/_settings_page_tools.php:317
 msgid "Show registry array"
 msgstr ""
 
@@ -10290,12 +10309,12 @@ msgid ""
 "selected actions (per action)."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2371
+#: includes/functions/_helpers-templates.php:2408
 msgid "Site RSS"
 msgstr ""
 
-#: includes/functions/_utility.php:1960
-#: includes/functions/_helpers-templates.php:2362
+#: includes/functions/_utility.php:2023
+#: includes/functions/_helpers-templates.php:2399
 msgid "Site Settings"
 msgstr ""
 
@@ -10360,40 +10379,40 @@ msgstr ""
 msgid "Small Border Radius"
 msgstr ""
 
-#: partials/_latest-recommendations.php:231
+#: partials/_latest-recommendations.php:234
 #, php-format
 msgctxt "Small card: by {Author} on."
 msgid "by %s on"
 msgstr ""
 
-#: partials/_latest-stories.php:273
-#: partials/_latest-recommendations-compact.php:221
-#: partials/_latest-stories-compact.php:286 partials/_latest-updates.php:341
-#: partials/_latest-updates-compact.php:304
+#: partials/_latest-stories.php:276
+#: partials/_latest-recommendations-compact.php:224
+#: partials/_latest-stories-compact.php:289 partials/_latest-updates.php:344
+#: partials/_latest-updates-compact.php:307
 #, php-format
 msgctxt "Small card: by {Author} —."
 msgid "by %s —"
 msgstr ""
 
-#: partials/_latest-chapters-compact.php:261 partials/_latest-chapters.php:285
+#: partials/_latest-chapters-compact.php:264 partials/_latest-chapters.php:288
 #, php-format
 msgctxt "Small card: by {Author}."
 msgid "by %s"
 msgstr ""
 
-#: partials/_latest-chapters-compact.php:270 partials/_latest-chapters.php:294
+#: partials/_latest-chapters-compact.php:273 partials/_latest-chapters.php:297
 #, php-format
 msgctxt "Small card: in {Link to Story}."
 msgid "in <a href=\"%1$s\" class=\"bold-link\">%2$s</a>"
 msgstr ""
 
-#: partials/_latest-chapters-compact.php:283
+#: partials/_latest-chapters-compact.php:286
 #, php-format
 msgctxt "Small card: {n} Words on {Date}."
 msgid "%1$s Words on %2$s"
 msgstr ""
 
-#: partials/_latest-chapters-compact.php:290
+#: partials/_latest-chapters-compact.php:293
 #, php-format
 msgctxt "Small card: {n} Words."
 msgid "%1$s Words"
@@ -10472,19 +10491,19 @@ msgstr ""
 msgid "Spam"
 msgstr ""
 
-#: partials/_showcase.php:121 partials/_latest-chapters-compact.php:138
-#: partials/_latest-stories.php:143
-#: partials/_latest-recommendations-compact.php:117
-#: partials/_latest-stories-compact.php:142
-#: partials/_latest-updates-list.php:154
-#: partials/_latest-recommendations.php:114 partials/_article-cards.php:142
-#: partials/_latest-chapters-list.php:143 partials/_latest-updates.php:157
-#: partials/_latest-stories-list.php:143
-#: partials/_latest-updates-compact.php:151 partials/_latest-chapters.php:143
+#: partials/_showcase.php:122 partials/_latest-chapters-compact.php:139
+#: partials/_latest-stories.php:144
+#: partials/_latest-recommendations-compact.php:118
+#: partials/_latest-stories-compact.php:143
+#: partials/_latest-updates-list.php:155
+#: partials/_latest-recommendations.php:115 partials/_article-cards.php:143
+#: partials/_latest-chapters-list.php:144 partials/_latest-updates.php:158
+#: partials/_latest-stories-list.php:144
+#: partials/_latest-updates-compact.php:152 partials/_latest-chapters.php:144
 msgid "Splide JSON is invalid and has been ignored."
 msgstr ""
 
-#: partials/_latest-chapters.php:302
+#: partials/_latest-chapters.php:305
 msgctxt "Spoiler obfuscation character."
 msgid "&#183; "
 msgstr ""
@@ -10512,7 +10531,7 @@ msgctxt "State of checkbox option in logs."
 msgid "Unchecked"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1717
+#: includes/functions/_helpers-templates.php:1754
 #: includes/functions/comments/_comments_moderation.php:195
 #: includes/functions/comments/_comments_moderation.php:493
 msgid "Sticky"
@@ -10530,7 +10549,7 @@ msgstr ""
 msgid "Stop"
 msgstr ""
 
-#: includes/functions/_utility.php:1964
+#: includes/functions/_utility.php:2027
 msgctxt "Stop following a story."
 msgid "Unfollow"
 msgstr ""
@@ -10621,41 +10640,41 @@ msgid ""
 "cluttered for your liking."
 msgstr ""
 
-#: includes/functions/_service-posts.php:152
+#: includes/functions/_service-posts.php:143
 #, php-format
 msgctxt "Story changelog chapter added."
 msgid "#%s %s: %s."
 msgstr ""
 
-#: includes/functions/_service-posts.php:164
+#: includes/functions/_service-posts.php:155
 #, php-format
 msgctxt "Story changelog chapter removed."
 msgid "#%s %s: %s."
 msgstr ""
 
-#: includes/functions/_service-posts.php:216
+#: includes/functions/_service-posts.php:207
 #, php-format
 msgctxt "Story changelog chapter removed."
 msgid "#%s privated: %s."
 msgstr ""
 
-#: includes/functions/_service-posts.php:230
+#: includes/functions/_service-posts.php:221
 #, php-format
 msgctxt "Story changelog chapter removed."
 msgid "#%s unprivated: %s."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2069
+#: includes/functions/_helpers-templates.php:2106
 msgctxt "Story changelog initialized."
 msgid "Initialized."
 msgstr ""
 
-#: includes/functions/_service-posts.php:154
+#: includes/functions/_service-posts.php:145
 msgctxt "Story changelog verb."
 msgid "added"
 msgstr ""
 
-#: includes/functions/_service-posts.php:166
+#: includes/functions/_service-posts.php:157
 msgctxt "Story changelog verb."
 msgid "removed"
 msgstr ""
@@ -10744,7 +10763,7 @@ msgstr ""
 msgid "Story Hidden"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:274
+#: includes/functions/settings/_settings_page_tools.php:297
 msgid "Story ID"
 msgstr ""
 
@@ -10752,7 +10771,7 @@ msgstr ""
 msgid "Story ID did not pass validation."
 msgstr ""
 
-#: partials/_latest-chapters-list.php:251
+#: partials/_latest-chapters-list.php:254
 #, php-format
 msgctxt "Story in Latest * shortcode (type: list)."
 msgid ""
@@ -10760,12 +10779,12 @@ msgid ""
 "href=\"%1$s\">%2$s</a></span>"
 msgstr ""
 
-#: includes/functions/_utility.php:1941
+#: includes/functions/_utility.php:2004
 msgctxt "Story is followed."
 msgid "Followed"
 msgstr ""
 
-#: includes/functions/_utility.php:1943
+#: includes/functions/_utility.php:2006
 msgctxt "Story is marked to be read later."
 msgid "Read later"
 msgstr ""
@@ -10779,7 +10798,7 @@ msgstr ""
 msgid "Story Mirror"
 msgstr ""
 
-#: includes/functions/_utility.php:1942
+#: includes/functions/_utility.php:2005
 msgctxt "Story or chapter is marked as read."
 msgid "Read"
 msgstr ""
@@ -10900,7 +10919,7 @@ msgstr ""
 msgid "Subitem short date format"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1348
+#: includes/functions/_setup-shortcodes.php:1368
 #: includes/functions/settings/_settings_page_setup.php:142
 msgid "Submit"
 msgstr ""
@@ -10913,7 +10932,7 @@ msgstr ""
 msgid "submitted for review"
 msgstr ""
 
-#: includes/functions/_utility.php:1962
+#: includes/functions/_utility.php:2025
 msgctxt "Subscribe to a story."
 msgid "Subscribe"
 msgstr ""
@@ -11131,7 +11150,7 @@ msgstr ""
 msgid "Tetrakern"
 msgstr ""
 
-#: includes/functions/_utility.php:1978
+#: includes/functions/_utility.php:2041
 msgctxt "Text or icon for paragraph anchor in comments."
 msgid "<i class=\"fa-solid fa-link\"></i>"
 msgstr ""
@@ -11368,7 +11387,7 @@ msgid ""
 "of legal age (18+) or leave the website."
 msgstr ""
 
-#: includes/functions/_customizer.php:317
+#: includes/functions/_customizer.php:249
 msgid ""
 "This font is loaded via the Google Fonts CDN, see source for additional "
 "information."
@@ -11409,6 +11428,7 @@ msgstr ""
 
 #: includes/functions/settings/_settings_page_tools.php:218
 #: includes/functions/settings/_settings_page_tools.php:219
+#: includes/functions/settings/_settings_page_tools.php:265
 msgid ""
 "This operation is safe, but making a database backup is still recommended to "
 "account for the unexpected."
@@ -11477,7 +11497,7 @@ msgid "Toggle between ascending and descending order"
 msgstr ""
 
 #: partials/_modal-formatting.php:141
-#: includes/functions/_helpers-templates.php:2356
+#: includes/functions/_helpers-templates.php:2393
 msgid "Toggle between dark mode and light mode"
 msgstr ""
 
@@ -11485,8 +11505,8 @@ msgstr ""
 msgid "Toggle between list and grid view"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1051
-#: includes/functions/_setup-shortcodes.php:1181
+#: includes/functions/_setup-shortcodes.php:1071
+#: includes/functions/_setup-shortcodes.php:1201
 #: includes/functions/hooks/_story_hooks.php:613
 #, php-format
 msgid "Toggle chapter group: %s"
@@ -11505,11 +11525,11 @@ msgid "Toggle comments between ascending and descending order"
 msgstr ""
 
 #: partials/_modal-formatting.php:138
-#: includes/functions/_helpers-templates.php:2355
+#: includes/functions/_helpers-templates.php:2392
 msgid "Toggle Dark/Light Mode"
 msgstr ""
 
-#: includes/functions/_utility.php:1938
+#: includes/functions/_utility.php:2001
 msgctxt "Toggle for chapter formatting modal."
 msgid "Formatting"
 msgstr ""
@@ -11545,7 +11565,7 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:2359
+#: includes/functions/_setup-shortcodes.php:2379
 msgctxt "Tooltip shortcode."
 msgid "Click to see note"
 msgstr ""
@@ -11554,9 +11574,9 @@ msgstr ""
 msgid "Top Web Fiction"
 msgstr ""
 
-#: partials/_card-story.php:255 partials/_latest-stories.php:330
-#: partials/_story-footer.php:47 partials/_latest-stories-compact.php:343
-#: partials/_card-collection.php:211 partials/_latest-updates.php:450
+#: partials/_card-story.php:255 partials/_latest-stories.php:333
+#: partials/_story-footer.php:47 partials/_latest-stories-compact.php:346
+#: partials/_card-collection.php:211 partials/_latest-updates.php:453
 msgid "Total Words"
 msgstr ""
 
@@ -11577,7 +11597,7 @@ msgctxt "TTS modal heading."
 msgid "TTS Settings"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2212
+#: includes/functions/_helpers-templates.php:2249
 #: includes/functions/settings/_settings_page_connections.php:99
 msgid "Twitch"
 msgstr ""
@@ -12090,7 +12110,7 @@ msgstr ""
 
 #. Name of the template
 #: user-profile.php:2 user-profile.php:47
-#: includes/functions/_helpers-templates.php:2306
+#: includes/functions/_helpers-templates.php:2343
 msgid "User Profile"
 msgstr ""
 
@@ -12179,7 +12199,7 @@ msgstr ""
 msgid "Warning note shown above chapters."
 msgstr ""
 
-#: includes/functions/_utility.php:1933
+#: includes/functions/_utility.php:1996
 #: includes/functions/_setup-meta-fields.php:2664
 msgid "Warning Notes"
 msgstr ""
@@ -12284,21 +12304,21 @@ msgctxt "Word count caption in statistics."
 msgid "Words"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1416
-#: includes/functions/_helpers-templates.php:1424
+#: includes/functions/_helpers-templates.php:1453
+#: includes/functions/_helpers-templates.php:1461
 #, php-format
 msgctxt "Word count in chapter list."
 msgid "%s Words"
 msgstr ""
 
-#: partials/_latest-updates-list.php:284 partials/_latest-chapters-list.php:263
-#: partials/_latest-stories-list.php:242
+#: partials/_latest-updates-list.php:287 partials/_latest-chapters-list.php:266
+#: partials/_latest-stories-list.php:245
 #, php-format
 msgctxt "Word count in Latest * shortcode (type: list)."
 msgid "%s&nbsp;Words"
 msgstr ""
 
-#: partials/_card-story.php:210 partials/_latest-chapters.php:337
+#: partials/_card-story.php:210 partials/_latest-chapters.php:340
 #: partials/_card-chapter.php:212 partials/_card-chapter.php:252
 #: includes/functions/settings/_settings_page_epubs.php:83
 msgid "Words"
