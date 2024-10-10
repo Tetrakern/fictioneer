@@ -303,7 +303,7 @@ if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
 }
 
 /**
- * Checks whether the user's Patreon data still valid
+ * Checks whether the user's Patreon data is still valid
  *
  * Note: Patreon data expires after a set amount of time, one week
  * by default defined as FICTIONEER_PATREON_EXPIRATION_TIME.
