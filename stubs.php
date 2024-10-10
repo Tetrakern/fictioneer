@@ -179,3 +179,59 @@ class Jetpack {
 
   public static function is_module_active( $module ) {}
 }
+
+class DOMNode {
+  /**
+   * Get an attribute of the DOM element.
+   *
+   * Note: This function for DOMNode is undocumented
+   * in the official PHP documentation.
+   *
+   * @param string $name  The name of the attribute.
+   *
+   * @return string|null The attribute value or null if not found.
+   */
+
+  public function getAttribute( string $name ) : ?string {
+    return '';
+  }
+
+  /**
+   * Check if the element has a specific attribute.
+   *
+   * Note: This function for DOMNode is undocumented
+   * in the official PHP documentation.
+   *
+   * @param string $name  The name of the attribute.
+   *
+   * @return bool True if the attribute exists, false otherwise.
+   */
+
+  public function hasAttribute( string $name ) : bool {
+    return false;
+  }
+
+  /**
+   * Set an attribute for the DOM element.
+   *
+   * Note: This function for DOMNode is undocumented
+   * in the official PHP documentation.
+   *
+   * @param string $name   The name of the attribute.
+   * @param string $value  The value to set for the attribute.
+   *
+   * @return void
+   */
+
+  public function setAttribute(string $name, string $value): void {}
+
+  /**
+   * Remove an attribute from the DOM element.
+   *
+   * @param string $name  The name of the attribute.
+   *
+   * @return void
+   */
+
+  public function removeAttribute( string $name ) : void {}
+}
