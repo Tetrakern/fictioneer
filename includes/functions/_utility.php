@@ -306,7 +306,7 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
       $post->post_content = 'F-REF-1';
 
       unset(
-        $post->post_type, // We know this if fcn_chapter
+        $post->post_type, // We know this is fcn_chapter
         $post->ping_status, // Unused
         $post->to_ping, // Unused
         $post->pinged, // Unused
