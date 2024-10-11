@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-11 09:31+0000\n"
+"POT-Creation-Date: 2024-10-11 20:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "%s chapters have been appended."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1707
+#: includes/functions/_helpers-templates.php:1723
 #, php-format
 msgid "%s Comment"
 msgid_plural "%s Comments"
@@ -54,13 +54,14 @@ msgid "%s connection successfully unset."
 msgstr ""
 
 #: partials/_showcase.php:196 partials/_card-story.php:93
-#: partials/_card-chapter.php:87 includes/functions/_helpers-templates.php:603
-#: includes/functions/_helpers-templates.php:643
+#: partials/_card-chapter.php:87 includes/functions/_helpers-templates.php:619
+#: includes/functions/_helpers-templates.php:659
 #, php-format
 msgid "%s Cover"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:397
+#: includes/functions/_helpers-templates.php:398
+#: includes/functions/_helpers-templates.php:413
 #, php-format
 msgid "%s day"
 msgid_plural "%s days"
@@ -82,23 +83,23 @@ msgstr ""
 msgid "%s Feed"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:398
-#: includes/functions/_helpers-templates.php:412
+#: includes/functions/_helpers-templates.php:414
+#: includes/functions/_helpers-templates.php:428
 #, php-format
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:413
-#: includes/functions/_helpers-templates.php:424
+#: includes/functions/_helpers-templates.php:429
+#: includes/functions/_helpers-templates.php:440
 #, php-format
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:739
+#: includes/functions/_helpers-templates.php:755
 #, php-format
 msgid "%s Placeholder Image"
 msgstr ""
@@ -131,26 +132,41 @@ msgstr ""
 msgid "%s Thumbnail"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:403
+#: includes/functions/_helpers-templates.php:397
+#, php-format
+msgid "%s year"
+msgid_plural "%s years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/functions/_helpers-templates.php:404
+#: includes/functions/_helpers-templates.php:419
 #, php-format
 msgid "%s d"
 msgid_plural "%s d"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:404
-#: includes/functions/_helpers-templates.php:418
+#: includes/functions/_helpers-templates.php:420
+#: includes/functions/_helpers-templates.php:434
 #, php-format
 msgid "%s h"
 msgid_plural "%s h"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:419
-#: includes/functions/_helpers-templates.php:426
+#: includes/functions/_helpers-templates.php:435
+#: includes/functions/_helpers-templates.php:442
 #, php-format
 msgid "%s m"
 msgid_plural "%s m"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/functions/_helpers-templates.php:403
+#, php-format
+msgid "%s y"
+msgid_plural "%s y"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -185,7 +201,7 @@ msgstr ""
 msgid "<b>Patreon:</b> Data expired. Log in with Patreon again to refresh."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1425
+#: includes/functions/_helpers-templates.php:1441
 #, php-format
 msgid "<b>Warning:</b> %s"
 msgstr ""
@@ -2007,7 +2023,7 @@ msgstr ""
 msgid "Bookmarks could not be cleared."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2353
+#: includes/functions/_helpers-templates.php:2369
 msgid "Bookmarks Page"
 msgstr ""
 
@@ -2817,7 +2833,7 @@ msgctxt "Caption for moderator badge label"
 msgid "Mod"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:578
+#: includes/functions/_helpers-templates.php:594
 msgctxt "Caption of the _read_ ribbon."
 msgid "Read"
 msgstr ""
@@ -3385,7 +3401,7 @@ msgstr ""
 msgid "Click to load %s with third-party consent."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2419
+#: includes/functions/_helpers-templates.php:2435
 msgid "Click to log out"
 msgstr ""
 
@@ -4028,7 +4044,7 @@ msgstr ""
 msgid "Cover images (chapters and stories)"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:575
+#: includes/functions/_helpers-templates.php:591
 #, php-format
 msgid "Cover of %s"
 msgstr ""
@@ -5207,8 +5223,8 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1618
-#: includes/functions/_helpers-templates.php:2248
+#: includes/functions/_helpers-templates.php:1634
+#: includes/functions/_helpers-templates.php:2264
 #: includes/functions/settings/_settings_page_connections.php:30
 #: includes/functions/hooks/_mobile_menu_hooks.php:399
 msgid "Discord"
@@ -5250,7 +5266,7 @@ msgstr ""
 msgid "Discord ID Hash"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2363
+#: includes/functions/_helpers-templates.php:2379
 #: includes/functions/settings/_register_settings.php:1162
 #: includes/functions/settings/_settings_page_connections.php:55
 msgid "Discord invite link"
@@ -5414,11 +5430,11 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1038
+#: includes/functions/_helpers-templates.php:1054
 msgid "Download eBook"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1031
+#: includes/functions/_helpers-templates.php:1047
 msgid "Download ePUB"
 msgstr ""
 
@@ -5431,7 +5447,7 @@ msgstr ""
 msgid "Duplicate Tags &rarr; Genres"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1039
+#: includes/functions/_helpers-templates.php:1055
 msgid "eBook"
 msgstr ""
 
@@ -5849,7 +5865,7 @@ msgstr ""
 msgid "Enlarge images in floating container on click."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1192
+#: includes/functions/_helpers-templates.php:1208
 #: includes/functions/hooks/_chapter_hooks.php:413
 msgid "Enter fullscreen"
 msgstr ""
@@ -5862,7 +5878,7 @@ msgstr ""
 msgid "Enter the new name for the role."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1032
+#: includes/functions/_helpers-templates.php:1048
 msgid "ePUB"
 msgstr ""
 
@@ -5978,7 +5994,7 @@ msgctxt "Excluded Advanced search summary."
 msgid "%sExcluded Tags:"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1199
+#: includes/functions/_helpers-templates.php:1215
 #: includes/functions/hooks/_chapter_hooks.php:414
 msgid "Exit fullscreen"
 msgstr ""
@@ -6104,7 +6120,7 @@ msgstr ""
 msgid "Fictioneer Sidebar"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:478
+#: includes/functions/_helpers-templates.php:494
 #, php-format
 msgctxt "Fictioneer theme major version notice."
 msgid "Fictioneer %s"
@@ -6183,29 +6199,29 @@ msgctxt "Follow a story."
 msgid "Follow"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:960
-#: includes/functions/_helpers-templates.php:962
-#: includes/functions/_helpers-templates.php:1127
-#: includes/functions/_helpers-templates.php:1127
+#: includes/functions/_helpers-templates.php:976
+#: includes/functions/_helpers-templates.php:978
+#: includes/functions/_helpers-templates.php:1143
+#: includes/functions/_helpers-templates.php:1143
 msgid "Follow on Feedly"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:968
-#: includes/functions/_helpers-templates.php:970
-#: includes/functions/_helpers-templates.php:1130
-#: includes/functions/_helpers-templates.php:1130
+#: includes/functions/_helpers-templates.php:984
+#: includes/functions/_helpers-templates.php:986
+#: includes/functions/_helpers-templates.php:1146
+#: includes/functions/_helpers-templates.php:1146
 msgid "Follow on Inoreader"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:942
+#: includes/functions/_helpers-templates.php:958
 msgid "Follow on Ko-Fi"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:932
+#: includes/functions/_helpers-templates.php:948
 msgid "Follow on Patreon"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:951
+#: includes/functions/_helpers-templates.php:967
 msgid "Follow on SubscribeStar"
 msgstr ""
 
@@ -6452,7 +6468,7 @@ msgstr ""
 msgid "Global unlock gate pledge threshold in cents"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2250
+#: includes/functions/_helpers-templates.php:2266
 #: includes/functions/settings/_settings_page_connections.php:126
 msgid "Google"
 msgstr ""
@@ -7006,7 +7022,7 @@ msgstr ""
 msgid "Items per page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2362
+#: includes/functions/_helpers-templates.php:2378
 msgid "Join Discord"
 msgstr ""
 
@@ -7339,15 +7355,15 @@ msgstr ""
 msgid "Link copied to clipboard!"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2354
+#: includes/functions/_helpers-templates.php:2370
 msgid "Link to bookmarks page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2386
+#: includes/functions/_helpers-templates.php:2402
 msgid "Link to search page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2409
+#: includes/functions/_helpers-templates.php:2425
 msgid "Link to site RSS feed"
 msgstr ""
 
@@ -7358,7 +7374,7 @@ msgid ""
 "."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2344
+#: includes/functions/_helpers-templates.php:2360
 msgid "Link to user profile"
 msgstr ""
 
@@ -7416,11 +7432,11 @@ msgstr ""
 msgid "Log all post updates"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1071
+#: includes/functions/_helpers-templates.php:1087
 msgid "Log in to Follow"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1054
+#: includes/functions/_helpers-templates.php:1070
 msgid "Log in to set Reminders"
 msgstr ""
 
@@ -7435,7 +7451,7 @@ msgid "Logged-in users can report comments via flag button."
 msgstr ""
 
 #: includes/functions/_utility.php:2009
-#: includes/functions/_helpers-templates.php:2333
+#: includes/functions/_helpers-templates.php:2349
 msgid "Login"
 msgstr ""
 
@@ -7465,7 +7481,7 @@ msgid "Logo Height - Minimum"
 msgstr ""
 
 #: includes/functions/_utility.php:2012
-#: includes/functions/_helpers-templates.php:2418
+#: includes/functions/_helpers-templates.php:2434
 msgid "Logout"
 msgstr ""
 
@@ -7480,19 +7496,25 @@ msgstr ""
 msgid "Logs"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:396
+#: includes/functions/_helpers-templates.php:412
 #, php-format
 msgctxt "Long reading time statistics: [d] days, [h] hours."
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:411
+#: includes/functions/_helpers-templates.php:427
 #, php-format
 msgctxt "Long reading time statistics: [h] hours, [m] minutes."
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2377
+#: includes/functions/_helpers-templates.php:396
+#, php-format
+msgctxt "Long reading time statistics: [y] years, [d] days."
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: includes/functions/_helpers-templates.php:2393
 msgid "Looking for updates..."
 msgstr ""
 
@@ -7541,7 +7563,7 @@ msgid ""
 "work as expected."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2376
+#: includes/functions/_helpers-templates.php:2392
 msgctxt "Mark as read button."
 msgid "Read"
 msgstr ""
@@ -7550,7 +7572,7 @@ msgstr ""
 msgid "Mark chapters and stories as \"read\"."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2374
+#: includes/functions/_helpers-templates.php:2390
 msgid "Mark follows as read"
 msgstr ""
 
@@ -8187,7 +8209,7 @@ msgstr ""
 msgid "Not a valid JSON string."
 msgstr ""
 
-#: includes/functions/_utility.php:3507
+#: includes/functions/_utility.php:3638
 #: includes/functions/comments/_comments_moderation.php:519
 #: includes/functions/comments/_comments_moderation.php:632
 #: includes/functions/comments/_comments_ajax.php:22
@@ -8328,11 +8350,11 @@ msgstr ""
 msgid "Open info box"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2334
+#: includes/functions/_helpers-templates.php:2350
 msgid "Open login modal"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2400
+#: includes/functions/_helpers-templates.php:2416
 msgid "Open site settings modal"
 msgstr ""
 
@@ -8564,7 +8586,7 @@ msgstr ""
 msgid "Past Year"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2251
+#: includes/functions/_helpers-templates.php:2267
 #: includes/functions/settings/_settings_page_connections.php:153
 #: includes/functions/hooks/_chapter_hooks.php:605
 msgid "Patreon"
@@ -8858,32 +8880,32 @@ msgctxt "Post type general name"
 msgid "Stories"
 msgstr ""
 
-#: includes/functions/_utility.php:3657
+#: includes/functions/_utility.php:3606
 msgctxt "Post type label."
 msgid "Chapter"
 msgstr ""
 
-#: includes/functions/_utility.php:3658
+#: includes/functions/_utility.php:3607
 msgctxt "Post type label."
 msgid "Collection"
 msgstr ""
 
-#: includes/functions/_utility.php:3655
+#: includes/functions/_utility.php:3604
 msgctxt "Post type label."
 msgid "Page"
 msgstr ""
 
-#: includes/functions/_utility.php:3654
+#: includes/functions/_utility.php:3603
 msgctxt "Post type label."
 msgid "Post"
 msgstr ""
 
-#: includes/functions/_utility.php:3659
+#: includes/functions/_utility.php:3608
 msgctxt "Post type label."
 msgid "Rec"
 msgstr ""
 
-#: includes/functions/_utility.php:3656
+#: includes/functions/_utility.php:3605
 msgctxt "Post type label."
 msgid "Story"
 msgstr ""
@@ -9044,7 +9066,7 @@ msgstr ""
 #: partials/_card-page.php:88 partials/_article-cards.php:303
 #: partials/_card-collection.php:214 partials/_card-post.php:112
 #: partials/_latest-chapters.php:350 partials/_card-chapter.php:256
-#: includes/functions/_helpers-templates.php:1678
+#: includes/functions/_helpers-templates.php:1694
 msgid "Published"
 msgstr ""
 
@@ -9726,7 +9748,7 @@ msgstr ""
 msgid "Scroll to top"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1221
+#: includes/functions/_helpers-templates.php:1237
 #: includes/functions/hooks/_chapter_hooks.php:339
 msgid "Scroll to top of the chapter"
 msgstr ""
@@ -9763,7 +9785,7 @@ msgstr ""
 msgid "Search Genres"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2385
+#: includes/functions/_helpers-templates.php:2401
 msgid "Search Page"
 msgstr ""
 
@@ -10177,7 +10199,7 @@ msgstr ""
 msgid "Setup"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1114
+#: includes/functions/_helpers-templates.php:1130
 msgid "Share"
 msgstr ""
 
@@ -10186,15 +10208,21 @@ msgctxt "Share modal heading."
 msgid "Share"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:402
+#: includes/functions/_helpers-templates.php:418
 #, php-format
 msgctxt "Shortened reading time statistics: [d] d, [h] h."
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:417
+#: includes/functions/_helpers-templates.php:433
 #, php-format
 msgctxt "Shortened reading time statistics: [h] h, [m] m."
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: includes/functions/_helpers-templates.php:402
+#, php-format
+msgctxt "Shortened reading time statistics: [y] y, [d] d."
 msgid "%1$s, %2$s"
 msgstr ""
 
@@ -10310,12 +10338,12 @@ msgid ""
 "selected actions (per action)."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2408
+#: includes/functions/_helpers-templates.php:2424
 msgid "Site RSS"
 msgstr ""
 
 #: includes/functions/_utility.php:2023
-#: includes/functions/_helpers-templates.php:2399
+#: includes/functions/_helpers-templates.php:2415
 msgid "Site Settings"
 msgstr ""
 
@@ -10532,7 +10560,7 @@ msgctxt "State of checkbox option in logs."
 msgid "Unchecked"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1754
+#: includes/functions/_helpers-templates.php:1770
 #: includes/functions/comments/_comments_moderation.php:195
 #: includes/functions/comments/_comments_moderation.php:493
 msgid "Sticky"
@@ -10665,7 +10693,7 @@ msgctxt "Story changelog chapter removed."
 msgid "#%s unprivated: %s."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2106
+#: includes/functions/_helpers-templates.php:2122
 msgctxt "Story changelog initialized."
 msgid "Initialized."
 msgstr ""
@@ -10838,7 +10866,7 @@ msgctxt "Story redirect link meta field label."
 msgid "Redirect Link (Beware!)"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1123
+#: includes/functions/_helpers-templates.php:1139
 msgid "Story RSS Feed"
 msgstr ""
 
@@ -11461,11 +11489,11 @@ msgstr ""
 msgid "This will disable the comment toolbar as well."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:810
+#: includes/functions/_helpers-templates.php:826
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:847
+#: includes/functions/_helpers-templates.php:863
 #, php-format
 msgctxt "Thumbnail link title"
 msgid "Link to %s"
@@ -11498,7 +11526,7 @@ msgid "Toggle between ascending and descending order"
 msgstr ""
 
 #: partials/_modal-formatting.php:141
-#: includes/functions/_helpers-templates.php:2393
+#: includes/functions/_helpers-templates.php:2409
 msgid "Toggle between dark mode and light mode"
 msgstr ""
 
@@ -11526,7 +11554,7 @@ msgid "Toggle comments between ascending and descending order"
 msgstr ""
 
 #: partials/_modal-formatting.php:138
-#: includes/functions/_helpers-templates.php:2392
+#: includes/functions/_helpers-templates.php:2408
 msgid "Toggle Dark/Light Mode"
 msgstr ""
 
@@ -11598,7 +11626,7 @@ msgctxt "TTS modal heading."
 msgid "TTS Settings"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2249
+#: includes/functions/_helpers-templates.php:2265
 #: includes/functions/settings/_settings_page_connections.php:99
 msgid "Twitch"
 msgstr ""
@@ -12111,7 +12139,7 @@ msgstr ""
 
 #. Name of the template
 #: user-profile.php:2 user-profile.php:47
-#: includes/functions/_helpers-templates.php:2343
+#: includes/functions/_helpers-templates.php:2359
 msgid "User Profile"
 msgstr ""
 
@@ -12305,8 +12333,8 @@ msgctxt "Word count caption in statistics."
 msgid "Words"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1453
-#: includes/functions/_helpers-templates.php:1461
+#: includes/functions/_helpers-templates.php:1469
+#: includes/functions/_helpers-templates.php:1477
 #, php-format
 msgctxt "Word count in chapter list."
 msgid "%s Words"

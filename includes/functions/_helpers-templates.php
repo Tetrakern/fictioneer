@@ -388,9 +388,25 @@ if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
     $long = '';
     $short = '';
 
-    if ( $t / 86400 >= 1 ) {
+    if ( $t / 31536000 >= 1 ) {
+      $y = floor( $t / 31536000 );
+      $d = floor( ( $t % 31536000 ) / 86400 );
+
+      $long = sprintf(
+        _x( '%1$s, %2$s', 'Long reading time statistics: [y] years, [d] days.', 'fictioneer' ),
+        sprintf( _n( '%s year', '%s years', $y, 'fictioneer' ), $y ),
+        sprintf( _n( '%s day', '%s days', $d, 'fictioneer' ), $d )
+      );
+
+      $short = sprintf(
+        _x( '%1$s, %2$s', 'Shortened reading time statistics: [y] y, [d] d.', 'fictioneer' ),
+        sprintf( _n( '%s y', '%s y', $y, 'fictioneer' ), $y ),
+        sprintf( _n( '%s d', '%s d', $d, 'fictioneer' ), $d )
+      );
+
+    } elseif ( $t / 86400 >= 1 ) {
       $d = floor( $t / 86400 );
-      $h = floor( ( $t%86400 ) / 3600 );
+      $h = floor( ( $t % 86400 ) / 3600 );
 
       $long = sprintf(
         _x( '%1$s, %2$s', 'Long reading time statistics: [d] days, [h] hours.', 'fictioneer' ),
@@ -404,8 +420,8 @@ if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
         sprintf( _n( '%s h', '%s h', $h, 'fictioneer' ), $h )
       );
     } elseif ( $t / 3600 >= 1 ) {
-      $h = floor( ( $t%86400 ) / 3600 );
-      $m = floor( ( $t%3600 ) / 60 );
+      $h = floor( ( $t % 86400 ) / 3600 );
+      $m = floor( ( $t % 3600 ) / 60 );
 
       $long = sprintf(
         _x( '%1$s, %2$s', 'Long reading time statistics: [h] hours, [m] minutes.', 'fictioneer' ),
@@ -419,7 +435,7 @@ if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
         sprintf( _n( '%s m', '%s m', $m, 'fictioneer' ), $m )
       );
     } else {
-      $m = floor( ( $t%3600 ) / 60 );
+      $m = floor( ( $t % 3600 ) / 60 );
 
       $long = sprintf( _n( '%s minute', '%s minutes', $m, 'fictioneer' ), $m );
 
