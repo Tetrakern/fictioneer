@@ -250,7 +250,7 @@ global $wpdb;
             <div class="fictioneer-card__row">
               <p><?php
                 printf(
-                  __( '<strong>Recalculate word counts.</strong> This action recalculates the word count for every post that is not trashed. Only perform this action if necessary, as it is a resource-intensive operation. While generally considered safe, you should <a href="%s" target="_blank">always make a backup</a> before performing database operations.', 'fictioneer' ),
+                  __( '<strong>Recalculate word counts.</strong> This action recalculates the word count for every post that is not trashed. Only perform this action if necessary, as it is a resource-intensive operation. While generally considered safe, you should <a href="%s" target="_blank">always make a backup</a> before performing database operations. Clear your site and theme caches afterwards.', 'fictioneer' ),
                   'https://developer.wordpress.org/advanced-administration/security/backup/database/#using-wordpress-database-backup-plugin'
                 );
               ?></p>
