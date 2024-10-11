@@ -3626,7 +3626,7 @@ if ( ! wp_doing_ajax() ) {
 // =============================================================================
 
 /**
- * Send user authentication status via AJAX
+ * AJAX: Send user authentication status
  *
  * @since 5.7.0
  */
