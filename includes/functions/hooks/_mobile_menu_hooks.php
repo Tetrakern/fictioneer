@@ -226,8 +226,8 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
  */
 
 function fictioneer_mobile_chapters_frame() {
-  // Abort conditions
-  if ( get_post_type() != 'fcn_chapter' || is_archive() || is_search() ) {
+  // Abort if...
+  if ( get_post_type() !== 'fcn_chapter' || is_archive() || is_search() ) {
     return;
   }
 
@@ -319,6 +319,8 @@ function fictioneer_mobile_lists_panel() {
       '<button class="mobile-menu__frame-button" data-frame-target="chapters"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
       __( 'Chapters', 'fictioneer' )
     );
+  } else {
+    remove_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_chapters_frame', 30 );
   }
 
   // Bookmarks?
