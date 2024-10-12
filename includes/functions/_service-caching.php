@@ -796,6 +796,20 @@ if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
 // =============================================================================
 
 /**
+ * Purge layout-related Transients
+ *
+ * @since 5.25.0
+ */
+
+function fictioneer_delete_layout_transients() {
+  fictioneer_purge_nav_menu_transients();
+  fictioneer_purge_story_card_cache();
+  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
+  fictioneer_delete_transients_like( 'fictioneer_taxonomy_submenu_' );
+  delete_transient( 'fictioneer_dynamic_scripts_version' );
+}
+
+/**
  * Purge Transients used for caching when posts are updated
  *
  * @since 5.4.9
@@ -804,7 +818,7 @@ if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
  * @param int $post_id  Updated post ID.
  */
 
-function fictioneer_purge_transients( $post_id ) {
+function fictioneer_purge_transients_after_update( $post_id ) {
   // Prevent multi-fire
   if ( fictioneer_multi_save_guard( $post_id ) ) {
     return;
@@ -818,7 +832,7 @@ function fictioneer_purge_transients( $post_id ) {
 }
 
 /**
- * Add or remove actions for `fictioneer_purge_transients`
+ * Add or remove actions for `fictioneer_purge_transients_after_update`
  *
  * @since 5.5.2
  *
@@ -830,11 +844,11 @@ function fictioneer_toggle_transient_purge_hooks( $add = true ) {
 
   if ( $add ) {
     foreach ( $hooks as $hook ) {
-      add_action( $hook, 'fictioneer_purge_transients' );
+      add_action( $hook, 'fictioneer_purge_transients_after_update' );
     }
   } else {
     foreach ( $hooks as $hook ) {
-      remove_action( $hook, 'fictioneer_purge_transients' );
+      remove_action( $hook, 'fictioneer_purge_transients_after_update' );
     }
   }
 }
@@ -842,7 +856,7 @@ function fictioneer_toggle_transient_purge_hooks( $add = true ) {
 fictioneer_toggle_transient_purge_hooks();
 
 /**
- * Purge nav menu Transients on menu updates
+ * Purge nav menu Transients
  *
  * @since 5.6.0
  */
@@ -850,6 +864,8 @@ fictioneer_toggle_transient_purge_hooks();
 function fictioneer_purge_nav_menu_transients() {
   delete_transient( 'fictioneer_main_nav_menu_html' );
   delete_transient( 'fictioneer_footer_menu_html' );
+  delete_transient( 'fictioneer_mobile_nav_menu_html' );
+  fictioneer_delete_transients_like( 'fictioneer_taxonomy_submenu_' );
 }
 add_action( 'wp_update_nav_menu', 'fictioneer_purge_nav_menu_transients' );
 

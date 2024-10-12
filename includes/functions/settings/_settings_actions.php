@@ -459,10 +459,6 @@ function fictioneer_purge_theme_caches() {
 
   $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection', 'fictioneer_story_chapter_index_html' ) );
 
-  // Transients
-  fictioneer_purge_nav_menu_transients();
-  fictioneer_delete_transients_like( 'fictioneer_' );
-
   // Delete cached files
   $files = glob( trailingslashit( fictioneer_get_theme_cache_dir( 'purge_theme_caches' ) ) . '*' );
 
@@ -482,6 +478,11 @@ function fictioneer_purge_theme_caches() {
 
   // Query result cache registry
   delete_option( 'fictioneer_query_cache_registry' );
+
+  // Transients
+  fictioneer_delete_layout_transients();
+  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
+  fictioneer_delete_transients_like( 'fictioneer_', true ); // Fast, but not safe for external object caches
 
   // Log
   fictioneer_log( __( 'Purged theme caches.', 'fictioneer' ) );

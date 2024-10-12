@@ -14,8 +14,7 @@
 
 function fictioneer_watch_for_customizer_updates() {
   // Transient caches
-  fictioneer_delete_transients_like( 'fictioneer_' );
-  fictioneer_purge_nav_menu_transients();
+  fictioneer_delete_layout_transients();
 
   // Rebuild customize stylesheet
   fictioneer_build_customize_css();
