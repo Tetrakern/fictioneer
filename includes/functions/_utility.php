@@ -343,7 +343,7 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
  * Groups and prepares chapters for a specific story
  *
  * Note: If chapter groups are disabled, all chapters will be
- * withing the 'all_chapters' group.
+ * within the 'all_chapters' group.
  *
  * @since 5.25.0
  *
