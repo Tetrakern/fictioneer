@@ -18,7 +18,7 @@ function fictioneer_ajax_get_user_data() {
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Setup
@@ -161,14 +161,14 @@ function fictioneer_ajax_clear_my_comment_subscriptions() {
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_comment_subscriptions' );
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Change validator
   if ( update_user_meta( $user->ID, 'fictioneer_comment_reply_validator', time() ) ) {
     wp_send_json_success( array( 'success' => __( 'Data has been cleared.', 'fictioneer' ) ) );
   } else {
-    wp_send_json_error( array( 'error' => __( 'Database error. Comment subscriptions could not be cleared.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Database error. Comment subscriptions could not be cleared.', 'fictioneer' ) ) );
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_clear_my_comment_subscriptions', 'fictioneer_ajax_clear_my_comment_subscriptions' );
@@ -194,7 +194,7 @@ function fictioneer_ajax_clear_my_comments() {
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_comments' );
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   if (
@@ -202,20 +202,20 @@ function fictioneer_ajax_clear_my_comments() {
     fictioneer_is_author( $user->ID ) ||
     fictioneer_is_moderator( $user->ID )
   ) {
-    wp_send_json_error( array( 'error' => __( 'User role too high. Please ask an administrator.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'User role too high. Please ask an administrator.', 'fictioneer' ) ) );
   }
 
   // Soft-delete comments
   $result = fictioneer_soft_delete_user_comments( $user->ID );
 
   if ( ! $result ) {
-    wp_send_json_error( array( 'error' => __( 'Database error. No comments found.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Database error. No comments found.' ) );
   }
 
   if ( $result['failure'] && ! $result['complete'] ) {
     wp_send_json_error(
       array(
-        'error' => sprintf(
+        'failure' => sprintf(
           __( 'Partial database error. Only %1$s of %2$s comments could be cleared.', 'fictioneer' ),
           $result['updated_count'],
           $result['comment_count']
@@ -225,7 +225,7 @@ function fictioneer_ajax_clear_my_comments() {
   }
 
   if ( $result['failure'] ) {
-    wp_send_json_error( array( 'error' => __( 'Database error. Comments could not be cleared.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Database error. Comments could not be cleared.', 'fictioneer' ) ) );
   }
 
   // Report success
@@ -266,7 +266,7 @@ function fictioneer_ajax_unset_my_oauth() {
     ! in_array( $channel, ['discord', 'twitch', 'patreon', 'google'] ) ||
     $sender_id !== $user->ID
   ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Delete connection
@@ -288,7 +288,7 @@ function fictioneer_ajax_unset_my_oauth() {
     );
   } else {
     // Failure response
-    wp_send_json_error( array( 'error' => __( 'Database error. Please ask an administrator.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Database error. Please ask an administrator.', 'fictioneer' ) ) );
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_unset_my_oauth', 'fictioneer_ajax_unset_my_oauth' );
@@ -311,7 +311,7 @@ function fictioneer_ajax_get_avatar() {
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Response

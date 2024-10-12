@@ -19,21 +19,18 @@
 function fictioneer_ajax_save_bookmarks() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   if ( empty( $_POST['bookmarks'] ) ) {
-    wp_send_json_error( array( 'error' => __( 'Missing arguments.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Missing arguments.' ) );
   }
 
   // Valid?
@@ -44,7 +41,7 @@ function fictioneer_ajax_save_bookmarks() {
     $decoded = json_decode( wp_unslash( $bookmarks ), true );
 
     if ( ! $decoded || ! isset( $decoded['data'] ) ) {
-      wp_send_json_error( array( 'error' => __( 'Invalid JSON.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'error' => 'Invalid JSON.' ) );
     }
 
     // Update and response (uses wp_slash/wp_unslash internally)
@@ -57,12 +54,12 @@ function fictioneer_ajax_save_bookmarks() {
     if ( update_user_meta( $user->ID, 'fictioneer_bookmarks', $bookmarks ) ) {
       wp_send_json_success();
     } else {
-      wp_send_json_error( array( 'error' => __( 'Database error. Bookmarks could not be updated.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'error' => 'Bookmarks could not be updated.' ) );
     }
   }
 
   // Something went wrong if we end up here...
-  wp_send_json_error( array( 'error' => __( 'Not a valid JSON string.', 'fictioneer' ) ) );
+  wp_send_json_error( array( 'error' => 'An unknown error occurred.' ) );
 }
 
 if ( get_option( 'fictioneer_enable_bookmarks' ) ) {

@@ -108,8 +108,18 @@ function fcn_toggleFollow(storyId) {
       'set': fcn_follows.data[storyId] ? true : false // Must be boolean, not undefined!
     })
     .then(response => {
-      if (response.data.error) {
-        fcn_showNotification(response.data.error, 5, 'warning');
+      // Check for failure
+      if (!response.success) {
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          5,
+          'warning'
+        );
+
+        // Make sure the actual error (if any) is printed to the console too
+        if (response.data.error || response.data.failure) {
+          console.error('Error:', response.data.error ?? response.data.failure);
+        }
       }
     })
     .catch(error => {
@@ -118,6 +128,8 @@ function fcn_toggleFollow(storyId) {
       } else if (error.status && error.statusText) {
         fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       }
+
+      console.error(error);
     });
   }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
 }

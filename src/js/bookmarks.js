@@ -283,15 +283,25 @@ function fcn_saveUserBookmarks(bookmarks) {
       'bookmarks': JSON.stringify(bookmarks)
     })
     .then(response => {
-      // Check for failure
-      if (response.data.error) {
-        fcn_showNotification(response.data.error, 3, 'warning');
+      if (!response.success) {
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          3,
+          'warning'
+        );
+
+        // Make sure the actual error (if any) is printed to the console too
+        if (response.data.error || response.data.failure) {
+          console.error('Error:', response.data.error ?? response.data.failure);
+        }
       }
     })
     .catch(error => {
       if (error.status && error.statusText) {
         fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
       }
+
+      console.error(error);
     });
   }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
 }

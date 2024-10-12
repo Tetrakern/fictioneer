@@ -3885,10 +3885,7 @@ if ( ! wp_doing_ajax() ) {
 function fictioneer_ajax_get_auth() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_ajax_authentication' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Setup

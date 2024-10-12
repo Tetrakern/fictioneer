@@ -209,17 +209,24 @@ function fcn_flagComment(source) {
         fcn_showNotification(response.data.resync);
       }
     } else {
-      // Show error notice
-      if (response.data?.error) {
-        fcn_showNotification(response.data.error, 5, 'warning');
+      fcn_showNotification(
+        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+        5,
+        'warning'
+      );
+
+      // Make sure the actual error (if any) is printed to the console too
+      if (response.data.error || response.data.failure) {
+        console.error('Error:', response.data.error ?? response.data.failure);
       }
     }
   })
   .catch(error => {
-    // Show server error
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }
+
+    console.error(error);
   })
   .then(() => {
     // Regardless of success
@@ -872,7 +879,7 @@ function fcn_deleteMyComment(button) {
       );
 
       // Make sure the actual error (if any) is printed to the console too
-      if (response.data.failure || response.data.error) {
+      if (response.data.error || response.data.failure) {
         console.error('Error:', response.data.error ?? response.data.failure);
       }
     }

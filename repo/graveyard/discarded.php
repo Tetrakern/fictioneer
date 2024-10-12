@@ -464,7 +464,7 @@ function fictioneer_ajax_get_checkmarks() {
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Prepare Checkmarks
@@ -498,7 +498,7 @@ function fictioneer_ajax_get_reminders() {
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Prepare Reminders
@@ -531,7 +531,7 @@ function fictioneer_ajax_get_follows() {
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Prepare Follows
@@ -580,7 +580,7 @@ function fictioneer_ajax_get_fingerprint() {
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Response
@@ -604,17 +604,14 @@ add_action( 'wp_ajax_fictioneer_ajax_get_fingerprint', 'fictioneer_ajax_get_fing
 function fictioneer_ajax_get_bookmarks() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Look for saved bookmarks on user...

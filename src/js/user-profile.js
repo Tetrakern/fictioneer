@@ -187,13 +187,24 @@ function fcn_clearData(button, action) {
     if (response.success) {
       card.querySelector('.card__content').innerHTML = response.data.success;
     } else {
-      fcn_showNotification(response.data.error, 10, 'warning');
+      fcn_showNotification(
+        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+        10,
+        'warning'
+      );
+
+      // Make sure the actual error (if any) is printed to the console too
+      if (response.data.error || response.data.failure) {
+        console.error('Error:', response.data.error ?? response.data.failure);
+      }
     }
   })
   .catch(error => {
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 10, 'warning');
     }
+
+    console.error(error);
   })
   .then(() => {
     card.classList.remove('ajax-in-progress');

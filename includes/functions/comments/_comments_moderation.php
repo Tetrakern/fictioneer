@@ -515,44 +515,41 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
 function fictioneer_ajax_moderate_comment() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   $comment_id = isset( $_POST['id'] ) ? fictioneer_validate_id( $_POST['id'] ) : false;
 
   if ( empty( $_POST['operation'] ) || ! $comment_id ) {
-    wp_send_json_error( array( 'error' => __( 'Missing arguments.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Missing arguments.' ) );
   }
 
   $operation = sanitize_text_field( $_POST['operation'] );
 
   if ( ! in_array( $operation, ['spam', 'trash', 'approve', 'unapprove', 'close', 'open', 'sticky', 'unsticky'] ) ) {
-    wp_send_json_error( array( 'error' => __( 'Invalid operation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Invalid operation.' ) );
   }
 
   $comment = get_comment( $comment_id );
 
   if ( ! $comment ) {
-    wp_send_json_error( array( 'error' => __( 'Comment not found in database.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Comment not found in database.' ) );
   }
 
   // Capabilities?
   if ( ! fictioneer_user_can_moderate( $comment ) ) {
-    wp_send_json_error( array( 'error' => __( 'Permission denied!', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Permission denied!', 'fictioneer' ) ) );
   }
 
   if ( $operation === 'trash' &&  ! current_user_can( 'moderate_comments' ) ) {
-    wp_send_json_error( array( 'error' => __( 'Permission denied!', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Permission denied!', 'fictioneer' ) ) );
   }
 
   // Process and update
@@ -602,7 +599,7 @@ function fictioneer_ajax_moderate_comment() {
 
     wp_send_json_success( array( 'id' => $comment_id, 'operation' => $operation ) );
   } else {
-    wp_send_json_error( array( 'error' => __( 'Database error. Comment could not be updated.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Comment could not be updated.' ) );
   }
 }
 
@@ -628,21 +625,18 @@ function fictioneer_ajax_report_comment() {
     get_option( 'fictioneer_disable_comment_callback' ) ||
     ! get_option( 'fictioneer_enable_comment_reporting' )
   ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   if ( empty( $_POST['id'] ) ) {
-    wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => 'Missing arguments.' ) );
   }
 
   $comment_id = fictioneer_validate_id( $_POST['id'] );
@@ -652,12 +646,12 @@ function fictioneer_ajax_report_comment() {
   $comment = get_comment( $comment_id );
 
   if ( ! $comment ) {
-    wp_send_json_error( ['error' => __( 'Comment not found.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => 'Comment not found.' ) );
   }
 
   // Check if user is allowed to flag comments
   if ( get_the_author_meta( 'fictioneer_admin_disable_reporting', $user->ID ) ) {
-    wp_send_json_error( ['error' => __( 'Reporting capability disabled.', 'fictioneer' )] );
+    wp_send_json_error( array( 'failure' => __( 'Reporting capability disabled.', 'fictioneer' ) ) );
   }
 
   // Get current reports (array of user IDs)
@@ -687,7 +681,7 @@ function fictioneer_ajax_report_comment() {
   $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_user_reports', $reports );
 
   if ( ! $result ) {
-    wp_send_json_error( ['error' => __( 'Database error. Report could not be saved.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => 'Report could not be saved.' ) );
   }
 
   // Send back to moderation?

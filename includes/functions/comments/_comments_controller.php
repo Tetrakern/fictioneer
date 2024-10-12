@@ -121,9 +121,9 @@ function fictioneer_preprocess_comment( $commentdata ) {
   // Commenting disabled
   if ( fictioneer_is_commenting_disabled( $commentdata['comment_post_ID'] ) ) {
     if ( $is_ajax ) {
-      wp_send_json_error( array( 'error' => __( 'Commenting disabled.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'Commenting disabled.', 'fictioneer' ) ) );
     } else {
-      wp_die( __( 'Commenting disabled.', 'fictioneer' ) );
+      wp_die( 'Commenting disabled.' );
     }
   }
 
@@ -136,9 +136,9 @@ function fictioneer_preprocess_comment( $commentdata ) {
   ) {
     if ( ! isset( $_POST['fictioneer_comment_validator'] ) || ! $_POST['fictioneer_comment_validator'] ) {
       if ( $is_ajax ) {
-        wp_send_json_error( array( 'error' => __( 'Comment did not pass validation.', 'fictioneer' ) ) );
+        wp_send_json_error( array( 'error' => 'Comment did not pass validation.' ) );
       } else {
-        wp_die( __( 'Comment did not pass validation.', 'fictioneer' ) );
+        wp_die( 'Comment did not pass validation.' );
       }
     }
   }
@@ -146,7 +146,7 @@ function fictioneer_preprocess_comment( $commentdata ) {
   // Check fictioneer_admin_disable_commenting user flag
   if ( $current_user->fictioneer_admin_disable_commenting ) {
     if ( $is_ajax ) {
-      wp_send_json_error( array( 'error' => __( 'Commenting capability disabled.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'Commenting capability disabled.', 'fictioneer' ) ) );
     } else {
       wp_die( __( 'Commenting capability disabled.', 'fictioneer' ) );
     }
@@ -163,7 +163,7 @@ function fictioneer_preprocess_comment( $commentdata ) {
       $error = sprintf( __( 'You cannot post more than %s links.', 'fictioneer' ), $max_links );
 
       if ( $is_ajax ) {
-        wp_send_json_error( array( 'error' => $error ) );
+        wp_send_json_error( array( 'failure' => $error ) );
       } else {
         wp_die( $error );
       }
@@ -216,7 +216,7 @@ function fictioneer_validate_comment_form( $commentdata ) {
   // Abort if direct parent comment is deleted
   if ( $parent_id && $commentdata['comment_type'] === 'user_deleted' ) {
     if ( $is_ajax ) {
-      wp_send_json_error( array( 'error' => __( 'You cannot reply to deleted comments.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'You cannot reply to deleted comments.', 'fictioneer' ) ) );
     } else {
       wp_die( __( 'You cannot reply to deleted comments.', 'fictioneer' ) );
     }
@@ -225,7 +225,7 @@ function fictioneer_validate_comment_form( $commentdata ) {
   // Abort if direct parent comment is marked as offensive
   if ( $parent_id && get_comment_meta( $parent_id, 'fictioneer_marked_offensive', true ) ) {
     if ( $is_ajax ) {
-      wp_send_json_error( array( 'error' => __( 'You cannot reply to comments marked as offensive.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'You cannot reply to comments marked as offensive.', 'fictioneer' ) ) );
     } else {
       wp_die( __( 'You cannot reply to comments marked as offensive.', 'fictioneer' ) );
     }
@@ -235,7 +235,7 @@ function fictioneer_validate_comment_form( $commentdata ) {
   if ( $parent_id && ! get_option( 'fictioneer_disable_comment_callback' ) ) {
     if ( get_comment_meta( $parent_id, 'fictioneer_thread_closed', true ) ) {
       if ( $is_ajax ) {
-        wp_send_json_error( array( 'error' => __( 'Comment thread is closed.', 'fictioneer' ) ) );
+        wp_send_json_error( array( 'failure' => __( 'Comment thread is closed.', 'fictioneer' ) ) );
       } else {
         wp_die( __( 'Comment thread is closed.', 'fictioneer' ) );
       }
@@ -251,7 +251,7 @@ function fictioneer_validate_comment_form( $commentdata ) {
       // Ancestor closed?
       if ( get_comment_meta( $ancestor->comment_ID, 'fictioneer_thread_closed', true ) ) {
         if ( $is_ajax ) {
-          wp_send_json_error( array( 'error' => __( 'Comment thread is closed.', 'fictioneer' ) ) );
+          wp_send_json_error( array( 'failure' => __( 'Comment thread is closed.', 'fictioneer' ) ) );
         } else {
           wp_die( __( 'Comment thread is closed.', 'fictioneer' ) );
         }
