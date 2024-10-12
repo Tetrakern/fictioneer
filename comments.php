@@ -68,7 +68,7 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
       echo '<div class="fictioneer-comments__disabled">' . __( 'Commenting is disabled.', 'fictioneer' ) . '</div>';
     }
 
-    if ( $comments_count > 1 ) {
+    if ( $comments_count > 0 ) {
       // Start HTML ---> ?>
       <div id="sof" class="sort-order-filter _comments">
         <a class="list-button _order  <?php echo $order === 'desc' ? '_on' : '_off'; ?>" href="<?php echo $order_link; ?>" rel='nofollow' aria-label="<?php esc_attr_e( 'Toggle comments between ascending and descending order', 'fictioneer' ); ?>">
