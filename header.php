@@ -119,28 +119,7 @@ $body_attributes = array_map(
 
       // Includes mobile menu
       do_action( 'fictioneer_body', $action_args );
-
-      // Inline storage tuples
-      $inline_storage = array(
-        'permalink' => ['data-permalink', esc_url( get_permalink() )],
-        'homelink' => ['data-homelink', esc_url( home_url() )],
-        'post_id' => ['data-post-id', $post_id],
-        'story_id' => ['data-story-id', $story_id]
-      );
-
-      // Filter inline storage
-      $inline_storage = apply_filters( 'fictioneer_filter_inline_storage', $inline_storage );
-
-      // Prepare inline storage attributes
-      $inline_storage = array_map(
-        function ( $node ) {
-          return $node[0] . '="' . $node[1] . '"';
-        },
-        $inline_storage
-      );
     ?>
-
-    <div id="inline-storage" <?php echo implode( ' ', $inline_storage ); ?> hidden></div>
 
     <div id="notifications" class="notifications"></div>
 
