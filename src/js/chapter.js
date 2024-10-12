@@ -1235,7 +1235,7 @@ function fcn_readingProgress() {
 
   // If end of chapter has been reached and the user is logged in...
   if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn_isLoggedIn) {
-    const storyId = _$$$('inline-storage')?.dataset.storyId;
+    const storyId = fcn_theBody.dataset.storyId;
 
     // Only do this once per page load
     fcn_chapterCheckmarkUpdated = true;
@@ -1246,7 +1246,7 @@ function fcn_readingProgress() {
     }
 
     // Mark chapter as read
-    fcn_toggleCheckmark(storyId, 'progress', parseInt(fcn_inlineStorage.postId), null, 'set');
+    fcn_toggleCheckmark(storyId, 'progress', parseInt(fcn_theBody.dataset.postId), null, 'set');
   }
 }
 

@@ -247,7 +247,7 @@ function fcn_loadStoryComments(button) {
   // REST request
   fcn_ajaxGet(
     {
-      'post_id': button.dataset.storyId ?? fcn_inlineStorage.postId,
+      'post_id': button.dataset.storyId ?? fcn_theBody.dataset.postId,
       'page': fcn_storyCommentPage
     },
     'get_story_comments'

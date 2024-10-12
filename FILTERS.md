@@ -890,17 +890,6 @@ Filters the intermediate item array of the `fictioneer_render_icon_menu()` funct
 
 ---
 
-### `apply_filters( 'fictioneer_filter_inline_storage', $attributes )`
-Filters the intermediate output array (tuples) for the `#inline-storage` data attributes before it is mapped, imploded, and rendered in the `header.php` template. These values are important for several scripts and stored in the `fcn_inlineStorage` JavaScript constant.
-
-**attributes:**
-* $permalink (['data-permalink', string]) – Escaped current URL.
-* $homelink (['data-homelink', string]) – Escaped home URL.
-* $post_id (['data-post-id', int|null]) – Current post ID. Unsafe since this may be an archive, author, etc.
-* $story_id (['data-story-id', int|null]) – Current story ID (if story or chapter). Unsafe.
-
----
-
 ### `apply_filters( 'fictioneer_filter_is_admin', $check, $user_id )`
 Filters the boolean return value of the `fictioneer_is_admin( $user_id )` function. This may be handy if you want to use custom roles or account for other factors not covered by default capabilities. Beware, the result determines whether the user can perform [administrator](https://wordpress.org/support/article/roles-and-capabilities/#administrator) actions.
 

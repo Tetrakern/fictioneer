@@ -29,6 +29,7 @@ global $post;
 
 $page_id = get_queried_object_id();
 $post_id = $post ? $post->ID : null;
+$story_id = null;
 
 if ( $page_id != $post_id ) {
   $post_id = $page_id;
@@ -43,6 +44,66 @@ if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_MU_REGISTRATION ) {
   add_filter( 'wp_robots', 'wp_robots_no_robots' );
 }
 
+// Setup
+$story_id = null;
+$post_type = $post_id ? $post->post_type : null;
+$header_image_source = 'default';
+$header_image_url = get_header_image();
+
+// If this is a content page...
+if ( $post_id ) {
+  // Type?
+  switch ( $post_type ) {
+    case 'fcn_story':
+      $story_id = $post_id;
+      break;
+    case 'fcn_chapter':
+      $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
+      break;
+  }
+
+  // Custom header image?
+  if ( get_post_meta( $post_id, 'fictioneer_custom_header_image', true ) ) {
+    $header_image_url = get_post_meta( $post_id, 'fictioneer_custom_header_image', true );
+    $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
+    $header_image_source = 'post';
+  } elseif ( ! empty( $story_id ) && get_post_meta( $story_id, 'fictioneer_custom_header_image', true ) ) {
+    $header_image_url = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
+    $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
+    $header_image_source = 'story';
+  }
+}
+
+// Filter header image
+if ( ! empty( $post_id ) && $header_image_url ) {
+  $header_image_url = apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id );
+}
+
+// Action arguments
+$action_args = array(
+  'post_id' => $post_id,
+  'post_type' => $post_type,
+  'story_id' => $story_id,
+  'header_image_url' => $header_image_url,
+  'header_image_source' => $header_image_source,
+  'header_args' => $args ?? []
+);
+
+// Body attributes
+$body_attributes = array(
+  'data-post-id' => ( $post_id ?: -1 )
+);
+
+if ( $story_id ) {
+  $body_attributes['data-story-id'] = $story_id;
+}
+
+$body_attributes = array_map(
+  function ( $key, $value ) { return $key . '="' . esc_attr( $value ) . '"'; },
+  array_keys( $body_attributes ),
+  $body_attributes
+);
+
 ?>
 
 <!doctype html>
@@ -51,54 +112,10 @@ if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_MU_REGISTRATION ) {
 
   <head><?php wp_head(); ?></head>
 
-  <body <?php body_class( 'site-bg scrolled-to-top' ); ?> data-post-id="<?php echo $post_id ?: -1; ?>">
-    <?php wp_body_open(); ?>
-
+  <body <?php body_class( 'site-bg scrolled-to-top' ); echo implode( ' ', $body_attributes ); ?>>
     <?php
-      // Setup
-      $story_id = null;
-      $post_type = $post_id ? $post->post_type : null;
-      $header_image_source = 'default';
-      $header_image_url = get_header_image();
-
-      // If this is a content page...
-      if ( $post_id ) {
-        // Type?
-        switch ( $post_type ) {
-          case 'fcn_story':
-            $story_id = $post_id;
-            break;
-          case 'fcn_chapter':
-            $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
-            break;
-        }
-
-        // Custom header image?
-        if ( get_post_meta( $post_id, 'fictioneer_custom_header_image', true ) ) {
-          $header_image_url = get_post_meta( $post_id, 'fictioneer_custom_header_image', true );
-          $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
-          $header_image_source = 'post';
-        } elseif ( ! empty( $story_id ) && get_post_meta( $story_id, 'fictioneer_custom_header_image', true ) ) {
-          $header_image_url = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
-          $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
-          $header_image_source = 'story';
-        }
-      }
-
-      // Filter header image
-      if ( ! empty( $post_id ) && $header_image_url ) {
-        $header_image_url = apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id );
-      }
-
-      // Action arguments
-      $action_args = array(
-        'post_id' => $post_id,
-        'post_type' => $post_type,
-        'story_id' => $story_id,
-        'header_image_url' => $header_image_url,
-        'header_image_source' => $header_image_source,
-        'header_args' => $args ?? []
-      );
+      // WP Default action
+      wp_body_open();
 
       // Includes mobile menu
       do_action( 'fictioneer_body', $action_args );

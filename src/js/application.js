@@ -5,7 +5,6 @@
 const /** @const {HTMLElement} */ fcn_theSite = _$$$('site');
 const /** @const {HTMLElement} */ fcn_theBody = _$('body');
 const /** @const {HTMLElement} */ fcn_theRoot = document.documentElement;
-const /** @const {HTMLElement} */ fcn_inlineStorage = _$$$('inline-storage').dataset;
 const /** @const {Object} */ fcn_urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
 const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
