@@ -1161,10 +1161,12 @@ function fcn_unlockPostsSearch() {
       results.innerHTML = response.data.html;
     } else {
       results.innerHTML = response.data.error;
+      console.error('Error:', response.data.error);
     }
   })
   .catch(error => {
     results.innerHTML = error;
+    console.error('Error:', error);
   })
   .then(() => {
     container.classList.remove('ajax-in-progress');

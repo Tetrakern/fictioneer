@@ -1561,11 +1561,11 @@ function fictioneer_ajax_search_posts_to_unlock() {
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'search_posts' );
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'fcn_unlock_posts' ) ) {
-    wp_send_json_error( array( 'error' => __( 'Insufficient permissions.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Insufficient permissions.' ) );
   }
 
   // Setup
