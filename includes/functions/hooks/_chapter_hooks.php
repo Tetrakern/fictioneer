@@ -324,23 +324,24 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
     $location
   );
 
-  // Do not render on hidden posts
-  if ( ! in_array( $post_status, $allowed_statuses ) ) {
-    return;
-  }
+  $show_nav = in_array( $post_status, $allowed_statuses );
 
   // Start HTML ---> ?>
-  <?php if ( ! $unlisted && $args['prev_index'] !== false ) : ?>
+
+  <?php if ( $show_nav && ! $unlisted && $args['prev_index'] !== false ) : ?>
     <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ); ?></a>
   <?php endif; ?>
+
   <?php if ( $location === 'top' ) : ?>
     <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-down"></i></a>
   <?php else : ?>
     <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-up"></i></a>
   <?php endif; ?>
-  <?php if ( ! $unlisted && $args['next_index'] ) : ?>
+
+  <?php if ( $show_nav && ! $unlisted && $args['next_index'] ) : ?>
     <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
   <?php endif; ?>
+
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_chapter_actions_top_right', 'fictioneer_chapter_nav_buttons', 10, 2 );
