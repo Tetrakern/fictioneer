@@ -415,26 +415,6 @@ Filters the array of allowed post statuses for the chapter subscribe button in t
 
 ---
 
-### `apply_filters( 'fictioneer_filter_chapter_index_popup_menu_statuses', $statuses, $post_id, $story_id )`
-Filters the array of allowed post statuses for the chapter index popup menu in the `fictioneer_chapter_index_popup_menu()` function. The default is `['publish']`, but you could add `'private'` or `'future'` if you want to allow the menu to render with these statuses.
-
-**Parameters:**
-* $statuses (array) – Array of allowed post statuses.
-* $post_id (int) – Current post ID.
-* $story_id (int) – Story ID of the chapter.
-
-**Example:**
-```php
-function child_add_scheduled_chapters_to_index_popup( $statuses ) {
-  $statuses[] = 'future';
-
-  return $statuses;
-}
-add_filter( 'fictioneer_filter_chapter_index_popup_menu_statuses', 'child_add_scheduled_chapters_to_index_popup' );
-```
-
----
-
 ### `apply_filters( 'fictioneer_filter_chapter_media_buttons_statuses', $statuses, $post_id )`
 Filters the array of allowed post statuses for the chapter media buttons in the `fictioneer_chapter_media_buttons()` function. The default is `['publish']`, but you could add `'private'` or `'future'` if you want to allow the buttons to render with these statuses.
 

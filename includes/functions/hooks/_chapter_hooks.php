@@ -437,20 +437,6 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscr
  */
 
 function fictioneer_chapter_index_popup_menu( $args ) {
-  $post_status = get_post_status( get_the_ID() );
-
-  $allowed_statuses = apply_filters(
-    'fictioneer_filter_chapter_index_popup_menu_statuses',
-    ['publish'],
-    get_the_ID(),
-    $args['story_post']
-  );
-
-  // Do not render on hidden posts
-  if ( ! in_array( $post_status, $allowed_statuses ) ) {
-    return;
-  }
-
   // Abort if there is no story assigned
   if ( ! $args['story_post'] ) {
     return;
