@@ -1603,7 +1603,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_API_STORYGRAPH_IMAGES | boolean | Whether to add image links to the Storygraph. Default `true`.
 | FICTIONEER_API_STORYGRAPH_HOTLINK | boolean | Whether hotlinking images from the Storygraph is allowed. Default `false`.
 | FICTIONEER_API_STORYGRAPH_CHAPTERS | boolean | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
-| FICTIONEER_API_STORYGRAPH_TRANSIENTS | boolean | Whether to cache Storygraph responses as Transients. Default `true`.
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
 | FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.

@@ -310,15 +310,6 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
     // Setup
     $story_id = absint( $data['id'] );
 
-    // Return cache if still valid
-    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
-      $transient_cache = get_transient( 'fictioneer_storygraph_story_' . $story_id );
-
-      if ( ! empty( $transient_cache ) ) {
-        return rest_ensure_response( $transient_cache );
-      }
-    }
-
     // Graph from story node
     $graph = fictioneer_api_get_story_node( $story_id );
 
@@ -335,11 +326,6 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
 
     // Request meta
     $graph['timestamp'] = current_time( 'U', true );
-
-    // Cache request
-    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
-      set_transient( 'fictioneer_storygraph_story_' . $story_id, $graph, FICTIONEER_API_STORYGRAPH_CACHE_TTL );
-    }
 
     // Response
     return rest_ensure_response( $graph );
@@ -387,15 +373,6 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     // Setup
     $page = max( absint( $data['page'] ) ?? 1, 1 );
     $graph = [];
-
-    // Return cache if still valid
-    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
-      $transient_cache = get_transient( 'fictioneer_storygraph_stories_' . $page );
-
-      if ( ! empty( $transient_cache ) ) {
-        return rest_ensure_response( $transient_cache );
-      }
-    }
 
     // Prepare query
     $query_args = array (
@@ -464,11 +441,6 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     $graph['perPage'] = FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE;
     $graph['maxPages'] = $query->max_num_pages;
     $graph['timestamp'] = current_time( 'U', true );
-
-    // Cache request
-    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
-      set_transient( 'fictioneer_storygraph_stories_' . $page, $graph, FICTIONEER_API_STORYGRAPH_CACHE_TTL );
-    }
 
     return rest_ensure_response( $graph );
   }

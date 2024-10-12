@@ -398,11 +398,6 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_CHAPTERS' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_CHAPTERS', true );
 }
 
-// Boolean: Storygraph API Transients caching
-if ( ! defined( 'FICTIONEER_API_STORYGRAPH_TRANSIENTS' ) ) {
-  define( 'FICTIONEER_API_STORYGRAPH_TRANSIENTS', true );
-}
-
 // Boolean: Enable sticky cards
 if ( ! defined( 'FICTIONEER_ENABLE_STICKY_CARDS' ) ) {
   define( 'FICTIONEER_ENABLE_STICKY_CARDS', true );
