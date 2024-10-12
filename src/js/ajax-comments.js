@@ -137,21 +137,22 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
       // Add page to URL and preserve params/anchor
       const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
-      let urlPart = '';
 
-      if (fcn_urlParams.commentcode) {
-        urlPart += `?commentcode=${fcn_urlParams.commentcode}`;
+      if (page > 1 || fcn_urlParams.pg) {
+        fcn_urlParams['pg'] = page;
       }
 
-      if (page > 1) {
-        urlPart += urlPart.length > 1 ? `&pg=${page}` : `?pg=${page}`;
+      if (order != 'desc' || fcn_urlParams.corder) {
+        fcn_urlParams['corder'] = order;
       }
 
-      if (order != 'desc') {
-        urlPart += urlPart.length > 1 ? `&corder=${order}` : `?corder=${order}`;
+      let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
+
+      if (params !== '') {
+        params = `?${params}`;
       }
 
-      window.history.pushState({ path: refresh }, '', refresh + urlPart + location.hash);
+      window.history.pushState({ path: refresh }, '', refresh + params + location.hash);
     } else {
       errorNote = fcn_buildErrorNotice(response.data.error);
     }

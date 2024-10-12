@@ -525,17 +525,22 @@ function fcn_bindAJAXCommentSubmit() {
 
         // Update URL
         const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
-        let urlPart = '';
+
+        if (order != 'desc' || fcn_urlParams.corder) {
+          fcn_urlParams['corder'] = order;
+        }
 
         if (response.data.commentcode) {
-          urlPart += `?commentcode=${response.data.commentcode}`;
+          fcn_urlParams['commentcode'] = response.data.commentcode;
         }
 
-        if (order != 'desc') {
-          urlPart += urlPart.length > 1 ? `&corder=${order}` : `?corder=${order}`;
+        let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
+
+        if (params !== '') {
+          params = `?${params}`;
         }
 
-        history.pushState({ path: refresh }, '', refresh + urlPart + `#comment-${response.data.comment_id}`);
+        history.replaceState({ path: refresh }, '', refresh + params + `#comment-${response.data.comment_id}`);
 
         // Scroll to new comment
         commentNode.scrollIntoView({ behavior: 'smooth' });
