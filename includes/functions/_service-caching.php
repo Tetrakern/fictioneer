@@ -722,7 +722,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
       fictioneer_delete_transients_like( "fictioneer_query_{$story_id}" );
 
       // Refresh cached HTML output
-      delete_transient( 'fictioneer_story_chapter_list_html' . $story_id );
+      delete_transient( 'fictioneer_story_chapter_list_html_' . $story_id );
     }
   }
 }
