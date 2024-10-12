@@ -454,7 +454,11 @@ function fictioneer_bypass_password( $required, $post ) {
   }
 
   // Ensure to skip search, list pages, and nested loops
-  if ( ! wp_doing_ajax() || ! ( $_GET['post_id'] ?? 0 ) ) {
+  if (
+    ( ! wp_doing_ajax() || ! ( $_GET['post_id'] ?? 0 ) ) &&
+    ( $_REQUEST['action'] ?? 0 ) !== 'fictioneer_ajax_submit_comment' &&
+    ! ( $_REQUEST['comment_post_ID'] ?? 0 )
+  ) {
     if ( ! is_singular() || get_queried_object_id() != $post->ID ) {
       return $required;
     }
