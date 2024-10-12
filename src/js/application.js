@@ -1546,11 +1546,11 @@ function fcn_contactFormSubmit(button) {
       form.querySelector('textarea').value = '';
       button.innerHTML = button.dataset.done;
       fcn_showNotification(response.data.success, 3, 'success');
-    } else if (response.data.error) {
+    } else if (response.data.failure) {
       // Failure
       button.disabled = false;
       button.innerHTML = button.dataset.enabled;
-      fcn_showNotification(response.data.error, 5, 'warning');
+      fcn_showNotification(response.data.failure, 5, 'warning');
     }
   })
   .catch(error => {
@@ -1559,6 +1559,8 @@ function fcn_contactFormSubmit(button) {
       button.disabled = false;
       button.innerHTML = button.dataset.enabled;
     }
+
+    console.error('Error:', error);
   })
   .then(() => {
     // Regardless of outcome

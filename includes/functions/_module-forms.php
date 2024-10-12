@@ -18,12 +18,12 @@ function fictioneer_ajax_submit_contact_form() {
 
   // Emergency stop
   if ( get_option( 'fictioneer_disable_contact_forms' ) ) {
-    wp_send_json_error( array( 'error' => _x( 'Contact forms have been disabled.', 'Contact form.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => _x( 'Contact forms have been disabled.', 'Contact form.', 'fictioneer' ) ) );
   }
 
   // Validations
   if ( empty( $_POST['message'] ) ) {
-    wp_send_json_error( array( 'error' => _x( 'Message field empty.', 'Contact form.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => _x( 'Message field empty.', 'Contact form.', 'fictioneer' ) ) );
   }
 
   if ( ! empty( $_POST['phone'] ) || filter_var( $_POST['terms'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
@@ -36,11 +36,11 @@ function fictioneer_ajax_submit_contact_form() {
     ( ! empty( $_POST['name'] ) && $_POST['name'] != wp_strip_all_tags( $_POST['name'] ) )
   ) {
     // All fields are stripped of HTMl anyway, so this is only for the overly enthusiastic user.
-    wp_send_json_error( array( 'error' => _x( 'Illegal HTML detected.', 'Contact form.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => _x( 'Illegal HTML detected.', 'Contact form.', 'fictioneer' ) ) );
   }
 
   if ( ! empty( $_POST['email'] ) && ! is_email( $_POST['email'] ) ) {
-    wp_send_json_error( array( 'error' => _x( 'Invalid email address.', 'Contact form.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => _x( 'Invalid email address.', 'Contact form.', 'fictioneer' ) ) );
   }
 
   if (
@@ -49,7 +49,7 @@ function fictioneer_ajax_submit_contact_form() {
   ) {
     // If the sender disables these fields, this is essentially acceptance
     // since they went out of their way to manipulate the form.
-    wp_send_json_error( array( 'error' => _x( 'You need to accept the privacy policy.', 'Contact form.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => _x( 'You need to accept the privacy policy.', 'Contact form.', 'fictioneer' ) ) );
   }
 
   // Setup
@@ -185,10 +185,10 @@ function fictioneer_ajax_submit_contact_form() {
   // someone his name or email address is blocked, etc.
   if ( FICTIONEER_DISALLOWED_KEY_NOTICE && $offenders[0] && $offenders[1] ) {
     wp_send_json_error(
-      array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
+      array( 'failure' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
     );
   } elseif ( $offenders[0] ) {
-    wp_send_json_error( array( 'error' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
   }
 
   // Addresses
