@@ -796,6 +796,20 @@ if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
 // =============================================================================
 
 /**
+ * Purge layout-related Transients
+ *
+ * @since 5.25.0
+ */
+
+function fictioneer_delete_layout_transients() {
+  fictioneer_purge_nav_menu_transients();
+  fictioneer_purge_story_card_cache();
+  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
+  fictioneer_delete_transients_like( 'fictioneer_taxonomy_submenu_' );
+  delete_transient( 'fictioneer_dynamic_scripts_version' );
+}
+
+/**
  * Purge Transients used for caching when posts are updated
  *
  * @since 5.4.9

@@ -237,7 +237,7 @@ add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
  */
 
 function fictioneer_purge_caches_after_update() {
-  // Transients (fast)
+  // Transients (fast, assuming this also causes a purge of external object caches)
   fictioneer_delete_transients_like( 'fictioneer_', true );
 
   // Object cache

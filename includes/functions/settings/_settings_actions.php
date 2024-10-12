@@ -480,7 +480,9 @@ function fictioneer_purge_theme_caches() {
   delete_option( 'fictioneer_query_cache_registry' );
 
   // Transients (fast)
-  fictioneer_delete_transients_like( 'fictioneer_', true );
+  fictioneer_delete_layout_transients();
+  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
+  fictioneer_delete_transients_like( 'fictioneer_', true ); // Fast, but not safe for external object caches
 
   // Object cache
   wp_cache_flush();

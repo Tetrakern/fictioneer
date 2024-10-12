@@ -13,8 +13,9 @@
  */
 
 function fictioneer_watch_for_customizer_updates() {
-  // Transients (fast)
-  fictioneer_delete_transients_like( 'fictioneer_', true );
+  // Transients
+  fictioneer_delete_layout_transients();
+  fictioneer_delete_transients_like( 'fictioneer_', true ); // Fast
 
   // Object cache
   wp_cache_flush();
