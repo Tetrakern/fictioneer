@@ -2788,17 +2788,21 @@ if ( ! function_exists( 'fictioneer_delete_transients_like' ) ) {
   /**
    * Delete Transients with a like key and return the count deleted
    *
+   * Note: The fast variant of this function is not compatible with
+   * external object caches such as Memcached, because without the
+   * help of delete_transient(), it won't know about the change.
+   *
    * @since 5.4.9
    *
    * @param string  $partial_key  String that is part of the key.
    * @param boolean $fast         Optional. Whether to delete with a single SQL query or
    *                              loop each Transient with delete_transient(), which can
-   *                              trigger hooked actions (if any). Default true.
+   *                              trigger hooked actions (if any). Default false.
    *
    * @return int Count of deleted Transients.
    */
 
-  function fictioneer_delete_transients_like( $partial_key, $fast = true ) {
+  function fictioneer_delete_transients_like( $partial_key, $fast = false ) {
     // Globals
     global $wpdb;
 
@@ -2815,7 +2819,7 @@ if ( ! function_exists( 'fictioneer_delete_transients_like' ) ) {
       );
 
       // Query
-      $count = $wpdb->query( $sql ) / 2; // Count Transient and Transient timeout as one
+      $count = $wpdb->query( $sql );
     } else {
       // Prepare SQL
       $sql = $wpdb->prepare(

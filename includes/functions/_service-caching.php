@@ -117,7 +117,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
   );
 }
 
-// Boolean: Query result caching enabled=
+// Boolean: Query result caching enabled?
 if ( ! defined( 'FICTIONEER_ENABLE_QUERY_RESULT_CACHING' ) ) {
   define(
     'FICTIONEER_ENABLE_QUERY_RESULT_CACHING',
