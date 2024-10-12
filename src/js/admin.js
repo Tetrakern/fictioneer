@@ -728,7 +728,7 @@ function fcn_setGroupDataList(source) {
 
   // Request group options (if any)
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_chapter_groups',
+    'action': 'fictioneer_ajax_get_chapter_group_options',
     'story_id': storyId,
     'nonce': fictioneer_ajax.fictioneer_nonce
   })

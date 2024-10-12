@@ -1156,7 +1156,7 @@ if ( ! wp_doing_ajax() ) {
  * @since 5.7.4
  */
 
-function fictioneer_ajax_get_chapter_groups() {
+function fictioneer_ajax_get_chapter_group_options() {
   // Validate
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_nonce' );
   $story_id = isset( $_GET['story_id'] ) ? fictioneer_validate_id( $_GET['story_id'], 'fcn_story' ) : null;
@@ -1219,7 +1219,7 @@ function fictioneer_ajax_get_chapter_groups() {
     wp_send_json_success( array( 'html' => $html ) );
   }
 }
-add_action( 'wp_ajax_fictioneer_ajax_get_chapter_groups', 'fictioneer_ajax_get_chapter_groups' );
+add_action( 'wp_ajax_fictioneer_ajax_get_chapter_group_options', 'fictioneer_ajax_get_chapter_group_options' );
 
 // =============================================================================
 // AJAX: RESET THEME COLORS
