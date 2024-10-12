@@ -115,7 +115,7 @@ function fictioneer_ajax_delete_my_account() {
   ) {
     wp_send_json_error(
       array(
-        'error' => __( 'User role too high.', 'fictioneer' ),
+        'failure' => __( 'User role too high.', 'fictioneer' ),
         'button' => __( 'Denied', 'fictioneer' )
       )
     );
@@ -128,7 +128,7 @@ function fictioneer_ajax_delete_my_account() {
   } else {
     wp_send_json_error(
       array(
-        'error' => __( 'Database error. Account could not be deleted.', 'fictioneer' ),
+        'failure' => __( 'Database error. Account could not be deleted.', 'fictioneer' ),
         'button' => __( 'Failure', 'fictioneer' )
       )
     );

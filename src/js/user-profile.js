@@ -43,7 +43,17 @@ function fcn_unsetOauth(button) {
     } else {
       // Failed to unset
       connection.style.background = 'var(--notice-warning-background)';
-      fcn_showNotification(response.data.error, 5, 'warning');
+
+      fcn_showNotification(
+        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+        5,
+        'warning'
+      );
+
+      // Make sure the actual error (if any) is printed to the console too
+      if (response.data.error || response.data.failure) {
+        console.error('Error:', response.data.error ?? response.data.failure);
+      }
     }
   })
   .catch(error => {
@@ -51,6 +61,8 @@ function fcn_unsetOauth(button) {
       connection.style.background = 'var(--notice-warning-background)';
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }
+
+    console.error(error);
   })
   .then(() => {
     // Regardless of outcome
@@ -113,8 +125,18 @@ function fcn_deleteMyAccount(button) {
       location.reload();
     } else {
       // Could not be deleted
-      fcn_showNotification(response.data.error, 5, 'warning');
       _$$$('button-delete-my-account').innerHTML = response.data.button;
+
+      fcn_showNotification(
+        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+        5,
+        'warning'
+      );
+
+      // Make sure the actual error (if any) is printed to the console too
+      if (response.data.error || response.data.failure) {
+        console.error('Error:', response.data.error ?? response.data.failure);
+      }
     }
   })
   .catch(error => {
@@ -122,6 +144,8 @@ function fcn_deleteMyAccount(button) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       _$$$('button-delete-my-account').innerHTML = response.data.button;
     }
+
+    console.error(error);
   });
 }
 
