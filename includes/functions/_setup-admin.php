@@ -1162,15 +1162,15 @@ function fictioneer_ajax_get_chapter_group_options() {
   $story_id = isset( $_GET['story_id'] ) ? fictioneer_validate_id( $_GET['story_id'], 'fcn_story' ) : null;
 
   if ( ! is_admin() || ! wp_doing_ajax() ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   if ( ! $user || ! current_user_can( 'edit_fcn_stories' ) ) {
-    wp_send_json_error( array( 'error' => __( 'User did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'User did not pass validation.' ) );
   }
 
   if ( ! $story_id ) {
-    wp_send_json_error( array( 'error' => __( 'Story ID did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Story ID did not pass validation.' ) );
   }
 
   // Setup

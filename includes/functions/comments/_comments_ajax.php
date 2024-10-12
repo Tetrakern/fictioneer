@@ -18,20 +18,12 @@ function fictioneer_ajax_get_comment_form() {
     ! get_option( 'fictioneer_enable_ajax_comment_form' ) &&
     ! get_option( 'fictioneer_enable_ajax_comments' )
   ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
-
-  // Nonce (disabled for now because public content, might conflict with caching)
-  // if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-  //   wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
-  // }
 
   // Validations
   if ( empty( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
-    wp_send_json_error( array( 'error' => __( 'Missing or invalid ID. Comment form could not be loaded.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Missing or invalid ID. Comment form could not be loaded.' ) );
   }
 
   // Setup
@@ -78,20 +70,12 @@ if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
 function fictioneer_ajax_get_comment_section() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_ajax_comments' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
-
-  // Nonce (disabled for now because public content, might conflict with caching)
-  // if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-  //   wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
-  // }
 
   // Validations
   if ( ! isset( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
-    wp_send_json_error( array( 'error' => __( 'Missing or invalid ID. Comments could not be loaded.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Missing or invalid ID. Comments could not be loaded.' ) );
   }
 
   // Setup
@@ -104,17 +88,17 @@ function fictioneer_ajax_get_comment_section() {
 
   // Abort if post not found
   if ( empty( $post ) ) {
-    wp_send_json_error( array( 'error' => __( 'Invalid ID. Comments could not be loaded.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Invalid ID. Comments could not be loaded.' ) );
   }
 
   // Abort if password required
   if ( post_password_required( $post ) ) {
-    wp_send_json_error( array( 'error' => __( 'Password required. Comments could not be loaded.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Password required. Comments could not be loaded.' ) );
   }
 
   // Abort if comments are closed
   if ( ! comments_open( $post ) ) {
-    wp_send_json_error( array( 'error' => __( 'Comments are closed and could not be loaded.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Comments are closed and could not be loaded.' ) );
   }
 
   // Query arguments
@@ -232,20 +216,15 @@ if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
 function fictioneer_ajax_submit_comment() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_ajax_comment_submit' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Nonce plausible?
   if ( ! fictioneer_nonce_plausibility( $_REQUEST['nonce'] ?? 0 ) ) {
     wp_send_json_error(
       array(
-        'error' => sprintf(
-          __( 'The security token appears to be malformed. Please reload and try again, or contact an administrator if the problem persists. Token: %s', 'fictioneer' ),
-          esc_html( '"' . $_REQUEST['nonce'] . '"' )
-        )
+        'failure' => __( 'The security token appears to be malformed. Please reload and try again, or contact an administrator if the problem persists.', 'fictioneer' ),
+        'error' => sprintf( 'Malformed nonce: %s', esc_html( $_REQUEST['nonce'] ) )
       )
     );
   }
@@ -253,13 +232,16 @@ function fictioneer_ajax_submit_comment() {
   // Nonce valid?
   if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
     wp_send_json_error(
-      array( 'error' => __( 'Security token expired or invalid. Please reload and try again.', 'fictioneer' ) )
+      array(
+        'failure' => __( 'Security token expired or invalid. Please reload and try again.', 'fictioneer' ),
+        'error' => 'Invalid nonce.'
+      )
     );
   }
 
   // Validations
   if ( intval( $_POST['comment_post_ID'] ?? 0 ) < 1 || ! isset( $_POST['content'] ) ) {
-    wp_send_json_error( array( 'error' => __( 'Comment did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Comment did not pass validation.' ) );
   }
 
   // Setup
@@ -274,24 +256,24 @@ function fictioneer_ajax_submit_comment() {
   $depth = max( intval( $_POST['depth'] ?? 1 ), 1 );
   $commentcode = false;
 
-  // Check privacy consent early (not checked later for AJAX posts)
-  if ( ! is_user_logged_in() && ! $privacy_consent && get_option( 'wp_page_for_privacy_policy' ) ) {
-    wp_send_json_error( array( 'error' => __( 'You did not accept the privacy policy.', 'fictioneer' ) ) );
-  }
-
   // Abort if post not found
   if ( ! $post ) {
-    wp_send_json_error( array( 'error' => __( 'Invalid ID.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Invalid post ID.' ) );
+  }
+
+  // Check privacy consent early (not checked later for AJAX posts)
+  if ( ! is_user_logged_in() && ! $privacy_consent && get_option( 'wp_page_for_privacy_policy' ) ) {
+    wp_send_json_error( array( 'failure' => __( 'You did not accept the privacy policy.', 'fictioneer' ) ) );
   }
 
   // Abort if password required
   if ( post_password_required( $post ) ) {
-    wp_send_json_error( array( 'error' => __( 'Password required.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Password required.', 'fictioneer' ) ) );
   }
 
   // Abort if comments are closed
   if ( ! comments_open( $post ) ) {
-    wp_send_json_error( array( 'error' => __( 'Comments are closed.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Comments are closed.', 'fictioneer' ) ) );
   }
 
   // Prepare arguments to create comment
@@ -338,7 +320,7 @@ function fictioneer_ajax_submit_comment() {
         array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
       );
     } elseif ( $offenders[0] ) {
-      wp_send_json_error( array( 'error' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
     }
   }
 
@@ -348,17 +330,17 @@ function fictioneer_ajax_submit_comment() {
 
     // Catch early (checked later again)
     if ( ! $parent->comment_approved ) {
-      wp_send_json_error( array( 'error' => __( 'Parent comment has not been approved yet.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'Parent comment has not been approved yet.', 'fictioneer' ) ) );
     }
 
     // Catch early (checked later again)
     if ( get_comment_meta( $parent->comment_ID, 'fictioneer_thread_closed', true ) ) {
-      wp_send_json_error( array( 'error' => __( 'Comment thread is closed.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'Comment thread is closed.', 'fictioneer' ) ) );
     }
 
     // Catch early (checked later again)
     if ( get_comment_meta( $parent->comment_ID, 'fictioneer_marked_offensive', true ) ) {
-      wp_send_json_error( array( 'error' => __( 'You cannot reply to comments marked as offensive.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'You cannot reply to comments marked as offensive.', 'fictioneer' ) ) );
     }
   }
 
@@ -454,10 +436,7 @@ if ( get_option( 'fictioneer_enable_ajax_comment_submit' ) ) {
 function fictioneer_ajax_edit_comment() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_user_comment_editing' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Setup
@@ -466,12 +445,14 @@ function fictioneer_ajax_edit_comment() {
 
   // Validations
   if ( ! $user || ! $comment_id || ! isset( $_POST['content'] ) ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Abort if comment editing capability disabled
   if ( get_user_meta( $user->ID, 'fictioneer_admin_disable_comment_editing', true ) ) {
-    wp_send_json_error( array( 'error' => __( 'Comment editing capability disabled.', 'fictioneer' ) ) );
+    wp_send_json_error(
+      array( 'failure' => __( 'Comment editing capability disabled.', 'fictioneer' ) )
+    );
   }
 
   // Get comment from database
@@ -479,17 +460,19 @@ function fictioneer_ajax_edit_comment() {
 
   // Abort if comment not found
   if ( empty( $comment ) ) {
-    wp_send_json_error( array( 'error' => __( 'Comment not found in database.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Comment not found in database.' ) );
   }
 
   // Abort if sender is not comment author
   if ( $comment['user_id'] != $user->ID ) {
-    wp_send_json_error( array( 'error' => __( 'Not the author of the comment.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Not the author of the comment.' ) );
   }
 
   // Abort if comment content is empty
   if ( empty( trim( $_POST['content'] ) ) ) {
-    wp_send_json_error( array( 'error' => __( 'Comment cannot be empty.', 'fictioneer' ) ) );
+    wp_send_json_error(
+      array( 'failure' => __( 'Comment cannot be empty.', 'fictioneer' ) )
+    );
   }
 
   // Abort if no changes were made
@@ -499,12 +482,12 @@ function fictioneer_ajax_edit_comment() {
 
   // Abort if comment is marked as offensive
   if ( get_comment_meta( $comment_id, 'fictioneer_marked_offensive', true ) ) {
-    wp_send_json_error( array( 'error' => __( 'Offensive comments cannot be edited.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Offensive comments cannot be edited.', 'fictioneer' ) ) );
   }
 
   // Abort if comment is closed (ancestors are not considered)
   if ( get_comment_meta( $comment_id, 'fictioneer_thread_closed', true ) ) {
-    wp_send_json_error( array( 'error' => __( 'Closed comments cannot be edited.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Closed comments cannot be edited.', 'fictioneer' ) ) );
   }
 
   // Check if comment can (still) be edited...
@@ -514,7 +497,7 @@ function fictioneer_ajax_edit_comment() {
   $can_edit = $edit_time < 0 || time() < $edit_time + $timestamp;
 
   if ( ! $can_edit ) {
-    wp_send_json_error( array( 'error' => __( 'Editing time has expired.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Editing time has expired.', 'fictioneer' ) ) );
   }
 
   // Check against disallow list (Settings > Discussion) if not admin
@@ -528,7 +511,7 @@ function fictioneer_ajax_edit_comment() {
         array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
       );
     } elseif ( $offenders[0] ) {
-      wp_send_json_error( array( 'error' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
+      wp_send_json_error( array( 'failure' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
     }
   }
 
@@ -568,7 +551,7 @@ function fictioneer_ajax_edit_comment() {
     );
   } else {
     // Something went wrong with the update (no details provided to frontend)
-    wp_send_json_error( array( 'error' => __( 'Comment could not be updated.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Comment could not be updated.' ) );
   }
 }
 
@@ -591,10 +574,7 @@ if ( get_option( 'fictioneer_enable_user_comment_editing' ) ) {
 function fictioneer_ajax_delete_my_comment() {
   // Enabled?
   if ( get_option( 'fictioneer_disable_comment_callback' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
+    wp_send_json_error( null, 403 );
   }
 
   // Setup
@@ -603,19 +583,19 @@ function fictioneer_ajax_delete_my_comment() {
 
   // Validations
   if ( ! $user || ! $comment_id || $comment_id < 1 ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
   // Find comment
   $comment = get_comment( $comment_id );
 
   if ( ! $comment ) {
-    wp_send_json_error( array( 'error' => __( 'Database error. Comment not found.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Comment not found in database.' ) );
   }
 
   // Match comment user with sender
   if ( $comment->user_id != $user->ID ) {
-    wp_send_json_error( array( 'error' => __( 'Permission denied. This is not your comment.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'Permission denied. This is not your comment.', 'fictioneer' ) ) );
   }
 
   // Soft-delete comment
@@ -636,7 +616,7 @@ function fictioneer_ajax_delete_my_comment() {
   // Response
   if ( ! $result ) {
     wp_send_json_error(
-      array( 'error' => __( 'Database error. Comment could not be deleted. Please try again later or contact an administrator.', 'fictioneer' ) )
+      array( 'failure' => __( 'Database error. Comment could not be deleted. Please try again later or contact an administrator.', 'fictioneer' ) )
     );
   } else {
     wp_send_json_success(

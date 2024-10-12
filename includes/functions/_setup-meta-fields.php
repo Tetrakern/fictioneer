@@ -1067,19 +1067,19 @@ function fictioneer_ajax_query_relationship_posts() {
 
   // Abort if...
   if ( empty( $action ) ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Action parameter missing.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Action parameter missing.' ) );
   }
 
   if ( empty( $nonce ) ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Nonce parameter missing.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Nonce parameter missing.' ) );
   }
 
   if ( empty( $meta_key ) ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Key parameter missing.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Key parameter missing.' ) );
   }
 
   if ( ! $user->exists() ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Not logged in.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Not logged in.' ) );
   }
 
   // Story chapter assignment?
@@ -1103,7 +1103,7 @@ function fictioneer_ajax_query_relationship_posts() {
   }
 
   // Nothing worked...
-  wp_send_json_error( array( 'error' => __( 'Error: Invalid request.', 'fictioneer' ) ) );
+  wp_send_json_error( array( 'error' => 'Invalid request.' ) );
 }
 add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax_query_relationship_posts' );
 
@@ -1160,7 +1160,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
 
   // Validations
   if ( $post->post_type !== 'fcn_story' ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Wrong post type.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Wrong post type.' ) );
   }
 
   if (
@@ -1171,7 +1171,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
       ! current_user_can( 'manage_options' )
     )
   ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Insufficient permissions.' ) );
   }
 
   // Query
@@ -1370,7 +1370,7 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
 
   // Validations
   if ( $post->post_type !== 'fcn_story' ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Wrong post type.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Wrong post type.' ) );
   }
 
   if (
@@ -1381,7 +1381,7 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
       ! current_user_can( 'manage_options' )
     )
   ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Insufficient permissions.' ) );
   }
 
   $forbidden = array_unique(
@@ -1529,7 +1529,7 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
 
   // Validations
   if ( $post->post_type !== 'fcn_collection' ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Wrong post type.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Wrong post type.' ) );
   }
 
   if (
@@ -1540,7 +1540,7 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
       ! current_user_can( 'manage_options' )
     )
   ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Insufficient permissions.' ) );
   }
 
   // Query
@@ -1658,7 +1658,7 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
 
   // Validations
   if ( $post->post_type !== 'post' ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Wrong post type.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Wrong post type.' ) );
   }
 
   if (
@@ -1669,7 +1669,7 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
       ! current_user_can( 'manage_options' )
     )
   ) {
-    wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'error' => 'Insufficient permissions.' ) );
   }
 
   // Query

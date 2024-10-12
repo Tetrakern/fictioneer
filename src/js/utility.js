@@ -749,7 +749,7 @@ function fcn_buildUrl(params = {}, url = null) {
 
 function fcn_buildErrorNotice(message, id = false, sanitize = true) {
   // Always output on console
-  console.error('Error Message', message);
+  console.error('Error:', message);
 
   // Setup
   const notice = document.createElement('div');

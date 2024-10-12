@@ -154,11 +154,11 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
       window.history.pushState({ path: refresh }, '', refresh + params + location.hash);
     } else {
-      errorNote = fcn_buildErrorNotice(response.data.error);
+      errorNote = fcn_buildErrorNotice(response.data.error); // Also writes to the console
     }
   })
   .catch(error => {
-    errorNote = fcn_buildErrorNotice(error);
+    errorNote = fcn_buildErrorNotice(error); // Also writes to the console
   })
   .then(() => {
     // Update view regardless of success

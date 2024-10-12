@@ -441,12 +441,17 @@ function fcn_bindAJAXCommentSubmit() {
         // Add error message
         form.insertBefore(
           fcn_buildErrorNotice(
-            response.data?.error ?? fictioneer_tl.notification.error,
+            response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
             'comment-submit-error-notice',
             false
           ),
           form.firstChild
         );
+
+        // Make sure the actual error (if any) is printed to the console too
+        if (response.data.failure && response.data.error) {
+          console.error('Error:', response.data.error);
+        }
       } else {
         // Insert new comment
         let target = _$('.commentlist');
@@ -552,7 +557,7 @@ function fcn_bindAJAXCommentSubmit() {
 
       // Add error message
       form.insertBefore(
-        fcn_buildErrorNotice(`${error.status}: ${error.statusText}`, 'comment-submit-error-notice'),
+        fcn_buildErrorNotice(`${error.statusText} (${error.status})`, 'comment-submit-error-notice'),
         form.firstChild
       );
     })
@@ -671,8 +676,15 @@ function fcn_submitInlineCommentEdit(source) {
         fcn_restoreComment(red, true);
 
         // Show error notice
-        if (response.data?.error) {
-          fcn_showNotification(response.data.error, 5, 'warning');
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          5,
+          'warning'
+        );
+
+        // Make sure the actual error (if any) is printed to the console too
+        if (response.data.failure || response.data.error) {
+          console.error('Error:', response.data.error ?? response.data.failure);
         }
       }
     })
@@ -682,8 +694,10 @@ function fcn_submitInlineCommentEdit(source) {
 
       // Show server error
       if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
+        fcn_showNotification(`${error.statusText} (${error.status})`, 5, 'warning');
       }
+
+      console.error(error);
     })
     .then(() => {
       // Regardless of result
@@ -851,8 +865,15 @@ function fcn_deleteMyComment(button) {
       comment.classList.add('_deleted');
       comment.querySelector('.fictioneer-comment__container').innerHTML = response.data.html;
     } else {
-      if (response.data.error) {
-        fcn_showNotification(response.data.error, 5, 'warning');
+      fcn_showNotification(
+        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+        5,
+        'warning'
+      );
+
+      // Make sure the actual error (if any) is printed to the console too
+      if (response.data.failure || response.data.error) {
+        console.error('Error:', response.data.error ?? response.data.failure);
       }
     }
   })
@@ -860,6 +881,8 @@ function fcn_deleteMyComment(button) {
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }
+
+    console.error(error);
   })
   .then(() => {
     // Update view regardless of success

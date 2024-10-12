@@ -736,10 +736,11 @@ function fcn_setGroupDataList(source) {
     if (response.success) {
       const list = fcn_html`<datalist id="${listID}">${response.data.html}</datalist>>`;
       document.body.appendChild(list);
-    } else {
-      // For potential future debugging
-      response.data.error && console.log(response.data.error);
+    } else if (response.data.error) {
+      console.error('Error:', response.data.error);
     }
+  }).catch(error => {
+    console.error(error);
   });
 }
 
@@ -988,11 +989,13 @@ function fcn_queryRelationshipPosts(payload, container, append = true) {
 
       fcn_observeRelationshipSource(container);
     } else {
-      errorMessage = response.data.error;
+      errorMessage = `Error: ${response.data.error}`;
+      console.error('Error:', response.data.error);
     }
   })
   .catch(error => {
     errorMessage = error;
+    console.error(error);
   })
   .then(() => {
     if (errorMessage) {
@@ -1278,7 +1281,7 @@ function fcn_intervalAction(trigger, action, payload = {}) {
     }
   })
   .catch(error => {
-    console.error('Error:', error);
+    console.error(error);
   });
 }
 

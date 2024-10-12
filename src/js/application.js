@@ -1560,7 +1560,7 @@ function fcn_contactFormSubmit(button) {
       button.innerHTML = button.dataset.enabled;
     }
 
-    console.error('Error:', error);
+    console.error(error);
   })
   .then(() => {
     // Regardless of outcome
