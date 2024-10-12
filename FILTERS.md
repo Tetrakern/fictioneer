@@ -54,9 +54,9 @@ Filters the data to be returned as JSON by the `fictioneer_ajax_get_user_data()`
 ---
 
 ### `apply_filters( 'fictioneer_filter_allowed_chapter_permalinks', $statuses )`
-Filters the array of chapter statuses that control whether the chapter permalink is rendered in the `fictioneer_story_chapters()` function. By default, the statuses only include `['publish']`.
+Filters the array of chapter statuses that control whether the chapter permalink is rendered in the `fictioneer_prepare_chapter_groups()` function. By default, the statuses only include `['publish']`.
 
-**Note:** `fictioneer_story_chapters()` is hooked as action into `fictioneer_story_after_content` (priority 43).
+**Note:** Used by `fictioneer_story_chapters()`.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.

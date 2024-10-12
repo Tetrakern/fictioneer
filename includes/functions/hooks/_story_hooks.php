@@ -488,8 +488,6 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
  */
 
 function fictioneer_story_chapters( $args ) {
-  global $post;
-
   // Abort conditions...
   if ( $args['password_required'] ?? post_password_required() ) {
     return;
@@ -513,8 +511,6 @@ function fictioneer_story_chapters( $args ) {
   $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
   $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) ||
     get_option( 'fictioneer_hide_chapter_icons' );
-  $enable_groups = get_option( 'fictioneer_enable_chapter_groups' ) &&
-    ! get_post_meta( $story_id, 'fictioneer_story_disable_groups', true );
   $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true );
   $collapse_groups = get_option( 'fictioneer_collapse_groups_by_default' );
 
@@ -525,69 +521,12 @@ function fictioneer_story_chapters( $args ) {
   <section class="story__tab-target _current story__chapters" data-finder="chapters" data-order="asc" data-view="list">
     <?php
       $chapters = fictioneer_get_story_chapter_posts( $story_id );
-      $chapter_groups = [];
+      $chapter_groups = fictioneer_prepare_chapter_groups( $story_id, $chapters );
       $group_classes = [];
-      $allowed_permalinks = apply_filters( 'fictioneer_filter_allowed_chapter_permalinks', ['publish'] );
 
+      // Hide icons?
       if ( $hide_icons ) {
         $group_classes[] = '_no-icons';
-      }
-
-      // Loop chapters and prepare groups
-      if ( ! empty( $chapters ) ) {
-        // Prepare chapter groups
-        foreach ( $chapters as $post ) {
-          // Setup
-          setup_postdata( $post );
-          $chapter_id = get_the_ID();
-
-          // Skip missing or not visible chapters
-          if ( ! $post || get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
-            continue;
-          }
-
-          // Data
-          $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
-          $group = empty( $group ) ? fcntr( 'unassigned_group' ) : $group;
-          $group = $enable_groups ? $group : 'all_chapters';
-          $group_key = sanitize_title( $group );
-
-          if ( ! array_key_exists( $group_key, $chapter_groups ) ) {
-            $chapter_groups[ $group_key ] = array(
-              'group' => $group,
-              'toggle_icon' => 'fa-solid fa-chevron-down',
-              'data' => [],
-              'count' => 0,
-              'classes' => array(
-                '_group-' . sanitize_title( $group ),
-                "_story-{$story_id}"
-              )
-            );
-          }
-
-          $chapter_groups[ $group_key ]['data'][] = array(
-            'id' => $chapter_id,
-            'story_id' => $story_id,
-            'status' => $post->post_status,
-            'link' => in_array( $post->post_status, $allowed_permalinks ) ? get_permalink( $post->ID ) : '',
-            'timestamp' => get_the_time( 'U' ),
-            'password' => ! empty( $post->post_password ),
-            'list_date' => get_the_date( '', $post ),
-            'grid_date' => get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ),
-            'icon' => fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id ),
-            'text_icon' => get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true ),
-            'prefix' => get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true ),
-            'title' => fictioneer_get_safe_title( $chapter_id, 'story-chapter-list' ),
-            'list_title' => get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true ),
-            'words' => fictioneer_get_word_count( $chapter_id ),
-            'warning' => get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true )
-          );
-
-          $chapter_groups[ $group_key ]['count'] += 1;
-        }
-
-        // Reset postdata
-        wp_reset_postdata();
       }
 
       // Pre-collapse?
@@ -600,6 +539,7 @@ function fictioneer_story_chapters( $args ) {
         $group_index = 0;
         $has_groups = count( $chapter_groups ) > 1 && get_option( 'fictioneer_enable_chapter_groups' );
 
+        // Loop over groups (or one group for all if disabled)...
         foreach ( $chapter_groups as $group ) {
           $group_index++;
 
