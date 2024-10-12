@@ -3699,6 +3699,171 @@ function fictioneer_get_post_type_label( $type ) {
 }
 
 // =============================================================================
+// LOGS
+// =============================================================================
+
+/**
+ * Returns (or creates) secret log hash used to obscure the log file name
+ *
+ * @since 5.24.1
+ *
+ * @return string  The log hash.
+ */
+
+function fictioneer_get_log_hash() {
+  $hash = strval( get_option( 'fictioneer_log_hash' ) );
+
+  if ( ! empty( $hash ) ) {
+    return $hash;
+  }
+
+  $hash = wp_generate_password( 32, false );
+
+  update_option( 'fictioneer_log_hash', $hash, 'no' );
+
+  return $hash;
+}
+
+/**
+ * Logs a message to the theme log file
+ *
+ * @since 5.0.0
+ *
+ * @param string       $message  What has been updated
+ * @param WP_User|null $user     The user who did it. Defaults to current user.
+ */
+
+function fictioneer_log( $message, $current_user = null ) {
+  // Setup
+  $current_user = $current_user ?? wp_get_current_user();
+  $username = _x( 'System', 'Default name in logs.', 'fictioneer' );
+  $log_hash = fictioneer_get_log_hash();
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-log.log";
+  $log_limit = 5000;
+  $date = current_time( 'mysql', true );
+
+  if ( is_object( $current_user ) && $current_user->ID > 0 ) {
+    $username = $current_user->user_login . ' #' . $current_user->ID;
+  }
+
+  if ( empty( $current_user ) && wp_doing_cron() ) {
+    $username = 'WP Cron';
+  }
+
+  if ( empty( $current_user ) && wp_doing_ajax() ) {
+    $username = 'AJAX';
+  }
+
+  $username = empty( $username ) ? __( 'Anonymous', 'fictioneer' ) : $username;
+
+  // Make sure the log file exists
+  if ( ! file_exists( $log_file ) ) {
+    file_put_contents( $log_file, '' );
+  }
+
+  // Read
+  $log_contents = file_get_contents( $log_file );
+
+  // Parse
+  $log_entries = explode( "\n", $log_contents );
+
+  // Limit (if too large)
+  $log_entries = array_slice( $log_entries, -($log_limit + 1) );
+
+  // Add new entry
+  $log_entries[] = "[{$date} UTC] [{$username}] $message";
+
+  // Concatenate and save
+  file_put_contents( $log_file, implode( "\n", $log_entries ) );
+
+  // Set file permissions
+  chmod( $log_file, 0600 );
+
+  // Security
+  $silence = WP_CONTENT_DIR . '/index.php';
+
+  if ( ! file_exists( $silence ) ) {
+    file_put_contents( $silence, "<?php\n// Silence is golden.\n" );
+    chmod( $silence, 0600 );
+  }
+}
+
+/**
+ * Retrieves the log entries and returns an HTML representation
+ *
+ * @return string The HTML representation of the log entries.
+ */
+
+function fictioneer_get_log() {
+  // Setup
+  $log_hash = fictioneer_get_log_hash();
+  $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-log.log";
+  $output = '';
+
+  // Check whether log file exists
+  if ( ! file_exists( $log_file ) ) {
+    return '<ul class="fictioneer-log"><li class="fictioneer-log__item">No log entries yet.</li></ul>';
+  }
+
+  // Read
+  $log_contents = file_get_contents( $log_file );
+
+  // Parse
+  $log_entries = explode( "\n", $log_contents );
+
+  // Limit display to 250
+  $log_entries = array_slice( $log_entries, -250 );
+
+  // Reverse
+  $log_entries = array_reverse( $log_entries );
+
+  // Build list items
+  foreach ( $log_entries as $entry ) {
+    $output .= '<li class="fictioneer-log__item">' . esc_html( $entry ) . '</li>';
+  }
+
+  // Return HTML
+  return '<ul class="fictioneer-log">' . $output . '</ul>';
+}
+
+/**
+ * Retrieves the debug log entries and returns an HTML representation
+ *
+ * @return string The HTML representation of the log entries.
+ */
+
+function fictioneer_get_wp_debug_log() {
+  // Setup
+  $log_file = WP_CONTENT_DIR . '/debug.log';
+  $output = '';
+
+  // Check whether log file exists
+  if ( ! file_exists( $log_file ) ) {
+    return '<ul class="fictioneer-log _wp-debug-log"><li class="fictioneer-log__item">No log entries yet.</li></ul>';
+  }
+
+  // Read
+  $log_contents = file_get_contents( $log_file );
+
+  // Parse
+  $log_entries = explode( "\n", $log_contents );
+
+  // Limit display to 250
+  $log_entries = array_slice( $log_entries, -250 );
+
+  // Reverse
+  $log_entries = array_reverse( $log_entries );
+
+  // Build list items
+  foreach ( $log_entries as $entry ) {
+    $output .= '<li class="fictioneer-log__item _wp-debug-log">' . esc_html( $entry ) . '</li>';
+  }
+
+  // Return HTML
+  return '<ul class="fictioneer-log _wp-debug-log">' . $output . '</ul>';
+}
+
+// =============================================================================
 // AJAX REQUESTS
 // > Return early if no AJAX functions are required.
 // =============================================================================
