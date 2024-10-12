@@ -479,10 +479,11 @@ function fictioneer_purge_theme_caches() {
   // Query result cache registry
   delete_option( 'fictioneer_query_cache_registry' );
 
-  // Transients
-  fictioneer_delete_layout_transients();
-  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
-  fictioneer_delete_transients_like( 'fictioneer_', true ); // Fast, but not safe for external object caches
+  // Transients (fast)
+  fictioneer_delete_transients_like( 'fictioneer_', true );
+
+  // Object cache
+  wp_cache_flush();
 
   // Log
   fictioneer_log( __( 'Purged theme caches.', 'fictioneer' ) );

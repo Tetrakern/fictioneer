@@ -237,8 +237,11 @@ add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
  */
 
 function fictioneer_purge_caches_after_update() {
-  // Transients (fast, assuming this also causes a purge of external object caches)
+  // Transients (fast)
   fictioneer_delete_transients_like( 'fictioneer_', true );
+
+  // Object cache
+  wp_cache_flush();
 
   // Cache busting string
   fictioneer_regenerate_cache_bust();

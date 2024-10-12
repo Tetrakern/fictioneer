@@ -13,8 +13,11 @@
  */
 
 function fictioneer_watch_for_customizer_updates() {
-  // Transient caches
-  fictioneer_delete_layout_transients();
+  // Transients (fast)
+  fictioneer_delete_transients_like( 'fictioneer_', true );
+
+  // Object cache
+  wp_cache_flush();
 
   // Rebuild customize stylesheet
   fictioneer_build_customize_css();
