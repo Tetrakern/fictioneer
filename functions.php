@@ -342,11 +342,6 @@ if ( ! defined( 'FICTIONEER_RELATIONSHIP_PURGE_ASSIST' ) ) {
   define( 'FICTIONEER_RELATIONSHIP_PURGE_ASSIST', true );
 }
 
-// Boolean: Cache chapter lists on story pages as Transients
-if ( ! defined( 'FICTIONEER_CHAPTER_LIST_TRANSIENTS' ) ) {
-  define( 'FICTIONEER_CHAPTER_LIST_TRANSIENTS', true );
-}
-
 // Boolean: Menu items for search
 if ( ! defined( 'FICTIONEER_SHOW_SEARCH_IN_MENUS' ) ) {
   define( 'FICTIONEER_SHOW_SEARCH_IN_MENUS', true );

@@ -1592,7 +1592,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_QUERY_RESULT_CACHE_BREAK | integer | Limit the number of large query result cache uploads per request. Default `3`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
-| FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
 | FICTIONEER_SHOW_SEARCH_IN_MENUS | boolean | Whether to show search page links in menus. Default `true`.
 | FICTIONEER_THEME_SWITCH | boolean | Whether to show the theme switch in child themes (back to base). Default `true`.
 | FICTIONEER_ATTACHMENT_PAGES | boolean | Whether to enable pages for attachments (no theme templates). Default `false`.
