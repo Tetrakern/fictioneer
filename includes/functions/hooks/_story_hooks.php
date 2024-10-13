@@ -493,9 +493,7 @@ function fictioneer_story_chapters( $args ) {
     return;
   }
 
-  $enable_transients = FICTIONEER_CHAPTER_LIST_TRANSIENTS &&
-    ! fictioneer_caching_active( 'story_chapter_list' ) &&
-    ! is_customize_preview();
+  $enable_transients = fictioneer_enable_chapter_list_transients( $args['story_id'] );
 
   // Check for cached chapters output
   if ( $enable_transients ) {

@@ -1380,6 +1380,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_chapter_list_transients',
+                    __( 'Disable chapter list Transient caching', 'fictioneer' ),
+                    __( 'Only do if you encounter problems.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_properties',
                     __( 'Disable Fictioneer CSS properties', 'fictioneer' ),
                     __( 'Only do this if you define everything yourself.', 'fictioneer' ),
