@@ -175,7 +175,7 @@ Fires right before the comment section outside the `<article>` but still within 
 ---
 
 ### `do_action( 'fictioneer_body', $args )`
-Fires after `wp_body_open()` in the `<body>` right before the inline storage element (for scripts) and notifications, outside the layout. Normally includes the modals and mobile menu.
+Fires after `wp_body_open()` in the `<body>` right before the notifications container element, outside the layout. Normally includes the mobile menu.
 
 **$args:**
 * $post_id (int|null) – Current post ID. Unsafe.
