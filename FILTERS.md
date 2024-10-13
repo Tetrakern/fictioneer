@@ -115,6 +115,33 @@ Filters the intermediate output array in the `_article-cards.php` partial before
 
 ---
 
+### `apply_filters( 'fictioneer_filter_body_attributes', $attributes, $args )`
+Filters the intermediate output array of additional body attributes (except `class` which is handled by `body_class()`) before it is mapped, escaped, imploded, and rendered in the `header.php` template.
+
+**$attributes:**
+* `data-post-id` (int) – Current post ID (or -1 if null).
+* `data-story-id` (int|null) – Current story ID (if any). Unsafe.
+
+**$args:**
+* `post_id` (int|null) – Current post ID. Unsafe.
+* `post_type` (string|null) – Current post type. Unsafe.
+* `story_id` (int|null) – Current story ID (if chapter). Unsafe.
+* `header_image_url` (string|boolean) – URL of the filtered header image or false.
+* `header_image_source` (string) – Source of the header image. Either `'default'`, `'post'`, or `'story'`.
+* `header_args` (array) – Arguments passed to the header.php partial.
+
+**Example:**
+```php
+function child_add_body_attributes( $attributes ) {
+  $attributes['data-permalink'] = get_permalink();
+
+  return $attributes;
+}
+add_filter( 'fictioneer_filter_body_attributes', 'child_add_body_attributes' );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_breadcrumbs_array', $breadcrumbs, $args )`
 Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $args )` function before the HTML is build.
 

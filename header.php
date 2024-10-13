@@ -98,6 +98,9 @@ if ( $story_id ) {
   $body_attributes['data-story-id'] = $story_id;
 }
 
+$body_attributes = apply_filters( 'fictioneer_filter_body_attributes', $body_attributes, $action_args );
+unset( $body_attributes['class'] ); // Prevent mistakes
+
 $body_attributes = array_map(
   function ( $key, $value ) { return $key . '="' . esc_attr( $value ) . '"'; },
   array_keys( $body_attributes ),
