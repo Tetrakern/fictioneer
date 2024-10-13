@@ -134,18 +134,22 @@ if ( ! defined( 'FICTIONEER_ENABLE_QUERY_RESULT_CACHING' ) ) {
  *
  * @since 5.6.3
  * @since 5.23.1 - Do not turn off with cache plugin
+ * @since 5.25.0 - Refactored with option
+ *
+ * @param string $shortcode  The shortcode in question.
  *
  * @return boolean Either true or false.
  */
 
-function fictioneer_enable_shortcode_transients() {
+function fictioneer_enable_shortcode_transients( $shortcode = null ) {
   if ( is_customize_preview() ) {
     return false;
   }
 
-  $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1;
+  $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 &&
+    ! get_option( 'fictioneer_disable_shortcode_transients' );
 
-  return apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool );
+  return apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool, $shortcode );
 }
 
 /**

@@ -1384,6 +1384,17 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_shortcode_transients',
+                    __( 'Disable shortcode Transient caching', 'fictioneer' ),
+                    __( 'Only do if shortcodes are not properly updated.', 'fictioneer' ),
+                    __( 'Shortcodes rely on complex queries with many optional parameters, which can be slow and resource-intensive if you use too many or have a very large database. Caching them in Transients for a period (default is 300 seconds) significantly reduces server strain but may conflict with other caching solutions.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_comment_form',
                     __( 'Enable AJAX comment form', 'fictioneer' ),
                     __( 'Load the comment form via AJAX to circumvent caching.', 'fictioneer' ),

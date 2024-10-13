@@ -1682,7 +1682,7 @@ Filters the WP_Query arguments in the `fictioneer_showcase` shortcode. The optio
 ---
 
 ### `apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool )`
-Filters the boolean return value of the `fictioneer_enable_shortcode_transients()` function. By default, this depends on the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant being greater than -1 and the `fictioneer_caching_active()` function returning false. Because the Transients would interfere with caching. If you exclude a page from caching, it might make sense to turn them on for that page.
+Filters the boolean return value of the `fictioneer_enable_shortcode_transients()` function. By default, this depends on the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant being greater than -1. Because the Transients would interfere with caching. If you exclude a page from caching, it might make sense to turn them on for that page.
 
 **Parameter:**
 * $bool (boolean) – Whether the Transients are enabled or not by default.
