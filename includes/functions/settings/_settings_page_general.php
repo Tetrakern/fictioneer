@@ -1305,7 +1305,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Compatibility', 'fictioneer' ); ?></h3>
+            <h3 class="fictioneer-card__header"><?php _e( 'Caching', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
               <?php
@@ -1318,6 +1318,110 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   echo '</p></div>';
                 }
               ?>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_purge_all_caches',
+                    __( 'Purge all caches on content updates', 'fictioneer' ),
+                    __( 'Inefficient but makes sure everything is up-to-date.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_cache_compatibility',
+                    __( 'Enable cache compatibility mode', 'fictioneer' ),
+                    __( 'Make the theme aware of unknown caching plugins.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_public_cache_compatibility',
+                    __( 'Enable public cache compatibility mode', 'fictioneer' ),
+                    __( 'For serving public caches to logged-in users. Exceptions for administrators and moderators are recommended.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_private_cache_compatibility',
+                    __( 'Enable private cache compatibility mode', 'fictioneer' ),
+                    __( 'For serving private caches to logged-in users. Also useful if you do not serve caches to logged-in users at all.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_menu_transients',
+                    __( 'Disable menu Transient caching', 'fictioneer' ),
+                    __( 'Only do this if you render dynamic content in the menus.', 'fictioneer' ),
+                    __( 'Compiling navigation menus is an extensive operation that involves multiple database queries. If you are not displaying dynamic content, such as points or other constantly changing data, it is best to cache the menus to avoid repeating the same queries for identical results.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_chapter_list_transients',
+                    __( 'Disable chapter list Transient caching', 'fictioneer' ),
+                    __( 'Only do if lists on story pages are outdated.', 'fictioneer' ),
+                    __( 'Compiling grouped chapter lists on story pages can place significant strain on your server, especially if you have hundreds of chapters per story that all need to be queried. Only disable this if your stories are small (fewer than 50 chapters) or if you have another solution, such as a caching plugin.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_ajax_comment_form',
+                    __( 'Enable AJAX comment form', 'fictioneer' ),
+                    __( 'Load the comment form via AJAX to circumvent caching.', 'fictioneer' ),
+                    __( 'The AJAX comment form avoids conflicts with caching, especially issues with dynamic security tokens that are unique to each user. By loading the form after the page has fully loaded, it circumvents the cache, though it may require more server resources.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_ajax_comments',
+                    __( 'Enable AJAX comment section', 'fictioneer' ),
+                    __( 'Load the comment section and form via AJAX. More server work but circumvents caching.', 'fictioneer' ),
+                    __( 'The AJAX comment section avoids conflicts with caching, including the AJAX comment form, ensuring that comments are always up-to-date. By loading the comments after the page has fully loaded, it circumvents the cache, though it may require more server resources.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_ajax_authentication',
+                    __( 'Enable AJAX user authentication', 'fictioneer' ),
+                    __( 'Check for user login state after the page has been loaded to get around anonymizing caching strategies.', 'fictioneer' ),
+                    __( 'This is a <em>last-resort measure</em> for aggressive caching strategies, such as options to serve public caches to logged-in users. It queries for the user’s login state after the page has loaded. This requires more server resources, but can help when everything else fails.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Compatibility', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
                 <?php
@@ -1362,27 +1466,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                       __( 'Normally, the <a href="%s" target="_blank" rel="noopener noreferrer">Splide slider</a> script and style are only loaded when a shortcode with the required parameter is found in the post content. However, if you want to use Splide in other ways, you can enable the assets globally here.', 'fictioneer' ),
                       'https://splidejs.com/guides/options/'
                     )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_menu_transients',
-                    __( 'Disable menu Transient caching', 'fictioneer' ),
-                    __( 'Only do this if you render dynamic content in the menus.', 'fictioneer' ),
-                    __( 'Compiling navigation menus is an extensive operation that involves multiple database queries. If you are not displaying dynamic content, such as points or other constantly changing data, it is best to cache the menus to avoid repeating the same queries for identical results.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_chapter_list_transients',
-                    __( 'Disable chapter list Transient caching', 'fictioneer' ),
-                    __( 'Only do if you encounter problems.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -1442,46 +1525,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_purge_all_caches',
-                    __( 'Purge all caches on content updates', 'fictioneer' ),
-                    __( 'Inefficient but makes sure everything is up-to-date.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_cache_compatibility',
-                    __( 'Enable cache compatibility mode', 'fictioneer' ),
-                    __( 'Make the theme aware of unknown caching plugins.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_public_cache_compatibility',
-                    __( 'Enable public cache compatibility mode', 'fictioneer' ),
-                    __( 'For serving public caches to logged-in users. Exceptions for administrators and moderators are recommended.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_private_cache_compatibility',
-                    __( 'Enable private cache compatibility mode', 'fictioneer' ),
-                    __( 'For serving private caches to logged-in users. Also useful if you do not serve caches to logged-in users at all.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_all_blocks',
                     __( 'Enable all Gutenberg blocks', 'fictioneer' ),
                     __( 'No guarantee these blocks work with the theme.', 'fictioneer' ),
@@ -1506,39 +1549,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_disable_theme_logout',
                     __( 'Disable theme logout without nonce', 'fictioneer' ),
                     __( 'Return to the default WordPress logout with nonce.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_ajax_comment_form',
-                    __( 'Enable AJAX comment form', 'fictioneer' ),
-                    __( 'Load the comment form via AJAX to circumvent caching.', 'fictioneer' ),
-                    __( 'The AJAX comment form avoids conflicts with caching, especially issues with dynamic security tokens that are unique to each user. By loading the form after the page has fully loaded, it circumvents the cache, though it may require more server resources.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_ajax_comments',
-                    __( 'Enable AJAX comment section', 'fictioneer' ),
-                    __( 'Load the comment section and form via AJAX. More server work but circumvents caching.', 'fictioneer' ),
-                    __( 'The AJAX comment section avoids conflicts with caching, including the AJAX comment form, ensuring that comments are always up-to-date. By loading the comments after the page has fully loaded, it circumvents the cache, though it may require more server resources.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_ajax_authentication',
-                    __( 'Enable AJAX user authentication', 'fictioneer' ),
-                    __( 'Check for user login state after the page has been loaded to get around anonymizing caching strategies.', 'fictioneer' ),
-                    __( 'This is a <em>last-resort measure</em> for aggressive caching strategies, such as options to serve public caches to logged-in users. It queries for the user’s login state after the page has loaded. This requires more server resources, but can help when everything else fails.', 'fictioneer' )
                   );
                 ?>
               </div>
