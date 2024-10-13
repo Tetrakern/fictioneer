@@ -802,18 +802,6 @@ function fictioneer_add_classes_to_body( $classes ) {
     $includes['is-editor'] = fictioneer_is_editor( $user->ID );
   }
 
-  // Browsers
-  if ( ! fictioneer_caching_active( 'device_body_classes' ) ) {
-    $includes['is-iphone'] = $GLOBALS['is_iphone'];
-    $includes['is-chrome'] = $GLOBALS['is_chrome'];
-    $includes['is-safari'] = $GLOBALS['is_safari'];
-    $includes['is-opera'] = $GLOBALS['is_opera'];
-    $includes['is-gecko'] = $GLOBALS['is_gecko'];
-    $includes['is-lynx'] = $GLOBALS['is_lynx'];
-    $includes['is-ie'] = $GLOBALS['is_IE'];
-    $includes['is-edge'] = $GLOBALS['is_edge'];
-  }
-
   // Add classes to defaults
   foreach ( $includes as $class => $test )  {
     if ( $test ) {
