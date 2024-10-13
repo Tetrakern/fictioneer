@@ -2354,8 +2354,10 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
  * 
  * @since 5.25.0
  *
- * @param array  $atts    Shortcode attributes.
+ * @param string $atts['header']   Optional. Header of the tooltip.
+ * @param string $atts['content']  Content of the tooltip.
  * @param string $content Shortcode content.
+ * 
  * @return string The shortcode HTML.
  */
 function fictioneer_shortcode_tooltip( $atts, $content = null ) {
@@ -2432,6 +2434,7 @@ add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
  * @since 5.25.0
  *
  * @param int    $tooltip_count Tooltip counter.
+ * 
  * @param string $content       Footnote content.
  */
 function fictioneer_store_footnote( $tooltip_count, $content ) {
@@ -2453,6 +2456,7 @@ add_action( 'fictioneer_after_tooltip_shortcode', 'fictioneer_store_footnote', 1
  * @since 5.25.0
  *
  * @param string $content The post content.
+ * 
  * @return string The post content with footnotes.
  */
 function fictioneer_render_footnotes( $content ) {
