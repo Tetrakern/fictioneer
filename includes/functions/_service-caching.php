@@ -194,7 +194,7 @@ function fictioneer_enable_menu_transients( $location ) {
   }
 
   return apply_filters(
-    'fictioneer_enable_menu_transients',
+    'fictioneer_filter_enable_menu_transients',
     ! get_option( 'fictioneer_disable_menu_transients' ),
     $location
   );
