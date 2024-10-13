@@ -2434,8 +2434,9 @@ add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
  * @since 5.25.0
  *
  * @param int    $tooltip_count Tooltip counter.
- * 
  * @param string $content       Footnote content.
+ * 
+ * @return void
  */
 function fictioneer_store_footnote( $tooltip_count, $content ) {
     global $fictioneer_footnotes;
