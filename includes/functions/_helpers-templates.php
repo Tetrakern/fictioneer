@@ -238,6 +238,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    *
    * @since 4.7.0
    * @since 5.9.4 - Removed output buffer.
+   * @since 5.25.0 - Use cache bust string instead of version.
    *
    * @param string $icon     Name of the icon that matches the svg.
    * @param string $classes  Optional. String of CSS classes.
@@ -248,7 +249,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    */
 
   function fictioneer_get_icon( $icon, $classes = '', $id = '', $inserts = '' ) {
-    return '<svg id="' . $id . '" ' . $inserts . ' class="icon _' . $icon . ' ' . $classes . '">' . '<use xlink:href="' . esc_url( home_url( '/wp-content/themes/fictioneer/img/icon-sprite.svg?ver=' . FICTIONEER_VERSION . '#icon-' . $icon ) ) . '"></use></svg>';
+    return '<svg id="' . $id . '" ' . $inserts . ' class="icon _' . $icon . ' ' . $classes . '">' . '<use xlink:href="' . esc_url( home_url( '/wp-content/themes/fictioneer/img/icon-sprite.svg?ver=' . fictioneer_get_cache_bust() . '#icon-' . $icon ) ) . '"></use></svg>';
   }
 }
 
