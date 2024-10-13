@@ -80,8 +80,9 @@ function fictioneer_footer_menu_row( $args ) {
     <div class="footer__menu"><?php
       if ( has_nav_menu( 'footer_menu' ) ) {
         $menu = null;
+        $transient_enabled = fictioneer_enable_menu_transients( 'footer_menu' );
 
-        if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+        if ( $transient_enabled ) {
           $menu = get_transient( 'fictioneer_footer_menu_html' );
         }
 
@@ -103,7 +104,7 @@ function fictioneer_footer_menu_row( $args ) {
             $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
           }
 
-          if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+          if ( $transient_enabled ) {
             set_transient( 'fictioneer_footer_menu_html', $menu );
           }
         }

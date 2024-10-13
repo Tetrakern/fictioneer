@@ -403,11 +403,6 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE' ) ) {
   define( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE', true );
 }
 
-// Boolean: Enable nav menu Transients
-if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
-  define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', ! get_option( 'fictioneer_disable_menu_transients', false ) );
-}
-
 // Boolean: Order stories by last updated chapter timestamp
 if ( ! defined( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER' ) ) {
   define( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER', false );

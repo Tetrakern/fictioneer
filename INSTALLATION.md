@@ -1604,7 +1604,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_API_STORYGRAPH_CHAPTERS | boolean | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
-| FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.
 | FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.
 | FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.
 | FICTIONEER_DEFER_SCRIPTS | boolean | Whether to defer scripts or load them in the footer. Default `true`.

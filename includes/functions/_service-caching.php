@@ -173,6 +173,29 @@ function fictioneer_enable_chapter_list_transients( $post_id ) {
   return apply_filters( 'fictioneer_filter_enable_chapter_list_transients', $bool, $post_id );
 }
 
+/**
+ * Whether to enable Transients for menus
+ *
+ * @since 5.25.0
+ *
+ * @param string $location  Location identifier of the menu. Possible locations are
+ *                          'nav_menu', 'mobile_nav_menu', and 'footer_menu'.
+ *
+ * @return boolean Either true or false.
+ */
+
+function fictioneer_enable_menu_transients( $location ) {
+  if ( is_customize_preview() ) {
+    return false;
+  }
+
+  return apply_filters(
+    'fictioneer_enable_menu_transients',
+    ! get_option( 'fictioneer_disable_menu_transients' ),
+    $location
+  );
+}
+
 // =============================================================================
 // PURGE CACHES
 // =============================================================================

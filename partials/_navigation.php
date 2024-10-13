@@ -64,8 +64,9 @@ if ( $header_style === 'wide' ) {
           if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'nav_menu' ) ) {
             if ( has_nav_menu( 'nav_menu' ) ) {
               $menu = null;
+              $transient_enabled = fictioneer_enable_menu_transients( 'nav_menu' );
 
-              if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+              if ( $transient_enabled ) {
                 $menu = get_transient( 'fictioneer_main_nav_menu_html' );
               }
 
@@ -85,7 +86,7 @@ if ( $header_style === 'wide' ) {
                   $menu = str_replace( ['current_page_item', 'current-menu-item', 'aria-current="page"'], '', $menu );
                 }
 
-                if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+                if ( $transient_enabled ) {
                   set_transient( 'fictioneer_main_nav_menu_html', $menu );
                 }
               }

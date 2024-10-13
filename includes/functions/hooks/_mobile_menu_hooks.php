@@ -263,8 +263,9 @@ function fictioneer_mobile_navigation_panel() {
     if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'mobile_nav_menu' ) ) {
       if ( has_nav_menu( 'nav_menu' ) ) {
         $menu = null;
+        $transient_enabled = fictioneer_enable_menu_transients( 'mobile_nav_menu' );
 
-        if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+        if ( $transient_enabled ) {
           $menu = get_transient( 'fictioneer_mobile_nav_menu_html' );
         }
 
@@ -284,7 +285,7 @@ function fictioneer_mobile_navigation_panel() {
             $menu = str_replace( ['current_page_item', 'current-menu-item', 'aria-current="page"'], '', $menu );
           }
 
-          if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+          if ( $transient_enabled ) {
             set_transient( 'fictioneer_mobile_nav_menu_html', $menu );
           }
         }
