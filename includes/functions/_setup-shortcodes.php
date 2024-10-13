@@ -2351,6 +2351,8 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
 
 /**
  * Shortcode to add tooltip modal
+ * 
+ * @since 5.25.0
  *
  * @param array  $atts    Shortcode attributes.
  * @param string $content Shortcode content.
@@ -2426,6 +2428,8 @@ add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
 
 /**
  * Store footnotes for later use
+ * 
+ * @since 5.25.0
  *
  * @param int    $tooltip_count Tooltip counter.
  * @param string $content       Footnote content.
@@ -2445,6 +2449,8 @@ add_action( 'fictioneer_after_tooltip_shortcode', 'fictioneer_store_footnote', 1
 
 /**
  * Renders the footnotes after the content
+ * 
+ * @since 5.25.0
  *
  * @param string $content The post content.
  * @return string The post content with footnotes.
