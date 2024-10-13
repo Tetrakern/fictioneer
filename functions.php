@@ -458,6 +458,12 @@ require_once __DIR__ . '/includes/functions/_utility.php';
 require_once __DIR__ . '/includes/functions/_setup-wordpress.php';
 
 /**
+ * Cache plugins and Transients.
+ */
+
+require_once __DIR__ . '/includes/functions/_service-caching.php';
+
+/**
  * Actions whenever a post is created or updated.
  */
 
@@ -484,12 +490,6 @@ require_once __DIR__ . '/includes/functions/_setup-theme.php';
  */
 
 require_once __DIR__ . '/includes/functions/_setup-types-and-terms.php';
-
-/**
- * Cache plugins and Transients.
- */
-
-require_once __DIR__ . '/includes/functions/_service-caching.php';
 
 /**
  * Add custom shortcodes.
