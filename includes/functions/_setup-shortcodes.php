@@ -2357,59 +2357,70 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
  * @return string The shortcode HTML.
  */
 function fictioneer_shortcode_tooltip( $atts, $content = null ) {
-    static $tooltip_count = 0;
-    $tooltip_count++;
+  // Setup
+  static $tooltip_count = 0;
+  $tooltip_count++;
 
-    $attributes = shortcode_atts(
-        array(
-            'header'  => '',
-            'content' => '',
-        ),
-        $atts,
-        'fcnt'
-    );
+  $attributes = shortcode_atts(
+  array(
+      'header'  => '',
+      'content' => '',
+  ),
+    $atts,
+    'fcnt'
+  );
 
-    $modal_header  = trim( wp_kses_post( $attributes['header'] ) );
-    $modal_content = trim( wp_kses_post( $attributes['content'] ) );
+  // Sanitize attributes
+  $modal_header  = trim( wp_kses_post( $attributes['header'] ) );
+  $modal_content = trim( wp_kses_post( $attributes['content'] ) );
 
-    if ( empty( $modal_content ) ) {
-        return $content;
-    }
+  // Bail if no content
+  if ( empty( $modal_content ) ) {
+    return $content;
+  }
 
-    // Add footnote number to the content
-    $footnote_link = sprintf(
-        '<sup class="tooltip-counter"><a href="#footnote-%1$d">%1$d</a></sup>',
-        $tooltip_count
-    );
-    $modal_content_with_number = $modal_content . $footnote_link;
+  // Add footnote number to the content
+  $footnote_link = sprintf(
+    '<sup class="tooltip-counter"><a href="#footnote-%1$d">%1$d</a></sup>',
+    $tooltip_count
+  );
+  $modal_content_with_number = $modal_content . $footnote_link;
 
-    $data = array(
-        'dialog-header'  => $modal_header,
-        'dialog-content' => $modal_content_with_number,
-    );
+  // Prepare data attributes
+  $data = array(
+    'dialog-header'  => $modal_header,
+    'dialog-content' => $modal_content_with_number,
+  );
 
-    $data_attributes = array_map(
-        function( $key, $value ) {
-            return sprintf( 'data-%s="%s"', esc_attr( $key ), esc_attr( $value ) );
-        },
-        array_keys( $data ),
-        $data
-    );
+  // Build attributes
+  $data_attributes = array_map(
+    function( $key, $value ) {
+      return sprintf(
+        'data-%s="%s"',
+        esc_attr( $key ),
+        esc_attr( $value )
+      );
+    },
+    array_keys( $data ),
+    $data
+  );
 
-    $title = apply_filters( 'fictioneer_tooltip_title', _x( 'Click to see note', 'Tooltip shortcode.', 'fictioneer' ) );
+  // Filter title
+  $title = apply_filters( 'fictioneer_tooltip_title', _x( 'Click to see note', 'Tooltip shortcode.', 'fictioneer' ) );
 
-    $html = sprintf(
-        '<div><a id="tooltip-%1$d" class="modal-tooltip" title="%2$s" %3$s data-click-action="open-tooltip-modal">%4$s</a>%5$s</div>',
-        $tooltip_count,
-        esc_attr( $title ),
-        implode( ' ', $data_attributes ),
-        $content,
-        $footnote_link
-    );
+  // Build tooltip
+  $html = sprintf(
+    '<div><a id="tooltip-%1$d" class="modal-tooltip" title="%2$s" %3$s data-click-action="open-tooltip-modal">%4$s</a>%5$s</div>',
+    $tooltip_count,
+    esc_attr( $title ),
+    implode( ' ', $data_attributes ),
+    $content,
+    $footnote_link
+  );
 
-    do_action( 'fictioneer_after_tooltip_shortcode', $tooltip_count, $modal_content );
+  do_action( 'fictioneer_after_tooltip_shortcode', $tooltip_count, $modal_content );
 
-    return $html;
+  return $html;
 }
 add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
 
@@ -2421,9 +2432,13 @@ add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
  */
 function fictioneer_store_footnote( $tooltip_count, $content ) {
     global $fictioneer_footnotes;
+
+    // Initialize footnotes array
     if ( ! is_array( $fictioneer_footnotes ) ) {
         $fictioneer_footnotes = array();
     }
+
+    // Store footnote
     $fictioneer_footnotes[ $tooltip_count ] = $content;
 }
 add_action( 'fictioneer_after_tooltip_shortcode', 'fictioneer_store_footnote', 10, 2 );
@@ -2435,25 +2450,34 @@ add_action( 'fictioneer_after_tooltip_shortcode', 'fictioneer_store_footnote', 1
  * @return string The post content with footnotes.
  */
 function fictioneer_render_footnotes( $content ) {
-    global $fictioneer_footnotes;
+  global $fictioneer_footnotes;
 
-    if ( ! is_singular() || empty( $fictioneer_footnotes ) ) {
-        return $content;
-    }
+  // Bail if it's not a singular post or there are no footnotes
+  if ( ! is_singular() || empty( $fictioneer_footnotes ) ) {
+    return $content;
+  }
 
-    $footnotes_title = apply_filters( 'fictioneer_footnotes_title', __( 'Footnotes', 'fictioneer' ) );
-    $output = sprintf( '<h3>%s</h3>', esc_html( $footnotes_title ) );
+  // Filter footnotes
+  $fictioneer_footnotes = apply_filters( 'fictioneer_footnotes', $fictioneer_footnotes );
 
-    $output .= '<ol class="footnotes list">';
-    foreach ( $fictioneer_footnotes as $key => $note ) {
-        $output .= sprintf(
-            '<li id="footnote-%1$d">%2$s <a href="#tooltip-%1$d">↑</a></li>',
-            $key,
-            wp_kses_post( $note )
-        );
-    }
-    $output .= '</ol>';
+  // Filter title
+  $footnotes_title = apply_filters( 'fictioneer_footnotes_title', __( 'Footnotes', 'fictioneer' ) );
+  $output = sprintf( '<h3>%s</h3>', esc_html( $footnotes_title ) );
 
-    return $content . $output;
+  // Build footnotes
+  $output .= '<ol class="footnotes list">';
+  foreach ( $fictioneer_footnotes as $key => $note ) {
+    $output .= sprintf(
+      '<li id="footnote-%1$d">%2$s <a href="#tooltip-%1$d">↑</a></li>',
+      $key,
+      wp_kses_post( $note )
+    );
+  }
+  $output .= '</ol>';
+
+  // Clear footnotes
+  $fictioneer_footnotes = array();
+
+  return $content . $output;
 }
 add_filter( 'the_content', 'fictioneer_render_footnotes', 20 );
