@@ -2352,45 +2352,108 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
 /**
  * Shortcode to add tooltip modal
  *
- * @since 5.25.0
- *
- * @param string $atts['header']   Optional. Header of the tooltip.
- * @param string $atts['content']  Content of the tooltip.
- *
+ * @param array  $atts    Shortcode attributes.
+ * @param string $content Shortcode content.
  * @return string The shortcode HTML.
  */
-
 function fictioneer_shortcode_tooltip( $atts, $content = null ) {
-  // Setup
-  $data = '';
-  $attributes = shortcode_atts(
-    array( 'header' => '', 'content' => '' ),
-    $atts,
-    'fcnt'
-  );
+    static $tooltip_count = 0;
+    $tooltip_count++;
 
-  // Sanitize
-  $modal_header = trim( wp_kses_post( $attributes['header'] ) );
-  $modal_header = esc_attr( $modal_header );
+    $attributes = shortcode_atts(
+        array(
+            'header'  => '',
+            'content' => '',
+        ),
+        $atts,
+        'fcnt'
+    );
 
-  $modal_content = trim( wp_kses_post( $attributes['content'] ) );
-  $modal_content = esc_attr( $modal_content );
+    $modal_header  = trim( wp_kses_post( $attributes['header'] ) );
+    $modal_content = trim( wp_kses_post( $attributes['content'] ) );
 
-  // Tooltip content?
-  if ( empty( $modal_content ) ) {
-    return $content;
-  }
+    if ( empty( $modal_content ) ) {
+        return $content;
+    }
 
-  // Build attributes
-  if ( ! empty( $modal_header ) ) {
-    $data .= 'data-dialog-header="' . esc_attr( $modal_header ) . '" ';
-  }
+    // Add footnote number to the content
+    $footnote_link = sprintf(
+        '<sup class="tooltip-counter"><a href="#footnote-%1$d">%1$d</a></sup>',
+        $tooltip_count
+    );
+    $modal_content_with_number = $modal_content . $footnote_link;
 
-  $data .= 'data-dialog-content="' . esc_attr( $modal_content ) . '"';
-  $title = _x( 'Click to see note', 'Tooltip shortcode.', 'fictioneer' );
+    $data = array(
+        'dialog-header'  => $modal_header,
+        'dialog-content' => $modal_content_with_number,
+    );
 
-  // Return HTML
-  return '<a class="modal-tooltip" title="' . $title . '" ' . $data . ' data-click-action="open-tooltip-modal">' .
-    $content . '</a>';
+    $data_attributes = array_map(
+        function( $key, $value ) {
+            return sprintf( 'data-%s="%s"', esc_attr( $key ), esc_attr( $value ) );
+        },
+        array_keys( $data ),
+        $data
+    );
+
+    $title = apply_filters( 'fictioneer_tooltip_title', _x( 'Click to see note', 'Tooltip shortcode.', 'fictioneer' ) );
+
+    $html = sprintf(
+        '<div><a id="tooltip-%1$d" class="modal-tooltip" title="%2$s" %3$s data-click-action="open-tooltip-modal">%4$s</a>%5$s</div>',
+        $tooltip_count,
+        esc_attr( $title ),
+        implode( ' ', $data_attributes ),
+        $content,
+        $footnote_link
+    );
+
+    do_action( 'fictioneer_after_tooltip_shortcode', $tooltip_count, $modal_content );
+
+    return $html;
 }
 add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
+
+/**
+ * Store footnotes for later use
+ *
+ * @param int    $tooltip_count Tooltip counter.
+ * @param string $content       Footnote content.
+ */
+function fictioneer_store_footnote( $tooltip_count, $content ) {
+    global $fictioneer_footnotes;
+    if ( ! is_array( $fictioneer_footnotes ) ) {
+        $fictioneer_footnotes = array();
+    }
+    $fictioneer_footnotes[ $tooltip_count ] = $content;
+}
+add_action( 'fictioneer_after_tooltip_shortcode', 'fictioneer_store_footnote', 10, 2 );
+
+/**
+ * Renders the footnotes after the content
+ *
+ * @param string $content The post content.
+ * @return string The post content with footnotes.
+ */
+function fictioneer_render_footnotes( $content ) {
+    global $fictioneer_footnotes;
+
+    if ( ! is_singular() || empty( $fictioneer_footnotes ) ) {
+        return $content;
+    }
+
+    $footnotes_title = apply_filters( 'fictioneer_footnotes_title', __( 'Footnotes', 'fictioneer' ) );
+    $output = sprintf( '<h3>%s</h3>', esc_html( $footnotes_title ) );
+
+    $output .= '<ol class="footnotes list">';
+    foreach ( $fictioneer_footnotes as $key => $note ) {
+        $output .= sprintf(
+            '<li id="footnote-%1$d">%2$s <a href="#tooltip-%1$d">↑</a></li>',
+            $key,
+            wp_kses_post( $note )
+        );
+    }
+    $output .= '</ol>';
+
+    return $content . $output;
+}
+add_filter( 'the_content', 'fictioneer_render_footnotes', 20 );
