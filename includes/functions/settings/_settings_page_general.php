@@ -382,6 +382,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_generate_footnotes_from_tooltips',
+                    __( 'Generate Footnotes from Tooltips', 'fictioneer' ),
+                    __( 'Show footnotes at the end of the post content based on the tooltips.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
               <div class="fictioneer-card__row fictioneer-card__row--inline-input">
                 <p class="fictioneer-inline-text-input"><?php
                   printf(
