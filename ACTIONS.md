@@ -842,6 +842,26 @@ Fires right after the post article is opened in the `_post.php` partial and `sin
 * `context` (string) – Render context of the partial.
 * `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
 
+**Example:**
+```php
+function child_add_landscape_post_image( $post_id, $args ) {
+  if ( ( $args['context'] ?? 0 ) !== 'loop' ) {
+    return;
+  }
+
+  fictioneer_render_thumbnail(
+    array(
+      'post_id' => $post_id,
+      'title' => fictioneer_get_safe_title( $post_id ),
+      'classes' => 'post-landscape-image',
+      'lightbox' => 0,
+      'vertical' => 1
+    )
+  );
+}
+add_action( 'fictioneer_post_article_open', 'child_add_landscape_post_image', 10, 2 );
+```
+
 ---
 
 ### `do_action( 'fictioneer_post_footer_left', $post_id, $args )`
