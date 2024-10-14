@@ -886,3 +886,23 @@ html:not(.logged-in) body:not(.logged-in) {
     background: var(--input-background) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%237b7d81' d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E") no-repeat right 4px center/1em;
   }
 }
+
+.footnotes {
+  line-height: 1.7;
+  margin-top: 4rem;
+
+  &__list:is(ol) {
+    margin: 0;
+  }
+
+  &__item::marker {
+    color: inherit !important;
+  }
+
+  &__link-up {
+    display: inline-block;
+    font-size: 80%;
+    padding: 2px 4px;
+    transform: translateY(-0.1em);
+  }
+}

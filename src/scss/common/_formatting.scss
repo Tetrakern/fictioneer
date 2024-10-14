@@ -64,8 +64,9 @@ img {
 
 p a:not(.wp-element-button, .modal-tooltip),
 .content-section :is(.wp-block-table, .wp-block-pullquote, .wp-block-list) a:not(.wp-element-button, .modal-tooltip),
-.link,
-:is(.modal, .dialog-modal) a[href]:not(.button, .wp-element-button, .modal-tooltip) {
+:is(.modal, .dialog-modal) a[href]:not(.button, .wp-element-button, .modal-tooltip),
+.footnotes a[href*="http"],
+.link {
   color: var(--inline-link-color);
   text-decoration: var(--inline-link-text-decoration);
   text-underline-offset: 0.2em;
@@ -512,6 +513,9 @@ a.modal-tooltip {
 }
 
 .footnote-link {
+  scroll-margin-top: 64px;
+  text-decoration: none !important;
+
   &:hover {
     text-decoration: none !important;
   }
