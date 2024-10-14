@@ -665,3 +665,62 @@ Custom CSS:
   gap: 6px;
 }
 ```
+
+## Add landscape image to blog post index
+
+The blog post index is a rather plain affair by design, but maybe you want to liven it up. You can change the title and meta row via filter or add completely new elements via actions, such as a landscape image on top. Keep in mind that you need to ensure a fitting image is always available.
+
+**References**
+* Action: [fictioneer_post_article_open](ACTIONS.md#do_action-fictioneer_post_article_open-post_id-args-)
+
+```php
+/**
+ * Adds landscape thumbnail to blog posts on the index page
+ *
+ * @since x.x.x
+ *
+ * @param int   $post_id  The post ID.
+ * @param array $args     Additional arguments.
+ */
+
+function child_add_landscape_post_image( $post_id, $args ) {
+  // Check render context
+  if ( ( $args['context'] ?? 0 ) !== 'loop' ) {
+    return;
+  }
+
+  // Output thumbnail
+  fictioneer_render_thumbnail(
+    array(
+      'post_id' => $post_id,
+      'title' => fictioneer_get_safe_title( $post_id ),
+      'classes' => 'post-landscape-image',
+      'lightbox' => 0,
+      'vertical' => 1
+    )
+  );
+}
+add_action( 'fictioneer_post_article_open', 'child_add_landscape_post_image', 10, 2 );
+```
+
+Custom CSS:
+
+```css
+.post-landscape-image {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.post-landscape-image img {
+  border-radius: var(--layout-border-radius-small);
+  height: 8rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* If you want to remove the horizontal line: */
+.blog-posts .post:not(:first-child) {
+  border-top: 0;
+  padding-top: 0;
+}
+```
