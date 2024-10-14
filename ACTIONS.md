@@ -832,6 +832,18 @@ Fires right after the article content in the `_post.php` partial and `single-pos
 
 ---
 
+### `do_action( 'fictioneer_post_article_open', $post_id, $args )`
+Fires right after the post article is opened in the `_post.php` partial and `single-post.php` template, before anything else is rendered. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
+
+**Parameter:**
+* $post_id (int) – The ID of the post.
+
+**$args:**
+* `context` (string) – Render context of the partial.
+* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+
+---
+
 ### `do_action( 'fictioneer_post_footer_left', $post_id, $args )`
 Fires inside the `.post__footer-left` container within the article footer in the `_post.php` partial and `single-post.php` template. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
 

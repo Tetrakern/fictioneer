@@ -36,6 +36,8 @@ if (
 
 <article id="post-<?php echo $post_id; ?>" class="post">
 
+  <?php do_action( 'fictioneer_post_article_open', $post_id, $args ); ?>
+
   <header class="post__header">
     <?php do_action( 'fictioneer_post_header_open', $post_id, $args ); ?>
     <h2 class="post__title h1"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>

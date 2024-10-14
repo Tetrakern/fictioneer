@@ -34,6 +34,8 @@ get_header();
 
       <article id="post-<?php the_ID(); ?>" class="post__article">
 
+        <?php do_action( 'fictioneer_post_article_open', $post->ID, array( 'context' => 'single-post' ) ); ?>
+
         <header class="post__header">
           <?php do_action( 'fictioneer_post_header_open', $post->ID, array( 'context' => 'single-post' ) ); ?>
           <h1 class="post__title"><?php echo $title; ?></h1>
