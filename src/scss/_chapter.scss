@@ -1,5 +1,9 @@
 .chapter-font-color {
   color: var(--text-chapter);
+
+  :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--text-chapter);
+  }
 }
 
 .chapter {
