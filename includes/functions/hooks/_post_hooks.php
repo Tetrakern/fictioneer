@@ -8,11 +8,18 @@
  * Outputs the HTML for the post tags
  *
  * @since 5.0.0
+ * @since 5.25.0 - Added $args.
  *
- * @param int $post_id  The post ID.
+ * @param int   $post_id  The post ID.
+ * @param array $args     Additional arguments.
  */
 
-function fictioneer_post_tags( $post_id ) {
+function fictioneer_post_tags( $post_id, $args ) {
+  // Check render context
+  if ( ( $args['context'] ?? 0 ) !== 'single-post' ) {
+    return;
+  }
+
   // Setup
   $tags = get_the_tags( $post_id );
 
@@ -27,7 +34,7 @@ function fictioneer_post_tags( $post_id ) {
   </section>
   <?php // <--- End HTML
 }
-add_action( 'fictioneer_post_after_content', 'fictioneer_post_tags', 10 );
+add_action( 'fictioneer_post_after_content', 'fictioneer_post_tags', 10, 2 );
 
 // =============================================================================
 // FEATURED
@@ -37,11 +44,18 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_tags', 10 );
  * Outputs the HTML for featured items in the post
  *
  * @since 5.0.0
+ * @since 5.25.0 - Added $args.
  *
- * @param int $post_id  The post ID.
+ * @param int   $post_id  The post ID.
+ * @param array $args     Additional arguments.
  */
 
-function fictioneer_post_featured_list( $post_id ) {
+function fictioneer_post_featured_list( $post_id, $args ) {
+  // Check render context
+  if ( ( $args['context'] ?? 0 ) !== 'single-post' ) {
+    return;
+  }
+
   global $post;
 
   // Abort if...
@@ -106,7 +120,7 @@ function fictioneer_post_featured_list( $post_id ) {
   </section>
   <?php // <--- End HTML
 }
-add_action( 'fictioneer_post_after_content', 'fictioneer_post_featured_list', 20 );
+add_action( 'fictioneer_post_after_content', 'fictioneer_post_featured_list', 20, 2 );
 
 // =============================================================================
 // POST MEDIA BUTTONS
@@ -116,18 +130,22 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_featured_list', 20
  * Outputs the HTML for the post media buttons
  *
  * @since 5.0.0
+ * @since 5.25.0 - Added parameters.
+ *
+ * @param int   $post_id  The post ID.
+ * @param array $args     Additional arguments.
  */
 
-function fictioneer_post_media_buttons() {
+function fictioneer_post_media_buttons( $post_id, $args ) {
   // Abort if...
-  if ( post_password_required() ) {
+  if ( post_password_required() || ( $args['context'] ?? 0 ) !== 'single-post' ) {
     return;
   }
 
   // Render media buttons
   echo fictioneer_get_media_buttons();
 }
-add_action( 'fictioneer_post_footer_left', 'fictioneer_post_media_buttons', 10 );
+add_action( 'fictioneer_post_footer_left', 'fictioneer_post_media_buttons', 10, 2 );
 
 // =============================================================================
 // POST SUBSCRIBE BUTTONS
@@ -137,11 +155,15 @@ add_action( 'fictioneer_post_footer_left', 'fictioneer_post_media_buttons', 10 )
  * Outputs the HTML for the post subscribe button with popup menu
  *
  * @since 5.0.0
+ * @since 5.25.0 - Added parameters.
+ *
+ * @param int   $post_id  The post ID.
+ * @param array $args     Additional arguments.
  */
 
-function fictioneer_post_subscribe_button() {
+function fictioneer_post_subscribe_button( $post_id, $args ) {
   // Abort if...
-  if ( post_password_required() ) {
+  if ( post_password_required() || ( $args['context'] ?? 0 ) !== 'single-post' ) {
     return;
   }
 
@@ -157,4 +179,4 @@ function fictioneer_post_subscribe_button() {
     <?php // <--- End HTML
   }
 }
-add_action( 'fictioneer_post_footer_right', 'fictioneer_post_subscribe_button', 10 );
+add_action( 'fictioneer_post_footer_right', 'fictioneer_post_subscribe_button', 10, 2 );

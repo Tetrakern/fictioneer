@@ -816,37 +816,61 @@ Fires after opening the `.main-navigation__wrapper` container in the `_navigatio
 
 ---
 
-### `do_action( 'fictioneer_post_after_content', $post_id )`
-Fires between the article content and featured list (if any) in the `single-post.php` template.
+### `do_action( 'fictioneer_post_after_content', $post_id, $args )`
+Fires right after the article content in the `_post.php` partial and `single-post.php` template. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
 
 **Parameters:**
 * $post_id (int) – Current post ID.
 
+**$args:**
+* `context` (string) – Render context of the partial.
+* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+
 **Hooked Actions:**
-* `fictioneer_post_tags( $post_id )` – Tags of the post. Priority 10.
-* `fictioneer_post_featured_list( $post_id )` – Items featured in the post. Priority 20.
+* `fictioneer_post_tags( $post_id, $args )` – Tags of the post. Priority 10.
+* `fictioneer_post_featured_list( $post_id, $args )` – Items featured in the post. Priority 20.
 
 ---
 
-### `do_action( 'fictioneer_post_footer_left', $post_id )`
-Fires inside the `.post__footer-left` container within the article footer in the `single-post.php` template. Normally includes the sharing modal toggle and feed links.
+### `do_action( 'fictioneer_post_footer_left', $post_id, $args )`
+Fires inside the `.post__footer-left` container within the article footer in the `_post.php` partial and `single-post.php` template. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
 
 **Parameters:**
 * $post_id (int) – Current post ID.
 
+**$args:**
+* `context` (string) – Render context of the partial.
+* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+
 **Hooked Actions:**
-* `fictioneer_post_media_buttons()` – Buttons for sharing and webfeeds. Priority 10.
+* `fictioneer_post_media_buttons( $post_id, $args )` – Buttons for sharing and webfeeds. Priority 10.
 
 ---
 
-### `do_action( 'fictioneer_post_footer_right', $post_id )`
-Fires inside the `.post__footer-right` container within the article footer in the `single-post.php` template. Normally includes the subscribe button with popup menu.
+### `do_action( 'fictioneer_post_footer_right', $post_id, $args )`
+Fires inside the `.post__footer-right` container within the article footer in the `_post.php` partial and `single-post.php` template. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
 
 **Parameters:**
 * $post_id (int) – Current post ID.
 
+**$args:**
+* `context` (string) – Render context of the partial.
+* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+
 **Hooked Actions:**
-* `fictioneer_post_subscribe_button()` – Subscription popup menu. Priority 10.
+* `fictioneer_post_subscribe_button( $post_id, $args )` – Subscription popup menu. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_post_header_open', $post_id, $args )`
+Fires right after the post header is opened in the `_post.php` partial and `single-post.php` template, before anything else is rendered. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
+
+**Parameter:**
+* $post_id (int) – The ID of the post.
+
+**$args:**
+* `context` (string) – Render context of the partial.
+* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
 
 ---
 

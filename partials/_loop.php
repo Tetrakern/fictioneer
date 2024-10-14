@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) OR exit;
     <?php
       while ( have_posts() ) {
         the_post();
-        get_template_part( 'partials/_post' );
+        get_template_part( 'partials/_post', null, array( 'context' => 'loop' ) );
       }
 
       $pag_args = array(
