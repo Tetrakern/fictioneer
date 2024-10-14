@@ -2356,11 +2356,12 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
  *
  * @param string $atts['header']   Optional. Header of the tooltip.
  * @param string $atts['content']  Content of the tooltip.
+ * @param boolean $atts['footnote']  Optional. Whether to show the footnote. Default true.
  * @param string $content Shortcode content.
  *
  * @return string HTML for the tooltip and associated footnote link.
  */
-function fictioneer_create_tooltip_with_footnote( $atts, $content = null )
+function fictioneer_shortcode_tooltip( $atts, $content = null )
 {
   // Initialize a static counter for unique tooltip/footnote IDs
   static $tooltip_id_counter = 0;
@@ -2369,6 +2370,7 @@ function fictioneer_create_tooltip_with_footnote( $atts, $content = null )
   $default_atts = [
     'header'  => '',
     'content' => '',
+    'footnote' => true,
   ];
   $atts = shortcode_atts( $default_atts, $atts, 'fcnt' );
 
@@ -2414,9 +2416,12 @@ function fictioneer_create_tooltip_with_footnote( $atts, $content = null )
     $footnote_link
   );
 
-  // Trigger action to collect footnote for later rendering
-  do_action( 'fictioneer_collect_footnote', $tooltip_id_counter, $tooltip_content );
+  // Only if allowed
+  if ( $atts['footnote'] ) {
+    // Trigger action to collect footnote for later rendering
+    do_action( 'fictioneer_collect_footnote', $tooltip_id_counter, $tooltip_content );
+  }
 
   return $html;
 }
-add_shortcode( 'fcnt', 'fictioneer_create_tooltip_with_footnote' );
+add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
