@@ -35,7 +35,7 @@ get_header();
       <article id="post-<?php the_ID(); ?>" class="post__article">
 
         <header class="post__header">
-          <?php do_action( 'fictioneer_post_header_open', $post_id, array( 'context' => 'single-post' ) ); ?>
+          <?php do_action( 'fictioneer_post_header_open', $post->ID, array( 'context' => 'single-post' ) ); ?>
           <h1 class="post__title"><?php echo $title; ?></h1>
           <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items(); ?></div>
         </header>
