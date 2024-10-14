@@ -374,7 +374,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `show_admin_bar` | `__return_false` (10)
 | `strip_shortcodes_tagnames` | `fictioneer_exempt_shortcodes_from_removal` (10)
 | `style_loader_tag` | `fictioneer_add_font_awesome_integrity` (10)
-| `the_content` | `fictioneer_embed_consent_wrappers` (20), `fictioneer_add_lightbox_to_post_images` (15), `fictioneer_add_chapter_paragraph_id` (10), `fictioneer_replace_br_with_whitespace` (6), `fictioneer_fix_line_breaks` (1)
+| `the_content` | `fictioneer_append_footnotes_to_content` (20), `fictioneer_embed_consent_wrappers` (20), `fictioneer_add_lightbox_to_post_images` (15), `fictioneer_add_chapter_paragraph_id` (10), `fictioneer_replace_br_with_whitespace` (6), `fictioneer_fix_line_breaks` (1)
 | `the_password_form` | `fictioneer_password_form` (10), `fictioneer_unlock_with_patreon` (20)
 | `the_content_more_link` | `fictioneer_wrap_read_more_link` (10)
 | `the_excerpt_rss` | `fictioneer_filter_rss_excerpt` (10)

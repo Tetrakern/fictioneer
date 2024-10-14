@@ -583,6 +583,18 @@ Fires right after opening the article’s `<footer>` container in the `single-fc
 
 ---
 
+### `do_action( 'fictioneer_collect_footnote', $args )`
+Fires right after opening the article’s `<footer>` container in the `single-fcn_collection.php` template.
+
+**$args:**
+* $footnote_id (int) – Unique identifier for the footnote.
+* $content (string) – Content of the footnote.
+
+**Hooked Actions:**
+* `fictioneer_collect_footnote( $footnote_id, $content )` – Collect a footnote to be stored in a global array for later rendering. Priority 10.
+
+---
+
 ### `do_action( 'fictioneer_collections_no_results', $args )`
 List page template hook. Fires right at the top of an empty result list in the `'fictioneer_collections_list'` action, before the no-result message is rendered.
 
