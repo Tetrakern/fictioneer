@@ -570,7 +570,7 @@ List page template hook. Fires right after the last list item in the `'fictionee
 ---
 
 ### `do_action( 'fictioneer_collection_footer', $args )`
-Fires right after opening the article’s `<footer>` container in the `single-fcn_collection.php` template.
+Fires immediately after the HTML output of the tooltip is created to collect tooltip content for footnotes in the `_setup-shortcodes.php` file.
 
 **$args:**
 * $collection (WP_Post) – Post object of the collection.
