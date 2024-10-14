@@ -1375,7 +1375,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_chapter_list_transients',
                     __( 'Disable chapter list Transient caching', 'fictioneer' ),
-                    __( 'Only do if lists on story pages are outdated.', 'fictioneer' ),
+                    __( 'Only do this if lists on story pages are outdated.', 'fictioneer' ),
                     __( 'Compiling grouped chapter lists on story pages can place significant strain on your server, especially if you have hundreds of chapters per story that all need to be queried. Only disable this if your stories are small (fewer than 50 chapters) or if you have another solution, such as a caching plugin.', 'fictioneer' )
                   );
                 ?>
@@ -1386,7 +1386,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_shortcode_transients',
                     __( 'Disable shortcode Transient caching', 'fictioneer' ),
-                    __( 'Only do if shortcodes are not properly updated.', 'fictioneer' ),
+                    __( 'Only do this if shortcodes are not properly updated.', 'fictioneer' ),
                     __( 'Shortcodes rely on complex queries with many optional parameters, which can be slow and resource-intensive if you use too many or have a very large database. Caching them in Transients for a period (default is 300 seconds) significantly reduces server strain but may conflict with other caching solutions.', 'fictioneer' )
                   );
                 ?>
