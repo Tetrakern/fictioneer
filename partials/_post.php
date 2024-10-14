@@ -39,9 +39,16 @@ if (
   <?php do_action( 'fictioneer_post_article_open', $post_id, $args ); ?>
 
   <header class="post__header">
-    <?php do_action( 'fictioneer_post_header_open', $post_id, $args ); ?>
-    <h2 class="post__title h1"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
-    <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items(); ?></div>
+    <?php
+      $header_items = array(
+        'title' => '<h2 class="post__title h1"><a href="' . get_the_permalink() . '">' . $title . '</a></h2>',
+        'meta' => '<div class="post__meta layout-links">' . fictioneer_get_post_meta_items() . '</div>'
+      );
+
+      $header_items = apply_filters( 'fictioneer_filter_post_header_items', $header_items, $post_id, $args );
+
+      echo implode( '', $header_items );
+    ?>
   </header>
 
   <section class="post__main content-section"><?php echo $content; ?></section>

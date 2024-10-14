@@ -1144,6 +1144,19 @@ Filters the intermediate output array in the `_card-post.php` partial before it 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_post_header_items', $output, $post_id, $args )`
+Filters the intermediate output array of header items in the `_post.php` partial and `single-post.php` template before it is imploded and rendered. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
+
+**$output:**
+* `title` (string) – The post title.
+* `meta` (string) – The post meta row.
+
+**$args:**
+* `context` (string) – Render context of the partial.
+* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_post_meta_items', $output, $args )`
 Filters the intermediate output array of the `fictioneer_get_post_meta_items()` function before it is imploded and returned.
 

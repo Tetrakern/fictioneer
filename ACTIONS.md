@@ -874,18 +874,6 @@ Fires inside the `.post__footer-right` container within the article footer in th
 
 ---
 
-### `do_action( 'fictioneer_post_header_open', $post_id, $args )`
-Fires right after the post header is opened in the `_post.php` partial and `single-post.php` template, before anything else is rendered. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
-
-**Parameter:**
-* $post_id (int) – The ID of the post.
-
-**$args:**
-* `context` (string) – Render context of the partial.
-* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
-
----
-
 ### `do_action( 'fictioneer_recommendation_after_header', $args )`
 Fires right after the article header (title, fandom, genres, and characters) in the `single-fcn_recommendation.php` template, inside the `<article>` container and just before the content section.
 
