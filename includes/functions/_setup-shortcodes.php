@@ -1643,7 +1643,7 @@ function fictioneer_shortcode_blog( $attr ) {
       <?php
         while ( $blog_query->have_posts() ) {
           $blog_query->the_post();
-          get_template_part( 'partials/_post', null, array( 'nested' => true ) );
+          get_template_part( 'partials/_post', null, array( 'nested' => true, 'context' => 'shortcode_fictioneer_blog' ) );
         }
 
         wp_reset_postdata();

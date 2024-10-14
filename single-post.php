@@ -34,22 +34,37 @@ get_header();
 
       <article id="post-<?php the_ID(); ?>" class="post__article">
 
+        <?php do_action( 'fictioneer_post_article_open', $post->ID, array( 'context' => 'single-post' ) ); ?>
+
         <header class="post__header">
-          <h1 class="post__title"><?php echo $title; ?></h1>
-          <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items(); ?></div>
+          <?php
+            $header_items = array(
+              'title' => '<h1 class="post__title">' . $title . '</h1>',
+              'meta' => '<div class="post__meta layout-links">' . fictioneer_get_post_meta_items() . '</div>'
+            );
+
+            $header_items = apply_filters(
+              'fictioneer_filter_post_header_items',
+              $header_items,
+              $post->ID,
+              array( 'context' => 'single-post' )
+            );
+
+            echo implode( '', $header_items );
+          ?>
         </header>
 
         <section class="post__main content-section"><?php the_content(); ?></section>
 
-        <?php do_action( 'fictioneer_post_after_content', $post->ID ); ?>
+        <?php do_action( 'fictioneer_post_after_content', $post->ID, array( 'context' => 'single-post' ) ); ?>
 
         <?php if ( ! $password_required && ( has_action( 'fictioneer_post_footer_left' ) || has_action( 'fictioneer_post_footer_right' ) ) ) : ?>
           <footer class="post__footer">
             <div class="post__footer-box post__footer-left">
-              <?php do_action( 'fictioneer_post_footer_left', $post->ID ); ?>
+              <?php do_action( 'fictioneer_post_footer_left', $post->ID, array( 'context' => 'single-post' ) ); ?>
             </div>
             <div class="post__footer-box post__footer-right">
-              <?php do_action( 'fictioneer_post_footer_right', $post->ID ); ?>
+              <?php do_action( 'fictioneer_post_footer_right', $post->ID, array( 'context' => 'single-post' ) ); ?>
             </div>
           </footer>
         <?php endif; ?>

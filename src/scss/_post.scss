@@ -1,16 +1,9 @@
 :is(.blog-posts, .latest-posts) {
   .post {
-    padding-bottom: 1rem;
-
-    &:not(:last-child) {
-      padding-bottom: var(--layout-spacing-vertical);
-    }
-
     &:not(:first-child) {
-      .post__header {
-        border-top: var(--layout-hr-border);
-        padding-top: var(--layout-spacing-vertical);
-      }
+      border-top: var(--layout-hr-border);
+      padding-top: var(--layout-spacing-vertical);
+      margin-top: var(--layout-spacing-vertical);
     }
   }
 }

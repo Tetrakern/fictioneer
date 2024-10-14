@@ -111,11 +111,11 @@ a.modal-tooltip {
 
   :where(h1, h2, h3, h4, h5, h6) {
     &:where(:not(:first-child, .cell-title, .card__title, .post__title)) {
-      margin-top: 2rem;
+      margin-top: max(2.25rem, var(--paragraph-spacing) - 0.5rem);
     }
 
     &:where(:not(:last-child, .cell-title, .card__title, .post__title)) {
-      margin-bottom: var(--heading-margin-bottom, unquote('max(1.25rem, var(--paragraph-spacing) - 0.25rem)'));
+      margin-bottom: var(--heading-margin-bottom, min(max(1.25rem, var(--paragraph-spacing) - 0.75rem), 2rem));
     }
   }
 
@@ -374,7 +374,7 @@ a.modal-tooltip {
   font-size: get_relative_clamp(0.75, 0.875, 320, 480, 'vw', 'em');
   font-weight: 400;
   text-align: center;
-  margin: unquote("max(1.5rem, var(--paragraph-spacing) * 2)") auto;
+  margin: max(1.5rem, var(--paragraph-spacing) * 2) auto;
   max-width: 35em; // Scale with font size
   filter: var(--litrpg-drop-shadow);
 

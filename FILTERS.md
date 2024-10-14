@@ -476,6 +476,47 @@ Filters the intermediate output array of the chapter support links in the `ficti
 
 ---
 
+### `apply_filters( 'fictioneer_filter_enable_chapter_list_transients', $bool, $post_id )`
+Filters the boolean return value of the `fictioneer_enable_chapter_list_transients()` function. By default, this depends on the `fictioneer_caching_active()` function returning false and the `fictioneer_disable_chapter_list_transients` option being off.
+
+**Parameter:**
+* $bool (boolean) – Whether the Transients are enabled or not.
+* $post_id (int) – Post ID of the story.
+
+---
+
+### `apply_filters( 'fictioneer_filter_enable_menu_transients', $bool, $location )`
+Filters the boolean return value of the `fictioneer_enable_chapter_list_transients()` function. By default, this depends on the `fictioneer_caching_active()` function returning false and the `fictioneer_disable_chapter_list_transients` option being off. Possible locations are 'nav_menu', 'mobile_nav_menu', and 'footer_menu'.
+
+**Parameter:**
+* $bool (boolean) – Whether the Transients are enabled or not.
+* $location (string) – Location identifier of the menu.
+
+---
+
+### `apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool, $shortcode )`
+Filters the boolean return value of the `fictioneer_enable_shortcode_transients()` function. By default, this depends on the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant being greater than -1 and the `fictioneer_disable_shortcode_transients` option being off. This can conflict with external object caches.
+
+**Parameter:**
+* $bool (boolean) – Whether the Transients are enabled or not.
+* $shortcode (string|null) – The shortcode in question for reference.
+
+**Example:**
+```php
+function child_enable_shortcode_transients_for_frontpage( $bool ) {
+  // Specifically turn on Transients on the frontpage (if not cached in ANY way),
+  // ignoring the setting option.
+  if ( is_front_page() ) {
+    return true;
+  }
+
+  return $bool;
+}
+add_filter( 'fictioneer_filter_enable_shortcode_transients', 'child_enable_shortcode_transients_for_frontpage' );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_get_support_links', $links, $post_id, $parent_id, $author_id )`
 Filters the array of support links returned for the current post (or post ID if provided). First it checks the post meta, then the parent post meta (if any), and finally the author meta if still empty. The first non-empty value is added to the array.
 
@@ -1103,6 +1144,19 @@ Filters the intermediate output array in the `_card-post.php` partial before it 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_post_header_items', $output, $post_id, $args )`
+Filters the intermediate output array of header items in the `_post.php` partial and `single-post.php` template before it is imploded and rendered. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
+
+**$output:**
+* `title` (string) – The post title.
+* `meta` (string) – The post meta row.
+
+**$args:**
+* `context` (string) – Render context of the partial.
+* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_post_meta_items', $output, $args )`
 Filters the intermediate output array of the `fictioneer_get_post_meta_items()` function before it is imploded and returned.
 
@@ -1678,14 +1732,6 @@ Filters the WP_Query arguments in the `fictioneer_showcase` shortcode. The optio
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $no_cap (boolean) – Whether to hide captions. Default `false`.
 * $classes (string) – String of additional CSS classes. Default empty.
-
----
-
-### `apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool )`
-Filters the boolean return value of the `fictioneer_enable_shortcode_transients()` function. By default, this depends on the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant being greater than -1. Because the Transients would interfere with caching. If you exclude a page from caching, it might make sense to turn them on for that page.
-
-**Parameter:**
-* $bool (boolean) – Whether the Transients are enabled or not by default.
 
 ---
 

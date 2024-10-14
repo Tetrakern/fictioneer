@@ -10,7 +10,8 @@
  * @since 2.0
  * @see partials/_loop.php
  *
- * @internal $args['nested']  Whether the post is nested inside another query. Default null.
+ * @internal $args['nested']   Whether the post is nested inside another query. Default null.
+ * @internal $args['context']  Render context of the partial ('loop' or 'shortcode_fictioneer_blog').
  */
 
 
@@ -35,20 +36,32 @@ if (
 
 <article id="post-<?php echo $post_id; ?>" class="post">
 
+  <?php do_action( 'fictioneer_post_article_open', $post_id, $args ); ?>
+
   <header class="post__header">
-    <h2 class="post__title h1"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
-    <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items(); ?></div>
+    <?php
+      $header_items = array(
+        'title' => '<h2 class="post__title h1"><a href="' . get_the_permalink() . '">' . $title . '</a></h2>',
+        'meta' => '<div class="post__meta layout-links">' . fictioneer_get_post_meta_items() . '</div>'
+      );
+
+      $header_items = apply_filters( 'fictioneer_filter_post_header_items', $header_items, $post_id, $args );
+
+      echo implode( '', $header_items );
+    ?>
   </header>
 
   <section class="post__main content-section"><?php echo $content; ?></section>
 
-  <?php if ( has_action( 'fictioneer_blog_posts_footers_left' ) || has_action( 'fictioneer_blog_posts_footers_right' ) ) : ?>
+  <?php do_action( 'fictioneer_post_after_content', $post_id, $args ); ?>
+
+  <?php if ( has_action( 'fictioneer_post_footer_left' ) || has_action( 'fictioneer_post_footer_right' ) ) : ?>
     <footer class="post__footer">
       <div class="post__footer-box post__footer-left">
-        <?php do_action( 'fictioneer_blog_posts_footers_left', $post_id ); ?>
+        <?php do_action( 'fictioneer_post_footer_left', $post_id, $args ); ?>
       </div>
       <div class="post__footer-box post__footer-right">
-        <?php do_action( 'fictioneer_blog_posts_footers_right', $post_id ); ?>
+        <?php do_action( 'fictioneer_post_footer_right', $post_id, $args ); ?>
       </div>
     </footer>
   <?php endif; ?>
