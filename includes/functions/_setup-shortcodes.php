@@ -2354,28 +2354,31 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
  *
  * @since 5.25.0
  *
- * @param string $atts['header']   Optional. Header of the tooltip.
- * @param string $atts['content']  Content of the tooltip.
- * @param boolean $atts['footnote']  Optional. Whether to show the footnote. Default true.
- * @param string $content Shortcode content.
+ * @param string  $atts['header']    Optional. Header of the tooltip.
+ * @param string  $atts['content']   Content of the tooltip.
+ * @param bool    $atts['footnote']  Optional. Whether to show the footnote. Default true.
+ * @param string  $content           Shortcode content.
  *
  * @return string HTML for the tooltip and associated footnote link.
  */
-function fictioneer_shortcode_tooltip( $atts, $content = null )
-{
+
+function fictioneer_shortcode_tooltip( $atts, $content = null ) {
   // Initialize a static counter for unique tooltip/footnote IDs
   static $tooltip_id_counter = 0;
-  $tooltip_id_counter++;
 
-  $default_atts = [
-    'header'  => '',
+  // Setup
+  $default_atts = array(
+    'header' => '',
     'content' => '',
     'footnote' => true,
-  ];
+  );
+
   $atts = shortcode_atts( $default_atts, $atts, 'fcnt' );
+  $footnote_allowed = get_option( 'fictioneer_generate_footnotes_from_tooltips' ) && $atts['footnote'];
+  $footnote_link = '';
 
   // Sanitize user inputs
-  $tooltip_header  = trim( wp_kses_post( $atts[ 'header' ] ) );
+  $tooltip_header = trim( wp_kses_post( $atts[ 'header' ] ) );
   $tooltip_content = trim( wp_kses_post( $atts[ 'content' ] ) );
 
   // Bail if no content
@@ -2383,17 +2386,23 @@ function fictioneer_shortcode_tooltip( $atts, $content = null )
     return $content;
   }
 
-  // Create a footnote link to be appended to the tooltip content
-  $footnote_link = sprintf(
-    '<sup class="tooltip-counter"><a href="#footnote-%1$d">%1$d</a></sup>',
-    $tooltip_id_counter
-  );
+  // Increment counter
+  $tooltip_id_counter++;
+
+  // Prepare footnote if allowed
+  if ( $footnote_allowed ) {
+    // Create a footnote link to be appended to the tooltip content
+    $footnote_link = sprintf(
+      '<sup class="tooltip-counter"><a href="#footnote-%1$d" class="footnote-link">%1$d</a></sup>',
+      $tooltip_id_counter
+    );
+  }
 
   // Prepare data attributes for the tooltip
-  $tooltip_data = [
-    'dialog-header'  => $tooltip_header,
+  $tooltip_data = array(
+    'dialog-header' => $tooltip_header,
     'dialog-content' => $tooltip_content . $footnote_link,
-  ];
+  );
 
   // Convert data array to HTML attributes
   $tooltip_data_attributes = array_map(
@@ -2416,9 +2425,8 @@ function fictioneer_shortcode_tooltip( $atts, $content = null )
     $footnote_link
   );
 
-  // Only if allowed
-  if ( $atts['footnote'] ) {
-    // Trigger action to collect footnote for later rendering
+  // Collect footnote if allowed
+  if ( $footnote_allowed ) {
     do_action( 'fictioneer_collect_footnote', $tooltip_id_counter, $tooltip_content );
   }
 

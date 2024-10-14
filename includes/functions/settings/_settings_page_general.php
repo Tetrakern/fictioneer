@@ -386,7 +386,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_generate_footnotes_from_tooltips',
-                    __( 'Generate Footnotes from Tooltips', 'fictioneer' ),
+                    __( 'Generate footnotes from tooltips', 'fictioneer' ),
                     __( 'Show footnotes at the end of the post content based on the tooltips.', 'fictioneer' )
                   );
                 ?>

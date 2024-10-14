@@ -587,8 +587,8 @@ Fires right after opening the article’s `<footer>` container in the `single-fc
 Fires immediately after the HTML output of the tooltip is created to collect tooltip content for footnotes in the `_setup-shortcodes.php` file.
 
 **$args:**
-* $footnote_id (int) – Unique identifier for the footnote.
-* $content (string) – Content of the footnote.
+* `footnote_id` (int) – Unique identifier for the footnote.
+* `content` (string) – Content of the footnote.
 
 **Hooked Actions:**
 * `fictioneer_collect_footnote( $footnote_id, $content )` – Collect a footnote to be stored in a global array for later rendering. Priority 10.

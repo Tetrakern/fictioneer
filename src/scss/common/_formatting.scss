@@ -510,3 +510,9 @@ a.modal-tooltip {
   margin: 0 .875rem;
   overflow: auto;
 }
+
+.footnote-link {
+  &:hover {
+    text-decoration: none !important;
+  }
+}

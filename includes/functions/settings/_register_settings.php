@@ -1143,7 +1143,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_extended_story_list_meta_queries' => __( 'Disable extended story list meta queries', 'fictioneer' ),
       'fictioneer_disable_extended_chapter_list_meta_queries' => __( 'Disable extended chapter list meta queries', 'fictioneer' ),
       'fictioneer_count_characters_as_words' => __( 'Count characters instead of words', 'fictioneer' ),
-      'fictioneer_generate_footnotes_from_tooltips' => __( 'Generate Footnotes from Tooltips', 'fictioneer' ),
+      'fictioneer_generate_footnotes_from_tooltips' => __( 'Generate footnotes from tooltips', 'fictioneer' ),
       'fictioneer_show_protected_excerpt' => __( 'Show excerpt on password-protected posts', 'fictioneer' ),
       'fictioneer_hide_large_card_chapter_list' => __( 'Hide chapter list on large story cards', 'fictioneer' ),
       'fictioneer_show_story_cards_latest_chapters' => __( 'Show latest chapter on large story cards', 'fictioneer' ),

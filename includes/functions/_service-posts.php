@@ -462,16 +462,17 @@ if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
 // =============================================================================
 // TOOLTIP FOOTNOTES
 // =============================================================================
+
 /**
- * Collect a footnote to be stored for later rendering
+ * Collects a footnote to be stored for later rendering
  *
  * @since 5.25.0
  *
- * @param int    $footnote_id Unique identifier for the footnote.
- * @param string $content     Content of the footnote.
+ * @param int    $footnote_id  Unique identifier for the footnote.
+ * @param string $content      Content of the footnote.
  */
-function fictioneer_collect_footnote( $footnote_id, $content )
-{
+
+function fictioneer_collect_footnote( $footnote_id, $content ) {
   global $fictioneer_footnotes;
 
   // Initialize footnotes array if it doesn't exist
@@ -484,16 +485,16 @@ function fictioneer_collect_footnote( $footnote_id, $content )
 }
 
 /**
- * Render collected footnotes at the end of the content
+ * Renders collected footnotes at the end of the content
  *
  * @since 5.25.0
  *
- * @param string $content The post content.
+ * @param string $content  The post content.
  *
  * @return string The post content with appended footnotes.
  */
-function fictioneer_append_footnotes_to_content( $content )
-{
+
+function fictioneer_append_footnotes_to_content( $content ) {
   global $fictioneer_footnotes;
 
   // Only proceed for single posts/pages with footnotes
@@ -502,13 +503,16 @@ function fictioneer_append_footnotes_to_content( $content )
   }
 
   // Allow modifications to the collected footnotes
-  $fictioneer_footnotes = apply_filters( 'fictioneer_footnotes', $fictioneer_footnotes );
+  $fictioneer_footnotes = apply_filters( 'fictioneer_filter_footnotes', $fictioneer_footnotes );
 
-  $footnotes_section_title = __( 'Footnotes', 'fictioneer' );
-  $html = sprintf( '<h3>%s</h3>', esc_html( $footnotes_section_title ) );
+  // Generate the HTML for footnotes section
+  $html = sprintf(
+    '<h3>%s</h3>',
+    esc_html( __( 'Footnotes', 'fictioneer' ) )
+  );
 
-  // Generate the HTML for footnotes
   $html .= '<ol class="footnotes list">';
+
   foreach ( $fictioneer_footnotes as $id => $footnote ) {
     $html .= sprintf(
     '<li id="footnote-%1$d">%2$s <a href="#tooltip-%1$d">↑</a></li>',
@@ -516,6 +520,7 @@ function fictioneer_append_footnotes_to_content( $content )
     wp_kses_post( $footnote )
     );
   }
+
   $html .= '</ol>';
 
   // Reset the footnotes array
