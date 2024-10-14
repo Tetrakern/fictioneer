@@ -47,15 +47,17 @@ Since 5.20.0, the theme is compatible with the [Elementor](https://elementor.com
 
 ## Commissions
 
-I do take commissions for customizations and new features, *within reason.* Just write me on Discord, and we can figure out what is feasible. However, keep in mind that any feature you pay for may be added to the theme for everyone to enjoy. Several features have already been sponsored this way. Sharing is caring.<sup>*</sup>
+I do take commissions for customizations and new features, *within reason.* Just write me on Discord, and we can figure out what is feasible. However, keep in mind that any feature you pay for may be added to the theme for everyone to enjoy (exclusivity is generally more expensive). Several features have already been sponsored this way. Sharing is caring.<sup>*</sup>
 
 <sup>* As long as that makes sense and is not detrimental.</sup>
 
 ## Support the Development
 
-Fictioneer has mostly been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
+Fictioneer has been developed by mostly one author, barring [credited](CREDITS.md) code snippets. Since version 5.24.0, several developers have contributed and any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
 
-**Translations:** Brazilian Portuguese by [@c-cesar](https://github.com/c-cesar)
+<a href="https://github.com/Tetrakern/fictioneer/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Tetrakern/fictioneer" />
+</a>
 
 ## Screenshots
 
