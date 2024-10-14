@@ -672,6 +672,8 @@ The blog post index is a rather plain affair by design, but maybe you want to li
 
 **References**
 * Action: [fictioneer_post_article_open](ACTIONS.md#do_action-fictioneer_post_article_open-post_id-args-)
+* Partial: [_post.php](https://github.com/Tetrakern/fictioneer/blob/main/partials/_post.php)
+* Template: [single-post.php](https://github.com/Tetrakern/fictioneer/blob/main/single-post.php)
 
 ```php
 /**
