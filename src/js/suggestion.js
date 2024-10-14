@@ -218,7 +218,11 @@ class FCN_Suggestion {
     });
 
     // Output
-    instance.latest = `\n[quote]${final} [anchor]${paragraphID}[/anchor][/quote]\n`;
+    if (paragraphID) {
+      instance.latest = `\n[quote]${final} [anchor]${paragraphID}[/anchor][/quote]\n`;
+    } else {
+      instance.latest = `\n[quote]${final}[/quote]\n`;
+    }
 
     // Send to comment form or remember for later
     if (defaultEditor) {
