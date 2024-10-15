@@ -98,9 +98,11 @@ a.modal-tooltip {
 }
 
 .footnote-link {
-  scroll-margin-top: 64px;
+  --inline-link-color-visited: var(--inline-link-color);
   text-decoration: none !important;
-  padding-left: 2px;
+  padding-left: 8px;
+  margin-left: -6px;
+  scroll-margin-top: 64px;
 
   &:hover {
     text-decoration: none !important;
