@@ -382,16 +382,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 ?>
               </div>
 
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_generate_footnotes_from_tooltips',
-                    __( 'Generate footnotes from tooltips', 'fictioneer' ),
-                    __( 'Show footnotes at the end of the post content based on the tooltips.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
               <div class="fictioneer-card__row fictioneer-card__row--inline-input">
                 <p class="fictioneer-inline-text-input"><?php
                   printf(
@@ -681,6 +671,23 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Enlarge images in floating container on click.', 'fictioneer' ),
                     __( 'With this feature enabled, clicking on images in the page content will open a window overlay popup. This blocks some content and dims and disables the background to present the image more prominently.', 'fictioneer' ),
                     '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_lightbox.jpg"></div>'
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_generate_footnotes_from_tooltips',
+                    __( 'Enable footnotes from tooltips', 'fictioneer' ),
+                    __( 'Generate and show footnotes at the end of the post content based on the tooltips.', 'fictioneer' ),
+                    __( '<p>With this feature enabled, tooltips added with the <code>[fcnt]text[/fcnt]</code> shortcode are collected and appended to the content as footnotes, complete with anchor links.</p>', 'fictioneer' ),
+                    '<code class="helper-modal-code">' .
+                    _x(
+                      '[fcnt header="Optional" content="Tooltip content."]text[/fcnt]',
+                      'Settings helper modal tooltip shortcode figure.',
+                    'fictioneer' ) .
+                    '</code>'
                   );
                 ?>
               </div>
