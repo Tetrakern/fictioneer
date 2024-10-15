@@ -127,7 +127,7 @@ a.modal-tooltip {
     }
 
     &:where(:not(:last-child, .cell-title, .card__title, .post__title)) {
-      margin-bottom: var(--heading-margin-bottom, min(max(1.25rem, var(--paragraph-spacing) - 0.75rem), 2rem));
+      margin-bottom: var(--heading-margin-bottom, min(max(0.75rem, var(--paragraph-spacing) - 0.75rem), 2rem));
     }
   }
 
@@ -308,7 +308,7 @@ a.modal-tooltip {
 .content-section {
   :where(.list, .block-list, .wp-block-footnotes, .litrpg-body :where(ul, ol)) {
     list-style: initial;
-    padding-left: 1.75rem;
+    padding-left: 1.85em;
     margin: 1.5rem 0 0;
 
     &:not(:last-child) {
@@ -317,7 +317,7 @@ a.modal-tooltip {
 
     > li {
       &:not(:last-child) {
-        margin-bottom: .75rem;
+        margin-bottom: .75em;
       }
 
       > :is(ul, ol) {
