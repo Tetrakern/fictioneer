@@ -90,9 +90,20 @@ a.modal-tooltip {
   cursor: pointer;
   text-decoration: underline var(--fg-900) dotted 1px;
   text-underline-offset: 0.15em;
+  scroll-margin-top: 64px;
 
   &:hover {
     text-decoration-color: currentColor;
+  }
+}
+
+.footnote-link {
+  scroll-margin-top: 64px;
+  text-decoration: none !important;
+  padding-left: 2px;
+
+  &:hover {
+    text-decoration: none !important;
   }
 }
 
@@ -510,13 +521,4 @@ a.modal-tooltip {
   padding: .875rem 0;
   margin: 0 .875rem;
   overflow: auto;
-}
-
-.footnote-link {
-  scroll-margin-top: 64px;
-  text-decoration: none !important;
-
-  &:hover {
-    text-decoration: none !important;
-  }
 }

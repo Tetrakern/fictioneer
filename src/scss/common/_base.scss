@@ -895,8 +895,12 @@ html:not(.logged-in) body:not(.logged-in) {
     margin: 0;
   }
 
-  &__item::marker {
-    color: inherit !important;
+  &__item{
+    scroll-margin-top: 64px;
+
+    &::marker {
+      color: inherit !important;
+    }
   }
 
   &__link-up {
