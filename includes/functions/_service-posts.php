@@ -458,3 +458,79 @@ if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
   add_action( 'wp_insert_comment', 'fictioneer_increment_story_comment_count' );
   add_action( 'delete_comment', 'fictioneer_decrement_story_comment_count' );
 }
+
+// =============================================================================
+// TOOLTIP FOOTNOTES
+// =============================================================================
+
+/**
+ * Collects a footnote to be stored for later rendering
+ *
+ * @since 5.25.0
+ *
+ * @param int    $footnote_id  Unique identifier for the footnote.
+ * @param string $content      Content of the footnote.
+ */
+
+function fictioneer_collect_footnote( $footnote_id, $content ) {
+  global $fictioneer_footnotes;
+
+  // Initialize footnotes array if it doesn't exist
+  if ( ! is_array( $fictioneer_footnotes ) ) {
+    $fictioneer_footnotes = [];
+  }
+
+  // Store footnote content with its ID
+  $fictioneer_footnotes[ $footnote_id ] = $content;
+}
+
+/**
+ * Renders collected footnotes at the end of the content
+ *
+ * @since 5.25.0
+ *
+ * @param string $content  The post content.
+ *
+ * @return string The post content with appended footnotes.
+ */
+
+function fictioneer_append_footnotes_to_content( $content ) {
+  global $fictioneer_footnotes;
+
+  // Only proceed for single posts/pages with footnotes
+  if ( ! is_singular() || empty( $fictioneer_footnotes ) ) {
+    return $content;
+  }
+
+  // Allow modifications to the collected footnotes
+  $fictioneer_footnotes = apply_filters( 'fictioneer_filter_footnotes', $fictioneer_footnotes );
+
+  // Generate the HTML for footnotes section
+  $html = sprintf(
+    '<div class="footnotes"><h3>%s</h3>',
+    esc_html( __( 'Footnotes', 'fictioneer' ) )
+  );
+
+  $html .= '<ol class="footnotes__list list">';
+
+  foreach ( $fictioneer_footnotes as $id => $footnote ) {
+    $html .= sprintf(
+    '<li id="footnote-%1$d" class="footnotes__item">%2$s <a href="#tooltip-%1$d" class="footnotes__link-up"><i class="fa-solid fa-arrow-turn-up"></i></a></li>',
+    $id,
+    wp_kses_post( $footnote )
+    );
+  }
+
+  $html .= '</ol></div>';
+
+  // Reset the footnotes array
+  $fictioneer_footnotes = [];
+
+  // Append footnotes to the content
+  return $content . $html;
+}
+
+if ( get_option( 'fictioneer_generate_footnotes_from_tooltips' ) ) {
+  add_action( 'fictioneer_collect_footnote', 'fictioneer_collect_footnote', 10, 2 );
+  add_filter( 'the_content', 'fictioneer_append_footnotes_to_content', 20 );
+}

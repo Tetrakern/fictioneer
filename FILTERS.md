@@ -929,6 +929,16 @@ Filters the font array compiled from all valid font folders and Google Fonts lin
 
 ---
 
+### `apply_filters( 'fictioneer_filter_footnotes', $footnotes )`
+Filters the collection array of footnotes to be rendered.
+
+Filters the font array compiled from all valid font folders and Google Fonts links in both the parent and child theme. Note that the `fictioneer_get_font_data()` function reads the file system, which is potentially slow.
+
+**Parameters:**
+* $footnotes (array) – Array of footnotes (ID => HTML).
+
+---
+
 ### `apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id )`
 Filters the URL of the header image in the `header.php` template.
 

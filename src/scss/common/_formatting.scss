@@ -64,8 +64,9 @@ img {
 
 p a:not(.wp-element-button, .modal-tooltip),
 .content-section :is(.wp-block-table, .wp-block-pullquote, .wp-block-list) a:not(.wp-element-button, .modal-tooltip),
-.link,
-:is(.modal, .dialog-modal) a[href]:not(.button, .wp-element-button, .modal-tooltip) {
+:is(.modal, .dialog-modal) a[href]:not(.button, .wp-element-button, .modal-tooltip),
+.footnotes a[href*="http"],
+.link {
   color: var(--inline-link-color);
   text-decoration: var(--inline-link-text-decoration);
   text-underline-offset: 0.2em;
@@ -89,9 +90,22 @@ a.modal-tooltip {
   cursor: pointer;
   text-decoration: underline var(--fg-900) dotted 1px;
   text-underline-offset: 0.15em;
+  scroll-margin-top: 64px;
 
   &:hover {
     text-decoration-color: currentColor;
+  }
+}
+
+.footnote-link {
+  --inline-link-color-visited: var(--inline-link-color);
+  text-decoration: none !important;
+  padding-left: 8px;
+  margin-left: -6px;
+  scroll-margin-top: 64px;
+
+  &:hover {
+    text-decoration: none !important;
   }
 }
 
@@ -115,7 +129,7 @@ a.modal-tooltip {
     }
 
     &:where(:not(:last-child, .cell-title, .card__title, .post__title)) {
-      margin-bottom: var(--heading-margin-bottom, min(max(1.25rem, var(--paragraph-spacing) - 0.75rem), 2rem));
+      margin-bottom: var(--heading-margin-bottom, min(max(0.75rem, var(--paragraph-spacing) - 0.75rem), 2rem));
     }
   }
 
@@ -296,7 +310,7 @@ a.modal-tooltip {
 .content-section {
   :where(.list, .block-list, .wp-block-footnotes, .litrpg-body :where(ul, ol)) {
     list-style: initial;
-    padding-left: 1.75rem;
+    padding-left: 1.85em;
     margin: 1.5rem 0 0;
 
     &:not(:last-child) {
@@ -305,7 +319,7 @@ a.modal-tooltip {
 
     > li {
       &:not(:last-child) {
-        margin-bottom: .75rem;
+        margin-bottom: .75em;
       }
 
       > :is(ul, ol) {

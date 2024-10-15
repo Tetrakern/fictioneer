@@ -1260,11 +1260,7 @@ a[data-fcn-dialog-target] {
   cursor: pointer;
 }
 
-.helper-modal-image {
-  padding: 1.5px;
-  border: 1px solid currentColor;
-  border-radius: 3px;
-
+:is(.helper-modal-code, .helper-modal-image) {
   &:not(:first-child) {
     margin-top: .75em;
   }
@@ -1272,6 +1268,12 @@ a[data-fcn-dialog-target] {
   &:not(:last-child) {
     margin-bottom: .75em;
   }
+}
+
+.helper-modal-image {
+  padding: 1.5px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
 
   img {
     display: block;

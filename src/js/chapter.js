@@ -1292,7 +1292,7 @@ const fcn_chapterKeyboardNavigation = event => {
 document.addEventListener('keydown', fcn_chapterKeyboardNavigation);
 
 // =============================================================================
-// SCROLL TO START OG CHAPTER
+// SCROLL TO START OF CHAPTER
 // =============================================================================
 
 if (window.location.hash === '#start') {

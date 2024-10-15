@@ -678,6 +678,23 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_generate_footnotes_from_tooltips',
+                    __( 'Enable footnotes from tooltips', 'fictioneer' ),
+                    __( 'Generate and show footnotes at the end of the post content based on the tooltips.', 'fictioneer' ),
+                    __( '<p>With this feature enabled, tooltips added with the <code>[fcnt]text[/fcnt]</code> shortcode are collected and appended to the content as footnotes, complete with anchor links.</p>', 'fictioneer' ),
+                    '<code class="helper-modal-code">' .
+                    _x(
+                      '[fcnt header="Optional" content="Tooltip content."]text[/fcnt]',
+                      'Settings helper modal tooltip shortcode figure.',
+                    'fictioneer' ) .
+                    '</code>'
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_bookmarks',
                     __( 'Enable Bookmarks', 'fictioneer' ),
                     __( 'Bookmark paragraphs in chapters. No account needed.', 'fictioneer' ),

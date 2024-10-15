@@ -2346,51 +2346,90 @@ if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
 }
 
 // =============================================================================
-// TOOLTIP SHORTCODE
+// TOOLTIP AND FOOTNOTE SHORTCODE
 // =============================================================================
 
 /**
- * Shortcode to add tooltip modal
+ * Shortcode to add a tooltip with an associated footnote
  *
  * @since 5.25.0
  *
- * @param string $atts['header']   Optional. Header of the tooltip.
- * @param string $atts['content']  Content of the tooltip.
+ * @param string  $atts['header']    Optional. Header of the tooltip.
+ * @param string  $atts['content']   Content of the tooltip.
+ * @param bool    $atts['footnote']  Optional. Whether to show the footnote. Default true.
+ * @param string  $content           Shortcode content.
  *
- * @return string The shortcode HTML.
+ * @return string HTML for the tooltip and associated footnote link.
  */
 
 function fictioneer_shortcode_tooltip( $atts, $content = null ) {
+  // Initialize a static counter for unique tooltip/footnote IDs
+  static $tooltip_id_counter = 0;
+
   // Setup
-  $data = '';
-  $attributes = shortcode_atts(
-    array( 'header' => '', 'content' => '' ),
-    $atts,
-    'fcnt'
+  $default_atts = array(
+    'header' => '',
+    'content' => '',
+    'footnote' => true,
   );
 
-  // Sanitize
-  $modal_header = trim( wp_kses_post( $attributes['header'] ) );
-  $modal_header = esc_attr( $modal_header );
+  $atts = shortcode_atts( $default_atts, $atts, 'fcnt' );
+  $footnote_allowed = get_option( 'fictioneer_generate_footnotes_from_tooltips' ) && $atts['footnote'];
+  $footnote_link = '';
 
-  $modal_content = trim( wp_kses_post( $attributes['content'] ) );
-  $modal_content = esc_attr( $modal_content );
+  // Sanitize user inputs
+  $tooltip_header = trim( wp_kses_post( $atts[ 'header' ] ) );
+  $tooltip_content = trim( wp_kses_post( $atts[ 'content' ] ) );
 
-  // Tooltip content?
-  if ( empty( $modal_content ) ) {
+  // Bail if no content
+  if ( empty( $tooltip_content ) ) {
     return $content;
   }
 
-  // Build attributes
-  if ( ! empty( $modal_header ) ) {
-    $data .= 'data-dialog-header="' . esc_attr( $modal_header ) . '" ';
+  // Increment counter
+  $tooltip_id_counter++;
+
+  // Prepare footnote if allowed
+  if ( $footnote_allowed ) {
+    // Create a footnote link to be appended to the tooltip content
+    $footnote_link = sprintf(
+      '<sup class="tooltip-counter"><a href="#footnote-%1$d" class="footnote-link">%1$d</a></sup>',
+      $tooltip_id_counter
+    );
   }
 
-  $data .= 'data-dialog-content="' . esc_attr( $modal_content ) . '"';
-  $title = _x( 'Click to see note', 'Tooltip shortcode.', 'fictioneer' );
+  // Prepare data attributes for the tooltip
+  $tooltip_data = array(
+    'dialog-header' => $tooltip_header,
+    'dialog-content' => $tooltip_content . $footnote_link,
+  );
 
-  // Return HTML
-  return '<a class="modal-tooltip" title="' . $title . '" ' . $data . ' data-click-action="open-tooltip-modal">' .
-    $content . '</a>';
+  // Convert data array to HTML attributes
+  $tooltip_data_attributes = array_map(
+    function ( $key, $value ) {
+      return sprintf( 'data-%s="%s"', esc_attr( $key ), esc_attr( $value ) );
+    },
+    array_keys( $tooltip_data ),
+    $tooltip_data
+  );
+
+  $tooltip_title = _x( 'Click to see note', 'Tooltip shortcode.', 'fictioneer' );
+
+  // Construct the HTML for the tooltip
+  $html = sprintf(
+    '<span><a id="tooltip-%1$d" class="modal-tooltip" title="%2$s" %3$s data-click-action="open-tooltip-modal">%4$s</a>%5$s</span>',
+    $tooltip_id_counter,
+    esc_attr( $tooltip_title ),
+    implode( ' ', $tooltip_data_attributes ),
+    $content,
+    $footnote_link
+  );
+
+  // Collect footnote if allowed
+  if ( $footnote_allowed ) {
+    do_action( 'fictioneer_collect_footnote', $tooltip_id_counter, $tooltip_content );
+  }
+
+  return $html;
 }
 add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
