@@ -4813,9 +4813,14 @@ function fictioneer_manage_posts_column_chapter_story( $column_name, $post_id ) 
     $column_name === 'fictioneer_chapter_story' &&
     ( $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true ) )
   ) {
-    $title = fictioneer_truncate( fictioneer_get_safe_title( $story_id ), 64 );
+    static $titles = [];
 
-    echo '<a href="edit.php?post_type=fcn_chapter&filter_story=' . absint( $story_id ) . '">' . $title . '</a>';
+    if ( ! isset( $titles[ $story_id ] ) ) {
+      $titles[ $story_id ] = '<a href="edit.php?post_type=fcn_chapter&filter_story=' .
+        absint( $story_id ) . '">' . fictioneer_truncate( fictioneer_get_safe_title( $story_id ), 64 ) . '</a>';
+    }
+
+    echo $titles[ $story_id ];
   }
 }
 add_action( 'manage_fcn_chapter_posts_custom_column', 'fictioneer_manage_posts_column_chapter_story', 10, 2 );
