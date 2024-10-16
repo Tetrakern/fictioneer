@@ -1428,11 +1428,13 @@ Renders the theme sidebar (not displayed anywhere by default). Requires the "Dis
 [fictioneer_sidebar name="other-sidebar"]
 ```
 
-### Tooltip (Modal)
+### Tooltip (Modal) & Footnotes
 
-Includes a tooltip modal for the wrapped content, indicated by a dotted underline. Just omit the shortcode block and write it directly into the text. This shortcode also works if your role lacks the shortcode capability.
+Includes a tooltip modal for the wrapped content, indicated by a dotted underline. Just omit the shortcode block and write it directly into the text. This shortcode also works if your role lacks the shortcode capability. If you enable the footnotes feature under **Fictioneer > General > Features**, the tooltips will also be appended to the content as footnotes.
 
-**Note:** You can use HTML in the shortcode content attribute, as far as the post sanitizer and user role allows. However, be cautious of nested quotation marks and square brackets, as they can break the shortcode — use [HTML entities](https://developer.mozilla.org/en-US/docs/Glossary/Character_reference) instead.
+**Formatting:** You can use HTML in the shortcode content attribute, as far as the post sanitizer and user role allows. However, be cautious of nested quotation marks and square brackets, as they can break the shortcode — use [HTML entities](https://developer.mozilla.org/en-US/docs/Glossary/Character_reference) instead.
+
+**Footnotes:** There is no difference in use to append the tooltips as footnotes, complete with anchor link. Just enable the rendering globally. You can disable individual footnotes with the `footnote="false"` parameter (but not the other way around).
 
 ```
 [fcnt content='This is a note.']note[/fcnt]
@@ -1442,7 +1444,9 @@ Includes a tooltip modal for the wrapped content, indicated by a dotted underlin
 [fcnt header='Are you dense?' content='This <em>typically</em> refers to forms that are either literal <strong>skeletons</strong> or the underlying bearing *structure* of objects.']skeletal shapes[/fcnt]
 ```
 
-![Showcase](repo/assets/fcnt_example.jpg?raw=true)
+![Tooltip Modal](repo/assets/fcnt_example.jpg?raw=true)
+
+![Footnote](repo/assets/fcnt_example_2.jpg?raw=true)
 
 ## Elementor
 
@@ -1482,10 +1486,9 @@ This location can be confusing. The page background is actually a separate eleme
 * You can toggle the mobile menu with a label element targeting the `mobile-menu-toggle` ID.
 * You can select the theme fonts in Elementor, grouped under "Fictioneer".
 * You can use the theme shortcodes in the shortcode widget.
-* WordPress widgets have next to no styling because the theme does not use them.
 * The position and expected content of the header depend on your Customizer choices.
 * The global Elementor text colors have been overwritten with theme colors.
-* Elementor does not understand the theme’s display modes, colors, or HSL settings.
+* Elementor does not understand the theme’s display modes, colors, or HSL settings (use the color classes).
 * Elementor makes your site slower unless you have a good cache plugin.
 * Use the Canvas-type page templates if you want to drastically customize a page.
 * Fictioneer is not meant for site editors; there are limitations you have to live with.
