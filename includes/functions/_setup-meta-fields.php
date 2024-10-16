@@ -4750,3 +4750,72 @@ function fictioneer_add_post_table_pw_expiration( $post_states, $post ) {
   return $post_states;
 }
 add_filter( 'display_post_states', 'fictioneer_add_post_table_pw_expiration', 10, 2 );
+
+// =============================================================================
+// STORY IN CHAPTER LIST TABLE
+// =============================================================================
+
+/**
+ * Hide chapter story column in chapter list table view by default
+ *
+ * @since 5.25.0
+ * @link https://developer.wordpress.org/reference/hooks/default_hidden_columns/
+ *
+ * @param string[]  $hidden  Array of IDs of columns hidden by default.
+ * @param WP_Screen $screen  WP_Screen object of the current screen.
+ *
+ * @return string[] Updated array of IDs.
+ */
+
+function fictioneer_default_hide_chapter_story_column( $hidden, $screen ) {
+  if ( $screen->post_type === 'fcn_chapter' ) {
+    $hidden[] = 'fictioneer_chapter_story';
+  }
+
+  return $hidden;
+}
+add_filter( 'default_hidden_columns', 'fictioneer_default_hide_chapter_story_column', 10, 2 );
+
+/**
+ * Add chapter story column to chapter list table view
+ *
+ * @since 5.25.0
+ * @link https://developer.wordpress.org/reference/hooks/manage_post_type_posts_columns/
+ *
+ * @param string[] $post_columns  An associative array of column headings.
+ *
+ * @return string[] Updated associative array of column headings.
+ */
+
+function fictioneer_add_posts_column_chapter_story( $post_columns ) {
+  return $post_columns = array_merge(
+    array_slice( $post_columns, 0, 2, true ),
+    array(
+      'fictioneer_chapter_story' => _x( 'Story', 'Chapter story list table column title.', 'fictioneer' )
+    ),
+    array_slice( $post_columns, 2, null, true )
+  );
+}
+add_filter( 'manage_fcn_chapter_posts_columns', 'fictioneer_add_posts_column_chapter_story' );
+
+/**
+ * Output chapter story value in chapter list table view
+ *
+ * @since 5.25.0
+ * @link https://developer.wordpress.org/reference/hooks/manage_post-post_type_posts_custom_column/
+ *
+ * @param string $column_name  The name of the column to display.
+ * @param int    $post_id      The current post ID.
+ */
+
+function fictioneer_manage_posts_column_chapter_story( $column_name, $post_id ) {
+  if (
+    $column_name === 'fictioneer_chapter_story' &&
+    ( $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true ) )
+  ) {
+    $title = fictioneer_truncate( fictioneer_get_safe_title( $story_id ), 64 );
+
+    echo '<a href="edit.php?post_type=fcn_chapter&filter_story=' . absint( $story_id ) . '">' . $title . '</a>';
+  }
+}
+add_action( 'manage_fcn_chapter_posts_custom_column', 'fictioneer_manage_posts_column_chapter_story', 10, 2 );
