@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-16 11:55+0000\n"
+"POT-Creation-Date: 2024-10-16 15:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -3182,6 +3182,11 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:2606
 msgctxt "Chapter short title meta field label."
 msgid "Short Title"
+msgstr ""
+
+#: includes/functions/_setup-meta-fields.php:4794
+msgctxt "Chapter story list table column title."
+msgid "Story"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2825
