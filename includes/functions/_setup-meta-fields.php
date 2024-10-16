@@ -4712,3 +4712,41 @@ function fictioneer_bulk_edit_save_chapter_fields( $post_id ) {
   }
 }
 add_action( 'save_post', 'fictioneer_bulk_edit_save_chapter_fields' );
+
+// =============================================================================
+// PASSWORD EXPIRATION NOTE IN POST TABLE
+// =============================================================================
+
+/**
+ * Renders expiration date in post list table password note
+ *
+ * @since 5.25.0
+ *
+ * @param string[] $post_states  An array of post display states.
+ * @param WP_Post  $post         The current post object.
+ *
+ * @return string[] Filtered post display states used in the posts list table.
+ */
+
+function fictioneer_add_post_table_pw_expiration( $post_states, $post ) {
+  if ( isset( $post_states['protected'] ) ) {
+    $expiration_date = get_post_meta( $post->ID, 'fictioneer_post_password_expiration_date', true );
+
+    if ( $expiration_date ) {
+      $timestamp = strtotime( $expiration_date );
+
+      $post_states['protected'] = sprintf(
+        _x( '%1$s (until %2$s)', 'Expiration suffix for protected note in post list tables.', 'fictioneer' ),
+        $post_states['protected'],
+        sprintf(
+          __( '%1$s at %2$s' ), // WP post table default
+          date_i18n( __( 'Y/m/d' ), $timestamp ), // WP post table default
+          date_i18n( __( 'g:i a' ), $timestamp ) // WP post table default
+        )
+      );
+    }
+  }
+
+  return $post_states;
+}
+add_filter( 'display_post_states', 'fictioneer_add_post_table_pw_expiration', 10, 2 );
