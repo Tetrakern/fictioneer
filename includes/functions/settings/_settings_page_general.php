@@ -814,31 +814,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 ?>
               </div>
 
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_static_partials',
-                    __( 'Enable caching of partials', 'fictioneer' ),
-                    __( 'Caches parts of the page as static HTML files to speed up loading. Do not use this together with a cache plugin.', 'fictioneer' ),
-                    __( '<p>With this feature enabled, the theme caches parts of the page that never change as static HTML files, pulling them up on subsequent requests to save resources. Unlike full caching, this only affects some modals, menus, and chapter contents. Use this only if cache plugins are not an option.</p><p>Plugins that change the content of chapters may not work without further adjustments. If you need to apply dynamic chapters content, which are only refreshed on update or when the cache expires, you can still do so with the <code>fictioneer_filter_static_content</code> filter.</p><p>Administrators can disable the content caching per chapter.</p>', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_story_card_caching',
-                    __( 'Enable caching of story cards', 'fictioneer' ),
-                    sprintf(
-                      __( 'Caches the latest %d story cards in the database to speed up loading. May or may not work with cache plugins.', 'fictioneer' ),
-                      FICTIONEER_CARD_CACHE_LIMIT
-                    ),
-                    __( '<p>With this feature enabled, the HTML of the last rendered story cards is cached in the database, mitigating the slowdown caused by their complex queries. The more cards you display at once, the slower the page would typically load, but caching helps to speed up the loading times for the most recent stories.</p><p>You can use the <code>FICTIONEER_CARD_CACHE_LIMIT</code> constant to change the number of cached cards (default is 40). Be aware that increasing this number will result in higher RAM consumption.</p>', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
             </div>
           </div>
         </div>
@@ -1320,6 +1295,31 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   echo '</p></div>';
                 }
               ?>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_static_partials',
+                    __( 'Enable caching of partials', 'fictioneer' ),
+                    __( 'Caches parts of the page as static HTML files to speed up loading. Do not use this together with a cache plugin.', 'fictioneer' ),
+                    __( '<p>With this feature enabled, the theme caches parts of the page that never change as static HTML files, pulling them up on subsequent requests to save resources. Unlike full caching, this only affects some modals, menus, and chapter contents. Use this only if cache plugins are not an option.</p><p>Plugins that change the content of chapters may not work without further adjustments. If you need to apply dynamic chapters content, which are only refreshed on update or when the cache expires, you can still do so with the <code>fictioneer_filter_static_content</code> filter.</p><p>Administrators can disable the content caching per chapter.</p>', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_story_card_caching',
+                    __( 'Enable caching of story cards', 'fictioneer' ),
+                    sprintf(
+                      __( 'Caches the latest %d story cards in the database to speed up loading. May or may not work with cache plugins.', 'fictioneer' ),
+                      FICTIONEER_CARD_CACHE_LIMIT
+                    ),
+                    __( '<p>With this feature enabled, the HTML of the last rendered story cards is cached in the database, mitigating the slowdown caused by their complex queries. The more cards you display at once, the slower the page would typically load, but caching helps to speed up the loading times for the most recent stories.</p><p>You can use the <code>FICTIONEER_CARD_CACHE_LIMIT</code> constant to change the number of cached cards (default is 40). Be aware that increasing this number will result in higher RAM consumption.</p>', 'fictioneer' )
+                  );
+                ?>
+              </div>
 
               <div class="fictioneer-card__row">
                 <?php
