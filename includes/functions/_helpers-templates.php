@@ -2398,7 +2398,7 @@ function fictioneer_render_icon_menu( $args ) {
   if ( $location === 'in-navigation' && FICTIONEER_SHOW_SEARCH_IN_MENUS ) {
     $output['search'] = sprintf(
       '<div class="menu-item menu-item-icon"><a href="%1$s" title="%2$s" rel="nofollow" aria-label="%3$s"><i class="fa-solid fa-magnifying-glass"></i></a></div>',
-      esc_url( home_url( '/?s=' ) ),
+      esc_url( home_url( '/?s' ) ),
       esc_attr__( 'Search Page', 'fictioneer' ),
       esc_attr__( 'Link to search page', 'fictioneer' )
     );
