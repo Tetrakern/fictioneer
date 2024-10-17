@@ -90,7 +90,7 @@ get_header(
         );
 
         if ( $story_post && $indexed_chapters ) {
-          echo '<script>const fcn_storyChapterListData = ' . json_encode( fictioneer_get_chapter_index_array( $story_id ) ) . ';</script>';
+          echo '<script id="chapter-list-data">const fcn_storyChapterListData = ' . json_encode( fictioneer_get_chapter_index_array( $story_id ) ) . ';</script>';
         }
 
         if ( get_option( 'fictioneer_enable_bookmarks' ) ) {

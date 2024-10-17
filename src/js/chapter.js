@@ -1268,6 +1268,7 @@ function fcn_appendChapterList(target) {
     }
 
     target.querySelector(`[data-id="${target.dataset.currentId}"]`)?.classList.add('current-chapter');
+    document.getElementById("chapter-list-data")?.remove(); // Cleanup
   }
 }
 
