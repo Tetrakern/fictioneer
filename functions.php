@@ -431,6 +431,14 @@ if ( ! defined( 'FICTIONEER_SHOW_LATEST_CHAPTERS_ON_STORY_CARDS' ) ) {
   );
 }
 
+// Boolean: Legacy check for nav menu Transients (used by some child themes)
+if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
+  define(
+    'FICTIONEER_ENABLE_MENU_TRANSIENTS',
+    ! is_customize_preview() && ! get_option( 'fictioneer_disable_menu_transients' )
+  );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================
