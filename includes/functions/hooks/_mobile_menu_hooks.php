@@ -53,9 +53,10 @@ add_action( 'fictioneer_body', 'fictioneer_output_mobile_menu', 20 );
 // =============================================================================
 
 /**
- * Adds the _icon-menu.php partial to the mobile menu
+ * Renders the icon menu to the mobile menu
  *
  * @since 5.0.0
+ * @since 5.25.0 - Replaced partial with fictioneer_render_icon_menu().
  */
 
 function fictioneer_mobile_user_icon_menu() {
