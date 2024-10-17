@@ -2445,6 +2445,25 @@ function fictioneer_render_icon_menu( $args ) {
   echo '<div class="icon-menu _' . $location . '" data-nosnippet>' . implode( '', $output ) . '</div>';
 }
 
+/**
+ * Legacy support for icon menu partial (used in some child themes)
+ *
+ * @since 5.25.0
+ * @link https://developer.wordpress.org/reference/functions/get_template_part/
+ *
+ * @param string   $slug       The slug name for the generic template.
+ * @param string   $name       The name of the specialized template or an empty string if there is none.
+ * @param string[] $templates  Array of template files to search for, in order.
+ * @param array    $args       Additional arguments passed to the template.
+ */
+
+function fictioneer_legacy_icon_menu_partial( $slug, $name, $templates, $args ) {
+  if ( $slug === 'partials/_icon-menu' ) {
+    fictioneer_render_icon_menu( $args );
+  }
+}
+add_action( 'get_template_part', 'fictioneer_legacy_icon_menu_partial', 10, 4 );
+
 // =============================================================================
 // SPLIDE
 // =============================================================================
