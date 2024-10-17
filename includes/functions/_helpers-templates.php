@@ -1259,10 +1259,15 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 // GET SIMPLE CHAPTER LIST
 // =============================================================================
 
-
-
-
-
+/**
+ * Returns array with ordered chapter index list item HTML strings
+ *
+ * @since 5.25.0
+ *
+ * @param int $story_id  The story ID.
+ *
+ * @return array Ordered array of list item HTMl strings (starting at 1).
+ */
 
 function fictioneer_get_chapter_index_array( $story_id ) {
   // Meta cache?
