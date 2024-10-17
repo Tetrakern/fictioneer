@@ -234,7 +234,6 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
 function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = false ) {
   // Static variable cache
   static $cached_results = [];
-  static $query_count = 0;
 
   // Setup
   $chapter_ids = fictioneer_get_story_chapter_ids( $story_id );
@@ -265,13 +264,6 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
   // Static cache hit?
   if ( isset( $cached_results[ $cache_key ] ) ) {
     return $cached_results[ $cache_key ];
-  }
-
-  // Query result cache registry hit?
-  $cached_query_result = fictioneer_get_cached_query_result( $cache_key );
-
-  if ( $cached_query_result ) {
-    return $cached_query_result;
   }
 
   // Batched or one go?
@@ -318,17 +310,6 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
         $post->post_excerpt // Unused here
       );
     }
-  }
-
-  // Count query
-  $query_count++;
-
-  // Cache for subsequent calls
-  $cached_results[ $cache_key ] = $chapter_posts;
-
-  // Put on breaks for large queries uploaded to the database
-  if ( $query_count <= FICTIONEER_QUERY_RESULT_CACHE_BREAK ) {
-    fictioneer_cache_query_result( $cache_key, $chapter_posts );
   }
 
   // Return chapters selected in story

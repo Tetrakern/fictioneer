@@ -690,12 +690,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
     ),
-    'fictioneer_enable_query_result_caching' => array(
-      'name' => 'fictioneer_enable_query_result_caching',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'default' => 0
-    ),
     'fictioneer_allow_rest_save_actions' => array(
       'name' => 'fictioneer_allow_rest_save_actions',
       'group' => 'fictioneer-settings-general-group',
@@ -1209,7 +1203,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_enable_anti_flicker' => __( 'Enable anti-flicker script', 'fictioneer' ),
       'fictioneer_hide_categories' => __( 'Hide categories on posts', 'fictioneer' ),
       'fictioneer_enable_story_card_caching' => __( 'Enable caching of story cards', 'fictioneer' ),
-      'fictioneer_enable_query_result_caching' => __( 'Enable caching of large query results', 'fictioneer' ),
       'fictioneer_allow_rest_save_actions' => __( 'Allow REST requests to trigger save actions', 'fictioneer' ),
       'fictioneer_enable_global_splide' => __( 'Enable Splide slider globally', 'fictioneer' ),
       'fictioneer_log_posts' => __( 'Log all post updates', 'fictioneer' ),

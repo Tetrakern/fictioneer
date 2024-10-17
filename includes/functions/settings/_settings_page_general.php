@@ -839,21 +839,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 ?>
               </div>
 
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_query_result_caching',
-                    __( 'Enable caching of large query results', 'fictioneer' ),
-                    sprintf(
-                      __( 'Caches the latest %d query results with %s or more posts in the database to speed up loading.', 'fictioneer' ),
-                      FICTIONEER_QUERY_RESULT_CACHE_LIMIT,
-                      FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD
-                    ),
-                    __( '<p>With this feature enabled, the results of large queries are cached in the database. Repeating resource-intensive queries, especially for stories with hundreds of chapters, can slow down the site and even cause timeouts. Caching them typically leads to faster loading times.</p><p>You can use the <code>FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD</code> constant to define what constitutes as large query result (default is 50) and the <code>FICTIONEER_QUERY_RESULT_CACHE_LIMIT</code> constant to change the number of cached results (default is 50). Be aware that increasing these numbers will result in higher RAM consumption.</p>', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
             </div>
           </div>
         </div>
