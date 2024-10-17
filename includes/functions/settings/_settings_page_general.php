@@ -1006,6 +1006,78 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_facebook_share',
+                    __( 'Disable Facebook share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_twitter_share',
+                    __( 'Disable Twitter share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_tumblr_share',
+                    __( 'Disable Tumblr share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_reddit_share',
+                    __( 'Disable Reddit share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_mastodon_share',
+                    __( 'Disable Mastodon share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_telegram_share',
+                    __( 'Disable Telegram share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_whatsapp_share',
+                    __( 'Disable Whatsapp share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
             <h3 class="fictioneer-card__header"><?php _e( 'Performance', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
@@ -1622,78 +1694,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_disable_comment_pagination',
                     __( 'Disable theme comment pagination', 'fictioneer' ),
                     __( 'Return to the default WordPress pagination (no-AJAX).', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="fictioneer-card">
-          <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
-            <div class="fictioneer-card__content">
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_facebook_share',
-                    __( 'Disable Facebook share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_twitter_share',
-                    __( 'Disable Twitter share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_tumblr_share',
-                    __( 'Disable Tumblr share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_reddit_share',
-                    __( 'Disable Reddit share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_mastodon_share',
-                    __( 'Disable Mastodon share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_telegram_share',
-                    __( 'Disable Telegram share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_whatsapp_share',
-                    __( 'Disable Whatsapp share button', 'fictioneer' )
                   );
                 ?>
               </div>
