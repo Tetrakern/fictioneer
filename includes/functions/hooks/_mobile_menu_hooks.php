@@ -240,7 +240,9 @@ function fictioneer_mobile_chapters_frame() {
           <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
         </button>
       </div>
-      <div id="mobile-menu-chapters-list" class="mobile-menu__list _chapters"></div>
+      <div class="mobile-menu__list _chapters">
+        <ul id="mobile-menu-chapters-list" data-current-id="<?php the_ID(); ?>"></ul>
+      </div>
     </div>
   </div>
   <?php // <--- End HTML

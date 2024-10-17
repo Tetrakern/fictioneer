@@ -1259,150 +1259,108 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 // GET SIMPLE CHAPTER LIST
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
-  /**
-   * Returns the HTML for chapter list items with icon and link
-   *
-   * @deprecated 5.25.0
-   *
-   * @since 5.0.0
-   * @since 5.9.3 - Added meta field caching.
-   * @since 5.9.4 - Removed output buffer.
-   * @since 5.12.2 - Use permalinks instead of page ID.
-   * @since 5.16.0 - Clean up and add filter.
-   *
-   * @param int   $story_id       ID of the story.
-   * @param array $data           Prepared data of the story.
-   * @param int   $current_index  Index in chapter ID array.
-   *
-   * @return string HTML list of chapters.
-   */
 
-  function fictioneer_get_chapter_list_items( $story_id, $data, $current_index ) {
-    return fictioneer_get_simple_chapter_list_items( $story_id, $data, $current_index );
-  }
-}
 
-if ( ! function_exists( 'fictioneer_get_simple_chapter_list_items' ) ) {
-  /**
-   * Returns the HTML for chapter list items with icon and link
-   *
-   * Alias: For legacy purposes, the fictioneer_get_chapter_list_items()
-   * is kept as alias for now but should no longer be used.
-   *
-   * @since 5.25.0 - Replaces fictioneer_get_chapter_list_items()
-   *
-   * @param int   $story_id       ID of the story.
-   * @param array $data           Prepared data of the story.
-   * @param int   $current_index  Index in chapter ID array.
-   *
-   * @return string HTML list of chapters.
-   */
 
-  function fictioneer_get_simple_chapter_list_items( $story_id, $data, $current_index ) {
-    // Meta cache?
-    $cache_plugin_active = fictioneer_caching_active( 'chapter_list_items' );
 
-    if ( ! $cache_plugin_active ) {
-      $last_story_update = get_post_modified_time( 'U', true, $story_id );
-      $meta_cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );
 
-      if ( $meta_cache && is_array( $meta_cache ) && array_key_exists( 'html', $meta_cache ) ) {
-        // ... still up-to-date and valid?
-        if (
-          ( $meta_cache['timestamp'] ?? 0 ) == $last_story_update &&
-          ( $meta_cache['valid_until'] ?? 0 ) > time()
-        ) {
-          return $meta_cache['html'];
-        }
-      }
-    }
+function fictioneer_get_chapter_index_array( $story_id ) {
+  // Meta cache?
+  $cache_plugin_active = fictioneer_caching_active( 'chapter_get_index_array' );
 
-    // Setup
-    $chapters = fictioneer_get_story_chapter_posts( $story_id );
-    $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) || get_option( 'fictioneer_hide_chapter_icons' );
-    $html = '';
-    $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_list_statuses', ['publish'], $story_id );
-    $allowed_statuses = apply_filters( 'fictioneer_filter_simple_chapter_list_items_statuses', $allowed_statuses, $story_id );
+  if ( ! $cache_plugin_active ) {
+    $last_story_update = get_post_modified_time( 'U', true, $story_id );
+    $meta_cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );
 
-    // Loop chapters...
-    foreach ( $chapters as $chapter ) {
-      // Skip unpublished (in case of filtered query params)
+    if ( is_array( $meta_cache ) && is_array( $meta_cache['items'] ?? 0 ) ) {
+      // ... still up-to-date and valid?
       if (
-        ! in_array( $chapter->post_status, $allowed_statuses ) ||
-        get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true )
+        ( $meta_cache['timestamp'] ?? 0 ) == $last_story_update &&
+        ( $meta_cache['valid_until'] ?? 0 ) > time()
       ) {
-        continue;
+        return $meta_cache['items'];
       }
-
-      // Prepare
-      $classes = [];
-      $title = fictioneer_get_safe_title( $chapter->ID, 'get_chapter_list_items' );
-      $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
-      $list_title = trim( wp_strip_all_tags( $list_title ) );
-      $text_icon = get_post_meta( $chapter->ID, 'fictioneer_chapter_text_icon', true );
-      $icon = '';
-
-      // Mark for password
-      if ( ! empty( $chapter->post_password ) ) {
-        $classes[] = 'has-password';
-      }
-
-      // Chapter icon
-      if ( empty( $text_icon ) && ! $hide_icons ) {
-        $icon = '<i class="' . fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID ) . '"></i>';
-      } elseif ( ! $hide_icons ) {
-        $icon = '<span class="text-icon">' . $text_icon . '</span>';
-      }
-
-      // HTML
-      $item = sprintf(
-        '<li class="%1$s" data-id="%2$s"><a href="%3$s">%4$s<span>%5$s</span></a></li>',
-        implode( ' ', $classes ),
-        $chapter->ID,
-        get_the_permalink( $chapter->ID ),
-        $icon,
-        $list_title ?: $title
-      );
-
-      // Deprecated
-      $item = apply_filters(
-        'fictioneer_filter_chapter_list_item',
-        $item,
-        $chapter,
-        array(
-          'title' => $title,
-          'list_title' => $list_title,
-          'icon' => $icon,
-          'classes' => $classes
-        )
-      );
-
-      $html .= apply_filters(
-        'fictioneer_filter_simple_chapter_list_item',
-        $item,
-        $chapter,
-        array(
-          'title' => $title,
-          'list_title' => $list_title,
-          'icon' => $icon,
-          'classes' => $classes
-        )
-      );
     }
-
-    // Update meta cache
-    if ( ! $cache_plugin_active ) {
-      update_post_meta(
-        $story_id,
-        'fictioneer_story_chapter_index_html',
-        array( 'html' => $html, 'timestamp' => $last_story_update, 'valid_until' => time() + HOUR_IN_SECONDS )
-      );
-    }
-
-    // Return
-    return $html;
   }
+
+  // Setup
+  $chapters = fictioneer_get_story_chapter_posts( $story_id );
+  $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_list_statuses', ['publish'], $story_id ); // Legacy
+  $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_index_list_statuses', $allowed_statuses, $story_id );
+  $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) ||
+    get_option( 'fictioneer_hide_chapter_icons' );
+  $html = '';
+  $position = 0;
+
+  // Loop chapters...
+  foreach ( $chapters as $chapter ) {
+    // Skip hidden chapters (in case of filtered query params)
+    if (
+      ! in_array( $chapter->post_status, $allowed_statuses ) ||
+      get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true )
+    ) {
+      continue;
+    }
+
+    // Prepare
+    $classes = [];
+    $title = fictioneer_get_safe_title( $chapter->ID, 'get_chapter_list_items' );
+    $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
+    $list_title = trim( wp_strip_all_tags( $list_title ) );
+    $text_icon = get_post_meta( $chapter->ID, 'fictioneer_chapter_text_icon', true );
+    $icon = '';
+
+    // Mark for password
+    if ( ! empty( $chapter->post_password ) ) {
+      $classes[] = 'has-password';
+    }
+
+    // Chapter icon
+    if ( empty( $text_icon ) && ! $hide_icons ) {
+      $icon = '<i class="' . fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID ) . '"></i>';
+    } elseif ( ! $hide_icons ) {
+      $icon = '<span class="text-icon">' . $text_icon . '</span>';
+    }
+
+    // Compile args
+    $args = array(
+      'title' => $title,
+      'list_title' => $list_title,
+      'icon' => $icon,
+      'group' => get_post_meta( $chapter->ID, 'fictioneer_chapter_group', true ),
+      'classes' => $classes,
+      'position' => ++$position
+    );
+
+    // Build list item
+    $item = sprintf(
+      '<li class="%1$s" data-position="%2$s" data-id="%3$s"><a href="%4$s">%5$s<span>%6$s</span></a></li>',
+      implode( ' ', $classes ),
+      $position,
+      $chapter->ID,
+      get_the_permalink( $chapter->ID ),
+      $icon,
+      $list_title ?: $title
+    );
+
+    // Legacy filter
+    $item = apply_filters( 'fictioneer_filter_chapter_list_item', $item, $chapter, $args );
+
+    // Append
+    $items[ $position ] = apply_filters( 'fictioneer_filter_chapter_index_item', $item, $chapter, $args );
+  }
+
+  // Update meta cache
+  if ( ! $cache_plugin_active ) {
+    update_post_meta(
+      $story_id,
+      'fictioneer_story_chapter_index_html',
+      array( 'items' => $items, 'timestamp' => $last_story_update, 'valid_until' => time() + HOUR_IN_SECONDS )
+    );
+  }
+
+  // Return
+  return $items;
 }
 
 // =============================================================================

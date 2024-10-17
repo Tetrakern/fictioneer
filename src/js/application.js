@@ -10,17 +10,6 @@ const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
 var /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in');
-var /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul');
-
-// =============================================================================
-// CHAPTER INDEX
-// =============================================================================
-
-if (fcn_chapterList) {
-  fcn_chapterList = fcn_chapterList.cloneNode(true);
-  _$$$('story-chapter-list').remove();
-  fcn_chapterList.querySelector(`[data-id="${fcn_chapterList.dataset.currentId}"]`)?.classList.add('current-chapter');
-}
 
 // =============================================================================
 // STARTUP CLEANUP

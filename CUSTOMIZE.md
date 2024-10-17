@@ -171,12 +171,12 @@ add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 1
 Or change them completely, if you want even depending on the chapter or associated story. Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/31). Using a filter, you can rebuild the list item HTML to your liking. In the following example, the chapter prefix has been prepended (if there is one).
 
 **References**
-* Filter: [fictioneer_filter_simple_chapter_list_item](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_simple_chapter_list_item-item-post-args-)
+* Filter: [fictioneer_filter_chapter_index_item](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_chapter_index_item-item-post-args-)
 * Include: [_helpers-templates.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_helpers-templates.php)
 
 ```php
 /**
- * Overwrites the simple chapter list item string with a prefixed title
+ * Overwrites the chapter index list item string with a prefixed title
  *
  * Note: Warning, this replaces the complete string and should be
  * executed early in case there are more, less extreme filters.
@@ -194,8 +194,9 @@ function child_prefix_simple_chapter_list_item( $item, $post, $args ) {
   $prefix = get_post_meta( $post->ID, 'fictioneer_chapter_prefix', true );
 
   return sprintf(
-    '<li class="%1$s" data-id="%2$s"><a href="%3$s">%4$s<span>%5$s%6$s</span></a></li>',
+    '<li class="%1$s" data-position="%2$s" data-id="%3$s"><a href="%4$s">%5$s<span>%6$s%7$s</span></a></li>'
     implode( ' ', $args['classes'] ),
+    $args['position'],
     $post->ID,
     get_the_permalink( $post->ID ),
     $args['icon'],
@@ -205,7 +206,7 @@ function child_prefix_simple_chapter_list_item( $item, $post, $args ) {
 }
 
 // Priority 1 to execute the filter early
-add_filter( 'fictioneer_filter_simple_chapter_list_item', 'child_prefix_simple_chapter_list_item', 1, 3 );
+add_filter( 'fictioneer_filter_chapter_index_item', 'child_prefix_simple_chapter_list_item', 1, 3 );
 ```
 
 ## Only show a specific advanced meta field
@@ -363,7 +364,7 @@ If the "Next Chapter" note above the chapter list is not enough and you want to 
  *
  * @since x.x.x
  *
- * @param array $statuses  Statuses that are queried. Default ['publish].
+ * @param string[] $statuses  Statuses that are queried. Default ['publish].
  *
  * @return array The updated array of statuses.
  */
@@ -414,6 +415,10 @@ add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added
  * Note: Hidden chapters are still ignored.
  *
  * @since x.x.x
+ *
+ * @param string[] $statuses  Statuses that are queried. Default ['publish].
+ *
+ * @return array The updated array of statuses.
  */
 
 function child_consider_scheduled_chapters_as_update( $statuses ) {
@@ -423,16 +428,16 @@ function child_consider_scheduled_chapters_as_update( $statuses ) {
 }
 add_action( 'fictioneer_filter_chapters_added_statuses', 'child_consider_scheduled_chapters_as_update' );
 
-// If you want scheduled chapters to be treated like published ones;
-// you still need a function or plugin to make them accessible or
-// they will lead to a 404 error page. Yes, that's a lot of filters.
+// If you want scheduled chapters to be treated like published ones,
+// also add the following filters; you still need a function or plugin
+// to make them accessible or they will lead to a 404 error page.
 
 /**
  * Adds the 'future' post status to an allowed statuses array
  *
  * @since x.x.x
  *
- * @param array $statuses  Statuses that are queried. Default ['publish].
+ * @param string[] $statuses  Statuses that are queried. Default ['publish].
  *
  * @return array The updated array of statuses.
  */
@@ -442,7 +447,7 @@ function child_treat_scheduled_chapters_as_published( $statuses ) {
 
   return $statuses;
 }
-add_filter( 'fictioneer_filter_simple_chapter_list_items_statuses', 'child_treat_scheduled_chapters_as_published' );
+add_filter( 'fictioneer_filter_chapter_index_list_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'child_treat_scheduled_chapters_as_published' );

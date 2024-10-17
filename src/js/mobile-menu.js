@@ -208,30 +208,7 @@ _$$('.mobile-menu__back-button').forEach(element => {
 // CHAPTERS FRAME
 // =============================================================================
 
-/**
- * Appends a cloned chapter list to the mobile menu.
- *
- * @since 4.0.0
- */
-
-function fcn_appendChapterList() {
-  const target = _$$$('mobile-menu-chapters-list');
-
-  if (fcn_chapterList && !target.hasChildNodes()) {
-    target.appendChild(fcn_chapterList.cloneNode(true));
-  }
-}
-
-// Append chapters when chapter frame is opened, once
-_$('.mobile-menu__frame-button[data-frame-target="chapters"]')?.addEventListener('click', () => {
-  fcn_appendChapterList();
-}, { once: true });
-
-// Listen for click on chapter list in the micro menu
-_$$$('micro-menu-label-open-chapter-list')?.addEventListener('click', () => {
-  fcn_appendChapterList();
-  fcn_openMobileFrame('chapters');
-});
+/* See chapters.js */
 
 // =============================================================================
 // FOLLOWS FRAME

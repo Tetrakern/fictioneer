@@ -1251,15 +1251,43 @@ function fcn_readingProgress() {
 }
 
 // =============================================================================
-// SETUP INDEX POPUP MENU
+// SETUP CHAPTER INDEX MENU
 // =============================================================================
 
-// Append cloned chapter list once when the popup menu is opened
+/**
+ * Builds and appends the chapter index list to the target element.
+ *
+ * @since 4.0.0
+ * @param {HTMLElement} target - Target to append the list elements to.
+ */
+
+function fcn_appendChapterList(target) {
+  if (fcn_storyChapterListData && target && !target.querySelector('li')) {
+    for (const number in fcn_storyChapterListData) {
+      target.innerHTML += fcn_storyChapterListData[number];
+    }
+
+    target.querySelector(`[data-id="${target.dataset.currentId}"]`)?.classList.add('current-chapter');
+  }
+}
+
+// Append chapters when popup menu is opened, once
 _$$('.chapter-list-popup-toggle').forEach(element => {
   element.addEventListener('click', () => {
-    element.querySelector('[data-target="popup-chapter-list"]')?.appendChild(fcn_chapterList.cloneNode(true));
+    fcn_appendChapterList(element.querySelector('[data-target="popup-chapter-list"]'));
   }, { once: true });
 });
+
+// Append chapters when chapter frame is opened, once
+_$('.mobile-menu__frame-button[data-frame-target="chapters"]')?.addEventListener('click', () => {
+  fcn_appendChapterList(_$$$('mobile-menu-chapters-list'));
+}, { once: true });
+
+// Listen for click on chapter list in the micro menu, once
+_$$$('micro-menu-label-open-chapter-list')?.addEventListener('click', () => {
+  fcn_appendChapterList(_$$$('mobile-menu-chapters-list'));
+  fcn_openMobileFrame('chapters');
+}, { once: true });
 
 // =============================================================================
 // KEYBOARD NAVIGATION

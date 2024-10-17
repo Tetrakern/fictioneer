@@ -88,17 +88,11 @@ get_header(
           'prev_index' => $prev_index >= 0 ? $prev_index : false,
           'next_index' => isset( $indexed_chapters[ $next_index ] ) ? $next_index : false
         );
-      ?>
 
-      <?php if ( $story_post && $indexed_chapters ): ?>
-        <div id="story-chapter-list" class="hidden" data-story-id="<?php echo $story_id; ?>">
-          <ul data-current-id="<?php echo $post_id; ?>"><?php
-            echo fictioneer_get_simple_chapter_list_items( $story_id, $story_data, $current_index );
-          ?></ul>
-        </div>
-      <?php endif; ?>
+        if ( $story_post && $indexed_chapters ) {
+          echo '<script>const fcn_storyChapterListData = ' . json_encode( fictioneer_get_chapter_index_array( $story_id ) ) . ';</script>';
+        }
 
-      <?php
         if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
           // Bookmark data
           $bookmark_story_title = '';

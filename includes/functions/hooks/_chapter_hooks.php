@@ -455,7 +455,7 @@ function fictioneer_chapter_index_popup_menu( $args ) {
         <i class="fa-solid fa-caret-left"></i>
         <span><?php _e( 'Back to Story', 'fictioneer' ); ?></span>
       </a>
-      <div class="popup-menu__section" data-target="popup-chapter-list"></div>
+      <div class="popup-menu__section"><ul data-target="popup-chapter-list" data-current-id="<?php the_ID(); ?>"></ul></div>
     </div>
   </div>
   <?php // <--- End HTML
