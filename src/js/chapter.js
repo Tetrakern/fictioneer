@@ -1261,9 +1261,10 @@ _$('[data-click-action*="toggle-chapter-index-order"]')?.addEventListener('click
 
 document.addEventListener('DOMContentLoaded', () => {
   const chapterIndex = _$('.chapter-index');
+  const postId = chapterIndex.closest('dialog').dataset.postId ?? 0;
 
   if (chapterIndex) {
-    chapterIndex.querySelector(`[data-id="${chapterIndex.dataset.currentId}"]`)?.classList.add('current');
+    chapterIndex.querySelector(`[data-id="${postId}"]`)?.classList.add('current');
   }
 });
 

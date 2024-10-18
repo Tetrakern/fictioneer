@@ -465,7 +465,7 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_inde
 
 function fictioneer_render_chapter_index_modal_html( $story_id ) {
   // Start HTML ---> ?>
-  <dialog class="dialog-modal _chapter-index" id="fictioneer-chapter-index-dialog">
+  <dialog class="dialog-modal _chapter-index" id="fictioneer-chapter-index-dialog" data-post-id="<?php the_ID(); ?>">
     <div class="dialog-modal__wrapper">
       <button class="dialog-modal__close" data-click-action="close-dialog-modal" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>"><?php fictioneer_icon( 'fa-xmark' ); ?></button>
       <div class="dialog-modal__header"><?php _ex( 'Chapter Index', 'Chapter index modal header.', 'fictioneer' ); ?></div>

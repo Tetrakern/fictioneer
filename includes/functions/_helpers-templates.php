@@ -1376,7 +1376,7 @@ function fictioneer_get_chapter_index_html( $story_id ) {
 
   $back_link = '<a href="' . esc_url( $story_link ) . '" class="chapter-index__back-link"><i class="fa-solid fa-caret-left"></i> <span>' . __( 'Back to Story', 'fictioneer' ) . '</span></a>';
 
-  $html = '<div class="chapter-index" data-order="asc" data-story-id="' . $story_id . '" data-current-id="' . get_the_ID() . '"><div class="chapter-index__control">' . $back_link . '<div class="chapter-index__sof">' . $toggle . '</div></div><ul id="chapter-index-list" class="chapter-index__list">' . implode( '', $items ) . '</ul></div>';
+  $html = '<div class="chapter-index" data-order="asc" data-story-id="' . $story_id . '"><div class="chapter-index__control">' . $back_link . '<div class="chapter-index__sof">' . $toggle . '</div></div><ul id="chapter-index-list" class="chapter-index__list">' . implode( '', $items ) . '</ul></div>';
 
   $html = apply_filters( 'fictioneer_filter_chapter_index_html', $html, $items, $story_id, $story_link );
 
