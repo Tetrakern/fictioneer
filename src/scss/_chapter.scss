@@ -467,3 +467,20 @@
     }
   }
 }
+
+:root .content-list-style-lines .chapter-index {
+  li {
+    border-radius: 0;
+    border-bottom: var(--content-li-hr-border);
+
+    a {
+      border-bottom: var(--content-li-hr-border); // Used for the width
+      border-color: transparent;
+    }
+
+    &.current {
+      --this-offset: var(--chapter-index-list-gap, var(--content-list-gap, 4px));
+      background: linear-gradient(to bottom, var(--current-content-li-background) 0%, var(--current-content-li-background) calc(100% - var(--this-offset)), transparent calc(100% - var(--this-offset)));
+    }
+  }
+}
