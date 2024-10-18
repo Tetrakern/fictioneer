@@ -353,10 +353,7 @@ add_filter( 'fictioneer_filter_chapter_default_formatting', 'child_update_chapte
 
 ## Show scheduled chapters on story pages
 
-If the "Next Chapter" note above the chapter list is not enough and you want to show scheduled (future) chapters in the list as well, you can alter the query via filter. You can also include other post statuses, although the sense of that is dubious. Note that this will not alter the [API responses](https://github.com/Tetrakern/fictioneer/blob/main/API.md), because they must be uniform across all sites.
-
-**References**
-* Filter: [fictioneer_filter_story_chapter_posts_query](FILTERS.md#apply_filters-fictioneer_filter_story_chapter_posts_query-query_args-story_id-chapter_ids-)
+If the "Next Chapter" note above the chapter list is not enough and you want to show scheduled (future) chapters in the list as well, you can alter the query via filter. You can also include other post statuses, although the sense of that is dubious. Note that this will not alter the [API responses](https://github.com/Tetrakern/fictioneer/blob/main/API.md), because they must be uniform across all sites, and scheduled chapters are still not accessible without special permission or certain plugins.
 
 ```php
 /**
@@ -451,7 +448,14 @@ add_filter( 'fictioneer_filter_chapter_index_list_statuses', 'child_treat_schedu
 add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_treat_scheduled_chapters_as_published' );
 add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'child_treat_scheduled_chapters_as_published' );
+```
 
+**Alternative:** Set the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant to true, which will automatically add all the aforementioned filters except for the removal of the next chapter note.
+
+```php
+if ( ! defined( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS' ) ) {
+  define( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS', true );
+}
 ```
 
 ## Modify or remove items from card footers
