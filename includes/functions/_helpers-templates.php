@@ -1294,7 +1294,6 @@ function fictioneer_get_chapter_index_array( $story_id ) {
   $allowed_statuses = apply_filters( 'fictioneer_filter_chapter_index_list_statuses', $allowed_statuses, $story_id );
   $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) ||
     get_option( 'fictioneer_hide_chapter_icons' );
-  $html = '';
   $position = 0;
 
   // Loop chapters...
@@ -2648,4 +2647,53 @@ function fictioneer_get_splide_loading_style( $json_string, $uid ) {
 function fictioneer_get_splide_placeholders( $uid = null, $ttb = false ) {
   return apply_filters( 'fictioneer_filter_splide_placeholders', '', $uid, $ttb
   );
+}
+
+// =============================================================================
+// LIST SCHEDULED CHAPTERS
+// =============================================================================
+
+/**
+ * Shows scheduled (future) chapter in story chapter list
+ *
+ * @since 5.25.0
+ *
+ * @param array $query_args  Chapter list query arguments.
+ *
+ * @return array The updated chapter list query arguments.
+ */
+
+function fictioneer_show_scheduled_chapters( $query_args ) {
+  $query_args['post_status'] = ['publish', 'future'];
+
+  return $query_args;
+}
+
+if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
+  add_filter( 'fictioneer_filter_story_chapter_posts_query', 'fictioneer_show_scheduled_chapters' );
+}
+
+/**
+ * Adds the 'future' post status to an allowed statuses array
+ *
+ * @since 5.25.0
+ *
+ * @param string[] $statuses  Statuses that are queried. Default ['publish].
+ *
+ * @return array The updated array of statuses.
+ */
+
+function fictioneer_treat_scheduled_chapters_as_published( $statuses ) {
+  $statuses[] = 'future';
+
+  return $statuses;
+}
+
+if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
+  add_filter( 'fictioneer_filter_chapter_index_list_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
+  add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
+  add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
+  add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
+  add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'fictioneer_treat_scheduled_chapters_as_published' );
+  add_action( 'fictioneer_filter_chapters_added_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
 }

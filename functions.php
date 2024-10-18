@@ -439,6 +439,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
   );
 }
 
+// Boolean: Whether to show scheduled chapters in lists
+if ( ! defined( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS' ) ) {
+  define( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS', false );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================
