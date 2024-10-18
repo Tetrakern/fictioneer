@@ -200,6 +200,8 @@
   --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 10%) 0%, hsl(var(--bg-950-free) / 10%) 55%, transparent 90%);
   --content-li-hr-border: 1.5px solid var(--hr-border-color, var(--layout-lineart-color));
 
+  --current-content-li-background: rgb(0 0 0 / 25%);
+
   // === COLORS ================================================================
 
   --primary-400: hsl(46deg 87% 75%);
@@ -369,8 +371,6 @@
   --mobile-advanced-menu-site-box-shadow: inset -5px 0 3px -4px rgb(0 0 0 / 30%);
   --mobile-menu-overlay: rgb(0 0 0 / 50%);
   --mobile-menu-bookmark-progress-background: rgb(0 0 0 / 40%);
-  --mobile-menu-current-chapter-color: var(--fg-400);
-  --mobile-menu-current-chapter-background: rgb(0 0 0 / 25%);
 
   // === FONT SETTINGS =========================================================
 
@@ -533,8 +533,6 @@
 
   --popup-menu-background: var(--bg-50);
   --popup-menu-background-hover: var(--bg-100);
-  --popup-menu-background-selected: var(--bg-100);
-  --popup-menu-background-selected-hover: var(--popup-menu-background-hover);
   --popup-menu-color: var(--fg-inverted);
   --popup-menu-color-hover: var(--fg-inverted);
 

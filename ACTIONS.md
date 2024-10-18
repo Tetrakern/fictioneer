@@ -306,7 +306,7 @@ Fires in the second column of the bottom action section in the `single-fcn_chapt
 
 **Hooked Actions:**
 * `fictioneer_chapter_subscribe_button()` – Subscription popup menu. Priority 10.
-* `fictioneer_chapter_index_popup_menu()` – Index popup menu with story and chapter links. Priority 20.
+* `fictioneer_chapter_index_modal_toggle()` – Toggle for the chapter index modal. Priority 20.
 * `fictioneer_chapter_bookmark_jump_button()` – Button to scroll to chapter bookmark (if set). Priority 30.
 
 ---
@@ -735,7 +735,6 @@ Fires right after the main mobile menu frame in the `partials/_mobile-menu.php` 
 **Hooked Actions:**
 * `fictioneer_mobile_follows_frame()` – Frame for mobile updates (Follows). Priority 10.
 * `fictioneer_mobile_bookmarks_frame()` – Frame for mobile bookmarks. Priority 20.
-* `fictioneer_mobile_chapters_frame()` – Frame for the mobile chapter list. Priority 30.
 
 ---
 

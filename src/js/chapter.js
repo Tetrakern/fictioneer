@@ -1251,44 +1251,21 @@ function fcn_readingProgress() {
 }
 
 // =============================================================================
-// SETUP CHAPTER INDEX MENU
+// SETUP CHAPTER INDEX DIALOG MODAL
 // =============================================================================
 
-/**
- * Builds and appends the chapter index list to the target element.
- *
- * @since 4.0.0
- * @param {HTMLElement} target - Target to append the list elements to.
- */
-
-function fcn_appendChapterList(target) {
-  if (fcn_storyChapterListData && target && !target.querySelector('li')) {
-    for (const number in fcn_storyChapterListData) {
-      target.innerHTML += fcn_storyChapterListData[number];
-    }
-
-    target.querySelector(`[data-id="${target.dataset.currentId}"]`)?.classList.add('current-chapter');
-    document.getElementById("chapter-list-data")?.remove(); // Cleanup
-  }
-}
-
-// Append chapters when popup menu is opened, once
-_$$('.chapter-list-popup-toggle').forEach(element => {
-  element.addEventListener('click', () => {
-    fcn_appendChapterList(element.querySelector('[data-target="popup-chapter-list"]'));
-  }, { once: true });
+_$('[data-click-action*="toggle-chapter-index-order"]')?.addEventListener('click', event => {
+  const wrapper = event.currentTarget.closest('.chapter-index');
+  wrapper.dataset.order = wrapper.dataset.order === 'asc' ? 'desc' : 'asc';
 });
 
-// Append chapters when chapter frame is opened, once
-_$('.mobile-menu__frame-button[data-frame-target="chapters"]')?.addEventListener('click', () => {
-  fcn_appendChapterList(_$$$('mobile-menu-chapters-list'));
-}, { once: true });
+document.addEventListener('DOMContentLoaded', () => {
+  const chapterIndex = _$('.chapter-index');
 
-// Listen for click on chapter list in the micro menu, once
-_$$$('micro-menu-label-open-chapter-list')?.addEventListener('click', () => {
-  fcn_appendChapterList(_$$$('mobile-menu-chapters-list'));
-  fcn_openMobileFrame('chapters');
-}, { once: true });
+  if (chapterIndex) {
+    chapterIndex.querySelector(`[data-id="${chapterIndex.dataset.currentId}"]`)?.classList.add('current');
+  }
+});
 
 // =============================================================================
 // KEYBOARD NAVIGATION

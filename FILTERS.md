@@ -298,7 +298,7 @@ Filters the array of grouped chapter data in the `fictioneer_story_chapters()` f
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapter_icon', $icon_html, $chapter_id, $story_id )`
-Filters the HTML of the chapter icon before it is rendered. The display hierarchy is password icon > scheduled icon > text icon > chapter icon.
+Filters the HTML of the chapter icon before it is appended or rendered. The display hierarchy is password icon > scheduled icon > text icon > chapter icon.
 
 **Parameters:**
 * $icon_html (string) – HTML for the chapter icon.
@@ -320,11 +320,8 @@ Filters the intermediate output array in the `_chapter-header.php` partial befor
 
 ---
 
-### `apply_filters( 'fictioneer_filter_chapter_list_statuses', $statuses, $story_id )`
 ### `apply_filters( 'fictioneer_filter_chapter_index_list_statuses', $statuses, $story_id )`
 Filters the array of allowed chapter statuses when building the simple chapter list items in the `function fictioneer_get_chapter_list_data()` function. By default, only `['publish']` chapters are shown.
-
-**Note:** `fictioneer_filter_chapter_list_statuses` is deprecated as of 5.25.0.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
@@ -342,11 +339,8 @@ add_filter( 'fictioneer_filter_chapter_index_list_statuses', 'child_add_schedule
 
 ---
 
-### `apply_filters( 'fictioneer_filter_chapter_list_item', $item, $post, $args )`
 ### `apply_filters( 'fictioneer_filter_chapter_index_item', $item, $post, $args )`
-Filters each list item HTML string used in the chapter index popup and mobile menu section (only visible on chapter pages), build inside the `fictioneer_get_simple_chapter_list_items()` function. Not to be confused with the chapter list shown on story pages. You can either modify the string or build a new one from the given parameters.
-
-**Note:** `fictioneer_filter_chapter_list_item` is deprecated as of 5.25.0.
+Filters each list item HTML string used in the chapter index popup and mobile menu section (only visible on chapter pages), build inside the `fictioneer_get_chapter_index_html()` function. Not to be confused with the chapter list shown on story pages. You can either modify the string or build a new one from the given parameters.
 
 **Parameters:**
 * $item (string) – HTML for the list item with icon, ID, link, and title.
@@ -362,21 +356,33 @@ Filters each list item HTML string used in the chapter index popup and mobile me
 
 **Example:**
 ```php
-function child_prefix_simple_chapter_list_item( $item, $post, $args ) {
+function child_prefix_chapter_index_list_item( $item, $post, $args ) {
   $prefix = get_post_meta( $post->ID, 'fictioneer_chapter_prefix', true );
 
   return sprintf(
-    '<li class="%1$s" data-id="%2$s"><a href="%3$s">%4$s<span>%5$s%6$s</span></a></li>',
+    '<li class="%1$s" data-position="%2$s" data-id="%3$s"><a href="%4$s">%5$s<span class="truncate _1-1">%6$s%7$s</span></a></li>'
     implode( ' ', $args['classes'] ),
+    $args['position'],
     $post->ID,
     get_the_permalink( $post->ID ),
     $args['icon'],
-    $prefix ? $prefix . ' ' : '',
-    $args['list_title'] ?: $args['title']
+    $prefix ? $prefix . ' ' : '', // New %6$s
+    $args['list_title'] ?: $args['title'] // Moved to %7$s
   );
 }
-add_filter( 'fictioneer_filter_chapter_index_item', 'child_prefix_simple_chapter_list_item', 1, 3 );
+add_filter( 'fictioneer_filter_chapter_index_item', 'child_prefix_chapter_index_list_item', 1, 3 );
 ```
+
+---
+
+### `apply_filters( 'fictioneer_filter_chapter_index_html', $html, $items, $story_id, $story_link )`
+Filters the HTML content of the chapter index modal before it is rendered. This is primarily useful for replacing the outer structure of the chapter list. To modify individual chapter list items, better to use `fictioneer_filter_chapter_index_item`.
+
+**Parameters:**
+* $html (string) – HTML content for the chapter index modal.
+* $items (string[]) - HTML of chapter list items.
+* $story_id (int) – ID of the story.
+* $story_link (string) – Link to the chapter’s story.
 
 ---
 
@@ -2181,7 +2187,7 @@ Same as the `fictioneer_filter_translations` filter, but only applied once when 
 ---
 
 ### `apply_filters( 'fictioneer_filter_user_menu_items', $items )`
-Filters the intermediate output array of the `fictioneer_user_menu_items()` function before it is imploded and returned. Contains links to the user’s account, reading lists, and bookmarks as well as the site’s Discord, site settings modal toggle, and logout link. Used in the `partials/_icon-menu.php` partial if the user is logged in.
+Filters the intermediate output array of the `fictioneer_user_menu_items()` function before it is imploded and returned. Contains links to the user’s account, reading lists, and bookmarks as well as the site’s Discord, site settings modal toggle, and logout link. Used in the `fictioneer_render_icon_menu()` function if the user is logged in.
 
 **$items:**
 * $account (string|null) – Optional. List item with link to the user’s account.

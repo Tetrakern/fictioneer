@@ -260,6 +260,10 @@
   &::backdrop {
     background: var(--modal-overlay);
   }
+
+  &._chapter-index {
+    --modal-width: 400px;
+  }
 }
 
 .modal {

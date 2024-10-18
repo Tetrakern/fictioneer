@@ -272,21 +272,6 @@ body:not(.mobile-menu-open) {
         margin-bottom: 4px;
       }
     }
-
-    &._chapters {
-      :is(i, .icon, .text-icon) {
-        display: inline-block;
-        color: var(--fg-600);
-        font-size: 13px;
-        text-align: center;
-        margin: 0 6px 0 -2px;
-        min-width: 22px;
-      }
-
-      .text-icon {
-        height: auto;
-      }
-    }
   }
 
   .follows-alert-number {
@@ -368,20 +353,6 @@ body:not(.mobile-menu-open) {
 
     > ul.sub-menu {
       margin-top: 0;
-    }
-  }
-
-  .current-chapter {
-    position: relative;
-    background: var(--mobile-menu-current-chapter-background);
-    color: var(--mobile-menu-current-chapter-color);
-    border-radius: var(--layout-border-radius-small);
-    width: calc(100% + 4px);
-
-    > a > span {
-      &:not(:first-child)::before {
-        left: 24px; // Leave space for icon if any
-      }
     }
   }
 

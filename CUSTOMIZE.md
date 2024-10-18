@@ -190,23 +190,23 @@ Or change them completely, if you want even depending on the chapter or associat
  * @return string New HTML list of list item.
  */
 
-function child_prefix_simple_chapter_list_item( $item, $post, $args ) {
+function child_prefix_chapter_index_list_item( $item, $post, $args ) {
   $prefix = get_post_meta( $post->ID, 'fictioneer_chapter_prefix', true );
 
   return sprintf(
-    '<li class="%1$s" data-position="%2$s" data-id="%3$s"><a href="%4$s">%5$s<span>%6$s%7$s</span></a></li>'
+    '<li class="%1$s" data-position="%2$s" data-id="%3$s"><a href="%4$s">%5$s<span class="truncate _1-1">%6$s%7$s</span></a></li>'
     implode( ' ', $args['classes'] ),
     $args['position'],
     $post->ID,
     get_the_permalink( $post->ID ),
     $args['icon'],
-    $prefix ? $prefix . ' ' : '',
-    $args['list_title'] ?: $args['title']
+    $prefix ? $prefix . ' ' : '', // New %6$s
+    $args['list_title'] ?: $args['title'] // Moved to %7$s
   );
 }
 
 // Priority 1 to execute the filter early
-add_filter( 'fictioneer_filter_chapter_index_item', 'child_prefix_simple_chapter_list_item', 1, 3 );
+add_filter( 'fictioneer_filter_chapter_index_item', 'child_prefix_chapter_index_list_item', 1, 3 );
 ```
 
 ## Only show a specific advanced meta field
@@ -450,7 +450,7 @@ add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_
 add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'child_treat_scheduled_chapters_as_published' );
 ```
 
-**Alternative:** Set the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant to true, which will automatically add all the aforementioned filters except for the removal of the next chapter note.
+**Alternative:** Set the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant to `true` to automatically apply all the aforementioned filters, except for the removal of the next chapter note. This assumes you want scheduled chapters to be accessible; otherwise, you should selectively apply the filters you need.
 
 ```php
 if ( ! defined( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS' ) ) {

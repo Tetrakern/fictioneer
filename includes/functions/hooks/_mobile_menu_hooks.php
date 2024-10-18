@@ -217,39 +217,6 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
 }
 
 // =============================================================================
-// MOBILE MENU CHAPTERS FRAME
-// =============================================================================
-
-/**
- * Adds the chapters frame to the mobile menu
- *
- * @since 5.0.0
- */
-
-function fictioneer_mobile_chapters_frame() {
-  // Abort if...
-  if ( get_post_type() !== 'fcn_chapter' || is_archive() || is_search() ) {
-    return;
-  }
-
-  // Start HTML ---> ?>
-  <div class="mobile-menu__frame" data-frame="chapters">
-    <div class="mobile-menu__panel mobile-menu__chapters-panel">
-      <div class="mobile-menu__panel-header">
-        <button class="mobile-menu__back-button">
-          <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
-        </button>
-      </div>
-      <div class="mobile-menu__list _chapters">
-        <ul id="mobile-menu-chapters-list" data-current-id="<?php the_ID(); ?>"></ul>
-      </div>
-    </div>
-  </div>
-  <?php // <--- End HTML
-}
-add_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_chapters_frame', 30 );
-
-// =============================================================================
 // MOBILE MENU NAVIGATION PANEL
 // =============================================================================
 
@@ -320,11 +287,9 @@ function fictioneer_mobile_lists_panel() {
   // Chapters?
   if ( $post_type === 'fcn_chapter' && get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true ) && ! is_search() ) {
     $output['chapters'] = sprintf(
-      '<button class="mobile-menu__frame-button" data-frame-target="chapters"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      '<button class="mobile-menu__frame-button" data-click-action="open-dialog-modal" data-click-target="#fictioneer-chapter-index-dialog"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
       __( 'Chapters', 'fictioneer' )
     );
-  } else {
-    remove_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_chapters_frame', 30 );
   }
 
   // Bookmarks?

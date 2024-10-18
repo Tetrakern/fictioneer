@@ -585,14 +585,6 @@ button[type=submit]:where(:not(._inline)),
       min-width: 20px;
     }
   }
-
-  .current-chapter :is(a, label, button, .popup-item) {
-    background: var(--popup-menu-background-selected);
-
-    &:hover {
-      background: var(--popup-menu-background-selected-hover, var(--popup-menu-background-hover));
-    }
-  }
 }
 
 .popup-heading {

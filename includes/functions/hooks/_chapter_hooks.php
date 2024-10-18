@@ -426,41 +426,56 @@ function fictioneer_chapter_fullscreen_buttons() {
 add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscreen_buttons', 20 );
 
 // =============================================================================
-// CHAPTER INDEX POPUP MENU
+// CHAPTER INDEX DIALOG TOGGLE
 // =============================================================================
 
 /**
- * Outputs the HTML for the index popup menu
+ * Outputs the HTML for the chapter index dialog modal toggle
  *
  * @since 5.0.0
  *
  * @param WP_Post|null $args['story_post']  Optional. The story the chapter belongs to.
  */
 
-function fictioneer_chapter_index_popup_menu( $args ) {
+function fictioneer_chapter_index_modal_toggle( $args ) {
   // Abort if there is no story assigned
   if ( ! $args['story_post'] ) {
     return;
   }
 
-  // Story link
-  $story_link = get_post_meta( $args['story_post']->ID ?? 0, 'fictioneer_story_redirect_link', true )
-    ?: get_permalink( $args['story_post'] );
-
   // Start HTML ---> ?>
-  <div class="chapter-list-popup-toggle toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" data-nosnippet>
+  <button class="button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" data-click-action="open-dialog-modal" data-click-target="#fictioneer-chapter-index-dialog">
     <i class="fa-solid fa-list"></i>
-    <div class="popup-menu _top _center _fixed-horizontal _align-items-right _v-scrolling">
-      <a href="<?php echo $story_link; ?>" class="">
-        <i class="fa-solid fa-caret-left"></i>
-        <span><?php _e( 'Back to Story', 'fictioneer' ); ?></span>
-      </a>
-      <div class="popup-menu__section"><ul data-target="popup-chapter-list" data-current-id="<?php the_ID(); ?>"></ul></div>
-    </div>
-  </div>
+  </button>
   <?php // <--- End HTML
 }
-add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_index_popup_menu', 20 );
+add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_index_modal_toggle', 20 );
+
+// =============================================================================
+// CHAPTER INDEX DIALOG
+// =============================================================================
+
+/**
+ * Outputs the HTML for the chapter index dialog modal
+ *
+ * @since 5.25.0
+ *
+ * @param int $story_id  ID of the story.
+ */
+
+function fictioneer_render_chapter_index_modal_html( $story_id ) {
+  // Start HTML ---> ?>
+  <dialog class="dialog-modal _chapter-index" id="fictioneer-chapter-index-dialog">
+    <div class="dialog-modal__wrapper">
+      <button class="dialog-modal__close" data-click-action="close-dialog-modal" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>"><?php fictioneer_icon( 'fa-xmark' ); ?></button>
+      <div class="dialog-modal__header"><?php _ex( 'Chapter Index', 'Chapter index modal header.', 'fictioneer' ); ?></div>
+      <div class="dialog-modal__row _chapter-index"><?php
+        echo fictioneer_get_chapter_index_html( $story_id );
+      ?></div>
+    </div>
+  </dialog>
+  <?php // <--- End HTML
+}
 
 // =============================================================================
 // CHAPTER BOOKMARK JUMP BUTTON
