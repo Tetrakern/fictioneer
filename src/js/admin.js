@@ -371,7 +371,16 @@ _$$('.fictioneer-dialog button[formmethod="dialog"][value="cancel"]').forEach(el
 // Close dialog on click outside
 _$$('.fictioneer-dialog').forEach(element => {
   element.addEventListener('mousedown', event => {
-    event.target.tagName.toLowerCase() === 'dialog' && event.target.close();
+    if (event.target === event.currentTarget) {
+      const rect = element.getBoundingClientRect();
+      const outside = event.clientX < rect.left || event.clientX > rect.right ||
+        event.clientY < rect.top || event.clientY > rect.bottom;
+
+      if (outside) {
+        event.preventDefault();
+        event.target.close();
+      }
+    }
   });
 });
 

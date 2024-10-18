@@ -1607,9 +1607,15 @@ _$$('[data-click-action*="close-dialog-modal"], button[formmethod="dialog"][valu
 // Close dialog modal on click outside
 _$$('dialog').forEach(element => {
   element.addEventListener('mousedown', event => {
-    if (event.target.tagName.toLowerCase() === 'dialog') {
-      event.preventDefault();
-      event.target.close();
+    if (event.target === event.currentTarget) {
+      const rect = element.getBoundingClientRect();
+      const outside = event.clientX < rect.left || event.clientX > rect.right ||
+        event.clientY < rect.top || event.clientY > rect.bottom;
+
+      if (outside) {
+        event.preventDefault();
+        event.target.close();
+      }
     }
   });
 });
