@@ -45,6 +45,10 @@ defined( 'ABSPATH' ) OR exit;
         <input type="checkbox" id="site-setting-covers" checked>
         <label for="site-setting-covers" class="modal__setting-toggle"><?php _e( 'Cover images (chapters and stories)', 'fictioneer' ); ?></label>
       </div>
+      <div class="site-settings__covers modal__horizontal-input-group _with-checkbox">
+        <input type="checkbox" id="site-setting-taxonomies" checked>
+        <label for="site-setting-taxonomies" class="modal__setting-toggle"><?php _e( 'Taxonomies', 'fictioneer' ); ?></label>
+      </div>
       <div class="site-settings__text-shadows modal__horizontal-input-group _with-checkbox">
         <input type="checkbox" id="site-setting-text-shadows">
         <label for="site-setting-text-shadows" class="modal__setting-toggle"><?php _e( 'Text shadows', 'fictioneer' ); ?></label>

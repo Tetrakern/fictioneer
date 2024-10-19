@@ -1029,6 +1029,26 @@
   }
 }
 
+:root.no-taxonomies :is(.cell-tax, .story__taxonomies-space),
+:root.no-taxonomies .card__tag-list > .tag-pill {
+  display: none;
+  content-visibility: hidden;
+}
+
+:root.no-taxonomies .card._recommendation:not(._seamless) .cell-tax {
+  display: block;
+  content-visibility: visible;
+  margin-top: 0;
+  margin-bottom: var(--this-spacing);
+  height: 0;
+  overflow: hidden;
+
+  > :is(span, a, div) {
+    display: none;
+    content-visibility: hidden;
+  }
+}
+
 :root:not(.no-covers) .card._vertical:not(._seamless) .card__info-toggle:not(.last-clicked) {
   padding-top: calc(2 * var(--this-spacing));
   padding-right: calc(2 * var(--this-spacing));

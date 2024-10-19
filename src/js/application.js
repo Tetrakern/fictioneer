@@ -782,6 +782,7 @@ const /** @const {String[]} */ fcn_settingEvents = [
   'background-textures',
   'polygons',
   'covers',
+  'taxonomies',
   'text-shadows',
   'minimal',
   'chapter-progress-bar'
@@ -1214,6 +1215,7 @@ function fcn_defaultSiteSettings() {
     'background-textures': true,
     'polygons': true,
     'covers': true,
+    'taxonomies': true,
     'text-shadows': false,
     'minimal': false,
     'chapter-progress-bar': true,

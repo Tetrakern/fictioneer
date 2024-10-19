@@ -12,6 +12,9 @@
             case 'minimal':
               root.classList.toggle('minimal', value);
               break;
+            case 'taxonomies':
+              root.classList.toggle('no-taxonomies', !value);
+              break;
             case 'darken':
               modifier = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
               root.style.setProperty('--darken', `(${modifier} + var(--lightness-offset))`); // Beware darken and lightness!
