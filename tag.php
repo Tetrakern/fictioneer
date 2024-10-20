@@ -62,7 +62,7 @@ get_header();
 
           <?php
             wp_tag_cloud(
-                array(
+              array(
                 'smallest' => .625,
                 'largest' => 1.25,
                 'unit' => 'rem',

@@ -64,7 +64,7 @@ img {
 
 p a:not(.wp-element-button, .modal-tooltip),
 .content-section :is(.wp-block-table, .wp-block-pullquote, .wp-block-list) a:not(.wp-element-button, .modal-tooltip),
-:is(.modal, .dialog-modal) a[href]:where(:not(.button, .wp-element-button, .modal-tooltip)),
+:is(.modal, .dialog-modal) a[href]:where(:not(.button, .wp-element-button, .modal-tooltip, .media-buttons__item)),
 .footnotes a[href*="http"],
 .link {
   color: var(--inline-link-color);
