@@ -6,6 +6,7 @@
  * @subpackage Fictioneer
  * @since 4.0.0
  * @since 5.14.0 - Account for redirect link in story.
+ * @since 5.25.0 - Added Bluesky, removed WhatsApp and Telegram, reordered buttons.
  */
 
 
