@@ -381,7 +381,7 @@ function fictioneer_mobile_user_menu() {
     )
   ) {
     $output['bookshelf'] = sprintf(
-      '<a href="%s" rel="noopener noreferrer nofollow"><i class="fa-solid fa-list mobile-menu__item-icon"></i> %s</a>',
+      '<a href="%s" class="hide-if-logged-out" rel="noopener noreferrer nofollow"><i class="fa-solid fa-list mobile-menu__item-icon"></i> %s</a>',
       esc_url( $bookshelf_link ),
       fcntr( 'bookshelf' )
     );
