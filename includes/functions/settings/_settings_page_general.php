@@ -1054,24 +1054,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 ?>
               </div>
 
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_telegram_share',
-                    __( 'Disable Telegram share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_whatsapp_share',
-                    __( 'Disable Whatsapp share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
             </div>
           </div>
         </div>

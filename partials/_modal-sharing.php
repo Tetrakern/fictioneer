@@ -55,18 +55,6 @@ $story_link = get_post_meta( get_the_ID(), 'fictioneer_story_redirect_link', tru
           <i class="fa-brands fa-mastodon"></i>
         </a>
       <?php endif; ?>
-
-      <?php if ( ! get_option( 'fictioneer_disable_telegram_share' ) ) : ?>
-        <a href="https://t.me/share/url?url=<?php echo $story_link; ?>&text=Check%20out%20<?php echo urlencode( get_the_title() ); ?>" target="_blank" rel="noopener" class="media-buttons__item telegram">
-          <i class="fa-brands fa-telegram"></i>
-        </a>
-      <?php endif; ?>
-
-      <?php if ( ! get_option( 'fictioneer_disable_whatsapp_share' ) ) : ?>
-        <a href="https://web.whatsapp.com/send/?text=<?php echo $story_link; ?>" target="_blank" rel="noopener" class="media-buttons__item whatsapp" data-action="share/whatsapp/share" data-original-title="whatsapp">
-          <i class="fa-brands fa-whatsapp"></i>
-        </a>
-      <?php endif; ?>
     </div>
 
     <div class="modal__row">

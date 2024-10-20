@@ -366,18 +366,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
     ),
-    'fictioneer_disable_telegram_share' => array(
-      'name' => 'fictioneer_disable_telegram_share',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'default' => 0
-    ),
-    'fictioneer_disable_whatsapp_share' => array(
-      'name' => 'fictioneer_disable_whatsapp_share',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'default' => 0
-    ),
     'fictioneer_delete_theme_options_on_deactivation' => array(
       'name' => 'fictioneer_delete_theme_options_on_deactivation',
       'group' => 'fictioneer-settings-general-group',
@@ -1101,8 +1089,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_tumblr_share' => __( 'Disable Tumblr share button', 'fictioneer' ),
       'fictioneer_disable_reddit_share' => __( 'Disable Reddit share button', 'fictioneer' ),
       'fictioneer_disable_mastodon_share' => __( 'Disable Mastodon share button', 'fictioneer' ),
-      'fictioneer_disable_telegram_share' => __( 'Disable Telegram share button', 'fictioneer' ),
-      'fictioneer_disable_whatsapp_share' => __( 'Disable Whatsapp share button', 'fictioneer' ),
       'fictioneer_delete_theme_options_on_deactivation' => __( 'Delete all settings and theme mods on deactivation', 'fictioneer' ),
       'fictioneer_enable_jquery_migrate' => __( 'Enable jQuery migrate script', 'fictioneer' ),
       'fictioneer_disable_properties' => __( 'Disable Fictioneer CSS properties', 'fictioneer' ),
