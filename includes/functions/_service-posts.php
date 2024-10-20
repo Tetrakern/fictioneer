@@ -497,8 +497,13 @@ function fictioneer_collect_footnote( $footnote_id, $content ) {
 function fictioneer_append_footnotes_to_content( $content ) {
   global $fictioneer_footnotes;
 
-  // Only proceed for single posts/pages with footnotes
-  if ( ! is_singular() || empty( $fictioneer_footnotes ) ) {
+  // Only proceed for single posts/pages with footnotes and
+  // check the post ID in case of multiple content calls.
+  if (
+    ! is_singular() ||
+    empty( $fictioneer_footnotes ) ||
+    get_queried_object_id() != get_the_ID()
+  ) {
     return $content;
   }
 
