@@ -1021,6 +1021,15 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_bluesky_share',
+                    __( 'Disable Bluesky share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_twitter_share',
                     __( 'Disable Twitter share button', 'fictioneer' )
                   );
