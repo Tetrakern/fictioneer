@@ -18,7 +18,7 @@ If you want to display multiple authors **per story or chapter,** you need to ch
 
 Technically, yes. However, this is not recommended for several reasons. The theme lacks a frontend content submission system, which means you need to grant random people access to the admin panels. While the included role manager allows you to restrict a user’s capabilities, WordPress was never intended for unsafe authors. You will need to watch and moderate everyone, making this only viable for smaller communities with a trustworthy team.
 
-WordPress is also not a performant choice to run community sites, requiring too many server resources. You will need a good host or your own hardware, plus caching and technical expertise. This is going to be a headache. But some people have already done it despite all warnings.
+WordPress is also not a performant choice to run community sites, requiring too many server resources. You will need a good host or your own hardware, plus caching and technical expertise. This is going to be a headache. But some people have already done it despite all warnings and it seems to work fine.
 
 ### Q: Can I use special characters in names and titles?
 
@@ -26,11 +26,11 @@ Probably, to an extend? The usual suspects have been tested to ensure Extended L
 
 ### Q: Is this a block theme with full-site editing?
 
-No. Fictioneer was developed as standalone solution and to work out of the box, looking good and offering the best reading experience achievable. Full-site editing is the polar opposite of that goal.
+No. Fictioneer was developed as standalone solution and to work out of the box, looking good and offering the best reading experience achievable. Full-site editing is the polar opposite of that goal. But you can use page builder plugins, to a certain degree.
 
 ### Q: Is the theme available in other languages?
 
-The theme is translation-ready. Feel free to [add your own translation](https://developer.wordpress.org/apis/internationalization/localization/) to the **languages** folder under the `fictioneer` text-domain or use a plugin. There is a .POT template file available.
+The theme is translation-ready. Feel free to [add your own translation](https://developer.wordpress.org/apis/internationalization/localization/) to the [languages folder](/languages) under the `'fictioneer'` text-domain or use a plugin. There is a .POT template file available. Check the folder for available languages.
 
 ### Q: Why is the ePUB download button not showing up?
 
