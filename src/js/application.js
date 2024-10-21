@@ -1630,7 +1630,9 @@ _$('.content-section')?.addEventListener('click', event => {
     const content = event.target.dataset.dialogContent;
 
     if (content.length > 200) {
-      modal.style = '--modal-width: 400px;';
+      modal.style.setProperty('--modal-width', '400px');
+    } else {
+      modal.style.removeProperty('--modal-width');
     }
 
     if (header) {
