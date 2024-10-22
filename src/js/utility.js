@@ -802,6 +802,7 @@ function fcn_sanitizeHTML(html) {
   const temp = document.createElement('div');
 
   temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
+  temp.textContent = typeof html === 'string' ? html : html.textContent;
 
   return temp.innerHTML;
 }
