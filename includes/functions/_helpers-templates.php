@@ -2005,13 +2005,15 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
    * Returns WP_Query with blog posts associated with the story
    *
    * @since 5.4.8
+   * @since 5.26.0 - Added $count parameter.
    *
    * @param int $story_id  The story ID.
+   * @param int $count     Optional. Number of blog posts returned. Default 10.
    *
    * @return WP_Query Queried blog posts.
    */
 
-  function fictioneer_get_story_blog_posts( $story_id ) {
+  function fictioneer_get_story_blog_posts( $story_id, $count = 10 ) {
     // Setup
     $category = implode( ', ', wp_get_post_categories( $story_id ) );
     $blog_posts = new WP_Query();
@@ -2021,7 +2023,7 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
       'ignore_sticky_posts' => 1,
       'author__in'  => fictioneer_get_post_author_ids( $story_id ),
       'nopaging' => false,
-      'posts_per_page' => 10,
+      'posts_per_page' => $count,
       'cat' => empty( $category ) ? '99999999' : $category,
       'no_found_rows' => true,
       'update_post_meta_cache' => false,
@@ -2035,7 +2037,7 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
       'ignore_sticky_posts' => 1,
       'author__in'  => fictioneer_get_post_author_ids( $story_id ),
       'nopaging' => false,
-      'posts_per_page' => 10,
+      'posts_per_page' => $count,
       'no_found_rows' => true,
       'update_post_meta_cache' => false,
       'update_post_term_cache' => false,
@@ -2068,7 +2070,7 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
     });
 
     // Limit to 10 posts
-    $unique_blog_posts = array_slice( $unique_blog_posts, 0, 10 );
+    $unique_blog_posts = array_slice( $unique_blog_posts, 0, $count );
 
     // Set up query object
     $blog_posts->posts = $unique_blog_posts;
