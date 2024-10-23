@@ -2464,3 +2464,51 @@ function show_page_optimize_deactivated_notice() {
     )
   );
 }
+
+// =============================================================================
+// LOGIN CHECK COOKIE
+// =============================================================================
+
+/**
+ * Sets the fictioneer login check cookie
+ *
+ * @since 5.26.0
+ * @link https://developer.wordpress.org/reference/functions/wp_set_auth_cookie/
+ *
+ * @param string $logged_in_cookie  The logged-in cookie value.
+ * @param int    $expire            The time the login grace period expires as a UNIX timestamp.
+ *                                  Default is 12 hours past the cookie's expiration time.
+ */
+
+function fictioneer_set_logged_in_cookie( $logged_in_cookie, $expire ) {
+  $cookie_domain = defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : $_SERVER['HTTP_HOST'];
+
+  setcookie( 'fcnLoggedIn', '1', $expire, COOKIEPATH, $cookie_domain, is_ssl(), false );
+}
+add_action( 'set_logged_in_cookie', 'fictioneer_set_logged_in_cookie', 10, 2 );
+
+/**
+ * Removes the fictioneer login check cookie
+ *
+ * @since 5.26.0
+ */
+
+function fictioneer_remove_logged_in_cookie() {
+  $cookie_domain = defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : $_SERVER['HTTP_HOST'];
+
+  setcookie( 'fcnLoggedIn', '', time() - 3600, COOKIEPATH, $cookie_domain, is_ssl(), false );
+}
+add_action( 'wp_logout', 'fictioneer_remove_logged_in_cookie' );
+
+/**
+ * Cleans up the fictioneer login check cookie
+ *
+ * @since 5.26.0
+ */
+
+function fictioneer_fix_logged_in_cookie() {
+  if ( ! get_current_user_id() && isset( $_COOKIE['fcnLoggedIn'] ) ) {
+    fictioneer_remove_logged_in_cookie();
+  }
+}
+add_action( 'init', 'fictioneer_fix_logged_in_cookie' );

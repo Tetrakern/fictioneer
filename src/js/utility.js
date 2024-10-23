@@ -949,3 +949,27 @@ function fcn_isSearchEngineCrawler() {
 
   return crawlers.some(crawler => userAgent.includes(crawler));
 }
+
+// =============================================================================
+// CHECK LOGIN STATUS
+// =============================================================================
+
+/**
+ * Checks whether to user is logged-in via special theme cookie.
+ *
+ * @since 5.26.0
+ */
+
+function fcn_isUserLoggedIn() {
+  const cookies = document.cookie.split(';');
+
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
+
+    if (cookie.indexOf('fcnLoggedIn=1') !== -1) {
+      return true;
+    }
+  }
+
+  return false;
+}
