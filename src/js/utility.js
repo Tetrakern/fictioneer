@@ -632,8 +632,8 @@ function fcn_setCookie(cname, value, days = 30) {
  */
 
 function fcn_getCookie(cname) {
-  const name = cname + '=',
-        cookies = document.cookie.split(';');
+  const name = cname + '=';
+  const cookies = document.cookie.split(';');
 
   for (var i = 0; i < cookies.length; i++) {
     const c = cookies[i].trim();
@@ -966,7 +966,7 @@ function fcn_isUserLoggedIn() {
   for (let i = 0; i < cookies.length; i++) {
     let cookie = cookies[i].trim();
 
-    if (cookie.indexOf('fcnLoggedIn=1') !== -1) {
+    if (cookie.indexOf('fcnLoggedIn=') !== -1) {
       return true;
     }
   }

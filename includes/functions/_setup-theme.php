@@ -2478,14 +2478,18 @@ function show_page_optimize_deactivated_notice() {
  * @param string $logged_in_cookie  The logged-in cookie value.
  * @param int    $expire            The time the login grace period expires as a UNIX timestamp.
  *                                  Default is 12 hours past the cookie's expiration time.
+ * @param int    $expiration        The time when the logged-in authentication cookie expires as
+ *                                  a UNIX timestamp. Default is 14 days from now.
+ * @param int    $user_id           User ID.
  */
 
-function fictioneer_set_logged_in_cookie( $logged_in_cookie, $expire ) {
+function fictioneer_set_logged_in_cookie( $logged_in_cookie, $expire, $expiration, $user_id ) {
   $cookie_domain = defined( 'COOKIE_DOMAIN' ) ? COOKIE_DOMAIN : $_SERVER['HTTP_HOST'];
+  $fingerprint = fictioneer_get_user_fingerprint( $user_id );
 
-  setcookie( 'fcnLoggedIn', '1', $expire, COOKIEPATH, $cookie_domain, is_ssl(), false );
+  setcookie( 'fcnLoggedIn', $fingerprint, $expire, COOKIEPATH, $cookie_domain, is_ssl(), false );
 }
-add_action( 'set_logged_in_cookie', 'fictioneer_set_logged_in_cookie', 10, 2 );
+add_action( 'set_logged_in_cookie', 'fictioneer_set_logged_in_cookie', 10, 4 );
 
 /**
  * Removes the fictioneer login check cookie
