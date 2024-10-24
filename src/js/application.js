@@ -1623,25 +1623,27 @@ _$$('dialog').forEach(element => {
 });
 
 // Open tooltip modal
-_$('.content-section')?.addEventListener('click', event => {
-  if (event.target.closest('[data-click-action*="open-tooltip-modal"]') && !window.getSelection().toString()) {
-    const modal = _$$$('fictioneer-tooltip-dialog');
-    const header = event.target.dataset.dialogHeader;
-    const content = event.target.dataset.dialogContent;
+_$$('.content-section').forEach(section => {
+  section.addEventListener('click', event => {
+    if (event.target.closest('[data-click-action*="open-tooltip-modal"]') && !window.getSelection().toString()) {
+      const modal = _$$$('fictioneer-tooltip-dialog');
+      const header = event.target.dataset.dialogHeader;
+      const content = event.target.dataset.dialogContent;
 
-    if (content.length > 200) {
-      modal.style.setProperty('--modal-width', '400px');
-    } else {
-      modal.style.removeProperty('--modal-width');
+      if (content.length > 200) {
+        modal.style.setProperty('--modal-width', '400px');
+      } else {
+        modal.style.removeProperty('--modal-width');
+      }
+
+      if (header) {
+        modal.querySelector('[data-finder="tooltip-dialog-header"]').innerHTML = header;
+      }
+
+      modal.querySelector('[data-finder="tooltip-dialog-content"]').innerHTML = content;
+      modal.showModal();
     }
-
-    if (header) {
-      modal.querySelector('[data-finder="tooltip-dialog-header"]').innerHTML = header;
-    }
-
-    modal.querySelector('[data-finder="tooltip-dialog-content"]').innerHTML = content;
-    modal.showModal();
-  }
+  });
 });
 
 // =============================================================================

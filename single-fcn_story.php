@@ -71,7 +71,7 @@ get_header(
         do_action( 'fictioneer_story_after_header', $hook_args );
       ?>
 
-      <section class="story__summary"><?php
+      <section class="story__summary content-section"><?php
         if ( $password_required ) {
           if ( $password_note ) {
             echo '<div class="story__password-note infobox">' . $password_note . '</div>';
