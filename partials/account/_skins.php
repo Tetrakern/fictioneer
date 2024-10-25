@@ -40,36 +40,4 @@ $current_user = $args['user'];
   );
 ?></p>
 
-<div class="profile__segment" data-controller="css-skin">
-
-  <template id="template-custom-skin" data-css-skin-target="template">
-    <div class="custom-skin" data-css-skin-finder="skin-item">
-      <button type="button" class="custom-skin__toggle" data-action="click->css-skin#toggle">
-        <i class="fa-regular fa-circle off"></i>
-        <i class="fa-solid fa-circle-dot on"></i>
-      </button>
-      <div class="custom-skin__info">
-        <span class="custom-skin__name" data-css-skin-finder="name">&mdash;</span>
-        <span class="custom-skin__spacer"></span>
-        <span class="custom-skin__version" data-css-skin-finder="version">&mdash;</span>
-        <span class="custom-skin__spacer"></span>
-        <span class="custom-skin__author" data-css-skin-finder="author">&mdash;</span>
-      </div>
-      <button type="button" class="custom-skin__delete" data-action="click->css-skin#delete"><i class="fa-solid fa-trash-can"></i></button>
-    </div>
-  </template>
-
-  <div class="custom-skin-list" data-css-skin-target="list"></div>
-
-  <form class="custom-skin _upload" data-css-skin-target="form">
-    <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">var fcn_skinTranslations = <?php echo json_encode( fictioneer_get_skin_translations() ); ?>;</script>
-    <input type="file" name="css-file" accept=".css" data-css-skin-target="file">
-    <i class="fa-solid fa-plus"></i>
-  </form>
-
-  <div class="profile__actions">
-    <button type="button" class="button" data-action="click->css-skin#upload" data-disable-with="<?php esc_attr_e( 'Uploading…', 'fictioneer' ); ?>"><?php _e( 'Sync Up', 'fictioneer' ); ?></button>
-    <button type="button" class="button" data-action="click->css-skin#download" data-disable-with="<?php esc_attr_e( 'Downloading…', 'fictioneer' ); ?>"><?php _e( 'Sync Down', 'fictioneer' ); ?></button>
-  </div>
-
-</div>
+<?php fictioneer_render_skin_interface(); ?>

@@ -2673,8 +2673,7 @@ function fictioneer_get_splide_loading_style( $json_string, $uid ) {
  */
 
 function fictioneer_get_splide_placeholders( $uid = null, $ttb = false ) {
-  return apply_filters( 'fictioneer_filter_splide_placeholders', '', $uid, $ttb
-  );
+  return apply_filters( 'fictioneer_filter_splide_placeholders', '', $uid, $ttb );
 }
 
 // =============================================================================
@@ -2727,7 +2726,7 @@ if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
 }
 
 // =============================================================================
-// GET CUSTOM CSS SKIN TRANSLATIONS
+// CUSTOM CSS SKINS
 // =============================================================================
 
 /**
@@ -2749,4 +2748,48 @@ function fictioneer_get_skin_translations() {
     'invalidJson' => _x( 'Invalid JSON.', 'Custom CSS skin.', 'fictioneer' ),
     'error' => _x( 'Error.', 'Custom CSS skin.', 'fictioneer' )
   );
+}
+
+/**
+ * Renders the HTML for the custom CSS skin interface
+ *
+ * @since 5.26.0
+ */
+
+function fictioneer_render_skin_interface() {
+  // Start HTML ---> ?>
+  <div class="profile__segment custom-skin-section" data-controller="css-skin">
+
+    <template data-css-skin-target="template">
+      <div class="custom-skin" data-css-skin-finder="skin-item">
+        <button type="button" class="custom-skin__toggle" data-action="click->css-skin#toggle">
+          <i class="fa-regular fa-circle off"></i>
+          <i class="fa-solid fa-circle-dot on"></i>
+        </button>
+        <div class="custom-skin__info">
+          <span class="custom-skin__name" data-css-skin-finder="name">&mdash;</span>
+          <span class="custom-skin__spacer"></span>
+          <span class="custom-skin__version" data-css-skin-finder="version">&mdash;</span>
+          <span class="custom-skin__spacer"></span>
+          <span class="custom-skin__author" data-css-skin-finder="author">&mdash;</span>
+        </div>
+        <button type="button" class="custom-skin__delete" data-action="click->css-skin#delete"><i class="fa-solid fa-trash-can"></i></button>
+      </div>
+    </template>
+
+    <div class="custom-skin-list" data-css-skin-target="list"></div>
+
+    <div class="custom-skin _upload" data-css-skin-target="form">
+      <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">var fcn_skinTranslations = <?php echo json_encode( fictioneer_get_skin_translations() ); ?>;</script>
+      <input type="file" name="css-file" accept=".css" data-css-skin-target="file">
+      <i class="fa-solid fa-plus"></i>
+    </div>
+
+    <div class="profile__actions custom-skin-actions">
+      <button type="button" class="button" data-action="click->css-skin#upload" data-disable-with="<?php esc_attr_e( 'Uploading…', 'fictioneer' ); ?>"><?php _e( 'Sync Up', 'fictioneer' ); ?></button>
+      <button type="button" class="button" data-action="click->css-skin#download" data-disable-with="<?php esc_attr_e( 'Downloading…', 'fictioneer' ); ?>"><?php _e( 'Sync Down', 'fictioneer' ); ?></button>
+    </div>
+
+  </div>
+  <?php // <--- End HTML
 }
