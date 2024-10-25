@@ -460,14 +460,14 @@ function fcn_getSkinInfo(css) {
  */
 
 function fcn_toggleSkin(target) {
-  const item = target.closest('.custom-skin');
+  const item = target.closest('[data-css-skin-finder="skin-item"]');
   const skins = fcn_getSkins();
 
   if (item.classList.contains('active')) {
-    _$$('.custom-skin').forEach(element => element.classList.remove('active'));
+    _$$('[data-css-skin-finder="skin-item"]').forEach(element => element.classList.remove('active'));
     skins.active = null;
   } else {
-    _$$('.custom-skin').forEach(element => element.classList.remove('active'));
+    _$$('[data-css-skin-finder="skin-item"]').forEach(element => element.classList.remove('active'));
     item.classList.add('active');
     skins.active = target.dataset.skinId;
   }
@@ -484,7 +484,7 @@ function fcn_toggleSkin(target) {
  */
 
 function fcn_deleteSkin(target) {
-  const item = target.closest('.custom-skin');
+  const item = target.closest('[data-css-skin-finder="skin-item"]');
   const skins = fcn_getSkins();
 
   if (item.classList.contains('active')) {
@@ -492,7 +492,7 @@ function fcn_deleteSkin(target) {
   }
 
   delete skins.data[target.dataset.skinId];
-  _$('#css-upload-form > input').value = '';
+  _$('[data-css-skin-target="file"]').value = '';
 
   fcn_setSkins(skins);
   fcn_renderSkinList();
@@ -542,7 +542,7 @@ function fcn_applySkin() {
  */
 
 function fcn_renderSkinList() {
-  const container = _$('.custom-skin-list');
+  const container = _$('[data-css-skin-target="list"]');
   const fingerprint = fcn_getCookie('fcnLoggedIn');
 
   // Ensure the theme login check is passed
@@ -558,7 +558,7 @@ function fcn_renderSkinList() {
 
   // Check fingerprint
   if (skins?.fingerprint !== fingerprint) {
-    _$$$('css-upload-form').style.display = '';
+    _$('[data-css-skin-target="form"]').style.display = '';
     return;
   }
 
@@ -566,38 +566,38 @@ function fcn_renderSkinList() {
   if (skins?.data && Object.keys(skins.data).length > 0) {
     // Loop through the skins and render them
     Object.entries(skins.data).forEach(([key, skin]) => {
-      const template = _$$$('template-custom-skin').content.cloneNode(true);
+      const template = _$('[data-css-skin-target="template"]').content.cloneNode(true);
 
       // Active skin?
       if (skins.active === key) {
-        template.querySelector('.custom-skin').classList.add('active');
+        template.querySelector('[data-css-skin-finder="skin-item"]').classList.add('active');
       }
 
       // Fill template with skin data
-      template.querySelector('[data-click-action="skin-toggle"]').dataset.skinId = key;
-      template.querySelector('[data-click-action="skin-delete"]').dataset.skinId = key;
-      template.querySelector('[data-finder="skin-name"]').innerText = skin.name;
-      template.querySelector('[data-finder="skin-version"]').innerText = skin.version;
-      template.querySelector('[data-finder="skin-author"]').innerText = skin.author;
+      template.querySelector('[data-action="click->css-skin#toggle"]').dataset.skinId = key;
+      template.querySelector('[data-action="click->css-skin#delete"]').dataset.skinId = key;
+      template.querySelector('[data-css-skin-finder="name"]').innerText = skin.name;
+      template.querySelector('[data-css-skin-finder="version"]').innerText = skin.version;
+      template.querySelector('[data-css-skin-finder="author"]').innerText = skin.author;
 
       // Append the template to the container
       container.appendChild(template);
     });
 
     // Add click events
-    _$$('[data-click-action="skin-toggle"]').forEach(button => {
+    _$$('[data-action="click->css-skin#toggle"]').forEach(button => {
       button.addEventListener('click', event => fcn_toggleSkin(event.currentTarget));
     });
 
-    _$$('[data-click-action="skin-delete"]').forEach(button => {
+    _$$('[data-action="click->css-skin#delete"]').forEach(button => {
       button.addEventListener('click', event => fcn_deleteSkin(event.currentTarget));
     });
   }
 
   if (Object.keys(skins.data).length > 2) {
-    _$$$('css-upload-form').style.display = 'none';
+    _$('[data-css-skin-target="form"]').style.display = 'none';
   } else {
-    _$$$('css-upload-form').style.display = '';
+    _$('[data-css-skin-target="form"]').style.display = '';
   }
 }
 
@@ -605,13 +605,15 @@ function fcn_renderSkinList() {
 fcn_renderSkinList();
 
 // Upload
-_$('#css-upload-form > input')?.addEventListener('input', event => {
+_$('[data-css-skin-target="file"]')?.addEventListener('input', event => {
   event.preventDefault();
 
-  const input = _$$$('css-file');
+  const input = event.currentTarget;
   const file = input.files[0];
   const skins = fcn_getSkins();
   const fingerprint = fcn_getCookie('fcnLoggedIn');
+
+  console.log(input);
 
   if (Object.keys(skins.data).length > 2) {
     fcn_showNotification(fcn_skinTranslations.tooManySkins, 3, 'warning');
@@ -729,7 +731,7 @@ function fcn_uploadSkins(trigger) {
   });
 }
 
-_$('[data-click-action="skins-sync-up"]')?.addEventListener('click', event => {
+_$('[data-action="click->css-skin#upload"]')?.addEventListener('click', event => {
   fcn_uploadSkins(event.currentTarget);
 });
 
@@ -781,11 +783,11 @@ function fcn_downloadSkins(trigger) {
     console.error(error);
   })
   .then(() => {
-    _$('#css-upload-form > input').value = '';
+    _$('[data-css-skin-target="file"]').value = '';
     fcn_toggleInProgress(trigger);
   });
 }
 
-_$('[data-click-action="skins-sync-down"]')?.addEventListener('click', event => {
+_$('[data-action="click->css-skin#download"]')?.addEventListener('click', event => {
   fcn_downloadSkins(event.currentTarget);
 });

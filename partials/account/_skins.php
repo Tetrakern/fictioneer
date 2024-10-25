@@ -40,36 +40,36 @@ $current_user = $args['user'];
   );
 ?></p>
 
-<template id="template-custom-skin">
-  <div class="custom-skin">
-    <button type="button" class="custom-skin__toggle" data-click-action="skin-toggle">
-      <i class="fa-regular fa-circle off"></i>
-      <i class="fa-solid fa-circle-dot on"></i>
-    </button>
-    <div class="custom-skin__info">
-      <span class="custom-skin__name" data-finder="skin-name">&mdash;</span>
-      <span class="custom-skin__spacer"></span>
-      <span class="custom-skin__version" data-finder="skin-version">&mdash;</span>
-      <span class="custom-skin__spacer"></span>
-      <span class="custom-skin__author" data-finder="skin-author">&mdash;</span>
+<div class="profile__segment" data-controller="css-skin">
+
+  <template id="template-custom-skin" data-css-skin-target="template">
+    <div class="custom-skin" data-css-skin-finder="skin-item">
+      <button type="button" class="custom-skin__toggle" data-action="click->css-skin#toggle">
+        <i class="fa-regular fa-circle off"></i>
+        <i class="fa-solid fa-circle-dot on"></i>
+      </button>
+      <div class="custom-skin__info">
+        <span class="custom-skin__name" data-css-skin-finder="name">&mdash;</span>
+        <span class="custom-skin__spacer"></span>
+        <span class="custom-skin__version" data-css-skin-finder="version">&mdash;</span>
+        <span class="custom-skin__spacer"></span>
+        <span class="custom-skin__author" data-css-skin-finder="author">&mdash;</span>
+      </div>
+      <button type="button" class="custom-skin__delete" data-action="click->css-skin#delete"><i class="fa-solid fa-trash-can"></i></button>
     </div>
-    <button type="button" class="custom-skin__delete" data-click-action="skin-delete"><i class="fa-solid fa-trash-can"></i></button>
-  </div>
-</template>
+  </template>
 
-<div class="profile__segment">
+  <div class="custom-skin-list" data-css-skin-target="list"></div>
 
-  <div class="custom-skin-list"></div>
-
-  <form id="css-upload-form" class="custom-skin _upload">
+  <form class="custom-skin _upload" data-css-skin-target="form">
     <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">var fcn_skinTranslations = <?php echo json_encode( fictioneer_get_skin_translations() ); ?>;</script>
-    <input type="file" id="css-file" name="css-file" accept=".css">
+    <input type="file" name="css-file" accept=".css" data-css-skin-target="file">
     <i class="fa-solid fa-plus"></i>
   </form>
 
   <div class="profile__actions">
-    <button type="button" class="button" data-click-action="skins-sync-up" data-disable-with="<?php esc_attr_e( 'Uploading…', 'fictioneer' ); ?>"><?php _e( 'Sync Up', 'fictioneer' ); ?></button>
-    <button type="button" class="button" data-click-action="skins-sync-down" data-disable-with="<?php esc_attr_e( 'Downloading…', 'fictioneer' ); ?>"><?php _e( 'Sync Down', 'fictioneer' ); ?></button>
+    <button type="button" class="button" data-action="click->css-skin#upload" data-disable-with="<?php esc_attr_e( 'Uploading…', 'fictioneer' ); ?>"><?php _e( 'Sync Up', 'fictioneer' ); ?></button>
+    <button type="button" class="button" data-action="click->css-skin#download" data-disable-with="<?php esc_attr_e( 'Downloading…', 'fictioneer' ); ?>"><?php _e( 'Sync Down', 'fictioneer' ); ?></button>
   </div>
 
 </div>
