@@ -1710,6 +1710,17 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/js\/critical-skin-script.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/js\/critical-skin-script.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
     "\/js\/customizer.min.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -2330,6 +2341,17 @@
       "mi" : 1,
       "oA" : 0,
       "oAP" : "\/js\/critical-skin-script.min.js",
+      "oF" : 2,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/src\/js\/css-skins.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/js\/css-skins.min.js",
       "oF" : 2,
       "sC" : 3,
       "tS" : 0
