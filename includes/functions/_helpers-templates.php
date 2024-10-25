@@ -2725,3 +2725,28 @@ if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
   add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'fictioneer_treat_scheduled_chapters_as_published' );
   add_action( 'fictioneer_filter_chapters_added_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
 }
+
+// =============================================================================
+// GET CUSTOM CSS SKIN TRANSLATIONS
+// =============================================================================
+
+/**
+ * Returns translations for the custom CSS skins (used in JS)
+ *
+ * @since 5.26.0
+ *
+ * @return array The translations.
+ */
+
+function fictioneer_get_skin_translations() {
+  return array(
+    'wrongFileType' => _x( 'Wrong file type. Please upload a valid CSS file.', 'Custom CSS skin.', 'fictioneer' ),
+    'invalidCss' => _x( 'Invalid file contents. Please check for missing braces ("{}") or forbidden characters ("<").', 'Custom CSS skin.', 'fictioneer' ),
+    'missingMetaData' => _x( 'File is missing the "Name" meta data.', 'Custom CSS skin.', 'fictioneer' ),
+    'tooManySkins' => _x( 'You cannot upload more than 3 skins.', 'Custom CSS skin.', 'fictioneer' ),
+    'wrongFingerprint' => _x( 'Wrong or missing fingerprint hash.', 'Custom CSS skin.', 'fictioneer' ),
+    'fileTooLarge' => _x( 'Maximum file size of 200 KB exceeded.', 'Custom CSS skin.', 'fictioneer' ),
+    'invalidJson' => _x( 'Invalid JSON.', 'Custom CSS skin.', 'fictioneer' ),
+    'error' => _x( 'Error.', 'Custom CSS skin.', 'fictioneer' )
+  );
+}

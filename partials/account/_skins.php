@@ -24,18 +24,6 @@ if ( ! isset( $_COOKIE['fcnLoggedIn'] ) ) {
 
 // Setup
 $current_user = $args['user'];
-$template_download = esc_url( get_template_directory_uri() . '/css/skin-template.css' );
-
-$translations = array(
-  'wrongFileType' => _x( 'Wrong file type. Please upload a valid CSS file.', 'Custom CSS skin.', 'fictioneer' ),
-  'invalidCss' => _x( 'Invalid file contents. Please check for missing braces ("{}") or forbidden characters ("<").', 'Custom CSS skin.', 'fictioneer' ),
-  'missingMetaData' => _x( 'File is missing the "Name" meta data.', 'Custom CSS skin.', 'fictioneer' ),
-  'tooManySkins' => _x( 'You cannot upload more than 3 skins.', 'Custom CSS skin.', 'fictioneer' ),
-  'wrongFingerprint' => _x( 'Wrong or missing fingerprint hash.', 'Custom CSS skin.', 'fictioneer' ),
-  'fileTooLarge' => _x( 'Maximum file size of 200 KB exceeded.', 'Custom CSS skin.', 'fictioneer' ),
-  'invalidJson' => _x( 'Invalid JSON.', 'Custom CSS skin.', 'fictioneer' ),
-  'error' => _x( 'Error.', 'Custom CSS skin.', 'fictioneer' )
-);
 
 ?>
 
@@ -48,7 +36,7 @@ $translations = array(
 <p class="profile__description"><?php
   printf(
     __( 'To create your own skin, <a href="%s" download>download this template</a>.', 'fictioneer' ),
-    $template_download
+    esc_url( get_template_directory_uri() . '/css/skin-template.css' )
   );
 ?></p>
 
@@ -74,9 +62,7 @@ $translations = array(
   <div class="custom-skin-list"></div>
 
   <form id="css-upload-form" class="custom-skin _upload">
-    <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">
-      var fcn_skinTranslations = <?php echo json_encode( $translations ); ?>;
-    </script>
+    <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">var fcn_skinTranslations = <?php echo json_encode( fictioneer_get_skin_translations() ); ?>;</script>
     <input type="file" id="css-file" name="css-file" accept=".css">
     <i class="fa-solid fa-plus"></i>
   </form>
