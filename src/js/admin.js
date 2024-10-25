@@ -1303,3 +1303,21 @@ _$$('[data-click-action="fictioneer_ajax_recount_words"]').forEach(button => {
     }
   });
 });
+
+// =============================================================================
+// NOTIFICATIONS
+// =============================================================================
+
+/**
+ * Show notification that will vanish after a while.
+ *
+ * @since 5.26.0
+ * @param {String} message - The message to display.
+ * @param {Number} [duration=] - Seconds the message will be visible. Default 3.
+ * @param {String} [type=] - Type of the message. Default 'base'.
+ */
+
+function fcn_showNotification(message, duration = 3, type = 'base') {
+  // This is currently a dummy
+  return;
+}

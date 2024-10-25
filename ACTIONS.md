@@ -87,6 +87,7 @@ Fires within the Fictioneer user profile section in the WordPress `wp-admin/prof
 * `fictioneer_admin_profile_fields_fingerprint( $profile_user )` – User fingerprint field. Priority 5.
 * `fictioneer_admin_profile_fields_flags( $profile_user )` – User flags. Priority 6.
 * `fictioneer_admin_profile_fields_oauth( $profile_user )` – User OAuth connections. Priority 7.
+* `fictioneer_admin_profile_fields_skins( $profile_user )` – Local custom CSS skins. Priority 7.
 * `fictioneer_admin_profile_fields_data_nodes( $profile_user )` – User data nodes. Priority 8.
 * `fictioneer_admin_profile_post_unlocks( $profile_user )` - Unlock password-protected posts. Priority 9.
 * `fictioneer_admin_profile_patreon( $profile_user )` – User Patreon membership data (if any). Priority 10.

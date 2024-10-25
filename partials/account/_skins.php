@@ -30,7 +30,7 @@ $current_user = $args['user'];
 <h3 class="profile__skins-headline"><?php _e( 'Skins', 'fictioneer' ); ?></h3>
 
 <p class="profile__description"><?php
-  _e( 'You can add up to three custom CSS skins (max. 200 KB each), with one active at a time. These skins apply only to your current device and browser (and may vanish at any time), but you can manually sync them up and down with your account. Be cautious about which skin you trust, as they can mess up the site.', 'fictioneer' );
+  _e( 'You can upload up to three custom CSS skins (max. 200 KB each), with one active at a time. These skins apply only to your current device and browser (and may vanish at any time), but you can sync them up and down with your account. Be cautious about which skin you trust, as they can mess up the site.', 'fictioneer' );
 ?></p>
 
 <p class="profile__description"><?php

@@ -266,10 +266,6 @@
     background: var(--button-background-active);
     border: var(--button-border-active);
 
-    input[type=checkbox]:checked {
-      background: transparent;
-    }
-
     .custom-skin__toggle .off {
       display: none;
     }

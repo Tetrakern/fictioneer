@@ -102,6 +102,16 @@ function fictioneer_admin_scripts( $hook_suffix ) {
     true
   );
 
+  if ( $hook_suffix === 'profile.php' || $hook_suffix === 'user-edit.php' ) {
+    wp_enqueue_script(
+      'fictioneer-css-skins',
+      get_template_directory_uri() . '/js/css-skins.min.js',
+      ['jquery', 'fictioneer-utility-scripts'],
+      FICTIONEER_VERSION,
+      true
+    );
+  }
+
   wp_localize_script(
     'fictioneer-admin-script',
     'fictioneer_ajax',

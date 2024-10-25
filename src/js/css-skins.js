@@ -126,8 +126,8 @@ function fcn_deleteSkin(target) {
 function fcn_applySkin() {
   const fingerprint = fcn_getCookie('fcnLoggedIn');
 
-  // Ensure the theme login check is passed
-  if (!fingerprint) {
+  // Ensure user is logged-in and not inside admin panel
+  if (!fingerprint || _$('body.wp-admin')) {
     return;
   }
 
