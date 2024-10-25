@@ -314,6 +314,7 @@ function fcn_uploadSkins(trigger) {
 
   // Toggle button progress
   fcn_toggleInProgress(trigger);
+  _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
   fcn_ajaxPost({
@@ -324,6 +325,7 @@ function fcn_uploadSkins(trigger) {
   .then(response => {
     if (response.success) {
       fcn_showNotification(response.data.message, 3, 'success');
+      fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
     } else {
       fcn_showNotification(
         response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
@@ -345,6 +347,7 @@ function fcn_uploadSkins(trigger) {
     console.error(error);
   })
   .then(() => {
+    _$('[data-css-skin-target="file"]').value = '';
     fcn_toggleInProgress(trigger);
   });
 }
@@ -368,6 +371,7 @@ function fcn_downloadSkins(trigger) {
 
   // Toggle button progress
   fcn_toggleInProgress(trigger);
+  _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
   fcn_ajaxPost({
@@ -377,9 +381,10 @@ function fcn_downloadSkins(trigger) {
   .then(response => {
     if (response.success) {
       fcn_showNotification(response.data.message, 3, 'success');
+      fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
       fcn_setSkins(JSON.parse(response.data.skins));
       fcn_renderSkinList();
-      fcn_applySkin()
+      fcn_applySkin();
     } else {
       fcn_showNotification(
         response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
@@ -409,3 +414,18 @@ function fcn_downloadSkins(trigger) {
 _$('[data-action="click->css-skin#download"]')?.addEventListener('click', event => {
   fcn_downloadSkins(event.currentTarget);
 });
+
+/**
+ * Toggles notice for 3 seconds.
+ *
+ * @since 5.26.0
+ * @param {HTMLElement} element - The targeted element.
+ */
+
+function fcn_toggleSkinNotice(element) {
+  element.classList.remove('invisible');
+
+  setTimeout(() => {
+    element.classList.add('invisible');
+  }, 3000);
+}

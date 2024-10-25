@@ -1096,6 +1096,29 @@ td.fictioneer_patreon_lock_amount {
   }
 }
 
+.custom-skin-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 32px;
+
+  button {
+    margin: 0 !important;
+  }
+}
+
+.custom-skin-action-status {
+  pointer-events: none;
+  display: grid;
+  place-content: center;
+  transition: opacity .2s;
+
+  &.invisible {
+    opacity: 0;
+  }
+}
+
 .custom-skin {
   box-sizing: border-box;
   flex: 1 1 100%;
@@ -1192,10 +1215,6 @@ td.fictioneer_patreon_lock_amount {
     color: inherit;
     border: none;
   }
-}
-
-.custom-skin-actions {
-  margin-top: 16px;
 }
 
 .unlock-posts {

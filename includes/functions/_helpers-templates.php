@@ -2788,6 +2788,7 @@ function fictioneer_render_skin_interface() {
     <div class="profile__actions custom-skin-actions">
       <button type="button" class="button" data-action="click->css-skin#upload" data-disable-with="<?php esc_attr_e( 'Uploading…', 'fictioneer' ); ?>"><?php _e( 'Sync Up', 'fictioneer' ); ?></button>
       <button type="button" class="button" data-action="click->css-skin#download" data-disable-with="<?php esc_attr_e( 'Downloading…', 'fictioneer' ); ?>"><?php _e( 'Sync Down', 'fictioneer' ); ?></button>
+      <div class="invisible custom-skin-action-status" data-css-skin-target="action-status-message"><span class="dashicons dashicons-saved"></span></div>
     </div>
 
   </div>
