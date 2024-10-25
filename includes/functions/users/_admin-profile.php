@@ -1288,7 +1288,7 @@ function fictioneer_admin_profile_fields_skins( $profile_user ) {
       <p style="margin: 0.35em 0 1em !important;"><?php
         _e( 'You can upload up to three custom CSS skins (max. 200 KB each), with one active at a time. These skins apply only to your current device and browser (and may vanish at any time), but you can sync them up and down with your account. Be cautious about which skin you trust, as they can mess up the site.', 'fictioneer' );
       ?></p>
-      <p style="margin: 0.35em 0 1em !important;"><?php
+      <p style="margin: 0.35em 0 1.5em !important;"><?php
         printf(
           __( 'To create your own skin, <a href="%s" download>download this template</a>.', 'fictioneer' ),
           esc_url( get_template_directory_uri() . '/css/skin-template.css' )
@@ -1296,9 +1296,7 @@ function fictioneer_admin_profile_fields_skins( $profile_user ) {
       ?></p>
       <input name="fictioneer_nonce" type="hidden" value="<?php echo wp_create_nonce( 'fictioneer_nonce' ); ?>">
       <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">var fcn_skinTranslations = <?php echo json_encode( fictioneer_get_skin_translations() ); ?>;</script>
-      <fieldset><?php
-        fictioneer_render_skin_interface();
-      ?></fieldset>
+      <fieldset><?php fictioneer_render_skin_interface(); ?></fieldset>
     </td>
   </tr>
   <?php // <--- End HTML
