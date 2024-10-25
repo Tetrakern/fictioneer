@@ -86,7 +86,6 @@ function fictioneer_account_password( $args ) {
 
 if ( current_user_can( 'fcn_admin_panel_access' ) && get_option( 'fictioneer_show_wp_login_link' ) ) {
   add_action( 'fictioneer_account_content', 'fictioneer_account_password', 11 );
-}
 
 // =============================================================================
 // ACCOUNT OAUTH BINDINGS SECTION
@@ -108,6 +107,31 @@ function fictioneer_account_oauth( $args ) {
   get_template_part( 'partials/account/_oauth', null, $args );
 }
 add_action( 'fictioneer_account_content', 'fictioneer_account_oauth', 20 );
+}
+
+// =============================================================================
+// SITE SKINS
+// =============================================================================
+
+/**
+ * Outputs the HTML for the site skins section
+ *
+ * @since 5.26.0
+ *
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
+ */
+
+function fictioneer_account_site_skins( $args ) {
+  get_template_part( 'partials/account/_skins', null, $args );
+}
+
+if ( get_option( 'fictioneer_enable_css_skins' ) ) {
+  add_action( 'fictioneer_account_content', 'fictioneer_account_site_skins', 25 );
+}
 
 // =============================================================================
 // ACCOUNT DATA SECTION

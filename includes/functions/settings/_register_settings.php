@@ -731,6 +731,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_enable_css_skins' => array(
+      'name' => 'fictioneer_enable_css_skins',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1204,6 +1210,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_show_story_modified_date' => __( 'Show the modified date on story pages', 'fictioneer' ),
       'fictioneer_disable_chapter_list_transients' => __( 'Disable chapter list Transient caching', 'fictioneer' ),
       'fictioneer_disable_shortcode_transients' => __( 'Disable shortcode Transient caching', 'fictioneer' ),
+      'fictioneer_enable_css_skins' => __( 'Enable CSS skins (requires account)', 'fictioneer' ),
     );
   }
 

@@ -635,6 +635,15 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) && is_admin() ) {
 }
 
 /**
+ * Add the skins feature.
+ */
+
+if ( get_option( 'fictioneer_enable_css_skins' ) && is_admin() ) {
+  // Only used for AJAX
+  require_once __DIR__ . '/includes/functions/users/_skins.php';
+}
+
+/**
  * Add content helper functions.
  */
 

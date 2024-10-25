@@ -808,6 +808,33 @@ function fcn_sanitizeHTML(html) {
 }
 
 // =============================================================================
+// SANITIZE CSS
+// =============================================================================
+
+/**
+ * Validates a CSS string.
+ *
+ * @since 5.26.0
+ * @param {String} css - The CSS to validate.
+ * @return {Boolean} True or false.
+ */
+
+function fcn_validateCss(css) {
+  const openBraces = (css.match(/{/g) || []).length;
+  const closeBraces = (css.match(/}/g) || []).length;
+
+  if (openBraces !== closeBraces) {
+    return false;
+  }
+
+  if (css.includes('<')) {
+    return false;
+  }
+
+  return true;
+}
+
+// =============================================================================
 // SCREEN COLLISION DETECTION
 // =============================================================================
 
@@ -972,4 +999,32 @@ function fcn_isUserLoggedIn() {
   }
 
   return false;
+}
+
+// =============================================================================
+// PROGRESSIVE ELEMENT STATUS
+// =============================================================================
+
+/**
+ * Toggles progression state of an element.
+ *
+ * @since 5.26.0
+ * @param {HTMLElement} element - The element.
+ * @param {Boolean|null} force - Whether to disable or enable. Defaults to
+ *                               the opposite of the current state.
+ */
+
+function fcn_toggleInProgress(element, force = null) {
+  force = force !== null ? force : !element.disabled;
+
+  if (force) {
+    element.dataset.enableWith = element.innerHTML;
+    element.innerHTML = element.dataset.disableWith ?? 'Processing';
+    element.disabled = true;
+    element.classList.add('disabled');
+  } else {
+    element.innerHTML = element.dataset.enableWith;
+    element.disabled = false;
+    element.classList.remove('disabled');
+  }
 }

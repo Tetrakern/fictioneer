@@ -1468,6 +1468,8 @@ function fictioneer_fast_ajax() {
     'fictioneer_ajax_get_auth',
     'fictioneer_ajax_get_user_data',
     'fictioneer_ajax_get_avatar',
+    'fictioneer_ajax_save_skins',
+    'fictioneer_ajax_get_skins',
     // Admin
     'fictioneer_ajax_query_relationship_posts',
     'fictioneer_ajax_search_posts_to_unlock'

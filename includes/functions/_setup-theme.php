@@ -1810,7 +1810,7 @@ if ( get_option( 'fictioneer_enable_anti_flicker' ) ) {
 }
 
 // =============================================================================
-// OUTPUT HEAD CRITICAL SCRIPTS
+// OUTPUT CRITICAL SCRIPTS
 // =============================================================================
 
 /**
@@ -1832,6 +1832,22 @@ function fictioneer_output_head_critical_scripts() {
   <?php // <--- End HTML
 }
 add_action( 'wp_head', 'fictioneer_output_head_critical_scripts', 9999 );
+
+/**
+ * Outputs critical skin scripts in the <head>
+ *
+ * @since 5.26.0
+ */
+
+function fictioneer_output_critical_skin_scripts() {
+  // Start HTML ---> ?>
+  <script id="fictioneer-skin-script" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){const e="fcnLoggedIn=",t=document.cookie.split(";");let n=null;for(var c=0;c<t.length;c++){const i=t[c].trim();if(0==i.indexOf(e)){n=decodeURIComponent(i.substring(12,i.length));break}}if(!n)return;const i=JSON.parse(localStorage.getItem("fcnSkins"))??{data:{},active:null,fingerprint:n};if(i?.data?.[i.active]?.css&&n===i?.fingerprint){const e=document.createElement("style");e.textContent=i.data[i.active].css,e.id="fictioneer-active-custom-skin",document.querySelector("head").appendChild(e)}}();</script>
+  <?php // <--- End HTML
+}
+
+if ( get_option( 'fictioneer_enable_css_skins' ) ) {
+  add_action( 'wp_head', 'fictioneer_output_critical_skin_scripts', 9999 );
+}
 
 // =============================================================================
 // ADD EXCERPTS TO PAGES
