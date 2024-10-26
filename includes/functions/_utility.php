@@ -1567,8 +1567,6 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
     return;
   }
 
-  error_log( $post_id );
-
   // Setup, continued
   $chapter_author_id = get_post_field( 'post_author', $post_id );
   $story_author_id = get_post_field( 'post_author', $story_id );
@@ -1577,8 +1575,6 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
   if ( $chapter_author_id != $story_author_id && ! $force ) {
     return;
   }
-
-  error_log( 'force' );
 
   // Get current story chapters
   $story_chapters = fictioneer_get_story_chapter_ids( $story_id );
