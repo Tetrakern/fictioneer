@@ -2814,7 +2814,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   }
 
   if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
-    $description = __( 'Select the story this chapter belongs to; chapters are automatically appended to the story.', 'fictioneer' );
+    $description = __( 'Select the story this chapter belongs to. Published and scheduled chapters are automatically appended to the story.', 'fictioneer' );
   }
 
   $output['fictioneer_chapter_story'] = fictioneer_get_metabox_select(
