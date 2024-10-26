@@ -335,7 +335,7 @@ if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
 }
 
 // =============================================================================
-// GET CHAPTER STORY ID
+// CHAPTER STORY ID
 // =============================================================================
 
 /**
@@ -350,4 +350,25 @@ if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
 
 function fictioneer_get_chapter_story_id( $chapter_id ) {
   return get_post_meta( $chapter_id, 'fictioneer_chapter_story', true );
+}
+
+/**
+ * Sets the chapter parent ID to the story ID
+ *
+ * @since 5.26.0
+ *
+ * @param int $chapter_id  Chapter ID.
+ * @param int $story_id    Story ID.
+ */
+
+function fictioneer_set_chapter_story_parent( $chapter_id, $story_id ) {
+  global $wpdb;
+
+  $wpdb->query(
+    $wpdb->prepare(
+      "UPDATE {$wpdb->posts} SET post_parent = %d WHERE ID = %d",
+      $story_id ?: 0,
+      $chapter_id
+    )
+  );
 }

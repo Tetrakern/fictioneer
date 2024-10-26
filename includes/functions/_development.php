@@ -62,8 +62,6 @@ function fictioneer_generate_test_comments( $post_id, $number = 3 ) {
  */
 
 function fictioneer_generate_test_content() {
-  global $wpdb;
-
   if ( ! current_user_can( 'manage_options' ) || get_current_user_id() !== 1 || ! WP_DEBUG ) {
     return;
   }
@@ -160,14 +158,7 @@ function fictioneer_generate_test_content() {
         fictioneer_generate_test_comments( $chapter_id, $comment_count );
 
         update_post_meta( $chapter_id, 'fictioneer_chapter_story', $story_id );
-
-        $wpdb->query(
-          $wpdb->prepare(
-            "UPDATE {$wpdb->posts} SET post_parent = %d WHERE ID = %d",
-            $story_id ?: 0,
-            $chapter_id
-          )
-        );
+        fictioneer_set_chapter_story_parent( $chapter_id, $story_id );
       }
     }
 
