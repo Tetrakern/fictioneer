@@ -112,7 +112,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
   }
 
   // Is chapter with story?
-  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $post->ID );
 
   if ( $story_id ) {
     $message['embeds'][0]['footer'] = array(
@@ -324,7 +324,7 @@ function fictioneer_post_chapter_to_discord( $post_id, $post, $update ) {
   );
 
   // Story?
-  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $post->ID );
   $story_status = get_post_status( $story_id );
   $story_title = get_the_title( $story_id );
   $story_url = get_permalink( $story_id );

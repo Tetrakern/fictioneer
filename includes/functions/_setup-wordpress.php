@@ -405,7 +405,7 @@ function fictioneer_output_rss( $post_id = null ) {
   }
 
   // RSS Feed if chapter...
-  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $post_id );
 
   if ( $post_type == 'fcn_chapter' && ! empty( $story_id ) && ! $skip_to_default ) {
     $title = sprintf(
@@ -1306,7 +1306,7 @@ function fictioneer_gate_unpublished_content() {
 
   // 404 chapter of unpublished story
   if ( $post->post_type === 'fcn_chapter' ) {
-    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post->ID );
 
     if (
       ! empty( $story_id ) &&

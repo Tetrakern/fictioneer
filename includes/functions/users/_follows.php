@@ -334,7 +334,7 @@ function fictioneer_ajax_get_follows_notifications() {
         ), $chapter->ID
       );
       $chapter_timestamp = get_post_timestamp( $chapter->ID ) * 1000; // Compatible with Date.now() in JavaScript
-      $story_id = get_post_meta( $chapter->ID, 'fictioneer_chapter_story', true );
+      $story_id = fictioneer_get_chapter_story_id( $chapter->ID );
       $new = $user_follows['seen'] < $chapter_timestamp ? '_new' : '';
 
       // Start HTML ---> ?>

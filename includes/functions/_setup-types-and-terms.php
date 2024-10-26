@@ -295,7 +295,7 @@ if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
 function fictioneer_rewrite_chapter_permalink( $post_link, $post ) {
   // Only for chapters...
   if ( $post->post_type === 'fcn_chapter' ) {
-    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post->ID );
 
     if ( $story_id ) {
       // Chapter with story

@@ -653,7 +653,7 @@ if ( ! function_exists( 'fictioneer_get_small_card_thumbnail' ) ) {
 
   function fictioneer_get_small_card_thumbnail( $post_id, $args = [] ) {
     // Setup
-    $parent_id = $args['parent_id'] ?? get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $parent_id = $args['parent_id'] ?? fictioneer_get_chapter_story_id( $post_id );
     $landscape_image_id = get_post_meta( $post_id, 'fictioneer_landscape_image', true );
     $thumbnail_size = ( $args['vertical'] ?? 0 ) ? ( $args['size'] ?? 'large' ) : 'snippet';
     $thumbnail_args = array(
@@ -900,7 +900,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
     // Setup
     $post_id = $post_id ? $post_id : get_the_ID();
     $post_type = get_post_type( $post_id );
-    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post_id );
     $author_id = $author_id ? $author_id : get_the_author_meta( 'ID' );
     $patreon_link = get_post_meta( $post_id, 'fictioneer_patreon_link', true );
     $kofi_link = get_post_meta( $post_id, 'fictioneer_kofi_link', true );
@@ -1565,7 +1565,7 @@ if ( ! function_exists( 'fictioneer_get_rss_link' ) ) {
         $feed = esc_url( add_query_arg( 'story_id', $post_id, home_url( 'feed/rss-chapters' ) ) );
         break;
       case 'fcn_chapter':
-        $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+        $story_id = fictioneer_get_chapter_story_id( $post_id );
         if ( $story_id ) {
           $feed = esc_url( add_query_arg( 'story_id', $story_id, home_url( 'feed/rss-chapters' ) ) );
         };
@@ -1972,7 +1972,7 @@ function fictioneer_get_support_links( $post_id = null, $parent_id = null, $auth
 
   // Get story ID if chapter and parent ID not given
   if ( $parent_id === null && get_post_type( $post_id ) == 'fcn_chapter' ) {
-    $parent_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $parent_id = fictioneer_get_chapter_story_id( $post_id );
   }
 
   // Iterate over keys of interest

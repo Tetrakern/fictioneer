@@ -2745,7 +2745,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 
   $nonce = wp_create_nonce( "chapter_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $post_author_id = get_post_field( 'post_author', $post->ID );
-  $current_story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+  $current_story_id = fictioneer_get_chapter_story_id( $post->ID );
   $output = [];
 
   // --- Add fields ------------------------------------------------------------
@@ -3027,7 +3027,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // Story
   if ( isset( $_POST['fictioneer_chapter_story'] ) ) {
     $story_id = fictioneer_validate_id( $_POST['fictioneer_chapter_story'], 'fcn_story' );
-    $current_story_id = absint( get_post_meta( $post_id, 'fictioneer_chapter_story', true ) );
+    $current_story_id = absint( fictioneer_get_chapter_story_id( $post_id ) );
 
     if ( $current_story_id && $story_id !== $current_story_id ) {
       // Make sure the chapter is not in the list of the wrong story
@@ -4811,7 +4811,7 @@ add_filter( 'manage_fcn_chapter_posts_columns', 'fictioneer_add_posts_column_cha
 function fictioneer_manage_posts_column_chapter_story( $column_name, $post_id ) {
   if (
     $column_name === 'fictioneer_chapter_story' &&
-    ( $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true ) )
+    ( $story_id = fictioneer_get_chapter_story_id( $post_id ) )
   ) {
     static $titles = [];
 

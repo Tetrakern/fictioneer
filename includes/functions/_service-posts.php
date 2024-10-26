@@ -26,7 +26,7 @@ function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
   }
 
   // Setup
-  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $post_id );
 
   // No linked story found
   if ( empty( $story_id ) || ! get_post_status( $story_id ?? 0 ) ) {
@@ -187,7 +187,7 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
 
   // Story?
   $post_id = $post->ID;
-  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $post_id );
 
   if ( empty( $story_id ) ) {
     return;
@@ -254,7 +254,7 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
   }
 
   // Story?
-  $story_id = get_post_meta( $chapter_id, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $chapter_id );
 
   if ( empty( $story_id ) ) {
     return;
@@ -334,7 +334,7 @@ function fictioneer_chapter_future_to_publish( $new_status, $old_status, $post )
   }
 
   // Update fictioneer_chapters_added field of story (if any)
-  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $post->ID );
 
   if ( $story_id ) {
     update_post_meta( $story_id, 'fictioneer_chapters_added', $post->post_date_gmt );
@@ -418,7 +418,7 @@ function fictioneer_increment_story_comment_count( $comment_id ) {
     return;
   }
 
-  $story_id = get_post_meta( $comment->comment_post_ID, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $comment->comment_post_ID );
   $story_data = $story_id ? fictioneer_get_story_data( $story_id ) : null;
 
   // Increment comment count (will be recounted at some later point)
@@ -444,7 +444,7 @@ function fictioneer_decrement_story_comment_count( $comment_id ) {
     return;
   }
 
-  $story_id = get_post_meta( $comment->comment_post_ID, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $comment->comment_post_ID );
   $story_data = $story_id ? fictioneer_get_story_data( $story_id ) : null;
 
   // Decrement comment count (will be recounted at some later point)

@@ -2238,7 +2238,7 @@ if ( ! function_exists( 'fictioneer_is_commenting_disabled' ) ) {
 
     // Check parent story if chapter...
     if ( get_post_type( $post_id ) === 'fcn_chapter' ) {
-      $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+      $story_id = fictioneer_get_chapter_story_id( $post_id );
 
       if ( $story_id ) {
         return get_post_meta( $story_id, 'fictioneer_disable_commenting', true ) == true;

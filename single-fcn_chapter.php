@@ -49,7 +49,7 @@ get_header(
         $age_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
         $this_breadcrumb = [ $title, get_the_permalink() ];
 
-        $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+        $story_id = fictioneer_get_chapter_story_id( $post_id );
         $story_data = null;
         $story_post = null;
 

@@ -33,7 +33,7 @@ function fictioneer_refresh_chapter_schema( $post_id, $post ) {
   }
 
   // Setup
-  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $story_id = fictioneer_get_chapter_story_id( $post_id );
 
   // Rebuild schema
   fictioneer_build_chapter_schema( $post_id );
@@ -69,7 +69,7 @@ if ( ! function_exists( 'fictioneer_build_chapter_schema' ) ) {
     // Setup
     $post = get_post( $post_id );
     $schema = fictioneer_get_schema_node_root();
-    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post_id );
     $image_data = fictioneer_get_schema_primary_image( $post_id );
     $word_count = fictioneer_get_word_count( $post_id );
     $page_description = fictioneer_get_seo_description( $post_id );

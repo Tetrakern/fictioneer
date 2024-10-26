@@ -1216,7 +1216,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           // Setup
           $chapter_query->the_post();
           $chapter_id = get_the_ID();
-          $chapter_story_id = get_post_meta( $chapter_id, 'fictioneer_chapter_story', true );
+          $chapter_story_id = fictioneer_get_chapter_story_id( $chapter_id );
 
           // Skip not visible chapters
           if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {

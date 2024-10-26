@@ -178,7 +178,7 @@ if ( $args['min_width'] ) {
                       break;
                     case 'fcn_chapter':
                       $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
-                      $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+                      $story_id = fictioneer_get_chapter_story_id( $post_id );
 
                       if ( empty( $landscape_image_id ) ) {
                         $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $post_id = $post->ID;
 $title = fictioneer_get_safe_title( $post_id, 'card-chapter' );
-$story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+$story_id = fictioneer_get_chapter_story_id( $post_id );
 $story_post = get_post( $story_id );
 $story_unpublished = get_post_status( $story_id ) !== 'publish';
 $story_data = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!

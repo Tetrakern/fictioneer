@@ -333,3 +333,21 @@ function fictioneer_allow_falsy_story_hidden( $allowed ) {
 if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
   add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_story_hidden' );
 }
+
+// =============================================================================
+// GET CHAPTER STORY ID
+// =============================================================================
+
+/**
+ * Returns ID of the chapter story or null
+ *
+ * @since 5.26.9
+ *
+ * @param int $chapter_id  Chapter ID.
+ *
+ * @return int|null Story ID or null if not set.
+ */
+
+function fictioneer_get_chapter_story_id( $chapter_id ) {
+  return get_post_meta( $chapter_id, 'fictioneer_chapter_story', true );
+}

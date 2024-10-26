@@ -154,7 +154,7 @@ if ( $splide ) {
           <?php
             // Setup
             $post_id = $post->ID;
-            $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+            $story_id = fictioneer_get_chapter_story_id( $post_id );
 
             if ( get_post_status( $story_id ) !== 'publish' ) {
               continue;

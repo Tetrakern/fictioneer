@@ -495,7 +495,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge parent story (if any)...
     if ( $post_type == 'fcn_chapter' ) {
-      $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+      $story_id = fictioneer_get_chapter_story_id( $post_id );
 
       if ( ! empty( $story_id ) ) {
         $chapters = fictioneer_get_story_chapter_ids( $story_id );
@@ -740,7 +740,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
     // Get story ID from post or parent story (if any)
     $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
-    $story_id = $post_type == 'fcn_story' ? $post_id : get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $story_id = $post_type == 'fcn_story' ? $post_id : fictioneer_get_chapter_story_id( $post_id );
 
     // Delete cached statistics for stories
     delete_transient( 'fictioneer_stories_statistics' );
@@ -812,7 +812,7 @@ function fictioneer_rebuild_story_data_collection( $post_id, $post ) {
 
   // Story or chapter?
   if ( $post->post_type === 'fcn_chapter' ) {
-    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post_id );
 
     if ( $story_id ) {
       fictioneer_get_story_data( $story_id );
@@ -1399,7 +1399,7 @@ function fictioneer_delete_cached_story_card_after_update( $post_id ) {
 
   // Chapter?
   if ( get_post_type( $post_id ) === 'fcn_chapter' ) {
-    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post_id );
 
     if ( $story_id ) {
       fictioneer_delete_cached_story_card( $story_id );
@@ -1426,7 +1426,7 @@ function fictioneer_delete_cached_story_card_by_comment( $comment_id ) {
   $comment = get_comment( $comment_id );
 
   if ( $comment ) {
-    $story_id = get_post_meta( $comment->comment_post_ID, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $comment->comment_post_ID );
 
     if ( $story_id ) {
       fictioneer_delete_cached_story_card( $story_id );

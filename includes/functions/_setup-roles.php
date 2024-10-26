@@ -553,7 +553,7 @@ function fictioneer_bypass_password( $required, $post ) {
 
   // Check unlocked posts
   if ( $user && $required ) {
-    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post->ID );
     $unlocks = get_user_meta( $user->ID, 'fictioneer_post_unlocks', true ) ?: [];
     $unlocks = is_array( $unlocks ) ? $unlocks : [];
 

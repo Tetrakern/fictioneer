@@ -171,7 +171,7 @@ if ( $splide ) {
 
             // Chapter story?
             if ( $post->post_type === 'fcn_chapter' ) {
-              $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+              $story_id = fictioneer_get_chapter_story_id( $post_id );
             }
 
             // Extra classes

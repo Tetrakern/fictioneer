@@ -28,7 +28,7 @@ function fictioneer_add_fiction_css() {
   }
 
   if ( get_post_type( $post_id ) == 'fcn_chapter' ) {
-    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $story_id = fictioneer_get_chapter_story_id( $post_id );
 
     if ( ! empty( $story_id ) ) {
       $custom_css .= get_post_meta( $story_id, 'fictioneer_story_css', true );

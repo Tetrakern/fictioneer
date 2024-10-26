@@ -84,7 +84,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 
     // ... if not found, look for parent thumbnail...
     if ( ! $seo_og_image_display && $post->post_type === 'fcn_chapter' ) {
-      $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+      $story_id = fictioneer_get_chapter_story_id( $post->ID );
 
       if ( $story_id && has_post_thumbnail( $story_id ) ) {
         $seo_og_image_display = get_the_post_thumbnail_url( $story_id );
@@ -629,7 +629,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
       // Try story thumbnail if chapter...
       if ( ! $image_id && get_post_type( $post_id ) == 'fcn_chapter' ) {
-        $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+        $story_id = fictioneer_get_chapter_story_id( $post_id );
         $image_id = has_post_thumbnail( $story_id ) ? get_post_thumbnail_id( $story_id ) : $image_id;
       }
 
@@ -690,7 +690,7 @@ function fictioneer_output_head_seo() {
   $post_id = get_queried_object_id(); // In archives and search, this is the first post
   $post_type = get_post_type(); // In archives and search, this is the first post
   $post_author = $post->post_author ?? 0;
-  $chapter_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $chapter_story_id = fictioneer_get_chapter_story_id( $post_id );
   $canonical_url = wp_get_canonical_url(); // Only on singular pages
 
   // Flags

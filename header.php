@@ -58,7 +58,7 @@ if ( $post_id ) {
       $story_id = $post_id;
       break;
     case 'fcn_chapter':
-      $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
+      $story_id = fictioneer_get_chapter_story_id( get_the_ID() );
       break;
   }
 
