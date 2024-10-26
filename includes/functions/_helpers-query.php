@@ -339,13 +339,13 @@ if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
 // =============================================================================
 
 /**
- * Returns ID of the chapter story or null
+ * Returns ID of the chapter story or empty string
  *
- * @since 5.26.9
+ * @since 5.26.0
  *
  * @param int $chapter_id  Chapter ID.
  *
- * @return int|null Story ID or null if not set.
+ * @return int|string Story ID or empty string if not set.
  */
 
 function fictioneer_get_chapter_story_id( $chapter_id ) {
