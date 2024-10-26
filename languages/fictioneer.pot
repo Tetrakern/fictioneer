@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-25 23:20+0000\n"
+"POT-Creation-Date: 2024-10-26 06:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -9813,7 +9813,7 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:2817
 msgid ""
 "Select the story this chapter belongs to; chapters are automatically "
-"appended to the story (but not removed)."
+"appended to the story."
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3246
