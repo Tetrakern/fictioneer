@@ -3051,6 +3051,16 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
         if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
           fictioneer_append_chapter_to_story( $post_id, $story_id );
         }
+
+        global $wpdb;
+
+        $wpdb->query(
+          $wpdb->prepare(
+            "UPDATE {$wpdb->posts} SET post_parent = %d WHERE ID = %d",
+            $story_id ?: 0,
+            $post_id
+          )
+        );
       }
     }
 
