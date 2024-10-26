@@ -39,7 +39,8 @@ $editor_caps = array(
   'fcn_story_pages',
   'fcn_edit_date',
   'fcn_assign_patreon_tiers',
-  'fcn_expire_passwords'
+  'fcn_expire_passwords',
+  'fcn_crosspost'
 );
 
 $restrictions = array(

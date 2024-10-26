@@ -2833,6 +2833,24 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     )
   );
 
+  // Story override
+  if ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_crosspost' ) ) {
+    if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
+      $override_description = __( 'Accepts a story ID to assign and append the chapter with override permission.', 'fictioneer' );
+    } else {
+      $override_description = __( 'Accepts a story ID to assign the chapter with override permission.', 'fictioneer' );
+    }
+
+    $output['fictioneer_chapter_story_override'] = fictioneer_get_metabox_text(
+      $post,
+      'fictioneer_chapter_story_override',
+      array(
+        'label' => _x( 'Story Override', 'Chapter story override meta field label.', 'fictioneer' ),
+        'description' => $override_description
+      )
+    );
+  }
+
   // Card/List title
   $output['fictioneer_chapter_list_title'] = fictioneer_get_metabox_text(
     $post,
@@ -3025,7 +3043,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   }
 
   // Story
-  if ( isset( $_POST['fictioneer_chapter_story'] ) ) {
+  if ( isset( $_POST['fictioneer_chapter_story'] ) && ! ( $_POST['fictioneer_chapter_story_override'] ?? 0 ) ) {
     $story_id = fictioneer_validate_id( $_POST['fictioneer_chapter_story'], 'fcn_story' );
     $current_story_id = absint( fictioneer_get_chapter_story_id( $post_id ) );
 
@@ -3056,6 +3074,30 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
     fictioneer_set_chapter_story_parent( $post_id, $story_id ?: 0 );
     $fields['fictioneer_chapter_story'] = strval( $story_id ?: 0 );
+  }
+
+  // Story override
+  if ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_crosspost' ) ) {
+    if ( isset( $_POST['fictioneer_chapter_story_override'] ) ) {
+      $story_id = fictioneer_validate_id( $_POST['fictioneer_chapter_story_override'], 'fcn_story' );
+      $current_story_id = absint( fictioneer_get_chapter_story_id( $post_id ) );
+
+      if ( $story_id ) {
+        if ( $current_story_id && $story_id !== $current_story_id ) {
+          $other_story_chapters = fictioneer_get_story_chapter_ids( $current_story_id );
+          $other_story_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );
+
+          update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_chapters );
+        }
+
+        if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
+          fictioneer_append_chapter_to_story( $post_id, $story_id, true );
+        }
+
+        fictioneer_set_chapter_story_parent( $post_id, $story_id );
+        $fields['fictioneer_chapter_story'] = strval( $story_id );
+      }
+    }
   }
 
   // Card/List title
