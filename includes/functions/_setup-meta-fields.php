@@ -2365,6 +2365,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
       // Make sure only allowed posts are in
       $chapter_query_args = array(
         'post_type' => 'fcn_chapter',
+        'post_status' => 'any',
         'post__in' => $chapter_ids ?: [0], // Must not be empty!
         'orderby' => 'post__in',
         'fields' => 'ids',
