@@ -2353,36 +2353,13 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   if ( isset( $_POST['fictioneer_story_chapters'] ) && current_user_can( 'edit_fcn_stories', $post_id ) ) {
     $previous_chapter_ids = fictioneer_get_story_chapter_ids( $post_id );
 
-    $chapter_ids = $_POST['fictioneer_story_chapters'];
-    $chapter_ids = is_array( $chapter_ids ) ? $chapter_ids : [ $chapter_ids ];
-    $chapter_ids = array_map( 'intval', $chapter_ids );
-    $chapter_ids = array_filter( $chapter_ids, function( $value ) { return $value > 0; } );
-    $chapter_ids = array_unique( $chapter_ids );
+    // Filter out non-valid chapter IDs
+    $chapter_ids = fictioneer_sql_filter_valid_chapter_ids( $post_id, $_POST['fictioneer_story_chapters'] );
 
     if ( empty( $chapter_ids ) ) {
       $fields['fictioneer_story_chapters'] = []; // Ensure empty meta is removed
     } else {
-      // Make sure only allowed posts are in
-      $chapter_query_args = array(
-        'post_type' => 'fcn_chapter',
-        'post_status' => 'any',
-        'post__in' => $chapter_ids ?: [0], // Must not be empty!
-        'orderby' => 'post__in',
-        'fields' => 'ids',
-        'posts_per_page' => -1,
-        'update_post_meta_cache' => false, // Improve performance
-        'update_post_term_cache' => false, // Improve performance
-        'no_found_rows' => true // Improve performance
-      );
-
-      if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
-        $chapter_query_args['meta_key'] = 'fictioneer_chapter_story';
-        $chapter_query_args['meta_value'] = $post_id;
-      }
-
-      $chapters_query = new WP_Query( $chapter_query_args );
-
-      $chapter_ids = array_map( 'strval', $chapters_query->posts );
+      $chapter_ids = array_map( 'strval', $chapter_ids );
       $fields['fictioneer_story_chapters'] = $chapter_ids;
     }
 
