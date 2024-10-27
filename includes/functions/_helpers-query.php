@@ -547,3 +547,93 @@ if ( ! function_exists( 'fictioneer_sql_has_new_story_chapters' ) ) {
     return ! empty( $new_chapters );
   }
 }
+
+if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
+  /**
+   * Returns selectable stories for chapter assignments
+   *
+   * @since 5.26.0
+   *
+   * @global wpdb $wpdb  WordPress database object.
+   *
+   * @param int $post_author_id     Author ID of the current post.
+   * @param int $current_story_id   ID of the currently selected story (if any).
+   *
+   * @return array Associative array with 'stories' (array) and 'other_author' (bool).
+   */
+
+  function fictioneer_sql_get_chapter_story_selection( $post_author_id, $current_story_id = 0 ) {
+    global $wpdb;
+
+    // Setup
+    $stories = array( '0' => _x( '— Unassigned —', 'Chapter story select option.', 'fictioneer' ) );
+    $other_author = false;
+
+    // Prepare SQL query
+    $values = [];
+
+    $sql =
+      "SELECT p.ID, p.post_title, p.post_status, p.post_date, p.post_author
+      FROM {$wpdb->posts} p
+      WHERE p.post_type = 'fcn_story'
+        AND p.post_status IN ('publish', 'private')";
+
+    if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
+      $sql .= " AND p.post_author = %d";
+      $values[] = $post_author_id;
+    }
+
+    $sql .= " ORDER BY p.post_date DESC";
+
+    // Execute
+    $results = $wpdb->get_results( $wpdb->prepare( $sql, ...$values ) );
+
+    // Populate the stories array
+    foreach ( $results as $story ) {
+      $title = fictioneer_sanitize_safe_title(
+        $story->post_title,
+        mysql2date( get_option( 'date_format' ), $story->post_date ),
+        mysql2date( get_option( 'time_format' ), $story->post_date )
+      );
+
+      if ( $story->post_status !== 'publish' ) {
+        $stories[ $story->ID ] = sprintf(
+          _x( '%s (%s)', 'Chapter story meta field option with status label.', 'fictioneer' ),
+          $title,
+          fictioneer_get_post_status_label( $story->post_status )
+        );
+      } else {
+        $stories[ $story->ID ] = $title;
+      }
+    }
+
+    // Check for deviating assignment...
+    if ( $current_story_id && ! array_key_exists( $current_story_id, $stories ) ) {
+      $other_author_id = get_post_field( 'post_author', $current_story_id );
+      $suffix = [];
+
+      // Other author
+      if ( $other_author_id != $post_author_id ) {
+        $other_author = true;
+        $suffix['author'] = get_the_author_meta( 'display_name', $other_author_id );
+      }
+
+      // Other status
+      if ( get_post_status( $current_story_id ) !== 'publish' ) {
+        $suffix['status'] = fictioneer_get_post_status_label( get_post_status( $current_story_id ) );
+      }
+
+      // Append to selection
+      $stories[ $current_story_id ] = sprintf(
+        _x( '%s %s', 'Chapter story meta field mismatched option with author and/or status label.', 'fictioneer' ),
+        fictioneer_get_safe_title( $current_story_id, 'admin-render-chapter-data-metabox-current-suffix' ),
+        ( ! empty( $suffix ) ? ' (' . implode( ' | ', $suffix ) . ')' : '' )
+      );
+    }
+
+    return array(
+      'stories' => $stories,
+      'other_author' => $other_author
+    );
+  }
+}

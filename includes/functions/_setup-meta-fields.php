@@ -2676,67 +2676,10 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   // --- Add fields ------------------------------------------------------------
 
   // Story
-  $stories = array( '0' => _x( '— Unassigned —', 'Chapter story select option.', 'fictioneer' ) );
-  $description = __( 'Select the story this chapter belongs to; assign and order in the story.', 'fictioneer' );
-  $author_warning = '';
-  $selectable_stories_args = array(
-    'post_type' => 'fcn_story',
-    'post_status' => ['publish', 'private'],
-    'posts_per_page'=> -1,
-    'update_post_meta_cache' => false, // Improve performance
-    'update_post_term_cache' => false, // Improve performance
-    'no_found_rows' => true // Improve performance
-  );
+  $story_selection = fictioneer_sql_get_chapter_story_selection( $post_author_id, $current_story_id );
+  $stories = $story_selection['stories'];
 
-  if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
-    $selectable_stories_args['author'] = $post_author_id;
-  }
-
-  $selectable_stories = new WP_Query( $selectable_stories_args );
-
-  if ( $selectable_stories->have_posts() ) {
-    foreach ( $selectable_stories->posts as $story ) {
-      if ( $story->post_status !== 'publish' ) {
-        $stories[ $story->ID ] = sprintf(
-          _x( '%s (%s)', 'Chapter story meta field option with status label.', 'fictioneer' ),
-          fictioneer_get_safe_title( $story->ID, 'admin-render-chapter-data-metabox-selectable-suffix' ),
-          fictioneer_get_post_status_label( $story->post_status )
-        );
-      } else {
-        $stories[ $story->ID ] = fictioneer_get_safe_title( $story->ID, 'admin-render-chapter-data-metabox-selectable' );
-      }
-    }
-  }
-
-  if ( $current_story_id ) {
-    // Check unmatched story assignment...
-    if ( ! array_key_exists( $current_story_id, $stories ) ) {
-      $other_author_id = get_post_field( 'post_author', $current_story_id );
-      $suffix = [];
-
-      // Other author
-      if ( $other_author_id != $post_author_id ) {
-        $suffix['author'] = get_the_author_meta( 'display_name', $other_author_id );
-        $author_warning = __( '<strong>Warning:</strong> The selected story belongs to another author. If you change the selection, you cannot go back.', 'fictioneer' );
-      }
-
-      // Other status
-      if ( get_post_status( $current_story_id ) === 'publish' ) {
-        $suffix['status'] = fictioneer_get_post_status_label( $story->post_status );
-      }
-
-      // Prepare suffix
-      if ( ! empty( $suffix ) ) {
-        $suffix = ' (' . implode( ' | ', $suffix ) . ')';
-      }
-
-      $stories[ $current_story_id ] = sprintf(
-        _x( '%s %s', 'Chapter story meta field mismatched option with author and/or status label.', 'fictioneer' ),
-        fictioneer_get_safe_title( $current_story_id, 'admin-render-chapter-data-metabox-current-suffix' ),
-        $suffix
-      );
-    }
-  }
+  $author_warning = $story_selection['other_author'] ? ' ' . __( '<strong>Warning:</strong> The selected story belongs to another author. If you change the selection, you cannot go back.', 'fictioneer' ) : '';
 
   if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
     $description = __( 'Select the story this chapter belongs to. Published and scheduled chapters are automatically appended to the story.', 'fictioneer' );
@@ -2748,7 +2691,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     $stories,
     array(
       'label' => _x( 'Story', 'Chapter story meta field label.', 'fictioneer' ),
-      'description' => $description . ' ' . $author_warning,
+      'description' => $description . $author_warning,
       'attributes' => array(
         'data-action="select-story"',
         "data-target='chapter_groups_for_{$post->ID}'"
