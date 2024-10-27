@@ -2382,32 +2382,13 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     isset( $_POST['fictioneer_story_custom_pages'] ) &&
     current_user_can( 'fcn_story_pages', $post_id )
   ) {
-    $page_ids = $_POST['fictioneer_story_custom_pages'];
-    $page_ids = is_array( $page_ids ) ? $page_ids : [ $page_ids ];
-    $page_ids = array_map( 'intval', $page_ids );
-    $page_ids = array_filter( $page_ids, function( $value ) { return $value > 0; } );
+    // Filter out non-valid page IDs
+    $page_ids = fictioneer_sql_filter_valid_page_ids( $post_author_id, $_POST['fictioneer_story_custom_pages'] );
 
-    if ( empty( $page_ids ) || FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY < 1 ) {
+    if ( empty( $page_ids ) ) {
       $fields['fictioneer_story_custom_pages'] = []; // Ensure empty meta is removed
     } else {
-      $page_ids = array_unique( $page_ids );
-      $page_ids = array_slice( $page_ids, 0, FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY );
-
-      $pages_query = new WP_Query(
-        array(
-          'post_type' => 'page',
-          'post__in' => $page_ids ?: [0], // Must not be empty!
-          'author' => $post_author_id, // Only allow author's pages
-          'orderby' => 'post__in',
-          'fields' => 'ids',
-          'posts_per_page' => FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY,
-          'update_post_meta_cache' => false, // Improve performance
-          'update_post_term_cache' => false, // Improve performance
-          'no_found_rows' => true // Improve performance
-        )
-      );
-
-      $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts );
+      $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $page_ids );
     }
   }
 
