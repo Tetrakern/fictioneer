@@ -381,7 +381,7 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_chapter_ids' ) ) {
   /**
    * Filters out non-valid chapters for ID array
    *
-   * Note: This is about 3 times faster than using WP_Query.
+   * Note: This is up to 3 times faster than using WP_Query.
    *
    * @since 5.26.0
    *
@@ -436,54 +436,56 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_chapter_ids' ) ) {
   }
 }
 
-/**
- * Filters out non-valid chapters for ID array
- *
- * Note: This is about 3 times faster than using WP_Query.
- *
- * @since 5.26.0
- *
- * @global wpdb $wpdb  WordPress database object.
- *
- * @param int   $story_id     Story ID.
- * @param int[] $chapter_ids  Array of chapter IDs.
- *
- * @return int[] Filtered array of chapter IDs.
- */
+if ( ! function_exists( 'fictioneer_sql_has_new_story_chapters' ) ) {
+  /**
+   * Checks whether there any added chapters are to be considered "new".
+   *
+   * @since 5.26.0
+   *
+   * @param int   $story_id              Story ID.
+   * @param int[] $chapter_ids           Current array of chapter IDs.
+   * @param int[] $previous_chapter_ids  Previous array of chapter IDs.
+   *
+   * @return bool True or false.
+   */
+  function fictioneer_sql_has_new_story_chapters( $story_id, $chapter_ids, $previous_chapter_ids ) {
+    global $wpdb;
 
-function fictioneer_sql_filter_valid_chapter_ids( $story_id, $chapter_ids ) {
-  global $wpdb;
+    // Any chapters added?
+    $chapter_diff = array_diff( $chapter_ids, $previous_chapter_ids );
 
-  // Prepare
-  $chapter_ids = is_array( $chapter_ids ) ? $chapter_ids : [ $chapter_ids ];
-  $chapter_ids = array_map( 'intval', $chapter_ids );
-  $chapter_ids = array_filter( $chapter_ids, function( $value ) { return $value > 0; } );
-  $chapter_ids = array_unique( $chapter_ids );
+    if ( empty( $chapter_diff ) ) {
+      return;
+    }
 
-  // Empty?
-  if ( empty( $chapter_ids ) ) {
-    return [];
+    // Filter allowed statuses
+    $allowed_statuses = apply_filters(
+      'fictioneer_filter_chapters_added_statuses',
+      ['publish'],
+      $story_id
+    );
+
+    // Prepare placeholders for IN clauses
+    $chapter_placeholders = implode( ',', array_fill( 0, count( $chapter_diff ), '%d' ) );
+    $status_placeholders = implode( ',', array_fill( 0, count( $allowed_statuses ), '%s' ) );
+
+    // Prepare SQL
+    $sql =
+      "SELECT p.ID
+      FROM {$wpdb->posts} p
+      LEFT JOIN {$wpdb->postmeta} pm_hidden ON p.ID = pm_hidden.post_id
+      WHERE p.post_type = 'fcn_chapter'
+        AND p.ID IN ($chapter_placeholders)
+        AND p.post_status IN ($status_placeholders)
+        AND (pm_hidden.meta_key != 'fictioneer_chapter_hidden' OR pm_hidden.meta_value IS NULL)
+      LIMIT 1";
+
+    $query = $wpdb->prepare( $sql, array_merge( $chapter_diff, $allowed_statuses ) );
+
+    // Execute the query to check for new valid chapters
+    $new_chapters = $wpdb->get_col( $query );
+
+    // Report
+    return ! empty( $new_chapters );
   }
-
-  // Setup
-  $chapter_ids_placeholder = implode( ',', $chapter_ids ?: [0] );
-
-  $sql =
-    "SELECT p.ID
-    FROM {$wpdb->posts} p
-    LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-    WHERE p.post_type = 'fcn_chapter'
-      AND p.ID IN ($chapter_ids_placeholder)
-      AND p.post_status NOT IN ('trash', 'draft', 'auto-draft', 'inherit')";
-
-  // Chapters need to be assigned to a story, which can be turned off (but really should not)
-  if ( defined('FICTIONEER_FILTER_STORY_CHAPTERS') && FICTIONEER_FILTER_STORY_CHAPTERS ) {
-    $sql .= $wpdb->prepare( " AND pm.meta_key = %s AND pm.meta_value = %d", 'fictioneer_chapter_story', $story_id );
-  }
-
-  // Execute
-  $filtered_ids = $wpdb->get_col( $sql );
-
-  // Restore order and return
-  return array_values( array_intersect( $chapter_ids, $filtered_ids ) );
 }
