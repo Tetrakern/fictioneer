@@ -381,7 +381,7 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_chapter_ids' ) ) {
   /**
    * Filters out non-valid chapter array IDs
    *
-   * Note: This is up to 3 times faster than using WP_Query.
+   * Note: This is a lot faster than using WP_Query().
    *
    * @since 5.26.0
    *
@@ -400,12 +400,12 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_chapter_ids' ) ) {
     $chapter_ids = is_array( $chapter_ids ) ? $chapter_ids : [ $chapter_ids ];
     $chapter_ids = array_map( 'intval', $chapter_ids );
     $chapter_ids = array_filter( $chapter_ids, function( $value ) { return $value > 0; } );
-    $chapter_ids = array_unique( $chapter_ids );
 
-    // Empty?
     if ( empty( $chapter_ids ) ) {
       return [];
     }
+
+    $chapter_ids = array_unique( $chapter_ids );
 
     // Prepare placeholders and values
     $placeholders = implode( ',', array_fill( 0, count( $chapter_ids ), '%d' ) );
@@ -440,7 +440,7 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_page_ids' ) ) {
   /**
    * Filters out non-valid story page array IDs
    *
-   * Note: This is up to 3 times faster than using WP_Query.
+   * Note: This is a lot faster than using WP_Query().
    *
    * @since 5.26.0
    *
@@ -460,12 +460,10 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_page_ids' ) ) {
     $page_ids = array_map( 'intval', $page_ids );
     $page_ids = array_filter( $page_ids, function( $value ) { return $value > 0; } );
 
-    // Empty?
     if ( empty( $page_ids ) || FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY < 1 ) {
       return [];
     }
 
-    // Prepare some more
     $page_ids = array_unique( $page_ids );
     $page_ids = array_slice( $page_ids, 0, FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY );
 
@@ -494,11 +492,80 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_page_ids' ) ) {
   }
 }
 
+if ( ! function_exists( 'fictioneer_sql_filter_valid_collection_ids' ) ) {
+  /**
+   * Filters out non-valid story page array IDs
+   *
+   * Note: This is a lot faster than using WP_Query().
+   *
+   * @since 5.26.0
+   *
+   * @global wpdb $wpdb  WordPress database object.
+   *
+   * @param int[] $item_ids  Array of collection item IDs.
+   *
+   * @return int[] Filtered and validated array of item IDs.
+   */
+  function fictioneer_sql_filter_valid_collection_ids( $item_ids ) {
+    global $wpdb;
+
+    // Prepare
+    $item_ids = is_array( $item_ids ) ? $item_ids : [ $item_ids ];
+    $item_ids = array_map( 'intval', $item_ids );
+
+    if ( empty( $item_ids ) ) {
+      return [];
+    }
+
+    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; } );
+    $item_ids = array_unique( $item_ids );
+
+    // Exclude forbidden IDs
+    $forbidden = array_unique([
+      get_option( 'fictioneer_user_profile_page', 0 ),
+      get_option( 'fictioneer_bookmarks_page', 0 ),
+      get_option( 'fictioneer_stories_page', 0 ),
+      get_option( 'fictioneer_chapters_page', 0 ),
+      get_option( 'fictioneer_recommendations_page', 0 ),
+      get_option( 'fictioneer_collections_page', 0 ),
+      get_option( 'fictioneer_bookshelf_page', 0 ),
+      get_option( 'fictioneer_404_page', 0 ),
+      get_option( 'page_on_front', 0 ),
+      get_option( 'page_for_posts', 0 )
+    ]);
+
+    $item_ids = array_diff( $item_ids, array_map( 'intval', $forbidden ) );
+
+    if ( empty( $item_ids ) ) {
+      return [];
+    }
+
+    // Prepare placeholders
+    $placeholders = implode( ',', array_fill( 0, count( $item_ids ), '%d' ) );
+
+    // Prepare SQL query
+    $sql =
+      "SELECT p.ID
+      FROM {$wpdb->posts} p
+      WHERE p.ID IN ($placeholders)
+        AND p.post_type IN ('post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation')
+        AND p.post_status IN ('publish', 'private', 'future')";
+
+    // Execute
+    $filtered_item_ids = $wpdb->get_col( $wpdb->prepare( $sql, ...$item_ids ) );
+
+    // Restore order and return
+    return array_values( array_intersect( $item_ids, $filtered_item_ids ) );
+  }
+}
+
 if ( ! function_exists( 'fictioneer_sql_has_new_story_chapters' ) ) {
   /**
    * Checks whether there any added chapters are to be considered "new".
    *
    * @since 5.26.0
+   *
+   * @global wpdb $wpdb  WordPress database object.
    *
    * @param int   $story_id              Story ID.
    * @param int[] $chapter_ids           Current array of chapter IDs.

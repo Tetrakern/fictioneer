@@ -3974,48 +3974,12 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
 
   // Collection items
   if ( isset( $_POST['fictioneer_collection_items'] ) ) {
-    $item_ids = $_POST['fictioneer_collection_items'];
-    $item_ids = is_array( $item_ids ) ? $item_ids : [ $item_ids ];
-    $item_ids = array_map( 'intval', $item_ids );
-    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; } );
-    $item_ids = array_unique( $item_ids );
-
-    $forbidden = array_unique(
-      array(
-        get_option( 'fictioneer_user_profile_page', 0 ),
-        get_option( 'fictioneer_bookmarks_page', 0 ),
-        get_option( 'fictioneer_stories_page', 0 ),
-        get_option( 'fictioneer_chapters_page', 0 ),
-        get_option( 'fictioneer_recommendations_page', 0 ),
-        get_option( 'fictioneer_collections_page', 0 ),
-        get_option( 'fictioneer_bookshelf_page', 0 ),
-        get_option( 'fictioneer_404_page', 0 ),
-        get_option( 'page_on_front', 0 ),
-        get_option( 'page_for_posts', 0 )
-      )
-    );
-
-    $item_ids = array_diff( $item_ids, array_map( 'strval', $forbidden ) );
+    $item_ids = fictioneer_sql_filter_valid_collection_ids( $_POST['fictioneer_collection_items'] );
 
     if ( empty( $item_ids ) ) {
       $fields['fictioneer_collection_items'] = []; // Ensure empty meta is removed
     } else {
-      // Make sure only allowed posts are in
-      $items_query = new WP_Query(
-        array(
-          'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
-          'post_status' => 'publish',
-          'post__in' => $item_ids ?: [0], // Must not be empty!
-          'orderby' => 'post__in',
-          'fields' => 'ids',
-          'posts_per_page' => -1,
-          'update_post_meta_cache' => false, // Improve performance
-          'update_post_term_cache' => false, // Improve performance
-          'no_found_rows' => true // Improve performance
-        )
-      );
-
-      $fields['fictioneer_collection_items'] = array_map( 'strval', $items_query->posts );
+      $fields['fictioneer_collection_items'] = array_map( 'strval', $item_ids );
     }
   }
 
