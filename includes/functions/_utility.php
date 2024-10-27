@@ -1233,6 +1233,27 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
 // GET META FIELDS
 // =============================================================================
 
+if ( ! function_exists( 'fictioneer_get_story_chapter_ids' ) ) {
+  /**
+   * Wrapper for get_post_meta() to get story chapter IDs
+   *
+   * @since 5.8.2
+   *
+   * @param int $post_id  Optional. The ID of the post the field belongs to.
+   *                      Defaults to current post ID.
+   *
+   * @return array Array of chapter post IDs or an empty array.
+   */
+
+  function fictioneer_get_story_chapter_ids( $post_id = null ) {
+    // Setup
+    $chapter_ids = get_post_meta( $post_id ?? get_the_ID(), 'fictioneer_story_chapters', true );
+
+    // Always return an array
+    return is_array( $chapter_ids ) ? $chapter_ids : [];
+  }
+}
+
 if ( ! function_exists( 'fictioneer_count_words' ) ) {
   /**
    * Returns word count of a post
@@ -1254,27 +1275,6 @@ if ( ! function_exists( 'fictioneer_count_words' ) ) {
 
     // Count and return result
     return count( preg_split( '/\s+/', $content ) ?: [] );
-  }
-}
-
-if ( ! function_exists( 'fictioneer_get_story_chapter_ids' ) ) {
-  /**
-   * Wrapper for get_post_meta() to get story chapter IDs
-   *
-   * @since 5.8.2
-   *
-   * @param int $post_id  Optional. The ID of the post the field belongs to.
-   *                      Defaults to current post ID.
-   *
-   * @return array Array of chapter post IDs or an empty array.
-   */
-
-  function fictioneer_get_story_chapter_ids( $post_id = null ) {
-    // Setup
-    $chapter_ids = get_post_meta( $post_id ?? get_the_ID(), 'fictioneer_story_chapters', true );
-
-    // Always return an array
-    return is_array( $chapter_ids ) ? $chapter_ids : [];
   }
 }
 
