@@ -3359,31 +3359,9 @@ function fictioneer_save_extra_metabox( $post_id ) {
   // Story blogs
   if ( isset( $_POST['fictioneer_post_story_blogs'] ) && $post_type === 'post' ) {
     $story_blogs = fictioneer_explode_list( $_POST['fictioneer_post_story_blogs'] );
+    $story_blogs = fictioneer_sql_filter_valid_blog_story_ids( $post_author_id, $story_blogs );
 
-    if ( ! empty( $story_blogs ) ) {
-      $story_blogs = array_map( 'absint', $story_blogs );
-      $story_blogs = array_unique( $story_blogs );
-
-      // Ensure the stories belong to the post author
-      $blog_story_query = new WP_Query(
-        array(
-          'author' => $post_author_id,
-          'post_type' => 'fcn_story',
-          'post_status' => ['publish', 'private'],
-          'post__in' => $story_blogs ?: [0], // Must not be empty!
-          'fields' => 'ids',
-          'posts_per_page'=> -1,
-          'update_post_meta_cache' => false, // Improve performance
-          'update_post_term_cache' => false, // Improve performance
-          'no_found_rows' => true // Improve performance
-        )
-      );
-
-      $story_blogs = $blog_story_query->posts;
-      $story_blogs = array_map( 'strval', $story_blogs ); // Safer to match with LIKE in SQL
-    }
-
-    $fields['fictioneer_post_story_blogs'] = $story_blogs;
+    $fields['fictioneer_post_story_blogs'] = array_map( 'strval', $story_blogs ); // Safer to match with LIKE in SQL
   }
 
   // Patreon

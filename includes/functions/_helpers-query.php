@@ -512,12 +512,12 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_collection_ids' ) ) {
     // Prepare
     $item_ids = is_array( $item_ids ) ? $item_ids : [ $item_ids ];
     $item_ids = array_map( 'intval', $item_ids );
+    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; } );
 
     if ( empty( $item_ids ) ) {
       return [];
     }
 
-    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; } );
     $item_ids = array_unique( $item_ids );
 
     // Exclude forbidden IDs
@@ -556,6 +556,53 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_collection_ids' ) ) {
 
     // Restore order and return
     return array_values( array_intersect( $item_ids, $filtered_item_ids ) );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_sql_filter_valid_blog_story_ids' ) ) {
+  /**
+   * Filters out non-valid blog story array IDs
+   *
+   * Note: This is a lot faster than using WP_Query().
+   *
+   * @since 5.26.0
+   *
+   * @global wpdb $wpdb  WordPress database object.
+   *
+   * @param int   $story_author_id  Author ID of the story.
+   * @param int[] $story_blogs      Array of story blog IDs.
+   *
+   * @return int[] Filtered and validated array of item IDs.
+   */
+
+  function fictioneer_sql_filter_valid_blog_story_ids( $story_author_id, $story_blogs ) {
+    global $wpdb;
+
+    // Prepare
+    $story_blogs = is_array( $story_blogs ) ? $story_blogs : [ $story_blogs ];
+    $story_blogs = array_map( 'intval', $story_blogs );
+    $story_blogs = array_filter( $story_blogs, function( $value ) { return $value > 0; } );
+
+    if ( empty( $story_blogs ) ) {
+      return [];
+    }
+
+    $story_blogs = array_unique( $story_blogs );
+
+    // Prepare placeholders
+    $placeholders = implode( ',', array_fill( 0, count( $story_blogs ), '%d' ) );
+
+    // Prepare SQL query
+    $sql =
+      "SELECT p.ID
+      FROM {$wpdb->posts} p
+      WHERE p.post_author = %d
+        AND p.ID IN ($placeholders)
+        AND p.post_type = 'fcn_story'
+        AND p.post_status IN ('publish', 'private', 'future')";
+
+    // Execute and return
+    return $wpdb->get_col( $wpdb->prepare( $sql, $story_author_id, ...$story_blogs ) );
   }
 }
 
