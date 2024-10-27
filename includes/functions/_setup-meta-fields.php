@@ -698,9 +698,26 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
   // Setup
   $array = get_post_meta( $post->ID, $meta_key, true );
   $array = is_array( $array ) ? $array : [];
+  $array = array_map( 'absint', $array ); // Array should already be safe anyway
+  $titles = [];
   $list = esc_attr( implode( ', ', $array ) );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
+
+  // Query post titles if required
+  if ( ! ( $args['names'] ?? 0 ) ) {
+    global $wpdb;
+
+    $placeholders = implode( ',', array_fill( 0, count( $array ), '%d' ) );
+
+    $sql =
+      "SELECT p.ID, p.post_title
+      FROM {$wpdb->posts} p
+      WHERE p.ID IN ($placeholders)";
+
+    $results = $wpdb->get_results( $wpdb->prepare( $sql, ...$array ), OBJECT_K );
+    $titles = wp_list_pluck( $results, 'post_title', 'ID' );
+  }
 
   ob_start();
 
@@ -725,7 +742,7 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
             if ( $args['names'] ?? 0 ) {
               $name = $args['names'][ $token ] ?? $token;
             } else {
-              $name = get_the_title( $token ) ?: $token;
+              $name = ( $titles[ $token ] ?? 0 ) ? $titles[ $token ] : $token;
             }
 
             echo "<span class='fictioneer-meta-field__token' data-id='{$token}'><span class='fictioneer-meta-field__token-name'>{$name}</span><button type='button' class='fictioneer-meta-field__token-button' data-id='{$token}'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' aria-hidden='true' focusable='false'><path d='M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z'></path></svg></button></span>";
