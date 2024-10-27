@@ -263,6 +263,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    *
    * @since 4.7.0
    * @since 5.12.0 - Added $context and $args parameters.
+   * @since 5.26.0 - Spit off fictioneer_sanitize_safe_title()
    * @link https://developer.wordpress.org/reference/functions/wp_strip_all_tags/
    *
    * @param int|WP_Post $post     The post or post ID to get the title for.
@@ -276,17 +277,12 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
     // Setup
     $post_id = ( $post instanceof WP_Post ) ? $post->ID : $post;
 
-    // Get title and remove HTML
-    $title = wp_strip_all_tags( get_the_title( $post_id ) );
-
-    // If empty, use the datetime as title
-    if ( empty( $title ) ) {
-      $title = sprintf(
-        _x( '%1$s — %2$s', '[Date] — [Time] if post title is missing.', 'fictioneer' ),
-        get_the_date( '', $post_id ),
-        get_the_time( '', $post_id )
-      );
-    }
+    // Get title and sanitize
+    $title = fictioneer_sanitize_safe_title(
+      get_the_title( $post_id ),
+      get_the_date( '', $post_id ),
+      get_the_time( '', $post_id )
+    );
 
     // Apply filters
     if ( ! isset( $args['no_filters'] ) ) {
@@ -296,6 +292,32 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
     // Return final title
     return $title;
   }
+}
+
+/**
+ * Returns sanitized safe title
+ *
+ * @since 5.7.1
+ *
+ * @param string $title  Post title.
+ * @param string $date   The date.
+ * @param string $time   The time.
+ *
+ * @return string The sanitized title.
+ */
+
+function fictioneer_sanitize_safe_title( $title, $date, $time ) {
+  $title = wp_strip_all_tags( $title );
+
+  if ( empty( $title ) ) {
+    $title = sprintf(
+      _x( '%1$s — %2$s', '[Date] — [Time] if post title is missing.', 'fictioneer' ),
+      $date,
+      $time
+    );
+  }
+
+  return $title;
 }
 
 /**
