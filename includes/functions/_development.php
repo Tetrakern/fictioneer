@@ -1,6 +1,39 @@
 <?php
 
 // =============================================================================
+// PERFORMANCE MEASUREMENT
+// =============================================================================
+
+/**
+ * Stored current microtime globally
+ *
+ * @since 5.26.0
+ */
+
+function fictioneer_start_micro_time() {
+  global $fictioneer_start_time;
+
+  $fictioneer_start_time = microtime( 1 );
+}
+
+/**
+ * Writes elapses microtime to log
+ *
+ * @since 5.26.0
+ */
+
+function fictioneer_log_micro_time( $context = '' ) {
+  global $fictioneer_start_time;
+
+  if ( $fictioneer_start_time ) {
+    $prefix = $context ? "({$context}) Duration: " : 'Duration: ';
+    error_log( $prefix . ( microtime( 1 ) - $fictioneer_start_time ) );
+  }
+
+  $fictioneer_start_time = null;
+}
+
+// =============================================================================
 // GENERATE TEST CONTENT
 // =============================================================================
 
