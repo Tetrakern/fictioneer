@@ -1194,7 +1194,7 @@ function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
   $results = [];
 
   // Check for JavaScript
-  $pattern = '/<script[^>]*>.*?<\/script>|on[a-z]+=/si';
+  $pattern = '/<script[^>]*\bon[a-z]+=[^>]*>.*?<\/script>|<script[^>]*>.*?<\/script>/si';
 
   if ( preg_match_all( $pattern, $content, $matches ) ) {
     $results['js'] = $matches[0];
