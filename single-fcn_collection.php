@@ -32,40 +32,35 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
       <?php
         // Setup
-        $featured_list = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
-        $featured_list = is_array( $featured_list ) ? $featured_list : [];
         $title = fictioneer_get_safe_title( $post->ID, 'single-collection' );
         $this_breadcrumb = [$title, get_the_permalink()];
         $current_page = max( 1, get_query_var( 'pg', 1 ) ?: 1 ); // Paged not available
+        $featured_list = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
+        $featured_list = is_array( $featured_list ) ? $featured_list : [];
 
-        // Prepare raw query (because meta query takes far too long)
-        $raw_query_args = array (
-          'fictioneer_query_name' => 'collection_featured_raw',
-          'post_type' => 'any',
-          'post_status' => 'publish',
-          'post__in' => $featured_list ?: [0], // Must not be empty!
-          'ignore_sticky_posts' => 1,
-          'posts_per_page' => -1,
-          'no_found_rows' => true // Improve performance
-        );
+        // Query posts (if any)
+        if ( ! empty( $featured_list ) ) {
+          global $wpdb;
 
-        $raw_query = new WP_Query( $raw_query_args );
+          // Filter out hidden posts
+          $placeholders = implode( ',', array_fill( 0, count( $featured_list ), '%d' ) );
 
-        // Filter raw results (yes, this is the fastest and cleanest way I could find)
-        $featured_list = [];
+          $sql =
+            "SELECT p.ID
+            FROM {$wpdb->posts} p
+            LEFT JOIN {$wpdb->postmeta} pm_story_hidden
+              ON (p.ID = pm_story_hidden.post_id AND pm_story_hidden.meta_key = 'fictioneer_story_hidden')
+            LEFT JOIN {$wpdb->postmeta} pm_chapter_hidden
+              ON (p.ID = pm_chapter_hidden.post_id AND pm_chapter_hidden.meta_key = 'fictioneer_chapter_hidden')
+            WHERE p.ID IN ($placeholders)
+              AND p.post_status = 'publish'
+              AND (pm_story_hidden.meta_value IS NULL OR pm_story_hidden.meta_value = '' OR pm_story_hidden.meta_value = '0')
+              AND (pm_chapter_hidden.meta_value IS NULL OR pm_chapter_hidden.meta_value = '' OR pm_chapter_hidden.meta_value = '0')";
 
-        foreach ( $raw_query->posts as $raw_post ) {
-          if (
-            get_post_meta( $raw_post->ID, 'fictioneer_story_hidden', true ) ||
-            get_post_meta( $raw_post->ID, 'fictioneer_chapter_hidden', true )
-          ) {
-            continue;
-          }
-
-          $featured_list[] = $raw_post->ID;
+          $featured_list = $wpdb->get_col( $wpdb->prepare( $sql, ...$featured_list ) );
         }
 
-        // Prepare paginated featured query
+        // Query posts
         $query_args = array (
           'fictioneer_query_name' => 'collection_featured',
           'post_type' => 'any',
@@ -75,11 +70,10 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
           'order' => 'DESC',
           'paged' => $current_page,
           'posts_per_page' => get_option( 'posts_per_page', 8 ),
-          'update_post_meta_cache' => false, // Already updated in superset of raw query
-          'update_post_term_cache' => false // Already updated in superset of raw query
+          'update_post_meta_cache' => true,
+          'update_post_term_cache' => true
         );
 
-        // Query featured posts
         $featured_query = new WP_Query( $query_args );
 
         // Prime author cache
