@@ -28,6 +28,7 @@ if ( $transient ) {
 if ( empty( $sorted_stories ) ) {
   // Query all stories
   $args = array(
+    'fictioneer_query_name' => 'story_index_advanced',
     'post_type' => 'fcn_story',
     'post_status' => ['publish'],
     'posts_per_page' => -1,

@@ -133,6 +133,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 
         // Query
         $query_args = array(
+          'fictioneer_query_name' => 'story_rss',
           'post_type' => 'fcn_chapter',
           'post_status' => 'publish',
           'post__in' => $chapters,

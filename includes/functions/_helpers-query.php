@@ -56,6 +56,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Default query arguments
     $the_query_args = array(
+      'fictioneer_query_name' => 'get_card_list',
       'post_type' => $post_type,
       'post_status' => 'publish',
       'orderby' => 'modified',
