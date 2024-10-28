@@ -342,31 +342,17 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     }
 
     // Query
-    $query_args = array(
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'publish',
-      'post__in' => $chapters ?: [0], // Must not be empty!
-      'orderby' => 'post__in',
-      'posts_per_page' => -1,
-      'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
-    );
-
-    $chapter_query = new WP_Query( $query_args );
+    $chapter_objects = fictioneer_query_epub_chapters( $chapters );
 
     // Process chapters
-    foreach ( $chapter_query->posts as $post ) {
-      // Skip if...
-      if ( get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true ) ) {
-        continue;
-      }
-
-      if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
-        continue;
-      }
-
+    foreach ( $chapter_objects as $post ) {
       // Setup
-      $title = fictioneer_get_safe_title( $post->ID, 'epub-chapter' );
+      $title = fictioneer_sanitize_safe_title(
+        $post->post_title,
+        mysql2date( get_option( 'date_format' ), $post->post_date ),
+        mysql2date( get_option( 'time_format' ), $post->post_date )
+      );
+
       $content = apply_filters( 'the_content', $post->post_content );
       $processed = false;
       $index++;
@@ -404,7 +390,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
         $head->appendChild( $doc->createElement( 'title', $title ) );
 
         // Add title to frame if not hidden
-        if ( ! get_post_meta( $post->ID, 'fictioneer_chapter_hide_title', true ) ) {
+        if ( ! $post->hide_title ) {
           $frame->appendChild( $doc->createElement( 'h1', $title ) );
         }
 
@@ -572,6 +558,57 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       'opf' => $opf_list,
       'images' => $image_list
     );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_query_epub_chapters' ) ) {
+  /**
+   * Process and add chapters to ePUB directory and lists
+   *
+   * @since 5.26.0
+   *
+   * @param array $chapter_ids  Chapters IDs of story.
+   *
+   * @return array Array of chapter objects.
+   */
+
+  function fictioneer_query_epub_chapters( $chapter_ids ) {
+    global $wpdb;
+
+    if ( empty( $chapter_ids ) ) {
+      return [];
+    }
+
+    $chapter_ids = array_map( 'intval', $chapter_ids );
+
+    $placeholders = implode( ',', array_fill( 0, count( $chapter_ids ), '%d' ) );
+
+    $sql =
+      "SELECT
+        p.ID,
+        p.post_title,
+        p.post_content,
+        p.post_date,
+        p.post_password,
+        COALESCE(pm_hide_title.meta_value, '0') AS hide_title
+      FROM {$wpdb->posts} p
+      LEFT JOIN {$wpdb->postmeta} pm_no_chapter
+        ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
+      LEFT JOIN {$wpdb->postmeta} pm_hidden
+        ON (p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden')
+      LEFT JOIN {$wpdb->postmeta} pm_hide_title
+        ON (p.ID = pm_hide_title.post_id AND pm_hide_title.meta_key = 'fictioneer_chapter_hide_title')
+      WHERE p.ID IN ($placeholders)
+        AND p.post_type = 'fcn_chapter'
+        AND p.post_status = 'publish'
+        AND (pm_no_chapter.meta_value IS NULL OR pm_no_chapter.meta_value = '0' OR pm_no_chapter.meta_value = '')
+        AND (pm_hidden.meta_value IS NULL OR pm_hidden.meta_value = '0' OR pm_hidden.meta_value = '')";
+
+    $chapters = $wpdb->get_results( $wpdb->prepare( $sql, ...$chapter_ids ) );
+    $chapter_map = array_column( $chapters, null, 'ID' );
+    $ordered_chapters = array_map( fn( $id ) => $chapter_map[ $id ] ?? null, $chapter_ids );
+
+    return array_filter( $ordered_chapters );
   }
 }
 
