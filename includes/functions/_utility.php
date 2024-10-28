@@ -789,6 +789,9 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
    * Returns a collection's statistics
    *
    * @since 5.9.2
+   * @since 5.26.0 - Refactored with custom SQL.
+   *
+   * @global wpdb $wpdb  WordPress database object.
    *
    * @param int $collection_id  ID of the collection.
    *
@@ -796,6 +799,8 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
    */
 
   function fictioneer_get_collection_statistics( $collection_id ) {
+    global $wpdb;
+
     // Meta cache?
     $cache_plugin_active = fictioneer_caching_active( 'collection_statistics' );
 
@@ -826,20 +831,27 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
       );
     }
 
-    // Process featured items...
-    foreach ( $featured as $post_id ) {
-      $post_type = get_post_type( $post_id );
+    // SQL query to analyze collection posts
+    $placeholders = implode( ',', array_fill( 0, count( $featured ), '%d' ) );
 
+    $sql =
+      "SELECT p.ID, p.post_type
+      FROM {$wpdb->posts} p
+      WHERE p.ID IN ($placeholders)";
+
+    $posts = $wpdb->get_results( $wpdb->prepare( $sql, ...$featured ) );
+
+    foreach ( $posts as $post ) {
       // Only look at stories and chapters...
-      if ( $post_type == 'fcn_chapter' ) {
+      if ( $post->post_type === 'fcn_chapter' ) {
         // ... single chapters need to be looked up separately
-        $query_chapter_ids[] = $post_id;
-      } elseif ( $post_type == 'fcn_story' ) {
+        $query_chapter_ids[] = $post->ID;
+      } elseif ( $post->post_type === 'fcn_story' ) {
         // ... stories have pre-processed data
-        $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
-        $found_chapter_ids = array_merge( $found_chapter_ids, $story['chapter_ids'] ); // Excluding hidden chapters
-        $word_count += $story['word_count']; // Excluding non-chapters
-        $chapter_count += $story['chapter_count']; // Excluding non-chapters
+        $story = fictioneer_get_story_data( $post->ID, false );
+        $found_chapter_ids = array_merge( $found_chapter_ids, $story['chapter_ids'] );
+        $word_count += $story['word_count'];
+        $chapter_count += $story['chapter_count'];
         $comment_count += $story['comment_count'];
         $story_count += 1;
       }
@@ -852,29 +864,37 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
     // Do not query already counted chapters
     $query_chapter_ids = array_diff( $query_chapter_ids, $found_chapter_ids );
 
-    // Query lone chapters not belong to featured stories...
-    $chapter_query_args = array(
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'publish',
-      'post__in' => $query_chapter_ids ?: [0], // Must not be empty!
-      'posts_per_page' => -1,
-      'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
-    );
+    // SQL query for lone chapters not belong to featured stories...
+    if ( ! empty( $query_chapter_ids ) ) {
+      $placeholders = implode( ',', array_fill( 0, count( $query_chapter_ids ), '%d' ) );
 
-    $chapters = new WP_Query( $chapter_query_args );
+      $sql =
+        "SELECT p.ID, p.comment_count, COALESCE(pm_word_count.meta_value, 0) AS word_count
+        FROM {$wpdb->posts} p
+        LEFT JOIN {$wpdb->postmeta} pm_hidden
+          ON (p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden')
+        LEFT JOIN {$wpdb->postmeta} pm_no_chapter
+          ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
+        LEFT JOIN {$wpdb->postmeta} pm_word_count
+          ON (p.ID = pm_word_count.post_id AND pm_word_count.meta_key = '_word_count')
+        WHERE p.ID IN ($placeholders)
+          AND p.post_type = 'fcn_chapter'
+          AND p.post_status = 'publish'
+          AND (pm_hidden.meta_value IS NULL OR pm_hidden.meta_value = '' OR pm_hidden.meta_value = '0')
+          AND (pm_no_chapter.meta_value IS NULL OR pm_no_chapter.meta_value = '' OR pm_no_chapter.meta_value = '0')";
 
-    // Add found chapters to statistics...
-    foreach ( $chapters->posts as $chapter ) {
-      $comment_count += $chapter->comment_count;
+      $chapters = $wpdb->get_results( $wpdb->prepare( $sql, ...$query_chapter_ids ) );
 
-      // This is about 50 times faster than using a meta query
-      if (
-        ! get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) &&
-        ! get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true )
-      ) {
+      foreach ( $chapters as $chapter ) {
+        $comment_count += $chapter->comment_count;
         $chapter_count += 1;
-        $word_count += fictioneer_get_word_count( $chapter->ID );
+
+        $words = (int) $chapter->word_count;
+        $words = max( 0, $words );
+        $words = apply_filters( 'fictioneer_filter_word_count', $words, $chapter->ID );
+        $words = fictioneer_multiply_word_count( $words );
+
+        $word_count += $words;
       }
     }
 
