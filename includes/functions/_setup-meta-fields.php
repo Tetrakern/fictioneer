@@ -2300,7 +2300,9 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $co_authors = array_filter( $co_authors, function( $user_id ) {
       return get_userdata( $user_id ) !== false;
     });
-    $fields['fictioneer_story_co_authors'] = array_unique( $co_authors );
+    $co_authors = array_unique( $co_authors );
+
+    $fields['fictioneer_story_co_authors'] = array_map( 'strval', $co_authors );
   }
 
   // Sticky flag
@@ -2912,7 +2914,9 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
     $co_authors = array_filter( $co_authors, function( $user_id ) {
       return get_userdata( $user_id ) !== false;
     });
-    $fields['fictioneer_chapter_co_authors'] = array_unique( $co_authors );
+    $co_authors = array_unique( $co_authors );
+
+    $fields['fictioneer_chapter_co_authors'] = array_map( 'strval', $co_authors );
   }
 
   // Warning
