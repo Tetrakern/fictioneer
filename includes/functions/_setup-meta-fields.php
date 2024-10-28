@@ -3728,31 +3728,12 @@ function fictioneer_save_post_metaboxes( $post_id ) {
 
   // Featured posts
   if ( isset( $_POST['fictioneer_post_featured'] ) ) {
-    $item_ids = $_POST['fictioneer_post_featured'];
-    $item_ids = is_array( $item_ids ) ? $item_ids : [ $item_ids ];
-    $item_ids = array_map( 'intval', $item_ids );
-    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; } );
-    $item_ids = array_unique( $item_ids );
+    $item_ids = fictioneer_sql_filter_valid_featured_ids( $_POST['fictioneer_post_featured'] );
 
     if ( empty( $item_ids ) ) {
       $fields['fictioneer_post_featured'] = []; // Ensure empty meta is removed
     } else {
-      // Make sure only allowed posts are in
-      $items_query = new WP_Query(
-        array(
-          'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
-          'post_status' => 'publish',
-          'post__in' => $item_ids ?: [0], // Must not be empty!
-          'orderby' => 'post__in',
-          'fields' => 'ids',
-          'posts_per_page' => -1,
-          'update_post_meta_cache' => false, // Improve performance
-          'update_post_term_cache' => false, // Improve performance
-          'no_found_rows' => true // Improve performance
-        )
-      );
-
-      $fields['fictioneer_post_featured'] = array_map( 'strval', $items_query->posts );
+      $fields['fictioneer_post_featured'] = array_map( 'strval', $item_ids );
     }
   }
 
