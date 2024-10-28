@@ -157,64 +157,68 @@ add_action( 'wp_ajax_fictioneer_ajax_purge_schema', 'fictioneer_ajax_purge_schem
  * AJAX: Purge schemas for all posts and pages
  *
  * @since 5.7.2
+ * @since 5.26.0 - Refactored with only custom SQL.
+ *
+ * @global wpdb $wpdb  WordPress database object.
  */
 
 function fictioneer_ajax_purge_all_schemas() {
+  global $wpdb;
+
   // Validate
   if ( ! fictioneer_validate_settings_ajax() ) {
     wp_send_json_error( array( 'notice' => __( 'Invalid request.', 'fictioneer' ) ) );
   }
 
   // Setup
+  $post_types = "'post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'";
   $offset = absint( $_POST['offset'] ?? 0 );
-  $limit = 100;
+  $limit = 400;
 
-  // Query
-  $args = array(
-    'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
-    'post_status' => 'any',
-    'fields' => 'ids',
-    'ignore_sticky_posts' => 1,
-    'offset' => $offset,
-    'posts_per_page' => $limit,
-    'update_post_meta_cache' => false,
-    'update_post_term_cache' => false
+  // Total rows
+  $total = $wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type IN ({$post_types})" );
+
+  // SQL query to get IDs
+  $post_ids = $wpdb->get_col(
+    $wpdb->prepare(
+      "SELECT ID FROM {$wpdb->posts}
+        WHERE post_type IN ({$post_types})
+        AND post_status != 'trash'
+        LIMIT %d OFFSET %d",
+      $limit,
+      $offset
+    )
   );
 
-  $query = new WP_Query( $args );
-
   // If post have been found...
-  if ( $query->have_posts() ) {
-    global $wpdb;
+  if ( ! empty( $post_ids ) ) {
+    // Delete meta keys for fetched post IDs
+    $post_placeholders = implode( ', ', array_fill( 0, count( $post_ids ), '%d' ) );
 
-    // Prepare SQL
-    $placeholders = implode( ', ', array_fill( 0, count( $query->posts ), '%d' ) );
-    $meta_keys = array(
-      'fictioneer_schema',
-      'fictioneer_seo_cache'
+    $wpdb->query(
+      $wpdb->prepare(
+        "DELETE FROM {$wpdb->postmeta}
+          WHERE post_id IN ($post_placeholders)
+          AND meta_key IN ('fictioneer_schema', 'fictioneer_seo_cache')",
+        $post_ids
+      )
     );
-
-    // Execute
-    foreach ( $meta_keys as $meta_key ) {
-      $wpdb->query(
-        $wpdb->prepare(
-          "DELETE FROM {$wpdb->postmeta} WHERE post_id IN ($placeholders) AND meta_key = %s",
-          array_merge( $query->posts, [ $meta_key ] )
-        )
-      );
-    }
 
     // Log
     fictioneer_log(
-      __( 'Purged all schemas graphs.', 'fictioneer' )
+      sprintf(
+        __( 'Purging all schema graphs... %1$s/%2$s', 'fictioneer' ),
+        ( $offset + $limit ) < $total ? ( $offset + $limit ) : $total,
+        $total
+      )
     );
 
     // ... continue with next batch
     wp_send_json_success(
       array(
         'finished' => false,
-        'processed' => count( $query->posts ),
-        'total' => $query->found_posts,
+        'processed' => count( $post_ids ),
+        'total' => $total,
         'next_offset' => $offset + $limit
       )
     );
@@ -222,12 +226,15 @@ function fictioneer_ajax_purge_all_schemas() {
     // Purge caches
     fictioneer_purge_all_caches();
 
+    // Log
+    fictioneer_log( __( 'Finished purging all schema graphs.', 'fictioneer' ) );
+
     // ... all done
     wp_send_json_success(
       array(
         'finished' => true,
         'processed' => 0,
-        'total' => $query->found_posts,
+        'total' => $total,
         'next_offset' => -1
       )
     );
