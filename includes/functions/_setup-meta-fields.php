@@ -2062,7 +2062,7 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   $description = get_option( 'fictioneer_limit_chapter_stories_by_author' ) ?
-    __( 'Select and order chapters assigned to the story (set in the chapter). The author of the chapter and the story must match.', 'fictioneer' ) :
+    __( 'Select and order chapters assigned to the story (set in the chapter). The author (or co-author) of the chapter and the story must match.', 'fictioneer' ) :
     __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' );
 
   $output['fictioneer_story_chapters'] = fictioneer_get_metabox_relationships(
@@ -2700,6 +2700,8 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 
   $author_warning = $story_selection['other_author'] ? ' ' . __( '<strong>Warning:</strong> The selected story belongs to another author. If you change the selection, you cannot go back.', 'fictioneer' ) : '';
 
+  $author_warning = $story_selection['co_author'] ? ' ' . __( '<strong>Note:</strong> You are a co-author of the selected story, but only you can edit this chapter.', 'fictioneer' ) : $author_warning;
+
   if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
     $description = __( 'Select the story this chapter belongs to. Published and scheduled chapters are automatically appended to the story.', 'fictioneer' );
   }
@@ -2949,7 +2951,9 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
       $invalid_story = false;
 
       if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
-        $invalid_story = $story_author_id != $post_author_id;
+        $co_authored_stories = fictioneer_get_co_authored_story_ids( $post_author_id );
+
+        $invalid_story = $story_author_id != $post_author_id && ! in_array( $story_id, $co_authored_stories );
       }
 
       if ( $invalid_story && $current_story_id != $story_id ) {

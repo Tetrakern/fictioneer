@@ -1590,9 +1590,14 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
   // Setup, continued
   $chapter_author_id = get_post_field( 'post_author', $post_id );
   $story_author_id = get_post_field( 'post_author', $story_id );
+  $co_authored_story_ids = fictioneer_get_co_authored_story_ids( $chapter_author_id );
 
   // Abort if the author IDs do not match
-  if ( $chapter_author_id != $story_author_id && ! $force ) {
+  if (
+    $chapter_author_id != $story_author_id &&
+    ! in_array( $story_id, $co_authored_story_ids ) &&
+    ! $force
+  ) {
     return;
   }
 

@@ -710,6 +710,44 @@ if ( ! function_exists( 'fictioneer_sql_has_new_story_chapters' ) ) {
   }
 }
 
+if ( ! function_exists( 'fictioneer_get_co_authored_story_ids' ) ) {
+  /**
+   * Returns story IDs where the user is a co-author
+   *
+   * @since 5.26.0
+   *
+   * @global wpdb $wpdb  WordPress database object.
+   *
+   * @param int $author_id  User ID.
+   *
+   * @return int[] Array of story IDs.
+   */
+
+  function fictioneer_get_co_authored_story_ids( $author_id ) {
+    static $cache = [];
+
+    if ( isset( $cache[ $author_id ] ) ) {
+      return $cache[ $author_id ];
+    }
+
+    global $wpdb;
+
+    $story_ids = $wpdb->get_col(
+      $wpdb->prepare(
+        "SELECT post_id
+        FROM {$wpdb->postmeta}
+        WHERE meta_key = 'fictioneer_story_co_authors'
+        AND meta_value LIKE %s",
+        '%"' . $author_id . '"%'
+      )
+    );
+
+    $cache[ $author_id ] = $story_ids;
+
+    return $story_ids;
+  }
+}
+
 if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
   /**
    * Returns selectable stories for chapter assignments
@@ -729,7 +767,9 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
 
     // Setup
     $stories = array( '0' => _x( '— Unassigned —', 'Chapter story select option.', 'fictioneer' ) );
+    $co_authored_stories = [];
     $other_author = false;
+    $co_author = false;
 
     // Prepare SQL query
     $values = [];
@@ -743,6 +783,15 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
     if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
       $sql .= " AND p.post_author = %d";
       $values[] = $post_author_id;
+
+      $co_authored_stories = fictioneer_get_co_authored_story_ids( $post_author_id );
+
+      if ( ! empty( $co_authored_stories ) ) {
+        $placeholders = implode( ',', array_fill( 0, count( $co_authored_stories ), '%d' ) );
+        $sql .= " OR p.ID IN ($placeholders)";
+        $values = array_merge( $values, $co_authored_stories );
+        $co_author = true;
+      }
     }
 
     $sql .= " ORDER BY p.post_date DESC";
@@ -757,15 +806,24 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
         mysql2date( get_option( 'date_format' ), $story->post_date ),
         mysql2date( get_option( 'time_format' ), $story->post_date )
       );
+      $suffix = [];
 
       if ( $story->post_status !== 'publish' ) {
-        $stories[ $story->ID ] = sprintf(
-          _x( '%s (%s)', 'Chapter story meta field option with status label.', 'fictioneer' ),
-          $title,
-          fictioneer_get_post_status_label( $story->post_status )
-        );
-      } else {
+        $suffix['status'] = fictioneer_get_post_status_label( $story->post_status );
+      }
+
+      if ( in_array( $story->ID, $co_authored_stories ) ) {
+        $suffix['co-authored'] = __( 'Co-Author', 'fictioneer' );
+      }
+
+      if ( empty( $suffix ) ) {
         $stories[ $story->ID ] = $title;
+      } else {
+        $stories[ $story->ID ] = sprintf(
+          _x( '%1$s (%2$s)', 'Chapter story meta field option with notes.', 'fictioneer' ),
+          $title,
+          implode( ' | ', $suffix )
+        );
       }
     }
 
@@ -787,15 +845,16 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
 
       // Append to selection
       $stories[ $current_story_id ] = sprintf(
-        _x( '%s %s', 'Chapter story meta field mismatched option with author and/or status label.', 'fictioneer' ),
+        _x( '%1$s (%2$s)', 'Chapter story meta field mismatched option with notes.', 'fictioneer' ),
         fictioneer_get_safe_title( $current_story_id, 'admin-render-chapter-data-metabox-current-suffix' ),
-        ( ! empty( $suffix ) ? ' (' . implode( ' | ', $suffix ) . ')' : '' )
+        ! empty( $suffix ) ? implode( ' | ', $suffix ) : ''
       );
     }
 
     return array(
       'stories' => $stories,
-      'other_author' => $other_author
+      'other_author' => $other_author,
+      'co_author' => $co_author
     );
   }
 }
