@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-28 11:45+0000\n"
+"POT-Creation-Date: 2024-10-29 15:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -171,7 +171,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/functions/_setup-meta-fields.php:1970
-#: includes/functions/_setup-meta-fields.php:3096
+#: includes/functions/_setup-meta-fields.php:3104
 msgid ".selector { ... }"
 msgstr ""
 
@@ -386,13 +386,13 @@ msgid ""
 "Permalinks</strong> when you toggle this setting to avoid 404s.</p>"
 msgstr ""
 
-#: includes/functions/_utility.php:2102
+#: includes/functions/_utility.php:2107
 msgid ""
 "<span class=\"off\"><i class=\"fa-solid fa-caret-left\"></i></span><span "
 "class=\"on\">Previous</span>"
 msgstr ""
 
-#: includes/functions/_utility.php:2099
+#: includes/functions/_utility.php:2104
 msgid ""
 "<span class=\"on\">Next</span><span class=\"off\"><i class=\"fa-solid fa-"
 "caret-right\"></i></span>"
@@ -656,6 +656,12 @@ msgid ""
 "user) would work for both if you have the disk space."
 msgstr ""
 
+#: includes/functions/_setup-meta-fields.php:2703
+msgid ""
+"<strong>Note:</strong> You are a co-author of the selected story, but only "
+"you can edit this chapter."
+msgstr ""
+
 #: includes/functions/settings/_settings_page_tools.php:197
 msgid ""
 "<strong>Optimize and clean up the database to boost performance.</strong> "
@@ -699,7 +705,7 @@ msgid ""
 "Great fun."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2699
+#: includes/functions/_setup-meta-fields.php:2701
 msgid ""
 "<strong>Warning:</strong> The selected story belongs to another author. If "
 "you change the selection, you cannot go back."
@@ -734,12 +740,12 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2724
+#: includes/functions/_setup-meta-fields.php:2728
 msgid ""
 "Accepts a story ID to assign and append the chapter with override permission."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2726
+#: includes/functions/_setup-meta-fields.php:2730
 msgid "Accepts a story ID to assign the chapter with override permission."
 msgstr ""
 
@@ -753,7 +759,7 @@ msgstr ""
 msgid "Access denied."
 msgstr ""
 
-#: includes/functions/_utility.php:2070
+#: includes/functions/_utility.php:2075
 msgid "Account"
 msgstr ""
 
@@ -1426,7 +1432,7 @@ msgctxt "Advanced search toggle."
 msgid "Advanced"
 msgstr ""
 
-#: includes/functions/_module-epub.php:773
+#: includes/functions/_module-epub.php:810
 msgid "Afterword"
 msgstr ""
 
@@ -1460,42 +1466,42 @@ msgstr ""
 msgid "Age Confirmation Modal: Site"
 msgstr ""
 
-#: includes/functions/_utility.php:2114
+#: includes/functions/_utility.php:2119
 msgctxt "Age rating A for Adult."
 msgid "A"
 msgstr ""
 
-#: includes/functions/_utility.php:2118
+#: includes/functions/_utility.php:2123
 msgctxt "Age rating Adult."
 msgid "Adult"
 msgstr ""
 
-#: includes/functions/_utility.php:2111
+#: includes/functions/_utility.php:2116
 msgctxt "Age rating E for Everyone."
 msgid "E"
 msgstr ""
 
-#: includes/functions/_utility.php:2115
+#: includes/functions/_utility.php:2120
 msgctxt "Age rating Everyone."
 msgid "Everyone"
 msgstr ""
 
-#: includes/functions/_utility.php:2113
+#: includes/functions/_utility.php:2118
 msgctxt "Age rating M for Mature."
 msgid "M"
 msgstr ""
 
-#: includes/functions/_utility.php:2117
+#: includes/functions/_utility.php:2122
 msgctxt "Age rating Mature."
 msgid "Mature"
 msgstr ""
 
-#: includes/functions/_utility.php:2112
+#: includes/functions/_utility.php:2117
 msgctxt "Age rating T for Teen."
 msgid "T"
 msgstr ""
 
-#: includes/functions/_utility.php:2116
+#: includes/functions/_utility.php:2121
 msgctxt "Age rating Teen."
 msgid "Teen"
 msgstr ""
@@ -1618,8 +1624,8 @@ msgstr ""
 msgid "Also disables cross-posting as guest author."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2745
-#: includes/functions/_setup-meta-fields.php:3853
+#: includes/functions/_setup-meta-fields.php:2749
+#: includes/functions/_setup-meta-fields.php:3861
 msgid ""
 "Alternative title used in cards and lists. Useful for long titles that get "
 "truncated on small screens."
@@ -1657,11 +1663,11 @@ msgstr ""
 msgid "Always use gravatar"
 msgstr ""
 
-#: includes/functions/_utility.php:3758
+#: includes/functions/_utility.php:3763
 msgid "Anonymous"
 msgstr ""
 
-#: includes/functions/_utility.php:2073
+#: includes/functions/_utility.php:2078
 msgid "Anonymous Guest"
 msgstr ""
 
@@ -1933,45 +1939,45 @@ msgstr ""
 msgid "Base success and confirmation color."
 msgstr ""
 
-#: includes/functions/_utility.php:2132
+#: includes/functions/_utility.php:2137
 msgctxt "BBCode example."
 msgid ""
 "<blockquote><code>[quote]</code>… me like my landlord!<code>[/quote]</code>"
 "</blockquote>"
 msgstr ""
 
-#: includes/functions/_utility.php:2135
+#: includes/functions/_utility.php:2140
 msgctxt "BBCode example."
 msgid ""
 "<code>[del]</code><del>Delete</del><code>[/del]</code> your browser history!"
 msgstr ""
 
-#: includes/functions/_utility.php:2129
+#: includes/functions/_utility.php:2134
 #, php-format
 msgctxt "BBCode example."
 msgid "<code>[img]</code>https://www.agine.this<code>[/img]</code> %s"
 msgstr ""
 
-#: includes/functions/_utility.php:2134
+#: includes/functions/_utility.php:2139
 msgctxt "BBCode example."
 msgid "<code>[ins]</code><ins>Insert</ins><code>[/ins]</code> more bad puns!"
 msgstr ""
 
-#: includes/functions/_utility.php:2131
+#: includes/functions/_utility.php:2136
 msgctxt "BBCode example."
 msgid ""
 "<code>[link=https://www.n.ot]</code><a href=\"http://topwebfiction.com/\" "
 "class=\"link\">clickbait</a><code>[/link]</code>."
 msgstr ""
 
-#: includes/functions/_utility.php:2130
+#: includes/functions/_utility.php:2135
 msgctxt "BBCode example."
 msgid ""
 "<code>[link]</code><a href=\"http://topwebfiction.com/\" target=\"_blank\" "
 "class=\"link\">http://topwebfiction.com</a><code>[/link]</code>."
 msgstr ""
 
-#: includes/functions/_utility.php:2133
+#: includes/functions/_utility.php:2138
 msgctxt "BBCode example."
 msgid ""
 "<code>[spoiler]</code><span class=\"spoiler\">Spanish Inquisition!</span>"
@@ -1998,7 +2004,7 @@ msgctxt "Blog card label."
 msgid "Page"
 msgstr ""
 
-#: includes/functions/_utility.php:2076
+#: includes/functions/_utility.php:2081
 msgctxt "Blog page name, mainly used in breadcrumbs."
 msgid "Blog"
 msgstr ""
@@ -2007,12 +2013,12 @@ msgstr ""
 msgid "Blog Posts"
 msgstr ""
 
-#: includes/functions/_utility.php:2107
+#: includes/functions/_utility.php:2112
 msgctxt "Blog tab of the story."
 msgid "Blog"
 msgstr ""
 
-#: includes/functions/_utility.php:2077
+#: includes/functions/_utility.php:2082
 msgid "Bookmark"
 msgstr ""
 
@@ -2021,7 +2027,7 @@ msgid "Bookmark paragraphs in chapters. No account needed."
 msgstr ""
 
 #. Name of the template
-#: singular-bookmarks.php:2 includes/functions/_utility.php:2078
+#: singular-bookmarks.php:2 includes/functions/_utility.php:2083
 msgid "Bookmarks"
 msgstr ""
 
@@ -2047,7 +2053,7 @@ msgstr ""
 
 #. Name of the template
 #: singular-bookshelf.php:2 singular-bookshelf.php:107
-#: singular-bookshelf-ajax.php:97 includes/functions/_utility.php:2071
+#: singular-bookshelf-ajax.php:97 includes/functions/_utility.php:2076
 msgid "Bookshelf"
 msgstr ""
 
@@ -2146,7 +2152,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: includes/functions/_utility.php:2123
+#: includes/functions/_utility.php:2128
 msgctxt "Canceled story status"
 msgid "Canceled"
 msgstr ""
@@ -2826,17 +2832,17 @@ msgctxt "Capability translation"
 msgid "Upload Restrictions"
 msgstr ""
 
-#: includes/functions/_utility.php:2072
+#: includes/functions/_utility.php:2077
 msgctxt "Caption for administrator badge label."
 msgid "Admin"
 msgstr ""
 
-#: includes/functions/_utility.php:2074
+#: includes/functions/_utility.php:2079
 msgctxt "Caption for author badge label."
 msgid "Author"
 msgstr ""
 
-#: includes/functions/_utility.php:2098
+#: includes/functions/_utility.php:2103
 msgctxt "Caption for moderator badge label"
 msgid "Mod"
 msgstr ""
@@ -2944,12 +2950,12 @@ msgid_plural "chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_setup-meta-fields.php:2777
+#: includes/functions/_setup-meta-fields.php:2781
 msgctxt "Chapter afterword meta field label."
 msgid "Afterword"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2587
+#: includes/functions/_setup-meta-fields.php:2589
 msgctxt "Chapter age rating meta field label."
 msgid "Age Rating"
 msgstr ""
@@ -3023,7 +3029,7 @@ msgctxt "Chapter card label."
 msgid "Chapter"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2744
+#: includes/functions/_setup-meta-fields.php:2748
 msgctxt "Chapter card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
@@ -3034,7 +3040,7 @@ msgstr ""
 msgid "Chapter checkmark for %s."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2570
+#: includes/functions/_setup-meta-fields.php:2572
 msgctxt "Chapter co-authors meta field label."
 msgid "Co-Authors"
 msgstr ""
@@ -3043,77 +3049,77 @@ msgstr ""
 msgid "Chapter Cover Image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2668
+#: includes/functions/_setup-meta-fields.php:2670
 msgid "Chapter Data"
-msgstr ""
-
-#: includes/functions/_utility.php:2560
-msgctxt "Chapter font color name."
-msgid "Baseline"
-msgstr ""
-
-#: includes/functions/_utility.php:2569
-msgctxt "Chapter font color name."
-msgid "Black"
-msgstr ""
-
-#: includes/functions/_utility.php:2568
-msgctxt "Chapter font color name."
-msgid "Gray"
-msgstr ""
-
-#: includes/functions/_utility.php:2564
-msgctxt "Chapter font color name."
-msgid "High"
 msgstr ""
 
 #: includes/functions/_utility.php:2565
 msgctxt "Chapter font color name."
+msgid "Baseline"
+msgstr ""
+
+#: includes/functions/_utility.php:2574
+msgctxt "Chapter font color name."
+msgid "Black"
+msgstr ""
+
+#: includes/functions/_utility.php:2573
+msgctxt "Chapter font color name."
+msgid "Gray"
+msgstr ""
+
+#: includes/functions/_utility.php:2569
+msgctxt "Chapter font color name."
+msgid "High"
+msgstr ""
+
+#: includes/functions/_utility.php:2570
+msgctxt "Chapter font color name."
 msgid "Higher"
 msgstr ""
 
-#: includes/functions/_utility.php:2566
+#: includes/functions/_utility.php:2571
 msgctxt "Chapter font color name."
 msgid "Highest"
 msgstr ""
 
-#: includes/functions/_utility.php:2561
+#: includes/functions/_utility.php:2566
 msgctxt "Chapter font color name."
 msgid "Low"
 msgstr ""
 
-#: includes/functions/_utility.php:2562
+#: includes/functions/_utility.php:2567
 msgctxt "Chapter font color name."
 msgid "Lower"
 msgstr ""
 
-#: includes/functions/_utility.php:2563
+#: includes/functions/_utility.php:2568
 msgctxt "Chapter font color name."
 msgid "Lowest"
 msgstr ""
 
-#: includes/functions/_utility.php:2559
+#: includes/functions/_utility.php:2564
 msgctxt "Chapter font color name."
 msgid "Tinted"
 msgstr ""
 
-#: includes/functions/_utility.php:2567
+#: includes/functions/_utility.php:2572
 msgctxt "Chapter font color name."
 msgid "White"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2767
+#: includes/functions/_setup-meta-fields.php:2771
 msgctxt "Chapter foreword meta field label."
 msgid "Foreword"
 msgstr ""
 
-#: includes/functions/_utility.php:2085
+#: includes/functions/_utility.php:2090
 msgctxt "Chapter formatting modal heading."
 msgid "Formatting"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2754
-#: includes/functions/_setup-meta-fields.php:4492
+#: includes/functions/_setup-meta-fields.php:2758
+#: includes/functions/_setup-meta-fields.php:4500
 msgctxt "Chapter group meta field label."
 msgid "Group"
 msgstr ""
@@ -3126,8 +3132,8 @@ msgstr ""
 msgid "Chapter Hidden"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2522
-#: includes/functions/_setup-meta-fields.php:4461
+#: includes/functions/_setup-meta-fields.php:2524
+#: includes/functions/_setup-meta-fields.php:4469
 msgctxt "Chapter icon meta field label."
 msgid "Icon"
 msgstr ""
@@ -3137,17 +3143,17 @@ msgctxt "Chapter index modal header."
 msgid "Chapter Index"
 msgstr ""
 
-#: includes/functions/_utility.php:2142
+#: includes/functions/_utility.php:2147
 msgctxt "Chapter list status prefix."
 msgid "Private:"
 msgstr ""
 
-#: includes/functions/_utility.php:2140
+#: includes/functions/_utility.php:2145
 msgctxt "Chapter list status prefix."
 msgid "Scheduled:"
 msgstr ""
 
-#: includes/functions/_utility.php:2141
+#: includes/functions/_utility.php:2146
 msgctxt "Chapter list status prefix."
 msgid "Trashed:"
 msgstr ""
@@ -3156,7 +3162,7 @@ msgstr ""
 msgid "Chapter List Title Font"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2492
+#: includes/functions/_setup-meta-fields.php:2494
 msgid "Chapter Meta"
 msgstr ""
 
@@ -3166,13 +3172,13 @@ msgctxt "Chapter page: by {Author(s)}"
 msgid "by %s"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2787
+#: includes/functions/_setup-meta-fields.php:2791
 msgctxt "Chapter password note meta field label."
 msgid "Password Note"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2559
-#: includes/functions/_setup-meta-fields.php:4482
+#: includes/functions/_setup-meta-fields.php:2561
+#: includes/functions/_setup-meta-fields.php:4490
 msgctxt "Chapter prefix meta field label."
 msgid "Prefix"
 msgstr ""
@@ -3181,40 +3187,39 @@ msgstr ""
 msgid "Chapter progress bar"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2548
+#: includes/functions/_setup-meta-fields.php:2550
 msgctxt "Chapter short title meta field label."
 msgid "Short Title"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4645
+#: includes/functions/_setup-meta-fields.php:4653
 msgctxt "Chapter story list table column title."
 msgid "Story"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2710
+#: includes/functions/_setup-meta-fields.php:2714
 msgctxt "Chapter story meta field label."
 msgid "Story"
 msgstr ""
 
-#: includes/functions/_helpers-query.php:789
+#: includes/functions/_helpers-query.php:848
 #, php-format
-msgctxt ""
-"Chapter story meta field mismatched option with author and/or status label."
-msgid "%s %s"
+msgctxt "Chapter story meta field mismatched option with notes."
+msgid "%1$s (%2$s)"
 msgstr ""
 
-#: includes/functions/_helpers-query.php:762
+#: includes/functions/_helpers-query.php:823
 #, php-format
-msgctxt "Chapter story meta field option with status label."
-msgid "%s (%s)"
+msgctxt "Chapter story meta field option with notes."
+msgid "%1$s (%2$s)"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2733
+#: includes/functions/_setup-meta-fields.php:2737
 msgctxt "Chapter story override meta field label."
 msgid "Story Override"
 msgstr ""
 
-#: includes/functions/_helpers-query.php:730
+#: includes/functions/_helpers-query.php:769
 msgctxt "Chapter story select option."
 msgid "— Unassigned —"
 msgstr ""
@@ -3227,8 +3232,8 @@ msgstr ""
 msgid "Chapter tags duplicated as genres."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2537
-#: includes/functions/_setup-meta-fields.php:4470
+#: includes/functions/_setup-meta-fields.php:2539
+#: includes/functions/_setup-meta-fields.php:4478
 msgctxt "Chapter text icon meta field label."
 msgid "Text Icon"
 msgstr ""
@@ -3251,7 +3256,7 @@ msgid ""
 "alternative</em> content will be displayed instead."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2596
+#: includes/functions/_setup-meta-fields.php:2598
 msgctxt "Chapter warning meta field label."
 msgid "Warning"
 msgstr ""
@@ -3280,7 +3285,7 @@ msgstr ""
 msgid "Chapters list navigation"
 msgstr ""
 
-#: includes/functions/_utility.php:2109
+#: includes/functions/_utility.php:2114
 msgctxt "Chapters not assigned to group."
 msgid "Unassigned"
 msgstr ""
@@ -3452,6 +3457,10 @@ msgstr ""
 msgid "Closed comments cannot be edited."
 msgstr ""
 
+#: includes/functions/_helpers-query.php:816
+msgid "Co-Author"
+msgstr ""
+
 #: includes/functions/settings/_register_settings.php:1110
 #: includes/functions/settings/_settings_page_general.php:280
 msgid "Collapse chapter groups by default"
@@ -3480,7 +3489,7 @@ msgctxt "Collection card label."
 msgid "Collection"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3852
+#: includes/functions/_setup-meta-fields.php:3860
 msgctxt "Collection card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
@@ -3489,16 +3498,16 @@ msgstr ""
 msgid "Collection Cover Image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3822
+#: includes/functions/_setup-meta-fields.php:3830
 msgid "Collection Data"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3890
+#: includes/functions/_setup-meta-fields.php:3898
 msgctxt "Collection Items meta field label."
 msgid "Collection Items"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3862
+#: includes/functions/_setup-meta-fields.php:3870
 msgctxt "Collection short description meta field label."
 msgid "Short Description"
 msgstr ""
@@ -3577,7 +3586,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:1878
-#: includes/functions/_setup-meta-fields.php:2571
+#: includes/functions/_setup-meta-fields.php:2573
 msgid "Comma-separated list of author IDs."
 msgstr ""
 
@@ -3617,7 +3626,7 @@ msgstr ""
 msgid "Comment Flags:"
 msgstr ""
 
-#: includes/functions/_utility.php:2139
+#: includes/functions/_utility.php:2144
 msgctxt "Comment form cookie checkbox."
 msgid "Save in cookie for next time."
 msgstr ""
@@ -3631,7 +3640,7 @@ msgctxt "Comment form email notification toggle."
 msgid "Toggle to get email notifications about direct replies."
 msgstr ""
 
-#: includes/functions/_utility.php:2137
+#: includes/functions/_utility.php:2142
 #, php-format
 msgctxt "Comment form logged-in note."
 msgid ""
@@ -3639,12 +3648,12 @@ msgid ""
 "class=\"logout-link\" href=\"%3$s\" data-click=\"logout\">Log out?</a></span>"
 msgstr ""
 
-#: includes/functions/_utility.php:2136
+#: includes/functions/_utility.php:2141
 msgctxt "Comment form login note."
 msgid "Enter your details or log in with:"
 msgstr ""
 
-#: includes/functions/_utility.php:2138
+#: includes/functions/_utility.php:2143
 #, php-format
 msgctxt "Comment form privacy checkbox."
 msgid ""
@@ -3674,7 +3683,7 @@ msgstr ""
 msgid "Comment has been marked as private."
 msgstr ""
 
-#: includes/functions/_utility.php:2400 includes/functions/_utility.php:2401
+#: includes/functions/_utility.php:2405 includes/functions/_utility.php:2406
 msgctxt "Comment image consent wrapper button."
 msgid "<i class=\"fa-solid fa-image\"></i> Show Image"
 msgstr ""
@@ -3742,27 +3751,27 @@ msgstr ""
 msgid "Comment reply notification email"
 msgstr ""
 
-#: includes/functions/_utility.php:2146
+#: includes/functions/_utility.php:2151
 msgctxt "Comment status translation."
 msgid "Approved"
 msgstr ""
 
-#: includes/functions/_utility.php:2147
+#: includes/functions/_utility.php:2152
 msgctxt "Comment status translation."
 msgid "Hold"
 msgstr ""
 
-#: includes/functions/_utility.php:2149
+#: includes/functions/_utility.php:2154
 msgctxt "Comment status translation."
 msgid "Spam"
 msgstr ""
 
-#: includes/functions/_utility.php:2150
+#: includes/functions/_utility.php:2155
 msgctxt "Comment status translation."
 msgid "Trash"
 msgstr ""
 
-#: includes/functions/_utility.php:2148
+#: includes/functions/_utility.php:2153
 msgctxt "Comment status translation."
 msgid "Unapproved"
 msgstr ""
@@ -3798,12 +3807,12 @@ msgctxt "Comment time format string."
 msgid "%1$s \\a\\t %2$s"
 msgstr ""
 
-#: includes/functions/_utility.php:2144
+#: includes/functions/_utility.php:2149
 msgctxt "Comment type translation."
 msgid "Private Comment"
 msgstr ""
 
-#: includes/functions/_utility.php:2145
+#: includes/functions/_utility.php:2150
 msgctxt "Comment type translation."
 msgid "Public Comment"
 msgstr ""
@@ -3881,7 +3890,7 @@ msgid ""
 "repeating the same queries for identical results."
 msgstr ""
 
-#: includes/functions/_utility.php:2119
+#: includes/functions/_utility.php:2124
 msgctxt "Completed story status."
 msgid "Completed"
 msgstr ""
@@ -4040,7 +4049,7 @@ msgstr ""
 msgid "Counting…"
 msgstr ""
 
-#: includes/functions/_module-epub.php:753
+#: includes/functions/_module-epub.php:790
 msgid "Cover"
 msgstr ""
 
@@ -4122,7 +4131,7 @@ msgstr ""
 msgid "Custom message in the user profile, which may be a nice thing as well."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3094
+#: includes/functions/_setup-meta-fields.php:3102
 msgid "Custom Page CSS"
 msgstr ""
 
@@ -4868,7 +4877,7 @@ msgstr ""
 msgid "Default genres have been added to the list."
 msgstr ""
 
-#: includes/functions/_utility.php:3740
+#: includes/functions/_utility.php:3745
 msgctxt "Default name in logs."
 msgid "System"
 msgstr ""
@@ -4957,7 +4966,7 @@ msgstr ""
 msgid "Deleted global Patreon tiers."
 msgstr ""
 
-#: includes/functions/_utility.php:2080
+#: includes/functions/_utility.php:2085
 msgid "Deleted User"
 msgstr ""
 
@@ -4970,7 +4979,7 @@ msgstr ""
 msgid "Denied"
 msgstr ""
 
-#: includes/functions/_module-epub.php:891
+#: includes/functions/_module-epub.php:928
 #: includes/functions/_module-seo.php:126
 #: includes/functions/settings/_settings_page_seo.php:68
 msgid "Description"
@@ -5103,15 +5112,15 @@ msgstr ""
 msgid "Disable menu Transient caching"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3251
+#: includes/functions/_setup-meta-fields.php:3259
 msgid "Disable new comments"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3273
+#: includes/functions/_setup-meta-fields.php:3281
 msgid "Disable page padding"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2642
+#: includes/functions/_setup-meta-fields.php:2644
 msgid "Disable partial caching of content"
 msgstr ""
 
@@ -5139,7 +5148,7 @@ msgstr ""
 msgid "Disable shortcode Transient caching"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3262
+#: includes/functions/_setup-meta-fields.php:3270
 msgid "Disable sidebar"
 msgstr ""
 
@@ -5379,7 +5388,7 @@ msgstr ""
 msgid "Display full posts instead of excerpts"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2788
+#: includes/functions/_setup-meta-fields.php:2792
 msgid "Displayed for password protected content. Limited HTML allowed."
 msgstr ""
 
@@ -5395,13 +5404,13 @@ msgid ""
 "protected chapters. Limited HTML allowed."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2768
+#: includes/functions/_setup-meta-fields.php:2772
 msgid ""
 "Displayed in a box above the chapter; start with \"[!show]\" to show in "
 "protected chapters. Limited HTML allowed."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2778
+#: includes/functions/_setup-meta-fields.php:2782
 msgid ""
 "Displayed in a box below the chapter; start with \"[!show]\" to show in "
 "protected chapters. Limited HTML allowed."
@@ -5411,7 +5420,7 @@ msgstr ""
 msgid "Do not collapse long chapter lists."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2623
+#: includes/functions/_setup-meta-fields.php:2625
 msgid "Do not count as chapter"
 msgstr ""
 
@@ -5442,7 +5451,7 @@ msgstr ""
 msgid "Donation"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3539
+#: includes/functions/_setup-meta-fields.php:3547
 msgctxt "Donation link meta field label."
 msgid "Donation Link"
 msgstr ""
@@ -5545,7 +5554,7 @@ msgctxt "Elementor color override hint."
 msgid "(--primary-500)"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4018
+#: includes/functions/_setup-meta-fields.php:4026
 msgid ""
 "Elevator pitch with 150 characters are less. For example: \"Rebellious "
 "corporate heiress and her genius friend commit high-tech heists in a doomed "
@@ -5911,17 +5920,17 @@ msgstr ""
 msgid "ePUB"
 msgstr ""
 
-#: includes/functions/_module-epub.php:384
+#: includes/functions/_module-epub.php:370
 msgctxt "ePUB"
 msgid "Password Protected Chapter"
 msgstr ""
 
-#: includes/functions/_module-epub.php:396
+#: includes/functions/_module-epub.php:382
 msgctxt "ePUB"
 msgid "This chapter is empty."
 msgstr ""
 
-#: includes/functions/_module-epub.php:387
+#: includes/functions/_module-epub.php:373
 msgctxt "ePUB"
 msgid "This chapter requires a password and is only available on the website."
 msgstr ""
@@ -5997,7 +6006,7 @@ msgstr ""
 msgid "Exit fullscreen"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4590
+#: includes/functions/_setup-meta-fields.php:4598
 #, php-format
 msgctxt "Expiration suffix for protected note in post list tables."
 msgid "%1$s (until %2$s)"
@@ -6011,7 +6020,7 @@ msgstr ""
 msgid "External content not loaded until deliberately clicked."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3038
+#: includes/functions/_setup-meta-fields.php:3046
 msgid "Extra Meta"
 msgstr ""
 
@@ -6074,7 +6083,7 @@ msgid ""
 "your site if you have thousands."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3638
+#: includes/functions/_setup-meta-fields.php:3646
 msgid "Featured Content"
 msgstr ""
 
@@ -6202,7 +6211,7 @@ msgctxt "Fix post paragraphs preview button."
 msgid "Preview"
 msgstr ""
 
-#: includes/functions/_utility.php:2081
+#: includes/functions/_utility.php:2086
 msgctxt "Follow a story."
 msgid "Follow"
 msgstr ""
@@ -6266,7 +6275,7 @@ msgstr ""
 msgid "Font Lightness Offset"
 msgstr ""
 
-#: includes/functions/_utility.php:2494
+#: includes/functions/_utility.php:2499
 msgctxt "Font name."
 msgid "System Font"
 msgstr ""
@@ -6367,7 +6376,7 @@ msgid ""
 "and moderators are recommended."
 msgstr ""
 
-#: includes/functions/_utility.php:2083
+#: includes/functions/_utility.php:2088
 msgctxt "Forget story set to be read later."
 msgid "Forget"
 msgstr ""
@@ -6387,12 +6396,12 @@ msgctxt "Formatting modal font weight selection."
 msgid "Thinner Font Weight"
 msgstr ""
 
-#: includes/functions/_utility.php:2143
+#: includes/functions/_utility.php:2148
 msgctxt "Free Patreon tier (follower)."
 msgid "Follower (Free)"
 msgstr ""
 
-#: includes/functions/_module-epub.php:758
+#: includes/functions/_module-epub.php:795
 msgid "Front Matter"
 msgstr ""
 
@@ -6407,7 +6416,7 @@ msgctxt "Frontend profile headline."
 msgid "Password"
 msgstr ""
 
-#: includes/functions/_utility.php:2086
+#: includes/functions/_utility.php:2091
 msgctxt "Frontpage page name, mainly used in breadcrumbs."
 msgid "Home"
 msgstr ""
@@ -6533,7 +6542,7 @@ msgstr ""
 msgid "Header Height - Minimum"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3081
+#: includes/functions/_setup-meta-fields.php:3089
 msgid "Header Image"
 msgstr ""
 
@@ -6549,7 +6558,7 @@ msgstr ""
 msgid "Heading Font"
 msgstr ""
 
-#: includes/functions/_utility.php:2075
+#: includes/functions/_utility.php:2080
 msgctxt "Heading for BBCodes tutorial modal."
 msgid "BBCodes"
 msgstr ""
@@ -6573,7 +6582,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: includes/functions/_utility.php:2121
+#: includes/functions/_utility.php:2126
 msgctxt "Hiatus story status"
 msgid "Hiatus"
 msgstr ""
@@ -6630,7 +6639,7 @@ msgstr ""
 msgid "Hide story in lists"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2635
+#: includes/functions/_setup-meta-fields.php:2637
 msgid "Hide support links"
 msgstr ""
 
@@ -6672,7 +6681,7 @@ msgstr ""
 msgid "Hide thumbnail on story page"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2629
+#: includes/functions/_setup-meta-fields.php:2631
 msgid "Hide title in chapter"
 msgstr ""
 
@@ -6772,17 +6781,17 @@ msgstr ""
 msgid "Hue Offset"
 msgstr ""
 
-#: includes/functions/_utility.php:3339
+#: includes/functions/_utility.php:3344
 msgctxt "Human readable list joining the last two of three or more items."
 msgid ", or "
 msgstr ""
 
-#: includes/functions/_utility.php:3337
+#: includes/functions/_utility.php:3342
 msgctxt "Human readable list joining three or more items except the last two."
 msgid ", "
 msgstr ""
 
-#: includes/functions/_utility.php:3338
+#: includes/functions/_utility.php:3343
 msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr ""
@@ -6792,7 +6801,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3120
+#: includes/functions/_setup-meta-fields.php:3128
 msgid "ID for a filter and/or search plugins."
 msgstr ""
 
@@ -6908,7 +6917,7 @@ msgid_plural "%s Stories"
 msgstr[0] ""
 msgstr[1] ""
 
-#: singular-index-advanced.php:145
+#: singular-index-advanced.php:146
 #, php-format
 msgctxt "Index item."
 msgid "%s Words"
@@ -7025,11 +7034,11 @@ msgstr ""
 msgid "Join Discord"
 msgstr ""
 
-#: includes/functions/_utility.php:2091
+#: includes/functions/_utility.php:2096
 msgid "Jump: Bookmark"
 msgstr ""
 
-#: includes/functions/_utility.php:2090
+#: includes/functions/_utility.php:2095
 msgid "Jump: Comments"
 msgstr ""
 
@@ -7045,12 +7054,12 @@ msgstr ""
 msgid "Ko-Fi link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3512
+#: includes/functions/_setup-meta-fields.php:3520
 msgctxt "Ko-fi link meta field label."
 msgid "Ko-fi Link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3069
+#: includes/functions/_setup-meta-fields.php:3077
 msgid "Landscape Image"
 msgstr ""
 
@@ -7366,7 +7375,7 @@ msgstr ""
 msgid "Link to site RSS feed"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4061
+#: includes/functions/_setup-meta-fields.php:4069
 msgid ""
 "Link to the author's Patreon, Ko-Fi, etc. One link per line and mind the "
 "whitespaces. Format: \"Link Name | https://www.address.abc\" (without quotes)"
@@ -7377,18 +7386,18 @@ msgstr ""
 msgid "Link to user profile"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4051
+#: includes/functions/_setup-meta-fields.php:4059
 msgid ""
 "Links to the story, one link per line and mind the whitespaces. Format: "
 "\"Link Name | https://www.address.abc\" (without quotes)."
 msgstr ""
 
-#: includes/functions/_utility.php:2082
+#: includes/functions/_utility.php:2087
 msgctxt "List of followed stories."
 msgid "Follows"
 msgstr ""
 
-#: includes/functions/_utility.php:2105
+#: includes/functions/_utility.php:2110
 msgctxt "List of stories to read later."
 msgid "Reminders"
 msgstr ""
@@ -7449,7 +7458,7 @@ msgstr ""
 msgid "Logged-in users can report comments via flag button."
 msgstr ""
 
-#: includes/functions/_utility.php:2092
+#: includes/functions/_utility.php:2097
 #: includes/functions/_helpers-templates.php:2362
 msgid "Login"
 msgstr ""
@@ -7462,7 +7471,7 @@ msgstr ""
 msgid "Login modal"
 msgstr ""
 
-#: includes/functions/_utility.php:2093
+#: includes/functions/_utility.php:2098
 msgctxt "Login modal heading."
 msgid "Login"
 msgstr ""
@@ -7479,7 +7488,7 @@ msgstr ""
 msgid "Logo Height - Minimum"
 msgstr ""
 
-#: includes/functions/_utility.php:2095
+#: includes/functions/_utility.php:2100
 #: includes/functions/_helpers-templates.php:2447
 msgid "Logout"
 msgstr ""
@@ -7575,12 +7584,12 @@ msgstr ""
 msgid "Mark follows as read"
 msgstr ""
 
-#: includes/functions/_utility.php:2096
+#: includes/functions/_utility.php:2101
 msgctxt "Mark story as read."
 msgid "Mark Read"
 msgstr ""
 
-#: includes/functions/_utility.php:2097
+#: includes/functions/_utility.php:2102
 msgctxt "Mark story as unread."
 msgid "Mark Unread"
 msgstr ""
@@ -7663,7 +7672,7 @@ msgctxt "Meta box file size label."
 msgid "Size:"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3245
+#: includes/functions/_setup-meta-fields.php:3253
 msgctxt "Metabox checkbox heading."
 msgid "Flags"
 msgstr ""
@@ -8035,7 +8044,7 @@ msgstr ""
 msgid "No (more) posts found."
 msgstr ""
 
-#: includes/functions/_utility.php:2100
+#: includes/functions/_utility.php:2105
 msgid "No bookmarks."
 msgstr ""
 
@@ -8070,7 +8079,7 @@ msgstr ""
 
 #: singular-taxonomies.php:109 partials/_card-story.php:159
 #: partials/_card-collection.php:136 partials/_card-chapter.php:186
-#: includes/functions/_setup-meta-fields.php:4107
+#: includes/functions/_setup-meta-fields.php:4115
 msgid "No description provided yet."
 msgstr ""
 
@@ -8103,7 +8112,7 @@ msgid ""
 "can strain the server."
 msgstr ""
 
-#: includes/functions/_helpers-query.php:162
+#: includes/functions/_helpers-query.php:163
 msgid "No more results."
 msgstr ""
 
@@ -8224,7 +8233,7 @@ msgstr ""
 msgid "OAuth 2.0 Connections"
 msgstr ""
 
-#: includes/functions/_utility.php:2094
+#: includes/functions/_utility.php:2099
 msgctxt "OAuth 2.0 login option plus appended icon."
 msgid "Log in with"
 msgstr ""
@@ -8247,17 +8256,17 @@ msgstr ""
 msgid "Oneshot"
 msgstr ""
 
-#: includes/functions/_utility.php:2122
+#: includes/functions/_utility.php:2127
 msgctxt "Oneshot story status"
 msgid "Oneshot"
 msgstr ""
 
-#: includes/functions/_utility.php:2120
+#: includes/functions/_utility.php:2125
 msgctxt "Ongoing story status"
 msgid "Ongoing"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3095
+#: includes/functions/_setup-meta-fields.php:3103
 msgid "Only applied to the page."
 msgstr ""
 
@@ -8345,7 +8354,7 @@ msgstr ""
 msgid "Optimized database and removed %s superfluous or orphaned rows."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2588
+#: includes/functions/_setup-meta-fields.php:2590
 msgid "Optional age rating only for the chapter."
 msgstr ""
 
@@ -8357,14 +8366,14 @@ msgstr ""
 msgid "Order By"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2755
+#: includes/functions/_setup-meta-fields.php:2759
 msgid ""
 "Organize chapters into groups; mind the order and spelling (case-sensitive). "
 "Only rendered if there are at least two, unassigned chapters are grouped "
 "under \"Unassigned\"."
 msgstr ""
 
-#: includes/functions/_module-epub.php:605
+#: includes/functions/_module-epub.php:642
 #, php-format
 msgid "Original Content Copyright © %s. All rights reserved."
 msgstr ""
@@ -8403,17 +8412,17 @@ msgstr ""
 msgid "Page Capabilities"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3119
+#: includes/functions/_setup-meta-fields.php:3127
 msgctxt "Page filter ans search meta field label."
 msgid "Filter & Search ID"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3108
+#: includes/functions/_setup-meta-fields.php:3116
 msgctxt "Page short name meta field label."
 msgid "Short Name"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3131
+#: includes/functions/_setup-meta-fields.php:3139
 msgctxt "Page story ID meta field label."
 msgid "Story Id"
 msgstr ""
@@ -8505,12 +8514,12 @@ msgstr ""
 msgid "Partial database error. Only %1$s of %2$s comments could be cleared."
 msgstr ""
 
-#: includes/functions/_utility.php:2101
+#: includes/functions/_utility.php:2106
 #: includes/functions/_setup-wordpress.php:511
 msgid "Password"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3236
+#: includes/functions/_setup-meta-fields.php:3244
 msgctxt "Password expiration meta field label."
 msgid "Expire Post Password"
 msgstr ""
@@ -8562,17 +8571,17 @@ msgstr ""
 msgid "Patreon account successfully linked."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4347
+#: includes/functions/_setup-meta-fields.php:4355
 msgctxt "Patreon amount cents bulk edit label."
 msgid "Patreon Amount Cents (Override)"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4201
+#: includes/functions/_setup-meta-fields.php:4209
 msgctxt "Patreon amount cents list table column title."
 msgid "Patreon Cents"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3219
+#: includes/functions/_setup-meta-fields.php:3227
 msgctxt "Patreon amount cents meta field label."
 msgid "Patreon Amount Cents"
 msgstr ""
@@ -8640,7 +8649,7 @@ msgstr ""
 msgid "Patreon link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3503
+#: includes/functions/_setup-meta-fields.php:3511
 msgctxt "Patreon link meta field label."
 msgid "Patreon Link"
 msgstr ""
@@ -8649,15 +8658,15 @@ msgstr ""
 msgid "Patreon Membership"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3196
-#: includes/functions/_setup-meta-fields.php:4285
+#: includes/functions/_setup-meta-fields.php:3204
+#: includes/functions/_setup-meta-fields.php:4293
 #: includes/functions/users/_admin-profile.php:1824
 #, php-format
 msgctxt "Patreon tier meta field token (title and amount_cents)."
 msgid "%s (%s)"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4296
+#: includes/functions/_setup-meta-fields.php:4304
 msgctxt "Patreon tiers bulk edit label."
 msgid "Patreon Tiers (Override)"
 msgstr ""
@@ -8670,12 +8679,12 @@ msgstr ""
 msgid "Patreon tiers have been pulled successfully."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4198
+#: includes/functions/_setup-meta-fields.php:4206
 msgctxt "Patreon tiers list table column title."
 msgid "Patreon Tiers"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3208
+#: includes/functions/_setup-meta-fields.php:3216
 msgctxt "Patreon tiers meta field label."
 msgid "Patreon Tiers"
 msgstr ""
@@ -8736,7 +8745,7 @@ msgstr ""
 msgid "PayPal link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3530
+#: includes/functions/_setup-meta-fields.php:3538
 msgctxt "Paypal link meta field label."
 msgid "Paypal Link"
 msgstr ""
@@ -8786,7 +8795,7 @@ msgstr ""
 msgid "Please enter your message."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3220
+#: includes/functions/_setup-meta-fields.php:3228
 msgid "Pledge threshold to ignore the password."
 msgstr ""
 
@@ -8846,32 +8855,32 @@ msgctxt "Post type general name"
 msgid "Stories"
 msgstr ""
 
-#: includes/functions/_utility.php:3693
+#: includes/functions/_utility.php:3698
 msgctxt "Post type label."
 msgid "Chapter"
 msgstr ""
 
-#: includes/functions/_utility.php:3694
+#: includes/functions/_utility.php:3699
 msgctxt "Post type label."
 msgid "Collection"
 msgstr ""
 
-#: includes/functions/_utility.php:3691
+#: includes/functions/_utility.php:3696
 msgctxt "Post type label."
 msgid "Page"
 msgstr ""
 
-#: includes/functions/_utility.php:3690
+#: includes/functions/_utility.php:3695
 msgctxt "Post type label."
 msgid "Post"
 msgstr ""
 
-#: includes/functions/_utility.php:3695
+#: includes/functions/_utility.php:3700
 msgctxt "Post type label."
 msgid "Rec"
 msgstr ""
 
-#: includes/functions/_utility.php:3692
+#: includes/functions/_utility.php:3697
 msgctxt "Post type label."
 msgid "Story"
 msgstr ""
@@ -8904,7 +8913,7 @@ msgstr ""
 msgid "Pre-selected font used in chapters. Defaults to primary font."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2560
+#: includes/functions/_setup-meta-fields.php:2562
 msgid "Prefix, such as \"Prologue\" or \"Act I ~ 01\"."
 msgstr ""
 
@@ -8970,7 +8979,7 @@ msgid ""
 "Primary heavy text color for page content. Default contrast ~8:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4040
+#: includes/functions/_setup-meta-fields.php:4048
 msgid "Primary link to the recommendation or author's website."
 msgstr ""
 
@@ -9115,7 +9124,7 @@ msgctxt "Read more link aria label"
 msgid "Continue reading %s"
 msgstr ""
 
-#: includes/functions/_utility.php:2104
+#: includes/functions/_utility.php:2109
 msgctxt "Read more of a post."
 msgid "Read More"
 msgstr ""
@@ -9144,7 +9153,7 @@ msgstr ""
 msgid "Recommendation"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4050
+#: includes/functions/_setup-meta-fields.php:4058
 msgctxt "Recommendation additional links meta field label."
 msgid "Additional Links"
 msgstr ""
@@ -9157,7 +9166,7 @@ msgstr ""
 msgid "Recommendation Attributes"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4028
+#: includes/functions/_setup-meta-fields.php:4036
 msgctxt "Recommendation author meta field label."
 msgid "Author"
 msgstr ""
@@ -9175,21 +9184,21 @@ msgstr ""
 msgid "Recommendation Cover Image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3987
+#: includes/functions/_setup-meta-fields.php:3995
 msgid "Recommendation Data"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4017
+#: includes/functions/_setup-meta-fields.php:4025
 msgctxt "Recommendation one sentence meta field label."
 msgid "One Sentence"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4039
+#: includes/functions/_setup-meta-fields.php:4047
 msgctxt "Recommendation primary link meta field label."
 msgid "Primary Link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4060
+#: includes/functions/_setup-meta-fields.php:4068
 msgctxt "Recommendation support meta field label."
 msgid "Support"
 msgstr ""
@@ -9260,7 +9269,7 @@ msgstr ""
 msgid "Reliable spam protection but can lead to false positives."
 msgstr ""
 
-#: includes/functions/_utility.php:2103
+#: includes/functions/_utility.php:2108
 msgctxt "Remember a story to be read later."
 msgid "Read Later"
 msgstr ""
@@ -9300,7 +9309,7 @@ msgstr ""
 msgid "Remove cover image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4305
+#: includes/functions/_setup-meta-fields.php:4313
 msgid "Remove Tiers"
 msgstr ""
 
@@ -9327,7 +9336,7 @@ msgstr ""
 msgid "Removes superfluous CSS and JavaScript."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3237
+#: includes/functions/_setup-meta-fields.php:3245
 msgid "Removes the password after the date."
 msgstr ""
 
@@ -9375,7 +9384,7 @@ msgid ""
 "publishing your stories and chapters."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3082
+#: includes/functions/_setup-meta-fields.php:3090
 msgid "Replaces the default header image."
 msgstr ""
 
@@ -9427,7 +9436,7 @@ msgid ""
 "here."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3109
+#: includes/functions/_setup-meta-fields.php:3117
 msgid "Required for the tab view in stories."
 msgstr ""
 
@@ -9800,7 +9809,7 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:2065
 msgid ""
 "Select and order chapters assigned to the story (set in the chapter). The "
-"author of the chapter and the story must match."
+"author (or co-author) of the chapter and the story must match."
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1415
@@ -9819,27 +9828,27 @@ msgstr ""
 msgid "Select post type"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3685
+#: includes/functions/_setup-meta-fields.php:3693
 msgid "Select posts to be shown as cards below the content."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3891
+#: includes/functions/_setup-meta-fields.php:3899
 msgid ""
 "Select the posts you want to be featured. If you add a story, <strong>do "
 "not</strong> add its chapters separately."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2702
+#: includes/functions/_setup-meta-fields.php:2706
 msgid ""
 "Select the story this chapter belongs to. Published and scheduled chapters "
 "are automatically appended to the story."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3174
+#: includes/functions/_setup-meta-fields.php:3182
 msgid "Select where the post should appear."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3209
+#: includes/functions/_setup-meta-fields.php:3217
 msgid "Select which tiers ignore the password."
 msgstr ""
 
@@ -10031,11 +10040,11 @@ msgstr ""
 msgid "Set cover image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3083
+#: includes/functions/_setup-meta-fields.php:3091
 msgid "Set header image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3071
+#: includes/functions/_setup-meta-fields.php:3079
 msgid "Set landscape image"
 msgstr ""
 
@@ -10177,7 +10186,7 @@ msgctxt "Shortened reading time statistics: [y] y, [d] d."
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2549
+#: includes/functions/_setup-meta-fields.php:2551
 msgid ""
 "Shorter title, such as \"Arc 15, Ch. 17\". Not used by default, intended for "
 "child themes."
@@ -10227,7 +10236,7 @@ msgstr ""
 msgid "Show story changelog button"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3142
+#: includes/functions/_setup-meta-fields.php:3150
 msgid "Show story header"
 msgstr ""
 
@@ -10293,7 +10302,7 @@ msgstr ""
 msgid "Site RSS"
 msgstr ""
 
-#: includes/functions/_utility.php:2106
+#: includes/functions/_utility.php:2111
 #: includes/functions/_helpers-templates.php:2428
 msgid "Site Settings"
 msgstr ""
@@ -10542,7 +10551,7 @@ msgstr ""
 msgid "Stop"
 msgstr ""
 
-#: includes/functions/_utility.php:2110
+#: includes/functions/_utility.php:2115
 msgctxt "Stop following a story."
 msgid "Unfollow"
 msgstr ""
@@ -10611,7 +10620,7 @@ msgstr ""
 msgid "Story Attributes"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3173
+#: includes/functions/_setup-meta-fields.php:3181
 msgctxt "Story blogs meta field label."
 msgid "Story Blogs"
 msgstr ""
@@ -10768,12 +10777,12 @@ msgid ""
 "href=\"%1$s\">%2$s</a></span>"
 msgstr ""
 
-#: includes/functions/_utility.php:2087
+#: includes/functions/_utility.php:2092
 msgctxt "Story is followed."
 msgid "Followed"
 msgstr ""
 
-#: includes/functions/_utility.php:2089
+#: includes/functions/_utility.php:2094
 msgctxt "Story is marked to be read later."
 msgid "Read later"
 msgstr ""
@@ -10787,7 +10796,7 @@ msgstr ""
 msgid "Story Mirror"
 msgstr ""
 
-#: includes/functions/_utility.php:2088
+#: includes/functions/_utility.php:2093
 msgctxt "Story or chapter is marked as read."
 msgid "Read"
 msgstr ""
@@ -10921,7 +10930,7 @@ msgstr ""
 msgid "submitted for review"
 msgstr ""
 
-#: includes/functions/_utility.php:2108
+#: includes/functions/_utility.php:2113
 msgctxt "Subscribe to a story."
 msgid "Subscribe"
 msgstr ""
@@ -10938,7 +10947,7 @@ msgstr ""
 msgid "SubscribeStar link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3521
+#: includes/functions/_setup-meta-fields.php:3529
 msgctxt "SubscribeStar link meta field label."
 msgid "SubscribeStar Link"
 msgstr ""
@@ -10970,7 +10979,7 @@ msgctxt "Support _author_"
 msgid "Support <em>%s</em>"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3474
+#: includes/functions/_setup-meta-fields.php:3482
 #: includes/functions/users/_admin-profile.php:2012
 msgid "Support Links"
 msgstr ""
@@ -11022,7 +11031,7 @@ msgctxt "Table date and time column."
 msgid "%1$s<br>at %2$s"
 msgstr ""
 
-#: includes/functions/_module-epub.php:762
+#: includes/functions/_module-epub.php:799
 msgid "Table of Contents"
 msgstr ""
 
@@ -11148,7 +11157,7 @@ msgstr ""
 msgid "Tetrakern"
 msgstr ""
 
-#: includes/functions/_utility.php:2124
+#: includes/functions/_utility.php:2129
 msgctxt "Text or icon for paragraph anchor in comments."
 msgid "<i class=\"fa-solid fa-link\"></i>"
 msgstr ""
@@ -11157,7 +11166,7 @@ msgstr ""
 msgid "Text shadows"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2538
+#: includes/functions/_setup-meta-fields.php:2540
 msgid "Text string as icon; mind the limited space."
 msgstr ""
 
@@ -11269,7 +11278,7 @@ msgstr ""
 msgid "The mu-plugins subdirectory is missing in the theme directory."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4029
+#: includes/functions/_setup-meta-fields.php:4037
 msgid "The name of the author. Separate multiple authors with commas."
 msgstr ""
 
@@ -11287,7 +11296,7 @@ msgid ""
 "contact an administrator if the problem persists."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3863
+#: includes/functions/_setup-meta-fields.php:3871
 msgid ""
 "The short description is used on cards, so best keep it under 100 words or "
 "400 characters."
@@ -11534,7 +11543,7 @@ msgstr ""
 msgid "Toggle Dark/Light Mode"
 msgstr ""
 
-#: includes/functions/_utility.php:2084
+#: includes/functions/_utility.php:2089
 msgctxt "Toggle for chapter formatting modal."
 msgid "Formatting"
 msgstr ""
@@ -11646,7 +11655,7 @@ msgstr ""
 msgid "Unavailable"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4118
+#: includes/functions/_setup-meta-fields.php:4126
 msgctxt "Undefined recommendation author."
 msgid "Undefined"
 msgstr ""
@@ -11678,7 +11687,7 @@ msgid ""
 "added and exempted from cleanup."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2617
+#: includes/functions/_setup-meta-fields.php:2619
 msgid "Unlisted (but accessible with link)"
 msgstr ""
 
@@ -11843,7 +11852,7 @@ msgstr ""
 msgid "URL to Top Web Fiction page."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4455
+#: includes/functions/_setup-meta-fields.php:4463
 msgid "Use <code>_remove</code> to remove current values."
 msgstr ""
 
@@ -11886,7 +11895,7 @@ msgid ""
 "default."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3132
+#: includes/functions/_setup-meta-fields.php:3140
 msgid "Used by the \"Story Page/Mirror\" templates."
 msgstr ""
 
@@ -12093,7 +12102,7 @@ msgid ""
 "Used in rich snippets. Don’t forget to purge all SEO schemas after updating."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3070
+#: includes/functions/_setup-meta-fields.php:3078
 msgid "Used where the image is wider than high."
 msgstr ""
 
@@ -12200,16 +12209,16 @@ msgctxt "Volume for text-to-speech voice."
 msgid "Volume"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2607
+#: includes/functions/_setup-meta-fields.php:2609
 msgid "Warning note shown above chapters."
 msgstr ""
 
-#: includes/functions/_utility.php:2079
-#: includes/functions/_setup-meta-fields.php:2606
+#: includes/functions/_utility.php:2084
+#: includes/functions/_setup-meta-fields.php:2608
 msgid "Warning Notes"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2597
+#: includes/functions/_setup-meta-fields.php:2599
 msgid "Warning shown in chapter lists."
 msgstr ""
 
@@ -12463,7 +12472,7 @@ msgid ""
 "site."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2524
+#: includes/functions/_setup-meta-fields.php:2526
 #, php-format
 msgid ""
 "You can use all <em>free</em> <a href=\"%s\" target=\"_blank\">Font "
@@ -12622,15 +12631,15 @@ msgstr ""
 msgid "Your unique name in the system. Cannot be changed."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3162
+#: includes/functions/_setup-meta-fields.php:3170
 msgid "— Story —"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3192
+#: includes/functions/_setup-meta-fields.php:3200
 msgid "— Tier —"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2580
+#: includes/functions/_setup-meta-fields.php:2582
 msgid "— Unset —"
 msgstr ""
 
