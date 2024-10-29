@@ -1030,7 +1030,7 @@
 }
 
 :root.no-taxonomies :is(.cell-tax, .story__taxonomies-space),
-:root.no-taxonomies .card__tag-list > .tag-pill {
+:root.no-taxonomies .card__tag-list > :is(.tag-pill, .separator-dot) {
   display: none;
   content-visibility: hidden;
 }
