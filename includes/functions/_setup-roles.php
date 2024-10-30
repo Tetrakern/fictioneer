@@ -1068,7 +1068,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
       $query->set( 'author', get_current_user_id() );
     }
   }
-  add_filter( 'pre_get_posts', 'fictioneer_edit_others_fictioneer_posts' );
+  add_action( 'pre_get_posts', 'fictioneer_edit_others_fictioneer_posts' );
 
   // === FCN_READ_OTHERS_FILES =================================================
 

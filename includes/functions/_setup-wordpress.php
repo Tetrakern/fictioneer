@@ -301,7 +301,7 @@ function fictioneer_extend_taxonomy_pages( $query ) {
   // Add all post types to taxonomy page query
   $query->set( 'post_type', ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] );
 }
-add_filter( 'pre_get_posts', 'fictioneer_extend_taxonomy_pages' );
+add_action( 'pre_get_posts', 'fictioneer_extend_taxonomy_pages' );
 
 // =============================================================================
 // MODIFY RSS FEEDS
