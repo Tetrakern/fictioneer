@@ -248,11 +248,11 @@ if ( $splide ) {
             }
 
             if ( $args['footer_status'] ) {
-              $meta['status'] = '<span class="post-item-item__meta-status">' . fcntr( $story['status'] ) . '</span>';
+              $meta['status'] = '<span class="post-item-item__meta-status _' . strtolower( $story['status'] ) . '">' . fcntr( $story['status'] ) . '</span>';
             }
 
             if ( $story['rating'] && $args['footer_rating'] ) {
-              $meta['rating'] = '<span class="post-item-item__meta-rating">' . fcntr( $story['rating'] ) . '</span>';
+              $meta['rating'] = '<span class="post-item-item__meta-rating _' . strtolower( $story['rating'] ) . '">' . fcntr( $story['rating'] ) . '</span>';
             }
 
             if ( get_option( 'fictioneer_show_authors' ) && $args['footer_author'] && $args['source'] ) {

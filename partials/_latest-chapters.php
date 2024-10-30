@@ -356,7 +356,7 @@ if ( $splide ) {
                       }
 
                       if ( $story && $args['footer_status'] ) {
-                        $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                        $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
                       }
 
                       // Filter footer items
@@ -374,7 +374,7 @@ if ( $splide ) {
                     ?></div>
 
                     <?php if ( ! empty( $chapter_rating ) && $args['footer_rating'] ) : ?>
-                      <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
+                      <div class="card__footer-box _right rating-letter-label tooltipped _<?php echo strtolower( $chapter_rating ); ?>" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
                         <?php echo fcntr( $chapter_rating[0] ); ?>
                       </div>
                     <?php endif; ?>

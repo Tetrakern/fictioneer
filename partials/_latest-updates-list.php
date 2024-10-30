@@ -290,7 +290,7 @@ if ( $splide ) {
             }
 
             if ( $story['rating'] && $args['footer_rating'] ) {
-              $meta['rating'] = '<span class="post-item-item__meta-rating">' . fcntr( $story['rating'] ) . '</span>';
+              $meta['rating'] = '<span class="post-item-item__meta-rating _' . strtolower( $story['rating'] ) . '">' . fcntr( $story['rating'] ) . '</span>';
             }
 
             if ( get_option( 'fictioneer_show_authors' ) && $args['footer_author'] ) {

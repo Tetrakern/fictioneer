@@ -267,7 +267,7 @@ if ( $card_cache_active ) {
 
           $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message cq-hide-below-460" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span class="cq-hide-below-460" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '">' . $story['comment_count'] . '</span></span>';
 
-          $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+          $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
 
           // Filter footer items
           $footer_items = apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args );
@@ -276,7 +276,7 @@ if ( $card_cache_active ) {
           echo implode( ' ', $footer_items );
         ?></div>
 
-        <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
+        <div class="card__footer-box _right rating-letter-label _large tooltipped _<?php echo strtolower( $story['rating'] ); ?>" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
           <span class="cq-hide-below-460"><?php echo fcntr( $story['rating'] ); ?></span>
           <span class="cq-show-below-460"><?php echo fcntr( $story['rating_letter'] ); ?></span>
         </div>

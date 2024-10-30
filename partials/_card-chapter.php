@@ -272,7 +272,7 @@ $thumbnail_args = array(
         ?></div>
 
         <?php if ( ! empty( $chapter_rating ) ) : ?>
-          <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
+          <div class="card__footer-box _right rating-letter-label _large tooltipped _<?php echo strtolower( $chapter_rating ); ?>" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
             <span class="cq-hide-below-460"><?php echo fcntr( $chapter_rating ); ?></span>
             <span class="cq-show-below-460"><?php echo fcntr( $chapter_rating[0] ); ?></span>
           </div>

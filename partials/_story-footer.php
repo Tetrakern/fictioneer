@@ -33,7 +33,7 @@ $show_log = $story['chapter_count'] > 0 && FICTIONEER_ENABLE_STORY_CHANGELOG && 
 $meta_output = [];
 
 // Status
-$meta_output['status'] = '<span class="story__meta-item story__status"><i class="' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+$meta_output['status'] = '<span class="story__meta-item story__status _' . strtolower( $story['status'] ) . '"><i class="' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
 
 if ( get_option( 'fictioneer_show_story_modified_date' ) ) {
   // Modified
