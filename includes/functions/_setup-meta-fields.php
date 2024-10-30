@@ -2951,7 +2951,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
       $invalid_story = false;
 
       if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
-        $co_authored_stories = fictioneer_get_co_authored_story_ids( $post_author_id );
+        $co_authored_stories = fictioneer_sql_get_co_authored_story_ids( $post_author_id );
 
         $invalid_story = $story_author_id != $post_author_id && ! in_array( $story_id, $co_authored_stories );
       }

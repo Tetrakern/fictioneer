@@ -710,7 +710,7 @@ if ( ! function_exists( 'fictioneer_sql_has_new_story_chapters' ) ) {
   }
 }
 
-if ( ! function_exists( 'fictioneer_get_co_authored_story_ids' ) ) {
+if ( ! function_exists( 'fictioneer_sql_get_co_authored_story_ids' ) ) {
   /**
    * Returns story IDs where the user is a co-author
    *
@@ -723,7 +723,7 @@ if ( ! function_exists( 'fictioneer_get_co_authored_story_ids' ) ) {
    * @return int[] Array of story IDs.
    */
 
-  function fictioneer_get_co_authored_story_ids( $author_id ) {
+  function fictioneer_sql_get_co_authored_story_ids( $author_id ) {
     static $cache = [];
 
     if ( isset( $cache[ $author_id ] ) ) {
@@ -741,6 +741,8 @@ if ( ! function_exists( 'fictioneer_get_co_authored_story_ids' ) ) {
         '%"' . $author_id . '"%'
       )
     );
+
+    $story_ids = apply_filters( 'fictioneer_filter_co_authored_ids', $story_ids, $author_id );
 
     $cache[ $author_id ] = $story_ids;
 
@@ -784,7 +786,7 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
       $sql .= " AND p.post_author = %d";
       $values[] = $post_author_id;
 
-      $co_authored_stories = fictioneer_get_co_authored_story_ids( $post_author_id );
+      $co_authored_stories = fictioneer_sql_get_co_authored_story_ids( $post_author_id );
 
       if ( ! empty( $co_authored_stories ) ) {
         $placeholders = implode( ',', array_fill( 0, count( $co_authored_stories ), '%d' ) );
