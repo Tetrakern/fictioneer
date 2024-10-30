@@ -2297,7 +2297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // _$$('.temp-script, .splide-placeholder-styles').forEach(element => {
-  //   element.remove();
-  // });
+  _$$('.temp-script, .splide-placeholder-styles').forEach(element => {
+    element.remove();
+  });
 });
