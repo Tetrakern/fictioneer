@@ -2126,6 +2126,26 @@ Filters the intermediate output array in the `_story-header.php` partial before 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_story_page_cover_html', $html, $story, $args )`
+Filters the HTML of the story page cover returned by the `fictioneer_get_story_page_cover()` function.
+
+**Parameters:**
+* $html (string) – The HTML to be rendered.
+* $story (array) – Array of story data.
+* $args (array) – Optional arguments.
+
+**Example:**
+```php
+function child_add_status_to_story_page_cover( $html, $story ) {
+  $extra_html = '<div>' . fcntr( $story['status'] ) . '</div></figure>'; // Does not have styling, though
+
+  return mb_ereg_replace( '</figure>', $extra_html, $html ); // Multi-byte safe
+}
+add_filter( 'fictioneer_filter_story_page_cover_html', 'child_add_status_to_story_page_cover', 10, 2 );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_story_word_count', $word_count, $post_id )`
 Filters the total word count of a story after sanitization (greater than or equal to 0) and before `fictioneer_multiply_word_count()` is applied, returning a positive integer. The word count is only calculated and updated when a post associated with the story is saved.
 

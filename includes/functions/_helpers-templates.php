@@ -594,6 +594,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
+   * @since 5.26.0 - Added filter.
    *
    * @param array $story  Collection of story data.
    * @param array $args   Optional. Additional arguments.
@@ -605,8 +606,8 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
     // Setup
     $classes = $args['classes'] ?? '';
 
-    // Build and return
-    return sprintf(
+    // Build, filter, and return
+    $html = sprintf(
       '<figure class="story__thumbnail ' . $classes . '"><a href="%s" %s>%s<div id="ribbon-read" class="story__thumbnail-ribbon hidden"><div class="ribbon">%s</div></div></a></figure>',
       get_the_post_thumbnail_url( $story['id'], 'full' ),
       fictioneer_get_lightbox_attribute(),
@@ -616,6 +617,8 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
       )),
       _x( 'Read', 'Caption of the _read_ ribbon.', 'fictioneer' )
     );
+
+    return apply_filters( 'fictioneer_filter_story_page_cover_html', $html, $story, $args );
   }
 }
 
