@@ -1217,6 +1217,25 @@ Filters the CSS compiled from settings and theme options before it is minified a
 
 ---
 
+### `apply_filters( 'fictioneer_filter_profile_fields_support', $fields, $profile_user )`
+Filters the intermediate output array of support profile fields in `includes/functions/users/_admin-profile.php` before it is imploded with `'<br>'` and rendered. You can use the filter to remove or add fields, but be aware that they will not be saved without further custom code. See `fictioneer_update_my_user_profile()` in the same file.
+
+**Parameters:**
+* $fields (string[]) – Prepared HTML for each support field. The default keys are `'patreon'`, `'kofi'`, `'subscribestar'`, `'paypal'`, and `'donation'`.
+* $profile_user (WP_User) – The profile user object.
+
+**Example:**
+```php
+function child_add_custom_profile_support_field( $fields, $profile_user ) {
+  $fields['custom'] = '<input name="fictioneer_user_custom_link" type="text" id="fictioneer_user_custom_link" value="' . esc_attr( get_the_author_meta( 'fictioneer_user_custom_link', $profile_user->ID ) ) . '" class="regular-text" placeholder="https://..."><p class="description">Custom donation link</p>';
+
+  return $fields;
+}
+add_filter( 'fictioneer_filter_profile_fields_support', 'child_add_custom_profile_support_field', 10, 2 );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_recommendations_card_args', $card_args, $args )`
 Filters the arguments passed to the `partials/_card-recommendation` template part in the `fictioneer_recommendations_list( $args )` function, normally added via the `fictioneer_recommendations_after_content` hook.
 

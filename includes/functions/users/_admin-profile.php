@@ -2011,22 +2011,24 @@ function fictioneer_admin_profile_author( $profile_user ) {
   <tr class="user-support-links-wrap">
     <th><?php _e( 'Support Links', 'fictioneer' ); ?></th>
     <td>
-      <fieldset>
-        <input name="fictioneer_user_patreon_link" type="text" id="fictioneer_user_patreon_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_patreon_link', $profile_user->ID ) ); ?>" class="regular-text" placeholder="https://...">
-        <p class="description"><?php _e( 'Patreon link', 'fictioneer' ); ?></p>
-        <br>
-        <input name="fictioneer_user_kofi_link" type="text" id="fictioneer_user_kofi_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_kofi_link', $profile_user->ID ) ); ?>" class="regular-text" placeholder="https://...">
-        <p class="description"><?php _e( 'Ko-Fi link', 'fictioneer' ); ?></p>
-        <br>
-        <input name="fictioneer_user_subscribestar_link" type="text" id="fictioneer_user_subscribestar_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_subscribestar_link', $profile_user->ID ) ); ?>" class="regular-text" placeholder="https://...">
-        <p class="description"><?php _e( 'SubscribeStar link', 'fictioneer' ); ?></p>
-        <br>
-        <input name="fictioneer_user_paypal_link" type="text" id="fictioneer_user_paypal_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_paypal_link', $profile_user->ID ) ); ?>" class="regular-text" placeholder="https://...">
-        <p class="description"><?php _e( 'PayPal link', 'fictioneer' ); ?></p>
-        <br>
-        <input name="fictioneer_user_donation_link" type="text" id="fictioneer_user_donation_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_donation_link', $profile_user->ID ) ); ?>" class="regular-text" placeholder="https://...">
-        <p class="description"><?php _e( 'Generic donation link', 'fictioneer' ); ?></p>
-      </fieldset>
+      <fieldset><?php
+        $fields = [];
+
+        $fields['patreon'] = '<input name="fictioneer_user_patreon_link" type="text" id="fictioneer_user_patreon_link" value="' . esc_attr( get_the_author_meta( 'fictioneer_user_patreon_link', $profile_user->ID ) ) . '" class="regular-text" placeholder="https://..."><p class="description">' . __( 'Patreon link', 'fictioneer' ) . '</p>';
+
+        $fields['kofi'] = '<input name="fictioneer_user_kofi_link" type="text" id="fictioneer_user_kofi_link" value="' . esc_attr( get_the_author_meta( 'fictioneer_user_kofi_link', $profile_user->ID ) ) . '" class="regular-text" placeholder="https://..."><p class="description">' . __( 'Ko-Fi link', 'fictioneer' ) . '</p>';
+
+        $fields['subscribestar'] = '<input name="fictioneer_user_subscribestar_link" type="text" id="fictioneer_user_subscribestar_link" value="' . esc_attr( get_the_author_meta( 'fictioneer_user_subscribestar_link', $profile_user->ID ) ) . '" class="regular-text" placeholder="https://...">
+        <p class="description">' . __( 'SubscribeStar link', 'fictioneer' ) . '</p>';
+
+        $fields['paypal'] = '<input name="fictioneer_user_paypal_link" type="text" id="fictioneer_user_paypal_link" value="' . esc_attr( get_the_author_meta( 'fictioneer_user_paypal_link', $profile_user->ID ) ) . '" class="regular-text" placeholder="https://..."><p class="description">' . __( 'PayPal link', 'fictioneer' ). '</p>';
+
+        $fields['donation'] = '<input name="fictioneer_user_donation_link" type="text" id="fictioneer_user_donation_link" value="' . esc_attr( get_the_author_meta( 'fictioneer_user_donation_link', $profile_user->ID ) ) . '" class="regular-text" placeholder="https://..."><p class="description">' . __( 'Generic donation link', 'fictioneer' ) . '</p>';
+
+        $fields = apply_filters( 'fictioneer_filter_profile_fields_support', $fields, $profile_user );
+
+        echo implode( '<br>', $fields );
+      ?></fieldset>
     </td>
   </tr>
   <?php // <--- End HTML
