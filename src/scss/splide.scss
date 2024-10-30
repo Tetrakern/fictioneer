@@ -7,10 +7,8 @@
 
 .splide {
   --this-arrow-size: #{get_clamp(20, 40, 320, 640)};
-  --this-outset: 6px;
-  width: calc(100% + 2 * var(--this-outset));
+  width: 100%;
   max-width: 100vw;
-  transform: translateX(calc(-1 * var(--this-outset)));
   padding-top: var(--this-arrow-vertical-padding, 0px);
   padding-left: calc(var(--this-arrow-horizontal-padding, 0px));
   padding-bottom: var(--this-arrow-vertical-padding, 0px);
@@ -26,8 +24,6 @@
   }
 
   &:is(.splide--ttb, ._list) {
-    --this-outset: 0px;
-
     .splide__slide {
       height: auto !important;
     }
@@ -38,7 +34,7 @@
   }
 
   &:has(.splide__pagination) {
-    --this-arrow-offset: 9px; // Offset bottom pagination
+    --this-arrow-offset: 16px; // Offset bottom pagination
   }
 
   &:has(.splide__arrows) {
@@ -60,7 +56,7 @@
   }
 
   &__track {
-    padding: var(--this-outset) var(--this-outset) var(--this-pagination-vertical-padding, 16px) !important;
+    padding: 0 0 var(--this-pagination-vertical-padding, 16px) !important;
   }
 
   &.article-card-block.is-overflow .splide__track {
