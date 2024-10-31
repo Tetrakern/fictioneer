@@ -134,7 +134,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
  */
 
 function fictioneer_enable_shortcode_transients( $shortcode = null ) {
-  if ( is_customize_preview() ) {
+  if ( is_customize_preview() || is_admin() ) {
     return false;
   }
 
