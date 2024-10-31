@@ -125,8 +125,8 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
  * Whether to enable Transients for shortcodes
  *
  * @since 5.6.3
- * @since 5.23.1 - Do not turn off with cache plugin
- * @since 5.25.0 - Refactored with option
+ * @since 5.23.1 - Do not turn off with cache plugin.
+ * @since 5.25.0 - Refactored with option.
  *
  * @param string $shortcode  The shortcode in question.
  *
@@ -134,7 +134,9 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
  */
 
 function fictioneer_enable_shortcode_transients( $shortcode = null ) {
-  if ( is_customize_preview() || is_admin() ) {
+  global $pagenow;
+
+  if ( is_customize_preview() || is_admin() || $pagenow === 'post.php' ) {
     return false;
   }
 
