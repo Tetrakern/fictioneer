@@ -799,7 +799,11 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
     $sql .= " ORDER BY p.post_date DESC";
 
     // Execute
-    $results = $wpdb->get_results( $wpdb->prepare( $sql, ...$values ) );
+    if ( empty( $values ) ) {
+      $results = $wpdb->get_results( $sql );
+    } else {
+      $results = $wpdb->get_results( $wpdb->prepare( $sql, ...$values ) );
+    }
 
     // Populate the stories array
     foreach ( $results as $story ) {
