@@ -738,7 +738,7 @@ if ( ! function_exists( 'fictioneer_sql_get_co_authored_story_ids' ) ) {
         FROM {$wpdb->postmeta}
         WHERE meta_key = 'fictioneer_story_co_authors'
         AND meta_value LIKE %s",
-        '%"' . $author_id . '"%'
+        '%:"' . $author_id . '";%'
       )
     );
 
