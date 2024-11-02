@@ -223,6 +223,7 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
  *
  * @since 5.9.2
  * @since 5.22.3 - Refactored.
+ * @since 5.26.0 - Added fictioneer_reduce_get_story_chapter_posts() filter.
  *
  * @param int   $story_id  ID of the story.
  * @param array $args      Optional. Additional query arguments.
@@ -266,6 +267,11 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     return $cached_results[ $cache_key ];
   }
 
+  // Add temporary filter
+  if ( ! $full ) {
+    add_filter( 'posts_fields', 'fictioneer_reduce_get_story_chapter_posts', 10, 2 );
+  }
+
   // Batched or one go?
   if ( count( $chapter_ids ) <= FICTIONEER_QUERY_ID_ARRAY_LIMIT ) {
     $query_args['post__in'] = $chapter_ids ?: [0];
@@ -282,6 +288,11 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     }
   }
 
+  // Remove temporary filter
+  if ( ! $full ) {
+    remove_filter( 'posts_fields', 'fictioneer_reduce_get_story_chapter_posts' );
+  }
+
   // Restore order
   $chapter_positions = array_flip( $chapter_ids );
 
@@ -289,31 +300,39 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     return $chapter_positions[ $a->ID ] - $chapter_positions[ $b->ID ];
   });
 
-  // F-REF-1
+  // Add note about missing content
   if ( ! $full ) {
     foreach ( $chapter_posts as $post ) {
-      // Chapter contents are extremely large and this kind of
-      // query does not need them, but we leave a reference
-      // in case this causes issues in the future.
-      $post->post_content = 'F-REF-1';
-
-      unset(
-        $post->post_type, // We know this is fcn_chapter
-        $post->ping_status, // Unused
-        $post->to_ping, // Unused
-        $post->pinged, // Unused
-        $post->menu_order, // Unused
-        $post->post_mime_type, // Unused
-        $post->post_parent, // Unused
-        $post->post_content_filtered, // Unused here
-        $post->guid, // Unused here
-        $post->post_excerpt // Unused here
-      );
+      $post->post_content = 'Caller: fictioneer_get_story_chapter_posts(). Content has been removed for performance reasons.';
     }
   }
 
   // Return chapters selected in story
   return $chapter_posts;
+}
+
+if ( ! function_exists( 'fictioneer_reduce_get_story_chapter_posts' ) ) {
+  /**
+   * Reduces the queried fields for chapter posts in the WP_Query SQL
+   *
+   * Note: This filter is only added in fictioneer_get_story_chapter_posts()
+   * and immediately removed again after the query.
+   *
+   * @since 5.26.0
+   *
+   * @param string   $fields  The SELECT clause of the query.
+   * @param WP_Query $query   The WP_Query instance (passed by reference).
+   *
+   * @return string Updates SELECT clause of the query.
+   */
+
+  function fictioneer_reduce_get_story_chapter_posts( $fields, $query ) {
+    if ( ( $query->query_vars['fictioneer_query_name'] ?? 0 ) === 'get_story_chapter_posts' ) {
+      $fields = 'wp_posts.ID, wp_posts.post_author, wp_posts.post_date, wp_posts.post_date_gmt, wp_posts.post_title, wp_posts.post_status, wp_posts.comment_status, wp_posts.post_password, wp_posts.post_name, wp_posts.post_modified, wp_posts.post_modified_gmt, wp_posts.post_parent, wp_posts.comment_count';
+    }
+
+    return $fields;
+  }
 }
 
 // =============================================================================
