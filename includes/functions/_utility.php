@@ -300,10 +300,19 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     return $chapter_positions[ $a->ID ] - $chapter_positions[ $b->ID ];
   });
 
-  // Add note about missing content
+  // Add note about missing content and restore all fields to avoid errors
   if ( ! $full ) {
     foreach ( $chapter_posts as $post ) {
       $post->post_content = 'Caller: fictioneer_get_story_chapter_posts(). Content has been removed for performance reasons.';
+      $post->post_type = 'fcn_chapter';
+      $post->ping_status = 'closed';
+      $post->to_ping = '';
+      $post->pinged = '';
+      $post->menu_order = 0;
+      $post->post_mime_type = '';
+      $post->post_content_filtered = '';
+      $post->guid = '';
+      $post->post_excerpt = '';
     }
   }
 
