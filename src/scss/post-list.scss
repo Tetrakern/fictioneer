@@ -94,6 +94,8 @@
   }
 
   &._lines {
+    border-radius: 0;
+
     &:not(:last-child) {
       border-bottom: var(--content-li-hr-border);
       padding-bottom: calc(.5rem + var(--post-list-gap, var(--content-list-gap, 4px)));
