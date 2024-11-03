@@ -329,6 +329,8 @@ if ( ! function_exists( 'fictioneer_reduce_get_story_chapter_posts' ) ) {
    *
    * @since 5.26.0
    *
+   * @global wpdb $wpdb  WordPress database object.
+   *
    * @param string   $fields  The SELECT clause of the query.
    * @param WP_Query $query   The WP_Query instance (passed by reference).
    *
@@ -337,7 +339,11 @@ if ( ! function_exists( 'fictioneer_reduce_get_story_chapter_posts' ) ) {
 
   function fictioneer_reduce_get_story_chapter_posts( $fields, $query ) {
     if ( ( $query->query_vars['fictioneer_query_name'] ?? 0 ) === 'get_story_chapter_posts' ) {
-      $fields = 'wp_posts.ID, wp_posts.post_author, wp_posts.post_date, wp_posts.post_date_gmt, wp_posts.post_title, wp_posts.post_status, wp_posts.comment_status, wp_posts.post_password, wp_posts.post_name, wp_posts.post_modified, wp_posts.post_modified_gmt, wp_posts.post_parent, wp_posts.comment_count';
+      global $wpdb;
+
+      $table = $wpdb->posts;
+
+      $fields = "{$table}.ID, {$table}.post_author, {$table}.post_date, {$table}.post_date_gmt, {$table}.post_title, {$table}.post_status, {$table}.comment_status, {$table}.post_password, {$table}.post_name, {$table}.post_modified, {$table}.post_modified_gmt, {$table}.post_parent, {$table}.comment_count";
     }
 
     return $fields;
