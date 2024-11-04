@@ -705,7 +705,7 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
   $description = strval( $args['description'] ?? '' );
 
   // Query post titles if required
-  if ( ! ( $args['names'] ?? 0 ) ) {
+  if ( $array && ! ( $args['names'] ?? 0 ) ) {
     global $wpdb;
 
     $placeholders = implode( ',', array_fill( 0, count( $array ), '%d' ) );
