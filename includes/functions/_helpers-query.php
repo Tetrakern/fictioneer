@@ -365,6 +365,9 @@ function fictioneer_get_chapter_story_id( $chapter_id ) {
 function fictioneer_set_chapter_story_parent( $chapter_id, $story_id ) {
   global $wpdb;
 
+  $chapter_id = (int) $chapter_id;
+  $story_id = (int) ($story_id ?: 0);
+
   $wpdb->query(
     $wpdb->prepare(
       "UPDATE {$wpdb->posts} SET post_parent = %d WHERE ID = %d",
