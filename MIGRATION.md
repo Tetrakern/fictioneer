@@ -106,6 +106,7 @@ function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $previ
 
       // Associate chapter with story
       update_post_meta( $post->ID, 'fictioneer_chapter_story', $story_id );
+      fictioneer_set_chapter_story_parent( $post->ID, $story_id );
     }
 
     // Change post type to fcn_chapter (also triggers hooked actions and updates story)
