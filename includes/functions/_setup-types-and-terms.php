@@ -215,7 +215,7 @@ function fictioneer_fcn_chapter_post_type() {
     'menu_icon'           => 'dashicons-text-page',
     'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions', 'custom-fields'],
     'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
-    'hierarchical'        => false,
+    'hierarchical'        => true,
     'public'              => true,
     'rewrite'             => array( 'slug' => 'chapter' ),
     'show_in_rest'        => true,
