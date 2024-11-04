@@ -61,7 +61,7 @@ function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $previ
     $perform_link = esc_url(
       add_query_arg(
         array(
-          'action' => 'fictioneer_migrate_chapters',
+          'action' => 'fictioneer_migrate',
           'perform' => 1
         ),
         home_url( $_SERVER['REQUEST_URI'] )
