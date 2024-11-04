@@ -174,7 +174,8 @@ function fictioneer_theme_setup() {
     array(
       'flex-width' => true,
       'flex-height' => true,
-      'height' => get_theme_mod( 'header_image_height_max', 480 )
+      'height' => get_theme_mod( 'header_image_height_max', 480 ),
+      'width' => (int) get_theme_mod( 'site_width', FICTIONEER_DEFAULT_SITE_WIDTH ) * 1.5
     )
   );
 
