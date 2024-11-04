@@ -81,7 +81,6 @@
 
   &__wrapper {
     height: calc(100% - 6px); // Offset margin
-    background: var(--placeholder-background);
     margin-top: 6px;
     overflow: hidden;
     transform: translateZ(0); // Safari fix
