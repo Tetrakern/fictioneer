@@ -544,6 +544,18 @@
       "oF" : 1,
       "pg" : 0
     },
+    "\/css\/dashboard.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/dashboard-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
     "\/css\/editor.css" : {
       "aP" : 1,
       "bl" : 0,
@@ -1721,6 +1733,17 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/js\/css-skins.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/js\/css-skins.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
     "\/js\/customizer.min.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -2167,6 +2190,14 @@
       "oA" : 1,
       "oAP" : "\/singular-canvas-site.php",
       "oF" : 1
+    },
+    "\/singular-dashboard.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/singular-dashboard.php",
+      "oF" : 0
     },
     "\/singular-index-advanced.php" : {
       "cB" : 0,
@@ -3851,6 +3882,21 @@
       "ma" : 0,
       "oA" : 0,
       "oAP" : "\/css\/customize\/polygon-battered.css",
+      "oF" : 2,
+      "oS" : 3,
+      "pg" : 0,
+      "sct" : 0
+    },
+    "\/src\/scss\/dashboard.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 0,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/dashboard.css",
       "oF" : 2,
       "oS" : 3,
       "pg" : 0,
