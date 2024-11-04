@@ -149,7 +149,8 @@ function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $previ
     // Update story post (triggers hooked actions)
     wp_update_post(
       array(
-        'ID' => $story_id
+        'ID' => $story_id,
+        'post_type' => 'fcn_story'
       )
     );
   }
