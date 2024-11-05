@@ -334,7 +334,7 @@ if ( ! function_exists( 'fictioneer_reduce_get_story_chapter_posts' ) ) {
    * @param string   $fields  The SELECT clause of the query.
    * @param WP_Query $query   The WP_Query instance (passed by reference).
    *
-   * @return string Updates SELECT clause of the query.
+   * @return string Updated SELECT clause of the query.
    */
 
   function fictioneer_reduce_get_story_chapter_posts( $fields, $query ) {
