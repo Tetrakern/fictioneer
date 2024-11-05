@@ -867,3 +867,73 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
     );
   }
 }
+
+if ( ! function_exists( 'fictioneer_sql_get_story_chapter_relationship_data' ) ) {
+  /**
+   * Returns chapter objects for a story
+   *
+   * @since 5.26.0
+   *
+   * @global wpdb $wpdb  WordPress database object.
+   *
+   * @param int $story_id  Story ID.
+   *
+   * @return object[] Array of chapter data object similar to WP_Post.
+   */
+
+  function fictioneer_sql_get_story_chapter_relationship_data( $story_id ) {
+    global $wpdb;
+
+    // Setup
+    $chapter_ids = fictioneer_get_story_chapter_ids( $story_id );
+
+    // Empty?
+    if ( empty( $chapter_ids ) ) {
+      return [];
+    }
+
+    // Prepare SQL query
+    $placeholders = implode( ',', array_fill( 0, count( $chapter_ids ), '%d' ) );
+    $values = array_merge( $chapter_ids, [ $story_id ] );
+
+    $sql = $wpdb->prepare(
+      "SELECT p.ID as ID, p.post_title as post_title, p.post_status as post_status, p.post_date_gmt as post_date_gmt,
+        pm_text_icon.meta_value as fictioneer_chapter_text_icon,
+        pm_icon.meta_value as fictioneer_chapter_icon,
+        pm_rating.meta_value as fictioneer_chapter_rating,
+        pm_warning.meta_value as fictioneer_chapter_warning,
+        pm_group.meta_value as fictioneer_chapter_group,
+        pm_hidden.meta_value as fictioneer_chapter_hidden,
+        pm_no_chapter.meta_value as fictioneer_chapter_no_chapter
+      FROM {$wpdb->posts} p
+      LEFT JOIN {$wpdb->postmeta} pm_text_icon ON (p.ID = pm_text_icon.post_id AND pm_text_icon.meta_key = 'fictioneer_chapter_text_icon')
+      LEFT JOIN {$wpdb->postmeta} pm_icon ON (p.ID = pm_icon.post_id AND pm_icon.meta_key = 'fictioneer_chapter_icon')
+      LEFT JOIN {$wpdb->postmeta} pm_rating ON (p.ID = pm_rating.post_id AND pm_rating.meta_key = 'fictioneer_chapter_rating')
+      LEFT JOIN {$wpdb->postmeta} pm_warning ON (p.ID = pm_warning.post_id AND pm_warning.meta_key = 'fictioneer_chapter_warning')
+      LEFT JOIN {$wpdb->postmeta} pm_group ON (p.ID = pm_group.post_id AND pm_group.meta_key = 'fictioneer_chapter_group')
+      LEFT JOIN {$wpdb->postmeta} pm_hidden ON (p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden')
+      LEFT JOIN {$wpdb->postmeta} pm_no_chapter ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
+      WHERE p.post_type = 'fcn_chapter'
+        AND p.ID IN ($placeholders)
+        AND EXISTS (
+          SELECT 1
+          FROM {$wpdb->postmeta} pm
+          WHERE pm.post_id = p.ID AND pm.meta_key = 'fictioneer_chapter_story' AND pm.meta_value = %d
+        )
+      ",
+      ...$values
+    );
+
+    // Execute
+    $results = $wpdb->get_results( $sql );
+
+    // Restore order and return
+    $chapter_map = array_flip( $chapter_ids );
+
+    usort( $results, function( $a, $b ) use ( $chapter_map ) {
+      return $chapter_map[ $a->ID ] <=> $chapter_map[ $b->ID ];
+    });
+
+    return $results;
+  }
+}

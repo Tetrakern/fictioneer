@@ -1128,6 +1128,7 @@ add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax
  * Render HTML for selected story chapters
  *
  * @since 5.8.0
+ * @since 5.26.0 - Use custom chapter objects.
  *
  * @param array  $selected  Currently selected chapters.
  * @param string $meta_key  The meta key.
@@ -1137,11 +1138,15 @@ add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax
 function fictioneer_callback_relationship_chapters( $selected, $meta_key, $args = [] ) {
   // Build HTML
   foreach ( $selected as $chapter ) {
-    $title = fictioneer_get_safe_title( $chapter, 'admin-callback-relationship-chapters' );
+    $title = fictioneer_sanitize_safe_title(
+      $chapter->post_title,
+      get_date_from_gmt( $chapter->post_date_gmt, get_option( 'date_format' ) ),
+      get_date_from_gmt( $chapter->post_date_gmt, get_option( 'time_format' ) )
+    );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
     $label = fictioneer_get_post_status_label( $chapter->post_status );
 
-    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+    if ( $chapter->fictioneer_chapter_hidden ) {
       $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
     }
 
@@ -1274,29 +1279,31 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
  *
  * @since 5.8.0
  *
- * @param WP_Post $chapter  The chapter post.
+ * @param WP_Post|object $chapter  The chapter post or similar object.
  *
  * @return string HTML for the chapter info.
  */
 
 function fictioneer_get_relationship_chapter_details( $chapter ) {
   // Setup
-  $text_icon = get_post_meta( $chapter->ID, 'fictioneer_chapter_text_icon', true );
-  $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID );
-  $rating = get_post_meta( $chapter->ID, 'fictioneer_chapter_rating', true );
-  $warning = get_post_meta( $chapter->ID, 'fictioneer_chapter_warning', true );
-  $group = get_post_meta( $chapter->ID, 'fictioneer_chapter_group', true );
+  $text_icon = $chapter->fictioneer_chapter_text_icon ?? '';
+  $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', null, $chapter->fictioneer_chapter_icon ?? '' );
+  $rating = $chapter->fictioneer_chapter_rating ?? '';
+  $warning = $chapter->fictioneer_chapter_warning ?? '';
+  $group = $chapter->fictioneer_chapter_group ?? '';
+  $date_local = get_date_from_gmt( $chapter->post_date_gmt, get_option( 'date_format' ) );
+  $time_local = get_date_from_gmt( $chapter->post_date_gmt, get_option( 'time_format' ) );
   $flags = [];
   $info = [];
 
   // Build
   $info[] = empty( $text_icon ) ? sprintf( '<i class="%s"></i>', $icon ) : "<strong>{$text_icon}</strong>";
 
-  if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+  if ( $chapter->fictioneer_chapter_hidden ?? 0 ) {
     $flags[] = _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' );
   }
 
-  if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ) {
+  if ( $chapter->fictioneer_chapter_no_chapter ?? 0 ) {
     $flags[] = _x( 'No Chapter', 'Chapter assignment flag.', 'fictioneer' );
   }
 
@@ -1307,8 +1314,8 @@ function fictioneer_get_relationship_chapter_details( $chapter ) {
 
   $info[] = sprintf(
     _x( '<strong>Date:</strong>&nbsp;%1$s at %2$s', 'Chapter assignment info.', 'fictioneer' ),
-    get_the_date( '', $chapter->ID ),
-    get_the_time( '', $chapter->ID )
+    $date_local,
+    $time_local
   );
 
   if ( ! empty( $group ) ) {
@@ -2044,23 +2051,6 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Chapters
-  $chapter_ids = fictioneer_get_story_chapter_ids( $post->ID );
-
-  $chapters = empty( $chapter_ids ) ? [] : get_posts(
-    array(
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'any',
-      'post__in' => $chapter_ids ?: [0], // Must not be empty!
-      'orderby' => 'post__in',
-      'posts_per_page' => -1,
-      'meta_key' => 'fictioneer_chapter_story',
-      'meta_value' => $post->ID,
-      'update_post_meta_cache' => true,
-      'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
-    )
-  );
-
   $description = get_option( 'fictioneer_limit_chapter_stories_by_author' ) ?
     __( 'Select and order chapters assigned to the story (set in the chapter). The author (or co-author) of the chapter and the story must match.', 'fictioneer' ) :
     __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' );
@@ -2068,7 +2058,7 @@ function fictioneer_render_story_data_metabox( $post ) {
   $output['fictioneer_story_chapters'] = fictioneer_get_metabox_relationships(
     $post,
     'fictioneer_story_chapters',
-    $chapters,
+    fictioneer_sql_get_story_chapter_relationship_data( $post->ID ),
     'fictioneer_callback_relationship_chapters',
     array(
       'label' => _x( 'Chapters', 'Story chapters meta field label.', 'fictioneer' ),
