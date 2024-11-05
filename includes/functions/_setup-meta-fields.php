@@ -1146,7 +1146,7 @@ function fictioneer_callback_relationship_chapters( $selected, $meta_key, $args 
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
     $label = fictioneer_get_post_status_label( $chapter->post_status );
 
-    if ( $chapter->fictioneer_chapter_hidden ) {
+    if ( $chapter->fictioneer_chapter_hidden ?? 0 ) {
       $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
     }
 
