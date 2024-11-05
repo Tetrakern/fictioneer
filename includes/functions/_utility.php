@@ -218,12 +218,8 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
 /**
  * Returns array of chapter posts for a story
  *
- * Note: Returns reduced WP_Post objects with several properties stripped,
- * such as the content and excerpt.
- *
  * @since 5.9.2
  * @since 5.22.3 - Refactored.
- * @since 5.26.0 - Added fictioneer_reduce_get_story_chapter_posts() filter.
  *
  * @param int   $story_id  ID of the story.
  * @param array $args      Optional. Additional query arguments.
@@ -267,11 +263,6 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     return $cached_results[ $cache_key ];
   }
 
-  // Add temporary filter
-  if ( ! $full ) {
-    add_filter( 'posts_fields', 'fictioneer_reduce_get_story_chapter_posts', 10, 2 );
-  }
-
   // Batched or one go?
   if ( count( $chapter_ids ) <= FICTIONEER_QUERY_ID_ARRAY_LIMIT ) {
     $query_args['post__in'] = $chapter_ids ?: [0];
@@ -288,11 +279,6 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     }
   }
 
-  // Remove temporary filter
-  if ( ! $full ) {
-    remove_filter( 'posts_fields', 'fictioneer_reduce_get_story_chapter_posts' );
-  }
-
   // Restore order
   $chapter_positions = array_flip( $chapter_ids );
 
@@ -300,54 +286,8 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     return $chapter_positions[ $a->ID ] - $chapter_positions[ $b->ID ];
   });
 
-  // Add note about missing content and restore all fields to avoid errors
-  if ( ! $full ) {
-    foreach ( $chapter_posts as $post ) {
-      $post->post_content = 'Caller: fictioneer_get_story_chapter_posts(). Content has been removed for performance reasons.';
-      $post->post_type = 'fcn_chapter';
-      $post->ping_status = 'closed';
-      $post->to_ping = '';
-      $post->pinged = '';
-      $post->menu_order = 0;
-      $post->post_mime_type = '';
-      $post->post_content_filtered = '';
-      $post->guid = '';
-      $post->post_excerpt = '';
-    }
-  }
-
   // Return chapters selected in story
   return $chapter_posts;
-}
-
-if ( ! function_exists( 'fictioneer_reduce_get_story_chapter_posts' ) ) {
-  /**
-   * Reduces the queried fields for chapter posts in the WP_Query SQL
-   *
-   * Note: This filter is only added in fictioneer_get_story_chapter_posts()
-   * and immediately removed again after the query.
-   *
-   * @since 5.26.0
-   *
-   * @global wpdb $wpdb  WordPress database object.
-   *
-   * @param string   $fields  The SELECT clause of the query.
-   * @param WP_Query $query   The WP_Query instance (passed by reference).
-   *
-   * @return string Updated SELECT clause of the query.
-   */
-
-  function fictioneer_reduce_get_story_chapter_posts( $fields, $query ) {
-    if ( ( $query->query_vars['fictioneer_query_name'] ?? 0 ) === 'get_story_chapter_posts' ) {
-      global $wpdb;
-
-      $table = $wpdb->posts;
-
-      $fields = "{$table}.ID, {$table}.post_author, {$table}.post_date, {$table}.post_date_gmt, {$table}.post_title, {$table}.post_status, {$table}.comment_status, {$table}.post_password, {$table}.post_name, {$table}.post_modified, {$table}.post_modified_gmt, {$table}.post_parent, {$table}.comment_count";
-    }
-
-    return $fields;
-  }
 }
 
 // =============================================================================

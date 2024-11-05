@@ -361,7 +361,6 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `map_meta_cap` | `fictioneer_edit_others_files` (10), `fictioneer_delete_others_files` (9999), `fictioneer_override_default_taxonomy_capability_check` (9999), `fictioneer_edit_comments` (10)
 | `navigation_markup_template` | `fictioneer_pagination_markup` (10)
 | `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes` (10)
-| `posts_fields` | `fictioneer_reduce_get_story_chapter_posts` (10)
 | `post_comments_feed_link` | `__return_empty_string` (10)
 | `post_password_required` | `fictioneer_bypass_password` (10), `fictioneer_expire_post_password` (5)
 | `post_stuck` | `fictioneer_prevent_post_sticky` (10)
