@@ -1448,17 +1448,19 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
    * Wrapper for get_post_meta() to get Font Awesome icon class
    *
    * @since 5.0.0
+   * @since 5.26.0 - Add $icon parameter as override.
    *
-   * @param string $field    Name of the meta field to retrieve.
-   * @param int    $post_id  Optional. The ID of the post the field belongs to.
-   *                         Defaults to current post ID.
+   * @param string      $field    Name of the meta field to retrieve.
+   * @param int|null    $post_id  Optional. The ID of the post the field belongs to.
+   *                              Defaults to current post ID.
+   * @param string|null $icon     Optional. Pre-retrieved icon string as override. Default null.
    *
    * @return string The Font Awesome class.
    */
 
-  function fictioneer_get_icon_field( $field, $post_id = null ) {
+  function fictioneer_get_icon_field( $field, $post_id = null, $icon = null ) {
     // Setup
-    $icon = get_post_meta( $post_id ?? get_the_ID(), $field, true );
+    $icon = $icon ?? get_post_meta( $post_id ?? get_the_ID(), $field, true );
     $icon_object = json_decode( $icon ); // Check for ACF Font Awesome plugin
 
     // Valid?
