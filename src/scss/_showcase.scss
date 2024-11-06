@@ -43,6 +43,18 @@
     max-width: max(420px, 100%);
     contain: layout paint style; // Improve performance
 
+    // Backgrounds cause an edge bleed due to anti-aliasing,
+    // so we need to get creative with the placeholder.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: .5px;
+      z-index: -1;
+      display: block;
+      background: var(--showcase-cover-placeholder, var(--placeholder-background));
+      border-radius: var(--layout-border-radius-small);
+    }
+
     &:where(:not(._aspect-ratio)) {
       height: var(--showcase-item-height, max(64px, #{get_clamp(64, 96, 375, 768)}));
     }
