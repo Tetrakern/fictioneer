@@ -86,6 +86,7 @@ function fictioneer_account_password( $args ) {
 
 if ( current_user_can( 'fcn_admin_panel_access' ) && get_option( 'fictioneer_show_wp_login_link' ) ) {
   add_action( 'fictioneer_account_content', 'fictioneer_account_password', 11 );
+}
 
 // =============================================================================
 // ACCOUNT OAUTH BINDINGS SECTION
@@ -107,7 +108,6 @@ function fictioneer_account_oauth( $args ) {
   get_template_part( 'partials/account/_oauth', null, $args );
 }
 add_action( 'fictioneer_account_content', 'fictioneer_account_oauth', 20 );
-}
 
 // =============================================================================
 // SITE SKINS
