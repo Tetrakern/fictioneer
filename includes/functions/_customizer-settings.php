@@ -1285,6 +1285,54 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     )
   );
 
+  // Header light color
+  $manager->add_setting(
+    'header_color_light',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => ''
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'header_color_light',
+      array(
+        'label' => __( 'Header Color - Light Mode', 'fictioneer' ),
+        'description' => __( 'Used in light mode if no header image has been selected. Default none.', 'fictioneer' ),
+        'section' => 'header_image',
+        'settings' => 'header_color_light',
+        'priority' => 30
+      )
+    )
+  );
+
+  // Header dark color
+  $manager->add_setting(
+    'header_color_dark',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => ''
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'header_color_dark',
+      array(
+        'label' => __( 'Header Color - Dark Mode', 'fictioneer' ),
+        'description' => __( 'Used in dark mode if no header image has been selected. Default none.', 'fictioneer' ),
+        'section' => 'header_image',
+        'settings' => 'header_color_dark',
+        'priority' => 31
+      )
+    )
+  );
+
   // Clamp minimum for header image height
   $manager->add_setting(
     'header_image_height_min',
@@ -1299,7 +1347,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_height_min',
     array(
       'type' => 'number',
-      'priority' => 25,
+      'priority' => 40,
       'section' => 'header_image',
       'label' => __( 'Minimum Height', 'fictioneer' ),
       'description' => __( 'Min. height in pixels of the header image on 320px viewports. Default 210.', 'fictioneer' ),
@@ -1325,7 +1373,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_height_max',
     array(
       'type' => 'number',
-      'priority' => 26,
+      'priority' => 50,
       'section' => 'header_image',
       'label' => __( 'Maximum Height', 'fictioneer' ),
       'description' => __( 'Max. height in pixels of the header image on [site-width] viewports. Default 480.', 'fictioneer' ),

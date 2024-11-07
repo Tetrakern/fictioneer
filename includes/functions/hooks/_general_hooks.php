@@ -493,11 +493,12 @@ add_action( 'fictioneer_site', 'fictioneer_post_content_header', 20 );
 
 function fictioneer_inner_header_background( $args ) {
   // Abort if...
-  if ( ! ( $args['header_image_url'] ?? 0 ) || ( $args['header_args']['no_header'] ?? 0 ) ) {
+  if ( ( $args['header_args']['no_header'] ?? 0 ) ) {
     return;
   }
 
   // Setup
+  $header_image_url = $args['header_image_url'] ?? 0;
   $header_image_style = get_theme_mod( 'header_image_style', 'default' );
   $extra_classes = array(
     "_style-{$header_image_style}",
@@ -517,10 +518,16 @@ function fictioneer_inner_header_background( $args ) {
     $extra_classes[] = '_' . $args['post_type'];
   }
 
+  if ( ! $header_image_url ) {
+    $extra_classes[] = '_no-image';
+  }
+
   // Start HTML ---> ?>
   <div class="header-background hide-on-fullscreen polygon <?php echo implode( ' ', $extra_classes ); ?>">
     <div class="header-background__wrapper polygon">
-      <img src="<?php echo $args['header_image_url']; ?>" alt="Header Background Image" class="header-background__image">
+      <?php if ( $header_image_url) : ?>
+        <img src="<?php echo $header_image_url; ?>" alt="Header Background Image" class="header-background__image">
+      <?php endif; ?>
     </div>
   </div>
   <?php // <--- End HTML

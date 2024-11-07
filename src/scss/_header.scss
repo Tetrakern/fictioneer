@@ -70,6 +70,10 @@
   backface-visibility: hidden;
   contain: content; // Improve performance
 
+  &._no-image .header-background__wrapper {
+    background: var(--header-background-color, transparent);
+  }
+
   &._shadow {
     filter: var(--header-image-drop-shadow);
   }
