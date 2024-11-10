@@ -429,6 +429,9 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         $meta_cache['comment_count'] = $comment_count;
         $meta_cache['comment_count_timestamp'] = time();
 
+        // Update post database comment count
+        fictioneer_sql_update_comment_count( $story_id, $comment_count );
+
         // Update meta cache and purge
         update_post_meta( $story_id, 'fictioneer_story_data_collection', $meta_cache );
 
@@ -578,6 +581,9 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
     // Update story total word count
     update_post_meta( $story_id, 'fictioneer_story_total_word_count', $word_count );
+
+    // Update post database comment count
+    fictioneer_sql_update_comment_count( $story_id, $comment_count );
 
     // Done
     return $result;

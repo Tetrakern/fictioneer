@@ -425,6 +425,8 @@ function fictioneer_increment_story_comment_count( $comment_id ) {
   if ( $story_data ) {
     $story_data['comment_count'] = intval( $story_data['comment_count'] ) + 1;
     update_post_meta( $story_id, 'fictioneer_story_data_collection', $story_data );
+
+    fictioneer_sql_update_comment_count( $story_id, $story_data['comment_count'] );
   }
 }
 
@@ -451,6 +453,8 @@ function fictioneer_decrement_story_comment_count( $comment_id ) {
   if ( $story_data ) {
     $story_data['comment_count'] = max( 0, intval( $story_data['comment_count'] ) - 1 );
     update_post_meta( $story_id, 'fictioneer_story_data_collection', $story_data );
+
+    fictioneer_sql_update_comment_count( $story_id, $story_data['comment_count'] );
   }
 }
 
