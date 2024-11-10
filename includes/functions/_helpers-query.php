@@ -939,31 +939,6 @@ if ( ! function_exists( 'fictioneer_sql_get_story_chapter_relationship_data' ) )
 }
 
 /**
- * Returns comment count of a story
- *
- * @since 5.26.0
- *
- * @global wpdb $wpdb  WordPress database object.
- *
- * @param int $post_id  Post ID.
- *
- * @return int Comment count.
- */
-
-function fictioneer_sql_get_comment_count( $post_id ) {
-  global $wpdb;
-
-  $query = $wpdb->prepare(
-    "SELECT comment_count
-    FROM {$wpdb->posts}
-    WHERE ID = %d",
-    $post_id
-  );
-
-  return $wpdb->get_var( $query );
-}
-
-/**
  * Updates the comment count of a post
  *
  * @since 5.26.0
