@@ -40,7 +40,13 @@
       "letterSpacing": false,
       "customFontSize": false,
       "fluid": false,
-      "fontFamilies": [],
+      "fontFamilies": [
+        {
+					"fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif",
+					"slug": "system-fonts",
+					"name": "System fonts"
+				}
+      ],
       "defaultFontSizes": false,
       "fontSizes": [
         {
