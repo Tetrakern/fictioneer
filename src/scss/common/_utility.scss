@@ -55,7 +55,7 @@ body:not(.is-editor):not(.is-admin) {
 
 .grid-columns:where(:not(.splide__list)) {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--grid-columns-min, 308px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--grid-columns-min, 308px)), 1fr));
   gap:
     calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1))
     calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));
