@@ -102,7 +102,7 @@ if ( ! function_exists( 'fictioneer_comment_header' ) ) {
         <?php echo
           sprintf(
             __( '<span class="fictioneer-comments__total">%1$s</span> <span>%2$s</span>' ),
-            $comment_count,
+            number_format_i18n( $comment_count ),
             _n( 'Comment', 'Comments', $comment_count, 'fictioneer' )
           )
         ?>

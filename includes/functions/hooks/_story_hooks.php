@@ -805,7 +805,7 @@ function fictioneer_story_comments( $args ) {
             $story['comment_count'],
             'fictioneer'
           ),
-          $story['comment_count']
+          number_format_i18n( $story['comment_count'] )
         );
       ?></h2>
     <?php endif; ?>
