@@ -468,6 +468,8 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
         <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
           <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
           <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="offensive"><?php _e( 'Offensive', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="appropriate"><?php _e( 'Appropriate', 'fictioneer' ); ?></button>
           <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
           <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
           <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="close"><?php _e( 'Close', 'fictioneer' ); ?></button>
@@ -533,7 +535,12 @@ function fictioneer_ajax_moderate_comment() {
 
   $operation = sanitize_text_field( $_POST['operation'] );
 
-  if ( ! in_array( $operation, ['spam', 'trash', 'approve', 'unapprove', 'close', 'open', 'sticky', 'unsticky'] ) ) {
+  if (
+    ! in_array(
+      $operation,
+      ['spam', 'trash', 'offensive', 'appropriate', 'approve', 'unapprove', 'close', 'open', 'sticky', 'unsticky']
+    )
+  ) {
     wp_send_json_error( array( 'error' => 'Invalid operation.' ) );
   }
 
@@ -561,6 +568,12 @@ function fictioneer_ajax_moderate_comment() {
       break;
     case 'trash':
       $result = wp_set_comment_status( $comment_id, 'trash' );
+      break;
+    case 'offensive':
+      $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_marked_offensive', true );
+      break;
+    case 'appropriate':
+      $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_marked_offensive', false );
       break;
     case 'approve':
       $result = wp_set_comment_status( $comment_id, 'approve' );

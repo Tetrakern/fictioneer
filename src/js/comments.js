@@ -90,6 +90,12 @@ function fcn_moderateComment(id, operation) {
         case 'unsticky':
           comment.classList.remove('_sticky');
           break;
+        case 'offensive':
+          comment.classList.add('_offensive');
+          break;
+        case 'appropriate':
+          comment.classList.remove('_offensive');
+          break;
         case 'approve':
           comment.classList.remove('_unapproved');
           break;
