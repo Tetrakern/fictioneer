@@ -2747,7 +2747,7 @@ if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
   add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
   add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
   add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'fictioneer_treat_scheduled_chapters_as_published' );
-  add_action( 'fictioneer_filter_chapters_added_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
+  add_filter( 'fictioneer_filter_chapters_added_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
 }
 
 // =============================================================================
