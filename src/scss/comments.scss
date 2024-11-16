@@ -325,7 +325,7 @@
       margin-top: 0;
     }
 
-    button:is([data-action=sticky], [data-action=approve], [data-action=unapprove], [data-action=offensive], [data-action=appropriate]) {
+    button:is([data-action=sticky], [data-action=approve], [data-action=unapprove], [data-action=offensive], [data-action=unoffensive]) {
       display: none;
     }
   }
@@ -369,7 +369,7 @@
   }
 
   &:not(._offensive) > .fictioneer-comment__container {
-    :is([data-action=appropriate], .moderation-note-offensive) {
+    :is([data-action=unoffensive], .moderation-note-offensive) {
       display: none;
     }
   }

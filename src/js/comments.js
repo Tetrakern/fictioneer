@@ -93,7 +93,7 @@ function fcn_moderateComment(id, operation) {
         case 'offensive':
           comment.classList.add('_offensive');
           break;
-        case 'appropriate':
+        case 'unoffensive':
           comment.classList.remove('_offensive');
           break;
         case 'approve':

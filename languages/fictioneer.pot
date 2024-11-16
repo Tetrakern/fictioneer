@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-15 17:45+0000\n"
+"POT-Creation-Date: 2024-11-16 12:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1703,10 +1703,6 @@ msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:1976
 msgid "Applied to the story and all chapters."
-msgstr ""
-
-#: includes/functions/comments/_comments_moderation.php:472
-msgid "Appropriate"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:474
@@ -6200,9 +6196,9 @@ msgstr ""
 msgid "Finished purging all schema graphs."
 msgstr ""
 
-#: includes/functions/users/_follows.php:447
-#: includes/functions/users/_checkmarks.php:288
-#: includes/functions/users/_reminders.php:215
+#: includes/functions/users/_follows.php:451
+#: includes/functions/users/_checkmarks.php:292
+#: includes/functions/users/_reminders.php:219
 msgid "First Page"
 msgstr ""
 
@@ -11761,6 +11757,10 @@ msgctxt "Unlock with Patreon tier options wrapper."
 msgid "… as %s."
 msgstr ""
 
+#: includes/functions/comments/_comments_moderation.php:472
+msgid "Unoffensive"
+msgstr ""
+
 #: includes/functions/comments/_comments_moderation.php:496
 msgid "Unsticky"
 msgstr ""
@@ -12420,7 +12420,7 @@ msgid "You are not allowed to upload files of this type."
 msgstr ""
 
 #: singular-bookshelf.php:45 includes/functions/users/_follows.php:356
-#: includes/functions/users/_follows.php:418
+#: includes/functions/users/_follows.php:422
 msgid "You are not following any stories."
 msgstr ""
 
@@ -12595,11 +12595,11 @@ msgstr ""
 msgid "You have no published pages yet."
 msgstr ""
 
-#: singular-bookshelf.php:71 includes/functions/users/_checkmarks.php:263
+#: singular-bookshelf.php:71 includes/functions/users/_checkmarks.php:267
 msgid "You have not marked any stories as finished."
 msgstr ""
 
-#: singular-bookshelf.php:58 includes/functions/users/_reminders.php:190
+#: singular-bookshelf.php:58 includes/functions/users/_reminders.php:194
 msgid "You have not marked any stories to be read later."
 msgstr ""
 
