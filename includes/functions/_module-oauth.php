@@ -472,7 +472,7 @@ function fictioneer_oauth2_make_user( $user_data, $cookie ) {
 
       // Allow login to last three days
       add_filter( 'auth_cookie_expiration', function( $length ) {
-        return 3 * DAY_IN_SECONDS;
+        return FICTIONEER_OAUTH_COOKIE_EXPIRATION;
       });
 
       // Set authentication cookie

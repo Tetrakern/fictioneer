@@ -323,6 +323,11 @@ if ( ! defined( 'FICTIONEER_QUERY_RESULT_CACHE_BREAK' ) ) {
   define( 'FICTIONEER_QUERY_RESULT_CACHE_BREAK', 3 );
 }
 
+// Integer: OAuth login cookie lifetime
+if ( ! defined( 'FICTIONEER_OAUTH_COOKIE_EXPIRATION' ) ) {
+  define( 'FICTIONEER_OAUTH_COOKIE_EXPIRATION', 3 * DAY_IN_SECONDS );
+}
+
 /*
  * Booleans
  */
