@@ -705,7 +705,7 @@
     transition: opacity var(--transition-duration);
 
     &:not(:hover, :focus-visible, .last-clicked) {
-      opacity: .2;
+      opacity: .3;
     }
   }
 
