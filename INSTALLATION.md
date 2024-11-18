@@ -217,45 +217,6 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     </blockquote>
   </details>
 
-* [Cloudinary](https://wordpress.org/plugins/cloudinary-image-management-and-manipulation-in-the-cloud-cdn/): Great "plug-and-play" image CDN and optimizer with generous free plan. Offloading your images to a content delivery network improves performance and loading times. Also, your images will be properly sized and compressed.
-
-  <details>
-    <summary>Example settings</summary><br>
-    <p>Follow the <a href="https://cloudinary.com/documentation/wordpress_integration">official guide</a> to set up your Cloudinary account and the plugin. You do not need to "register" the CND with other optimization or cache plugins — it will just work.</p>
-    <blockquote>
-      Assume missing options are off, empty, or left to default.<br><br>
-      <strong>[General settings] Media Library Sync Settings:</strong>
-      <ul>
-        <li>- [x] Sync method: Auto sync</li>
-      </ul><br>
-      <strong>[General settings] Cloudinary folder path:</strong><br>
-      &numsp;To keep things orderly, use a folder name that relates to your site.<br><br>
-      <strong>[General settings] Storage:</strong>
-      <ul>
-        <li>- [x] Cloudinary and WordPress</li>
-      </ul><br>
-      <strong>[Image settings] Image optimization:</strong>
-      <ul>
-        <li>- [x] Optimize images on my site.</li>
-        <li>- [x] Image format: Auto</li>
-        <li>- [x] Image quality: Auto</li>
-      </ul><br>
-      <strong>[Lazy loading] Lazy loading:</strong>
-      <ul>
-        <li>- [x] Enable lazy loading</li>
-        <li>- [x] Lazy loading threshold: 100px</li>
-        <li>- [x] Pre-loader color: You decide!</li>
-        <li>- [x] Pre-loader animation: You decide!</li>
-        <li>- [x] Placeholder generation type: You decide!</li>
-        <li>- [x] DPR settings: Auto (2x)</li>
-      </ul><br>
-      <strong>[Responsive images] Breakpoints:</strong>
-      <ul>
-        <li>- [ ] Enable responsive images (OFF - this increases usage)</li>
-      </ul>
-    </blockquote>
-  </details>
-
 * [Cloudflare](https://wordpress.org/plugins/cloudflare/): Global content delivery network designed to make your site secure, private, fast, and reliable. Can be used for caching or to enhance a cache plugin further. Unfortunately, the setup is not trivial and you should refer to specific guides or ask for help.
 
   <details>
