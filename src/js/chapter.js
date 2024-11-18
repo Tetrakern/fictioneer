@@ -203,7 +203,7 @@ if (fcn_paragraphTools) {
   // Listen for click on paragraph tools copy link button
   _$$$('button-get-link').onclick = (e) => {
     fcn_copyToClipboard(
-      `${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
+      `${location.protocol}//${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
       fictioneer_tl.notification.linkCopiedToClipboard
     );
   }
