@@ -4507,7 +4507,7 @@
       "NODE_ENV:::production"
     ],
     "esLintConfigFileHandlingType" : 0,
-    "esLintECMAVersion" : 11,
+    "esLintECMAVersion" : 13,
     "esLintEnvironmentsMask" : 8193,
     "esLintRules" : {
       "accessor-pairs" : {
