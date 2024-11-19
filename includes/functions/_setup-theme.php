@@ -1858,6 +1858,24 @@ if ( get_option( 'fictioneer_enable_css_skins' ) ) {
 }
 
 // =============================================================================
+// STIMULUS
+// =============================================================================
+
+/**
+ * Outputs Stimulus <head>
+ *
+ * @since 5.xx.x
+ */
+
+function fictioneer_output_stimulus() {
+  // Start HTML ---> ?>
+  <script src="https://unpkg.com/@hotwired/stimulus/dist/stimulus.umd.js" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1"></script>
+  <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">const application = Stimulus.Application.start();</script>
+  <?php // <--- End HTML
+}
+add_action( 'wp_head', 'fictioneer_output_stimulus', 1 );
+
+// =============================================================================
 // ADD EXCERPTS TO PAGES
 // =============================================================================
 

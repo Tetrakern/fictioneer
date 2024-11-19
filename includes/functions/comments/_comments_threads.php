@@ -226,6 +226,9 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
         <i class="fa-solid fa-arrow-up-short-wide _off"></i><i class="fa-solid fa-arrow-down-wide-short _on"></i>
       </button>
     </div>
+
+    <?php fictioneer_comment_moderation_template(); ?>
+
     <ol class="fictioneer-comments__list commentlist">
       <?php wp_list_comments( $list_args, $comments ); ?>
     </ol>
@@ -615,7 +618,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
             <?php _e( 'Comment has been deleted by user.', 'fictioneer' ); ?>
           </div>
           <div class="fictioneer-comment__footer-right hide-unless-hover-on-desktop">
-            <?php fictioneer_comment_mod_menu( $comment ); ?>
+            <?php fictioneer_comment_moderation( $comment ); ?>
           </div>
         </div>
       </div>
@@ -843,7 +846,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           // FRONTEND MODERATION
           // =============================================================================
           ?>
-          <?php fictioneer_comment_mod_menu( $comment ); ?>
+          <?php fictioneer_comment_moderation( $comment ); ?>
         </div>
 
       </div>

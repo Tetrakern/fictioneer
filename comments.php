@@ -81,6 +81,9 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
     // Count all comments regardless of status
     $count = count( $comments );
 
+    // Moderation menu template
+    fictioneer_comment_moderation_template();
+
     // Comment list
     if (
       have_comments() ||

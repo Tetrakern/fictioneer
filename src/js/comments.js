@@ -1107,3 +1107,27 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
     _$$$('respond')?.classList.toggle('_private', event.currentTarget.checked);
   }
 });
+
+// =============================================================================
+// STIMULUS COMMENT FRONTEND MODERATION
+// =============================================================================
+
+application.register('comment-frontend-moderation', class extends Stimulus.Controller {
+  static targets = ['menuContainer'];
+
+  connect() {
+    // console.log("Hello, Stimulus!", this.element);
+  }
+
+  toggle(event) {
+    const template = _$$$('template-comment-frontend-moderation-menu').content.cloneNode(true);
+
+    this.menuContainerTarget.classList.toggle('_open');
+
+    if (this.menuContainerTarget.classList.contains('_open')) {
+      this.menuContainerTarget.appendChild(template);
+    } else {
+      this.menuContainerTarget.innerHTML = '';
+    }
+  }
+});
