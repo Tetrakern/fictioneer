@@ -1112,22 +1112,26 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 // STIMULUS COMMENT FRONTEND MODERATION
 // =============================================================================
 
-application.register('comment-frontend-moderation', class extends Stimulus.Controller {
-  static targets = ['menuContainer'];
+application.register('fictioneer-comment', class extends Stimulus.Controller {
+  static targets = ['modMenu'];
 
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }
 
-  toggle(event) {
+  toggle() {
     const template = _$$$('template-comment-frontend-moderation-menu').content.cloneNode(true);
 
-    this.menuContainerTarget.classList.toggle('_open');
+    if (!template) {
+      return;
+    }
 
-    if (this.menuContainerTarget.classList.contains('_open')) {
-      this.menuContainerTarget.appendChild(template);
+    this.modMenuTarget.classList.toggle('_open');
+
+    if (this.modMenuTarget.classList.contains('_open')) {
+      this.modMenuTarget.appendChild(template);
     } else {
-      this.menuContainerTarget.innerHTML = '';
+      this.modMenuTarget.innerHTML = '';
     }
   }
 });

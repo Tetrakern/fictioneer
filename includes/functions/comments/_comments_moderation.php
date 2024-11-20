@@ -489,9 +489,9 @@ if ( ! function_exists( 'fictioneer_comment_moderation' ) ) {
     $edit_link = admin_url( 'comment.php?c=' . $comment->comment_ID . '&action=editcomment' );
 
     // Start HTML ---> ?>
-    <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0" data-controller="comment-frontend-moderation" data-action="click->comment-frontend-moderation#toggle">
+    <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0" data-action="click->fictioneer-comment#toggle">
       <i class="fa-solid fa-gear mod-menu-toggle-icon"></i>
-      <div data-comment-frontend-moderation-target="menuContainer" data-comment-frontend-moderation-id-value="<?php echo $comment->comment_ID; ?>" data-comment-frontend-moderation-edit-link-value="<?php echo esc_attr( $edit_link ); ?>" class="popup-menu _top _justify-right _fixed-position"></div>
+      <div data-fictioneer-comment-target="modMenu" data-fictioneer-comment-edit-link-value="<?php echo esc_attr( $edit_link ); ?>" class="popup-menu _top _justify-right _fixed-position"></div>
     </div>
     <?php // <--- End HTML
   }
