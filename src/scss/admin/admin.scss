@@ -1354,8 +1354,8 @@ td.fictioneer_patreon_lock_amount {
     font-size: 18px;
     font-weight: 600;
     line-height: 1.2;
-    padding: 0 16px;
-    height: 50px;
+    padding: 16px;
+    min-height: 50px;
   }
 
   &__content {
