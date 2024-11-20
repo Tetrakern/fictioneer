@@ -372,69 +372,6 @@ function fictioneer_track_comment_edit( $data, $comment ) {
 add_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10, 2 );
 
 // =============================================================================
-// GET COMMENT ACTION LINK
-// =============================================================================
-
-// if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
-//   /**
-//    * Returns a link to an admin comment moderation action or false
-//    *
-//    * @since 4.7.0
-//    * @link https://github.com/WordPress/WordPress/blob/master/wp-admin/comment.php
-//    *
-//    * @param int            $comment_id   The ID of the comment.
-//    * @param string         $action       Optional. The action to perform. Default 'edit'.
-//    * @param string|boolean $redirect_to  Optional. Return URL after action. Default false.
-//    *
-//    * @return string|boolean The link or false if an invalid call.
-//    */
-
-//   function fictioneer_get_comment_action_link( $comment_id, $action = 'edit', $redirect_to = false ) {
-//     // Setup
-//     $comment_id = fictioneer_validate_id( $comment_id );
-
-//     // Validation
-//     if ( ! $comment_id ) {
-//       return false;
-//     }
-
-//     // Data
-//     $template = '<a class="comment-' . $action . '-link" href="%1$s">%2$s</a>';
-//     $admin_url = admin_url( 'comment.php?c=' . $comment_id . '&action=' );
-//     $redirect_to = $redirect_to ? '&redirect_to=' . $redirect_to : '';
-//     $output = false;
-
-//     switch ( $action ) {
-//       case 'edit':
-//         $output = sprintf( $template, $admin_url . 'editcomment', __( 'Edit' ) );
-//         break;
-//       case 'spam':
-//         $nonce_url = esc_url( wp_nonce_url( $admin_url . 'spamcomment', 'delete-comment_' . $comment_id ) );
-//         $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Spam' ) );
-//         break;
-//       case 'trash':
-//         $nonce_url = esc_url( wp_nonce_url( $admin_url . 'trashcomment', 'delete-comment_' . $comment_id ) );
-//         $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Trash' ) );
-//         break;
-//       case 'approve':
-//         $nonce_url = esc_url( wp_nonce_url( $admin_url . 'approvecomment', 'approve-comment_' . $comment_id ) );
-//         $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Approve' ) );
-//         break;
-//       case 'unapprove':
-//         $nonce_url = esc_url( wp_nonce_url( $admin_url . 'unapprovecomment', 'approve-comment_' . $comment_id ) );
-//         $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Unapprove' ) );
-//         break;
-//       case 'delete':
-//         $nonce_url = esc_url( wp_nonce_url( $admin_url . 'deletecomment', 'delete-comment_' . $comment_id ) );
-//         $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Delete' ) );
-//         break;
-//     }
-
-//     return $output;
-//   }
-// }
-
-// =============================================================================
 // RENDER COMMENT MODERATION MENU
 // =============================================================================
 

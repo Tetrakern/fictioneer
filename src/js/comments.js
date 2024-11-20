@@ -631,77 +631,6 @@ document.addEventListener('fcnUserDataReady', () => {
 });
 
 // =============================================================================
-// AJAX USER COMMENT DELETE
-// =============================================================================
-
-/**
- * Soft-delete comment on user request
- *
- * @since 5.0.0
- * @param {HTMLElement} button - The clicked delete button.
- */
-
-function fcn_deleteMyComment(button) {
-  // Only if user is logged in
-  if (!fcn_isLoggedIn) {
-    return;
-  }
-
-  // Prompt for confirmation
-  const confirm = prompt(button.dataset.dialogMessage);
-
-  if (!confirm || confirm.toLowerCase() != button.dataset.dialogConfirm.toLowerCase()) {
-    return;
-  }
-
-  // Setup
-  const comment = button.closest('.fictioneer-comment');
-
-  // Abort if another AJAX action is in progress
-  if (comment.classList.contains('ajax-in-progress')) {
-    return;
-  }
-
-  // Lock comment until AJAX action is complete
-  comment.classList.add('ajax-in-progress');
-
-  // Request
-  fcn_ajaxPost({
-    'action': 'fictioneer_ajax_delete_my_comment',
-    'comment_id': comment.dataset.id,
-    'fcn_fast_comment_ajax': 1
-  })
-  .then(response => {
-    if (response.success) {
-      comment.classList.add('_deleted');
-      comment.querySelector('.fictioneer-comment__container').innerHTML = response.data.html;
-    } else {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        5,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
-      }
-    }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    // Update view regardless of success
-    comment.classList.remove('ajax-in-progress');
-  });
-}
-
-// =============================================================================
 // REQUEST COMMENTS FORM VIA AJAX
 // =============================================================================
 
@@ -881,12 +810,6 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
     case 'trigger-inline-comment-edit':
       fcn_triggerInlineCommentEdit(clickTarget);
       break;
-    case 'delete-my-comment':
-      fcn_deleteMyComment(clickTarget);
-      break;
-    case 'flag-comment':
-      fcn_flagComment(clickTarget);
-      break;
   }
 });
 
@@ -908,7 +831,7 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton'];
+  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton'];
 
   static values = {
     id: Number
@@ -1053,7 +976,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   flag() {
-    // Only if user is logged in
+    // Only if user is logged in and button exists
     if (!fcn_isLoggedIn || !this.hasFlagButtonTarget) {
       return;
     }
@@ -1083,19 +1006,70 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
           fcn_showNotification(response.data.resync);
         }
       } else {
-        const message = response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error;
-
-        fcn_showNotification(message, 5, 'warning');
-        console.error('Error:', message);
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          5,
+          'warning'
+        );
+        console.error('Error:', response.data.error ?? response.data.failure ?? 'Unknown');
       }
     })
     .catch(error => {
-      fcn_showNotification(
-        (error?.status && error?.statusText) ? `${error.status}: ${error.statusText}` : error,
-        5,
-        'warning'
-      );
-      console.error(error);
+      this.#showError(error);
+    })
+    .then(() => {
+      this.comment.classList.remove('ajax-in-progress');
+    });
+  }
+
+  /**
+   * Delete comment (by the owner).
+   *
+   * @since 5.xx.x
+   */
+
+  selfDelete() {
+    // Only if user is logged in and button exists
+    if (!fcn_isLoggedIn || !this.hasDeleteButtonTarget) {
+      return;
+    }
+
+    // Prompt for confirmation
+    const confirm = prompt(this.deleteButtonTarget.dataset.dialogMessage);
+
+    if (!confirm || confirm.toLowerCase() != this.deleteButtonTarget.dataset.dialogConfirm.toLowerCase()) {
+      return;
+    }
+
+    // Abort if another AJAX action is in progress
+    if (this.comment.classList.contains('ajax-in-progress')) {
+      return;
+    }
+
+    // Lock comment until AJAX action is complete
+    this.comment.classList.add('ajax-in-progress');
+
+    // Request
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_delete_my_comment',
+      'comment_id': this.idValue,
+      'fcn_fast_comment_ajax': 1
+    })
+    .then(response => {
+      if (response.success) {
+        this.comment.classList.add('_deleted');
+        this.element.innerHTML = response.data.html;
+      } else {
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          5,
+          'warning'
+        );
+        console.error('Error:', response.data.error ?? response.data.failure ?? 'Unknown');
+      }
+    })
+    .catch(error => {
+      this.#showError(error);
     })
     .then(() => {
       this.comment.classList.remove('ajax-in-progress');
@@ -1131,7 +1105,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   }
 
   /**
-   * Display an error notification for 5 seconds.
+   * Display an moderation error notification for 5 seconds.
    *
    * @since 5.xx.x
    * @param {String} message - Error message.
@@ -1145,6 +1119,21 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     if (message) {
       fcn_showNotification(message, 5, 'warning');
     }
+  }
+
+  /**
+   * Display and log an error notification for 5 seconds.
+   *
+   * @since 5.xx.x
+   * @param {Object} error - Error object from Promise.
+   */
+
+  #showError(error) {
+    if (error.status && error.statusText) {
+      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
+    }
+
+    console.error('Error:', error);
   }
 
   /**

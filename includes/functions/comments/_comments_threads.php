@@ -342,14 +342,14 @@ function fictioneer_get_comment_delete_button( $hidden = true ) {
   static $html_start = null;
 
   if ( is_null( $html_start ) ) {
-    $html_start = '<button class="fictioneer-comment__delete comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-dialog-message="' .
+    $html_start = '<button class="fictioneer-comment__delete comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-fictioneer-comment-target="deleteButton" data-action="click->fictioneer-comment#selfDelete" data-dialog-message="' .
       sprintf(
         __( 'Are you sure you want to delete your comment? Enter %s to confirm.', 'fictioneer' ),
         mb_strtoupper( _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) )
       ) .
       '" data-dialog-confirm="' . esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) .
       '" data-tooltip="' . esc_attr_x( 'Delete', 'Delete comment inline.'. 'fictioneer' ) .
-      '" data-click="delete-my-comment" %s><i class="fa-solid fa-eraser"></i></button>';
+      '" %s><i class="fa-solid fa-eraser"></i></button>';
   }
 
   return sprintf(
