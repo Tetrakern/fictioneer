@@ -348,7 +348,7 @@ function fictioneer_get_comment_delete_button( $hidden = true ) {
         mb_strtoupper( _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) )
       ) .
       '" data-dialog-confirm="' . esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) .
-      '" data-tooltip="' . esc_attr_x( 'Delete', 'Delete comment inline.'. 'fictioneer' ) .
+      '" data-tooltip="' . esc_attr_x( 'Delete', 'Delete comment inline.', 'fictioneer' ) .
       '" %s><i class="fa-solid fa-eraser"></i></button>';
   }
 
@@ -372,9 +372,7 @@ function fictioneer_get_comment_edit_button( $hidden = true ) {
   static $html_start = null;
 
   if ( is_null( $html_start ) ) {
-    $html_start = '<button class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-dialog-message="' .
-      '" data-tooltip="' . esc_attr_x( 'Edit', 'Edit comment inline.'. 'fictioneer' ) .
-      '" data-click="trigger-inline-comment-edit" %s><i class="fa-solid fa-pen"></i></button>';
+    $html_start = '<button class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-fictioneer-comment-target="deleteButton" data-action="click->fictioneer-comment#selfDelete" data-tooltip="' . esc_attr_x( 'Edit', 'Edit comment inline.', 'fictioneer' ) . '" %s><i class="fa-solid fa-pen"></i></button>';
   }
 
   return sprintf(
@@ -556,14 +554,14 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 
     // Build HTML (tag closed by WordPress!)
     $comment_class = comment_class( $classes, $comment, $comment->comment_post_ID, false );
-    $fingerprint_data = empty( $fingerprint ) ? '' : "data-fingerprint=\"$fingerprint\"";
+    $fingerprint_data = empty( $fingerprint ) ? '' : "data-fictioneer-comment-fingerprint-value=\"$fingerprint\"";
 
     if ( $is_new ) {
       $comment_class = str_replace( 'depth-1', "depth-$depth", $comment_class );
     }
 
-    $open = "<{$tag} id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"{$depth}\" data-timestamp=\"" . ( $timestamp * 1000 ) . "\" {$fingerprint_data}>";
-    $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\" data-controller=\"fictioneer-comment\" data-action=\"mouseleave->fictioneer-comment#mouseLeave:stop\" data-fictioneer-comment-id-value=\"{$comment->comment_ID}\">";
+    $open = "<{$tag} id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"{$depth}\">";
+    $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\" data-controller=\"fictioneer-comment\" data-action=\"mouseleave->fictioneer-comment#mouseLeave:stop\" data-fictioneer-comment-id-value=\"{$comment->comment_ID}\" data-fictioneer-comment-timestamp-value=\"" . ( $timestamp * 1000 ) . "\" {$fingerprint_data}>";
 
     if ( $is_sticky ) {
       $open .= '<i class="fa-solid fa-thumbtack sticky-pin"></i>';

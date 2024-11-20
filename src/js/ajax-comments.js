@@ -116,7 +116,6 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
       }
 
       // Bind events
-      fcn_addCommentMouseleaveEvents();
       fcn_addCommentFormEvents();
       fcn_bindAJAXCommentSubmit();
 

@@ -328,9 +328,6 @@ function fcn_bindAJAXCommentSubmit() {
             }
         }
 
-        // Bind events
-        fcn_addCommentMouseleaveEvents();
-
         // Clean-up form
         if (_$$$('comment_parent').value != '0') {
           _$$$('cancel-comment-reply-link').click();
@@ -557,80 +554,6 @@ function fcn_restoreComment(target, undo = false, update = null) {
 }
 
 // =============================================================================
-// SHOW EDIT BUTTON BASED ON FINGERPRINT
-// =============================================================================
-
-/**
- * Reveal edit buttons that match the user's fingerprint
- *
- * @since 5.0.0
- */
-
-function fcn_revealEditButton() {
-  // Get time limit for editing
-  let editTime = parseInt(fcn_theRoot.dataset.editTime);
-
-  // Abort if no time set
-  if (!editTime) {
-    return;
-  }
-
-  // Prepare comparison
-  editTime = editTime > 0 ? editTime * 60000 : editTime;
-
-  // Loop over comments with matching fingerprint (if any)
-  _$$('.fictioneer-comment[data-fingerprint]').forEach(element => {
-    if (fcn_matchFingerprint(element.dataset.fingerprint)) {
-      // -1 means no time limit
-      if (editTime > 0 && parseInt(element.dataset.timestamp) + editTime < Date.now()) {
-        return;
-      }
-
-      // Reveal button
-      const button = element.querySelector('.fictioneer-comment__edit-toggle');
-
-      if (button) {
-        button.hidden = false;
-      }
-    }
-  });
-}
-
-// Reveal edit buttons
-document.addEventListener('fcnUserDataReady', () => {
-  fcn_revealEditButton();
-});
-
-// =============================================================================
-// SHOW DELETE BUTTON BASED ON FINGERPRINT
-// =============================================================================
-
-/**
- * Reveal delete buttons that match the user's fingerprint
- *
- * @since 5.0.0
- */
-
-function fcn_revealDeleteButton() {
-  // Loop over comments with matching fingerprint (if any)
-  _$$('.fictioneer-comment[data-fingerprint]').forEach(element => {
-    if (fcn_matchFingerprint(element.dataset.fingerprint)) {
-      // Reveal button
-      const button = element.querySelector('.fictioneer-comment__delete');
-
-      if (button) {
-        button.hidden = false;
-      }
-    }
-  });
-}
-
-// Reveal edit buttons
-document.addEventListener('fcnUserDataReady', () => {
-  fcn_revealDeleteButton();
-});
-
-// =============================================================================
 // REQUEST COMMENTS FORM VIA AJAX
 // =============================================================================
 
@@ -831,17 +754,32 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton'];
+  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton', 'editButton'];
 
   static values = {
-    id: Number
+    id: Number,
+    timestamp: Number,
+    fingerprint: String
   }
 
   connect() {
+    // Comment element separated because it also contains child comments
     this.comment = this.element.closest('.fictioneer-comment');
 
+    // Get comment edit link
     if (this.hasModMenuTarget) {
       this.editLink = this.modMenuTarget.dataset.editLink;
+    }
+
+    // Reveal self-delete and inline edit buttons
+    if (fcn_getUserData().fingerprint) {
+      this.#revealDeleteButton();
+      this.#revealEditButton();
+    } else {
+      document.addEventListener('fcnUserDataReady', () => {
+        this.#revealDeleteButton();
+        this.#revealEditButton();
+      });
     }
   }
 
@@ -1083,6 +1021,54 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   // === PRIVATE ===
 
   /**
+   * Reveal self-delete button on comment
+   *
+   * @since 5.xx.x
+   */
+
+  #revealDeleteButton() {
+    if (this.hasDeleteButtonTarget && this.#matchFingerprint()) {
+      this.deleteButtonTarget.hidden = false;
+    }
+  }
+
+  #revealEditButton() {
+    let editTime = parseInt(document.documentElement.dataset.editTime);
+
+    if (!editTime) {
+      return;
+    }
+
+    editTime = editTime > 0 ? editTime * 60000 : editTime;
+
+    if (this.hasEditButtonTarget && this.#matchFingerprint()) {
+      // -1 means no time limit
+      if (editTime > 0 && parseInt(this.timestampValue) + editTime < Date.now()) {
+        return;
+      }
+
+      this.editButtonTarget.hidden = false;
+    }
+  }
+
+  /**
+   * Check whether the comment fingerprint matches the user's
+   *
+   * @since 5.xx.x
+   * @return {Boolean} True or false.
+   */
+
+  #matchFingerprint() {
+    const userFingerprint = fcn_getUserData().fingerprint;
+
+    if (!userFingerprint || !this.hasFingerprintValue) {
+      return false;
+    }
+
+    return userFingerprint === this.fingerprintValue;
+  }
+
+  /**
    * Add or remove moderation menu HTML.
    *
    * @since 5.xx.x
@@ -1200,3 +1186,48 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     });
   }
 });
+
+
+
+
+
+// /**
+//  * Reveal edit buttons that match the user's fingerprint
+//  *
+//  * @since 5.0.0
+//  */
+
+// function fcn_revealEditButton() {
+//   // Get time limit for editing
+//   let editTime = parseInt(fcn_theRoot.dataset.editTime);
+
+//   // Abort if no time set
+//   if (!editTime) {
+//     return;
+//   }
+
+//   // Prepare comparison
+//   editTime = editTime > 0 ? editTime * 60000 : editTime;
+
+//   // Loop over comments with matching fingerprint (if any)
+//   _$$('.fictioneer-comment[data-fingerprint]').forEach(element => {
+//     if (fcn_matchFingerprint(element.dataset.fingerprint)) {
+//       // -1 means no time limit
+//       if (editTime > 0 && parseInt(element.dataset.timestamp) + editTime < Date.now()) {
+//         return;
+//       }
+
+//       // Reveal button
+//       const button = element.querySelector('.fictioneer-comment__edit-toggle');
+
+//       if (button) {
+//         button.hidden = false;
+//       }
+//     }
+//   });
+// }
+
+// // Reveal edit buttons
+// document.addEventListener('fcnUserDataReady', () => {
+//   fcn_revealEditButton();
+// });
