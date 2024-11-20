@@ -446,18 +446,18 @@ function fictioneer_comment_moderation_template() {
 
   // Start HTML ---> ?>
   <template id="template-comment-frontend-moderation-menu">
-    <button data-click="ajax-mod-action" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
-    <button data-click="ajax-mod-action" data-action="spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
-    <button data-click="ajax-mod-action" data-action="offensive"><?php _e( 'Offensive', 'fictioneer' ); ?></button>
-    <button data-click="ajax-mod-action" data-action="unoffensive"><?php _e( 'Unoffensive', 'fictioneer' ); ?></button>
-    <button data-click="ajax-mod-action" data-action="unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
-    <button data-click="ajax-mod-action" data-action="approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
-    <button data-click="ajax-mod-action" data-action="close"><?php _e( 'Close', 'fictioneer' ); ?></button>
-    <button data-click="ajax-mod-action" data-action="open"><?php _e( 'Open', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#offensive"><?php _e( 'Offensive', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#unoffensive"><?php _e( 'Unoffensive', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#close"><?php _e( 'Close', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#open"><?php _e( 'Open', 'fictioneer' ); ?></button>
 
     <?php if ( get_option( 'fictioneer_enable_sticky_comments' ) ) : ?>
-      <button data-click="ajax-mod-action" data-action="sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
-      <button data-click="ajax-mod-action" data-action="unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
     <?php endif; ?>
 
     <a class="comment-edit-link" href><?php _e( 'Edit' ); ?></a>
@@ -489,8 +489,8 @@ if ( ! function_exists( 'fictioneer_comment_moderation' ) ) {
     $edit_link = admin_url( 'comment.php?c=' . $comment->comment_ID . '&action=editcomment' );
 
     // Start HTML ---> ?>
-    <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0" data-action="click->fictioneer-comment#toggle">
-      <i class="fa-solid fa-gear mod-menu-toggle-icon"></i>
+    <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0" data-fictioneer-comment-target="modMenuToggle" data-action="click->fictioneer-comment#toggle">
+      <i class="fa-solid fa-gear mod-menu-toggle-icon" data-fictioneer-comment-target="modIcon"></i>
       <div data-fictioneer-comment-target="modMenu" data-fictioneer-comment-edit-link-value="<?php echo esc_attr( $edit_link ); ?>" class="popup-menu _top _justify-right _fixed-position"></div>
     </div>
     <?php // <--- End HTML

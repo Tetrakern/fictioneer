@@ -302,7 +302,7 @@
   contain: layout style; // Improve performance
 
   &.parent .children {
-    button:is([data-action=sticky], [data-action=unsticky]) {
+    button:is([data-action*="#sticky"], [data-action*="#unsticky"]) {
       display: none;
     }
   }
@@ -325,7 +325,7 @@
       margin-top: 0;
     }
 
-    button:is([data-action=sticky], [data-action=approve], [data-action=unapprove], [data-action=offensive], [data-action=unoffensive]) {
+    button:is([data-action*="#sticky"], [data-action*="#approve"], [data-action*="#unapprove"], [data-action*="#offensive"], [data-action*="#unoffensive"]) {
       display: none;
     }
   }
@@ -351,25 +351,25 @@
   &._unapproved > .fictioneer-comment__container {
     color: var(--fg-800);
 
-    :is([data-action=unapprove], .fictioneer-comment__actions) {
+    :is([data-action*="#unapprove"], .fictioneer-comment__actions) {
       display: none;
     }
   }
 
   &:not(._unapproved) > .fictioneer-comment__container {
-    :is([data-action=approve], .moderation-note-unapproved) {
+    :is([data-action*="#approve"], .moderation-note-unapproved) {
       display: none;
     }
   }
 
   &._offensive > .fictioneer-comment__container {
-    [data-action=offensive] {
+    [data-action*="#offensive"] {
       display: none;
     }
   }
 
   &:not(._offensive) > .fictioneer-comment__container {
-    :is([data-action=unoffensive], .moderation-note-offensive) {
+    :is([data-action*="#unoffensive"], .moderation-note-offensive) {
       display: none;
     }
   }
@@ -382,7 +382,7 @@
       border: var(--comment-border-sticky);
     }
 
-    [data-action=sticky] {
+    [data-action*="#sticky"] {
       display: none;
     }
 
@@ -402,13 +402,13 @@
   }
 
   &:not(._sticky) {
-    :is([data-action=unsticky], .sticky-pin) {
+    :is([data-action*="#unsticky"], .sticky-pin) {
       display: none;
     }
   }
 
   &._closed {
-    > .fictioneer-comment__container :is([data-action=close], .fictioneer-comment__edit-toggle),
+    > .fictioneer-comment__container :is([data-action*="#close"], .fictioneer-comment__edit-toggle),
     .fictioneer-comment__actions {
       display: none;
     }
@@ -421,7 +421,7 @@
   }
 
   &:not(._closed) > .fictioneer-comment__container {
-    :is([data-action=open], .closed-icon) {
+    :is([data-action*="#open"], .closed-icon) {
       display: none;
     }
   }

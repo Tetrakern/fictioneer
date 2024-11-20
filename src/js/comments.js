@@ -39,136 +39,6 @@ function fcn_addJSTrap() {
 fcn_addJSTrap();
 
 // =============================================================================
-// THEME COMMENTS AJAX MODERATION
-// =============================================================================
-
-/**
- * Performs moderation action via AJAX.
- *
- * @description Takes the ID of a comment and calls the server function specified
- * by the operation string. Applies a successful result directly to the DOM
- * without reloading the page.
- *
- * @since 4.7.0
- * @param {Number} id - ID of the comment to be moderated.
- * @param {String} operation - The moderation action to perform. Choose between
- *   'Sticky', 'Unsticky', 'Approve', 'Unapprove', 'Open', 'Close', 'Trash', or 'Spam'.
- */
-
-function fcn_moderateComment(id, operation) {
-  // Setup
-  const comment = _$$$(`comment-${id}`);
-  const menuToggleIcon = comment.querySelector('.mod-menu-toggle-icon');
-
-  // Abort if another AJAX action is in progress
-  if (comment.classList.contains('ajax-in-progress')) {
-    return;
-  }
-
-  // Lock comment until AJAX action is complete
-  comment.classList.add('ajax-in-progress');
-
-  // Prepare comment for style transition
-  if (operation == 'trash' || operation == 'spam') {
-    comment.style.height = comment.clientHeight + 'px';
-  }
-
-  // Request
-  fcn_ajaxPost({
-    'action': 'fictioneer_ajax_moderate_comment',
-    'operation': operation,
-    'id': id,
-    'fcn_fast_comment_ajax': 1
-  })
-  .then(response => {
-    if (response.success) {
-      // Server action succeeded
-      switch (response.data.operation) {
-        case 'sticky':
-          comment.classList.add('_sticky');
-          break;
-        case 'unsticky':
-          comment.classList.remove('_sticky');
-          break;
-        case 'offensive':
-          comment.classList.add('_offensive');
-          break;
-        case 'unoffensive':
-          comment.classList.remove('_offensive');
-          break;
-        case 'approve':
-          comment.classList.remove('_unapproved');
-          break;
-        case 'unapprove':
-          comment.classList.add('_unapproved');
-          break;
-        case 'open':
-          comment.classList.remove('_closed');
-          break;
-        case 'close':
-          comment.classList.add('_closed');
-          break;
-        case 'trash':
-        case 'spam':
-          // Let comment collapse and fade to nothing
-          comment.style.cssText = "overflow: hidden; height: 0; margin: 0; opacity: 0;";
-          break;
-        }
-    } else {
-      // Server action failed, mark comment with alert
-      menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
-      menuToggleIcon.style.color = 'var(--notice-warning-background)';
-      comment.querySelector('.popup-menu-toggle').style.opacity = '1';
-
-      if (response.data.error) {
-        fcn_showNotification(response.data.error, 5, 'warning');
-      }
-    }
-  })
-  .catch(error => {
-    // Server action failed, mark comment with alert
-    menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
-    menuToggleIcon.style.color = 'var(--notice-warning-background)';
-    comment.querySelector('.popup-menu-toggle').style.opacity = '1';
-
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-    } else if (error) {
-      fcn_showNotification(error, 5, 'warning');
-    }
-  })
-  .then(() => {
-    // Remove progress state
-    comment.classList.remove('ajax-in-progress');
-
-    // Close mod menu
-    fcn_lastClicked?.classList.remove('last-clicked');
-    fcn_lastClicked = null;
-  });
-}
-
-/**
- * Listen to mouseleave to close the moderation menu.
- *
- * @since 4.7.0
- */
-
-function fcn_addCommentMouseleaveEvents() {
-  _$$('.fictioneer-comment__container').forEach(element => {
-    element.addEventListener(
-      'mouseleave',
-      event => {
-        fcn_lastClicked?.classList.remove('last-clicked');
-        fcn_lastClicked = null;
-        event.stopPropagation();
-      }
-    );
-  });
-}
-
-fcn_addCommentMouseleaveEvents();
-
-// =============================================================================
 // THEME COMMENTS AJAX REPORTING
 // =============================================================================
 
@@ -1089,9 +959,6 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
     case 'flag-comment':
       fcn_flagComment(clickTarget);
       break;
-    case 'ajax-mod-action':
-      fcn_moderateComment(clickTarget.dataset.id, clickTarget.dataset.action);
-      break;
   }
 });
 
@@ -1109,29 +976,248 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 });
 
 // =============================================================================
-// STIMULUS COMMENT FRONTEND MODERATION
+// STIMULUS: FICTIONEER COMMENT
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenu'];
+  static targets = ['modMenuToggle', 'modMenu', 'modIcon'];
 
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
+  static values = {
+    id: Number
   }
 
+  /**
+   * Toggle display of moderation popup menu.
+   *
+   * @since 5.xx.x
+   */
+
   toggle() {
+    this.#toggleMenu();
+  }
+
+  /**
+   * Delegate to 'approve' action.
+   *
+   * @since 5.xx.x
+   */
+
+  approve() {
+    this.#moderate('approve');
+  }
+
+  /**
+   * Delegate to 'unapprove' action.
+   *
+   * @since 5.xx.x
+   */
+
+  unapprove() {
+    this.#moderate('unapprove');
+  }
+
+  /**
+   * Delegate to 'offensive' action.
+   *
+   * @since 5.xx.x
+   */
+
+  offensive() {
+    this.#moderate('offensive');
+  }
+
+  /**
+   * Delegate to 'unoffensive' action.
+   *
+   * @since 5.xx.x
+   */
+
+  unoffensive() {
+    this.#moderate('unoffensive');
+  }
+
+  /**
+   * Delegate to 'open' action.
+   *
+   * @since 5.xx.x
+   */
+
+  open() {
+    this.#moderate('open');
+  }
+
+  /**
+   * Delegate to 'close' action.
+   *
+   * @since 5.xx.x
+   */
+
+  close() {
+    this.#moderate('close');
+  }
+
+  /**
+   * Delegate to 'sticky' action.
+   *
+   * @since 5.xx.x
+   */
+
+  sticky() {
+    this.#moderate('sticky');
+  }
+
+  /**
+   * Delegate to 'unsticky' action.
+   *
+   * @since 5.xx.x
+   */
+
+  unsticky() {
+    this.#moderate('unsticky');
+  }
+
+  /**
+   * Delegate to 'trash' action.
+   *
+   * @since 5.xx.x
+   */
+
+  trash() {
+    this.#moderate('trash');
+  }
+
+  /**
+   * Delegate to 'spam' action.
+   *
+   * @since 5.xx.x
+   */
+
+  spam() {
+    this.#moderate('spam');
+  }
+
+  /**
+   * Close menu when mouse leaves comment.
+   *
+   * @since 5.xx.x
+   */
+
+  mouseLeave() {
+    if (this.modMenuTarget.querySelector('*')) {
+      this.#toggleMenu('close');
+      fcn_lastClicked?.classList.remove('last-clicked');
+      fcn_lastClicked = null;
+    }
+  }
+
+
+
+
+
+
+
+  /**
+   * Add or remove moderation menu HTML.
+   *
+   * @since 5.xx.x
+   * @param {String} [force] - Optional. Force 'open' or 'close'.
+   */
+
+  #toggleMenu(force = null) {
     const template = _$$$('template-comment-frontend-moderation-menu').content.cloneNode(true);
 
-    if (!template) {
+    if (!template || !this.hasModMenuTarget) {
       return;
     }
 
-    this.modMenuTarget.classList.toggle('_open');
-
-    if (this.modMenuTarget.classList.contains('_open')) {
-      this.modMenuTarget.appendChild(template);
-    } else {
+    if ((this.modMenuTarget.querySelector('*') || force === 'close') && force !== 'open') {
       this.modMenuTarget.innerHTML = '';
+    } else {
+      this.modMenuTarget.appendChild(template);
     }
+  }
+
+  /**
+   * Display an error notification for 5 seconds.
+   *
+   * @since 5.xx.x
+   * @param {String} message - Error message.
+   */
+
+  #showError(message) {
+    this.modIconTarget.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
+    this.modIconTarget.style.color = 'var(--notice-warning-background)';
+    this.modMenuToggleTarget.style.opacity = '1';
+
+    if (message) {
+      fcn_showNotification(message, 5, 'warning');
+    }
+  }
+
+  /**
+   * AJAX: Perform moderation action.
+   *
+   * @since 5.xx.x
+   * @param {String} operation - The moderation operation.
+   */
+
+  #moderate(operation) {
+    // Setup
+    const comment = this.element.closest('.fictioneer-comment');
+
+    // Abort if another AJAX action is in progress
+    if (comment.classList.contains('ajax-in-progress')) {
+      return;
+    }
+
+    // Lock comment until AJAX action is complete
+    comment.classList.add('ajax-in-progress');
+
+    // Prepare comment for style transition
+    if (operation == 'trash' || operation == 'spam') {
+      comment.style.height = comment.clientHeight + 'px';
+    }
+
+    // Request
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_moderate_comment',
+      'operation': operation,
+      'id': this.idValue,
+      'fcn_fast_comment_ajax': 1
+    })
+    .then(response => {
+      if (response.success) {
+        const operation = response.data.operation;
+        const operationMap = {
+          sticky: { action: 'add', className: '_sticky' },
+          unsticky: { action: 'remove', className: '_sticky' },
+          offensive: { action: 'add', className: '_offensive' },
+          unoffensive: { action: 'remove', className: '_offensive' },
+          approve: { action: 'remove', className: '_unapproved' },
+          unapprove: { action: 'add', className: '_unapproved' },
+          open: { action: 'remove', className: '_closed' },
+          close: { action: 'add', className: '_closed' }
+        };
+
+        if (operation in operationMap) {
+          const { action, className } = operationMap[operation];
+          comment.classList[action](className);
+        } else if (operation === 'trash' || operation === 'spam') {
+          comment.style.cssText = "overflow: hidden; height: 0; margin: 0; opacity: 0;";
+        }
+      } else {
+        this.#showError(response.data.error);
+      }
+    })
+    .catch(error => {
+      const message = (error?.status && error?.statusText) ? `${error.status}: ${error.statusText}` : error;
+      this.#showError(message);
+    })
+    .then(() => {
+      comment.classList.remove('ajax-in-progress');
+      this.#toggleMenu('close');
+      fcn_lastClicked?.classList.remove('last-clicked'); // Global
+      fcn_lastClicked = null; // Global
+    });
   }
 });
