@@ -192,7 +192,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
         $role_slug = $user->roles[0] ?? '';
         $role = $wp_roles->roles[ $role_slug ];
 
-        if ( ! empty( $role_slug ) && ! in_array( $role_slug, ['author', 'administrator', 'moderator'] ) ) {
+        if ( ! empty( $role_slug ) ) {
           $badge = $role['name'];
           $badge_class = "is-{$role_slug}";
         }
