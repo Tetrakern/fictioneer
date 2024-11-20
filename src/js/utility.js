@@ -683,28 +683,6 @@ function fcn_getNonce() {
 }
 
 // =============================================================================
-// MATCH FINGERPRINT
-// =============================================================================
-
-/**
- * Match a fingerprint with the local user fingerprint if set.
- *
- * @since 5.0.0
- * @param {String} fingerprint - The fingerprint to match with.
- * @return {Boolean} True or false
- */
-
-function fcn_matchFingerprint(fingerprint) {
-  const userFingerprint = fcn_getUserData().fingerprint;
-
-  if (!userFingerprint) {
-    return false;
-  }
-
-  return userFingerprint === fingerprint;
-}
-
-// =============================================================================
 // BUILD URL
 // =============================================================================
 

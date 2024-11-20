@@ -372,7 +372,7 @@ function fictioneer_get_comment_edit_button( $hidden = true ) {
   static $html_start = null;
 
   if ( is_null( $html_start ) ) {
-    $html_start = '<button class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-fictioneer-comment-target="deleteButton" data-action="click->fictioneer-comment#selfDelete" data-tooltip="' . esc_attr_x( 'Edit', 'Edit comment inline.', 'fictioneer' ) . '" %s><i class="fa-solid fa-pen"></i></button>';
+    $html_start = '<button class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-fictioneer-comment-target="editButton" data-action="click->fictioneer-comment#startEditInline" data-tooltip="' . esc_attr_x( 'Edit', 'Edit comment inline.', 'fictioneer' ) . '" %s><i class="fa-solid fa-pen"></i></button>';
   }
 
   return sprintf(
