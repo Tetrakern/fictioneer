@@ -11,6 +11,7 @@
 // Query posts
 $posts = get_posts(
   array(
+    'fictioneer_query_name' => 'main_rss',
     'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation'],
     'post_status' => 'publish',
     'ignore_sticky_posts' => 1,
