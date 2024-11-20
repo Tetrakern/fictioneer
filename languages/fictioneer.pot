@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-16 12:59+0000\n"
+"POT-Creation-Date: 2024-11-20 23:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -78,7 +78,7 @@ msgstr ""
 msgid "%s disconnected"
 msgstr ""
 
-#: rss-rss-main.php:55
+#: rss-rss-main.php:56
 #, php-format
 msgid "%s Feed"
 msgstr ""
@@ -711,7 +711,7 @@ msgid ""
 "you change the selection, you cannot go back."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:657
+#: includes/functions/comments/_comments_threads.php:655
 #, php-format
 msgctxt "@mention in comment replies."
 msgid "@%s"
@@ -1865,7 +1865,7 @@ msgstr ""
 msgid "Avatar capability disabled."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:789
+#: includes/functions/comments/_comments_threads.php:787
 msgid "Awaiting moderation."
 msgstr ""
 
@@ -3611,7 +3611,7 @@ msgctxt "Comment edit history."
 msgid "Edit History (Previous Versions):"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:715
+#: includes/functions/comments/_comments_threads.php:713
 #, php-format
 msgctxt "Comment edited by {user}."
 msgid " by %s."
@@ -3670,16 +3670,16 @@ msgstr ""
 #: includes/functions/comments/_story_comments.php:236
 #: includes/functions/comments/_comments_ajax.php:608
 #: includes/functions/comments/_comments_ajax.php:624
-#: includes/functions/comments/_comments_threads.php:615
+#: includes/functions/comments/_comments_threads.php:613
 msgid "Comment has been deleted by user."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:593
+#: includes/functions/comments/_comments_threads.php:591
 msgid "Comment has been marked as offensive."
 msgstr ""
 
 #: includes/functions/comments/_story_comments.php:37
-#: includes/functions/comments/_comments_threads.php:573
+#: includes/functions/comments/_comments_threads.php:571
 msgid "Comment has been marked as private."
 msgstr ""
 
@@ -3700,7 +3700,7 @@ msgid "Submit Changes"
 msgstr ""
 
 #: includes/functions/comments/_story_comments.php:250
-#: includes/functions/comments/_comments_threads.php:603
+#: includes/functions/comments/_comments_threads.php:601
 msgid "Comment is hidden due to negative reports."
 msgstr ""
 
@@ -3710,7 +3710,7 @@ msgctxt "Comment last edited by user on [datetime]."
 msgid "Last edited on %s."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:705
+#: includes/functions/comments/_comments_threads.php:703
 #, php-format
 msgctxt "Comment last edited by user on {datetime}{end}"
 msgid "Last edited on %s%s"
@@ -3800,8 +3800,8 @@ msgstr ""
 #: includes/functions/comments/_story_comments.php:60
 #: includes/functions/comments/_comments_controller.php:406
 #: includes/functions/comments/_comments_ajax.php:543
-#: includes/functions/comments/_comments_threads.php:666
-#: includes/functions/comments/_comments_threads.php:708
+#: includes/functions/comments/_comments_threads.php:664
+#: includes/functions/comments/_comments_threads.php:706
 #, php-format
 msgctxt "Comment time format string."
 msgid "%1$s \\a\\t %2$s"
@@ -4935,6 +4935,11 @@ msgstr ""
 msgid "Delete all settings and theme mods on deactivation"
 msgstr ""
 
+#: includes/functions/comments/_comments_threads.php:348
+msgctxt "Delete comment inline."
+msgid "Delete"
+msgstr ""
+
 #: includes/functions/settings/_settings_page_connections.php:264
 msgid "Delete Tiers"
 msgstr ""
@@ -5500,6 +5505,11 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:339
 msgid "Edit Collection"
+msgstr ""
+
+#: includes/functions/comments/_comments_threads.php:372
+msgctxt "Edit comment inline."
+msgid "Edit"
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:609
@@ -6605,7 +6615,7 @@ msgctxt "Hidden card."
 msgid "Hidden Result"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:787
+#: includes/functions/comments/_comments_threads.php:785
 msgid "Hidden due to negative reports."
 msgstr ""
 
@@ -7607,7 +7617,7 @@ msgctxt "Mark story as unread."
 msgid "Mark Unread"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:785
+#: includes/functions/comments/_comments_threads.php:783
 msgid "Marked and hidden as offensive."
 msgstr ""
 
@@ -9010,7 +9020,7 @@ msgctxt "Private comments filter in comment screen dropdown."
 msgid "Private"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:745
+#: includes/functions/comments/_comments_threads.php:743
 msgid "Private Reply"
 msgstr ""
 
@@ -9152,7 +9162,7 @@ msgstr ""
 msgid "Reading"
 msgstr ""
 
-#: rss-rss-main.php:58
+#: rss-rss-main.php:59
 #, php-format
 msgid "Recent updates on %s."
 msgstr ""
@@ -9402,11 +9412,11 @@ msgstr ""
 msgid "Replaces the default header image."
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:745
+#: includes/functions/comments/_comments_threads.php:743
 msgid "Reply"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:583
+#: includes/functions/comments/_comments_threads.php:581
 msgid "Reply has been marked as private."
 msgstr ""
 
@@ -9416,7 +9426,7 @@ msgctxt "Reply notification email subject."
 msgid "New reply to your comment on %s"
 msgstr ""
 
-#: includes/functions/comments/_comments_threads.php:838
+#: includes/functions/comments/_comments_threads.php:836
 msgctxt "Report this comment."
 msgid "Report"
 msgstr ""
