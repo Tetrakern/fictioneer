@@ -837,7 +837,8 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           <?php if ( fictioneer_show_auth_content() && $is_reportable ) : ?>
             <button
             class="fictioneer-report-comment-button comment-quick-button hide-if-logged-out tooltipped <?php echo $flag_classes ?> <?php echo $is_flagged_by_current_user ? 'on' : ''; ?> hide-on-ajax"
-            data-click="flag-comment"
+            data-fictioneer-comment-target="flagButton"
+            data-action="click->fictioneer-comment#flag"
             data-tooltip="<?php echo esc_attr_x( 'Report', 'Report this comment.', 'fictioneer' ); ?>"
           ><i class="fa-solid fa-flag"></i></button>
           <?php endif; ?>

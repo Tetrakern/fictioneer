@@ -39,78 +39,6 @@ function fcn_addJSTrap() {
 fcn_addJSTrap();
 
 // =============================================================================
-// THEME COMMENTS AJAX REPORTING
-// =============================================================================
-
-/**
- * Report a comment via AJAX.
- *
- * @since 4.7.0
- * @param {Number} id - ID of the comment to be moderated.
- */
-
-function fcn_flagComment(source) {
-  // Only if user is logged in
-  if (!fcn_isLoggedIn) {
-    return;
-  }
-
-  // Setup
-  const comment = source.closest('.fictioneer-comment');
-  const reportButton = comment.querySelector('.fictioneer-report-comment-button');
-
-  // Abort if another AJAX action is in progress
-  if (comment.classList.contains('ajax-in-progress')) {
-    return;
-  }
-
-  // Lock comment until AJAX action is complete
-  comment.classList.add('ajax-in-progress');
-
-  // Request
-  fcn_ajaxPost({
-    'action': 'fictioneer_ajax_report_comment',
-    'id': comment.dataset.id,
-    'dubious': reportButton.classList.contains('_dubious'),
-    'fcn_fast_comment_ajax': 1
-  })
-  .then(response => {
-    // Comment successfully reported?
-    if (response.success) {
-      reportButton.classList.toggle('on', response.data.flagged);
-      reportButton.classList.remove('_dubious');
-
-      // If report was dubious, it will be resynchronized
-      if (response.data.resync) {
-        fcn_showNotification(response.data.resync);
-      }
-    } else {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        5,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
-      }
-    }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    // Regardless of success
-    comment.classList.remove('ajax-in-progress');
-  });
-}
-
-// =============================================================================
 // THEME COMMENTS RESPONSE
 // =============================================================================
 
@@ -980,10 +908,14 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenuToggle', 'modMenu', 'modIcon'];
+  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'flagButton'];
 
   static values = {
     id: Number
+  }
+
+  connect() {
+    this.comment = this.element.closest('.fictioneer-comment');
   }
 
   /**
@@ -1003,7 +935,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   approve() {
-    this.#moderate('approve');
+    this.#modRequest('approve');
   }
 
   /**
@@ -1013,7 +945,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   unapprove() {
-    this.#moderate('unapprove');
+    this.#modRequest('unapprove');
   }
 
   /**
@@ -1023,7 +955,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   offensive() {
-    this.#moderate('offensive');
+    this.#modRequest('offensive');
   }
 
   /**
@@ -1033,7 +965,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   unoffensive() {
-    this.#moderate('unoffensive');
+    this.#modRequest('unoffensive');
   }
 
   /**
@@ -1043,7 +975,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   open() {
-    this.#moderate('open');
+    this.#modRequest('open');
   }
 
   /**
@@ -1053,7 +985,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   close() {
-    this.#moderate('close');
+    this.#modRequest('close');
   }
 
   /**
@@ -1063,7 +995,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   sticky() {
-    this.#moderate('sticky');
+    this.#modRequest('sticky');
   }
 
   /**
@@ -1073,7 +1005,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   unsticky() {
-    this.#moderate('unsticky');
+    this.#modRequest('unsticky');
   }
 
   /**
@@ -1083,7 +1015,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   trash() {
-    this.#moderate('trash');
+    this.#modRequest('trash');
   }
 
   /**
@@ -1093,7 +1025,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   spam() {
-    this.#moderate('spam');
+    this.#modRequest('spam');
   }
 
   /**
@@ -1105,16 +1037,72 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   mouseLeave() {
     if (this.modMenuTarget.querySelector('*')) {
       this.#toggleMenu('close');
-      fcn_lastClicked?.classList.remove('last-clicked');
-      fcn_lastClicked = null;
+      fcn_lastClicked?.classList.remove('last-clicked'); // Global
+      fcn_lastClicked = null; // Global
     }
+  }
+
+  /**
+   * Flag a comment.
+   *
+   * @since 5.xx.x
+   */
+
+  flag() {
+    // Only if user is logged in
+    if (!fcn_isLoggedIn || !this.hasFlagButtonTarget) {
+      return;
+    }
+
+    // Abort if another AJAX action is in progress
+    if (this.comment.classList.contains('ajax-in-progress')) {
+      return;
+    }
+
+    // Lock comment until AJAX action is complete
+    this.comment.classList.add('ajax-in-progress');
+
+    // Request
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_report_comment',
+      'id': this.idValue,
+      'dubious': this.flagButtonTarget.classList.contains('_dubious'),
+      'fcn_fast_comment_ajax': 1
+    })
+    .then(response => {
+      if (response.success) {
+        this.flagButtonTarget.classList.toggle('on', response.data.flagged);
+        this.flagButtonTarget.classList.remove('_dubious');
+
+        // If report was dubious, it will be resynchronized
+        if (response.data.resync) {
+          fcn_showNotification(response.data.resync);
+        }
+      } else {
+        const message = response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error;
+
+        fcn_showNotification(message, 5, 'warning');
+        console.error('Error:', message);
+      }
+    })
+    .catch(error => {
+      fcn_showNotification(
+        (error?.status && error?.statusText) ? `${error.status}: ${error.statusText}` : error,
+        5,
+        'warning'
+      );
+      console.error(error);
+    })
+    .then(() => {
+      this.comment.classList.remove('ajax-in-progress');
+    });
   }
 
 
 
 
 
-
+  // === PRIVATE ===
 
   /**
    * Add or remove moderation menu HTML.
@@ -1144,7 +1132,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    * @param {String} message - Error message.
    */
 
-  #showError(message) {
+  #showModError(message) {
     this.modIconTarget.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
     this.modIconTarget.style.color = 'var(--notice-warning-background)';
     this.modMenuToggleTarget.style.opacity = '1';
@@ -1161,21 +1149,18 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    * @param {String} operation - The moderation operation.
    */
 
-  #moderate(operation) {
-    // Setup
-    const comment = this.element.closest('.fictioneer-comment');
-
+  #modRequest(operation) {
     // Abort if another AJAX action is in progress
-    if (comment.classList.contains('ajax-in-progress')) {
+    if (this.comment.classList.contains('ajax-in-progress')) {
       return;
     }
 
     // Lock comment until AJAX action is complete
-    comment.classList.add('ajax-in-progress');
+    this.comment.classList.add('ajax-in-progress');
 
     // Prepare comment for style transition
     if (operation == 'trash' || operation == 'spam') {
-      comment.style.height = comment.clientHeight + 'px';
+      this.comment.style.height = this.comment.clientHeight + 'px';
     }
 
     // Request
@@ -1201,20 +1186,20 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
 
         if (operation in operationMap) {
           const { action, className } = operationMap[operation];
-          comment.classList[action](className);
+
+          this.comment.classList[action](className);
         } else if (operation === 'trash' || operation === 'spam') {
-          comment.style.cssText = "overflow: hidden; height: 0; margin: 0; opacity: 0;";
+          this.comment.style.cssText = "overflow: hidden; height: 0; margin: 0; opacity: 0;";
         }
       } else {
-        this.#showError(response.data.error);
+        this.#showModError(response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error);
       }
     })
     .catch(error => {
-      const message = (error?.status && error?.statusText) ? `${error.status}: ${error.statusText}` : error;
-      this.#showError(message);
+      this.#showModError((error?.status && error?.statusText) ? `${error.status}: ${error.statusText}` : error);
     })
     .then(() => {
-      comment.classList.remove('ajax-in-progress');
+      this.comment.classList.remove('ajax-in-progress');
       this.#toggleMenu('close');
       fcn_lastClicked?.classList.remove('last-clicked'); // Global
       fcn_lastClicked = null; // Global
