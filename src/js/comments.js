@@ -908,7 +908,7 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'flagButton'];
+  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton'];
 
   static values = {
     id: Number
@@ -916,6 +916,10 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
 
   connect() {
     this.comment = this.element.closest('.fictioneer-comment');
+
+    if (this.hasModMenuTarget) {
+      this.editLink = this.modMenuTarget.dataset.editLink;
+    }
   }
 
   /**
@@ -1122,6 +1126,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
       this.modMenuTarget.innerHTML = '';
     } else {
       this.modMenuTarget.appendChild(template);
+      this.editLinkTarget.href = this.editLink;
     }
   }
 

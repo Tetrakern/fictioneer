@@ -460,7 +460,7 @@ function fictioneer_comment_moderation_template() {
       <button data-action="click->fictioneer-comment#unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
     <?php endif; ?>
 
-    <a class="comment-edit-link" href><?php _e( 'Edit' ); ?></a>
+    <a class="comment-edit-link" data-fictioneer-comment-target="editLink"><?php _e( 'Edit' ); ?></a>
 
   </template>
   <?php // <--- End HTML
@@ -491,7 +491,7 @@ if ( ! function_exists( 'fictioneer_comment_moderation' ) ) {
     // Start HTML ---> ?>
     <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0" data-fictioneer-comment-target="modMenuToggle" data-action="click->fictioneer-comment#toggle">
       <i class="fa-solid fa-gear mod-menu-toggle-icon" data-fictioneer-comment-target="modIcon"></i>
-      <div data-fictioneer-comment-target="modMenu" data-fictioneer-comment-edit-link-value="<?php echo esc_attr( $edit_link ); ?>" class="popup-menu _top _justify-right _fixed-position"></div>
+      <div data-fictioneer-comment-target="modMenu" data-edit-link="<?php echo esc_attr( $edit_link ); ?>" class="popup-menu _top _justify-right _fixed-position"></div>
     </div>
     <?php // <--- End HTML
   }
