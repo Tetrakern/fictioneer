@@ -115,10 +115,6 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
         fcn_applyCommentStack(commentTextarea);
       }
 
-      // Bind events
-      fcn_addCommentFormEvents();
-      fcn_bindAJAXCommentSubmit();
-
       // Scroll to top of comment section
       const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond';
       const scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');

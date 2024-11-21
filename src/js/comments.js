@@ -3,44 +3,10 @@
 // =============================================================================
 
 document.addEventListener('fcnUserDataReady', () => {
-  if (fcn_getUserData().fingerprint == fcn_theRoot.dataset.authorFingerprint) {
+  if (fcn_getUserData().fingerprint == document.documentElement.dataset.authorFingerprint) {
     fcn_theBody.classList.add('is-post-author');
   }
 });
-
-// =============================================================================
-// THEME COMMENTS RESPONSE
-// =============================================================================
-
-/**
- * Reveal comment form inputs.
- *
- * @since 5.0.21
- */
-
-function fcn_revealCommentFormInputs(area) {
-  area.closest('form').querySelectorAll('.fictioneer-respond__form-actions, .fictioneer-respond__form-bottom').forEach(element => {
-    element.classList.remove('hidden');
-  });
-}
-
-/**
- * Listen for events on comment form.
- *
- * @since 4.7.0
- */
-
-function fcn_addCommentFormEvents() {
-  _$(fictioneer_comments.form_selector ?? '#comment')?.addEventListener(
-    'focus',
-    event => {
-      fcn_revealCommentFormInputs(event.currentTarget);
-    },
-    { once: true }
-  );
-}
-
-fcn_addCommentFormEvents();
 
 // =============================================================================
 // THEME COMMENTS FORMATTING BUTTONS
@@ -70,238 +36,6 @@ function fcn_wrapInTag(element, tag, options = {}) {
 }
 
 // =============================================================================
-// AJAX COMMENT SUBMISSION
-// =============================================================================
-
-/**
- * Bind AJAX request to comment form submit and override default behavior.
- *
- * @since 5.0.0
- * @since 5.20.3 - Use the FormData interface.
- */
-
-function fcn_bindAJAXCommentSubmit() {
-  // Check whether AJAX submit is enabled, abort if not...
-  if (!fcn_theRoot.dataset.ajaxSubmit) {
-    return;
-  }
-
-  // Override form submit behavior
-  _$$$('commentform')?.addEventListener('submit', (e) => {
-    // Stop default form submission
-    e.preventDefault();
-
-    // Delay trap (cannot be done server-side because of caching)
-    if (Date.now() < fcn_pageLoadTimestamp + 3000) {
-      return;
-    }
-
-    // Get comment form input
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const formDataObj = Object.fromEntries(formData.entries());
-    const button = form.querySelector('[name="submit"]');
-    const content = _$(fictioneer_comments.form_selector ?? '#comment');
-    const author = form.querySelector('[name="author"]');
-    const email = form.querySelector('[name="email"]');
-    const privacy_consent = form.querySelector('[name="fictioneer-privacy-policy-consent"]');
-    const parentId = formDataObj['comment_parent'] ?? 0;
-    const parent = _$$$(`comment-${parentId}`);
-    const order = form.closest('.fictioneer-comments')?.dataset.order ?? 'desc';
-
-    let emailValidation = true;
-    let contentValidation = true;
-    let privacyValidation = true;
-
-    // Validate content
-    contentValidation = content.value.length > 1;
-    content.classList.toggle('_error', !contentValidation);
-
-    // Validate privacy policy checkbox
-    if (privacy_consent) {
-      privacyValidation = privacy_consent.checked;
-      privacy_consent.classList.toggle('_error', !privacyValidation);
-    }
-
-    // Validate email address pattern (better validation server-side)
-    if (email && email.value.length > 0) {
-      emailValidation = /\S+@\S+\.\S+/.test(email.value);
-      email.classList.toggle('_error', !emailValidation);
-    }
-
-    // Abort if...
-    if (!contentValidation || !privacyValidation || !emailValidation) {
-      return false;
-    }
-
-    // Disable form during submit
-    form.classList.add('ajax-in-progress');
-    button.disabled = true;
-    button.value = button.dataset.disabled;
-
-    // Payload
-    const payload = {
-      ...{
-        'action': 'fictioneer_ajax_submit_comment',
-        'content': content.value,
-        'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
-        'fcn_fast_comment_ajax': 1
-      },
-      ...formDataObj
-    }
-
-    // Optional payload
-    if (email?.value) {
-      payload['email'] = email?.value;
-    }
-
-    if (author?.value) {
-      payload['author'] = author?.value;
-    }
-
-    // Request
-    fcn_ajaxPost(payload)
-    .then(response => {
-      // Remove previous error notices (if any)
-      _$$$('comment-submit-error-notice')?.remove();
-
-      // Comment successfully saved?
-      if (!response.success || !response.data?.comment) {
-        // Add error message
-        form.insertBefore(
-          fcn_buildErrorNotice(
-            response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-            'comment-submit-error-notice',
-            false
-          ),
-          form.firstChild
-        );
-
-        // Make sure the actual error (if any) is printed to the console too
-        if (response.data.failure && response.data.error) {
-          console.error('Error:', response.data.error);
-        }
-      } else {
-        // Insert new comment
-        let target = _$('.commentlist');
-        let insertMode = 'insertBefore';
-
-        // Account for sticky comments
-        if (target && !parent && target.firstElementChild) {
-          let maybeSticky = null;
-
-          if (target.firstElementChild.classList.contains('_sticky')) {
-            maybeSticky = target.firstElementChild;
-            target = maybeSticky;
-            insertMode = 'insertAfter';
-
-            while (maybeSticky.nextElementSibling && maybeSticky.nextElementSibling.classList.contains('_sticky')) {
-              maybeSticky = target.nextElementSibling;
-              target = maybeSticky;
-            }
-          }
-        }
-
-        // Create list if missing
-        if (!target) {
-          // First comment, list missing!
-          target = document.createElement('ol');
-          target.classList = 'fictioneer-comments__list commentlist';
-          _$$$('comments').appendChild(target);
-          insertMode = 'append';
-        }
-
-        // Account for parent of reply
-        if (parent) {
-          // Get child comment list
-          target = parent.querySelector('.children');
-
-          // Append in this case
-          insertMode = 'append';
-
-          // Create child comment list if missing
-          if (!target) {
-            const node = document.createElement('ol');
-            parent.appendChild(node);
-            target = node;
-          }
-        }
-
-        let commentNode = document.createElement('div');
-        commentNode.innerHTML = response.data.comment;
-        commentNode = commentNode.firstChild;
-
-        switch (insertMode) {
-          case 'append':
-            target.appendChild(commentNode);
-            break;
-          case 'insertBefore':
-            target.insertBefore(commentNode, target.firstChild);
-            break;
-          case 'insertAfter':
-            if (target.nextSibling) {
-              target.parentNode.insertBefore(commentNode, target.nextSibling);
-            } else {
-              target.parentNode.appendChild(commentNode);
-            }
-        }
-
-        // Clean-up form
-        if (_$$$('comment_parent').value != '0') {
-          _$$$('cancel-comment-reply-link').click();
-        }
-
-        content.value = '';
-        content.style.height = '';
-
-        // Update URL
-        const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
-
-        if (order != 'desc' || fcn_urlParams.corder) {
-          fcn_urlParams['corder'] = order;
-        }
-
-        if (response.data.commentcode) {
-          fcn_urlParams['commentcode'] = response.data.commentcode;
-        }
-
-        let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
-
-        if (params !== '') {
-          params = `?${params}`;
-        }
-
-        history.replaceState({ path: refresh }, '', refresh + params + `#comment-${response.data.comment_id}`);
-
-        // Scroll to new comment
-        commentNode.scrollIntoView({ behavior: 'smooth' });
-      }
-    })
-    .catch(error => {
-      // Remove any old error
-      _$$$('comment-submit-error-notice')?.remove();
-
-      // Add error message
-      form.insertBefore(
-        fcn_buildErrorNotice(`${error.statusText} (${error.status})`, 'comment-submit-error-notice'),
-        form.firstChild
-      );
-    })
-    .then(() => {
-      // Remove progress state
-      form.classList.remove('ajax-in-progress');
-
-      // Re-enable the submit button
-      button.disabled = false;
-      button.value = button.dataset.enabled;
-    });
-  });
-}
-
-// Initialize AJAX submit (if enabled)
-fcn_bindAJAXCommentSubmit();
-
-// =============================================================================
 // REQUEST COMMENTS FORM VIA AJAX
 // =============================================================================
 
@@ -310,7 +44,7 @@ const /** @const {HTMLElement} */ fcn_ajaxCommentForm = _$$$('ajax-comment-form-
 // Check whether form target exists...
 if (fcn_ajaxCommentForm) {
   // In case of AJAX authentication...
-  if (fcn_theRoot.dataset.ajaxAuth) {
+  if (document.documentElement.dataset.ajaxAuth) {
     // Load after nonce has been fetched
     document.addEventListener('fcnAuthReady', () => {
       fcn_setupCommentFormObserver();
@@ -389,13 +123,6 @@ function fcn_getCommentForm() {
       // Append stack contents (if any)
       fcn_applyCommentStack();
 
-      // Bind events
-      fcn_addCommentFormEvents();
-
-      if (fcn_theRoot.dataset.ajaxSubmit) {
-        fcn_bindAJAXCommentSubmit();
-      }
-
       // AJAX nonce
       fcn_addNonceHTML(response.data.nonceHtml);
     } else {
@@ -466,10 +193,17 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
   initialize() {
     // Setup (cannot properly set data attributes on form)
     this.respond = _$$$('respond');
-    this.form = this.respond.querySelector('.comment-form');
-    this.textarea = this.respond.querySelector('[name="comment"]');
+    this.order = this.respond.closest('.fictioneer-comments')?.dataset.order ?? 'desc';
+    this.form = this.respond.querySelector('form');
+    this.textarea = _$(fictioneer_comments.form_selector ?? '#comment'); // fictioneer_comments defined in PHP/JS
     this.toolbar = this.respond.querySelector('.fictioneer-comment-toolbar');
     this.privateToggle = this.respond.querySelector('[name="fictioneer-private-comment-toggle"]');
+    this.submit = this.respond.querySelector('#submit');
+    this.cancel = _$$$('cancel-comment-reply-link');
+    this.parent = _$$$('comment_parent');
+    this.author = this.respond.querySelector('[name="author"]');
+    this.email = this.respond.querySelector('[name="email"]');
+    this.privacyConsent = this.respond.querySelector('[name="fictioneer-privacy-policy-consent"]');
 
     // Private comment toggle
     this.privateToggle.addEventListener('change', () => {
@@ -502,7 +236,21 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
 
     // Spam protection
     this.addJSTrap();
+
+    // Reveal fields
+    this.textarea.addEventListener('focus', () => { this.revealFormInputs(); }, { once: true });
+
+    // Submit
+    if (document.documentElement.dataset.ajaxSubmit) {
+      this.bindSubmit();
+    }
   }
+
+  /**
+   * Apply BBCodes on key combo
+   *
+   * @since 5.xx.x
+   */
 
   bbcodes(event) {
     if (
@@ -545,6 +293,226 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
     this.form.appendChild(fcn_html`
       <input type="hidden" name="fictioneer_comment_validator" value="299792458">
     `);
+  }
+
+  /**
+   * Reveal comment input fields.
+   *
+   * @since 5.xx.x
+   */
+
+  revealFormInputs() {
+    this.respond.querySelectorAll('.fictioneer-respond__form-actions, .fictioneer-respond__form-bottom').forEach(element => {
+      element.classList.remove('hidden');
+    });
+  }
+
+  /**
+   * AJAX: Submit comment (if enabled).
+   *
+   * @since 5.xx.x
+   */
+
+  bindSubmit() {
+    // Check whether AJAX submit is enabled, abort if not...
+    if (!document.documentElement.dataset.ajaxSubmit) {
+      return;
+    }
+
+    this.form.addEventListener('submit', event => {
+      // Stop default form submission
+      event.preventDefault();
+
+      // Delay trap (cannot be done server-side because of caching)
+      if (Date.now() < fcn_pageLoadTimestamp + 3000) {
+        return;
+      }
+
+      // Get comment form input
+      const formData = new FormData(this.form);
+      const formDataObj = Object.fromEntries(formData.entries());
+      const parentId = formDataObj['comment_parent'] ?? 0;
+      const parent = _$$$(`comment-${parentId}`);
+
+      const contentValidation = this.textarea.value.length > 1;
+      let emailValidation = true;
+      let privacyValidation = true;
+
+      // Validate content
+      this.textarea.classList.toggle('_error', !contentValidation);
+
+      // Validate privacy policy checkbox
+      if (this.privacyConsent) {
+        privacyValidation = this.privacyConsent.checked;
+        this.privacyConsent.classList.toggle('_error', !privacyValidation);
+      }
+
+      // Validate email address pattern (better validation server-side)
+      if (this.email?.value.length > 0) {
+        emailValidation = /\S+@\S+\.\S+/.test(this.email.value);
+        this.email.classList.toggle('_error', !emailValidation);
+      }
+
+      // Abort if...
+      if (!contentValidation || !privacyValidation || !emailValidation) {
+        return false;
+      }
+
+      // Disable form during submit
+      this.form.classList.add('ajax-in-progress');
+      this.submit.disabled = true;
+      this.submit.value = this.submit.dataset.disabled;
+
+      // Payload
+      const payload = {
+        ...{
+          'action': 'fictioneer_ajax_submit_comment',
+          'content': this.textarea.value,
+          'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
+          'fcn_fast_comment_ajax': 1
+        },
+        ...formDataObj
+      }
+
+      // Optional payload
+      if (this.email?.value) {
+        payload['email'] = this.email.value;
+      }
+
+      if (this.author?.value) {
+        payload['author'] = this.author.value;
+      }
+
+      // Remove any old error
+      _$$$('comment-submit-error-notice')?.remove();
+
+      // Request
+      fcn_ajaxPost(payload)
+      .then(response => {
+        // Comment successfully saved?
+        if (!response.success || !response.data?.comment) {
+          this.form.insertBefore(
+            fcn_buildErrorNotice(
+              response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+              'comment-submit-error-notice',
+              false
+            ),
+            this.form.firstChild
+          );
+
+          console.error('Error:', response.data.error ?? response.data.failure ?? 'Unknown');
+        } else {
+          // Insert new comment
+          let target = _$('.commentlist');
+          let insertMode = 'insertBefore';
+
+          // Account for sticky comments
+          if (target && !parent && target.firstElementChild) {
+            let maybeSticky = null;
+
+            if (target.firstElementChild.classList.contains('_sticky')) {
+              maybeSticky = target.firstElementChild;
+              target = maybeSticky;
+              insertMode = 'insertAfter';
+
+              while (maybeSticky.nextElementSibling && maybeSticky.nextElementSibling.classList.contains('_sticky')) {
+                maybeSticky = target.nextElementSibling;
+                target = maybeSticky;
+              }
+            }
+          }
+
+          // Create list if missing
+          if (!target) {
+            // First comment, list missing!
+            target = document.createElement('ol');
+            target.classList = 'fictioneer-comments__list commentlist';
+            _$$$('comments').appendChild(target);
+            insertMode = 'append';
+          }
+
+          // Account for parent of reply
+          if (parent) {
+            // Get child comment list
+            target = parent.querySelector('.children');
+
+            // Append in this case
+            insertMode = 'append';
+
+            // Create child comment list if missing
+            if (!target) {
+              const node = document.createElement('ol');
+
+              parent.appendChild(node);
+              target = node;
+            }
+          }
+
+          // Prepare element
+          let commentNode = document.createElement('div');
+
+          commentNode.innerHTML = response.data.comment;
+          commentNode = commentNode.firstChild;
+
+          // Add to DOM
+          switch (insertMode) {
+            case 'append':
+              target.appendChild(commentNode);
+              break;
+            case 'insertBefore':
+              target.insertBefore(commentNode, target.firstChild);
+              break;
+            case 'insertAfter':
+              if (target.nextSibling) {
+                target.parentNode.insertBefore(commentNode, target.nextSibling);
+              } else {
+                target.parentNode.appendChild(commentNode);
+              }
+          }
+
+          // Clean up form
+          this.textarea.value = '';
+          this.textarea.style.height = '';
+
+          if (this.parent.value != '0') {
+            this.cancel.click();
+          }
+
+          // Update URL
+          const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+          if (this.order != 'desc' || fcn_urlParams.corder) {
+            fcn_urlParams['corder'] = this.order;
+          }
+
+          if (response.data.commentcode) {
+            fcn_urlParams['commentcode'] = response.data.commentcode;
+          }
+
+          let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
+
+          if (params !== '') {
+            params = `?${params}`;
+          }
+
+          history.replaceState({ path: refresh }, '', refresh + params + `#comment-${response.data.comment_id}`);
+
+          // Scroll to new comment
+          commentNode.scrollIntoView({ behavior: 'smooth' });
+        }
+      })
+      .catch(error => {
+        this.form.insertBefore(
+          fcn_buildErrorNotice(`${error.statusText} (${error.status})`, 'comment-submit-error-notice'),
+          this.form.firstChild
+        );
+      })
+      .then(() => {
+        this.form.classList.remove('ajax-in-progress');
+        this.submit.disabled = false;
+        this.submit.value = this.submit.dataset.enabled;
+      });
+    });
   }
 });
 
