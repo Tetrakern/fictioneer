@@ -563,7 +563,7 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton', 'editButton', 'content', 'inlineEditWrapper', 'inlineEditTextarea', 'inlineEditButtons', 'editNote'];
+  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton', 'editButton', 'content', 'inlineEditWrapper', 'inlineEditTextarea', 'inlineEditButtons', 'inlineEditSubmit', 'editNote'];
 
   static values = {
     id: Number,
@@ -861,14 +861,67 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   submitEditInline() {
+    if (this.inlineEditTextareaTarget.value === this.commentEditUndo) {
+      this.#restoreComment(true);
+      return;
+    }
 
+    this.inlineEditWrapperTarget.classList.add('ajax-in-progress');
+    this.inlineEditSubmitTarget.innerHTML = this.inlineEditSubmitTarget.dataset.disabled;
+    this.inlineEditSubmitTarget.disabled = true;
+
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_edit_comment',
+      'comment_id': this.idValue,
+      'content': this.inlineEditTextareaTarget.value,
+      'fcn_fast_comment_ajax': 1
+    })
+    .then(response => {
+      if (response.success) {
+        this.contentTarget.innerHTML = response.data.content;
+
+        this.#restoreComment(false, response.data.raw);
+
+        // Edit note
+        let editNote = this.editNoteTarget;
+
+        if (!this.hasEditNoteTarget) {
+          editNote = document.createElement('div');
+        }
+
+        editNote.classList.add('fictioneer-comment__edit-note');
+        editNote.dataset.fictioneerCommentTarget = 'editNote';
+        editNote.innerHTML = response.data.edited;
+
+        this.contentTarget.parentNode.appendChild(editNote);
+      } else {
+        this.#restoreComment(true);
+
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          5,
+          'warning'
+        );
+        console.error('Error:', response.data.error ?? response.data.failure ?? 'Unknown');
+      }
+    })
+    .catch(error => {
+      this.#restoreComment(true);
+      this.#showError(error);
+    })
+    .then(() => {
+      this.inlineEditWrapperTarget.classList.remove('ajax-in-progress');
+
+      if (this.hasInlineEditSubmitTarget) {
+        this.inlineEditSubmitTarget.innerHTML = this.inlineEditSubmitTarget.dataset.enabled;
+        this.inlineEditSubmitTarget.disabled = false;
+      }
+    });
   }
 
-
-
-
-
-  // === PRIVATE ===
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
 
   /**
    * Reveal self-delete button on comment
@@ -1068,96 +1121,3 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     });
   }
 });
-
-
-
-
-
-/**
- * Submit inline comment edit via AJAX
- *
- * @since 5.0.0
- * @param {HTMLElement} source - Event source.
- */
-
-function fcn_submitInlineCommentEdit(source) {
-  // Setup
-  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
-  const edit = red.querySelector('.fictioneer-comment__edit');
-  const content = red.querySelector('.comment-inline-edit-content').value;
-
-  let editNote = red.querySelector('.fictioneer-comment__edit-note');
-
-  // Abort if...
-  if (content == fcn_commentEditUndos[red.id]) {
-    fcn_restoreComment(red, true);
-    return;
-  }
-
-  // Send update
-  if (red) {
-    // Disable edit form
-    edit.classList.add('ajax-in-progress');
-    source.innerHTML = source.dataset.disabled;
-    source.disabled = true;
-
-    // Request
-    fcn_ajaxPost({
-      'action': 'fictioneer_ajax_edit_comment',
-      'comment_id': red.id.replace('comment-', ''),
-      'content': content,
-      'fcn_fast_comment_ajax': 1
-    })
-    .then(response => {
-      // Comment successfully updated?
-      if (response.success) {
-        // Replace content in view and restore non-edit state
-        const content = red.querySelector('.fictioneer-comment__content');
-
-        content.innerHTML = response.data.content;
-        fcn_restoreComment(red, false, response.data.raw);
-
-        // Edit note
-        if (!editNote) {
-          editNote = document.createElement('div');
-        }
-
-        editNote.classList.add('fictioneer-comment__edit-note');
-        editNote.innerHTML = response.data.edited;
-        content.parentNode.appendChild(editNote);
-      } else {
-        // Restore non-edit state
-        fcn_restoreComment(red, true);
-
-        // Show error notice
-        fcn_showNotification(
-          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-          5,
-          'warning'
-        );
-
-        // Make sure the actual error (if any) is printed to the console too
-        if (response.data.failure || response.data.error) {
-          console.error('Error:', response.data.error ?? response.data.failure);
-        }
-      }
-    })
-    .catch(error => {
-      // Restore non-edit state
-      fcn_restoreComment(red, true);
-
-      // Show server error
-      if (error.status && error.statusText) {
-        fcn_showNotification(`${error.statusText} (${error.status})`, 5, 'warning');
-      }
-
-      console.error(error);
-    })
-    .then(() => {
-      // Regardless of result
-      edit.classList.remove('ajax-in-progress');
-      source.innerHTML = source.dataset.enabled;
-      source.disabled = false;
-    });
-  }
-}

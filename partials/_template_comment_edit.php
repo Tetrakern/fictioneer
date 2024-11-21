@@ -21,6 +21,7 @@ defined( 'ABSPATH' ) OR exit;
       class="comment-inline-edit-submit button"
       data-enabled="<?php echo esc_attr_x( 'Submit Changes', 'Comment inline edit submit button.', 'fictioneer' ); ?>"
       data-disabled="<?php esc_attr_e( 'Updating…', 'fictioneer' ); ?>"
+      data-fictioneer-comment-target="inlineEditSubmit"
       data-action="click->fictioneer-comment#submitEditInline"
     ><?php _ex( 'Submit Changes', 'Comment inline edit submit button.', 'fictioneer' ); ?></button>
     <button
