@@ -9,36 +9,6 @@ document.addEventListener('fcnUserDataReady', () => {
 });
 
 // =============================================================================
-// THEME COMMENTS JS TRAP
-// =============================================================================
-
-/**
- * Append required field after the site has loaded.
- *
- * @description This prevents comment form submits from working if JavaScript
- * is not enabled, which is true for most bots. Yes, the value is just for
- * show and could be used better. A hashcash for example, to make spamming
- * really expensive!
- *
- * @since 5.0.0
- */
-
-function fcn_addJSTrap() {
-  // Setup
-  const red = document.querySelector('.comment-form'); // Red makes it faster!
-
-  // Add validation field to form
-  if (red) {
-    red.appendChild(fcn_html`
-      <input type="hidden" name="fictioneer_comment_validator" value="299792458">
-    `);
-  }
-}
-
-// Initialize
-fcn_addJSTrap();
-
-// =============================================================================
 // THEME COMMENTS RESPONSE
 // =============================================================================
 
@@ -98,45 +68,6 @@ function fcn_wrapInTag(element, tag, options = {}) {
   element.setSelectionRange((start + open.length), (end + open.length));
   element.focus();
 }
-
-// Listen for clicks on BBCode buttons...
-_$('.comment-section')?.addEventListener('click', event => {
-  const formattingButton = event.target.closest('[data-bbcode]');
-
-  if (formattingButton) {
-    fcn_wrapInTag(_$(fictioneer_comments.form_selector ?? '#comment'), formattingButton.dataset.bbcode, {'shortcode': true});
-  }
-});
-
-// Listen for BBCode key combinations...
-_$('.comment-section')?.addEventListener('keydown', event => {
-  // Start key combination...
-  if (
-    _$('.fictioneer-comment-toolbar') &&
-    document.activeElement.tagName === 'TEXTAREA' &&
-    event.target?.name == 'comment' &&
-    (event.ctrlKey || event.metaKey)
-  ) {
-    const key = event.key.toLowerCase();
-
-    // ... with associated BBCode keys
-    if (['b', 'i', 's', 'q', 'h', 'l'].includes(key)) {
-      event.preventDefault();
-
-      const keyMapping = {
-        'q': 'quote',
-        'h': 'spoiler',
-        'l': 'link'
-      };
-
-      fcn_wrapInTag(
-        document.activeElement,
-        keyMapping[key] || key,
-        { 'shortcode': true }
-      );
-    }
-  }
-});
 
 // =============================================================================
 // AJAX COMMENT SUBMISSION
@@ -467,9 +398,6 @@ function fcn_getCommentForm() {
 
       // AJAX nonce
       fcn_addNonceHTML(response.data.nonceHtml);
-
-      // JS trap (if active)
-      fcn_addJSTrap();
     } else {
       errorNote = fcn_buildErrorNotice(response.data.error);
     }
@@ -532,11 +460,15 @@ function fcn_applyCommentStack(editor = null) {
 // STIMULUS: FICTIONEER COMMENT FORM
 // =============================================================================
 
+// application.getControllerForElementAndIdentifier(element, 'fictioneer-comment-form').method()
+
 application.register('fictioneer-comment-form', class extends Stimulus.Controller  {
-  connect() {
+  initialize() {
     // Setup (cannot properly set data attributes on form)
     this.respond = _$$$('respond');
+    this.form = this.respond.querySelector('.comment-form');
     this.textarea = this.respond.querySelector('[name="comment"]');
+    this.toolbar = this.respond.querySelector('.fictioneer-comment-toolbar');
     this.privateToggle = this.respond.querySelector('[name="fictioneer-private-comment-toggle"]');
 
     // Private comment toggle
@@ -549,12 +481,72 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
       this.textarea.addEventListener('input', () => {
         fcn_adjustTextarea(this.textarea);
       });
+
+      this.textarea.addEventListener('keydown', event => {
+        this.bbcodes(event);
+      });
+    }
+
+    // Comment toolbar
+    this.toolbar.addEventListener('click', event => {
+      const formattingButton = event.target.closest('[data-bbcode]');
+
+      if (formattingButton) {
+        fcn_wrapInTag(
+          _$(fictioneer_comments.form_selector ?? '#comment'),
+          formattingButton.dataset.bbcode,
+          { 'shortcode': true }
+        );
+      }
+    });
+
+    // Spam protection
+    this.addJSTrap();
+  }
+
+  bbcodes(event) {
+    if (
+      _$('.fictioneer-comment-toolbar') &&
+      document.activeElement.tagName === 'TEXTAREA' &&
+      (event.ctrlKey || event.metaKey)
+    ) {
+      const key = event.key.toLowerCase();
+
+      if (['b', 'i', 's', 'q', 'h', 'l'].includes(key)) {
+        event.preventDefault();
+
+        const keyMapping = {
+          'q': 'quote',
+          'h': 'spoiler',
+          'l': 'link'
+        };
+
+        fcn_wrapInTag(
+          document.activeElement,
+          keyMapping[key] || key,
+          { 'shortcode': true }
+        );
+      }
     }
   }
+
+  /**
+   * Append required field after the site has loaded.
+   *
+   * @description This prevents comment form submits from working if JavaScript
+   * is not enabled, which is true for most bots. Yes, the value is just for
+   * show and could be used better. A hashcash for example, to make spamming
+   * really expensive!
+   *
+   * @since 5.xx.x
+   */
+
+  addJSTrap() {
+    this.form.appendChild(fcn_html`
+      <input type="hidden" name="fictioneer_comment_validator" value="299792458">
+    `);
+  }
 });
-
-// application.getControllerForElementAndIdentifier(element, 'fictioneer-comment-form').method()
-
 
 // =============================================================================
 // STIMULUS: FICTIONEER COMMENT
