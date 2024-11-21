@@ -122,10 +122,6 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
       // JS trap (if active)
       fcn_addJSTrap();
 
-      // Reveal edit/delete buttons
-      fcn_revealEditButton();
-      fcn_revealDeleteButton();
-
       // Scroll to top of comment section
       const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond';
       const scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');

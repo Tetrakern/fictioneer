@@ -1,6 +1,27 @@
 <?php
 
 // =============================================================================
+// COMMENT FORM HELPER
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_comment_form' ) ) {
+  /**
+   * Renders comment form with injected custom HTML
+   *
+   * @since 5.xx.x
+   *
+   * @param array       $args  Default arguments and form fields to override.
+   * @param int|WP_Post $post  Post ID or WP_Post object to generate the form for. Default current post.
+   */
+
+  function fictioneer_comment_form( $args = array(), $post = \null ) {
+    ob_start();
+    comment_form( $args, $post );
+    echo str_replace( '<form', '<form data-controller="fictioneer-comment-form" ', ob_get_clean() );
+  }
+}
+
+// =============================================================================
 // COMMENT TOOLBAR
 // =============================================================================
 

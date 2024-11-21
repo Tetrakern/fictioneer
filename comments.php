@@ -62,7 +62,11 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
       if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
         fictioneer_comments_ajax_form_skeleton();
       } else {
-        comment_form();
+        if ( get_option( 'fictioneer_disable_comment_form' ) ) {
+          comment_form();
+        } else {
+          fictioneer_comment_form();
+        }
       }
     } else {
       echo '<div class="fictioneer-comments__disabled">' . __( 'Commenting is disabled.', 'fictioneer' ) . '</div>';

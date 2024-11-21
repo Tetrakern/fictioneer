@@ -529,21 +529,32 @@ function fcn_applyCommentStack(editor = null) {
 }
 
 // =============================================================================
-// EVENT DELEGATES
+// STIMULUS: FICTIONEER COMMENT FORM
 // =============================================================================
 
-// INPUT
-_$('.fictioneer-comments')?.addEventListener('input', event => {
-  // Adaptive textareas
-  if (event.target.matches('#respond .adaptive-textarea')) {
-    fcn_adjustTextarea(event.target);
-  }
+application.register('fictioneer-comment-form', class extends Stimulus.Controller  {
+  connect() {
+    // Setup (cannot properly set data attributes on form)
+    this.respond = _$$$('respond');
+    this.textarea = this.respond.querySelector('[name="comment"]');
+    this.privateToggle = this.respond.querySelector('[name="fictioneer-private-comment-toggle"]');
 
-  // Private comment toggle
-  if (event.target.closest('[name="fictioneer-private-comment-toggle"]')) {
-    _$$$('respond')?.classList.toggle('_private', event.currentTarget.checked);
+    // Private comment toggle
+    this.privateToggle.addEventListener('change', () => {
+      this.respond.classList.toggle('_private', this.privateToggle.checked);
+    });
+
+    // Textarea
+    if (this.textarea.classList.contains('adaptive-textarea')) {
+      this.textarea.addEventListener('input', () => {
+        fcn_adjustTextarea(this.textarea);
+      });
+    }
   }
 });
+
+// application.getControllerForElementAndIdentifier(element, 'fictioneer-comment-form').method()
+
 
 // =============================================================================
 // STIMULUS: FICTIONEER COMMENT
