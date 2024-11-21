@@ -384,176 +384,6 @@ function fcn_bindAJAXCommentSubmit() {
 fcn_bindAJAXCommentSubmit();
 
 // =============================================================================
-// AJAX INLINE COMMENT EDIT
-// =============================================================================
-
-const /** @const {HTMLElement} */ fcn_commentEditActionsTemplate = _$('.comment-edit-actions-template');
-
-var /** @type {Object} */ fcn_commentEditUndos = {};
-
-/**
- * Trigger inline comment edit.
- *
- * @description This is called with on inline onclick event handler because the
- * comments can be loaded via AJAX and constantly watching the DOM to rebind the
- * event listeners is unreasonable. All that extra code, all the extra work for
- * the system, for something that you can get at no cost. Seriously.
- *
- * @since 5.0.0
- * @param {HTMLElement} source - Event source.
- */
-
-function fcn_triggerInlineCommentEdit(source) {
-  // Setup
-  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
-
-  // Main comment container found...
-  if (red) {
-    const content = red.querySelector('.fictioneer-comment__content');
-    const edit = red.querySelector('.fictioneer-comment__edit');
-    const textarea = red.querySelector('.comment-inline-edit-content');
-
-    // Append buttons
-    edit.appendChild(fcn_commentEditActionsTemplate.content.cloneNode(true));
-
-    // Save unedited content
-    fcn_commentEditUndos[red.id] = textarea.value;
-
-    // Set comment edit state
-    red.classList.add('_editing');
-    content.hidden = true;
-    edit.hidden = false;
-    textarea.style.height = `${textarea.scrollHeight}px`;
-  }
-}
-
-/**
- * Submit inline comment edit via AJAX
- *
- * @since 5.0.0
- * @param {HTMLElement} source - Event source.
- */
-
-function fcn_submitInlineCommentEdit(source) {
-  // Setup
-  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
-  const edit = red.querySelector('.fictioneer-comment__edit');
-  const content = red.querySelector('.comment-inline-edit-content').value;
-
-  let editNote = red.querySelector('.fictioneer-comment__edit-note');
-
-  // Abort if...
-  if (content == fcn_commentEditUndos[red.id]) {
-    fcn_restoreComment(red, true);
-    return;
-  }
-
-  // Send update
-  if (red) {
-    // Disable edit form
-    edit.classList.add('ajax-in-progress');
-    source.innerHTML = source.dataset.disabled;
-    source.disabled = true;
-
-    // Request
-    fcn_ajaxPost({
-      'action': 'fictioneer_ajax_edit_comment',
-      'comment_id': red.id.replace('comment-', ''),
-      'content': content,
-      'fcn_fast_comment_ajax': 1
-    })
-    .then(response => {
-      // Comment successfully updated?
-      if (response.success) {
-        // Replace content in view and restore non-edit state
-        const content = red.querySelector('.fictioneer-comment__content');
-
-        content.innerHTML = response.data.content;
-        fcn_restoreComment(red, false, response.data.raw);
-
-        // Edit note
-        if (!editNote) {
-          editNote = document.createElement('div');
-        }
-
-        editNote.classList.add('fictioneer-comment__edit-note');
-        editNote.innerHTML = response.data.edited;
-        content.parentNode.appendChild(editNote);
-      } else {
-        // Restore non-edit state
-        fcn_restoreComment(red, true);
-
-        // Show error notice
-        fcn_showNotification(
-          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-          5,
-          'warning'
-        );
-
-        // Make sure the actual error (if any) is printed to the console too
-        if (response.data.failure || response.data.error) {
-          console.error('Error:', response.data.error ?? response.data.failure);
-        }
-      }
-    })
-    .catch(error => {
-      // Restore non-edit state
-      fcn_restoreComment(red, true);
-
-      // Show server error
-      if (error.status && error.statusText) {
-        fcn_showNotification(`${error.statusText} (${error.status})`, 5, 'warning');
-      }
-
-      console.error(error);
-    })
-    .then(() => {
-      // Regardless of result
-      edit.classList.remove('ajax-in-progress');
-      source.innerHTML = source.dataset.enabled;
-      source.disabled = false;
-    });
-  }
-}
-
-/**
- * Cancel inline comment edit.
- *
- * @since 5.0.0
- * @param {HTMLElement} source - Event source.
- */
-
-function fcn_cancelInlineCommentEdit(source) {
-  // Setup
-  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
-
-  // Restore comment to non-edit state
-  if (red) {
-    fcn_restoreComment(red, true);
-  }
-}
-
-/**
- * Restore comment to non-editing state.
- *
- * @since 5.0.0
- * @param {HTMLElement} target - The comment to restore.
- */
-
-function fcn_restoreComment(target, undo = false, update = null) {
-  target.querySelector('.fictioneer-comment__content').hidden = false;
-  target.querySelector('.fictioneer-comment__edit').hidden = true;
-  target.querySelector('.fictioneer-comment__edit-actions')?.remove();
-  target.classList.remove('_editing');
-
-  if (undo && fcn_commentEditUndos[target.id]) {
-    target.querySelector('.comment-inline-edit-content').value = fcn_commentEditUndos[target.id];
-  } else if (update) {
-    target.querySelector('.comment-inline-edit-content').value = update;
-  }
-}
-
-// =============================================================================
 // REQUEST COMMENTS FORM VIA AJAX
 // =============================================================================
 
@@ -715,27 +545,6 @@ function fcn_applyCommentStack(editor = null) {
 // EVENT DELEGATES
 // =============================================================================
 
-// CLICK
-_$('.fictioneer-comments')?.addEventListener('click', event => {
-  const clickTarget = event.target.closest('[data-click]');
-
-  if (!clickTarget) {
-    return;
-  }
-
-  switch (clickTarget?.dataset.click) {
-    case 'submit-inline-comment-edit':
-      fcn_submitInlineCommentEdit(clickTarget);
-      break;
-    case 'cancel-inline-comment-edit':
-      fcn_cancelInlineCommentEdit(clickTarget);
-      break;
-    case 'trigger-inline-comment-edit':
-      fcn_triggerInlineCommentEdit(clickTarget);
-      break;
-  }
-});
-
 // INPUT
 _$('.fictioneer-comments')?.addEventListener('input', event => {
   // Adaptive textareas
@@ -754,7 +563,7 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton', 'editButton'];
+  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton', 'editButton', 'content', 'inlineEditWrapper', 'inlineEditTextarea', 'inlineEditButtons', 'editNote'];
 
   static values = {
     id: Number,
@@ -1021,7 +830,38 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   startEditInline() {
-    console.log('edit inline');
+    const template = _$$$('template-comment-inline-edit-form')?.content.cloneNode(true);
+
+    if (!template) {
+      return;
+    }
+
+    this.comment.classList.add('_editing');
+    this.commentEditUndo = this.inlineEditTextareaTarget.value;
+    this.inlineEditWrapperTarget.appendChild(template);
+    this.contentTarget.hidden = true;
+    this.inlineEditWrapperTarget.hidden = false;
+    this.inlineEditTextareaTarget.style.height = `${this.inlineEditTextareaTarget.scrollHeight}px`;
+  }
+
+  /**
+   * Cancel editing comment inline.
+   *
+   * @since 5.xx.x
+   */
+
+  cancelEditInline() {
+    this.#restoreComment(true);
+  }
+
+  /**
+   * Submit inline-edited comment.
+   *
+   * @since 5.xx.x
+   */
+
+  submitEditInline() {
+
   }
 
 
@@ -1085,6 +925,32 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   }
 
   /**
+   * Restore comment to non-editing state.
+   *
+   * @since 5.xx.x
+   * @param {Boolean} [undo] - Whether to restore the previous content. Default false.
+   * @param {String} [update] - Updated content. Default null.
+   */
+
+  #restoreComment(undo = false, update = null) {
+    this.comment.classList.remove('_editing');
+    this.contentTarget.hidden = false;
+    this.inlineEditWrapperTarget.hidden = true;
+
+    if (this.hasInlineEditButtonsTarget) {
+      this.inlineEditButtonsTarget.remove();
+    }
+
+    if (undo && this.commentEditUndo) {
+      this.inlineEditTextareaTarget.value = this.commentEditUndo;
+    } else if (update) {
+      this.inlineEditTextareaTarget.value = update;
+    }
+
+    this.commentEditUndo = null;
+  }
+
+  /**
    * Add or remove moderation menu HTML.
    *
    * @since 5.xx.x
@@ -1092,7 +958,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   #toggleMenu(force = null) {
-    const template = _$$$('template-comment-frontend-moderation-menu').content.cloneNode(true);
+    const template = _$$$('template-comment-frontend-moderation-menu')?.content.cloneNode(true);
 
     if (!template || !this.hasModMenuTarget) {
       return;
@@ -1202,3 +1068,96 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     });
   }
 });
+
+
+
+
+
+/**
+ * Submit inline comment edit via AJAX
+ *
+ * @since 5.0.0
+ * @param {HTMLElement} source - Event source.
+ */
+
+function fcn_submitInlineCommentEdit(source) {
+  // Setup
+  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
+  const edit = red.querySelector('.fictioneer-comment__edit');
+  const content = red.querySelector('.comment-inline-edit-content').value;
+
+  let editNote = red.querySelector('.fictioneer-comment__edit-note');
+
+  // Abort if...
+  if (content == fcn_commentEditUndos[red.id]) {
+    fcn_restoreComment(red, true);
+    return;
+  }
+
+  // Send update
+  if (red) {
+    // Disable edit form
+    edit.classList.add('ajax-in-progress');
+    source.innerHTML = source.dataset.disabled;
+    source.disabled = true;
+
+    // Request
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_edit_comment',
+      'comment_id': red.id.replace('comment-', ''),
+      'content': content,
+      'fcn_fast_comment_ajax': 1
+    })
+    .then(response => {
+      // Comment successfully updated?
+      if (response.success) {
+        // Replace content in view and restore non-edit state
+        const content = red.querySelector('.fictioneer-comment__content');
+
+        content.innerHTML = response.data.content;
+        fcn_restoreComment(red, false, response.data.raw);
+
+        // Edit note
+        if (!editNote) {
+          editNote = document.createElement('div');
+        }
+
+        editNote.classList.add('fictioneer-comment__edit-note');
+        editNote.innerHTML = response.data.edited;
+        content.parentNode.appendChild(editNote);
+      } else {
+        // Restore non-edit state
+        fcn_restoreComment(red, true);
+
+        // Show error notice
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          5,
+          'warning'
+        );
+
+        // Make sure the actual error (if any) is printed to the console too
+        if (response.data.failure || response.data.error) {
+          console.error('Error:', response.data.error ?? response.data.failure);
+        }
+      }
+    })
+    .catch(error => {
+      // Restore non-edit state
+      fcn_restoreComment(red, true);
+
+      // Show server error
+      if (error.status && error.statusText) {
+        fcn_showNotification(`${error.statusText} (${error.status})`, 5, 'warning');
+      }
+
+      console.error(error);
+    })
+    .then(() => {
+      // Regardless of result
+      edit.classList.remove('ajax-in-progress');
+      source.innerHTML = source.dataset.enabled;
+      source.disabled = false;
+    });
+  }
+}

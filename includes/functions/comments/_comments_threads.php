@@ -680,15 +680,19 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         // COMMENT CONTENT
         // =============================================================================
         ?>
-        <div class="fictioneer-comment__content"><?php comment_text( $comment ); ?></div>
+        <div class="fictioneer-comment__content" data-fictioneer-comment-target="content"><?php
+          comment_text( $comment );
+        ?></div>
         <?php
         // =============================================================================
         // COMMENT EDIT
         // =============================================================================
         ?>
         <?php if ( ( $can_edit && $is_editable ) || ( $cache_plugin_active && ! $is_deleted_by_owner) ) : ?>
-          <div class="fictioneer-comment__edit" hidden>
-            <textarea class="comment-inline-edit-content"><?php echo $comment->comment_content; ?></textarea>
+          <div class="fictioneer-comment__edit" data-fictioneer-comment-target="inlineEditWrapper" hidden>
+            <textarea class="comment-inline-edit-content" data-fictioneer-comment-target="inlineEditTextarea"><?php
+              echo $comment->comment_content;
+            ?></textarea>
           </div>
         <?php endif; ?>
         <?php
@@ -697,7 +701,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         // =============================================================================
         ?>
         <?php if ( ! empty( $edit_stack ) && ! $is_deleted_by_owner ) : ?>
-          <div class="fictioneer-comment__edit-note"><?php
+          <div class="fictioneer-comment__edit-note" data-fictioneer-comment-target="editNote"><?php
             $edit_data = $edit_stack[count( $edit_stack ) - 1];
             $edit_user = isset( $edit_data['user_id'] ) && $comment->user_id != $edit_data['user_id'] ?
               get_user_by( 'id', $edit_data['user_id'] ) : false;
