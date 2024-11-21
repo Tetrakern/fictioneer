@@ -114,6 +114,7 @@ _$('.comment-section')?.addEventListener('keydown', event => {
   if (
     _$('.fictioneer-comment-toolbar') &&
     document.activeElement.tagName === 'TEXTAREA' &&
+    event.target?.name == 'comment' &&
     (event.ctrlKey || event.metaKey)
   ) {
     const key = event.key.toLowerCase();
@@ -912,6 +913,32 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
         this.inlineEditSubmitTarget.disabled = false;
       }
     });
+  }
+
+  bbcodes(event) {
+    if (
+      _$('.fictioneer-comment-toolbar') &&
+      document.activeElement.tagName === 'TEXTAREA' &&
+      (event.ctrlKey || event.metaKey)
+    ) {
+      const key = event.key.toLowerCase();
+
+      if (['b', 'i', 's', 'q', 'h', 'l'].includes(key)) {
+        event.preventDefault();
+
+        const keyMapping = {
+          'q': 'quote',
+          'h': 'spoiler',
+          'l': 'link'
+        };
+
+        fcn_wrapInTag(
+          document.activeElement,
+          keyMapping[key] || key,
+          { 'shortcode': true }
+        );
+      }
+    }
   }
 
   // =====================
