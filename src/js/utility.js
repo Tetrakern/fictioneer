@@ -1006,3 +1006,21 @@ function fcn_toggleInProgress(element, force = null) {
     element.classList.remove('disabled');
   }
 }
+
+// =============================================================================
+// TEXTAREAS
+// =============================================================================
+
+/**
+ * Adjust textarea height to fit the value without vertical scroll bar.
+ *
+ * @since 4.7.0
+ * @param {HTMLElement} area - The textarea element to adjust.
+ */
+
+function fcn_adjustTextarea(area) {
+  if (area) {
+    area.style.height = 'auto'; // Reset if lines are removed
+    area.style.height = `${area.scrollHeight}px`;
+  }
+}

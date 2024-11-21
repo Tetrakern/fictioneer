@@ -72,20 +72,6 @@ function fcn_addCommentFormEvents() {
 
 fcn_addCommentFormEvents();
 
-/**
- * Adjust textarea height to fit the value without vertical scroll bar.
- *
- * @since 4.7.0
- * @param {HTMLElement} area - The textarea element to adjust.
- */
-
-function fcn_textareaAdjust(area) {
-  if (area) {
-    area.style.height = 'auto'; // Reset if lines are removed
-    area.style.height = `${area.scrollHeight}px`;
-  }
-}
-
 // =============================================================================
 // THEME COMMENTS FORMATTING BUTTONS
 // =============================================================================
@@ -530,7 +516,7 @@ function fcn_applyCommentStack(editor = null) {
     });
 
     // Resize editor if necessary
-    fcn_textareaAdjust(editor);
+    fcn_adjustTextarea(editor);
   } else if (editor.tagName == 'DIV') {
     fcn_commentStack.forEach(node => {
       editor.innerHTML += node;
@@ -548,8 +534,8 @@ function fcn_applyCommentStack(editor = null) {
 // INPUT
 _$('.fictioneer-comments')?.addEventListener('input', event => {
   // Adaptive textareas
-  if (event.target.matches('.adaptive-textarea')) {
-    fcn_textareaAdjust(event.target);
+  if (event.target.matches('#respond .adaptive-textarea')) {
+    fcn_adjustTextarea(event.target);
   }
 
   // Private comment toggle
@@ -588,6 +574,13 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
       document.addEventListener('fcnUserDataReady', () => {
         this.#revealDeleteButton();
         this.#revealEditButton();
+      });
+    }
+
+    // Adaptable textarea
+    if (this.hasInlineEditTextareaTarget) {
+      this.inlineEditTextareaTarget.addEventListener('input', () => {
+        fcn_adjustTextarea(this.inlineEditTextareaTarget);
       });
     }
   }
@@ -842,6 +835,8 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     this.contentTarget.hidden = true;
     this.inlineEditWrapperTarget.hidden = false;
     this.inlineEditTextareaTarget.style.height = `${this.inlineEditTextareaTarget.scrollHeight}px`;
+
+    fcn_adjustTextarea(this.inlineEditTextareaTarget);
   }
 
   /**

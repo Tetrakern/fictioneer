@@ -228,7 +228,7 @@ class FCN_Suggestion {
     if (defaultEditor) {
       if (defaultEditor.tagName == 'TEXTAREA') {
         defaultEditor.value += instance.latest;
-        fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
+        fcn_adjustTextarea(_$('textarea#comment')); // Adjust height of textarea if necessary
       } else if ( defaultEditor.tagName == 'DIV' ) {
         defaultEditor.innerHTML += instance.latest;
       }
