@@ -311,16 +311,4 @@ function fcn_updateCheckmarksView() {
       button.setAttribute('aria-checked', checked);
     }
   });
-
-  // Update icon and buttons on cards
-  _$$('.card').forEach(card => {
-    const cardStoryId = parseInt(card.dataset.storyId);
-    const force = checkmarks.data[cardStoryId] &&
-      (
-        checkmarks.data[cardStoryId].includes(parseInt(card.dataset.checkId)) ||
-        checkmarks.data[cardStoryId].includes(cardStoryId)
-      );
-
-    card.classList.toggle('has-checkmark', force == true); // Must be boolean, not undefined!
-  });
 }

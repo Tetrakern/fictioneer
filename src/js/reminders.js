@@ -157,14 +157,6 @@ function fcn_updateRemindersView() {
       fcn_reminders.data[element.dataset.storyId] ? true : false // Must be boolean, not undefined!
     );
   });
-
-  // Update icon and buttons on cards
-  _$$('.card').forEach(element => {
-    element.classList.toggle(
-      'has-reminder',
-      fcn_reminders.data[element.dataset.storyId] ? true : false // Must be boolean, not undefined!
-    );
-  });
 }
 
 // =============================================================================

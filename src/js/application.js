@@ -381,14 +381,14 @@ fcn_theBody.addEventListener('click', e => {
       // Handle logout cleanup
       fcn_cleanupWebStorage();
       break;
-    case 'card-toggle-follow':
-      // Handle toggle card Follow
-      if (fcn_isLoggedIn) {
-        fcn_toggleFollow(clickTarget.dataset.storyId);
-      } else {
-        _$$$('modal-login-toggle')?.click();
-      }
-      break;
+    // case 'card-toggle-follow':
+    //   // Handle toggle card Follow
+    //   if (fcn_isLoggedIn) {
+    //     fcn_toggleFollow(clickTarget.dataset.storyId);
+    //   } else {
+    //     _$$$('modal-login-toggle')?.click();
+    //   }
+    //   break;
     case 'card-toggle-reminder':
       // Handle toggle card Reminder
       if (fcn_isLoggedIn) {
@@ -2301,4 +2301,159 @@ document.addEventListener('DOMContentLoaded', () => {
   _$$('.temp-script, .splide-placeholder-styles').forEach(element => {
     element.remove();
   });
+});
+
+// =============================================================================
+// STIMULUS: FICTIONEER LARGE CARD
+// =============================================================================
+
+application.register('fictioneer-large-card', class extends Stimulus.Controller {
+  static get targets() {
+    return ['toggleFollow', 'toggleReminder', 'toggleCheckmarks']
+  }
+
+  static values = {
+    storyId: Number,
+    checkId: Number
+  }
+
+  ready = false;
+  paused = false;
+
+  initialize() {
+    document.addEventListener('fcnUserDataReady', () => {
+      this.#refreshAll();
+      this.ready = true;
+      this.#watch();
+    });
+  }
+
+  connect() {
+    if (this.ready) {
+      this.#refreshAll();
+      this.#watch();
+    }
+  }
+
+  disconnect() {
+    this.#unwatch();
+  }
+
+  isFollowed() {
+    return this.#loggedIn() && !!this.#data()?.follows?.data?.[this.storyIdValue];
+  }
+
+  isRemembered() {
+    return this.#loggedIn() && !!this.#data()?.reminders?.data?.[this.storyIdValue];
+  }
+
+  isRead() {
+    if (!this.#loggedIn()) {
+      return false;
+    }
+
+    const checkmarks = this.#data()?.checkmarks?.data?.[this.storyIdValue];
+
+    return !!checkmarks &&
+      (checkmarks.includes(parseInt(this.checkIdValue)) || checkmarks.includes(this.storyIdValue));
+  }
+
+  toggleFollow() {
+    if (this.#loggedIn()) {
+      fcn_toggleFollow(this.storyIdValue);
+      this.#refreshFollowState();
+    } else {
+      _$$$('modal-login-toggle')?.click();
+    }
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #loggedInCache = null;
+  #loggedInCacheTime = 0;
+
+  #loggedIn() {
+    const now = Date.now();
+
+    if (this.#loggedInCache !== null && now - this.#loggedInCacheTime < 20) {
+      return this.#loggedInCache;
+    }
+
+    this.#loggedInCache = fcn_isUserLoggedIn();
+    this.#loggedInCacheTime = now;
+
+    if (!this.#loggedInCache) {
+      this.#unwatch();
+      this.ready = false;
+      this.paused = true;
+    }
+
+    return this.#loggedInCache;
+  }
+
+  #data() {
+    this.userData = fcn_getUserData();
+    return this.userData;
+  }
+
+  #userDataChanged() {
+    return this.#loggedIn() && JSON.stringify(this.userData) !== JSON.stringify(this.#data());
+  }
+
+  #startRefreshInterval() {
+    if (this.refreshInterval) {
+      return;
+    }
+
+    this.refreshInterval = setInterval(() => {
+      if (!this.paused && this.#userDataChanged()) {
+        this.#refreshAll()
+      }
+    }, 30000 + Math.random() * 10000);
+  }
+
+  #watch() {
+    this.#startRefreshInterval();
+
+    this.visibilityStateCheck = () => {
+      if (this.#loggedIn()) {
+        if (document.visibilityState === 'visible') {
+          this.paused = false;
+          this.#refreshAll();
+          this.#startRefreshInterval();
+        } else {
+          this.paused = true;
+          clearInterval(this.refreshInterval);
+          this.refreshInterval = null;
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', this.visibilityStateCheck);
+  }
+
+  #unwatch() {
+    clearInterval(this.refreshInterval);
+    document.removeEventListener('visibilitychange', this.visibilityStateCheck);
+  }
+
+  #refreshAll() {
+    this.#refreshFollowState();
+    this.#refreshReminderState();
+    this.#refreshCheckmarkState();
+  }
+
+  #refreshFollowState() {
+    this.element.classList.toggle('has-follow', this.isFollowed());
+  }
+
+  #refreshReminderState() {
+    this.element.classList.toggle('has-reminder', this.isRemembered());
+  }
+
+  #refreshCheckmarkState() {
+    this.element.classList.toggle('has-checkmark', this.isRead());
+  }
 });

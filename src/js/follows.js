@@ -160,14 +160,6 @@ function fcn_updateFollowsView() {
     );
   });
 
-  // Update icon and buttons on cards
-  _$$('.card').forEach(element => {
-    element.classList.toggle(
-      'has-follow',
-      fcn_follows?.data[element.dataset.storyId] ? true : false // Must be boolean, not undefined!
-    );
-  });
-
   // Set "new" marker if there are new items
   const isNew = parseInt(fcn_follows['new']) > 0;
 
