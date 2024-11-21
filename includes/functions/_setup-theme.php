@@ -1668,7 +1668,7 @@ add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css' );
  */
 
 function fictioneer_ao_exclude_js( $exclude ) {
-  return $exclude . ', fictioneer/js/splide.min.js';
+  return $exclude . ', fictioneer/js/splide.min.js, fictioneer/js/stimulus.umd.min.js';
 }
 add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_js' );
 
@@ -1862,18 +1862,20 @@ if ( get_option( 'fictioneer_enable_css_skins' ) ) {
 // =============================================================================
 
 /**
- * Outputs Stimulus <head>
+ * Outputs Stimulus in <head>
  *
  * @since 5.xx.x
  */
 
 function fictioneer_output_stimulus() {
+  $link = get_template_directory_uri() . '/js/stimulus.umd.min.js?bust=' . fictioneer_get_cache_bust();
+
   // Start HTML ---> ?>
-  <script src="https://unpkg.com/@hotwired/stimulus/dist/stimulus.umd.js" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1"></script>
-  <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">const application = Stimulus.Application.start();</script>
+  <script id="fictioneer-stimulus-umd" src="<?php echo esc_url( $link ); ?>" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1"></script>
+  <script id="fictioneer-stimulus-setup" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">const application = Stimulus.Application.start();</script>
   <?php // <--- End HTML
 }
-add_action( 'wp_head', 'fictioneer_output_stimulus', 1 );
+add_action( 'wp_head', 'fictioneer_output_stimulus', 5 );
 
 // =============================================================================
 // ADD EXCERPTS TO PAGES
