@@ -11,6 +11,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
    * @since 5.0.0
    *
    * @param array  $taxonomies  Array of WP_Term objects.
+   * @param string $type        The taxonomy type.
    * @param string $query_var   Name of the submitted collection field.
    * @param string $and_var     Name of the submitted operator field.
    * @param string $singular    Singular display name of taxonomy.
@@ -18,7 +19,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
    * @param array  $args        Optional arguments.
    */
 
-  function fcn_keyword_search_taxonomies_input( $taxonomies, $query_var, $and_var, $singular, $plural, $args = [] ) {
+  function fcn_keyword_search_taxonomies_input( $taxonomies, $type, $query_var, $and_var, $singular, $plural, $args = [] ) {
     // Setup
     $and = sanitize_key( $_GET[ $and_var ] ?? 0, true );
     $query_list = sanitize_text_field( wp_strip_all_tags( $_GET[ $query_var ] ?? '', true ) );
@@ -69,7 +70,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
         ?>
         <div class="keyword-input__input-wrapper">
           <div class="keyword-input__tab-suggestion"></div>
-          <input type="text" class="keyword-input__input" style="width: 16px;" autocomplete="off">
+          <input type="text" class="keyword-input__input" data-type="<?php echo $type; ?>" style="width: 16px;" autocomplete="off">
         </div>
       </label>
       <div class="keyword-input__hints"><?php
@@ -147,7 +148,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
         ?>
         <div class="keyword-input__input-wrapper">
           <div class="keyword-input__tab-suggestion"></div>
-          <input type="text" class="keyword-input__input" style="width: 16px;" autocomplete="off">
+          <input type="text" class="keyword-input__input" data-type="author" style="width: 16px;" autocomplete="off">
         </div>
       </label>
       <div class="keyword-input__hints"><?php
