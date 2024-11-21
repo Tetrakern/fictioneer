@@ -43,7 +43,7 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
       return '';
     }
 
-    return '<div class="fictioneer-comment-toolbar"><span class="fictioneer-comment-toolbar-bold" data-bbcode="b"><i class="fa-solid fa-bold"></i></span><span class="fictioneer-comment-toolbar-italic" data-bbcode="i"><i class="fa-solid fa-italic"></i></span><span class="fictioneer-comment-toolbar-strike" data-bbcode="s"><i class="fa-solid fa-strikethrough"></i></span><span class="fictioneer-comment-toolbar-image" data-bbcode="img"><i class="fa-solid fa-image"></i></span><span class="fictioneer-comment-toolbar-link" data-bbcode="link"><i class="fa-solid fa-link"></i></span><span class="fictioneer-comment-toolbar-quote" data-bbcode="quote"><i class="fa-solid fa-quote-left"></i></span><span class="fictioneer-comment-toolbar-spoiler" data-bbcode="spoiler"><i class="fa-solid fa-eye-low-vision"></i></span><label class="fictioneer-comment-toolbar-help" for="modal-bbcodes-toggle"><i class="fa-solid fa-circle-question"></i></label></div>';
+    return '<div class="fictioneer-comment-toolbar" data-action="click->fictioneer-comment-form#toolbarButtons"><span class="fictioneer-comment-toolbar-bold" data-bbcode="b"><i class="fa-solid fa-bold"></i></span><span class="fictioneer-comment-toolbar-italic" data-bbcode="i"><i class="fa-solid fa-italic"></i></span><span class="fictioneer-comment-toolbar-strike" data-bbcode="s"><i class="fa-solid fa-strikethrough"></i></span><span class="fictioneer-comment-toolbar-image" data-bbcode="img"><i class="fa-solid fa-image"></i></span><span class="fictioneer-comment-toolbar-link" data-bbcode="link"><i class="fa-solid fa-link"></i></span><span class="fictioneer-comment-toolbar-quote" data-bbcode="quote"><i class="fa-solid fa-quote-left"></i></span><span class="fictioneer-comment-toolbar-spoiler" data-bbcode="spoiler"><i class="fa-solid fa-eye-low-vision"></i></span><label class="fictioneer-comment-toolbar-help" for="modal-bbcodes-toggle"><i class="fa-solid fa-circle-question"></i></label></div>';
   }
 }
 
@@ -76,22 +76,22 @@ function fictioneer_change_comment_fields( $fields ) {
   $hidden = FICTIONEER_COLLAPSE_COMMENT_FORM ? 'hidden' : '';
 
   // Rebuild author field
-  $fields['author'] = '<div class="comment-form-author"><input type="text" name="author" data-lpignore="true" value="' . esc_attr( $commenter['comment_author'] ) . '"' . $required_attribute . ' maxlength="245" placeholder="' . $name_placeholder . '"></div>';
+  $fields['author'] = '<div class="comment-form-author"><input type="text" name="author" data-lpignore="true" value="' . esc_attr( $commenter['comment_author'] ) . '"' . $required_attribute . ' maxlength="245" placeholder="' . $name_placeholder . '" data-fictioneer-comment-form-target="author"></div>';
 
   // Rebuild email field
-  $fields['email'] = '<div class="comment-form-email"><input type="text" name="email" data-lpignore="true" value="' . esc_attr( $commenter['comment_author_email'] ) . '" maxlength="100" aria-describedby="email-notes" placeholder="' . $email_placeholder . '"' . $required_attribute . '></div>';
+  $fields['email'] = '<div class="comment-form-email"><input type="text" name="email" data-lpignore="true" value="' . esc_attr( $commenter['comment_author_email'] ) . '" maxlength="100" aria-describedby="email-notes" placeholder="' . $email_placeholder . '"' . $required_attribute . ' data-fictioneer-comment-form-target="email"></div>';
 
   // Open .fictioneer-respond__checkboxes wrapper
   $fields['checkboxes'] = '<div class="fictioneer-respond__form-checkboxes fictioneer-respond__form-bottom-block">';
 
   // Rebuild cookies field (ignores 'show_comments_cookies_opt_in' and is always enabled)
-  $fields['cookies'] = '<label class="comment-form-cookies-consent fictioneer-respond__checkbox-label-pair"><input name="wp-comment-cookies-consent" type="checkbox" value="yes"' . $cookie_checked_attribute . '><span>' . fcntr( 'save_in_cookie' ) . '</span></label>';
+  $fields['cookies'] = '<label class="comment-form-cookies-consent fictioneer-respond__checkbox-label-pair"><input name="wp-comment-cookies-consent" type="checkbox" value="yes"' . $cookie_checked_attribute . '  data-fictioneer-comment-form-target="cookies"><span>' . fcntr( 'save_in_cookie' ) . '</span></label>';
 
   // Build new privacy policy field
   $privacy_policy = '';
 
   if ( $privacy_policy_link ) {
-    $privacy_policy = '<label class="comment-form-privacy-policy-consent fictioneer-respond__checkbox-label-pair"><input name="fictioneer-privacy-policy-consent" type="checkbox" value="1" required' . $cookie_checked_attribute . '><span>' . sprintf( fcntr( 'accept_privacy_policy' ), $privacy_policy_link ) . '</span></label>';
+    $privacy_policy = '<label class="comment-form-privacy-policy-consent fictioneer-respond__checkbox-label-pair"><input name="fictioneer-privacy-policy-consent" type="checkbox" value="1" required' . $cookie_checked_attribute . ' data-fictioneer-comment-form-target="privacyPolicy"><span>' . sprintf( fcntr( 'accept_privacy_policy' ), $privacy_policy_link ) . '</span></label>';
   }
 
   // Append checkboxes and close .fictioneer-respond__checkboxes wrapper
@@ -152,7 +152,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
    */
 
   $submit_button = sprintf(
-    '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" data-enabled="%4$s" data-disabled="Posting…">',
+    '<input name="%1$s" type="submit" id="%2$s" class="%3$s" value="%4$s" data-enabled="%4$s" data-disabled="Posting…" data-fictioneer-comment-form-target="submit" data-action="click->fictioneer-comment-form#ajaxSubmit">',
     esc_attr( $args['name_submit'] ),
     esc_attr( $args['id_submit'] ),
     esc_attr( $args['class_submit'] ) . ' button fictioneer-respond__form-submit',
@@ -164,7 +164,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
 
   if ( get_option( 'fictioneer_enable_private_commenting' ) ) {
     $hint = esc_attr_x( 'Toggle to mark as private. Hides the comment from uninvolved viewers.', 'Comment form private toggle.', 'fictioneer' );
-    $private_toggle = '<div class="fictioneer-private-comment-toggle fictioneer-respond__form-toggle"><label class="comment-respond-option-toggle" tabindex="0" role="checkbox" aria-checked="false" aria-label="' . $hint . '"><input name="fictioneer-private-comment-toggle" type="checkbox" tabindex="-1" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . $hint . '"><i class="fa-solid fa-eye off"></i><i class="fa-solid fa-eye-slash on"></i></span></label></div>';
+    $private_toggle = '<div class="fictioneer-private-comment-toggle fictioneer-respond__form-toggle"><label class="comment-respond-option-toggle" tabindex="0" role="checkbox" aria-checked="false" aria-label="' . $hint . '"><input name="fictioneer-private-comment-toggle" type="checkbox" tabindex="-1" data-fictioneer-comment-form-target="privateToggle" data-action="change->fictioneer-comment-form#togglePrivate" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . $hint . '"><i class="fa-solid fa-eye off"></i><i class="fa-solid fa-eye-slash on"></i></span></label></div>';
   }
 
   // Email subscriptions toggle
@@ -176,7 +176,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
   if ( get_option( 'fictioneer_enable_comment_notifications' ) && ! $notifications_blocked ) {
     $hint = esc_attr_x( 'Toggle to get email notifications about direct replies.', 'Comment form email notification toggle.', 'fictioneer' );
     $aria_checked = $notification_checked ? 'true' : 'false';
-    $notification_toggle = '<div class="fictioneer-comment-notification-toggle fictioneer-respond__form-toggle"><label class="comment-respond-option-toggle" tabindex="0" role="checkbox" aria-checked="' . $aria_checked . '" aria-label="' . $hint . '"><input name="fictioneer-comment-notification-toggle" type="checkbox" ' . checked( 1, $notification_checked, false ) . ' tabindex="-1" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . $hint . '"><i class="fa-solid fa-bell on"></i><i class="fa-solid fa-bell-slash off"></i></span></label></div>';
+    $notification_toggle = '<div class="fictioneer-comment-notification-toggle fictioneer-respond__form-toggle"><label class="comment-respond-option-toggle" tabindex="0" role="checkbox" aria-checked="' . $aria_checked . '" aria-label="' . $hint . '"><input name="fictioneer-comment-notification-toggle" type="checkbox" ' . checked( 1, $notification_checked, false ) . ' tabindex="-1" data-fictioneer-comment-form-target="emailNotificationToggle" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . $hint . '"><i class="fa-solid fa-bell on"></i><i class="fa-solid fa-bell-slash off"></i></span></label></div>';
   }
 
   // Hidden parent_comment field
@@ -210,7 +210,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
     $close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div class="fictioneer-respond__form-actions-wrapper">' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
     $submit_button,
     ( $post_id ? get_comment_id_fields( $post_id ) : ( $parent_field . $comment_post_id ) ) . $order_field,
-    preg_replace( '/<a/', '<a class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
+    preg_replace( '/<a/', '<a data-fictioneer-comment-form-target="cancel" class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
   );
 }
 
@@ -266,7 +266,7 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
       fictioneer_get_logout_url( get_permalink( $post_id ) )
     )
   );
-  $comment_field = "<div class='comment-form-comment fictioneer-respond__form-comment'><textarea id='comment' class='adaptive-textarea' aria-label='{$aria_label_textarea}' name='comment' maxlength='65525' required></textarea>{$toolbar}</div>";
+  $comment_field = "<div class='comment-form-comment fictioneer-respond__form-comment'><textarea id='comment' class='adaptive-textarea' aria-label='{$aria_label_textarea}' name='comment' maxlength='65525' data-fictioneer-comment-form-target='textarea' data-action='keydown->fictioneer-comment-form#keyComboCodes input->fictioneer-comment-form#adjustTextarea focus->fictioneer-comment-form#revealFormInputs:once' required></textarea>{$toolbar}</div>";
 
   // Prepare arguments
   $args = array(

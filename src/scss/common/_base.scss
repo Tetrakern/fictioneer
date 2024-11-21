@@ -156,8 +156,9 @@
     background: var(--button-primary-background-hover);
   }
 
-  &[disabled] {
+  &:is([disabled], ._disabled) {
     cursor: not-allowed;
+    pointer-events: none;
     background: var(--button-primary-background-disabled);
     color: var(--button-primary-color-disabled);
     border: var(--button-primary-border-disabled, 1px solid transparent);

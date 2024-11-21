@@ -80,8 +80,9 @@ select {
     font-size: 16px; // Prevent zoom-in
   }
 
-  &[disabled] {
+  &:is([disabled], ._disabled) {
     cursor: not-allowed;
+    pointer-events: none;
     background: var(--input-background-disabled);
     color: var(--input-color-disabled);
   }

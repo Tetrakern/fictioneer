@@ -190,59 +190,46 @@ function fcn_applyCommentStack(editor = null) {
 // application.getControllerForElementAndIdentifier(element, 'fictioneer-comment-form').method()
 
 application.register('fictioneer-comment-form', class extends Stimulus.Controller  {
+  static get targets() {
+    return ['submit', 'cancel', 'textarea', 'privateToggle', 'emailNotificationToggle', 'author', 'email', 'cookies', 'privacyPolicy']
+  }
+
   initialize() {
-    // Setup (cannot properly set data attributes on form)
-    this.respond = _$$$('respond');
+    // Setup (cannot properly set data attributes on all form elements)
+    this.respond = this.element.closest('#respond');
     this.order = this.respond.closest('.fictioneer-comments')?.dataset.order ?? 'desc';
-    this.form = this.respond.querySelector('form');
-    this.textarea = _$(fictioneer_comments.form_selector ?? '#comment'); // fictioneer_comments defined in PHP/JS
-    this.toolbar = this.respond.querySelector('.fictioneer-comment-toolbar');
-    this.privateToggle = this.respond.querySelector('[name="fictioneer-private-comment-toggle"]');
-    this.submit = this.respond.querySelector('#submit');
-    this.cancel = _$$$('cancel-comment-reply-link');
-    this.parent = _$$$('comment_parent');
-    this.author = this.respond.querySelector('[name="author"]');
-    this.email = this.respond.querySelector('[name="email"]');
-    this.privacyConsent = this.respond.querySelector('[name="fictioneer-privacy-policy-consent"]');
-
-    // Private comment toggle
-    this.privateToggle.addEventListener('change', () => {
-      this.respond.classList.toggle('_private', this.privateToggle.checked);
-    });
-
-    // Textarea
-    if (this.textarea.classList.contains('adaptive-textarea')) {
-      this.textarea.addEventListener('input', () => {
-        fcn_adjustTextarea(this.textarea);
-      });
-
-      this.textarea.addEventListener('keydown', event => {
-        this.bbcodes(event);
-      });
-    }
-
-    // Comment toolbar
-    this.toolbar.addEventListener('click', event => {
-      const formattingButton = event.target.closest('[data-bbcode]');
-
-      if (formattingButton) {
-        fcn_wrapInTag(
-          _$(fictioneer_comments.form_selector ?? '#comment'),
-          formattingButton.dataset.bbcode,
-          { 'shortcode': true }
-        );
-      }
-    });
+    this.parent = this.element.querySelector('#comment_parent');
 
     // Spam protection
     this.addJSTrap();
+  }
 
-    // Reveal fields
-    this.textarea.addEventListener('focus', () => { this.revealFormInputs(); }, { once: true });
+  /**
+   * Resize textarea on input when necessary
+   *
+   * @since 5.xx.x
+   */
 
-    // Submit
-    if (document.documentElement.dataset.ajaxSubmit) {
-      this.bindSubmit();
+  adjustTextarea() {
+    fcn_adjustTextarea(this.textareaTarget);
+  }
+
+  /**
+   * Handle clicks into toolbar
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  toolbarButtons(event) {
+    const formattingButton = event.target.closest('[data-bbcode]');
+
+    if (formattingButton) {
+      fcn_wrapInTag(
+        this.textareaTarget,
+        formattingButton.dataset.bbcode,
+        { 'shortcode': true }
+      );
     }
   }
 
@@ -250,9 +237,10 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
    * Apply BBCodes on key combo
    *
    * @since 5.xx.x
+   * @param {Event} event - The event.
    */
 
-  bbcodes(event) {
+  keyComboCodes(event) {
     if (
       _$('.fictioneer-comment-toolbar') &&
       document.activeElement.tagName === 'TEXTAREA' &&
@@ -290,7 +278,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
    */
 
   addJSTrap() {
-    this.form.appendChild(fcn_html`
+    this.element.appendChild(fcn_html`
       <input type="hidden" name="fictioneer_comment_validator" value="299792458">
     `);
   }
@@ -311,208 +299,228 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
    * AJAX: Submit comment (if enabled).
    *
    * @since 5.xx.x
+   * @param {Event} event - The event.
    */
 
-  bindSubmit() {
-    // Check whether AJAX submit is enabled, abort if not...
-    if (!document.documentElement.dataset.ajaxSubmit) {
+  ajaxSubmit(event) {
+    // Delay trap (cannot be done server-side because of caching)
+    if (Date.now() < fcn_pageLoadTimestamp + 3000) {
       return;
     }
 
-    this.form.addEventListener('submit', event => {
-      // Stop default form submission
-      event.preventDefault();
-
-      // Delay trap (cannot be done server-side because of caching)
-      if (Date.now() < fcn_pageLoadTimestamp + 3000) {
+    // Check whether AJAX submit is enabled, use normal form submission
+    if (!document.documentElement.dataset.ajaxSubmit) {
+      if (!this.element.checkValidity()) {
         return;
       }
 
-      // Get comment form input
-      const formData = new FormData(this.form);
-      const formDataObj = Object.fromEntries(formData.entries());
-      const parentId = formDataObj['comment_parent'] ?? 0;
-      const parent = _$$$(`comment-${parentId}`);
+      this.submitTarget.value = this.submitTarget.dataset.disabled;
+      this.submitTarget.classList.add('_disabled');
 
-      const contentValidation = this.textarea.value.length > 1;
-      let emailValidation = true;
-      let privacyValidation = true;
+      setTimeout(() => {
+        this.submitTarget.value = this.submitTarget.dataset.enabled;
+        this.submitTarget.classList.remove('_disabled');
+      }, 2000);
 
-      // Validate content
-      this.textarea.classList.toggle('_error', !contentValidation);
+      return;
+    }
 
-      // Validate privacy policy checkbox
-      if (this.privacyConsent) {
-        privacyValidation = this.privacyConsent.checked;
-        this.privacyConsent.classList.toggle('_error', !privacyValidation);
-      }
+    event.preventDefault();
 
-      // Validate email address pattern (better validation server-side)
-      if (this.email?.value.length > 0) {
-        emailValidation = /\S+@\S+\.\S+/.test(this.email.value);
-        this.email.classList.toggle('_error', !emailValidation);
-      }
+    // Get comment form input
+    const formData = new FormData(this.element);
+    const formDataObj = Object.fromEntries(formData.entries());
+    const parentId = formDataObj['comment_parent'] ?? 0;
+    const parent = _$$$(`comment-${parentId}`);
 
-      // Abort if...
-      if (!contentValidation || !privacyValidation || !emailValidation) {
-        return false;
-      }
+    const contentValidation = this.textareaTarget.value.length > 1;
+    let emailValidation = true;
+    let privacyValidation = true;
 
-      // Disable form during submit
-      this.form.classList.add('ajax-in-progress');
-      this.submit.disabled = true;
-      this.submit.value = this.submit.dataset.disabled;
+    // Validate content
+    this.textareaTarget.classList.toggle('_error', !contentValidation);
 
-      // Payload
-      const payload = {
-        ...{
-          'action': 'fictioneer_ajax_submit_comment',
-          'content': this.textarea.value,
-          'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
-          'fcn_fast_comment_ajax': 1
-        },
-        ...formDataObj
-      }
+    // Validate privacy policy checkbox
+    if (this.hasPrivacyPolicyTarget) {
+      privacyValidation = this.privacyPolicyTarget.checked;
+      this.privacyPolicyTarget.classList.toggle('_error', !privacyValidation);
+    }
 
-      // Optional payload
-      if (this.email?.value) {
-        payload['email'] = this.email.value;
-      }
+    // Validate email address pattern (better validation server-side)
+    if (this.hasEmailTarget && this.emailTarget?.value.length > 0) {
+      emailValidation = /\S+@\S+\.\S+/.test(this.emailTarget.value);
+      this.emailTarget.classList.toggle('_error', !emailValidation);
+    }
 
-      if (this.author?.value) {
-        payload['author'] = this.author.value;
-      }
+    // Abort if...
+    if (!contentValidation || !privacyValidation || !emailValidation) {
+      return;
+    }
 
-      // Remove any old error
-      _$$$('comment-submit-error-notice')?.remove();
+    // Disable form during submit
+    this.element.classList.add('ajax-in-progress');
+    this.submitTarget.value = this.submitTarget.dataset.disabled;
+    this.submitTarget.disabled = true;
 
-      // Request
-      fcn_ajaxPost(payload)
-      .then(response => {
-        // Comment successfully saved?
-        if (!response.success || !response.data?.comment) {
-          this.form.insertBefore(
-            fcn_buildErrorNotice(
-              response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-              'comment-submit-error-notice',
-              false
-            ),
-            this.form.firstChild
-          );
+    // Payload
+    const payload = {
+      ...{
+        'action': 'fictioneer_ajax_submit_comment',
+        'content': this.textareaTarget.value,
+        'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
+        'fcn_fast_comment_ajax': 1
+      },
+      ...formDataObj
+    }
 
-          console.error('Error:', response.data.error ?? response.data.failure ?? 'Unknown');
-        } else {
-          // Insert new comment
-          let target = _$('.commentlist');
-          let insertMode = 'insertBefore';
+    // Optional payload
+    if (this.hasEmailTarget && this.emailTarget?.value) {
+      payload['email'] = this.emailTarget.value;
+    }
 
-          // Account for sticky comments
-          if (target && !parent && target.firstElementChild) {
-            let maybeSticky = null;
+    if (this.hasAuthorTarget && this.authorTarget?.value) {
+      payload['author'] = this.authorTarget.value;
+    }
 
-            if (target.firstElementChild.classList.contains('_sticky')) {
-              maybeSticky = target.firstElementChild;
-              target = maybeSticky;
-              insertMode = 'insertAfter';
+    // Remove any old error
+    _$$$('comment-submit-error-notice')?.remove();
 
-              while (maybeSticky.nextElementSibling && maybeSticky.nextElementSibling.classList.contains('_sticky')) {
-                maybeSticky = target.nextElementSibling;
-                target = maybeSticky;
-              }
-            }
-          }
-
-          // Create list if missing
-          if (!target) {
-            // First comment, list missing!
-            target = document.createElement('ol');
-            target.classList = 'fictioneer-comments__list commentlist';
-            _$$$('comments').appendChild(target);
-            insertMode = 'append';
-          }
-
-          // Account for parent of reply
-          if (parent) {
-            // Get child comment list
-            target = parent.querySelector('.children');
-
-            // Append in this case
-            insertMode = 'append';
-
-            // Create child comment list if missing
-            if (!target) {
-              const node = document.createElement('ol');
-
-              parent.appendChild(node);
-              target = node;
-            }
-          }
-
-          // Prepare element
-          let commentNode = document.createElement('div');
-
-          commentNode.innerHTML = response.data.comment;
-          commentNode = commentNode.firstChild;
-
-          // Add to DOM
-          switch (insertMode) {
-            case 'append':
-              target.appendChild(commentNode);
-              break;
-            case 'insertBefore':
-              target.insertBefore(commentNode, target.firstChild);
-              break;
-            case 'insertAfter':
-              if (target.nextSibling) {
-                target.parentNode.insertBefore(commentNode, target.nextSibling);
-              } else {
-                target.parentNode.appendChild(commentNode);
-              }
-          }
-
-          // Clean up form
-          this.textarea.value = '';
-          this.textarea.style.height = '';
-
-          if (this.parent.value != '0') {
-            this.cancel.click();
-          }
-
-          // Update URL
-          const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
-
-          if (this.order != 'desc' || fcn_urlParams.corder) {
-            fcn_urlParams['corder'] = this.order;
-          }
-
-          if (response.data.commentcode) {
-            fcn_urlParams['commentcode'] = response.data.commentcode;
-          }
-
-          let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
-
-          if (params !== '') {
-            params = `?${params}`;
-          }
-
-          history.replaceState({ path: refresh }, '', refresh + params + `#comment-${response.data.comment_id}`);
-
-          // Scroll to new comment
-          commentNode.scrollIntoView({ behavior: 'smooth' });
-        }
-      })
-      .catch(error => {
-        this.form.insertBefore(
-          fcn_buildErrorNotice(`${error.statusText} (${error.status})`, 'comment-submit-error-notice'),
-          this.form.firstChild
+    // Request
+    fcn_ajaxPost(payload)
+    .then(response => {
+      // Comment successfully saved?
+      if (!response.success || !response.data?.comment) {
+        this.element.insertBefore(
+          fcn_buildErrorNotice(
+            response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+            'comment-submit-error-notice',
+            false
+          ),
+          this.element.firstChild
         );
-      })
-      .then(() => {
-        this.form.classList.remove('ajax-in-progress');
-        this.submit.disabled = false;
-        this.submit.value = this.submit.dataset.enabled;
-      });
+
+        console.error('Error:', response.data.error ?? response.data.failure ?? 'Unknown');
+      } else {
+        // Insert new comment
+        let target = _$('.commentlist');
+        let insertMode = 'insertBefore';
+
+        // Account for sticky comments
+        if (target && !parent && target.firstElementChild) {
+          let maybeSticky = null;
+
+          if (target.firstElementChild.classList.contains('_sticky')) {
+            maybeSticky = target.firstElementChild;
+            target = maybeSticky;
+            insertMode = 'insertAfter';
+
+            while (maybeSticky.nextElementSibling && maybeSticky.nextElementSibling.classList.contains('_sticky')) {
+              maybeSticky = target.nextElementSibling;
+              target = maybeSticky;
+            }
+          }
+        }
+
+        // Create list if missing
+        if (!target) {
+          // First comment, list missing!
+          target = document.createElement('ol');
+          target.classList = 'fictioneer-comments__list commentlist';
+          _$$$('comments').appendChild(target);
+          insertMode = 'append';
+        }
+
+        // Account for parent of reply
+        if (parent) {
+          // Get child comment list
+          target = parent.querySelector('.children');
+
+          // Append in this case
+          insertMode = 'append';
+
+          // Create child comment list if missing
+          if (!target) {
+            const node = document.createElement('ol');
+
+            parent.appendChild(node);
+            target = node;
+          }
+        }
+
+        // Prepare element
+        let commentNode = document.createElement('div');
+
+        commentNode.innerHTML = response.data.comment;
+        commentNode = commentNode.firstChild;
+
+        // Add to DOM
+        switch (insertMode) {
+          case 'append':
+            target.appendChild(commentNode);
+            break;
+          case 'insertBefore':
+            target.insertBefore(commentNode, target.firstChild);
+            break;
+          case 'insertAfter':
+            if (target.nextSibling) {
+              target.parentNode.insertBefore(commentNode, target.nextSibling);
+            } else {
+              target.parentNode.appendChild(commentNode);
+            }
+        }
+
+        // Clean up form
+        this.textareaTarget.value = '';
+        this.textareaTarget.style.height = '';
+
+        if (this.parent.value != '0') {
+          this.cancelTarget.click();
+        }
+
+        // Update URL
+        const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+        if (this.order != 'desc' || fcn_urlParams.corder) {
+          fcn_urlParams['corder'] = this.order;
+        }
+
+        if (response.data.commentcode) {
+          fcn_urlParams['commentcode'] = response.data.commentcode;
+        }
+
+        let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
+
+        if (params !== '') {
+          params = `?${params}`;
+        }
+
+        history.replaceState({ path: refresh }, '', refresh + params + `#comment-${response.data.comment_id}`);
+
+        // Scroll to new comment
+        commentNode.scrollIntoView({ behavior: 'smooth' });
+      }
+    })
+    .catch(error => {
+      this.element.insertBefore(
+        fcn_buildErrorNotice(`${error.statusText} (${error.status})`, 'comment-submit-error-notice'),
+        this.element.firstChild
+      );
+    })
+    .then(() => {
+      this.element.classList.remove('ajax-in-progress');
+      this.submitTarget.disabled = false;
+      this.submitTarget.value = this.submitTarget.dataset.enabled;
     });
+  }
+
+  /**
+   * Perform actions when the private comment toggle changes.
+   *
+   * @since 5.xx.x
+   */
+
+  togglePrivate() {
+    this.respond.classList.toggle('_private', this.privateToggleTarget.checked);
   }
 });
 
@@ -521,7 +529,9 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
 // =============================================================================
 
 application.register('fictioneer-comment', class extends Stimulus.Controller {
-  static targets = ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton', 'editButton', 'content', 'inlineEditWrapper', 'inlineEditTextarea', 'inlineEditButtons', 'inlineEditSubmit', 'editNote'];
+  static get targets() {
+    return ['modMenuToggle', 'modMenu', 'modIcon', 'editLink', 'flagButton', 'deleteButton', 'editButton', 'content', 'inlineEditWrapper', 'inlineEditTextarea', 'inlineEditButtons', 'inlineEditSubmit', 'editNote']
+  }
 
   static values = {
     id: Number,
@@ -674,7 +684,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   mouseLeave() {
-    if (this.modMenuTarget.querySelector('*')) {
+    if (this.hasModMenuTarget && this.modMenuTarget.querySelector('*')) {
       this.#toggleMenu('close');
       fcn_lastClicked?.classList.remove('last-clicked'); // Global
       fcn_lastClicked = null; // Global
@@ -886,7 +896,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     });
   }
 
-  bbcodes(event) {
+  keyComboCodes(event) {
     if (
       _$('.fictioneer-comment-toolbar') &&
       document.activeElement.tagName === 'TEXTAREA' &&

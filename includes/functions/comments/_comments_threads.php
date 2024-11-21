@@ -690,7 +690,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         ?>
         <?php if ( ( $can_edit && $is_editable ) || ( $cache_plugin_active && ! $is_deleted_by_owner) ) : ?>
           <div class="fictioneer-comment__edit" data-fictioneer-comment-target="inlineEditWrapper" hidden>
-            <textarea class="comment-inline-edit-content" data-fictioneer-comment-target="inlineEditTextarea" data-action="keydown->fictioneer-comment#bbcodes"><?php
+            <textarea class="comment-inline-edit-content" data-fictioneer-comment-target="inlineEditTextarea" data-action="keydown->fictioneer-comment#keyComboCodes"><?php
               echo $comment->comment_content;
             ?></textarea>
           </div>
