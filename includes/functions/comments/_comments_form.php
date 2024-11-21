@@ -79,7 +79,7 @@ function fictioneer_change_comment_fields( $fields ) {
   $fields['author'] = '<div class="comment-form-author"><input type="text" name="author" data-lpignore="true" value="' . esc_attr( $commenter['comment_author'] ) . '"' . $required_attribute . ' maxlength="245" placeholder="' . $name_placeholder . '" data-fictioneer-comment-form-target="author"></div>';
 
   // Rebuild email field
-  $fields['email'] = '<div class="comment-form-email"><input type="text" name="email" data-lpignore="true" value="' . esc_attr( $commenter['comment_author_email'] ) . '" maxlength="100" aria-describedby="email-notes" placeholder="' . $email_placeholder . '"' . $required_attribute . ' data-fictioneer-comment-form-target="email"></div>';
+  $fields['email'] = '<div class="comment-form-email"><input type="email" name="email" data-lpignore="true" value="' . esc_attr( $commenter['comment_author_email'] ) . '" maxlength="100" aria-describedby="email-notes" placeholder="' . $email_placeholder . '"' . $required_attribute . ' data-fictioneer-comment-form-target="email"></div>';
 
   // Open .fictioneer-respond__checkboxes wrapper
   $fields['checkboxes'] = '<div class="fictioneer-respond__form-checkboxes fictioneer-respond__form-bottom-block">';

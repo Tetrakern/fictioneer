@@ -73,7 +73,7 @@ select {
   color: var(--input-color);
   border: none;
   border-radius: var(--input-border-radius, var(--layout-border-radius-small));
-  box-shadow: var(--input-shadow);
+  box-shadow: var(--input-shadow, 0 0 transparent), var(--input-validation-shadow, 0 0 transparent);
 
   // Only iOS
   @supports (-webkit-touch-callout: none) {

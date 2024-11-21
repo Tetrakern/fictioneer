@@ -187,8 +187,6 @@ function fcn_applyCommentStack(editor = null) {
 // STIMULUS: FICTIONEER COMMENT FORM
 // =============================================================================
 
-// application.getControllerForElementAndIdentifier(element, 'fictioneer-comment-form').method()
-
 application.register('fictioneer-comment-form', class extends Stimulus.Controller  {
   static get targets() {
     return ['submit', 'cancel', 'textarea', 'privateToggle', 'emailNotificationToggle', 'author', 'email', 'cookies', 'privacyPolicy']
@@ -308,9 +306,12 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
       return;
     }
 
+    this.element.classList.remove('_invalid');
+
     // Check whether AJAX submit is enabled, use normal form submission
     if (!document.documentElement.dataset.ajaxSubmit) {
-      if (!this.element.checkValidity()) {
+      if (!this.element.reportValidity()) {
+        this.element.classList.add('_invalid');
         return;
       }
 
@@ -326,6 +327,11 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
     }
 
     event.preventDefault();
+
+    if (!this.element.reportValidity()) {
+      this.element.classList.add('_invalid');
+      return;
+    }
 
     // Get comment form input
     const formData = new FormData(this.element);
