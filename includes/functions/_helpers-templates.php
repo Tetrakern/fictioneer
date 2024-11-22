@@ -1837,10 +1837,9 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Checkmark menu item
     if ( $can_checkmarks ) {
       $menu['checkmark'] = sprintf(
-        '<button class="popup-action-mark-read" data-action="click->fictioneer-large-card#setCheckmarks" data-type="%1$s" data-chapter-id="%2$s" data-mode="set">%3$s</button>' .
-        '<button class="popup-action-mark-unread" data-action="click->fictioneer-large-card#unsetCheckmarks" data-type="%1$s" data-chapter-id="%2$s" data-mode="unset">%4$s</button>',
+        '<button class="popup-action-mark-read" data-action="click->fictioneer-large-card#setCheckmarks" data-fictioneer-large-card-type-param="%1$s">%2$s</button>' .
+        '<button class="popup-action-mark-unread" data-action="click->fictioneer-large-card#unsetCheckmarks" data-fictioneer-large-card-type-param="%1$s">%3$s</button>',
         $type,
-        $chapter_id ?: 'null',
         fcntr( 'mark_read' ),
         fcntr( 'mark_unread' )
       );
