@@ -112,7 +112,7 @@ function fcn_toggleFollow(storyId, set = null) {
       'action': 'fictioneer_ajax_toggle_follow',
       'fcn_fast_ajax': 1,
       'story_id': storyId,
-      'set': set // Must be boolean, not undefined!
+      'set': set
     })
     .then(response => {
       // Check for failure

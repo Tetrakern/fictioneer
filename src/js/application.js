@@ -2381,7 +2381,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
 
   toggleReminder() {
     if (this.#loggedIn()) {
-      fcn_toggleReminder(this.storyIdValue);
+      fcn_toggleReminder(this.storyIdValue, !this.isRemembered());
       this.#refreshReminderState();
     } else {
       _$$$('modal-login-toggle')?.click();

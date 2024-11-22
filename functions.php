@@ -273,7 +273,7 @@ if ( ! defined( 'FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT' ) ) {
 
 // Integer: Requests per minute
 if ( ! defined( 'FICTIONEER_REQUESTS_PER_MINUTE' ) ) {
-  define( 'FICTIONEER_REQUESTS_PER_MINUTE', 5 );
+  define( 'FICTIONEER_REQUESTS_PER_MINUTE', 10 );
 }
 
 // Integer: Maximum number of IDs in 'post__in' and 'post__not_in' query arguments

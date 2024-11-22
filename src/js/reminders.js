@@ -56,9 +56,10 @@ function fcn_initializeReminders(event) {
  * @since 5.0.0
  * @see fcn_updateRemindersView()
  * @param {Number} storyId - The ID of the story.
+ * @param {Boolean} [set] - Optional. Whether to set (true) or unset (false).
  */
 
-function fcn_toggleReminder(storyId) {
+function fcn_toggleReminder(storyId, set = null) {
   // Get current data
   const currentUserData = fcn_getUserData();
 
@@ -71,7 +72,10 @@ function fcn_toggleReminder(storyId) {
   localStorage.removeItem('fcnBookshelfContent');
 
   // Re-synchronize if data has diverged
-  if (JSON.stringify(fcn_reminders.data[storyId]) !== JSON.stringify(currentUserData.reminders.data[storyId])) {
+  if (
+    set === null &&
+    JSON.stringify(fcn_reminders.data[storyId]) !== JSON.stringify(currentUserData.reminders.data[storyId])
+  ) {
     fcn_reminders = currentUserData.reminders;
     fcn_showNotification(fictioneer_tl.notification.remindersResynchronized);
     fcn_updateRemindersView();
@@ -79,8 +83,11 @@ function fcn_toggleReminder(storyId) {
     return;
   }
 
+  // Decide force if not given
+  set = set ?? !fcn_reminders.data[storyId];
+
   // Set/Unset reminder
-  if (fcn_reminders.data[storyId]) {
+  if (!set) {
     delete fcn_reminders.data[storyId];
   } else {
     fcn_reminders.data[storyId] = { 'story_id': parseInt(storyId), 'timestamp': Date.now() };
@@ -103,7 +110,7 @@ function fcn_toggleReminder(storyId) {
       'action': 'fictioneer_ajax_toggle_reminder',
       'fcn_fast_ajax': 1,
       'story_id': storyId,
-      'set': fcn_reminders.data[storyId] ? true : false // Must be boolean, not undefined!
+      'set': set
     })
     .then(response => {
       // Check for failure
