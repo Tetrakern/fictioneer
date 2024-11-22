@@ -28,7 +28,7 @@ function fcn_cleanUpActions() {
   );
 }
 
-if (fcn_theRoot.dataset.ajaxAuth) {
+if (document.documentElement.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', () => {
     fcn_cleanUpActions();
   });

@@ -21,7 +21,7 @@ var /** @type {SpeechSynthesis} */ fcn_synth;
 if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
   fcn_synth = window.speechSynthesis;
   fcn_utter = new SpeechSynthesisUtterance();
-  fcn_utter.lang = fcn_theRoot.lang;
+  fcn_utter.lang = document.documentElement.lang;
 
   // Some browsers do not support the voiceschanged event,
   // so we just wait for two seconds and hope for the best!

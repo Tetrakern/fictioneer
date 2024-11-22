@@ -6,7 +6,7 @@ const fcn_bookshelfTarget = _$$$('ajax-bookshelf-target');
 
 // Initialize
 if (fcn_bookshelfTarget) {
-  if (fcn_theRoot.dataset.ajaxAuth) {
+  if (document.documentElement.dataset.ajaxAuth) {
     document.addEventListener('fcnAuthReady', () => {
       fcn_updateBookshelfView();
     });

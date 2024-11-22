@@ -4,7 +4,6 @@
 
 const /** @const {HTMLElement} */ fcn_theSite = _$$$('site');
 const /** @const {HTMLElement} */ fcn_theBody = _$('body');
-const /** @const {HTMLElement} */ fcn_theRoot = document.documentElement;
 const /** @const {Object} */ fcn_urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
 const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
@@ -17,7 +16,7 @@ var /** @type {Boolean} */ fcn_userReady = false;
 // =============================================================================
 
 // Remove superfluous data and nodes if not logged in
-if (!fcn_isLoggedIn && !fcn_theRoot.dataset.ajaxAuth) {
+if (!fcn_isLoggedIn && !document.documentElement.dataset.ajaxAuth) {
   fcn_cleanupWebStorage(true);
   fcn_cleanupGuestView();
 }
@@ -115,7 +114,7 @@ function fcn_cleanupGuestView() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  if (fcn_theRoot.dataset.ajaxAuth) {
+  if (document.documentElement.dataset.ajaxAuth) {
     fcn_ajaxAuth();
   }
 });
@@ -243,7 +242,7 @@ function fcn_addNonceHTML(nonceHtml) {
 // =============================================================================
 
 // Only if AJAX authentication is active
-if (!fcn_isLoggedIn && fcn_theRoot.dataset.ajaxAuth) {
+if (!fcn_isLoggedIn && document.documentElement.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', (event) => {
     if (event.detail.loggedIn) {
       fcn_setLoggedInState(event.detail);
@@ -806,7 +805,7 @@ function fcn_toggleLightMode() {
   const current =
     localStorage.getItem('fcnLightmode') ?
       localStorage.getItem('fcnLightmode') == 'true' :
-      fcn_theRoot.dataset.modeDefault == 'light';
+      document.documentElement.dataset.modeDefault == 'light';
 
   fcn_setLightMode(!current);
 }
@@ -823,7 +822,7 @@ function fcn_toggleLightMode() {
 function fcn_setLightMode(boolean, silent = false) {
   // Update light mode state
   localStorage.setItem('fcnLightmode', boolean);
-  fcn_theRoot.dataset.mode = boolean ? 'light' : 'dark';
+  document.documentElement.dataset.mode = boolean ? 'light' : 'dark';
 
   // Update aria-checked attributes
   _$$('.toggle-light-mode').forEach(element => {
@@ -840,7 +839,7 @@ function fcn_setLightMode(boolean, silent = false) {
 fcn_setLightMode(
   localStorage.getItem('fcnLightmode') ?
     localStorage.getItem('fcnLightmode') == 'true' :
-    fcn_theRoot.dataset.modeDefault == 'light',
+    document.documentElement.dataset.modeDefault == 'light',
   true
 );
 
@@ -882,7 +881,7 @@ function fcn_updateFontWeight() {
 
 function fcn_resetFontWeight() {
   fcn_siteSettings['font-weight'] = 'default';
-  fcn_theRoot.dataset.fontWeight = 'default';
+  document.documentElement.dataset.fontWeight = 'default';
   fcn_applySiteSettings(fcn_siteSettings);
 }
 
@@ -895,7 +894,7 @@ _$$('.font-weight-reset').forEach(element => {
 _$$('.site-setting-font-weight').forEach(setting => {
   setting.onchange = (e) => {
     fcn_siteSettings['font-weight'] = e.target.value;
-    fcn_theRoot.dataset.fontWeight = e.target.value;
+    document.documentElement.dataset.fontWeight = e.target.value;
     fcn_applySiteSettings(fcn_siteSettings);
     fcn_updateFontWeight();
   }
@@ -921,7 +920,7 @@ function fcn_updateHueRotate(value) {
   fcn_settingHueRotateReset.classList.toggle('_modified', value != 0);
 
   // Update hue-rotate property
-  fcn_theRoot.style.setProperty('--hue-rotate', `(${value}deg + var(--hue-offset))`);
+  document.documentElement.style.setProperty('--hue-rotate', `(${value}deg + var(--hue-offset))`);
 
   // Update local storage
   fcn_siteSettings['hue-rotate'] = value;
@@ -974,7 +973,7 @@ function fcn_updateDarken(value = null) {
   const d = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
 
   // Update property in DOM
-  fcn_theRoot.style.setProperty('--darken', `(${d} + var(--lightness-offset))`);
+  document.documentElement.style.setProperty('--darken', `(${d} + var(--lightness-offset))`);
 
   // Update local storage
   fcn_siteSettings['darken'] = value;
@@ -1046,7 +1045,7 @@ function fcn_updateSaturation(value = null) {
   const s = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
 
   // Update property in DOM
-  fcn_theRoot.style.setProperty('--saturation', `(${s} + var(--saturation-offset))`);
+  document.documentElement.style.setProperty('--saturation', `(${s} + var(--saturation-offset))`);
 
   // Update local storage
   fcn_siteSettings['saturation'] = value;
@@ -1118,7 +1117,7 @@ function fcn_updateFontLightness(value = null) {
   const l = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
 
   // Update property in DOM
-  fcn_theRoot.style.setProperty('--font-lightness', `(${l} + var(--font-lightness-offset))`);
+  document.documentElement.style.setProperty('--font-lightness', `(${l} + var(--font-lightness-offset))`);
 
   // Update local storage
   fcn_siteSettings['font-lightness'] = value;
@@ -1264,7 +1263,7 @@ function fcn_applySiteSettings(value) {
     // Update styles and classes
     switch (setting[0]) {
       case 'minimal':
-        fcn_theRoot.classList.toggle('minimal', setting[1]);
+        document.documentElement.classList.toggle('minimal', setting[1]);
         break;
       case 'darken':
         fcn_updateDarken();
@@ -1284,7 +1283,7 @@ function fcn_applySiteSettings(value) {
         fcn_updateFontWeight();
         break;
       default:
-        fcn_theRoot.classList.toggle(`no-${setting[0]}`, !setting[1]);
+        document.documentElement.classList.toggle(`no-${setting[0]}`, !setting[1]);
     }
   });
 
@@ -1302,7 +1301,7 @@ fcn_applySiteSettings(fcn_siteSettings);
 function fcn_updateSiteTheme(theme) {
   // Update root and settings
   fcn_siteSettings['site-theme'] = theme;
-  fcn_theRoot.dataset.theme = theme;
+  document.documentElement.dataset.theme = theme;
 
   // Update reset button
   _$$$('site-setting-theme-reset').classList.toggle('_modified', theme != 'default');
@@ -1347,7 +1346,7 @@ fcn_updateThemeColor();
  */
 
 function fcn_jumpPage(source) {
-  if (fcn_theRoot.dataset.disablePageJump) {
+  if (document.documentElement.dataset.disablePageJump) {
     return;
   }
 
@@ -2230,7 +2229,7 @@ function fcn_showAgeConfirmationModal() {
   // Adult story or chapter?
   const rating = _$('.story__article, .chapter__article')?.dataset.ageRating;
 
-  if (!fcn_theRoot.dataset.ageConfirmation && rating && rating !== 'adult') {
+  if (!document.documentElement.dataset.ageConfirmation && rating && rating !== 'adult') {
     _$$$('age-confirmation-modal')?.remove();
     return;
   }
@@ -2239,12 +2238,12 @@ function fcn_showAgeConfirmationModal() {
   const leave = _$$$('age-confirmation-leave');
 
   // Disable site and show modal
-  fcn_theRoot.classList.add('age-modal-open');
+  document.documentElement.classList.add('age-modal-open');
   _$$$('age-confirmation-modal').classList.add('_open');
 
   // Confirm button
   _$$$('age-confirmation-confirm')?.addEventListener('click', event => {
-    fcn_theRoot.classList.remove('age-modal-open');
+    document.documentElement.classList.remove('age-modal-open');
     event.currentTarget.closest('.modal').remove();
     localStorage.setItem('fcnAgeConfirmation', '1');
   });

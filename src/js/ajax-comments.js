@@ -193,7 +193,7 @@ function fcn_jumpToCommentPage() {
 var /** @type {IntersectionObserver} */ fct_commentSectionObserver;
 
 // In case of AJAX authentication...
-if (fcn_theRoot.dataset.ajaxAuth) {
+if (document.documentElement.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', () => {
     fcn_setupCommentSectionObserver();
   });
@@ -229,7 +229,7 @@ function fcn_setupCommentSectionObserver() {
 // =============================================================================
 
 // In case of AJAX authentication...
-if (fcn_theRoot.dataset.ajaxAuth) {
+if (document.documentElement.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', () => {
     fcn_loadCommentEarly();
   });

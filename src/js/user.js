@@ -115,19 +115,19 @@ function fcn_getUserAvatar() {
   })
   .catch(() => {
     // You could use a default avatar here
-    if (fcn_theRoot.dataset.defaultAvatar) {
-      fcn_setProfileImage(fcn_theRoot.dataset.defaultAvatar, false);
+    if (document.documentElement.dataset.defaultAvatar) {
+      fcn_setProfileImage(document.documentElement.dataset.defaultAvatar, false);
     }
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (fcn_isLoggedIn && !fcn_theRoot.dataset.ajaxAuth) {
+  if (fcn_isLoggedIn && !document.documentElement.dataset.ajaxAuth) {
     fcn_getProfileImage();
   }
 });
 
-if (fcn_theRoot.dataset.ajaxAuth) {
+if (document.documentElement.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', () => {
     fcn_getProfileImage();
   });
@@ -277,7 +277,7 @@ function fcn_fetchUserData() {
 }
 
 // Initialize
-if (fcn_theRoot.dataset.ajaxAuth) {
+if (document.documentElement.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', () => {
     fcn_fetchUserData();
   });

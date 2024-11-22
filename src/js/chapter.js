@@ -351,7 +351,7 @@ function fcn_defaultFormatting() {
       'letter-spacing': 0.0,
       'line-height': 1.7,
       'paragraph-spacing': 1.5,
-      'site-width': fcn_theRoot.dataset.siteWidthDefault ?? '960',
+      'site-width': document.documentElement.dataset.siteWidthDefault ?? '960',
       'indent': true,
       'show-sensitive-content': true,
       'show-chapter-notes': true,
@@ -360,7 +360,7 @@ function fcn_defaultFormatting() {
       'show-paragraph-tools': true,
       'timestamp': 1664797604825 // Used to force resets on script updates
     },
-    ...JSON.parse(fcn_theRoot.dataset.defaultFormatting ?? '{}')
+    ...JSON.parse(document.documentElement.dataset.defaultFormatting ?? '{}')
   };
 }
 
@@ -978,7 +978,7 @@ function fcn_setFormatting(value) {
     main.style.setProperty('--site-width', `${value}px`);
 
     // Toggle utility classes
-    main.classList.toggle('_default-width', value == fcn_theRoot.dataset.siteWidthDefault);
+    main.classList.toggle('_default-width', value == document.documentElement.dataset.siteWidthDefault);
     main.classList.toggle('_below-1024', value < 1024 && value >= 768);
     main.classList.toggle('_below-768', value < 768 && value > 640);
     main.classList.toggle('_640-and-below', value <= 640);
