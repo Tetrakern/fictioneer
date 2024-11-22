@@ -561,7 +561,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     }
 
     $open = "<{$tag} id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"{$depth}\">";
-    $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\" data-controller=\"fictioneer-comment\" data-action=\"mouseleave->fictioneer-comment#mouseLeave:stop\" data-fictioneer-comment-id-value=\"{$comment->comment_ID}\" data-fictioneer-comment-timestamp-value=\"" . ( $timestamp * 1000 ) . "\" {$fingerprint_data}>";
+    $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\" data-controller=\"fictioneer-comment\" data-action=\"click->fictioneer-comment#commentClick mouseleave->fictioneer-comment#mouseLeave:stop\" data-fictioneer-comment-id-value=\"{$comment->comment_ID}\" data-fictioneer-comment-timestamp-value=\"" . ( $timestamp * 1000 ) . "\" {$fingerprint_data}>";
 
     if ( $is_sticky ) {
       $open .= '<i class="fa-solid fa-thumbtack sticky-pin"></i>';

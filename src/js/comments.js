@@ -545,10 +545,26 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     fingerprint: String
   }
 
-  connect() {
-    // Comment element separated because it also contains child comments
-    this.comment = this.element.closest('.fictioneer-comment');
+  comment = this.element.closest('.fictioneer-comment');
+  menuOpen = false;
 
+  initialize() {
+    // Listen to global last-clicked handler
+    document.addEventListener('fcnLastClicked', event => {
+      if (!event.detail?.element?.closest(`[data-fictioneer-comment-id-value="${this.idValue}"]`)) {
+        this.#hideMenu();
+      }
+    });
+
+    // Listen to clicks outside
+    document.addEventListener('click', event => {
+      if (!event.target.closest(`[data-fictioneer-comment-id-value="${this.idValue}"]`)) {
+        this.#hideMenu();
+      }
+    });
+  }
+
+  connect() {
     // Get comment edit link
     if (this.hasModMenuTarget) {
       this.editLink = this.modMenuTarget.dataset.editLink;
@@ -574,13 +590,44 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   }
 
   /**
-   * Toggle display of moderation popup menu.
+   * Add or remove moderation menu HTML.
    *
    * @since 5.xx.x
+   * @param {String} [force] - Optional. Force 'open' or 'close'.
    */
 
-  toggle() {
-    this.#toggleMenu();
+  toggleMenu(force = null) {
+    if (!this.hasModMenuTarget) {
+      return;
+    }
+
+    if ((this.menuOpen || force === 'close') && force !== 'open') {
+      this.#hideMenu();
+    } else {
+      this.#showMenu();
+    }
+  }
+
+  mouseLeave() {
+    if (this.hasModMenuTarget && this.menuOpen) {
+      this.#hideMenu();
+
+      fcn_lastClicked?.classList.remove('last-clicked'); // Global
+      fcn_lastClicked = null; // Global
+    }
+  }
+
+  /**
+   * Handle clicks anywhere in comment.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  commentClick(event) {
+    if (!event.target.closest('[data-fictioneer-comment-target="modMenuToggle"]')) {
+      this.#hideMenu();
+    }
   }
 
   /**
@@ -681,20 +728,6 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
 
   spam() {
     this.#modRequest('spam');
-  }
-
-  /**
-   * Close menu when mouse leaves comment.
-   *
-   * @since 5.xx.x
-   */
-
-  mouseLeave() {
-    if (this.hasModMenuTarget && this.modMenuTarget.querySelector('*')) {
-      this.#toggleMenu('close');
-      fcn_lastClicked?.classList.remove('last-clicked'); // Global
-      fcn_lastClicked = null; // Global
-    }
   }
 
   /**
@@ -1013,24 +1046,34 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   }
 
   /**
-   * Add or remove moderation menu HTML.
+   * Append menu template and set edit link.
    *
    * @since 5.xx.x
-   * @param {String} [force] - Optional. Force 'open' or 'close'.
    */
 
-  #toggleMenu(force = null) {
+  #showMenu() {
     const template = _$$$('template-comment-frontend-moderation-menu')?.content.cloneNode(true);
 
-    if (!template || !this.hasModMenuTarget) {
-      return;
-    }
-
-    if ((this.modMenuTarget.querySelector('*') || force === 'close') && force !== 'open') {
-      this.modMenuTarget.innerHTML = '';
-    } else {
+    if (template && this.hasModMenuTarget) {
       this.modMenuTarget.appendChild(template);
       this.editLinkTarget.href = this.editLink;
+      this.menuOpen = true;
+    }
+  }
+
+  /**
+   * Remove menu items and reset last-clicked element.
+   *
+   * @since 5.xx.x
+   */
+
+  #hideMenu() {
+    if (this.hasModMenuTarget && this.menuOpen) {
+      this.menuOpen = false;
+
+      while (this.modMenuTarget.firstChild) {
+        this.modMenuTarget.removeChild(this.modMenuTarget.firstChild);
+      }
     }
   }
 
@@ -1124,7 +1167,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     })
     .then(() => {
       this.comment.classList.remove('ajax-in-progress');
-      this.#toggleMenu('close');
+      this.#hideMenu();
       fcn_lastClicked?.classList.remove('last-clicked'); // Global
       fcn_lastClicked = null; // Global
     });
