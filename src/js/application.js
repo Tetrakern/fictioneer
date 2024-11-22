@@ -381,37 +381,6 @@ fcn_theBody.addEventListener('click', e => {
       // Handle logout cleanup
       fcn_cleanupWebStorage();
       break;
-    // case 'card-toggle-follow':
-    //   // Handle toggle card Follow
-    //   if (fcn_isLoggedIn) {
-    //     fcn_toggleFollow(clickTarget.dataset.storyId);
-    //   } else {
-    //     _$$$('modal-login-toggle')?.click();
-    //   }
-    //   break;
-    case 'card-toggle-reminder':
-      // Handle toggle card Reminder
-      if (fcn_isLoggedIn) {
-        fcn_toggleReminder(clickTarget.dataset.storyId);
-      } else {
-        _$$$('modal-login-toggle')?.click();
-      }
-      break;
-    case 'card-toggle-checkmarks':
-      // Handle toggle card Reminder
-      if (fcn_isLoggedIn) {
-        fcn_toggleCheckmark(
-          parseInt(clickTarget.dataset.storyId),
-          clickTarget.dataset.type,
-          parseInt(clickTarget.dataset.chapterId),
-          null,
-          clickTarget.dataset.mode
-        );
-        fcn_updateCheckmarksView();
-      } else {
-        _$$$('modal-login-toggle')?.click();
-      }
-      break;
     case 'toggle-obfuscation':
       // Handle obfuscation
       clickTarget.closest('[data-obfuscation-target]').classList.toggle('_obfuscated');
@@ -2314,6 +2283,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
 
   static values = {
     storyId: Number,
+    chapterId: Number,
     checkId: Number
   }
 
@@ -2365,6 +2335,32 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     } else {
       _$$$('modal-login-toggle')?.click();
     }
+  }
+
+  toggleReminder() {
+    if (this.#loggedIn()) {
+      fcn_toggleReminder(this.storyIdValue);
+      this.#refreshReminderState();
+    } else {
+      _$$$('modal-login-toggle')?.click();
+    }
+  }
+
+  toggleCheckmarks(mode = 'toggle') {
+    if (this.#loggedIn()) {
+      fcn_toggleCheckmark(this.storyIdValue, 'story', this.chapterId, null, mode);
+      this.#refreshCheckmarkState();
+    } else {
+      _$$$('modal-login-toggle')?.click();
+    }
+  }
+
+  setCheckmarks() {
+    this.toggleCheckmarks('set');
+  }
+
+  unsetCheckmarks() {
+    this.toggleCheckmarks('unset');
   }
 
   // =====================

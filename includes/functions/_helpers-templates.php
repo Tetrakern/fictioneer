@@ -1817,9 +1817,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Follows menu item
     if ( $can_follows ) {
       $menu['follow'] = sprintf(
-        '<button class="popup-action-follow" data-click="card-toggle-follow" data-story-id="%1$s">%2$s</button>' .
-        '<button class="popup-action-unfollow" data-click="card-toggle-follow" data-story-id="%1$s">%3$s</button>',
-        $story_id,
+        '<button class="popup-action-follow" data-action="click->fictioneer-large-card#toggleFollow">%1$s</button>' .
+        '<button class="popup-action-unfollow" data-action="click->fictioneer-large-card#toggleFollow">%2$s</button>',
         fcntr( 'follow' ),
         fcntr( 'unfollow' )
       );
@@ -1828,9 +1827,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Reminders menu item
     if ( $can_reminders ) {
       $menu['reminder'] = sprintf(
-        '<button class="popup-action-reminder" data-click="card-toggle-reminder" data-story-id="%1$s">%2$s</button>' .
-        '<button class="popup-action-forget" data-click="card-toggle-reminder" data-story-id="%1$s">%3$s</button>',
-        $story_id,
+        '<button class="popup-action-reminder" data-action="click->fictioneer-large-card#toggleReminder">%1$s</button>' .
+        '<button class="popup-action-forget" data-action="click->fictioneer-large-card#toggleReminder">%2$s</button>',
         fcntr( 'read_later' ),
         fcntr( 'forget' )
       );
@@ -1839,9 +1837,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Checkmark menu item
     if ( $can_checkmarks ) {
       $menu['checkmark'] = sprintf(
-        '<button class="popup-action-mark-read" data-click="card-toggle-checkmarks" data-story-id="%1$s" data-type="%2$s" data-chapter-id="%3$s" data-mode="set">%4$s</button>' .
-        '<button class="popup-action-mark-unread" data-click="card-toggle-checkmarks" data-story-id="%1$s" data-type="%2$s" data-chapter-id="%3$s" data-mode="unset">%5$s</button>',
-        $story_id,
+        '<button class="popup-action-mark-read" data-action="click->fictioneer-large-card#setCheckmarks" data-type="%1$s" data-chapter-id="%2$s" data-mode="set">%3$s</button>' .
+        '<button class="popup-action-mark-unread" data-action="click->fictioneer-large-card#unsetCheckmarks" data-type="%1$s" data-chapter-id="%2$s" data-mode="unset">%4$s</button>',
         $type,
         $chapter_id ?: 'null',
         fcntr( 'mark_read' ),
