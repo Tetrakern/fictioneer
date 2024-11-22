@@ -107,6 +107,7 @@ if ( $card_cache_active ) {
   data-controller="fictioneer-large-card"
   data-fictioneer-large-card-post-id-value="<?php echo $post_id; ?>"
   data-fictioneer-large-card-story-id-value="<?php echo $post_id; ?>"
+  data-action="click->fictioneer-large-card#cardClick"
   <?php echo $card_attributes; ?>
 >
   <div class="card__body polygon">

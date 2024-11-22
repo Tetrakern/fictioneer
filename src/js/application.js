@@ -10,6 +10,7 @@ const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
 var /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in');
+var /** @type {Boolean} */ fcn_userReady = false;
 
 // =============================================================================
 // STARTUP CLEANUP
@@ -2292,11 +2293,17 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   paused = false;
 
   initialize() {
-    document.addEventListener('fcnUserDataReady', () => {
-      this.#refreshAll();
+    // Use global to determine whether user data has already
+    // been fetched, because the event will once fire once.
+    if (fcn_userReady) {
       this.ready = true;
-      this.#watch();
-    });
+    } else {
+      document.addEventListener('fcnUserDataReady', () => {
+        this.#refreshAll();
+        this.ready = true;
+        this.#watch();
+      });
+    }
 
     document.addEventListener('click', event => {
       if (!event.target.closest(`.card.post-${this.postIdValue}`)) {
@@ -2365,7 +2372,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
 
   toggleFollow() {
     if (this.#loggedIn()) {
-      fcn_toggleFollow(this.storyIdValue);
+      fcn_toggleFollow(this.storyIdValue, !this.isFollowed());
       this.#refreshFollowState();
     } else {
       _$$$('modal-login-toggle')?.click();

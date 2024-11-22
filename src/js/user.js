@@ -211,6 +211,8 @@ function fcn_fetchUserData() {
       document.dispatchEvent(eventFailure);
     }
 
+    fcn_userReady = true;
+
     return;
   }
 
@@ -255,6 +257,8 @@ function fcn_fetchUserData() {
       // Fire event
       document.dispatchEvent(eventFailure);
     }
+
+    fcn_userReady = true;
   })
   .catch(error => {
     // Something went extremely wrong; clear local storage

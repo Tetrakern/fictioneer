@@ -58,9 +58,10 @@ function fcn_initializeFollows(event) {
  * @since 4.3.0
  * @see fcn_updateFollowsView()
  * @param {Number} storyId - The ID of the story.
+ * @param {Boolean} [set] - Optional. Whether to set (true) or unset (false).
  */
 
-function fcn_toggleFollow(storyId) {
+function fcn_toggleFollow(storyId, set = null) {
   // Get current data
   const currentUserData = fcn_getUserData();
 
@@ -73,7 +74,10 @@ function fcn_toggleFollow(storyId) {
   localStorage.removeItem('fcnBookshelfContent');
 
   // Re-synchronize if data has diverged
-  if (JSON.stringify(fcn_follows.data[storyId]) !== JSON.stringify(currentUserData.follows.data[storyId])) {
+  if (
+    set === null &&
+    JSON.stringify(fcn_follows.data[storyId]) !== JSON.stringify(currentUserData.follows.data[storyId])
+  ) {
     fcn_follows = currentUserData.follows;
     fcn_showNotification(fictioneer_tl.notification.followsResynchronized);
     fcn_updateFollowsView();
@@ -81,8 +85,11 @@ function fcn_toggleFollow(storyId) {
     return;
   }
 
+  // Decide force if not given
+  set = set ?? !fcn_follows.data[storyId];
+
   // Set/Unset follow
-  if (fcn_follows.data[storyId]) {
+  if (!set) {
     delete fcn_follows.data[storyId];
   } else {
     fcn_follows.data[storyId] = { 'story_id': parseInt(storyId), 'timestamp': Date.now() };
@@ -105,7 +112,7 @@ function fcn_toggleFollow(storyId) {
       'action': 'fictioneer_ajax_toggle_follow',
       'fcn_fast_ajax': 1,
       'story_id': storyId,
-      'set': fcn_follows.data[storyId] ? true : false // Must be boolean, not undefined!
+      'set': set // Must be boolean, not undefined!
     })
     .then(response => {
       // Check for failure
