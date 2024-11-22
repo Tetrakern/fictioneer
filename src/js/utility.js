@@ -472,6 +472,8 @@ function fcn_toggleLastClicked(element) {
   }
 
   fcn_lastClicked = element;
+
+  document.dispatchEvent(new CustomEvent('fcnLastClicked', { detail: { element } }));
 }
 
 /**

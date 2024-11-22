@@ -2278,14 +2278,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 application.register('fictioneer-large-card', class extends Stimulus.Controller {
   static get targets() {
-    return ['toggleFollow', 'toggleReminder', 'toggleCheckmarks']
+    return ['controls', 'menu']
   }
 
   static values = {
+    postId: Number,
     storyId: Number,
     chapterId: Number
   }
 
+  menOpen = false;
   ready = false;
   paused = false;
 
@@ -2295,12 +2297,32 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       this.ready = true;
       this.#watch();
     });
+
+    document.addEventListener('click', event => {
+      if (!event.target.closest(`.card.post-${this.postIdValue}`)) {
+        this.#clickOutside();
+      }
+    });
+
+    document.addEventListener('fcnLastClicked', event => {
+      if (!event.detail?.element?.closest(`.card.post-${this.postIdValue}`)) {
+        this.#hideMenu();
+      }
+    });
   }
 
   connect() {
     if (this.ready) {
       this.#refreshAll();
       this.#watch();
+    }
+
+    if (this.hasMenuTarget) {
+      this.menuFragment = document.createDocumentFragment();
+
+      while (this.menuTarget.firstChild) {
+        this.menuFragment.appendChild(this.menuTarget.firstChild);
+      }
     }
   }
 
@@ -2325,6 +2347,20 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
 
     return !!checkmarks &&
       (checkmarks.includes(this.chapterIdValue) || checkmarks.includes(this.storyIdValue));
+  }
+
+  cardClick(event) {
+    if (!event.target.closest('.card__controls')) {
+      this.#hideMenu();
+    }
+  }
+
+  toggleMenu() {
+    if (this.menuTarget.querySelector('*')) {
+      this.#hideMenu();
+    } else {
+      this.#showMenu();
+    }
   }
 
   toggleFollow() {
@@ -2450,5 +2486,24 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
 
   #refreshCheckmarkState() {
     this.element.classList.toggle('has-checkmark', this.isRead());
+  }
+
+  #clickOutside() {
+    this.#hideMenu();
+  }
+
+  #showMenu() {
+    this.menOpen = true;
+    this.menuTarget.appendChild(this.menuFragment.cloneNode(true));
+  }
+
+  #hideMenu() {
+    if (this.menOpen) {
+      this.menOpen = false;
+
+      while (this.menuTarget.firstChild) {
+        this.menuTarget.removeChild(this.menuTarget.firstChild);
+      }
+    }
   }
 });

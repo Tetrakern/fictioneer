@@ -95,8 +95,10 @@ $thumbnail_args = array(
   class="post-<?php echo $post_id; ?> card _large _chapter <?php echo implode( ' ', $card_classes ); ?>"
   data-unavailable="<?php esc_attr_e( 'Unavailable', 'fictioneer' ); ?>"
   data-controller="fictioneer-large-card"
+  data-fictioneer-large-card-post-id-value="<?php echo $post_id; ?>"
   data-fictioneer-large-card-story-id-value="<?php echo $story_id; ?>"
   data-fictioneer-large-card-chapter-id-value="<?php echo $post_id; ?>"
+  data-action="click->fictioneer-large-card#cardClick"
   <?php echo $card_attributes; ?>
 >
   <div class="card__body polygon">

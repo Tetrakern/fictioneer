@@ -1860,13 +1860,13 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( count( $menu ) > 0 ) {
       $menu_html = sprintf(
         '<i class="fa-solid fa-ellipsis-vertical card__popup-menu-toggle" tabindex="0"></i>' .
-        '<div class="popup-menu _fixed-position _bottom">%s</div>',
+        '<div class="popup-menu _fixed-position _bottom" data-fictioneer-large-card-target="menu">%s</div>',
         implode( '', $menu )
       );
     }
 
     $output = sprintf(
-      '<div class="card__controls %s">%s%s</div>',
+      '<div class="card__controls %s" data-fictioneer-large-card-target="controls" data-action="click->fictioneer-large-card#toggleMenu">%s%s</div>',
       count( $menu ) > 0 ? 'popup-menu-toggle toggle-last-clicked' : '',
       implode( '', $icons ),
       $menu_html
