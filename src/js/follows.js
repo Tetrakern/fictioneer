@@ -63,7 +63,7 @@ function fcn_initializeFollows(event) {
 
 function fcn_toggleFollow(storyId, set = null) {
   // Get current data
-  const currentUserData = fcn_getUserData();
+  const currentUserData = fcn().userData();
 
   // Prevent error in case something went very wrong
   if (!fcn_follows || !currentUserData.follows) {
@@ -98,7 +98,7 @@ function fcn_toggleFollow(storyId, set = null) {
   // Update local storage
   currentUserData.follows.data[storyId] = fcn_follows.data[storyId];
   currentUserData.lastLoaded = 0;
-  fcn_setUserData(currentUserData);
+  fcn().setUserData(currentUserData);
 
   // Update view
   fcn_updateFollowsView();
@@ -153,7 +153,7 @@ function fcn_toggleFollow(storyId, set = null) {
 
 function fcn_updateFollowsView() {
   // Get current data
-  const currentUserData = fcn_getUserData();
+  const currentUserData = fcn().userData();
 
   if (!fcn_follows || !currentUserData.follows) {
     return;
@@ -216,9 +216,9 @@ function fcn_setupFollowsHTML() {
       }
 
       // Use opportunity to fix broken login state
-      if (fcn_getUserData().loggedIn === false) {
+      if (fcn().userData().loggedIn === false) {
         fcn_prepareLogin();
-        fcn_fetchUserData();
+        fcn().fetchUserData();
       }
     }
   })
@@ -265,10 +265,10 @@ function fcn_markFollowsRead() {
   });
 
   // Update local storage
-  const currentUserData = fcn_getUserData();
+  const currentUserData = fcn().userData();
   currentUserData.new = 0;
   currentUserData.lastLoaded = 0;
-  fcn_setUserData(currentUserData);
+  fcn().setUserData(currentUserData);
 
   // Request
   fcn_ajaxPost({

@@ -74,7 +74,7 @@ function fcn_initializeCheckmarks(event) {
 
 function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode = 'toggle') {
   // Get current data
-  const currentUserData = fcn_getUserData();
+  const currentUserData = fcn().userData();
 
   // Prevent error in case something went very wrong
   if (!fcn_checkmarks || !currentUserData.checkmarks) {
@@ -173,7 +173,7 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
   // Update local storage
   currentUserData.checkmarks.data[storyId] = fcn_checkmarks.data[storyId];
   currentUserData.lastLoaded = 0;
-  fcn_setUserData(currentUserData);
+  fcn().setUserData(currentUserData);
 
   // Update view
   fcn_updateCheckmarksView();
@@ -218,7 +218,7 @@ function fcn_clickCheckmark(source) {
 
 function fcn_updateCheckmarks(storyId, checkmarks = null) {
   // Prepare update
-  checkmarks = checkmarks ? checkmarks : fcn_getUserData().checkmarks.data[storyId];
+  checkmarks = checkmarks ? checkmarks : fcn().userData().checkmarks.data[storyId];
 
   // Request
   fcn_ajaxPost({
@@ -263,7 +263,7 @@ function fcn_updateCheckmarks(storyId, checkmarks = null) {
 
 function fcn_updateCheckmarksView() {
   // Get current data
-  const currentUserData = fcn_getUserData();
+  const currentUserData = fcn().userData();
   const checkmarks = currentUserData.checkmarks;
 
   if (!checkmarks) {
@@ -291,7 +291,7 @@ function fcn_updateCheckmarksView() {
 
       if (updated) {
         currentUserData.checkmarks = checkmarks; // Global
-        fcn_setUserData(currentUserData);
+        fcn().setUserData(currentUserData);
         fcn_updateCheckmarks(storyId, checkmarks.data[storyId]);
       }
     }

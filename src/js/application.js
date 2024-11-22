@@ -9,7 +9,411 @@ const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
 var /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in');
-var /** @type {Boolean} */ fcn_userReady = false;
+
+
+
+
+// =============================================================================
+// BASE UTILITIES
+// =============================================================================
+
+const FictioneerUtils = {
+  /**
+   * Returns or prepares locally cached user data.
+   *
+   * @since 5.xx.x
+   * @return {Object} The user data.
+   */
+
+  userData() {
+    const defaults = {
+      'lastLoaded': 0,
+      'timestamp': 0,
+      'loggedIn': 'pending',
+      'follows': false,
+      'reminders': false,
+      'checkmarks': false,
+      'bookmarks': {},
+      'fingerprint': false,
+      'nonceHtml': '',
+      'nonce': '',
+      'isAdmin': false,
+      'isModerator': false,
+      'isAuthor': false,
+      'isEditor': false
+    };
+
+    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
+    return { ...defaults, ...data };
+  },
+
+  /**
+   * Update user data in web storage.
+   *
+   * @since 5.xx.x
+   * @param {Object} data - User data.
+   */
+
+  setUserData(data) {
+    localStorage.setItem('fcnUserData', JSON.stringify(data));
+  },
+
+  /**
+   * Returns whether the user is logged in (cookie).
+   *
+   * @since 5.xx.x
+   * @return {Boolean} True or false
+   */
+
+  loggedIn() {
+    const cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+
+      if (cookie.indexOf('fcnLoggedIn=') !== -1) {
+        return true;
+      }
+    }
+
+    return false;
+  },
+
+  /**
+   * Wrapper for utility fcn_ajaxGet().
+   *
+   * @since 5.xx.x
+   * @param {Object} data - The payload, including the action and nonce.
+   * @param {String} [url=null] - Optional. The request URL if different from the default.
+   * @param {Object} [headers={}] - Optional. Headers for the request.
+   * @return {Promise<JSON>} A Promise that resolves to the parsed JSON response.
+   */
+
+  async aGet(data = {}, url = null, headers = {}) {
+    try {
+      const response = await fcn_ajaxGet(data, url, headers);
+      return response;
+    } catch (error) {
+      console.error('aGet Error:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Wrapper for utility fcn_ajaxPost().
+   *
+   * @since 5.xx.x
+   * @param {Object} data - The payload, including the action and nonce.
+   * @param {String} [url=null] - Optional. The request URL if different from the default.
+   * @param {Object} [headers={}] - Optional. Headers for the request.
+   * @return {Promise<JSON>} A Promise that resolves to the parsed JSON response.
+   */
+
+  async aPost(data = {}, url = null, headers = {}) {
+    try {
+      const response = await fcn_ajaxPost(data, url, headers);
+      return response;
+    } catch (error) {
+      console.error('aPost Error:', error);
+      throw error;
+    }
+  }
+};
+
+// =============================================================================
+// STIMULUS: FICTIONEER
+// =============================================================================
+
+window.FictioneerApp = window.FictioneerApp || {};
+window.FictioneerApp.Controllers = window.FictioneerApp.Controllers || {};
+
+application.register('fictioneer', class extends Stimulus.Controller {
+  static get targets() {
+    return ['avatarWrapper']
+  }
+
+  static values = {
+    fingerprint: String,
+    ageConfirmation: { type: Boolean, default: false },
+    ajaxAuth: { type: Boolean, default: false },
+    ajaxSubmit: { type: Boolean, default: false },
+    cachingActive: { type: Boolean, default: false },
+    publicCaching: { type: Boolean, default: false },
+    forceChildTheme: { type: Boolean, default: false },
+    editTime: { type: Number, default: 15 }
+  }
+
+  userReady = false;
+  urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+  pageLoadTimestamp = Date.now();
+  ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
+  ajaxURL = fictioneer_ajax.ajax_url;
+  ajaxTTL = fictioneer_ajax.ttl;
+  restURL = fictioneer_ajax.rest_url;
+  loginTTL = fictioneer_ajax.login_ttl;
+  debounceRate = fictioneer_ajax.post_debounce_rate;
+  fonts = fictioneer_fonts ?? [];
+  fontColors = fictioneer_font_colors ?? [];
+  commentFormSelector = fictioneer_comments?.selector ?? '#comment';
+
+  /**
+   * Stimulus Controller initialize lifecycle callback.
+   *
+   * @since 5.xx.x
+   */
+
+  initialize() {
+    if (this.loggedIn() || this.ajaxAuthValue) {
+      this.fetchUserData();
+    }
+  }
+
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.xx.x
+   */
+
+  connect() {
+    window.FictioneerApp.Controllers.fictioneer = this;
+  }
+
+  /**
+   * AJAX: Wrapper for utility fcn_ajaxGet().
+   *
+   * @since 5.xx.x
+   * @param {Object} data - The payload, including the action and nonce.
+   * @param {String} [url] - Optional. The request URL if different from the default.
+   * @param {Object} [headers] - Optional. Headers for the request.
+   * @return {JSON} The parsed JSON response if successful.
+   */
+
+  async aGet(data = {}, url = null, headers = {}) {
+    return FictioneerUtils.aGet(data, url, headers);
+  }
+
+  /**
+   * AJAX: Wrapper for utility fcn_ajaxPost().
+   *
+   * @since 5.xx.x
+   * @param {Object} data - The payload, including the action and nonce.
+   * @param {String} [url] - Optional. The request URL if different from the default.
+   * @param {Object} [headers] - Optional. Headers for the request.
+   * @return {Promise} A Promise that resolves to the parsed JSON response if successful.
+   */
+
+  async aPost(data = {}, url = null, headers = {}) {
+    return FictioneerUtils.aPost(data, url, headers);
+  }
+
+  /**
+   * Returns whether the user is logged in (cookie).
+   *
+   * @since 5.xx.x
+   * @return {Boolean} True or false
+   */
+
+  loggedIn() {
+    return FictioneerUtils.loggedIn();
+  }
+
+  /**
+   * Returns or prepares locally cached user data.
+   *
+   * @since 5.xx.x
+   * @return {Object} The user data.
+   */
+
+  userData() {
+    return FictioneerUtils.userData();
+  }
+
+  /**
+   * Update user data in web storage.
+   *
+   * @since 5.xx.x
+   * @param {Object} data - User data.
+   */
+
+  setUserData(data) {
+    FictioneerUtils.setUserData(data);
+  }
+
+  /**
+   * AJAX: Refresh local user data if expired, fire global events.
+   *
+   * @since 5.xx.x
+   */
+
+  fetchUserData() {
+    let currentUserData = this.userData();
+
+    // Fix broken login state
+    if (this.loggedIn() && currentUserData.loggedIn === false) {
+      this.#cleanUpLogin();
+
+      currentUserData = this.userData();
+    }
+
+    // Only update from server after some time has passed (e.g. 60 seconds)
+    if (this.ajaxLimitThreshold < currentUserData['lastLoaded'] || currentUserData.loggedIn === false) {
+      // Prepare event
+      const event = new CustomEvent(
+        currentUserData.loggedIn ? 'fcnUserDataReady' : 'fcnUserDataFailed',
+        {
+          detail: { data: currentUserData, time: new Date(), cached: true },
+          bubbles: !currentUserData.loggedIn, // Bubbles only for logged-out case
+          cancelable: currentUserData.loggedIn // Cancelable only for logged-in case
+        }
+      );
+
+      // Set avatar
+      fcn_setAvatar();
+
+      // Fire event
+      document.dispatchEvent(event);
+
+      // Mark user as ready
+      this.userReady = true;
+      return;
+    }
+
+    // Request
+    this.aGet({
+      'action': 'fictioneer_ajax_get_user_data',
+      'fcn_fast_ajax': 1
+    })
+    .then(response => {
+      if (response.success) {
+        // Prepare user data object
+        let updatedUserData = this.userData();
+
+        // Update local user data
+        updatedUserData = response.data;
+        updatedUserData['lastLoaded'] = Date.now();
+        this.setUserData(updatedUserData);
+
+        // Set avatar
+        fcn_setAvatar();
+
+        // Prepare event
+        const event = new CustomEvent('fcnUserDataReady', {
+          detail: { data: response.data, time: new Date(), cached: false },
+          bubbles: true,
+          cancelable: false
+        });
+
+        // Fire event
+        document.dispatchEvent(event);
+      } else {
+        // Prepare user data object
+        const updatedUserData = this.userData();
+
+        // Update guest data
+        updatedUserData['lastLoaded'] = Date.now();
+        updatedUserData['loggedIn'] = false;
+        this.setUserData(updatedUserData);
+
+        // Prepare event
+        const event = new CustomEvent('fcnUserDataFailed', {
+          detail: { data: response, time: new Date(), cached: false },
+          bubbles: true,
+          cancelable: false
+        });
+
+        // Fire event
+        document.dispatchEvent(event);
+      }
+
+      // Mark user as ready
+      this.userReady = true;
+    })
+    .catch(error => {
+      // Something went extremely wrong; clear local storage
+      localStorage.removeItem('fcnUserData');
+
+      // Prepare event
+      const event = new CustomEvent('fcnUserDataError', {
+        detail: { error: error, time: new Date() },
+        bubbles: true,
+        cancelable: false
+      });
+
+      // Fire event
+      document.dispatchEvent(event);
+    });
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  /**
+   * Cleanup old locally stored user data.
+   *
+   * @since 5.xx.x
+   */
+
+  #cleanUpLogin() {
+    localStorage.removeItem('fcnUserData');
+  }
+});
+
+/**
+ * Return the primary Fictioneer Stimulus Controller or
+ * placeholder with important utility functions.
+ *
+ * @since 5.xx.x
+ * @return {stimulus.Controller} Stimulus Controller.
+ */
+
+function fcn() {
+  const stimulus = window.FictioneerApp?.Controllers?.fictioneer;
+
+  if (stimulus) {
+    return stimulus;
+  }
+
+  return {
+    userData: FictioneerUtils.userData,
+    setUserData: FictioneerUtils.setUserData,
+    loggedIn: FictioneerUtils.loggedIn,
+    aGet: FictioneerUtils.aGet,
+    aPost: FictioneerUtils.aPost
+  };
+}
+
+/**
+ * Set avatar image where required.
+ *
+ * @since 5.xx.x
+ */
+
+function fcn_setAvatar() {
+  const url = fcn().userData()?.avatarUrl;
+
+  if (url) {
+    _$$('[data-fictioneer-target="avatarWrapper"]').forEach(target => {
+      const img = document.createElement('img');
+
+      img.classList.add('user-profile-image');
+      img.src = url;
+
+      target.firstChild.remove();
+      target.appendChild(img);
+    });
+  }
+}
+
+document.addEventListener('fcnUserDataReady', () => {
+  fcn_setAvatar();
+});
+
+
+
+
+
+
 
 // =============================================================================
 // STARTUP CLEANUP
@@ -292,7 +696,7 @@ function fcn_setLoggedInState(state) {
 
   // Initialize local user
   fcn_getProfileImage();
-  fcn_fetchUserData();
+  fcn().fetchUserData();
 }
 
 // =============================================================================
@@ -2292,11 +2696,10 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   paused = false;
 
   initialize() {
-    // Use global to determine whether user data has already
-    // been fetched, because the event will once fire once.
-    if (fcn_userReady) {
+    if (fcn()?.userReady) {
       this.ready = true;
     } else {
+      console.log('listen');
       document.addEventListener('fcnUserDataReady', () => {
         this.#refreshAll();
         this.ready = true;
@@ -2431,7 +2834,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   }
 
   #data() {
-    this.userData = fcn_getUserData();
+    this.userData = fcn().userData();
     return this.userData;
   }
 

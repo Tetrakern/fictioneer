@@ -191,11 +191,11 @@ function fcn_setBookmarks(value, silent = false) {
 
   // Keep user data updated as well
   if (fcn_isLoggedIn) {
-    const currentUserData = fcn_getUserData();
+    const currentUserData = fcn().userData();
 
     if (currentUserData) {
       currentUserData.bookmarks = JSON.stringify(value);
-      fcn_setUserData(currentUserData);
+      fcn().setUserData(currentUserData);
     }
   }
 

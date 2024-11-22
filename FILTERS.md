@@ -47,6 +47,12 @@ Filters the data to be returned as JSON by the `fictioneer_ajax_get_user_data()`
 * $checkmarks (array|false) – The user’s Checkmarks data or false if disabled.
 * $bookmarks (string) – The user’s Bookmarks JSON as string. `'{}'` if disabled.
 * $fingerprint (string) – The user’s unique hash.
+* 'isAdmin' (bool) - Whether the user is an admin.
+* 'isModerator' (bool) - Whether the user is a moderator.
+* 'isAuthor' (bool) - Whether the user is an author.
+* 'isEditor' (bool) - Whether the user is an editor.
+* 'nonce' (string) - The `'fictioneer_nonce'` nonce.
+* 'nonceHtml' (string) - Nonce HTMl ready to be appended to the DOM.
 
 **Parameters:**
 * $user (WP_User) – The user object.

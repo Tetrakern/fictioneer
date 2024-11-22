@@ -14,28 +14,44 @@ function fictioneer_ajax_get_user_data() {
   // Rate limit
   fictioneer_check_rate_limit( 'fictioneer_ajax_get_user_data', 30 );
 
-  // Validations
-  $user = fictioneer_get_validated_ajax_user();
-
-  if ( ! $user ) {
-    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
-  }
-
   // Setup
+  $logged_in = is_user_logged_in();
+  $user = wp_get_current_user();
+  $nonce = wp_create_nonce( 'fictioneer_nonce' );
   $data = array(
     'user_id' => $user->ID,
     'timestamp' => time() * 1000, // Compatible with Date.now() in JavaScript
-    'loggedIn' => true,
+    'loggedIn' => $logged_in,
     'follows' => false,
     'reminders' => false,
     'checkmarks' => false,
     'bookmarks' => '{}',
-    'fingerprint' => fictioneer_get_user_fingerprint( $user->ID )
+    'fingerprint' => fictioneer_get_user_fingerprint( $user->ID ),
+    'avatarUrl' => '',
+    'isAdmin' => false,
+    'isModerator' => false,
+    'isAuthor' => false,
+    'isEditor' => false,
+    'nonce' => $nonce,
+    'nonceHtml' => '<input id="fictioneer-ajax-nonce" name="fictioneer-ajax-nonce" type="hidden" value="' . $nonce . '">'
   );
+
+  if ( $logged_in ) {
+    $data = array_merge(
+      $data,
+      array(
+        'isAdmin' => fictioneer_is_admin( $user->ID ),
+        'isModerator' => fictioneer_is_moderator( $user->ID ),
+        'isAuthor' => fictioneer_is_author( $user->ID ),
+        'isEditor' => fictioneer_is_editor( $user->ID ),
+        'avatarUrl' => get_avatar_url( $user->ID )
+      )
+    );
+  }
 
   // --- FOLLOWS ---------------------------------------------------------------
 
-  if ( get_option( 'fictioneer_enable_follows' ) ) {
+  if ( $logged_in && get_option( 'fictioneer_enable_follows' ) ) {
     $follows = fictioneer_load_follows( $user );
     $follows['new'] = false;
     $latest = 0;
@@ -57,19 +73,19 @@ function fictioneer_ajax_get_user_data() {
 
   // --- REMINDERS -------------------------------------------------------------
 
-  if ( get_option( 'fictioneer_enable_reminders' ) ) {
+  if ( $logged_in && get_option( 'fictioneer_enable_reminders' ) ) {
     $data['reminders'] = fictioneer_load_reminders( $user );
   }
 
   // --- CHECKMARKS ------------------------------------------------------------
 
-  if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
+  if ( $logged_in && get_option( 'fictioneer_enable_checkmarks' ) ) {
     $data['checkmarks'] = fictioneer_load_checkmarks( $user );
   }
 
   // --- BOOKMARKS -------------------------------------------------------------
 
-  if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
+  if ( $logged_in && get_option( 'fictioneer_enable_bookmarks' ) ) {
     $bookmarks = get_user_meta( $user->ID, 'fictioneer_bookmarks', true );
     $data['bookmarks'] = $bookmarks ? $bookmarks : '{}';
   }
@@ -84,6 +100,7 @@ function fictioneer_ajax_get_user_data() {
   wp_send_json_success( $data );
 }
 add_action( 'wp_ajax_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get_user_data' );
+add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get_user_data' );
 
 // =============================================================================
 // SELF-DELETE USER - AJAX

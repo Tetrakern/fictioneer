@@ -2366,7 +2366,7 @@ function fictioneer_render_icon_menu( $args ) {
 
   if ( fictioneer_show_auth_content() ) {
     $output['profile'] = sprintf(
-      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><a href="%1$s" title="%2$s" class="subscriber-profile" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-circle-user user-icon"></i></a><ul class="sub-menu">%4$s</ul></div>',
+      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><a href="%1$s" title="%2$s" class="subscriber-profile" data-fictioneer-target="avatarWrapper" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-circle-user user-icon"></i></a><ul class="sub-menu">%4$s</ul></div>',
       esc_url( $profile_link ),
       esc_attr__( 'User Profile', 'fictioneer' ),
       esc_attr__( 'Link to user profile', 'fictioneer' ),

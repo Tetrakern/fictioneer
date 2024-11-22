@@ -285,9 +285,9 @@ _$('.button-clear-checkmarks')?.addEventListener(
     }
 
     // Update local storage and view
-    const currentUserData = fcn_getUserData();
+    const currentUserData = fcn().userData();
     currentUserData.checkmarks = { 'data': {}, 'updated': Date.now() };
-    fcn_setUserData(currentUserData);
+    fcn().setUserData(currentUserData);
 
     // Update views
     fcn_updateCheckmarksView();
@@ -311,9 +311,9 @@ _$('.button-clear-reminders')?.addEventListener(
     }
 
     // Update local storage and view
-    const currentUserData = fcn_getUserData();
+    const currentUserData = fcn().userData();
     currentUserData.reminders = { 'data': {} };
-    fcn_setUserData(currentUserData);
+    fcn().setUserData(currentUserData);
 
     // Update view
     fcn_updateRemindersView();
@@ -337,9 +337,9 @@ _$('.button-clear-follows')?.addEventListener(
     }
 
     // Update local storage and view
-    const currentUserData = fcn_getUserData();
+    const currentUserData = fcn().userData();
     currentUserData.follows = { 'data': {} };
-    fcn_setUserData(currentUserData);
+    fcn().setUserData(currentUserData);
 
     // Update view
     fcn_updateFollowsView();
@@ -363,9 +363,9 @@ _$('.button-clear-bookmarks')?.addEventListener(
     }
 
     // Remove bookmarks
-    const currentUserData = fcn_getUserData();
+    const currentUserData = fcn().userData();
     currentUserData.bookmarks = '{}';
-    fcn_setUserData(currentUserData);
+    fcn().setUserData(currentUserData);
     fcn_bookmarks.data = {};
 
     // Update view

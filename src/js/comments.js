@@ -3,7 +3,7 @@
 // =============================================================================
 
 document.addEventListener('fcnUserDataReady', () => {
-  if (fcn_getUserData().fingerprint == document.documentElement.dataset.authorFingerprint) {
+  if (fcn().userData().fingerprint == document.documentElement.dataset.authorFingerprint) {
     fcn_theBody.classList.add('is-post-author');
   }
 });
@@ -548,6 +548,12 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   comment = this.element.closest('.fictioneer-comment');
   menuOpen = false;
 
+  /**
+   * Stimulus Controller initialize lifecycle callback.
+   *
+   * @since 5.xx.x
+   */
+
   initialize() {
     // Listen to global last-clicked handler
     document.addEventListener('fcnLastClicked', event => {
@@ -564,6 +570,12 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     });
   }
 
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.xx.x
+   */
+
   connect() {
     // Get comment edit link
     if (this.hasModMenuTarget) {
@@ -571,7 +583,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     }
 
     // Reveal self-delete and inline edit buttons
-    if (fcn_getUserData().fingerprint) {
+    if (fcn().userData().fingerprint) {
       this.#revealDeleteButton();
       this.#revealEditButton();
     } else {
@@ -1010,7 +1022,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   #matchFingerprint() {
-    const userFingerprint = fcn_getUserData().fingerprint;
+    const userFingerprint = fcn().userData().fingerprint;
 
     if (!userFingerprint || !this.hasFingerprintValue) {
       return false;

@@ -705,6 +705,9 @@ function fictioneer_root_attributes() {
     $classes[] = 'no-page-shadow';
   }
 
+  // Stimulus
+  $output['data-controller'] = 'fictioneer';
+
   // Prepare
   $output['class'] = implode( ' ', $classes );
   $output['data-mode-default'] = get_option( 'fictioneer_dark_mode_as_default', false ) ? 'dark' : 'light';
@@ -738,26 +741,30 @@ function fictioneer_root_attributes() {
   }
 
   $conditions = array(
-    'data-age-confirmation' => get_option( 'fictioneer_enable_site_age_confirmation' ),
-    'data-caching-active' => fictioneer_caching_active( 'root_attribute' ),
-    'data-ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
-    'data-force-child-theme' => ! FICTIONEER_THEME_SWITCH,
-    'data-public-caching' => get_option( 'fictioneer_enable_public_cache_compatibility', false ),
-    'data-ajax-auth' => get_option( 'fictioneer_enable_ajax_authentication', false ),
-    'data-edit-time' => get_option( 'fictioneer_enable_user_comment_editing', false ) ?
+    'age-confirmation' => get_option( 'fictioneer_enable_site_age_confirmation' ),
+    'caching-active' => fictioneer_caching_active( 'root_attribute' ),
+    'ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
+    'force-child-theme' => ! FICTIONEER_THEME_SWITCH,
+    'public-caching' => get_option( 'fictioneer_enable_public_cache_compatibility', false ),
+    'ajax-auth' => get_option( 'fictioneer_enable_ajax_authentication', false ),
+    'edit-time' => get_option( 'fictioneer_enable_user_comment_editing', false ) ?
       get_option( 'fictioneer_user_comment_edit_time', 15 ) : false,
   );
 
   // Iterate conditions and add the truthy to the output
   foreach ( $conditions as $key => $condition ) {
     if ( $condition ) {
-      $output[ $key ] = is_bool( $condition ) ? '1' : $condition;
+      $value = is_bool( $condition ) ? '1' : $condition;
+
+      $output["data-{$key}"] = $value;
+      $output["data-fictioneer-{$key}-value"] = $value;
     }
   }
 
   // Fingerprint
   if ( $post_author_id ) {
     $output['data-author-fingerprint'] = fictioneer_get_user_fingerprint( $post_author_id );
+    $output['data-fictioneer-fingerprint-value'] = $output['data-author-fingerprint'];
   }
 
   // Filter output

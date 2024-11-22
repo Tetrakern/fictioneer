@@ -61,7 +61,7 @@ function fcn_initializeReminders(event) {
 
 function fcn_toggleReminder(storyId, set = null) {
   // Get current data
-  const currentUserData = fcn_getUserData();
+  const currentUserData = fcn().userData();
 
   // Prevent error in case something went very wrong
   if (!fcn_reminders || !currentUserData.reminders) {
@@ -96,7 +96,7 @@ function fcn_toggleReminder(storyId, set = null) {
   // Update local storage
   currentUserData.reminders.data[storyId] = fcn_reminders.data[storyId];
   currentUserData.lastLoaded = 0;
-  fcn_setUserData(currentUserData);
+  fcn().setUserData(currentUserData);
 
   // Update view
   fcn_updateRemindersView();
@@ -151,7 +151,7 @@ function fcn_toggleReminder(storyId, set = null) {
 
 function fcn_updateRemindersView() {
   // Get current data
-  const currentUserData = fcn_getUserData();
+  const currentUserData = fcn().userData();
 
   if (!fcn_reminders || !currentUserData.reminders) {
     return;
