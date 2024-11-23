@@ -634,7 +634,13 @@ function fcn_setLoggedInState() {
   document.body.classList.toggle('is-editor', userData.isEditor);
 
   // Cleanup view for users
-  const removeSelectors = ['label[for="modal-login-toggle"]', '#modal-login-toggle', '#login-modal'];
+  const removeSelectors = [];
+
+  if (userData.loggedIn) {
+    removeSelectors.push('label[for="modal-login-toggle"]');
+    removeSelectors.push('#modal-login-toggle');
+    removeSelectors.push('#login-modal');
+  }
 
   if (!userData.isAdmin) {
     removeSelectors.push('.only-admins');
