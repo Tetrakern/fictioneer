@@ -539,6 +539,23 @@ const FcnUtils = {
     temp.textContent = typeof html === 'string' ? html : html.textContent;
 
     return temp.innerHTML;
+  },
+
+  /**
+   * Scroll to a specific target on the page.
+   *
+   * @since 5.4.0
+   *
+   * @param {HTMLElement} target - The target element to scroll to.
+   * @param {Number} [offset=64] - Optional. Offset from top.
+   */
+
+  scrollTo(target, offset = 64) {
+    // Scroll to position - offset
+    window.scrollTo({
+      top: target.getBoundingClientRect().top + window.scrollY - offset,
+      behavior: 'smooth'
+    });
   }
 };
 
@@ -638,27 +655,6 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   } else {
     return Promise.reject(response);
   }
-}
-
-// =============================================================================
-// SCROLL TO ELEMENT
-// =============================================================================
-
-/**
- * Scroll to a specific target on the page.
- *
- * @since 5.4.0
- *
- * @param {HTMLElement} target - The target element to scroll to.
- * @param {Number} [offset=64] - Optional. Offset from top.
- */
-
-function fcn_scrollTo(target, offset = 64) {
-  // Scroll to position - offset
-  window.scrollTo({
-    top: target.getBoundingClientRect().top + window.scrollY - offset,
-    behavior: 'smooth'
-  });
 }
 
 // =============================================================================
