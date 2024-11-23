@@ -167,7 +167,7 @@ function fcn_applyCommentStack(editor = null) {
     });
 
     // Resize editor if necessary
-    fcn_adjustTextarea(editor);
+    FcnUtils.adjustTextarea(editor);
   } else if (editor.tagName == 'DIV') {
     fcn_commentStack.forEach(node => {
       editor.innerHTML += node;
@@ -204,7 +204,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
    */
 
   adjustTextarea() {
-    fcn_adjustTextarea(this.textareaTarget);
+    FcnUtils.adjustTextarea(this.textareaTarget);
   }
 
   /**
@@ -591,7 +591,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     // Adaptable textarea
     if (this.hasInlineEditTextareaTarget) {
       this.inlineEditTextareaTarget.addEventListener('input', () => {
-        fcn_adjustTextarea(this.inlineEditTextareaTarget);
+        FcnUtils.adjustTextarea(this.inlineEditTextareaTarget);
       });
     }
 
@@ -869,7 +869,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     this.inlineEditWrapperTarget.hidden = false;
     this.inlineEditTextareaTarget.style.height = `${this.inlineEditTextareaTarget.scrollHeight}px`;
 
-    fcn_adjustTextarea(this.inlineEditTextareaTarget);
+    FcnUtils.adjustTextarea(this.inlineEditTextareaTarget);
   }
 
   /**

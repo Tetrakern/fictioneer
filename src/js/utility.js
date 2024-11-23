@@ -605,6 +605,20 @@ const FcnUtils = {
       element.disabled = false;
       element.classList.remove('disabled');
     }
+  },
+
+  /**
+   * Adjust textarea height to fit the value without vertical scroll bar.
+   *
+   * @since 4.7.0
+   * @param {HTMLElement} area - The textarea element to adjust.
+   */
+
+  adjustTextarea(area) {
+    if (area) {
+      area.style.height = 'auto'; // Reset if lines are removed
+      area.style.height = `${area.scrollHeight}px`;
+    }
   }
 };
 
@@ -732,22 +746,4 @@ function fcn_isSearchEngineCrawler() {
   ];
 
   return crawlers.some(crawler => userAgent.includes(crawler));
-}
-
-// =============================================================================
-// TEXTAREAS
-// =============================================================================
-
-/**
- * Adjust textarea height to fit the value without vertical scroll bar.
- *
- * @since 4.7.0
- * @param {HTMLElement} area - The textarea element to adjust.
- */
-
-function fcn_adjustTextarea(area) {
-  if (area) {
-    area.style.height = 'auto'; // Reset if lines are removed
-    area.style.height = `${area.scrollHeight}px`;
-  }
 }

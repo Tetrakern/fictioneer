@@ -211,7 +211,7 @@ function fcn_addQuoteToStack(quote) {
   if (defaultEditor) {
     if (defaultEditor.tagName == 'TEXTAREA') {
       defaultEditor.value += `\n[quote]${quote}[/quote]\n`;
-      fcn_adjustTextarea(_$('textarea#comment')); // Adjust height of textarea if necessary
+      FcnUtils.adjustTextarea(_$('textarea#comment')); // Adjust height of textarea if necessary
     } else if (defaultEditor.tagName == 'DIV') {
       defaultEditor.innerHTML += `\n[quote]${quote}[/quote]\n`;
     }
