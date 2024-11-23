@@ -6,13 +6,9 @@ const fcn_bookshelfTarget = _$$$('ajax-bookshelf-target');
 
 // Initialize
 if (fcn_bookshelfTarget) {
-  if (document.documentElement.dataset.ajaxAuth) {
-    document.addEventListener('fcnAuthReady', () => {
-      fcn_updateBookshelfView();
-    });
-  } else {
+  document.addEventListener('fcnUserDataReady', () => {
     fcn_updateBookshelfView();
-  }
+  });
 }
 
 // =============================================================================

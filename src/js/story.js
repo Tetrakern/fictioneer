@@ -12,7 +12,7 @@ var /** @type {Object} */ fcn_storySettings = fcn_getStorySettings();
 // =============================================================================
 
 /**
- * Remove hidden story actions after page load
+ * Remove hidden story actions after page load.
  *
  * @since 5.22.2
  */
@@ -28,13 +28,9 @@ function fcn_cleanUpActions() {
   );
 }
 
-if (document.documentElement.dataset.ajaxAuth) {
-  document.addEventListener('fcnAuthReady', () => {
-    fcn_cleanUpActions();
-  });
-} else {
-  document.addEventListener('DOMContentLoaded', () => { fcn_cleanUpActions() });
-}
+document.addEventListener('fcnUserDataReady', () => {
+  fcn_cleanUpActions();
+});
 
 // =============================================================================
 // LOAD USER SETTINGS

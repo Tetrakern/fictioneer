@@ -107,6 +107,7 @@ const FcnUtils = {
       'reminders': false,
       'checkmarks': false,
       'bookmarks': null,
+      'likes': null,
       'fingerprint': false,
       'nonceHtml': '',
       'nonce': '',
@@ -134,6 +135,7 @@ const FcnUtils = {
       'follows': false,
       'reminders': false,
       'checkmarks': false,
+      'likes': null,
       'bookmarks': null,
       'fingerprint': false,
       'isAdmin': false,
@@ -263,6 +265,19 @@ application.register('fictioneer', class extends Stimulus.Controller {
   initialize() {
     if (this.loggedIn() || this.ajaxAuthValue) {
       this.fetchUserData();
+    } else {
+      // Prepare event
+      const event = new CustomEvent(
+        'fcnUserDataReady',
+        {
+          detail: { data: this.userData(), time: new Date(), loggedOut: true },
+          bubbles: true,
+          cancelable: false
+        }
+      );
+
+      // Fire event
+      document.dispatchEvent(event);
     }
   }
 
@@ -388,6 +403,11 @@ application.register('fictioneer', class extends Stimulus.Controller {
       // Set avatar
       fcn_setAvatar();
 
+      // Append nonce HTML
+      if (currentUserData.nonceHtml) {
+        this.#addNonceHTML(currentUserData.nonceHtml);
+      }
+
       // Fire event
       document.dispatchEvent(event);
 
@@ -413,6 +433,11 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
         // Set avatar
         fcn_setAvatar();
+
+        // Append nonce HTML
+        if (currentUserData.nonceHtml) {
+          this.#addNonceHTML(updatedUserData.nonceHtml);
+        }
 
         // Prepare event
         const event = new CustomEvent('fcnUserDataReady', {
@@ -465,6 +490,14 @@ application.register('fictioneer', class extends Stimulus.Controller {
   // =====================
   // ====== PRIVATE ======
   // =====================
+
+  #addNonceHTML(nonceHtml) {
+    // Remove old (if any)
+    _$$$('fictioneer-ajax-nonce')?.remove();
+
+    // Append hidden input with nonce to DOM
+    document.body.appendChild(fcn_html`${nonceHtml}`);
+  }
 });
 
 /**
@@ -491,6 +524,26 @@ function fcn() {
     aGet: FcnUtils.aGet,
     aPost: FcnUtils.aPost
   };
+}
+
+/**
+ * Legacy support for fcn().userData().
+ *
+ * @since 5.xx.x
+ */
+
+function fcn_getUserData() {
+  return fcn().userData();
+}
+
+/**
+ * Legacy support for fcn().setUserData().
+ *
+ * @since 5.xx.x
+ */
+
+function fcn_setUserData() {
+  return fcn().setUserData();
 }
 
 // =============================================================================
@@ -635,135 +688,6 @@ function fcn_setAvatar() {
 document.addEventListener('fcnUserDataReady', () => {
   fcn_setAvatar();
 });
-
-// =============================================================================
-// AUTHENTICATE VIA AJAX
-// =============================================================================
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  if (document.documentElement.dataset.ajaxAuth) {
-    fcn_ajaxAuth();
-  }
-});
-
-/**
- * Authenticate user via AJAX or from web storage
- *
- * @since 5.0.0
- */
-
-function fcn_ajaxAuth() {
-  let eventFired = false;
-
-  // Look for recent authentication in web storage
-  let localAuth = fcn_parseJSON(localStorage.getItem('fcnAuth')) ?? false;
-
-  // Clear left over guest authentication
-  if (fcn().loggedIn() && !localAuth?.loggedIn) {
-    localStorage.removeItem('fcnAuth');
-    localAuth = false;
-  }
-
-  // Authenticate from web storage (if set)...
-  if (localAuth) {
-    fcn_addNonceHTML(localAuth['nonceHtml']);
-
-    // Fire fcnAuthReady event
-    const event = new CustomEvent('fcnAuthReady', {
-      detail: {
-        nonceHtml: localAuth['nonceHtml'],
-        nonce: localAuth['nonce'],
-        loggedIn: localAuth['loggedIn'],
-        isAdmin: localAuth['isAdmin'],
-        isModerator: localAuth['isModerator'],
-        isAuthor: localAuth['isAuthor'],
-        isEditor: localAuth['isEditor']
-      },
-      bubbles: true,
-      cancelable: false
-    });
-
-    document.dispatchEvent(event);
-    eventFired = true;
-
-    // ... but refresh from server after some time has passed (e.g. 60 seconds)
-    if (FcnGlobals.ajaxLimitThreshold < localAuth.lastLoaded) {
-      return;
-    }
-  }
-
-  // Request nonce via AJAX
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_auth',
-    'fcn_fast_ajax': 1
-  }).then(response => {
-    if (response.success) {
-      // Append hidden input with nonce to DOM
-      fcn_addNonceHTML(response.data.nonceHtml);
-
-      // Unpack
-      const data = {
-        'lastLoaded': Date.now(),
-        'nonceHtml': response.data.nonceHtml,
-        'nonce': response.data.nonce,
-        'loggedIn': response.data.loggedIn,
-        'isAdmin': response.data.isAdmin,
-        'isModerator': response.data.isModerator,
-        'isAuthor': response.data.isAuthor,
-        'isEditor': response.data.isEditor
-      };
-
-      // Fire fcnAuthReady event (if not already done)
-      if (!eventFired) {
-        const event = new CustomEvent('fcnAuthReady', {
-          detail: data,
-          bubbles: true,
-          cancelable: false
-        });
-
-        document.dispatchEvent(event);
-      }
-
-      // Remember to avoid too many requests
-      localStorage.setItem(
-        'fcnAuth',
-        JSON.stringify(data)
-      );
-    } else {
-      // If unsuccessful, clear local data
-      // fcn_cleanUpGuestView();
-
-      // Fire fcnAuthFailed event
-      const event = new Event('fcnAuthFailed');
-      document.dispatchEvent(event);
-    }
-  })
-  .catch(() => {
-    // Most likely 403 after likely unsafe logout, clear local data
-    localStorage.removeItem('fcnAuth');
-    // fcn_cleanUpGuestView();
-
-    // Fire fcnAuthError event
-    const event = new Event('fcnAuthError');
-    document.dispatchEvent(event);
-  });
-}
-
-/**
- * Append hidden input element with nonce to DOM.
- *
- * @since 5.0.0
- * @param {String} nonceHtml - HTML for the hidden input with nonce value.
- */
-
-function fcn_addNonceHTML(nonceHtml) {
-  // Remove old (if any)
-  _$$$('fictioneer-ajax-nonce')?.remove();
-
-  // Append hidden input with nonce to DOM
-  document.body.appendChild(fcn_html`${nonceHtml}`);
-}
 
 // =============================================================================
 // BIND EVENTS TO ANIMATION FRAMES

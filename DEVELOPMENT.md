@@ -145,7 +145,6 @@ Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard depende
 
 * **scroll.rAF:** Window scroll event bound to [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
 * **resize.rAF:** Window resize event bound to [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
-* **fcnAuthReady:** Fires when the user has been successfully authenticated via AJAX.
 * **fcnUserDataReady:** Fires when the user data has been successfully fetched via AJAX.
 * **fcnUserDataFailed:** Fires when the user data could not be fetched via AJAX.
 * **fcnUserDataError:** Fires when there was an error while fetching the user data via AJAX.

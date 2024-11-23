@@ -43,15 +43,9 @@ const /** @const {HTMLElement} */ fcn_ajaxCommentForm = _$$$('ajax-comment-form-
 
 // Check whether form target exists...
 if (fcn_ajaxCommentForm) {
-  // In case of AJAX authentication...
-  if (document.documentElement.dataset.ajaxAuth) {
-    // Load after nonce has been fetched
-    document.addEventListener('fcnAuthReady', () => {
-      fcn_setupCommentFormObserver();
-    });
-  } else {
+  document.addEventListener('fcnUserDataReady', () => {
     fcn_setupCommentFormObserver();
-  }
+  });
 }
 
 /**

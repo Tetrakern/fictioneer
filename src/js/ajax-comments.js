@@ -192,14 +192,9 @@ function fcn_jumpToCommentPage() {
 
 var /** @type {IntersectionObserver} */ fct_commentSectionObserver;
 
-// In case of AJAX authentication...
-if (document.documentElement.dataset.ajaxAuth) {
-  document.addEventListener('fcnAuthReady', () => {
-    fcn_setupCommentSectionObserver();
-  });
-} else {
+document.addEventListener('fcnUserDataReady', () => {
   fcn_setupCommentSectionObserver();
-}
+});
 
 /**
  * Helper to set up comment section observer.
@@ -228,14 +223,9 @@ function fcn_setupCommentSectionObserver() {
 // SCROLL NEW COMMENT INTO VIEW SUBMITTING VIA RELOAD
 // =============================================================================
 
-// In case of AJAX authentication...
-if (document.documentElement.dataset.ajaxAuth) {
-  document.addEventListener('fcnAuthReady', () => {
-    fcn_loadCommentEarly();
-  });
-} else {
+document.addEventListener('fcnUserDataReady', () => {
   fcn_loadCommentEarly();
-}
+});
 
 /**
  * Load comment section early if there is a comment* anchor.
