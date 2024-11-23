@@ -2428,7 +2428,7 @@ fcn_markCurrentMenuItem();
 
 // TODO
 
-if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation') !== '1' && !fcn_isSearchEngineCrawler()) {
+if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation') !== '1' && !FcnUtils.isSearchEngineCrawler()) {
   // Delay to avoid impacting web vitals
   setTimeout(() => {
     fcn_showAgeConfirmationModal();

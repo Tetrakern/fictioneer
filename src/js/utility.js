@@ -1,5 +1,3 @@
-
-
 // =============================================================================
 // SHORTHANDS TO GET ELEMENT(S)
 // =============================================================================
@@ -619,6 +617,30 @@ const FcnUtils = {
       area.style.height = 'auto'; // Reset if lines are removed
       area.style.height = `${area.scrollHeight}px`;
     }
+  },
+
+  /**
+   * Checks if the user is a crawler (if JS is enabled)
+   *
+   * @returns {Boolean} - True or false.
+   */
+
+  isSearchEngineCrawler() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const crawlers = [
+      'googlebot', // Google
+      'bingbot', // Bing
+      'slurp', // Yahoo
+      'duckduckbot', // DuckDuckGo
+      'baiduspider', // Baidu
+      'yandexbot', // Yandex
+      'sogou', // Sogou
+      'exabot', // Exalead
+      'facebot', // Facebook
+      'ia_archiver' // Alexa Internet
+    ];
+
+    return crawlers.some(crawler => userAgent.includes(crawler));
   }
 };
 
@@ -718,32 +740,4 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   } else {
     return Promise.reject(response);
   }
-}
-
-// =============================================================================
-// CHECK FOR SEARCH CRAWLER
-// =============================================================================
-
-/**
- * Checks if the user is a crawler (if JS is enabled)
- *
- * @returns {Boolean} - True or false.
- */
-
-function fcn_isSearchEngineCrawler() {
-  const userAgent = navigator.userAgent.toLowerCase();
-  const crawlers = [
-    'googlebot', // Google
-    'bingbot', // Bing
-    'slurp', // Yahoo
-    'duckduckbot', // DuckDuckGo
-    'baiduspider', // Baidu
-    'yandexbot', // Yandex
-    'sogou', // Sogou
-    'exabot', // Exalead
-    'facebot', // Facebook
-    'ia_archiver' // Alexa Internet
-  ];
-
-  return crawlers.some(crawler => userAgent.includes(crawler));
 }

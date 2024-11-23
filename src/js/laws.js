@@ -5,7 +5,7 @@
 const /** @const {HTMLElement} */ fcn_consentBanner = _$$$('consent-banner');
 
 // Show consent banner if no consent has been set, remove otherwise;
-if (fcn_consentBanner && (FcnUtils.getCookie('fcn_cookie_consent') ?? '') === '' && !fcn_isSearchEngineCrawler()) {
+if (fcn_consentBanner && (FcnUtils.getCookie('fcn_cookie_consent') ?? '') === '' && !FcnUtils.isSearchEngineCrawler()) {
   // Delay to avoid impacting web vitals
   setTimeout(() => {
     fcn_loadConsentBanner();
