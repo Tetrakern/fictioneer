@@ -305,7 +305,7 @@ _$('[data-css-skin-target="file"]')?.addEventListener('input', event => {
 
 function fcn_uploadSkins(trigger) {
   // Ensure the theme login check is passed
-  if (!fcn_isUserLoggedIn() || trigger.classList.contains('disabled')) {
+  if (!fcn().loggedIn() || trigger.classList.contains('disabled')) {
     return;
   }
 
@@ -365,7 +365,7 @@ _$('[data-action="click->css-skin#upload"]')?.addEventListener('click', event =>
 
 function fcn_downloadSkins(trigger) {
   // Ensure the theme login check is passed
-  if (!fcn_isUserLoggedIn() || trigger.classList.contains('disabled')) {
+  if (!fcn().loggedIn() || trigger.classList.contains('disabled')) {
     return;
   }
 

@@ -2809,7 +2809,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       return this.#loggedInCache;
     }
 
-    this.#loggedInCache = fcn_isUserLoggedIn();
+    this.#loggedInCache = fcn().loggedIn();
     this.#loggedInCacheTime = now;
 
     if (!this.#loggedInCache) {
