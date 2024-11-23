@@ -108,7 +108,7 @@ function fcn_toggleFollow(storyId, set = null) {
 
   // Update in database; only one request every n seconds
   fcn_userFollowsTimeout = setTimeout(() => {
-    fcn_ajaxPost({
+    FcnUtils.aPost({
       'action': 'fictioneer_ajax_toggle_follow',
       'fcn_fast_ajax': 1,
       'story_id': storyId,
@@ -271,7 +271,7 @@ function fcn_markFollowsRead() {
   fcn().setUserData(currentUserData);
 
   // Request
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_mark_follows_read',
     'fcn_fast_ajax': 1
   })

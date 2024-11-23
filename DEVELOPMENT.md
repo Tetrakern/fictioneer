@@ -157,7 +157,7 @@ AJAX requests can be made with the theme’s [Fetch API](https://developer.mozil
 fcn_ajaxGet(
   {
     'action': 'fictioneer_ajax_your_function',
-    'nonce': fcn_getNonce(), // Optional
+    'nonce': FcnUtils.nonce(), // Optional
     'payload': 'foobar'
   },
   null, // Optional AJAX URL
@@ -172,10 +172,10 @@ fcn_ajaxGet(
 ```
 
 ```js
-fcn_ajaxPost(
+FcnUtils.aPost(
   {
     'action': 'fictioneer_ajax_your_function',
-    'nonce': fcn_getNonce(), // Optional
+    'nonce': FcnUtils.nonce(), // Optional
     'payload': 'foobar'
   },
   null, // Optional AJAX URL

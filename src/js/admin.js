@@ -46,7 +46,7 @@ function fcn_purgeSchema(post_id) {
   actions.remove();
 
   // Request
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_purge_schema',
     'nonce': document.getElementById('fictioneer_admin_nonce').value,
     'post_id': post_id
@@ -94,7 +94,7 @@ function fcn_purgeAllSchemas(offset = 0, total = null, processed = 0) {
 
   // --- Request ---------------------------------------------------------------
 
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_purge_all_schemas',
     'offset': offset,
     'nonce': document.getElementById('fictioneer_admin_nonce').value
@@ -159,7 +159,7 @@ _$$('[data-fcn-dialog-target="schema-dialog"]').forEach(element => {
  */
 
 function fcn_delete_epub(name) {
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_delete_epub',
     'name': name,
     'nonce': document.getElementById('fictioneer_admin_nonce').value
@@ -573,7 +573,7 @@ function fcn_tokensToggle(id, parent) {
   }
 
   // Setup
-  const tokenOptions = fcn_parseJSON(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
+  const tokenOptions = FcnUtils.parseJSON(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
   const tokenTrack = parent.querySelector('[data-target="fcn-meta-field-tokens-track"]');
   const tokenInput = parent.querySelector('[data-target="fcn-meta-field-tokens-values"]');
   const tokenValues = fcn_splitList(tokenInput.value).filter(item => !isNaN(item)).map(item => Math.abs(parseInt(item)));
@@ -995,7 +995,7 @@ function fcn_queryRelationshipPosts(payload, container, append = true) {
   const selectedList = field.querySelector('[data-target="fcn-relationships-values"]');
   let errorMessage = null;
 
-  fcn_ajaxPost(payload)
+  FcnUtils.aPost(payload)
   .then(response => {
     // Remove observer (if any)
     container.querySelector('[data-target="fcn-relationships-observer"]')?.remove();
@@ -1186,7 +1186,7 @@ function fcn_unlockPostsSearch() {
   container.classList.add('ajax-in-progress');
 
   // Request
-  fcn_ajaxPost(payload)
+  FcnUtils.aPost(payload)
   .then(response => {
     if (response.success) {
       results.innerHTML = response.data.html;
@@ -1303,7 +1303,7 @@ function fcn_intervalAction(trigger, action, payload = {}) {
   }
 
   // Request
-  fcn_ajaxPost(payload)
+  FcnUtils.aPost(payload)
   .then(response => {
     if (!response?.data?.done) {
       fcn_intervalAction(

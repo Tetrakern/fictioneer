@@ -27,7 +27,7 @@ function fcn_unsetOauth(button) {
   connection.classList.add('ajax-in-progress');
 
   // Request
-  fcn_ajaxPost(payload = {
+  FcnUtils.aPost(payload = {
     'action': 'fictioneer_ajax_unset_my_oauth',
     'nonce': button.dataset.nonce,
     'channel': button.dataset.channel,
@@ -112,7 +112,7 @@ function fcn_deleteMyAccount(button) {
   _$$$('button-delete-my-account').setAttribute('disabled', true);
 
   // Request
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_delete_my_account',
     'nonce': button.dataset.nonce,
     'id': button.dataset.id
@@ -201,7 +201,7 @@ function fcn_clearData(button, action) {
   button.remove();
 
   // Request
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': action,
     'fcn_fast_ajax': 1,
     'nonce': button.dataset.nonce

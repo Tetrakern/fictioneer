@@ -1,3 +1,52 @@
+
+
+// =============================================================================
+// SHORTHANDS TO GET ELEMENT(S)
+// =============================================================================
+
+/**
+ * Query one (first) element by selector.
+ *
+ * @since 4.0.0
+ * @alias document.querySelector
+ * @type {function}
+ * @const
+ * @param {string} selector - The selector.
+ * @return {HTMLElement} The queried element.
+ */
+
+const _$ = document.querySelector.bind(document);
+
+/**
+ * Query all elements by selector.
+ *
+ * @since 4.0.0
+ * @alias document.querySelectorAll
+ * @type {function}
+ * @const
+ * @param {string} selector - The selector.
+ * @return {NodeList} List of queried elements.
+ */
+
+const _$$ = document.querySelectorAll.bind(document);
+
+/**
+ * Get an element by ID.
+ *
+ * @since 4.0.0
+ * @alias document.getElementById
+ * @type {function}
+ * @const
+ * @param {string} id - The ID.
+ * @return {HTMLElement} The element.
+ */
+
+const _$$$ = document.getElementById.bind(document);
+
+// =============================================================================
+// UTILITY OBJECT
+// =============================================================================
+
 const FcnUtils = {
   /**
    * Returns or prepares locally cached user data.
@@ -25,7 +74,7 @@ const FcnUtils = {
       'isEditor': false
     };
 
-    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
+    const data = FcnUtils.parseJSON(localStorage.getItem('fcnUserData')) || {};
     return { ...defaults, ...data };
   },
 
@@ -52,7 +101,7 @@ const FcnUtils = {
       'isEditor': false
     };
 
-    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
+    const data = FcnUtils.parseJSON(localStorage.getItem('fcnUserData')) || {};
     localStorage.setItem('fcnUserData', JSON.stringify({ ...data, ...reset }));
   },
 
@@ -136,51 +185,234 @@ const FcnUtils = {
       console.error('aPost Error:', error);
       throw error;
     }
+  },
+
+  /**
+   * Parse JSON and account for invalid strings.
+   *
+   * @since 5.7.0
+   * @param {String} str - The string to parse.
+   * @return {Object|null} Parsed JSON or null if not a JSON string.
+   */
+
+  parseJSON(str) {
+    if (str === null || typeof str === 'undefined' || typeof str !== 'string') {
+      return null;
+    }
+
+    try {
+      return JSON.parse(str);
+    } catch (e) {
+      return null;
+    }
+  },
+
+  /**
+   * Copy valid to clipboard and optionally show a notice.
+   *
+   * @since 4.0.0
+   * @param {String} text - The text to be copied.
+   * @param {String} [message] - Optional notice to show.
+   */
+
+  copyToClipboard(text, message = false) {
+    message = message ? message : fictioneer_tl.notification.copiedToClipboard;
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+
+      if (message) {
+        fcn_showNotification(message, 2);
+      }
+    }
+  },
+
+  /**
+   * Clamp a number between a minimum and a maximum.
+   *
+   * @since 4.0.0
+   * @param {Number} min - The minimum.
+   * @param {Number} max - The maximum.
+   * @param {Number} val - The value to clamp.
+   */
+
+  clamp(min, max, val) {
+    return Math.min(Math.max(val, min), max);
+  },
+
+  /**
+   * @typedef {Object} TopLeftPosition
+   * @property {number} left - The X Coordinate.
+   * @property {number} top - The Y Coordinate.
+   * @inner
+   */
+
+  /**
+   * Returns the top-left position of an element relative to the window.
+   *
+   * @since 4.0.0
+   * @param {HTMLElement} element - Element to get the position for.
+   * @return {TopLeftPosition} Top-left position of the element.
+   */
+
+  offset(element) {
+    const rect = element.getBoundingClientRect();
+
+    return {
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX
+    };
+  },
+
+  /**
+   * Throttle event for improved performance.
+   *
+   * @since 4.1.0
+   * @link https://github.com/jashkenas/underscore/blob/master/underscore.js
+   * @link https://stackoverflow.com/a/27078401/17140970
+   * @param {Function} func - The function to throttle.
+   * @param {Number} wait - Throttle threshold.
+   * @param {Object{}} options - Optional arguments.
+   */
+
+  throttle(func, wait, options) {
+    var context;
+    var args;
+    var result;
+    var timeout = null;
+    var previous = 0;
+
+    if (!options) {
+      options = {};
+    }
+
+    var later = function() {
+      previous = options.leading === false ? 0 : Date.now();
+      timeout = null;
+      result = func.apply(context, args);
+
+      if (!timeout) {
+        context = args = null;
+      }
+    }
+
+    return function() {
+      var now = Date.now();
+
+      if (!previous && options.leading === false) {
+        previous = now;
+      }
+
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        result = func.apply(context, args);
+
+        if (!timeout) {
+          context = args = null;
+        }
+
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+
+      return result;
+    }
+  },
+
+  /**
+   * Delete a cookie.
+   *
+   * @since 4.7.0
+   * @param {String} cname - Name of the cookie to delete.
+   */
+
+  deleteCookie(cname) {
+    // Delete cookie by setting expiration date to the past
+    document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+  },
+
+  /**
+   * Delete all cookies.
+   *
+   * @since 4.7.0
+   * @link https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript
+   */
+
+  deleteAllCookies() {
+    // Clear local storage as well
+    localStorage.clear();
+
+    // Delete cookies by setting expiration date to the past
+    document.cookie.split(';').forEach(
+      (c) => {
+        document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
+      }
+    );
+  },
+
+  /**
+   * Set a cookie.
+   *
+   * @since 4.7.0
+   * @param {String} cname - Name of the cookie to set.
+   * @param {String} value - Value of the cookie to set.
+   * @param {Number} [days=30] - Days the cookie will last.
+   */
+
+  setCookie(cname, value, days = 30) {
+    const d = new Date();
+
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+
+    const expires = 'expires=' + d.toUTCString();
+
+    document.cookie = cname + '=' + encodeURIComponent(value) + ';' + expires + ';SameSite=Strict;path=/';
+  },
+
+  /**
+   * Retrieves the given cookie if available.
+   *
+   * @since 4.7.0
+   * @param {String} cname - Name of the cookie to retrieve.
+   * @return {String|Null} The cookie or null if not found.
+   */
+
+  getCookie(cname) {
+    const name = cname + '=';
+    const cookies = document.cookie.split(';');
+
+    for (var i = 0; i < cookies.length; i++) {
+      const c = cookies[i].trim();
+
+      if (c.indexOf(name) == 0) {
+        return decodeURIComponent(c.substring(name.length, c.length));
+      }
+    }
+
+    return null;
+  },
+
+  /**
+   * Return the Fictioneer nonce, accounting for dynamic nonces.
+   *
+   * @since 5.0.0
+   * @return {String} The nonce value.
+   */
+
+  nonce() {
+    return _$$$('fictioneer-ajax-nonce')?.value ??
+      _$$$('general-fictioneer-nonce')?.value ??
+      _$('[name="fictioneer_nonce"]')?.value ?? 0;
   }
 };
-
-// =============================================================================
-// SHORTHANDS TO GET ELEMENT(S)
-// =============================================================================
-
-/**
- * Query one (first) element by selector.
- *
- * @since 4.0.0
- * @alias document.querySelector
- * @type {function}
- * @const
- * @param {string} selector - The selector.
- * @return {HTMLElement} The queried element.
- */
-
-const _$ = document.querySelector.bind(document);
-
-/**
- * Query all elements by selector.
- *
- * @since 4.0.0
- * @alias document.querySelectorAll
- * @type {function}
- * @const
- * @param {string} selector - The selector.
- * @return {NodeList} List of queried elements.
- */
-
-const _$$ = document.querySelectorAll.bind(document);
-
-/**
- * Get an element by ID.
- *
- * @since 4.0.0
- * @alias document.getElementById
- * @type {function}
- * @const
- * @param {string} id - The ID.
- * @return {HTMLElement} The element.
- */
-
-const _$$$ = document.getElementById.bind(document);
 
 // =============================================================================
 // FICTIONEER AJAX REQUESTS
@@ -215,7 +447,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
   final_headers = {...final_headers, ...headers};
 
   // Merge with default nonce
-  data = {...{'nonce': fcn_getNonce()}, ...data};
+  data = {...{'nonce': FcnUtils.nonce()}, ...data};
 
   // Fetch promise
   const response = await fetch(url, {
@@ -252,7 +484,7 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
 
   // Build URL
   url = url ? url : (fictioneer_ajax.ajax_url ?? FcnGlobals.ajaxURL);
-  data = {...{'nonce': fcn_getNonce()}, ...data};
+  data = {...{'nonce': FcnUtils.nonce()}, ...data};
   url = fcn_buildUrl(data, url);
 
   // Default headers
@@ -278,373 +510,6 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   } else {
     return Promise.reject(response);
   }
-}
-
-// =============================================================================
-// COPY TO CLIPBOARD
-// =============================================================================
-
-/**
- * Copy valid to clipboard and optionally show a notice.
- *
- * @since 4.0.0
- * @param {String} text - The text to be copied.
- * @param {String} [message] - Optional notice to show.
- */
-
-function fcn_copyToClipboard(text, message = false) {
-  message = message ? message : fictioneer_tl.notification.copiedToClipboard;
-
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text);
-
-    if (message) {
-      fcn_showNotification(message, 2);
-    }
-  }
-}
-
-// =============================================================================
-// PARSE JSON
-// =============================================================================
-
-/**
- * Parse JSON and account for invalid strings.
- *
- * @since 5.7.0
- * @param {String} str - The string to parse.
- * @return {Object|null} Parsed JSON or null if not a JSON string.
- */
-
-function fcn_parseJSON(str) {
-  if (str === null || typeof str === 'undefined' || typeof str !== 'string') {
-    return null;
-  }
-
-  try {
-    return JSON.parse(str);
-  } catch (e) {
-    return null;
-  }
-}
-
-// =============================================================================
-// REMOVE ITEM FROM ARRAY ONCE
-// =============================================================================
-
-/**
- * Remove item from array once.
- *
- * @since 4.0.0
- * @param {Any[]} array - The array from which to remove the item from.
- * @param {Any} value - The value of the item to remove.
- * @return {Any[]} The modified array.
- */
-
-function fcn_removeItemOnce(array, value) {
-  var index = array.indexOf(value);
-
-  if (index > -1) {
-    array.splice(index, 1);
-  }
-
-  return array;
-}
-
-// =============================================================================
-// CLAMP
-// =============================================================================
-
-/**
- * Clamp a number between a minimum and a maximum.
- *
- * @since 4.0.0
- * @param {Number} min - The minimum.
- * @param {Number} max - The maximum.
- * @param {Number} val - The value to clamp.
- */
-
-function fcn_clamp(min, max, val) {
-  return Math.min(Math.max(val, min), max);
-}
-
-// =============================================================================
-// UPDATE THEME COLOR META TAG
-// =============================================================================
-
-/**
- * Update theme color meta tag.
- *
- * @since 4.0.0
- * @param {String|Boolean} [color=false] - Optional color code.
- */
-
-function fcn_updateThemeColor(color = false) {
-  const darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0;
-  const saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0;
-  const hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0;
-  const d = darken >= 0 ? 1 + darken ** 2 : 1 - darken ** 2;
-  const s = saturation >= 0 ? 1 + saturation ** 2 : 1 - saturation ** 2;
-
-  let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color-base').trim().split(' ');
-
-  themeColor = `hsl(${(parseInt(themeColor[0]) + hueRotate) % 360}deg ${(parseInt(themeColor[1]) * s).toFixed(2)}% ${(parseInt(themeColor[2]) * d).toFixed(2)}%)`;
-
-  _$('meta[name=theme-color]').setAttribute('content', color || themeColor);
-}
-
-// =============================================================================
-// GET ELEMENT OFFSET TO DOCUMENT
-// =============================================================================
-
-/**
- * @typedef {Object} TopLeftPosition
- * @property {number} left - The X Coordinate.
- * @property {number} top - The Y Coordinate.
- * @inner
- */
-
-/**
- * Returns the top-left position of an element relative to the window.
- *
- * @since 4.0.0
- * @param {HTMLElement} element - Element to get the position for.
- * @return {TopLeftPosition} Top-left position of the element.
- */
-
-function fcn_offset(element) {
-  const rect = element.getBoundingClientRect();
-
-  return {
-    top: rect.top + window.scrollY,
-    left: rect.left + window.scrollX
-  };
-}
-
-// =============================================================================
-// THROTTLE FUNCTION
-// =============================================================================
-
-/**
- * Throttle event for improved performance.
- *
- * @since 4.1.0
- * @link https://github.com/jashkenas/underscore/blob/master/underscore.js
- * @link https://stackoverflow.com/a/27078401/17140970
- * @param {Function} func - The function to throttle.
- * @param {Number} wait - Throttle threshold.
- * @param {Object{}} options - Optional arguments.
- */
-
-function fcn_throttle(func, wait, options) {
-  var context;
-  var args;
-  var result;
-  var timeout = null;
-  var previous = 0;
-
-  if (!options) {
-    options = {};
-  }
-
-  var later = function() {
-    previous = options.leading === false ? 0 : Date.now();
-    timeout = null;
-    result = func.apply(context, args);
-
-    if (!timeout) {
-      context = args = null;
-    }
-  }
-
-  return function() {
-    var now = Date.now();
-
-    if (!previous && options.leading === false) {
-      previous = now;
-    }
-
-    var remaining = wait - (now - previous);
-    context = this;
-    args = arguments;
-
-    if (remaining <= 0 || remaining > wait) {
-      if (timeout) {
-        clearTimeout(timeout);
-        timeout = null;
-      }
-      previous = now;
-      result = func.apply(context, args);
-
-      if (!timeout) {
-        context = args = null;
-      }
-
-    } else if (!timeout && options.trailing !== false) {
-      timeout = setTimeout(later, remaining);
-    }
-
-    return result;
-  }
-}
-
-// =============================================================================
-// BIND EVENT TO ANIMATION FRAME
-// =============================================================================
-
-var /** @const {Map} */ fcn_animFrameEvents = new Map();
-
-/**
- * Bind event to animation frame for improved performance.
- *
- * @since 4.1.0
- * @param {String} type - The event type, e.g. 'scroll' or 'resize'.
- * @param {String} name - Name of the bound event.
- * @param {HTMLElement} [obj=window] - Target of the event listener.
- */
-
-function fcn_bindEventToAnimationFrame(type, name, obj = window) {
-  var func = function() {
-    if (fcn_animFrameEvents.get(name)) {
-      return;
-    }
-
-    fcn_animFrameEvents.set(name, true);
-
-    requestAnimationFrame(() => {
-      obj.dispatchEvent(new CustomEvent(name));
-      fcn_animFrameEvents.set(name, false);
-    });
-  };
-
-  obj.addEventListener(type, func);
-}
-
-// =============================================================================
-// REMOVE PARAGRAPH TOOLS BUTTONS FROM TEXT SELECTION
-// =============================================================================
-
-/**
- * Clean text selection from paragraph tools buttons.
- *
- * @description Probably the worst regex operation you have ever seen! This
- * needs to make sure to not accidentally remove content since, while not
- * common, the button labels may occur in the chapter text intentionally.
- *
- * @since 4.0.0
- * @param {String} selection - The text selection to be cleaned.
- * @return {String} The cleaned text selection.
- */
-
-function fcn_cleanTextSelectionFromButtons(selection) {
-  // Mark buttons based on line break pattern
-  selection = selection.replace(/[\r\n]{2,}/g, '__$__')
-
-  // Delete different possible button sets
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Link)', 'g'), '');
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__TTS|__Link)', 'g'), '');
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Suggestion|__TTS|__Link)', 'g'), '');
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Suggestion|__Link)', 'g'), '');
-  selection = selection.replace(/[__$]{1,}/g, '\n\n').replace(/^[\r\n]+|[\r\n]+$/g, '');
-
-  // Return cleaned string
-  return selection;
-}
-
-// =============================================================================
-// COOKIES
-// =============================================================================
-
-// TODO: Move to FcnUtils
-
-/**
- * Delete a cookie.
- *
- * @since 4.7.0
- * @param {String} cname - Name of the cookie to delete.
- */
-
-function fcn_deleteCookie(cname) {
-  // Delete cookie by setting expiration date to the past
-  document.cookie = cname + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-}
-
-/**
- * Delete all cookies.
- *
- * @since 4.7.0
- * @link https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript
- */
-
-function fcn_deleteAllCookies() {
-  // Clear local storage as well
-  localStorage.clear();
-
-  // Delete cookies by setting expiration date to the past
-  document.cookie.split(';').forEach(
-    (c) => {
-      document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
-    }
-  );
-}
-
-/**
- * Set a cookie.
- *
- * @since 4.7.0
- * @param {String} cname - Name of the cookie to set.
- * @param {String} value - Value of the cookie to set.
- * @param {Number} [days=30] - Days the cookie will last.
- */
-
-function fcn_setCookie(cname, value, days = 30) {
-  const d = new Date();
-
-  d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-
-  const expires = 'expires=' + d.toUTCString();
-
-  document.cookie = cname + '=' + encodeURIComponent(value) + ';' + expires + ';SameSite=Strict;path=/';
-}
-
-/**
- * Retrieves the given cookie if available.
- *
- * @since 4.7.0
- * @param {String} cname - Name of the cookie to retrieve.
- * @return {String|Null} The cookie or null if not found.
- */
-
-function fcn_getCookie(cname) {
-  const name = cname + '=';
-  const cookies = document.cookie.split(';');
-
-  for (var i = 0; i < cookies.length; i++) {
-    const c = cookies[i].trim();
-
-    if (c.indexOf(name) == 0) {
-      return decodeURIComponent(c.substring(name.length, c.length));
-    }
-  }
-
-  return null;
-}
-
-// =============================================================================
-// GET NONCE
-// =============================================================================
-
-/**
- * Return the Fictioneer nonce, accounting for dynamic nonces.
- *
- * @since 5.0.0
- * @return {String} The nonce value.
- */
-
-function fcn_getNonce() {
-  return _$$$('fictioneer-ajax-nonce')?.value ??
-    _$$$('general-fictioneer-nonce')?.value ??
-    _$('[name="fictioneer_nonce"]')?.value ?? 0;
 }
 
 // =============================================================================

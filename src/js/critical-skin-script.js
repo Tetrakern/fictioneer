@@ -19,7 +19,7 @@
     return;
   }
 
-  const skins = fcn_parseJSON(localStorage.getItem('fcnSkins')) ?? { data: {}, active: null, fingerprint: fingerprint };
+  const skins = FcnUtils.parseJSON(localStorage.getItem('fcnSkins')) ?? { data: {}, active: null, fingerprint: fingerprint };
 
   if (skins?.data?.[skins.active]?.css && fingerprint === skins?.fingerprint) {
     const styleTag = document.createElement('style');

@@ -22,7 +22,7 @@ if (fcn_bookshelfTarget) {
  */
 
 function fcn_getBookshelfContent() {
-  return fcn_parseJSON(localStorage.getItem('fcnBookshelfContent')) ?? { html: {}, count: {} };
+  return FcnUtils.parseJSON(localStorage.getItem('fcnBookshelfContent')) ?? { html: {}, count: {} };
 }
 
 // =============================================================================

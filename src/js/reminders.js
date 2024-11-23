@@ -106,7 +106,7 @@ function fcn_toggleReminder(storyId, set = null) {
 
   // Update in database; only one request every n seconds
   fcn_userRemindersTimeout = setTimeout(() => {
-    fcn_ajaxPost({
+    FcnUtils.aPost({
       'action': 'fictioneer_ajax_toggle_reminder',
       'fcn_fast_ajax': 1,
       'story_id': storyId,

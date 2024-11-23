@@ -387,7 +387,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
     _$$$('comment-submit-error-notice')?.remove();
 
     // Request
-    fcn_ajaxPost(payload)
+    FcnUtils.aPost(payload)
     .then(response => {
       // Comment successfully saved?
       if (!response.success || !response.data?.comment) {
@@ -763,7 +763,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     this.comment.classList.add('ajax-in-progress');
 
     // Request
-    fcn_ajaxPost({
+    FcnUtils.aPost({
       'action': 'fictioneer_ajax_report_comment',
       'id': this.idValue,
       'dubious': this.flagButtonTarget.classList.contains('_dubious'),
@@ -823,7 +823,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     this.comment.classList.add('ajax-in-progress');
 
     // Request
-    fcn_ajaxPost({
+    FcnUtils.aPost({
       'action': 'fictioneer_ajax_delete_my_comment',
       'comment_id': this.idValue,
       'fcn_fast_comment_ajax': 1
@@ -898,7 +898,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     this.inlineEditSubmitTarget.innerHTML = this.inlineEditSubmitTarget.dataset.disabled;
     this.inlineEditSubmitTarget.disabled = true;
 
-    fcn_ajaxPost({
+    FcnUtils.aPost({
       'action': 'fictioneer_ajax_edit_comment',
       'comment_id': this.idValue,
       'content': this.inlineEditTextareaTarget.value,
@@ -1150,7 +1150,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     }
 
     // Request
-    fcn_ajaxPost({
+    FcnUtils.aPost({
       'action': 'fictioneer_ajax_moderate_comment',
       'operation': operation,
       'id': this.idValue,

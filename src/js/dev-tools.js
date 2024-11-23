@@ -29,7 +29,7 @@ async function fcn_benchmarkAjax(n = 1, data = {}, url = null, headers = {}, met
       if (method === 'get') {
         await fcn_ajaxGet(data, url, headers);
       } else {
-        await fcn_ajaxPost(data, url, headers);
+        await FcnUtils.aPost(data, url, headers);
       }
 
       totalTime += (performance.now() - startTime);
@@ -58,6 +58,6 @@ function fcn_printAjaxResponse(payload, method = 'get') {
   if (method === 'get') {
     fcn_ajaxGet(payload).then((response) => { console.log(response); });
   } else {
-    fcn_ajaxPost(payload).then((response) => { console.log(response); });
+    FcnUtils.aPost(payload).then((response) => { console.log(response); });
   }
 }

@@ -29,14 +29,14 @@ function fcn_validateCss(css) {
  */
 
 function fcn_getSkins() {
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   if (!fingerprint) {
     return null;
   }
 
   const _default = { 'data': {}, 'active': null, 'fingerprint': fingerprint };
-  const skins = fcn_parseJSON(localStorage.getItem('fcnSkins')) ?? _default;
+  const skins = FcnUtils.parseJSON(localStorage.getItem('fcnSkins')) ?? _default;
 
   if (!skins?.fingerprint || fingerprint !== skins.fingerprint) {
     return _default;
@@ -65,7 +65,7 @@ function fcn_setSkins(skins) {
     return;
   }
 
-  if (!skins?.fingerprint || fcn_getCookie('fcnLoggedIn') !== skins.fingerprint) {
+  if (!skins?.fingerprint || FcnUtils.getCookie('fcnLoggedIn') !== skins.fingerprint) {
     fcn_showNotification(fcn_skinTranslations.wrongFingerprint, 3, 'warning');
     return;
   }
@@ -147,7 +147,7 @@ function fcn_deleteSkin(target) {
  */
 
 function fcn_applySkin() {
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   // Ensure user is logged-in and not inside admin panel
   if (!fingerprint || _$('body.wp-admin')) {
@@ -184,7 +184,7 @@ function fcn_applySkin() {
 
 function fcn_renderSkinList() {
   const container = _$('[data-css-skin-target="list"]');
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   // Ensure the theme login check is passed
   if (!fingerprint || !container) {
@@ -252,7 +252,7 @@ _$('[data-css-skin-target="file"]')?.addEventListener('input', event => {
   const input = event.currentTarget;
   const file = input.files[0];
   const skins = fcn_getSkins();
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   console.log(input);
 
@@ -340,7 +340,7 @@ function fcn_uploadSkins(trigger) {
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_save_skins',
     'fcn_fast_ajax': 1,
     'skins': JSON.stringify(skins)
@@ -397,7 +397,7 @@ function fcn_downloadSkins(trigger) {
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_get_skins',
     'fcn_fast_ajax': 1
   })
@@ -405,7 +405,7 @@ function fcn_downloadSkins(trigger) {
     if (response.success) {
       fcn_showNotification(response.data.message, 3, 'success');
       fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
-      fcn_setSkins(fcn_parseJSON(response.data.skins));
+      fcn_setSkins(FcnUtils.parseJSON(response.data.skins));
       fcn_renderSkinList();
       fcn_applySkin();
     } else {

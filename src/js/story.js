@@ -47,7 +47,7 @@ document.addEventListener('fcnUserDataReady', () => {
 
 function fcn_getStorySettings() {
   // Get settings from local storage or use defaults
-  let settings = fcn_parseJSON(localStorage.getItem('fcnStorySettings')) ?? fcn_defaultStorySettings();
+  let settings = FcnUtils.parseJSON(localStorage.getItem('fcnStorySettings')) ?? fcn_defaultStorySettings();
 
   // Timestamp allows to force resets after script updates (may annoy users)
   if (settings['timestamp'] < 1674770712849) {

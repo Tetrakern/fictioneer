@@ -5,7 +5,7 @@
 const /** @const {HTMLElement} */ fcn_consentBanner = _$$$('consent-banner');
 
 // Show consent banner if no consent has been set, remove otherwise;
-if (fcn_consentBanner && (fcn_getCookie('fcn_cookie_consent') ?? '') === '' && !fcn_isSearchEngineCrawler()) {
+if (fcn_consentBanner && (FcnUtils.getCookie('fcn_cookie_consent') ?? '') === '' && !fcn_isSearchEngineCrawler()) {
   // Delay to avoid impacting web vitals
   setTimeout(() => {
     fcn_loadConsentBanner();
@@ -26,14 +26,14 @@ function fcn_loadConsentBanner() {
 
   // Listen for click on full consent button
   _$$$('consent-accept-button')?.addEventListener('click', () => {
-    fcn_setCookie('fcn_cookie_consent', 'full')
+    FcnUtils.setCookie('fcn_cookie_consent', 'full')
     fcn_consentBanner.classList.add('hidden');
     fcn_consentBanner.hidden = true;
   });
 
   // Listen for click on necessary only consent button
   _$$$('consent-reject-button')?.addEventListener('click', () => {
-    fcn_setCookie('fcn_cookie_consent', 'necessary')
+    FcnUtils.setCookie('fcn_cookie_consent', 'necessary')
     fcn_consentBanner.classList.add('hidden');
     fcn_consentBanner.hidden = true;
   });

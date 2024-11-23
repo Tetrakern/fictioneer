@@ -160,7 +160,7 @@ class FCN_Suggestion {
 
   resizeInput() {
     this.input.style.height = 'auto';
-    this.input.style.height = `${fcn_clamp(32, 108, this.input.scrollHeight + 4)}px`;
+    this.input.style.height = `${FcnUtils.clamp(32, 108, this.input.scrollHeight + 4)}px`;
   }
 
   showModal(instance) {

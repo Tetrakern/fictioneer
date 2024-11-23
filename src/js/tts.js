@@ -83,7 +83,7 @@ function fcn_setTTSsettings(value) {
 
 function fcn_getTTSsettings() {
   // Get JSON string from local storage
-  const settings = fcn_parseJSON(localStorage.getItem('ttsSettings')) ?? {};
+  const settings = FcnUtils.parseJSON(localStorage.getItem('ttsSettings')) ?? {};
 
   // Set up locals
   fcn_setTTSsettings(settings);
@@ -192,7 +192,7 @@ function fcn_updateVoice(id) {
 
 function fcn_updateVolume(value) {
   value = isNaN(value) ? 100 : parseInt(value);
-  value = fcn_clamp(0, 100, value);
+  value = FcnUtils.clamp(0, 100, value);
 
   _$$$('tts-volume-range').value = value;
   _$$$('tts-volume-text').value = value;
@@ -213,7 +213,7 @@ function fcn_updateVolume(value) {
 
 function fcn_updatePitch(value) {
   value = isNaN(value) ? 1.0 : parseFloat(value);
-  value = fcn_clamp(0.2, 1.8, value);
+  value = FcnUtils.clamp(0.2, 1.8, value);
 
   _$$$('tts-pitch-range').value = value;
   _$$$('tts-pitch-text').value = value;
@@ -234,7 +234,7 @@ function fcn_updatePitch(value) {
 
 function fcn_updateRate(value) {
   value = isNaN(value) ? 1.0 : parseFloat(value);
-  value = fcn_clamp(0.2, 1.8, value);
+  value = FcnUtils.clamp(0.2, 1.8, value);
 
   _$$$('tts-rate-range').value = value;
   _$$$('tts-rate-text').value = value;

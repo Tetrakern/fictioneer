@@ -516,6 +516,34 @@ document.addEventListener('fcnUserDataReady', () => {
 // BIND EVENTS TO ANIMATION FRAMES
 // =============================================================================
 
+var /** @const {Map} */ fcn_animFrameEvents = new Map();
+
+/**
+ * Bind event to animation frame for improved performance.
+ *
+ * @since 4.1.0
+ * @param {String} type - The event type, e.g. 'scroll' or 'resize'.
+ * @param {String} name - Name of the bound event.
+ * @param {HTMLElement} [obj=window] - Target of the event listener.
+ */
+
+function fcn_bindEventToAnimationFrame(type, name, obj = window) {
+  var func = function() {
+    if (fcn_animFrameEvents.get(name)) {
+      return;
+    }
+
+    fcn_animFrameEvents.set(name, true);
+
+    requestAnimationFrame(() => {
+      obj.dispatchEvent(new CustomEvent(name));
+      fcn_animFrameEvents.set(name, false);
+    });
+  };
+
+  obj.addEventListener(type, func);
+}
+
 fcn_bindEventToAnimationFrame('scroll', 'scroll.rAF');
 fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
 
@@ -557,16 +585,16 @@ document.body.addEventListener('click', e => {
     case 'copy-to-clipboard':
       // Handle copy input to clipboard
       clickTarget.select();
-      fcn_copyToClipboard(clickTarget.value, clickTarget.dataset.message);
+      FcnUtils.copyToClipboard(clickTarget.value, clickTarget.dataset.message);
       break;
     case 'reset-consent':
       // Handle consent reset
-      fcn_deleteCookie('fcn_cookie_consent');
+      FcnUtils.deleteCookie('fcn_cookie_consent');
       location.reload();
       break;
     case 'clear-cookies':
       // Handle clear all cookies
-      fcn_deleteAllCookies();
+      FcnUtils.deleteAllCookies();
       alert(clickTarget.dataset.message);
       break;
     case 'logout':
@@ -748,7 +776,7 @@ function fcn_scrollDirection() {
 }
 
 // Listen for window scrolling
-window.addEventListener('scroll.rAF', fcn_throttle(fcn_scrollDirection, 200));
+window.addEventListener('scroll.rAF', FcnUtils.throttle(fcn_scrollDirection, 200));
 
 // Initialize once
 fcn_scrollDirection();
@@ -926,6 +954,31 @@ if (FcnGlobals.urlParams) {
 
     fcn_showNotification(fcn_sanitizeHTML(FcnGlobals.urlParams['fictioneer-notice']), 3, type);
   }
+}
+
+// =============================================================================
+// UPDATE THEME COLOR META TAG
+// =============================================================================
+
+/**
+ * Update theme color meta tag.
+ *
+ * @since 4.0.0
+ * @param {String|Boolean} [color=false] - Optional color code.
+ */
+
+function fcn_updateThemeColor(color = false) {
+  const darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0;
+  const saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0;
+  const hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0;
+  const d = darken >= 0 ? 1 + darken ** 2 : 1 - darken ** 2;
+  const s = saturation >= 0 ? 1 + saturation ** 2 : 1 - saturation ** 2;
+
+  let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color-base').trim().split(' ');
+
+  themeColor = `hsl(${(parseInt(themeColor[0]) + hueRotate) % 360}deg ${(parseInt(themeColor[1]) * s).toFixed(2)}% ${(parseInt(themeColor[2]) * d).toFixed(2)}%)`;
+
+  _$('meta[name=theme-color]').setAttribute('content', color || themeColor);
 }
 
 // =============================================================================
@@ -1114,7 +1167,7 @@ _$$('.site-setting-font-weight').forEach(setting => {
 
 function fcn_updateHueRotate(value) {
   // Evaluate
-  value = fcn_clamp(0, 360, value ?? 0);
+  value = FcnUtils.clamp(0, 360, value ?? 0);
 
   // Update associated elements
   fcn_settingHueRotateText.value = value;
@@ -1146,7 +1199,7 @@ function fcn_setHueRotate() {
 fcn_settingHueRotateReset?.addEventListener('click', () => { fcn_updateHueRotate(0) });
 
 // Listen for hue rotate range input
-fcn_settingHueRotateRange?.addEventListener('input', fcn_throttle(fcn_setHueRotate, 1000 / 24));
+fcn_settingHueRotateRange?.addEventListener('input', FcnUtils.throttle(fcn_setHueRotate, 1000 / 24));
 
 // Listen for hue rotate text input
 fcn_settingHueRotateText?.addEventListener('input', fcn_setHueRotate);
@@ -1163,7 +1216,7 @@ fcn_settingHueRotateText?.addEventListener('input', fcn_setHueRotate);
 
 function fcn_updateDarken(value = null) {
   // Evaluate
-  value = fcn_clamp(-1, 1, value ?? fcn_siteSettings['darken']);
+  value = FcnUtils.clamp(-1, 1, value ?? fcn_siteSettings['darken']);
   value = Math.round((value + Number.EPSILON) * 100) / 100;
 
   // Update associated elements
@@ -1216,7 +1269,7 @@ fcn_settingDarkenResets.forEach(element => {
 
 // Listen for darken range inputs
 fcn_settingDarkenRanges.forEach(element => {
-  element.addEventListener('input', fcn_throttle(fcn_setDarkenFromRange, 1000 / 24));
+  element.addEventListener('input', FcnUtils.throttle(fcn_setDarkenFromRange, 1000 / 24));
 });
 
 // Listen for darken text inputs
@@ -1236,7 +1289,7 @@ fcn_settingDarkenTexts.forEach(element => {
 
 function fcn_updateSaturation(value = null) {
   // Evaluate
-  value = fcn_clamp(-1, 1, value ?? fcn_siteSettings['saturation']);
+  value = FcnUtils.clamp(-1, 1, value ?? fcn_siteSettings['saturation']);
 
   // Update associated elements
   fcn_settingSaturationResets.forEach(element => { element.classList.toggle('_modified', value != 0); });
@@ -1288,7 +1341,7 @@ fcn_settingSaturationResets.forEach(element => {
 
 // Listen for darken range inputs
 fcn_settingSaturationRanges.forEach(element => {
-  element.addEventListener('input', fcn_throttle(fcn_setSaturationFromRange, 1000 / 24));
+  element.addEventListener('input', FcnUtils.throttle(fcn_setSaturationFromRange, 1000 / 24));
 });
 
 // Listen for darken text inputs
@@ -1308,7 +1361,7 @@ fcn_settingSaturationTexts.forEach(element => {
 
 function fcn_updateFontLightness(value = null) {
   // Evaluate
-  value = fcn_clamp(-1, 1, value ?? fcn_siteSettings['font-lightness'] ?? 1);
+  value = FcnUtils.clamp(-1, 1, value ?? fcn_siteSettings['font-lightness'] ?? 1);
 
   // Update associated elements
   fcn_settingFontLightnessResets.forEach(element => { element.classList.toggle('_modified', value != 0); });
@@ -1360,7 +1413,7 @@ fcn_settingFontLightnessResets.forEach(element => {
 
 // Listen for darken range inputs
 fcn_settingFontLightnessRanges.forEach(element => {
-  element.addEventListener('input', fcn_throttle(fcn_setFontLightnessFromRange, 1000 / 24));
+  element.addEventListener('input', FcnUtils.throttle(fcn_setFontLightnessFromRange, 1000 / 24));
 });
 
 // Listen for darken text inputs
@@ -1410,7 +1463,7 @@ function fcn_defaultSiteSettings() {
 
 function fcn_getSiteSettings() {
   // Get settings from web storage or use defaults
-  const s = fcn_parseJSON(localStorage.getItem('fcnSiteSettings')) ?? fcn_defaultSiteSettings();
+  const s = FcnUtils.parseJSON(localStorage.getItem('fcnSiteSettings')) ?? fcn_defaultSiteSettings();
 
   // Update web storage and return
   fcn_setSiteSettings(s);
@@ -1676,7 +1729,7 @@ function fcn_contactFormSubmit(button) {
   form.classList.add('ajax-in-progress');
 
   // Request
-  fcn_ajaxPost(payload)
+  FcnUtils.aPost(payload)
   .then(response => {
     if (response.success) {
       // Success
@@ -1899,7 +1952,7 @@ class FCN_KeywordInput {
     this.suggestionList = this.block.querySelector('.keyword-input__suggestion-list');
     this.tabSuggestion = this.block.querySelector('.keyword-input__tab-suggestion');
     this.allowText = this.form.querySelector('.allow-list')?.innerText ?? '{}';
-    this.allowList = fcn_parseJSON(this.allowText);
+    this.allowList = FcnUtils.parseJSON(this.allowText);
     this.hints = this.block.querySelector('.keyword-input__hints');
     this.noHint = this.block.querySelector('.keyword-input__no-suggestions');
     this.keywords = this.collection.value.length > 0 ? this.collection.value.split(',') : [];
@@ -2317,7 +2370,7 @@ function fcn_popupPosition() {
 }
 
 // Initialize
-window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 250));
+window.addEventListener('scroll.rAF', FcnUtils.throttle(fcn_popupPosition, 250));
 
 // =============================================================================
 // SCROLL TO ANCHORS

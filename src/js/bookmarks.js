@@ -53,7 +53,7 @@ function fcn_initializeLocalBookmarks() {
 
 function fcn_initializeUserBookmarks(event) {
   // Always update bookmarks in storage
-  fcn_setBookmarks(fcn_parseJSON(event.detail.data.bookmarks) ?? {}, true);
+  fcn_setBookmarks(FcnUtils.parseJSON(event.detail.data.bookmarks) ?? {}, true);
 
   // Update view
   fcn_updateBookmarksView();
@@ -71,7 +71,7 @@ function fcn_initializeUserBookmarks(event) {
  */
 
 function fcn_getBookmarks() {
-  let bookmarks = fcn_parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
+  let bookmarks = FcnUtils.parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
 
   // Fix empty array that should be an object
   if (Array.isArray(bookmarks.data) && bookmarks.data.length === 0) {
@@ -278,7 +278,7 @@ function fcn_saveUserBookmarks(bookmarks) {
 
   // Only one save request every n seconds
   fcn_userBookmarksTimeout = setTimeout(() => {
-    fcn_ajaxPost({
+    FcnUtils.aPost({
       'action': 'fictioneer_ajax_save_bookmarks',
       'fcn_fast_ajax': 1,
       'bookmarks': JSON.stringify(bookmarks)
@@ -365,7 +365,7 @@ function fcn_toggleBookmark(id, color = 'none') {
     // Add data node (chapter-id: {}) to bookmarks JSON
     fcn_bookmarks.data[chapter.id] = {
       'paragraph-id': id,
-      'progress': (fcn_offset(p).top - fcn_offset(p.parentElement).top) * 100 / p.parentElement.clientHeight,
+      'progress': (FcnUtils.offset(p).top - FcnUtils.offset(p.parentElement).top) * 100 / p.parentElement.clientHeight,
       'date': (new Date()).toISOString(), // This happens anyway when stringified
       'color': color,
       'chapter': fcn_chapterBookmarkData.title.trim(),

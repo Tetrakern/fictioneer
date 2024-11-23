@@ -127,6 +127,33 @@ function fcn_touchParagraph(e) {
 }
 
 /**
+ * Clean text selection from paragraph tools buttons.
+ *
+ * @description Probably the worst regex operation you have ever seen! This
+ * needs to make sure to not accidentally remove content since, while not
+ * common, the button labels may occur in the chapter text intentionally.
+ *
+ * @since 4.0.0
+ * @param {String} selection - The text selection to be cleaned.
+ * @return {String} The cleaned text selection.
+ */
+
+function fcn_cleanTextSelectionFromButtons(selection) {
+  // Mark buttons based on line break pattern
+  selection = selection.replace(/[\r\n]{2,}/g, '__$__')
+
+  // Delete different possible button sets
+  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Link)', 'g'), '');
+  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__TTS|__Link)', 'g'), '');
+  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Suggestion|__TTS|__Link)', 'g'), '');
+  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Suggestion|__Link)', 'g'), '');
+  selection = selection.replace(/[__$]{1,}/g, '\n\n').replace(/^[\r\n]+|[\r\n]+$/g, '');
+
+  // Return cleaned string
+  return selection;
+}
+
+/**
  * Get quote from paragraph or text selection.
  *
  * @since 3.0
@@ -202,7 +229,7 @@ if (fcn_paragraphTools) {
 
   // Listen for click on paragraph tools copy link button
   _$$$('button-get-link').onclick = (e) => {
-    fcn_copyToClipboard(
+    FcnUtils.copyToClipboard(
       `${location.protocol}//${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
       fictioneer_tl.notification.linkCopiedToClipboard
     );
@@ -314,7 +341,7 @@ _$$('.close-fullscreen').forEach(element => {
 
 function fcn_getFormatting() {
   // Get settings from local storage or use defaults
-  let formatting = fcn_parseJSON(localStorage.getItem('fcnChapterFormatting')) ?? fcn_defaultFormatting();
+  let formatting = FcnUtils.parseJSON(localStorage.getItem('fcnChapterFormatting')) ?? fcn_defaultFormatting();
 
   // Simple validation
   if (Object.keys(formatting).length < 15) {
@@ -359,7 +386,7 @@ function fcn_defaultFormatting() {
       'show-paragraph-tools': true,
       'timestamp': 1664797604825 // Used to force resets on script updates
     },
-    ...fcn_parseJSON(document.documentElement.dataset.defaultFormatting ?? '{}')
+    ...FcnUtils.parseJSON(document.documentElement.dataset.defaultFormatting ?? '{}')
   };
 }
 
@@ -407,7 +434,6 @@ function fcn_setFormatting(value) {
    * Update font size formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
    * @see fcn_setFormatting();
    * @param {Number} value - Integer between 50 and 200.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -415,7 +441,7 @@ function fcn_setFormatting(value) {
 
   function fcn_updateFontSize(value, save = true) {
     // Evaluate
-    value = fcn_clamp(50, 200, value ?? 100);
+    value = FcnUtils.clamp(50, 200, value ?? 100);
 
     // Update associated elements
     text.value = value;
@@ -462,7 +488,7 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateFontSize(100) });
 
   // Listen for font size range input
-  range?.addEventListener('input', fcn_throttle(fcn_setFontSize, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setFontSize, 1000 / 24));
 
   // Listen for font size text input
   text?.addEventListener('input', fcn_setFontSize);
@@ -503,7 +529,7 @@ function fcn_setFormatting(value) {
 
   function fcn_updateFontColor(index, save = true) {
     // Stay within bounds
-    index = fcn_clamp(0, FcnGlobals.fontColors.length - 1, index);
+    index = FcnUtils.clamp(0, FcnGlobals.fontColors.length - 1, index);
 
     // Update associated elements
     reset.classList.toggle('_modified', index > 0);
@@ -576,7 +602,7 @@ function fcn_setFormatting(value) {
 
   function fcn_updateFontFamily(index, save = true) {
     // Stay within bounds
-    index = fcn_clamp(0, FcnGlobals.fonts.length - 1, index);
+    index = FcnUtils.clamp(0, FcnGlobals.fonts.length - 1, index);
 
     // Prepare font family
     let fontFamily = FcnGlobals.fonts[index].css;
@@ -659,7 +685,6 @@ function fcn_setFormatting(value) {
    * Update font saturation formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
    * @see fcn_setFormatting();
    * @param {Number} value - Float between -1 and 1.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -667,7 +692,7 @@ function fcn_setFormatting(value) {
 
   function fcn_updateFontSaturation(value, save = true) {
     // Evaluate
-    value = fcn_clamp(-1, 1, value ?? 0);
+    value = FcnUtils.clamp(-1, 1, value ?? 0);
 
     // Update associated elements
     text.value = parseInt(value * 100);
@@ -712,7 +737,7 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateFontSaturation(0) });
 
   // Listen for text saturation range input
-  range?.addEventListener('input', fcn_throttle(fcn_setFontSaturationFromRange, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setFontSaturationFromRange, 1000 / 24));
 
   // Listen for text saturation text input
   text?.addEventListener('input', fcn_setFontSaturationFromText);
@@ -742,7 +767,6 @@ function fcn_setFormatting(value) {
    * Update letter-spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
    * @see fcn_setFormatting();
    * @param {Number} value - Float between -0.1 and 0.2.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -750,7 +774,7 @@ function fcn_setFormatting(value) {
 
   function fcn_updateLetterSpacing(value, save = true) {
     // Evaluate
-    value = fcn_clamp(-0.1, 0.2, value ?? _default);
+    value = FcnUtils.clamp(-0.1, 0.2, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -782,7 +806,7 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateLetterSpacing(_default) });
 
   // Listen for letter-spacing range input
-  range?.addEventListener('input', fcn_throttle(fcn_setLetterSpacing, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setLetterSpacing, 1000 / 24));
 
   // Listen for letter-spacing text input
   text?.addEventListener('input', fcn_setLetterSpacing);
@@ -812,7 +836,6 @@ function fcn_setFormatting(value) {
    * Update paragraph spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
    * @see fcn_setFormatting();
    * @param {Number} value - Float between 0 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -820,7 +843,7 @@ function fcn_setFormatting(value) {
 
   function fcn_updateParagraphSpacing(value, save = true) {
     // Evaluate
-    value = fcn_clamp(0, 3, value ?? _default);
+    value = FcnUtils.clamp(0, 3, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -852,7 +875,7 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateParagraphSpacing(_default) });
 
   // Listen for paragraph spacing range input
-  range?.addEventListener('input', fcn_throttle(fcn_setParagraphSpacing, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setParagraphSpacing, 1000 / 24));
 
   // Listen for paragraph spacing text input
   text?.addEventListener('input', fcn_setParagraphSpacing);
@@ -882,7 +905,6 @@ function fcn_setFormatting(value) {
    * Update line height formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
    * @see fcn_setFormatting();
    * @param {Number} value - Float between 0.8 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -890,7 +912,7 @@ function fcn_setFormatting(value) {
 
   function fcn_updateLineHeight(value, save = true) {
     // Evaluate
-    value = fcn_clamp(0.8, 3.0, value ?? _default);
+    value = FcnUtils.clamp(0.8, 3.0, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -922,7 +944,7 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateLineHeight(_default) });
 
   // Listen for line height range input
-  range?.addEventListener('input', fcn_throttle(fcn_setLineHeight, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setLineHeight, 1000 / 24));
 
   // Listen for line height text input
   text?.addEventListener('input', fcn_setLineHeight);
@@ -955,7 +977,6 @@ function fcn_setFormatting(value) {
    * to avoid potential layout issues.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
    * @see fcn_setFormatting();
    * @param {Number} value - Float between 640 and 1920.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -966,7 +987,7 @@ function fcn_setFormatting(value) {
     const main = _$('main');
 
     // Evaluate
-    value = fcn_clamp(640, 1920, value ?? _default);
+    value = FcnUtils.clamp(640, 1920, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -1004,7 +1025,7 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateSiteWidth(_default) });
 
   // Listen for site width range input
-  range?.addEventListener('input', fcn_throttle(fcn_setSiteWidth, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setSiteWidth, 1000 / 24));
 
   // Listen for site width text input
   text?.addEventListener('input', fcn_setSiteWidth);
@@ -1185,8 +1206,6 @@ if (_$('article:not(._password)')) {
  * custom scroll event that is tied to request animation frame.
  *
  * @since 4.0.0
- * @see fcn_readingProgress()
- * @see fcn_bindEventToAnimationFrame()
  */
 
 function fcn_trackProgress() {
@@ -1195,7 +1214,7 @@ function fcn_trackProgress() {
   }
 
   fcn_readingProgress();
-  window.addEventListener('scroll.rAF', fcn_throttle(fcn_readingProgress, 1000 / 48));
+  window.addEventListener('scroll.rAF', FcnUtils.throttle(fcn_readingProgress, 1000 / 48));
 }
 
 /**
@@ -1205,7 +1224,6 @@ function fcn_trackProgress() {
  *
  * @since 4.0.0
  * @see fcn_toggleCheckmark()
- * @see fcn_clamp()
  */
 
 function fcn_readingProgress() {
@@ -1226,7 +1244,7 @@ function fcn_readingProgress() {
   document.body.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
 
   // Clamp percent between 0 and 100
-  p = fcn_clamp(0, 100, p);
+  p = FcnUtils.clamp(0, 100, p);
 
   // Apply the percentage to the bar fill
   fcn_progressBar.style.width = `${p}%`;
