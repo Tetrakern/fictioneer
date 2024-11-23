@@ -11,7 +11,7 @@
  *                               the opposite of the current state.
  */
 
-function fcn_toggleInProgress(element, force = null) {
+function FcnUtils.toggleInProgress(element, force = null) {
   force = force !== null ? force : !element.disabled;
 
   if (force) {
@@ -88,7 +88,7 @@ function fcn_purgeAllSchemas(offset = 0, total = null, processed = 0) {
 
   if ( total === null ) {
     buttons.forEach(element => {
-      fcn_toggleInProgress(element, true);
+      FcnUtils.toggleInProgress(element, true);
     });
   }
 
@@ -115,7 +115,7 @@ function fcn_purgeAllSchemas(offset = 0, total = null, processed = 0) {
       );
     } else {
       buttons.forEach(element => {
-        fcn_toggleInProgress(element, false);
+        FcnUtils.toggleInProgress(element, false);
       });
 
       _$$('tr').forEach(row => {
@@ -765,7 +765,7 @@ function fcn_setGroupDataList(source) {
   })
   .then(response => {
     if (response.success) {
-      const list = fcn_html`<datalist id="${listID}">${response.data.html}</datalist>>`;
+      const list = FcnUtils.html`<datalist id="${listID}">${response.data.html}</datalist>>`;
       document.body.appendChild(list);
     } else if (response.data.error) {
       console.error('Error:', response.data.error);
@@ -1290,7 +1290,7 @@ function fcn_intervalAction(trigger, action, payload = {}) {
 
   // Indicate process
   if (index < 1 || index >= goal) {
-    fcn_toggleInProgress(trigger, index < 1);
+    FcnUtils.toggleInProgress(trigger, index < 1);
   }
 
   if (index < goal) {

@@ -334,7 +334,7 @@ function fcn_uploadSkins(trigger) {
   const skins = fcn_getSkins();
 
   // Toggle button progress
-  fcn_toggleInProgress(trigger);
+  FcnUtils.toggleInProgress(trigger);
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
@@ -369,7 +369,7 @@ function fcn_uploadSkins(trigger) {
   })
   .then(() => {
     _$('[data-css-skin-target="file"]').value = '';
-    fcn_toggleInProgress(trigger);
+    FcnUtils.toggleInProgress(trigger);
   });
 }
 
@@ -391,7 +391,7 @@ function fcn_downloadSkins(trigger) {
   }
 
   // Toggle button progress
-  fcn_toggleInProgress(trigger);
+  FcnUtils.toggleInProgress(trigger);
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
@@ -428,7 +428,7 @@ function fcn_downloadSkins(trigger) {
   })
   .then(() => {
     _$('[data-css-skin-target="file"]').value = '';
-    fcn_toggleInProgress(trigger);
+    FcnUtils.toggleInProgress(trigger);
   });
 }
 

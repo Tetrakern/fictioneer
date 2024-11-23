@@ -556,6 +556,55 @@ const FcnUtils = {
       top: target.getBoundingClientRect().top + window.scrollY - offset,
       behavior: 'smooth'
     });
+  },
+
+  /**
+   * Creates an HTML element from a template string.
+   *
+   * @since 5.4.5
+   * @param {...string} args - The template strings and placeholders.
+   * @return {HTMLElement} The HTML element created from the template string.
+   *
+   * @example
+   * const element = FcnUtils.html`
+   *   <div class="my-element">
+   *     <h1>Title</h1>
+   *     <p>Content</p>
+   *   </div>
+   * `;
+   *
+   * document.body.appendChild(element);
+   */
+
+  html(...args) {
+    const template = document.createElement('template');
+    template.innerHTML = String.raw(...args).trim();
+
+    return template.content.firstChild;
+  },
+
+  /**
+   * Toggles progression state of an element.
+   *
+   * @since 5.26.0
+   * @param {HTMLElement} element - The element.
+   * @param {Boolean|null} force - Whether to disable or enable. Defaults to
+   *                               the opposite of the current state.
+   */
+
+  toggleInProgress(element, force = null) {
+    force = force !== null ? force : !element.disabled;
+
+    if (force) {
+      element.dataset.enableWith = element.innerHTML;
+      element.innerHTML = element.dataset.disableWith ?? 'Processing';
+      element.disabled = true;
+      element.classList.add('disabled');
+    } else {
+      element.innerHTML = element.dataset.enableWith;
+      element.disabled = false;
+      element.classList.remove('disabled');
+    }
   }
 };
 
@@ -658,35 +707,6 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
 }
 
 // =============================================================================
-// CONVERT HTML STRING TO DOM ELEMENT
-// =============================================================================
-
-/**
- * Creates an HTML element from a template string.
- *
- * @since 5.4.5
- * @param {...string} args - The template strings and placeholders.
- * @return {HTMLElement} The HTML element created from the template string.
- *
- * @example
- * const element = fcn_html`
- *   <div class="my-element">
- *     <h1>Title</h1>
- *     <p>Content</p>
- *   </div>
- * `;
- *
- * document.body.appendChild(element);
- */
-
-function fcn_html(...args) {
-  const template = document.createElement('template');
-  template.innerHTML = String.raw(...args).trim();
-
-  return template.content.firstChild;
-}
-
-// =============================================================================
 // CHECK FOR SEARCH CRAWLER
 // =============================================================================
 
@@ -712,34 +732,6 @@ function fcn_isSearchEngineCrawler() {
   ];
 
   return crawlers.some(crawler => userAgent.includes(crawler));
-}
-
-// =============================================================================
-// PROGRESSIVE ELEMENT STATUS
-// =============================================================================
-
-/**
- * Toggles progression state of an element.
- *
- * @since 5.26.0
- * @param {HTMLElement} element - The element.
- * @param {Boolean|null} force - Whether to disable or enable. Defaults to
- *                               the opposite of the current state.
- */
-
-function fcn_toggleInProgress(element, force = null) {
-  force = force !== null ? force : !element.disabled;
-
-  if (force) {
-    element.dataset.enableWith = element.innerHTML;
-    element.innerHTML = element.dataset.disableWith ?? 'Processing';
-    element.disabled = true;
-    element.classList.add('disabled');
-  } else {
-    element.innerHTML = element.dataset.enableWith;
-    element.disabled = false;
-    element.classList.remove('disabled');
-  }
 }
 
 // =============================================================================

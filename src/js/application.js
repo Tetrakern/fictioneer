@@ -316,7 +316,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
   #appendAjaxNonce(html) {
     _$$$('fictioneer-ajax-nonce')?.remove();
-    document.body.appendChild(fcn_html`${html}`);
+    document.body.appendChild(FcnUtils.html`${html}`);
   }
 });
 
