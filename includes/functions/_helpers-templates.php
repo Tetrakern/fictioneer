@@ -1057,7 +1057,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Subscribe
     if ( ! empty( $subscribe_buttons ) ) {
       $output['subscribe'] = sprintf(
-        '<div class="toggle-last-clicked subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
+        '<div class="subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
         fcntr( 'subscribe', true ),
         fcntr( 'subscribe' ),
         $subscribe_buttons
@@ -1848,16 +1848,17 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Apply filters
     $icons = apply_filters( 'fictioneer_filter_card_control_icons', $icons, $story_id, $chapter_id );
     $menu = apply_filters( 'fictioneer_filter_card_control_menu', $menu, $story_id, $chapter_id );
+    $menu_count = count( $menu );
 
     // Abort if...
-    if ( count( $icons ) < 1 || count( $menu ) < 1 ) {
+    if ( count( $icons ) < 1 || $menu_count < 1 ) {
       return '';
     }
 
     // Build menu
     $menu_html = '';
 
-    if ( count( $menu ) > 0 ) {
+    if ( $menu_count > 0 ) {
       $menu_html = sprintf(
         '<i class="fa-solid fa-ellipsis-vertical card__popup-menu-toggle" tabindex="0"></i>' .
         '<div class="popup-menu _fixed-position _bottom" data-fictioneer-large-card-target="menu">%s</div>',
@@ -1866,8 +1867,10 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     }
 
     $output = sprintf(
-      '<div class="card__controls %s" data-fictioneer-large-card-target="controls" data-action="click->fictioneer-large-card#toggleMenu">%s%s</div>',
-      count( $menu ) > 0 ? 'popup-menu-toggle toggle-last-clicked' : '',
+      '<div class="card__controls %s" %s data-fictioneer-large-card-target="controls" data-action="click->fictioneer-large-card#toggleMenu %s">%s%s</div>',
+      $menu_count > 0 ? 'popup-menu-toggle' : '',
+      $menu_count > 0 ? 'data-fictioneer-last-click-target="toggle"' : '',
+      $menu_count > 0 ? 'click->fictioneer-last-click#toggle' : '',
       implode( '', $icons ),
       $menu_html
     );

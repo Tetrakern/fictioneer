@@ -118,7 +118,8 @@ function fcn_getCommentForm() {
       fcn_applyCommentStack();
 
       // AJAX nonce
-      fcn_addNonceHTML(response.data.nonceHtml);
+      _$$$('fictioneer-ajax-nonce')?.remove();
+      document.body.appendChild(fcn_html`${response.data.nonceHtml}`);
     } else {
       errorNote = fcn_buildErrorNotice(response.data.error);
     }
@@ -593,6 +594,13 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
         fcn_adjustTextarea(this.inlineEditTextareaTarget);
       });
     }
+
+    // Listen to outside last-clicked toggles
+    document.addEventListener('toggledLastClick', event => {
+      if (!event.detail.force && this.menuOpen) {
+        this.#hideMenu();
+      }
+    });
   }
 
   /**
@@ -617,9 +625,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   mouseLeave() {
     if (this.hasModMenuTarget && this.menuOpen) {
       this.#hideMenu();
-
-      fcn_lastClicked?.classList.remove('last-clicked'); // Global
-      fcn_lastClicked = null; // Global
+      document.dispatchEvent(new CustomEvent('fcnRemoveLastClicked'));
     }
   }
 
@@ -941,6 +947,13 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     });
   }
 
+  /**
+   * Handle cmd/ctrl + key combos.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
   keyComboCodes(event) {
     if (
       _$('.fictioneer-comment-toolbar') &&
@@ -1174,8 +1187,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
     .then(() => {
       this.comment.classList.remove('ajax-in-progress');
       this.#hideMenu();
-      fcn_lastClicked?.classList.remove('last-clicked'); // Global
-      fcn_lastClicked = null; // Global
+      document.dispatchEvent(new CustomEvent('fcnRemoveLastClicked'));
     });
   }
 });

@@ -2086,7 +2086,7 @@ function fictioneer_shortcode_subscribe_button( $attr ) {
   // Build and return button
   if ( ! empty( $subscribe_buttons ) ) {
     return sprintf(
-      '<div class="toggle-last-clicked subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last ' . esc_attr( $classes ) . '" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
+      '<div class="subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last ' . esc_attr( $classes ) . '" tabindex="0" role="button" aria-label="%s" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
       fcntr( 'subscribe', true ),
       fcntr( 'subscribe' ),
       $subscribe_buttons

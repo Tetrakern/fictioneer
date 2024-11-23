@@ -405,7 +405,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
       // Append nonce HTML
       if (currentUserData.nonceHtml) {
-        this.#addNonceHTML(currentUserData.nonceHtml);
+        document.body.appendChild(fcn_html`${currentUserData.nonceHtml}`);
       }
 
       // Fire event
@@ -436,7 +436,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
         // Append nonce HTML
         if (currentUserData.nonceHtml) {
-          this.#addNonceHTML(updatedUserData.nonceHtml);
+          document.body.appendChild(fcn_html`${currentUserData.nonceHtml}`);
         }
 
         // Prepare event
@@ -485,18 +485,6 @@ application.register('fictioneer', class extends Stimulus.Controller {
       // Fire event
       document.dispatchEvent(event);
     });
-  }
-
-  // =====================
-  // ====== PRIVATE ======
-  // =====================
-
-  #addNonceHTML(nonceHtml) {
-    // Remove old (if any)
-    _$$$('fictioneer-ajax-nonce')?.remove();
-
-    // Append hidden input with nonce to DOM
-    document.body.appendChild(fcn_html`${nonceHtml}`);
   }
 });
 
@@ -711,24 +699,24 @@ fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
 document.body.addEventListener('click', e => {
   // --- LAST CLICK ------------------------------------------------------------
 
-  const lastClickTarget = e.target.closest('.toggle-last-clicked');
+  // const lastClickTarget = e.target.closest('.toggle-last-clicked');
 
-  if (
-    lastClickTarget &&
-    (
-      !['BUTTON', 'A', 'INPUT', 'SELECT'].includes(e.target.tagName) ||
-      e.target.classList.contains('toggle-last-clicked')
-    )
-  ) {
-    fcn_toggleLastClicked?.(lastClickTarget);
+  // if (
+  //   lastClickTarget &&
+  //   (
+  //     !['BUTTON', 'A', 'INPUT', 'SELECT'].includes(e.target.tagName) ||
+  //     e.target.classList.contains('toggle-last-clicked')
+  //   )
+  // ) {
+  //   fcn_toggleLastClicked?.(lastClickTarget);
 
-    if (typeof fcn_popupPosition === 'function') {
-      fcn_popupPosition();
-    }
+  //   if (typeof fcn_popupPosition === 'function') {
+  //     fcn_popupPosition();
+  //   }
 
-    e.stopPropagation();
-    return;
-  }
+  //   e.stopPropagation();
+  //   return;
+  // }
 
   // --- PAGINATION JUMP -------------------------------------------------------
 
@@ -900,6 +888,11 @@ function fcn_appendTermMenu(type, target) {
 
   target.appendChild(submenu);
 }
+
+// Hover over main menu
+_$$$('full-navigation')?.addEventListener('mouseover', () => {
+  document.dispatchEvent(new CustomEvent('fcnRemoveLastClicked'));
+});
 
 // =============================================================================
 // DETECT SCROLL DIRECTION
@@ -2663,18 +2656,6 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
         this.#watch();
       });
     }
-
-    document.addEventListener('click', event => {
-      if (!event.target.closest(`.card.post-${this.postIdValue}`)) {
-        this.#clickOutside();
-      }
-    });
-
-    document.addEventListener('fcnLastClicked', event => {
-      if (!event.detail?.element?.closest(`.card.post-${this.postIdValue}`)) {
-        this.#hideMenu();
-      }
-    });
   }
 
   connect() {
@@ -2682,6 +2663,16 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       this.#refreshAll();
       this.#watch();
     }
+
+    document.addEventListener('click', event => {
+      if (!event.target.closest(`.card.post-${this.postIdValue}`)) {
+        this.#clickOutside();
+      }
+    });
+
+    document.addEventListener('toggledLastClick', event => {
+      this.#toggledLastClick(event.detail.target, event.detail.force)
+    });
 
     if (this.hasMenuTarget) {
       this.menuFragment = document.createDocumentFragment();
@@ -2870,6 +2861,17 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       while (this.menuTarget.firstChild) {
         this.menuTarget.removeChild(this.menuTarget.firstChild);
       }
+    }
+  }
+
+  #toggledLastClick(target, force) {
+    if (!force) {
+      this.#hideMenu();
+      return;
+    }
+
+    if (target && !target.closest(`.card.post-${this.postIdValue}`) && this.menOpen) {
+      this.#hideMenu();
     }
   }
 });

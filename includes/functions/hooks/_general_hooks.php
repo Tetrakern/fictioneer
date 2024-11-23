@@ -717,7 +717,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
   <div id="sof" class="sort-order-filter">
 
     <?php if ( is_archive() && ! empty( $post_type_menu ) ) : ?>
-      <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
+      <div class="list-button _text popup-menu-toggle" tabindex="0" role="button" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><?php
         echo $post_type_menu[ $post_type ?? 'any' ]['label'] ?? __( 'Unknown', 'fictioneer' );
         echo '<div class="popup-menu _bottom _center _fixed-position">';
         echo '<div class="popup-heading">' . __( 'Post Type', 'fictioneer' ) . '</div>';
@@ -732,7 +732,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
     <?php endif; ?>
 
     <?php if ( ! empty( $orderby_menu ) ) : ?>
-      <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
+      <div class="list-button _text popup-menu-toggle" tabindex="0" role="button" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><?php
         echo $orderby_menu[ $args['orderby'] ]['label'] ?? __( 'Custom', 'fictioneer' );
         echo '<div class="popup-menu _bottom _center _fixed-position">';
         echo '<div class="popup-heading">' . __( 'Order By', 'fictioneer' ) . '</div>';
@@ -747,7 +747,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
     <?php endif; ?>
 
     <?php if ( ! empty( $date_menu ) ) : ?>
-      <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
+      <div class="list-button _text popup-menu-toggle" tabindex="0" role="button" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><?php
         $key = str_replace( ' ', '_', $args['ago'] ?? '' );
 
         if ( empty( $date_menu[ $key ]['label'] ) ) {

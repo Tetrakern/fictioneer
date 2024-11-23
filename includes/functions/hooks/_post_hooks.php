@@ -172,7 +172,7 @@ function fictioneer_post_subscribe_button( $post_id, $args ) {
 
   if ( ! empty( $subscribe_buttons ) ) {
     // Start HTML ---> ?>
-    <div class="toggle-last-clicked button _secondary popup-menu-toggle" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
+    <div class="button _secondary popup-menu-toggle" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle">
       <i class="fa-solid fa-bell"></i> <span><?php echo fcntr( 'subscribe' ); ?></span>
       <div class="popup-menu _top _justify-right"><?php echo $subscribe_buttons; ?></div>
     </div>

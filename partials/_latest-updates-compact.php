@@ -268,7 +268,7 @@ if ( $splide ) {
             <div class="card__body polygon">
 
               <?php if ( $show_excerpt && $args['infobox'] ) :  ?>
-                <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
+                <button class="card__info-toggle" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><i class="fa-solid fa-chevron-down"></i></button>
               <?php endif; ?>
 
               <div class="card__main <?php echo $grid_or_vertical; ?> _small">

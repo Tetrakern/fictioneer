@@ -383,83 +383,71 @@ function fcn_bindEventToAnimationFrame(type, name, obj = window) {
 // TOGGLE LAST CLICKED
 // =============================================================================
 
-var /** @const {HTMLElement} */ fcn_lastClicked;
-
-/**
- * Toggle the 'last-clicked' class on an element.
- *
- * @since 4.0.0
- * @param {HTMLElement} element - The clicked element.
- */
-
-function fcn_toggleLastClicked(element) {
-  const set = !element.classList.contains('last-clicked');
-
-  element.classList.toggle('last-clicked', set);
-  element.closest('.watch-last-clicked')?.classList.toggle('has-last-clicked', set);
-
-  if (fcn_lastClicked && fcn_lastClicked != element) {
-    fcn_removeLastClick(fcn_lastClicked);
+application.register('fictioneer-last-click', class extends Stimulus.Controller {
+  static get targets() {
+    return ['toggle']
   }
 
-  fcn_lastClicked = element;
+  last = null;
 
-  document.dispatchEvent(new CustomEvent('fcnLastClicked', { detail: { element } }));
-}
+  connect() {
+    document.addEventListener('fcnRemoveLastClicked', () => {
+      if (this.last) {
+        this.removeLastClick();
+      }
+    });
+  }
 
-/**
- * Removes last-clicked classes from an element and parents.
- *
- * @since 5.4.1
- * @param {HTMLElement} target - The element to clean.
- */
+  removeAll() {
+    if (this.last) {
+      this.#dispatchToggleEvent(this.last, false);
+      this.removeLastClick();
+    }
+  }
 
-function fcn_removeLastClick(target) {
-  target.closest('.watch-last-clicked')?.classList.remove('has-last-clicked');
-  target.classList.remove('last-clicked');
-  fcn_lastClicked = null;
-}
-
-/**
- * Clicks on elements with the 'toggle-last-clicked' class are handled by the
- * global click handler in application.js to avoid rebinding cases.
- */
-
-// Listen for click outside
-_$('body').addEventListener(
-  'click',
-  e => {
-    const target = e.target.closest('.toggle-last-clicked');
+  toggle(event) {
+    const target = event.target.closest('[data-fictioneer-last-click-target="toggle"]');
 
     if (
-      (!['BUTTON', 'A'].includes(e.target.tagName) && target) ||
-      e.target.closest('.escape-last-click') !== null
+      !target ||
+      (
+        ['BUTTON', 'A', 'INPUT', 'SELECT'].includes(event.target.tagName) &&
+        !event.target.hasAttribute('data-fictioneer-last-click-target')
+      )
     ) {
       return;
     }
 
-    if (fcn_lastClicked && target != fcn_lastClicked) {
-      fcn_removeLastClick(fcn_lastClicked);
-    }
-  }
-);
+    const set = !target.classList.contains('last-clicked');
 
-// Listen for escape key
-_$('body').addEventListener(
-  'keydown',
-  e => {
-    if (e.key == 'Escape' && fcn_lastClicked) {
-      fcn_removeLastClick(fcn_lastClicked);
+    if (typeof fcn_popupPosition === 'function') {
+      fcn_popupPosition();
+    }
+
+    target.classList.toggle('last-clicked', set);
+    target.closest('.watch-last-clicked')?.classList.toggle('has-last-clicked', set);
+
+    if (this.last && this.last != target) {
+      this.removeLastClick();
+    }
+
+    this.last = target;
+
+    this.#dispatchToggleEvent(target, set);
+    event.stopPropagation();
+  }
+
+  removeLastClick() {
+    if (this.last) {
+      this.last.closest('.watch-last-clicked')?.classList.remove('has-last-clicked');
+      this.last.classList.remove('last-clicked');
+      this.last = null;
       document.activeElement?.blur();
     }
   }
-);
 
-// Hover over main menu
-_$$$('full-navigation')?.addEventListener('mouseover', () => {
-  if (fcn_lastClicked) {
-    fcn_removeLastClick(fcn_lastClicked);
-    document.activeElement?.blur();
+  #dispatchToggleEvent(target, force) {
+    document.dispatchEvent(new CustomEvent('toggledLastClick', { detail: { target: target, force: force } }));
   }
 });
 
