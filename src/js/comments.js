@@ -856,6 +856,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   startEditInline() {
+    console.log('foo');
     const template = _$$$('template-comment-inline-edit-form')?.content.cloneNode(true);
 
     if (!template) {
