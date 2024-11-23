@@ -1835,6 +1835,8 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
 // CONTACT FORM SHORTCODE
 // =============================================================================
 
+// TODO
+
 /**
  * Submit contact form via AJAX.
  *
@@ -1912,6 +1914,24 @@ _$$('.fcn-contact-form').forEach(element => {
 // =============================================================================
 // MODALS
 // =============================================================================
+
+// TODO
+
+// Toggle modals
+_$$('.modal-toggle').forEach(element => {
+  element.addEventListener('change', (event) => {
+    const target = _$$$(event.currentTarget.dataset.target);
+
+    // Toggle class
+    target.classList.toggle('_open', event.currentTarget.checked);
+    target.hidden = !event.currentTarget.checked;
+
+    // Set focus inside modal
+    const close = target.querySelector('.close');
+    close?.focus();
+    close?.blur();
+  });
+});
 
 /*
  * Set focus onto modal when opened.
@@ -2007,14 +2027,14 @@ document.body.addEventListener(
 
     // When pressing space or enter on a focused element
     if (tabFocus) {
-      if (e.keyCode == 32 || e.keyCode == 13) {
+      if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         tabFocus.click();
       }
     }
 
     // Escape
-    if (e.keyCode == 27) {
+    if (e.key === 'Escape') {
       // Uncheck all modal control checkboxes (should only be one)
       _$$('.modal-toggle:checked').forEach(element => {
         element.checked = false;
@@ -2238,16 +2258,6 @@ class FCN_KeywordInput {
   }
 
   bindEvents() {
-    // Disabled in favor of global handler
-    // if (this.operator) {
-    //   this.operator.addEventListener(
-    //     'change',
-    //     e => {
-    //       e.currentTarget.closest('label')?.setAttribute('aria-checked', e.currentTarget.checked);
-    //     }
-    //   );
-    // }
-
     // Adjust width on input
     this.input.addEventListener(
       'input',
@@ -2272,8 +2282,7 @@ class FCN_KeywordInput {
     this.input.addEventListener(
       'keydown',
       event => {
-        // Enter/Tab
-        if (event.keyCode == 9 || event.keyCode == 13) {
+        if (event.key === 'Tab' || event.key === 'Enter') {
           if (this.tabSuggestion.innerText != '') {
             event.preventDefault(); // Prevent tab navigation and submit
             this.input.value = this.tabSuggestion.innerText;
@@ -2281,15 +2290,13 @@ class FCN_KeywordInput {
           }
         }
 
-        // Escape
-        if (event.keyCode == 27) {
+        if (event.key === 'Escape') {
           this.input.value = '';
           this.tabSuggestion.innerHTML = '';
           document.activeElement.blur();
         }
 
-        // Backspace
-        if (event.keyCode == 8) {
+        if (event.key === 'Backspace') {
           if (this.input.value == '' && this.keywords.length > 0) {
             this.removeNodeByValue(this.keywords.slice(-1));
           }
@@ -2432,7 +2439,7 @@ _$$('.search-form__advanced-toggle').forEach(element => {
  */
 
 function fcn_handleTabInput(e) {
-  if (e.keyCode == 9) {
+  if (e.key == 'Tab') {
     document.body.classList.add('user-is-tabbing');
 
     window.removeEventListener('keydown', fcn_handleTabInput);
@@ -2510,26 +2517,6 @@ function fcn_popupPosition() {
 window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 250));
 
 // =============================================================================
-// MODALS
-// =============================================================================
-
-// Toggle modals
-_$$('.modal-toggle').forEach(element => {
-  element.addEventListener('change', (event) => {
-    const target = _$$$(event.currentTarget.dataset.target);
-
-    // Toggle class
-    target.classList.toggle('_open', event.currentTarget.checked);
-    target.hidden = !event.currentTarget.checked;
-
-    // Set focus inside modal
-    const close = target.querySelector('.close');
-    close?.focus();
-    close?.blur();
-  });
-});
-
-// =============================================================================
 // SCROLL TO ANCHORS
 // =============================================================================
 
@@ -2582,6 +2569,8 @@ fcn_markCurrentMenuItem();
 // =============================================================================
 // AGE CONFIRMATION
 // =============================================================================
+
+// TODO
 
 if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation') !== '1' && !fcn_isSearchEngineCrawler()) {
   // Delay to avoid impacting web vitals

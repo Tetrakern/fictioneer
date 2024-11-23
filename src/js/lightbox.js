@@ -66,7 +66,7 @@ document.body.addEventListener('keydown', e => {
 
   if (target) {
     // Check pressed key
-    if (e.keyCode == 32 || e.keyCode == 13) {
+    if (e.key === ' ' || e.key === 'Enter') {
       // Prevent links from working
       e.preventDefault();
 

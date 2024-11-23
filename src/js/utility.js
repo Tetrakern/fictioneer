@@ -448,7 +448,7 @@ _$('body').addEventListener(
 _$('body').addEventListener(
   'keydown',
   e => {
-    if (e.keyCode == 27 && fcn_lastClicked) {
+    if (e.key == 'Escape' && fcn_lastClicked) {
       fcn_removeLastClick(fcn_lastClicked);
       document.activeElement?.blur();
     }
