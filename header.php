@@ -93,7 +93,7 @@ $action_args = array(
 $body_attributes = array(
   'data-post-id' => ( $post_id ?: -1 ),
   'data-controller' => 'fictioneer-last-click',
-  'data-action' => 'click->fictioneer-last-click#removeAll keydown.esc->fictioneer-last-click#removeAll'
+  'data-action' => 'click->fictioneer-last-click#removeAll keydown.esc->fictioneer-last-click#removeAll click->fictioneer#bodyClick'
 );
 
 if ( $story_id ) {

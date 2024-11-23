@@ -1039,8 +1039,8 @@ function fictioneer_shortcode_cookie_buttons( $attr ) {
 
   // Start HTML ---> ?>
   <div class="cookies spacing-top spacing-bottom ">
-    <button type="button" data-click="reset-consent" class="button"><?php _e( 'Reset Consent', 'fictioneer' ); ?></button>
-    <button type="button" data-click="clear-cookies" data-message="<?php _e( 'Cookies and local storage have been cleared. To keep it that way, you should leave the site.', 'fictioneer' ); ?>" class="button"><?php _e( 'Clear Cookies', 'fictioneer' ); ?></button>
+    <button type="button" data-action="click->fictioneer#clearConsent" class="button"><?php _e( 'Reset Consent', 'fictioneer' ); ?></button>
+    <button type="button" data-action="click->fictioneer#clearCookies" data-message="<?php _e( 'Cookies and local storage have been cleared. To keep it that way, you should leave the site.', 'fictioneer' ); ?>" class="button"><?php _e( 'Clear Cookies', 'fictioneer' ); ?></button>
   </div>
   <?php // <--- End HTML
 
@@ -1069,7 +1069,7 @@ function fictioneer_shortcode_chapter_list_empty( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group chapter-list _standalone _empty">
     <?php if ( ! empty( $attr['heading'] ) ) : ?>
-      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $attr['heading'] ) ); ?>" tabindex="0">
+      <button class="chapter-group__name" data-action="click->fictioneer#toggleChapterGroup" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $attr['heading'] ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $attr['heading']; ?></span>
       </button>
@@ -1201,7 +1201,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group chapter-list _standalone <?php echo esc_attr( $classes ); ?>">
     <?php if ( $heading ) : ?>
-      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $heading ) ); ?>" tabindex="0">
+      <button class="chapter-group__name" data-action="click->fictioneer#toggleChapterGroup" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $heading ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $heading; ?></span>
       </button>

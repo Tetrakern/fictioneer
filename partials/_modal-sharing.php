@@ -65,7 +65,7 @@ $story_link = get_post_meta( get_the_ID(), 'fictioneer_story_redirect_link', tru
     </div>
 
     <div class="modal__row">
-      <input type="text" value="<?php echo $story_link; ?>" data-click="copy-to-clipboard" data-message="<?php _e( 'Link copied to clipboard!', 'fictioneer' ); ?>" name="permalink" readonly>
+      <input type="text" value="<?php echo $story_link; ?>" data-action="click->fictioneer#copyInput" data-message="<?php _e( 'Link copied to clipboard!', 'fictioneer' ); ?>" name="permalink" readonly>
     </div>
   </div>
 </div>

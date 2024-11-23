@@ -311,27 +311,50 @@ function fictioneer_ajax_unset_my_oauth() {
 add_action( 'wp_ajax_fictioneer_ajax_unset_my_oauth', 'fictioneer_ajax_unset_my_oauth' );
 
 // =============================================================================
-// GET USER AVATAR URL - AJAX
+// AJAX: CLEAR COOKIES
 // =============================================================================
 
 /**
- * Get user avatar URL via AJAX
+ * Clear all cookies and log out.
  *
- * @since 4.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @see fictioneer_get_validated_ajax_user()
+ * @since 5.xx.x
  */
 
-function fictioneer_ajax_get_avatar() {
+function fictioneer_ajax_clear_cookies() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
+    wp_send_json_error(
+      array(
+        'error' => 'Request did not pass validation.',
+        'failure' => __( 'There has been an error. Try again later and if the problem persists, contact an administrator.', 'fictioneer' )
+      )
+    );
+  }
+
+  // Logout
+  wp_logout();
+
+  // Clear remaining cookies
+  if ( isset( $_SERVER['HTTP_COOKIE'] ) ) {
+    $cookies = explode( ';', $_SERVER['HTTP_COOKIE'] );
+
+    foreach ($cookies as $cookie) {
+      $parts = explode( '=', $cookie );
+      $name = trim( $parts[0] );
+
+      setcookie( $name, '', time() - 3600, '/' );
+
+      unset( $_COOKIE[ $name ] );
+    }
   }
 
   // Response
-  wp_send_json_success( array( 'url' => get_avatar_url( $user->ID ) ) );
+  wp_send_json_success(
+    array(
+      'success' => __( 'Cookies and local storage have been cleared. To keep it that way, you should leave the site.', 'fictioneer' )
+    )
+  );
 }
-add_action( 'wp_ajax_fictioneer_ajax_get_avatar', 'fictioneer_ajax_get_avatar' );
+add_action( 'wp_ajax_fictioneer_ajax_clear_cookies', 'fictioneer_ajax_clear_cookies' );

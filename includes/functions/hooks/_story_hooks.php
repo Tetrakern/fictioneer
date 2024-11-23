@@ -561,6 +561,7 @@ function fictioneer_story_chapters( $args ) {
                 aria-label="<?php echo esc_attr( sprintf( $aria_label, $group['group'] ) ); ?>"
                 data-item-count="<?php echo esc_attr( $group_item_count ); ?>"
                 data-group-index="<?php echo esc_attr( $group_index ); ?>"
+                data-action="click->fictioneer#toggleChapterGroup"
                 tabindex="0"
               >
                 <i class="<?php echo $group['toggle_icon']; ?> chapter-group__heading-icon"></i>

@@ -1668,7 +1668,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
 
     // Logout
     if ( fictioneer_show_auth_content() ) {
-      $output['logout'] = '<li class="menu-item hide-if-logged-out"><a href="' . fictioneer_get_logout_url() . '" data-click="logout" rel="noopener noreferrer nofollow">' . fcntr( 'logout' ) . '</a></li>';
+      $output['logout'] = '<li class="menu-item hide-if-logged-out"><a href="' . fictioneer_get_logout_url() . '" data-action="click->fictioneer#logout" rel="noopener noreferrer nofollow">' . fcntr( 'logout' ) . '</a></li>';
     }
 
     // Apply filters
@@ -2444,7 +2444,7 @@ function fictioneer_render_icon_menu( $args ) {
 
   if ( $location === 'in-mobile-menu' && fictioneer_show_auth_content() ) {
     $output['logout'] = sprintf(
-      '<div class="menu-item menu-item-icon hide-if-logged-out"><a href="%1$s" title="%2$s" data-click="logout" rel="noopener noreferrer nofollow" aria-label="%3$s">%4$s</a></div>',
+      '<div class="menu-item menu-item-icon hide-if-logged-out"><a href="%1$s" title="%2$s" data-action="click->fictioneer#logout" rel="noopener noreferrer nofollow" aria-label="%3$s">%4$s</a></div>',
       fictioneer_get_logout_url(),
       esc_attr__( 'Logout', 'fictioneer' ),
       esc_attr__( 'Click to log out', 'fictioneer' ),

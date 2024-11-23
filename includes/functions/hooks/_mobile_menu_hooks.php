@@ -430,7 +430,7 @@ function fictioneer_mobile_user_menu() {
 
   if ( fictioneer_show_auth_content() ) {
     $output['logout'] = sprintf(
-      '<a href="%s" data-click="logout" rel="noopener noreferrer nofollow" class="hide-if-logged-out">%s %s</a>',
+      '<a href="%s" data-action="click->fictioneer#logout" rel="noopener noreferrer nofollow" class="hide-if-logged-out">%s %s</a>',
       fictioneer_get_logout_url(),
       fictioneer_get_icon( 'fa-logout', 'mobile-menu__item-icon', '', 'style="transform: translateY(-1px);"' ),
       fcntr( 'logout' )

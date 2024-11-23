@@ -121,6 +121,9 @@ application.register('fictioneer', class extends Stimulus.Controller {
     if (FcnUtils.loggedIn() || this.ajaxAuthValue) {
       this.fetchUserData();
     } else {
+      // Clean up old data (if any)
+      fcn_cleanUpWebStorage();
+
       // Prepare event
       const event = new CustomEvent(
         'fcnUserDataReady',
@@ -303,6 +306,158 @@ application.register('fictioneer', class extends Stimulus.Controller {
     });
   }
 
+  /**
+   * Copy value of an input to the clipboard.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  copyInput(event) {
+    event.currentTarget.select();
+    FcnUtils.copyToClipboard(event.currentTarget.value, event.currentTarget.dataset.message);
+  }
+
+  /**
+   * Clear the consent cookie.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  clearConsent(event) {
+    FcnUtils.toggleInProgress(event.currentTarget);
+    FcnUtils.deleteCookie('fcn_cookie_consent');
+    location.reload();
+  }
+
+  /**
+   * AJAX: Clear all cookies and local storage.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  clearCookies(event) {
+    const target = event.currentTarget;
+
+    if (!FcnUtils.loggedIn()) {
+      fcn_cleanUpWebStorage();
+      FcnUtils.deleteAllCookies();
+      alert(target.dataset.message);
+      return;
+    }
+
+    FcnUtils.toggleInProgress(target);
+
+    // Remove http-only cookies and log out
+    FcnUtils.aGet({
+      'action': 'fictioneer_ajax_clear_cookies',
+      'nonce': FcnUtils.nonce()
+    })
+    .then(response => {
+      if (response.success) {
+        fcn_cleanUpWebStorage();
+        FcnUtils.deleteAllCookies();
+        alert(response.data.success);
+      } else if (response.data.error) {
+        alert(response.data.failure);
+        console.error('Error:', response.data.error);
+      }
+    }).catch(error => {
+      alert(error);
+      console.error(error);
+    }).then(() => {
+      FcnUtils.toggleInProgress(target);
+    });
+  }
+
+  /**
+   * Prepare logout
+   *
+   * @since 5.xx.x
+   */
+
+  logout() {
+    fcn_cleanUpWebStorage();
+  }
+
+  /**
+   * Toggle obfuscation state.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  toggleObfuscation(event) {
+    event.target.closest('[data-fictioneer-target="obfuscated"]').classList.toggle('_obfuscated');
+  }
+
+  /**
+   * Delete special clicks on the body not covered
+   * by controller actions for various reasons.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  bodyClick(event) {
+    let target;
+
+    // Pagination jump
+    if (target = event.target.closest('.page-numbers.dots:not(button)')) {
+      this.#jumpPage(target);
+      return;
+    }
+
+    // Spoiler tags
+    if (target = event.target.closest('.spoiler')) {
+      target.classList.toggle('_open');
+      return;
+    }
+  }
+
+  /**
+   * Toggle chapter groups smoothly.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  toggleChapterGroup(event) {
+    const group = event.currentTarget.closest('.chapter-group');
+    const list = group.querySelector('.chapter-group__list');
+    const state = !group.classList.contains('_closed');
+
+    // Prepare list for after transition
+    list.addEventListener('transitionend', () => {
+      // Remove inline height once transition is done
+      list.style.height = '';
+
+      // Adjust tabindex for accessibility
+      list.querySelectorAll('a, button, label, input:not([hidden])').forEach(element => {
+        element.tabIndex = list.parentElement.classList.contains('_closed') ? '-1' : '0';
+      });
+
+      // Remove will-change: transform
+      _$('.main__background')?.classList.remove('will-change');
+    }, { once: true } );
+
+    // Apply will-change: transform
+    _$('.main__background')?.classList.add('will-change');
+
+    // Base for transition
+    list.style.height = `${list.scrollHeight}px`;
+
+    // Use requestAnimationFrame for next paint to ensure transition occurs
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        group.classList.toggle('_closed', state);
+        list.style.height = state ? '0' : `${list.scrollHeight}px`;
+      });
+    });
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================
@@ -317,6 +472,36 @@ application.register('fictioneer', class extends Stimulus.Controller {
   #appendAjaxNonce(html) {
     _$$$('fictioneer-ajax-nonce')?.remove();
     document.body.appendChild(FcnUtils.html`${html}`);
+  }
+
+  /**
+   * Prompt for and jump to page number
+   *
+   * @since 5.4.0
+   *
+   * @param {Number} source - Page jump element.
+   */
+
+  #jumpPage(source) {
+    if (document.documentElement.dataset.disablePageJump) {
+      return;
+    }
+
+    const input = parseInt(window.prompt(fictioneer_tl.notification.enterPageNumber));
+
+    if (input > 0) {
+      const url = source.nextElementSibling.getAttribute('href'); // Guaranteed to always have the query parameter
+      const pageParams = ['page=', 'paged=', 'comment-page-', 'pg='];
+
+      for (const param of pageParams) {
+        if (url.includes(param)) {
+          window.location.href = url.replace(new RegExp(`${param}\\d+`), param + input);
+          return;
+        }
+      }
+
+      window.location.href = url.replace(/page\/\d+/, `page/${input}`);
+    }
   }
 });
 
@@ -547,67 +732,6 @@ function fcn_bindEventToAnimationFrame(type, name, obj = window) {
 
 fcn_bindEventToAnimationFrame('scroll', 'scroll.rAF');
 fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
-
-// =============================================================================
-// HANDLE GLOBAL CLICK EVENTS
-// =============================================================================
-
-// TODO
-
-document.body.addEventListener('click', e => {
-  // --- PAGINATION JUMP -------------------------------------------------------
-
-  const pageDots = e.target.closest('.page-numbers.dots:not(button)');
-
-  if (pageDots) {
-    fcn_jumpPage(pageDots);
-    return;
-  }
-
-  // --- SPOILERS --------------------------------------------------------------
-
-  const spoilerTarget = e.target.closest('.spoiler');
-
-  if (spoilerTarget) {
-    spoilerTarget.classList.toggle('_open');
-    return;
-  }
-
-  // --- DATA CLICK HANDLERS ---------------------------------------------------
-
-  const clickTarget = e.target.closest('[data-click]');
-  const clickAction = clickTarget?.dataset.click;
-
-  if (!clickAction) {
-    return;
-  }
-
-  switch (clickAction) {
-    case 'copy-to-clipboard':
-      // Handle copy input to clipboard
-      clickTarget.select();
-      FcnUtils.copyToClipboard(clickTarget.value, clickTarget.dataset.message);
-      break;
-    case 'reset-consent':
-      // Handle consent reset
-      FcnUtils.deleteCookie('fcn_cookie_consent');
-      location.reload();
-      break;
-    case 'clear-cookies':
-      // Handle clear all cookies
-      FcnUtils.deleteAllCookies();
-      alert(clickTarget.dataset.message);
-      break;
-    case 'logout':
-      // Handle logout cleanup
-      fcn_cleanUpWebStorage();
-      break;
-    case 'toggle-obfuscation':
-      // Handle obfuscation
-      clickTarget.closest('[data-obfuscation-target]').classList.toggle('_obfuscated');
-      break;
-  }
-});
 
 // =============================================================================
 // HANDLE GLOBAL CHECKBOX CHANGE EVENTS
@@ -1583,83 +1707,6 @@ _$$$('site-setting-theme-reset')?.addEventListener('click', fcn_resetSiteTheme);
 fcn_updateThemeColor();
 
 // =============================================================================
-// PAGE NUMBER JUMP
-// =============================================================================
-
-/**
- * Prompt for and jump to page number
- *
- * @since 5.4.0
- *
- * @param {Number} source - Page jump element.
- */
-
-function fcn_jumpPage(source) {
-  if (document.documentElement.dataset.disablePageJump) {
-    return;
-  }
-
-  const input = parseInt(window.prompt(fictioneer_tl.notification.enterPageNumber));
-
-  if (input > 0) {
-    const url = source.nextElementSibling.getAttribute('href'); // Guaranteed to always have the query parameter
-    const pageParams = ['page=', 'paged=', 'comment-page-', 'pg='];
-
-    for (const param of pageParams) {
-      if (url.includes(param)) {
-        window.location.href = url.replace(new RegExp(`${param}\\d+`), param + input);
-        return;
-      }
-    }
-
-    window.location.href = url.replace(/page\/\d+/, `page/${input}`);
-  }
-}
-
-// =============================================================================
-// COLLAPSE/EXPAND CHAPTER GROUPS
-// =============================================================================
-
-// TODO
-
-_$$('.chapter-group__name').forEach(element => {
-  element.addEventListener('click', event => {
-    const group = event.currentTarget.closest('.chapter-group');
-    const list = group.querySelector('.chapter-group__list');
-    const state = !group.classList.contains('_closed');
-
-    // Apply will-change: transform
-    _$('.main__background')?.classList.add('will-change');
-
-    // Base for transition
-    list.style.height = `${list.scrollHeight}px`;
-
-    // Use requestAnimationFrame for next paint to ensure transition occurs
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        group.classList.toggle('_closed', state);
-        list.style.height = state ? '0' : `${list.scrollHeight}px`;
-      });
-    });
-  });
-});
-
-_$$('.chapter-group__list').forEach(list => {
-  list.addEventListener('transitionend', event => {
-    // Remove inline height once transition is done
-    list.style.height = '';
-
-    // Adjust tabindex for accessibility
-    list.querySelectorAll('a, button, label, input:not([hidden])').forEach(element => {
-      element.tabIndex = list.parentElement.classList.contains('_closed') ? '-1' : '0';
-    });
-
-    // Remove will-change: transform
-    _$('.main__background')?.classList.remove('will-change');
-  });
-});
-
-// =============================================================================
 // REVEAL IMAGE ON CLICK ON CONSENT BUTTON
 // =============================================================================
 
@@ -2416,8 +2463,6 @@ fcn_markCurrentMenuItem();
 // =============================================================================
 // AGE CONFIRMATION
 // =============================================================================
-
-// TODO
 
 if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation') !== '1' && !FcnUtils.isSearchEngineCrawler()) {
   // Delay to avoid impacting web vitals
