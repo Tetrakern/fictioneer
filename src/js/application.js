@@ -443,8 +443,9 @@ _$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(elemen
 
 function fcn_setLoggedInState() {
   const userData = fcn().userData();
+  const loggedIn = userData.loggedIn === true; // Can be 'pending'
 
-  document.body.classList.toggle('logged-in', userData.loggedIn);
+  document.body.classList.toggle('logged-in', loggedIn);
   document.body.classList.toggle('is-admin', userData.isAdmin);
   document.body.classList.toggle('is-moderator', userData.isModerator);
   document.body.classList.toggle('is-author', userData.isAuthor);
@@ -453,7 +454,7 @@ function fcn_setLoggedInState() {
   // Cleanup view for users
   const removeSelectors = [];
 
-  if (userData.loggedIn) {
+  if (loggedIn) {
     removeSelectors.push('label[for="modal-login-toggle"]');
     removeSelectors.push('#modal-login-toggle');
     removeSelectors.push('#login-modal');
