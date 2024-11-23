@@ -3,12 +3,11 @@
 // =============================================================================
 
 const /** @const {HTMLElement} */ fcn_theSite = _$$$('site');
-const /** @const {HTMLElement} */ fcn_theBody = _$('body');
 const /** @const {Object} */ fcn_urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
 const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
-var /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in');
+var /** @type {Boolean} */ fcn_isLoggedIn = document.body.classList.contains('logged-in');
 
 
 
@@ -383,6 +382,10 @@ function fcn() {
   };
 }
 
+// =============================================================================
+// AVATAR
+// =============================================================================
+
 /**
  * Set avatar image where required.
  *
@@ -409,14 +412,8 @@ document.addEventListener('fcnUserDataReady', () => {
   fcn_setAvatar();
 });
 
-
-
-
-
-
-
 // =============================================================================
-// STARTUP CLEANUP
+// CLEANUPS
 // =============================================================================
 
 // Remove superfluous data and nodes if not logged in
@@ -429,10 +426,6 @@ if (!fcn_isLoggedIn && !document.documentElement.dataset.ajaxAuth) {
 if (typeof fcn_removeQueryArgs === 'function') {
   fcn_removeQueryArgs();
 }
-
-// =============================================================================
-// WEB STORAGE CLEANUP
-// =============================================================================
 
 /**
  * Clean-up web storage.
@@ -491,10 +484,6 @@ _$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(elemen
   });
 });
 
-// =============================================================================
-// GUEST VIEW CLEANUP
-// =============================================================================
-
 /**
  * Cleanup view for non-authenticated guests.
  *
@@ -503,7 +492,7 @@ _$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(elemen
 
 function fcn_cleanupGuestView() {
   fcn_isLoggedIn = false;
-  fcn_theBody.classList.remove('logged-in', 'is-admin', 'is-moderator', 'is-editor', 'is-author');
+  document.body.classList.remove('logged-in', 'is-admin', 'is-moderator', 'is-editor', 'is-author');
 
   _$$$('fictioneer-ajax-nonce')?.remove();
 
@@ -638,7 +627,7 @@ function fcn_addNonceHTML(nonceHtml) {
   _$$$('fictioneer-ajax-nonce')?.remove();
 
   // Append hidden input with nonce to DOM
-  fcn_theBody.appendChild(fcn_html`${nonceHtml}`);
+  document.body.appendChild(fcn_html`${nonceHtml}`);
 }
 
 // =============================================================================
@@ -667,11 +656,11 @@ if (!fcn_isLoggedIn && document.documentElement.dataset.ajaxAuth) {
 function fcn_setLoggedInState(state) {
   // Update state and DOM
   fcn_isLoggedIn = state.loggedIn;
-  fcn_theBody.classList.add('logged-in');
-  fcn_theBody.classList.toggle('is-admin', state.isAdmin);
-  fcn_theBody.classList.toggle('is-moderator', state.isModerator);
-  fcn_theBody.classList.toggle('is-author', state.isAuthor);
-  fcn_theBody.classList.toggle('is-editor', state.isEditor);
+  document.body.classList.add('logged-in');
+  document.body.classList.toggle('is-admin', state.isAdmin);
+  document.body.classList.toggle('is-moderator', state.isModerator);
+  document.body.classList.toggle('is-author', state.isAuthor);
+  document.body.classList.toggle('is-editor', state.isEditor);
 
   // Cleanup view for users
   const removeSelectors = ['label[for="modal-login-toggle"]', '#modal-login-toggle', '#login-modal'];
@@ -710,7 +699,7 @@ fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
 // HANDLE GLOBAL CLICK EVENTS
 // =============================================================================
 
-fcn_theBody.addEventListener('click', e => {
+document.body.addEventListener('click', e => {
   // --- LAST CLICK ------------------------------------------------------------
 
   const lastClickTarget = e.target.closest('.toggle-last-clicked');
@@ -796,7 +785,7 @@ fcn_theBody.addEventListener('click', e => {
 // HANDLE GLOBAL CHECKBOX CHANGE EVENTS
 // =============================================================================
 
-fcn_theBody.addEventListener('change', e => {
+document.body.addEventListener('change', e => {
   const checkbox = e.target.closest('[type="checkbox"]');
 
   // Abort if not a checkbox
@@ -935,21 +924,21 @@ function fcn_scrollDirection() {
 
   // Get current scroll offset
   const root_overflow = window.getComputedStyle(document.documentElement).overflow !== 'hidden';
-  const newScrollTop = root_overflow ? (window.scrollY ?? document.documentElement.scrollTop) : (fcn_theBody.scrollTop ?? 1);
+  const newScrollTop = root_overflow ? (window.scrollY ?? document.documentElement.scrollTop) : (document.body.scrollTop ?? 1);
 
   // Scrolled to top?
-  fcn_theBody.classList.toggle('scrolled-to-top', newScrollTop === 0);
+  document.body.classList.toggle('scrolled-to-top', newScrollTop === 0);
 
   // Determine scroll direction and apply respective thresholds
   if (newScrollTop > fcn_lastScrollTop && Math.abs(fcn_lastScrollTop - newScrollTop) >= 10) {
     // Scrolling down
-    fcn_theBody.classList.add('scrolling-down');
-    fcn_theBody.classList.remove('scrolling-up');
+    document.body.classList.add('scrolling-down');
+    document.body.classList.remove('scrolling-up');
     fcn_lastScrollTop = Math.max(newScrollTop, 0);
   } else if (newScrollTop < fcn_lastScrollTop && Math.abs(fcn_lastScrollTop - newScrollTop) >= 50) {
     // Scrolling up
-    fcn_theBody.classList.add('scrolling-up');
-    fcn_theBody.classList.remove('scrolling-down');
+    document.body.classList.add('scrolling-up');
+    document.body.classList.remove('scrolling-down');
     fcn_lastScrollTop = Math.max(newScrollTop, 0);
   }
 }
@@ -984,11 +973,11 @@ function fcn_observe(selector, callback, options = {}) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const mainObserverCallback = e => {
-    fcn_theBody.classList.toggle('is-inside-main', e.intersectionRatio < 1 && e.boundingClientRect.top <= 0);
+    document.body.classList.toggle('is-inside-main', e.intersectionRatio < 1 && e.boundingClientRect.top <= 0);
   };
 
   const endOfChapterCallback = e => {
-    fcn_theBody.classList.toggle('is-end-of-chapter', e.isIntersecting || e.boundingClientRect.top < 0);
+    document.body.classList.toggle('is-end-of-chapter', e.isIntersecting || e.boundingClientRect.top < 0);
   };
 
   const navStickyCallback = e => {
@@ -1948,7 +1937,7 @@ _$$('.fcn-contact-form').forEach(element => {
  * Set focus onto modal when opened.
  */
 
-fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
+document.body.querySelectorAll('.modal-toggle').forEach(element => {
   element.addEventListener(
     'change',
     event => {
@@ -1957,7 +1946,7 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
         const modalElement = event.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
         modalElement?.focus();
         modalElement?.blur();
-      } else if (fcn_theBody.classList.contains('user-is-tabbing')) {
+      } else if (document.body.classList.contains('user-is-tabbing')) {
         fcn_theSite.querySelector(`label[for="${event.currentTarget.id}"]`)?.focus();
       }
     }
@@ -2027,7 +2016,7 @@ _$$('.content-section').forEach(section => {
  * Make elements accessible with keyboard.
  */
 
-fcn_theBody.addEventListener(
+document.body.addEventListener(
   'keydown',
   e => {
     let tabFocus = document.activeElement.closest('[tabindex="0"]:not(a, input, button, select)');
@@ -2464,7 +2453,7 @@ _$$('.search-form__advanced-toggle').forEach(element => {
 
 function fcn_handleTabInput(e) {
   if (e.keyCode == 9) {
-    fcn_theBody.classList.add('user-is-tabbing');
+    document.body.classList.add('user-is-tabbing');
 
     window.removeEventListener('keydown', fcn_handleTabInput);
     window.addEventListener('mousedown', fcn_handleMouseInput);
@@ -2479,7 +2468,7 @@ function fcn_handleTabInput(e) {
  */
 
 function fcn_handleMouseInput() {
-  fcn_theBody.classList.remove('user-is-tabbing');
+  document.body.classList.remove('user-is-tabbing');
 
   window.removeEventListener('mousedown', fcn_handleMouseInput);
   window.addEventListener('keydown', fcn_handleTabInput);
@@ -2564,7 +2553,7 @@ _$$('.modal-toggle').forEach(element => {
 // SCROLL TO ANCHORS
 // =============================================================================
 
-fcn_theBody.addEventListener('click', event => {
+document.body.addEventListener('click', event => {
   // Setup
   const trigger = event.target.closest('[href]');
   const href = trigger?.getAttribute('href');
@@ -2601,7 +2590,7 @@ fcn_theBody.addEventListener('click', event => {
  */
 
 function fcn_markCurrentMenuItem() {
-  _$$(`.menu-item > [data-nav-object-id="${fcn_theBody.dataset.postId}"]`).forEach(element => {
+  _$$(`.menu-item > [data-nav-object-id="${document.body.dataset.postId}"]`).forEach(element => {
     element.setAttribute('aria-current', 'page');
     element.closest('.menu-item').classList.add('current-menu-item');
   });

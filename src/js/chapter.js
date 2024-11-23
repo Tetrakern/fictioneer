@@ -1225,7 +1225,7 @@ function fcn_readingProgress() {
   let p = 100 * w / height;
 
   // Show progress bar depending on progress
-  fcn_theBody.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
+  document.body.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
 
   // Clamp percent between 0 and 100
   p = fcn_clamp(0, 100, p);
@@ -1235,7 +1235,7 @@ function fcn_readingProgress() {
 
   // If end of chapter has been reached and the user is logged in...
   if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn_isLoggedIn) {
-    const storyId = fcn_theBody.dataset.storyId;
+    const storyId = document.body.dataset.storyId;
 
     // Only do this once per page load
     fcn_chapterCheckmarkUpdated = true;
@@ -1246,7 +1246,7 @@ function fcn_readingProgress() {
     }
 
     // Mark chapter as read
-    fcn_toggleCheckmark(storyId, 'progress', parseInt(fcn_theBody.dataset.postId), null, 'set');
+    fcn_toggleCheckmark(storyId, 'progress', parseInt(document.body.dataset.postId), null, 'set');
   }
 }
 

@@ -356,7 +356,7 @@ if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
     fcn_readTextStack();
 
     // Show interface
-    fcn_theBody.classList.add('tts-open');
+    document.body.classList.add('tts-open');
     fcn_ttsInterface.classList.remove('hidden', 'ended', 'paused');
     fcn_ttsInterface.classList.add('playing');
     playButton.focus();
@@ -369,7 +369,7 @@ if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
 
     fcn_ttsInterface.classList.add('hidden', 'ended');
     fcn_ttsInterface.classList.remove('playing', 'paused');
-    fcn_theBody.classList.remove('tts-open');
+    document.body.classList.remove('tts-open');
 
     if (current) {
       current.classList.remove('current-reading');

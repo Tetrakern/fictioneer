@@ -29,11 +29,11 @@ function fcn_toggleMobileMenu(isOpened) {
 function fcn_toggleSimpleMobileMenu(isOpened) {
   if (isOpened) {
     // Mobile menu was opened
-    fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down');
-    fcn_theBody.classList.remove('scrolling-up');
+    document.body.classList.add('mobile-menu-open', 'scrolling-down');
+    document.body.classList.remove('scrolling-up');
   } else {
     // Mobile menu was closed
-    fcn_theBody.classList.remove('mobile-menu-open');
+    document.body.classList.remove('mobile-menu-open');
     fcn_closeMobileFrames(); // Close all frames
     fcn_openMobileFrame('main'); // Reset to main frame
 
@@ -61,15 +61,15 @@ function fcn_toggleAdvancedMobileMenu(isOpened) {
 
   if (isOpened) {
     // Mobile menu was opened
-    fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down', 'scrolled-to-top');
-    fcn_theBody.classList.remove('scrolling-up');
+    document.body.classList.add('mobile-menu-open', 'scrolling-down', 'scrolled-to-top');
+    document.body.classList.remove('scrolling-up');
     fcn_theSite.classList.add('transformed-scroll', 'transformed-site');
     fcn_theSite.scrollTop = windowScrollY - adminBarOffset;
     fcn_updateThemeColor();
   } else {
     // Mobile menu was closed
     fcn_theSite.classList.remove('transformed-site', 'transformed-scroll');
-    fcn_theBody.classList.remove('mobile-menu-open');
+    document.body.classList.remove('mobile-menu-open');
     fcn_updateThemeColor();
     fcn_closeMobileFrames(); // Close all frames
     fcn_openMobileFrame('main'); // Reset to main frame
@@ -96,7 +96,7 @@ _$$$('mobile-menu-toggle')?.addEventListener('change', event => {
 
 // Listen for click on the site to close mobile menu
 fcn_theSite.addEventListener('click', event => {
-  if (fcn_theBody.classList.contains('mobile-menu-open')) {
+  if (document.body.classList.contains('mobile-menu-open')) {
     event.preventDefault();
     fcn_toggleMobileMenu(false);
   }

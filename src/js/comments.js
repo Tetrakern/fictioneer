@@ -4,7 +4,7 @@
 
 document.addEventListener('fcnUserDataReady', () => {
   if (fcn().userData().fingerprint == document.documentElement.dataset.authorFingerprint) {
-    fcn_theBody.classList.add('is-post-author');
+    document.body.classList.add('is-post-author');
   }
 });
 

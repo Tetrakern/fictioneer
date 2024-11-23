@@ -271,7 +271,7 @@ function fcn_updateCheckmarksView() {
   }
 
   // Completed story pages
-  const storyId = parseInt(fcn_theBody.dataset.storyId);
+  const storyId = parseInt(document.body.dataset.storyId);
 
   if (storyId) {
     const completed = checkmarks.data[storyId] && checkmarks.data[storyId].includes(storyId);

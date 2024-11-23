@@ -49,7 +49,7 @@ function fcn_showLightbox(target) {
 // EVENTS
 // =============================================================================
 
-fcn_theBody.addEventListener('click', e => {
+document.body.addEventListener('click', e => {
   const target = e.target.closest('[data-lightbox]:not(.no-auto-lightbox)');
 
   if (target) {
@@ -61,7 +61,7 @@ fcn_theBody.addEventListener('click', e => {
   }
 });
 
-fcn_theBody.addEventListener('keydown', e => {
+document.body.addEventListener('keydown', e => {
   const target = e.target.closest('[data-lightbox]:not(.no-auto-lightbox)');
 
   if (target) {
