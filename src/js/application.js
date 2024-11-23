@@ -827,8 +827,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // DRAGGABLE CONTAINER
 // =============================================================================
 
-// TODO
-
 /**
  * Makes an element mouse draggable.
  *
@@ -876,8 +874,6 @@ _$$('.modal__header.drag-anchor').forEach(element => {
 // =============================================================================
 // NOTIFICATIONS
 // =============================================================================
-
-// TODO
 
 /**
  * Show notification that will vanish after a while.
@@ -985,8 +981,6 @@ function fcn_updateThemeColor(color = false) {
 // =============================================================================
 // SITE SETTINGS
 // =============================================================================
-
-// TODO
 
 const /** @const {HTMLElement} */ fcn_settingMinimal = _$$$('site-setting-minimal');
 const /** @const {HTMLElement} */ fcn_settingChapterProgressBar = _$$$('site-setting-chapter-progress-bar');
@@ -1692,8 +1686,6 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
 // CONTACT FORM SHORTCODE
 // =============================================================================
 
-// TODO
-
 /**
  * Submit contact form via AJAX.
  *
@@ -1771,8 +1763,6 @@ _$$('.fcn-contact-form').forEach(element => {
 // =============================================================================
 // MODALS
 // =============================================================================
-
-// TODO
 
 // Toggle modals
 _$$('.modal-toggle').forEach(element => {
