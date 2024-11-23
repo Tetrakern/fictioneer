@@ -706,6 +706,8 @@ fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
 // HANDLE GLOBAL CLICK EVENTS
 // =============================================================================
 
+// TODO
+
 document.body.addEventListener('click', e => {
   // --- LAST CLICK ------------------------------------------------------------
 
@@ -744,12 +746,6 @@ document.body.addEventListener('click', e => {
   if (spoilerTarget) {
     spoilerTarget.classList.toggle('_open');
     return;
-  }
-
-  // --- LOGIN CLICKS ----------------------------------------------------------
-
-  if (e.target.closest('.oauth-login-link, .subscriber-login, [data-prepare-login]')) {
-    fcn().removeUserData();
   }
 
   // --- DATA CLICK HANDLERS ---------------------------------------------------
@@ -1001,6 +997,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // DRAGGABLE CONTAINER
 // =============================================================================
 
+// TODO
+
 /**
  * Makes an element mouse draggable.
  *
@@ -1048,6 +1046,8 @@ _$$('.modal__header.drag-anchor').forEach(element => {
 // =============================================================================
 // NOTIFICATIONS
 // =============================================================================
+
+// TODO
 
 /**
  * Show notification that will vanish after a while.
@@ -1130,6 +1130,8 @@ if (FcnGlobals.urlParams) {
 // =============================================================================
 // SITE SETTINGS
 // =============================================================================
+
+// TODO
 
 const /** @const {HTMLElement} */ fcn_settingMinimal = _$$$('site-setting-minimal');
 const /** @const {HTMLElement} */ fcn_settingChapterProgressBar = _$$$('site-setting-chapter-progress-bar');
@@ -1764,33 +1766,6 @@ function fcn_jumpPage(source) {
     window.location.href = url.replace(/page\/\d+/, `page/${input}`);
   }
 }
-
-// =============================================================================
-// WATCH DOM MUTATION TO UPDATE VIEW AND REBIND EVENTS
-// =============================================================================
-
-const /** @const {MutationObserver} */ fcn_cardListMutationObserver = new MutationObserver(mutations => {
-  mutations.forEach(mutation => {
-    if (mutation.addedNodes.length > 0) {
-      // Update view
-      if (typeof fcn_updateFollowsView === 'function') {
-        fcn_updateFollowsView();
-      }
-
-      if (typeof fcn_updateCheckmarksView === 'function') {
-        fcn_updateCheckmarksView();
-      }
-
-      if (typeof fcn_updateRemindersView === 'function') {
-        fcn_updateRemindersView();
-      }
-    }
-  });
-});
-
-// Watch for added nodes in card lists
-_$$('.card-list:not(._no-mutation-observer)')
-  .forEach(card => fcn_cardListMutationObserver.observe(card, { childList: true, subtree: true }));
 
 // =============================================================================
 // COLLAPSE/EXPAND CHAPTER GROUPS
