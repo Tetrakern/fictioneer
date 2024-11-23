@@ -8,7 +8,6 @@
 // @codekit-append 'suggestion.js';
 // @codekit-append 'tts.js';
 // @codekit-append 'story.js';
-// @codekit-append 'user.js';
 // @codekit-append 'user-profile.js';
 // @codekit-append 'bookmarks.js';
 // @codekit-append 'follows.js';

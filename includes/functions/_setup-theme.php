@@ -1352,26 +1352,23 @@ function fictioneer_add_custom_scripts() {
     // Story
     wp_register_script( 'fictioneer-story-scripts', get_template_directory_uri() . '/js/story.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
-    // User
-    wp_register_script( 'fictioneer-user-scripts', get_template_directory_uri() . '/js/user.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
-
     // User Profile
-    wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // CSS Skins
-    wp_register_script( 'fictioneer-css-skins-scripts', get_template_directory_uri() . '/js/css-skins.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-css-skins-scripts', get_template_directory_uri() . '/js/css-skins.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Bookmarks
-    wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Follows
-    wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Checkmarks
-    wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Reminders
-    wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Comments
     wp_register_script( 'fictioneer-comments-scripts', get_template_directory_uri() . '/js/comments.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
@@ -1431,10 +1428,8 @@ function fictioneer_add_custom_scripts() {
       wp_enqueue_script( 'fictioneer-story-scripts' );
     }
 
-    // Enqueue users + user profile + follows + checkmarks + reminders
+    // Enqueue user profile + follows + checkmarks + reminders
     if ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) ) {
-      wp_enqueue_script( 'fictioneer-user-scripts' );
-
       if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
         wp_enqueue_script( 'fictioneer-checkmarks-scripts' );
       }

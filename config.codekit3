@@ -1853,6 +1853,17 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/js\/stimulus.umd.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/js\/stimulus.umd.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
     "\/js\/story.min.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -1893,17 +1904,6 @@
       "mi" : 1,
       "oA" : 0,
       "oAP" : "\/js\/user-profile.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/js\/user.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/js\/user.min.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -2517,17 +2517,6 @@
       "mi" : 1,
       "oA" : 0,
       "oAP" : "\/js\/user-profile.min.js",
-      "oF" : 1,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/src\/js\/user.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/js\/user.min.js",
       "oF" : 1,
       "sC" : 3,
       "tS" : 0

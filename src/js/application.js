@@ -2699,7 +2699,6 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     if (fcn()?.userReady) {
       this.ready = true;
     } else {
-      console.log('listen');
       document.addEventListener('fcnUserDataReady', () => {
         this.#refreshAll();
         this.ready = true;
