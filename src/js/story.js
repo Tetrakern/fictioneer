@@ -240,7 +240,7 @@ function fcn_loadStoryComments(button) {
   _$('.comments-loading-placeholder').classList.remove('hidden');
 
   // REST request
-  fcn_ajaxGet(
+  FcnUtils.aGet(
     {
       'post_id': button.dataset.storyId ?? document.body.dataset.postId,
       'page': fcn_storyCommentPage
@@ -295,7 +295,7 @@ function fcn_startEpubDownload(link, times = 0) {
     return;
   }
 
-  fcn_ajaxGet({
+  FcnUtils.aGet({
     'action': 'fictioneer_ajax_download_epub',
     'story_id': link.dataset.storyId
   })

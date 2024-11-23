@@ -80,7 +80,7 @@ function fcn_getCommentForm() {
   let errorNote;
 
   // Request
-  fcn_ajaxGet({
+  FcnUtils.aGet({
     'action': 'fictioneer_ajax_get_comment_form',
     'post_id': _$$$('comments').dataset.postId,
     'fcn_fast_comment_ajax': 1

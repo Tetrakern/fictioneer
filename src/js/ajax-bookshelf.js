@@ -126,7 +126,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
   const storage = fcn_getBookshelfContent();
 
   // Request
-  fcn_ajaxGet({
+  FcnUtils.aGet({
     'action': action,
     'fcn_fast_ajax': 1,
     'page': page,

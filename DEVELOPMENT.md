@@ -154,7 +154,7 @@ Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard depende
 AJAX requests can be made with the theme’s [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) helper functions, returning an object parsed from a JSON response. For that to work, the server must always respond with a JSON (which can contain an HTML node, of course). You can use [wp_send_json_success()](https://developer.wordpress.org/reference/functions/wp_send_json_success/) and [wp_send_json_error()](https://developer.wordpress.org/reference/functions/wp_send_json_error/) for this, making it easier to evaluate the result client-side.
 
 ```js
-fcn_ajaxGet(
+FcnUtils.aGet(
   {
     'action': 'fictioneer_ajax_your_function',
     'nonce': FcnUtils.nonce(), // Optional

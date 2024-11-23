@@ -159,7 +159,7 @@ const FcnUtils = {
 
   async aGet(data = {}, url = null, headers = {}) {
     try {
-      const response = await fcn_ajaxGet(data, url, headers);
+      const response = fcn_ajaxGet(data, url, headers);
       return response;
     } catch (error) {
       console.error('aGet Error:', error);

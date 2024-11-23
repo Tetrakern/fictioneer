@@ -196,7 +196,7 @@ function fcn_setupFollowsHTML() {
   }
 
   // Request
-  fcn_ajaxGet({
+  FcnUtils.aGet({
     'action': 'fictioneer_ajax_get_follows_notifications',
     'fcn_fast_ajax': 1
   })

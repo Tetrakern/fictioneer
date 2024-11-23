@@ -77,7 +77,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
   }
 
   // Request
-  fcn_ajaxGet(payload)
+  FcnUtils.aGet(payload)
   .then(response => {
     // Check for success
     if (response.success) {
