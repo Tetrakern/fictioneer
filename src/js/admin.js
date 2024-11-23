@@ -1,32 +1,4 @@
 // =============================================================================
-// PROGRESSIVE ACTIONS
-// =============================================================================
-
-/**
- * Toggles progression state of an element.
- *
- * @since 5.7.2
- * @param {HTMLElement} element - The element.
- * @param {Boolean|null} force - Whether to disable or enable. Defaults to
- *                               the opposite of the current state.
- */
-
-function FcnUtils.toggleInProgress(element, force = null) {
-  force = force !== null ? force : !element.disabled;
-
-  if (force) {
-    element.dataset.enableWith = element.innerHTML;
-    element.innerHTML = element.dataset.disableWith;
-    element.disabled = true;
-    element.classList.add('disabled');
-  } else {
-    element.innerHTML = element.dataset.enableWith;
-    element.disabled = false;
-    element.classList.remove('disabled');
-  }
-}
-
-// =============================================================================
 // SCHEMAS
 // =============================================================================
 
