@@ -87,9 +87,9 @@ function fcn_getSkinInfo(css) {
   const versionMatch = css.match(/Version:\s*(.+)/);
 
   return {
-    name: nameMatch ? fcn_sanitizeHTML(nameMatch[1].trim()) : null,
-    author: authorMatch ? fcn_sanitizeHTML(authorMatch[1].trim()) : null,
-    version: versionMatch ? fcn_sanitizeHTML(versionMatch[1].trim()) : null
+    name: nameMatch ? FcnUtils.sanitizeHTML(nameMatch[1].trim()) : null,
+    author: authorMatch ? FcnUtils.sanitizeHTML(authorMatch[1].trim()) : null,
+    version: versionMatch ? FcnUtils.sanitizeHTML(versionMatch[1].trim()) : null
   };
 }
 

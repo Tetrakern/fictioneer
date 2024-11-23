@@ -952,7 +952,7 @@ if (FcnGlobals.urlParams) {
     let type = FcnGlobals.urlParams['failure'] === '1' ? 'warning' : 'base';
     type = FcnGlobals.urlParams['success'] === '1' ? 'success' : type;
 
-    fcn_showNotification(fcn_sanitizeHTML(FcnGlobals.urlParams['fictioneer-notice']), 3, type);
+    fcn_showNotification(FcnUtils.sanitizeHTML(FcnGlobals.urlParams['fictioneer-notice']), 3, type);
   }
 }
 

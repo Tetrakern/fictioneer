@@ -480,7 +480,7 @@ const FcnUtils = {
     }
 
     // Build and return
-    notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${sanitize ? fcn_sanitizeHTML(text) : text}</div>`;
+    notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${sanitize ? FcnUtils.sanitizeHTML(text) : text}</div>`;
     return notice;
   },
 
@@ -519,6 +519,26 @@ const FcnUtils = {
     }
 
     return result;
+  },
+
+  /**
+   * Returns a sanitized HTML string.
+   *
+   * @description Converts special characters such as brackets to HTML entities,
+   * rendering any cross-site scripting attempts ineffective.
+   *
+   * @since 5.0.5
+   * @param {String|HTMLElement} html - The HTML (element) to sanitize.
+   * @return {String} Sanitized HTML string.
+   */
+
+  sanitizeHTML(html) {
+    const temp = document.createElement('div');
+
+    temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
+    temp.textContent = typeof html === 'string' ? html : html.textContent;
+
+    return temp.innerHTML;
   }
 };
 
@@ -618,30 +638,6 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   } else {
     return Promise.reject(response);
   }
-}
-
-// =============================================================================
-// SANITIZE HTML
-// =============================================================================
-
-/**
- * Returns a sanitized HTML string.
- *
- * @description Converts special characters such as brackets to HTML entities,
- * rendering any cross-site scripting attempts ineffective.
- *
- * @since 5.0.5
- * @param {String|HTMLElement} html - The HTML (element) to sanitize.
- * @return {String} Sanitized HTML string.
- */
-
-function fcn_sanitizeHTML(html) {
-  const temp = document.createElement('div');
-
-  temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
-  temp.textContent = typeof html === 'string' ? html : html.textContent;
-
-  return temp.innerHTML;
 }
 
 // =============================================================================
