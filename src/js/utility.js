@@ -436,6 +436,52 @@ const FcnUtils = {
     }
 
     return url;
+  },
+
+  /**
+   * Build and returns error message notice HTML.
+   *
+   * @since 5.0.0
+   * @param {String} message - Message of the error notice.
+   * @param {String} [id=false] - Optional. ID of the element.
+   * @param {Boolean} [sanitize=true] - Optional. Whether to sanitize the HTML.
+   * @return {HTMLElement} Error notice to be added.
+   */
+
+  buildErrorNotice(message, id = false, sanitize = true) {
+    // Always output on console
+    console.error('Error:', message);
+
+    // Setup
+    const notice = document.createElement('div');
+    let text = message;
+
+    if (id) {
+      notice.id = id;
+    }
+
+    notice.classList = 'notice _warning';
+
+    // Check if message is error object
+    if (typeof message == 'object') {
+      text = '';
+
+      if (message.status) {
+        text = `${message.status}: `;
+      }
+
+      if (message.statusText) {
+        text += message.statusText;
+      }
+
+      if (!text) {
+        text = 'Unknown error.';
+      }
+    }
+
+    // Build and return
+    notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${sanitize ? fcn_sanitizeHTML(text) : text}</div>`;
+    return notice;
   }
 };
 
@@ -535,56 +581,6 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   } else {
     return Promise.reject(response);
   }
-}
-
-// =============================================================================
-// ERROR NOTICE
-// =============================================================================
-
-/**
- * Build error message notice to add to the DOM.
- *
- * @since 5.0.0
- * @param {String} message - Message of the error notice.
- * @param {String} [id=false] - Optional. ID of the element.
- * @param {Boolean} [sanitize=true] - Optional. Whether to sanitize the HTML.
- * @return {HTMLElement} Error notice to be added.
- */
-
-function fcn_buildErrorNotice(message, id = false, sanitize = true) {
-  // Always output on console
-  console.error('Error:', message);
-
-  // Setup
-  const notice = document.createElement('div');
-  let text = message;
-
-  if (id) {
-    notice.id = id;
-  }
-
-  notice.classList = 'notice _warning';
-
-  // Check if message is error object
-  if (typeof message == 'object') {
-    text = '';
-
-    if (message.status) {
-      text = `${message.status}: `;
-    }
-
-    if (message.statusText) {
-      text += message.statusText;
-    }
-
-    if (!text) {
-      text = 'Unknown error.';
-    }
-  }
-
-  // Build and return
-  notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${sanitize ? fcn_sanitizeHTML(text) : text}</div>`;
-  return notice;
 }
 
 // =============================================================================

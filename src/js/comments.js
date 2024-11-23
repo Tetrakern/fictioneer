@@ -121,11 +121,11 @@ function fcn_getCommentForm() {
       _$$$('fictioneer-ajax-nonce')?.remove();
       document.body.appendChild(fcn_html`${response.data.nonceHtml}`);
     } else {
-      errorNote = fcn_buildErrorNotice(response.data.error);
+      errorNote = FcnUtils.buildErrorNotice(response.data.error);
     }
   })
   .catch(error => {
-    errorNote = fcn_buildErrorNotice(error);
+    errorNote = FcnUtils.buildErrorNotice(error);
   })
   .then(() => {
     // Update view regardless of success
@@ -392,7 +392,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
       // Comment successfully saved?
       if (!response.success || !response.data?.comment) {
         this.element.insertBefore(
-          fcn_buildErrorNotice(
+          FcnUtils.buildErrorNotice(
             response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
             'comment-submit-error-notice',
             false
@@ -503,7 +503,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
     })
     .catch(error => {
       this.element.insertBefore(
-        fcn_buildErrorNotice(`${error.statusText} (${error.status})`, 'comment-submit-error-notice'),
+        FcnUtils.buildErrorNotice(`${error.statusText} (${error.status})`, 'comment-submit-error-notice'),
         this.element.firstChild
       );
     })

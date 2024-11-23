@@ -147,7 +147,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
       _$('.item-number').innerHTML = `(${response.data.count})`;
     } else {
       fcn_bookshelfTarget.innerHTML = '';
-      fcn_bookshelfTarget.appendChild(fcn_buildErrorNotice(response.data.error));
+      fcn_bookshelfTarget.appendChild(FcnUtils.buildErrorNotice(response.data.error));
     }
   })
   .catch(error => {
@@ -156,7 +156,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
     fcn_bookshelfTarget.innerHTML = '';
 
     // Add error message
-    fcn_bookshelfTarget.appendChild(fcn_buildErrorNotice(`${error.status}: ${error.statusText}`));
+    fcn_bookshelfTarget.appendChild(FcnUtils.buildErrorNotice(`${error.status}: ${error.statusText}`));
   })
   .then(() => {
     // Regardless of outcome

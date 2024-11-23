@@ -253,11 +253,11 @@ function fcn_loadStoryComments(button) {
       _$('.fictioneer-comments__list > ul').innerHTML += response.data.html;
       fcn_storyCommentPage++;
     } else if (response.data?.error) {
-      errorNote = fcn_buildErrorNotice(response.data.error);
+      errorNote = FcnUtils.buildErrorNotice(response.data.error);
     }
   })
   .catch(error => {
-    errorNote = fcn_buildErrorNotice(error);
+    errorNote = FcnUtils.buildErrorNotice(error);
   })
   .then(() => {
     // Remove progress state
