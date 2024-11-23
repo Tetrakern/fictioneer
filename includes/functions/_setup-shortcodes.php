@@ -1308,7 +1308,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
               <button
-                class="checkmark chapter-group__list-item-checkmark"
+                class="checkmark chapter-group__list-item-checkmark only-logged-in"
                 data-type="chapter"
                 data-story-id="<?php echo $chapter_story_id; ?>"
                 data-id="<?php echo $chapter_id; ?>"

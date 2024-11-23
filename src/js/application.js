@@ -47,6 +47,42 @@ const FictioneerUtils = {
   },
 
   /**
+   * Reset local user data.
+   *
+   * @since 5.xx.x
+   */
+
+  resetUserData() {
+    const reset = {
+      'lastLoaded': 0,
+      'timestamp': 0,
+      'loggedIn': false,
+      'follows': false,
+      'reminders': false,
+      'checkmarks': false,
+      'bookmarks': {},
+      'fingerprint': false,
+      'isAdmin': false,
+      'isModerator': false,
+      'isAuthor': false,
+      'isEditor': false
+    };
+
+    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
+    localStorage.setItem('fcnUserData', JSON.stringify({ ...data, ...reset }));
+  },
+
+  /**
+   * Remove user data in web storage.
+   *
+   * @since 5.xx.x
+   */
+
+  removeUserData() {
+    localStorage.removeItem('fcnUserData');
+  },
+
+  /**
    * Update user data in web storage.
    *
    * @since 5.xx.x
@@ -239,6 +275,26 @@ application.register('fictioneer', class extends Stimulus.Controller {
   }
 
   /**
+   * Reset user data in web storage.
+   *
+   * @since 5.xx.x
+   */
+
+  resetUserData() {
+    FictioneerUtils.resetUserData();
+  }
+
+  /**
+   * Remove user data in web storage.
+   *
+   * @since 5.xx.x
+   */
+
+  removeUserData() {
+    FictioneerUtils.removeUserData();
+  }
+
+  /**
    * AJAX: Refresh local user data if expired, fire global events.
    *
    * @since 5.xx.x
@@ -249,7 +305,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
     // Fix broken login state
     if (this.loggedIn() && currentUserData.loggedIn === false) {
-      this.#cleanUpLogin();
+      this.removeUserData();
 
       currentUserData = this.userData();
     }
@@ -258,7 +314,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
     if (this.ajaxLimitThreshold < currentUserData['lastLoaded'] || currentUserData.loggedIn === false) {
       // Prepare event
       const event = new CustomEvent(
-        currentUserData.loggedIn ? 'fcnUserDataReady' : 'fcnUserDataFailed',
+        'fcnUserDataReady',
         {
           detail: { data: currentUserData, time: new Date(), cached: true },
           bubbles: !currentUserData.loggedIn, // Bubbles only for logged-out case
@@ -346,16 +402,6 @@ application.register('fictioneer', class extends Stimulus.Controller {
   // =====================
   // ====== PRIVATE ======
   // =====================
-
-  /**
-   * Cleanup old locally stored user data.
-   *
-   * @since 5.xx.x
-   */
-
-  #cleanUpLogin() {
-    localStorage.removeItem('fcnUserData');
-  }
 });
 
 /**
@@ -376,11 +422,81 @@ function fcn() {
   return {
     userData: FictioneerUtils.userData,
     setUserData: FictioneerUtils.setUserData,
+    resetUserData: FictioneerUtils.resetUserData,
+    removeUserData: FictioneerUtils.removeUserData,
     loggedIn: FictioneerUtils.loggedIn,
     aGet: FictioneerUtils.aGet,
     aPost: FictioneerUtils.aPost
   };
 }
+
+// =============================================================================
+// CLEANUPS
+// =============================================================================
+
+// Remove query args (defined in dynamic-scripts.js)
+if (typeof fcn_removeQueryArgs === 'function') {
+  fcn_removeQueryArgs();
+}
+
+// Remove old local data
+document.addEventListener('fcnUserDataReady', () => {
+  if (!fcn().userData().loggedIn) {
+    fcn_cleanUpWebStorage(true);
+    fcn_cleanUpGuestView();
+  }
+});
+
+/**
+ * Clean-up web storage.
+ *
+ * @since 4.5.0
+ * @since 5.xx.x - Refactored.
+ * @param {Boolean} keepBookmarks - Whether to keep bookmarks.
+ */
+
+function fcn_cleanUpWebStorage(keepBookmarks = false) {
+  const localItems = ['fcnBookshelfContent'];
+
+  if (!keepBookmarks) {
+    localItems.push('fcnChapterBookmarks');
+  }
+
+  // Remove local data
+  localItems.forEach(item => localStorage.removeItem(item));
+
+  // Remove user data (if any)
+  fcn().resetUserData();
+}
+
+/**
+ * Cleanup view for non-authenticated guests.
+ *
+ * @since 5.0.0
+ * @since 5.xx.x - Refactored.
+ */
+
+function fcn_cleanUpGuestView() {
+  document.body.classList.remove('logged-in', 'is-admin', 'is-moderator', 'is-editor', 'is-author');
+
+  _$$$('fictioneer-ajax-nonce')?.remove();
+
+  _$$('.only-moderators, .only-admins, .only-authors, .only-editors, .only-logged-in').forEach(element => {
+    element.remove();
+  });
+}
+
+// Admin bar logout link
+_$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
+  fcn_cleanUpWebStorage();
+});
+
+// Prepare for login
+_$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(element => {
+  element.addEventListener('click', () => {
+    fcn().removeUserData();
+  });
+});
 
 // =============================================================================
 // AVATAR
@@ -411,95 +527,6 @@ function fcn_setAvatar() {
 document.addEventListener('fcnUserDataReady', () => {
   fcn_setAvatar();
 });
-
-// =============================================================================
-// CLEANUPS
-// =============================================================================
-
-// Remove superfluous data and nodes if not logged in
-if (!fcn_isLoggedIn && !document.documentElement.dataset.ajaxAuth) {
-  fcn_cleanupWebStorage(true);
-  fcn_cleanupGuestView();
-}
-
-// Remove query args (defined in dynamic-scripts.js)
-if (typeof fcn_removeQueryArgs === 'function') {
-  fcn_removeQueryArgs();
-}
-
-/**
- * Clean-up web storage.
- *
- * @since 4.5.0
- * @param {Boolean} keepGuestData - Whether to keep data that does not need the
- *                                  user to be logged in.
- */
-
-function fcn_cleanupWebStorage(keepGuestData = false) {
-  const localItems = ['fcnProfileAvatar', 'fcnBookshelfContent'];
-
-  if (!keepGuestData) {
-    localItems.push('fcnChapterBookmarks');
-  }
-
-  // Remove local data
-  localItems.forEach(item => localStorage.removeItem(item));
-
-  // Remove user data (if any)
-  const userDataKeys = ['loggedIn', 'follows', 'reminders', 'checkmarks', 'bookmarks', 'fingerprint'];
-  const userData = fcn_parseJSON(localStorage.getItem('fcnUserData'));
-
-  if (userData) {
-    userDataKeys.forEach(key => userData[key] = false);
-    localStorage.setItem('fcnUserData', JSON.stringify(userData));
-  }
-
-  // Remove private authentication data
-  const auth = fcn_parseJSON(localStorage.getItem('fcnAuth'));
-
-  if (auth?.loggedIn) {
-    localStorage.removeItem('fcnAuth');
-  }
-}
-
-// Admin bar logout link
-_$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
-  fcn_cleanupWebStorage();
-});
-
-/**
- * Clean-up web storage in preparation of login
- *
- * @since 5.7.1
- */
-
-function fcn_prepareLogin() {
-  localStorage.removeItem('fcnUserData');
-  localStorage.removeItem('fcnAuth');
-}
-
-_$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(element => {
-  element.addEventListener('click', () => {
-    fcn_prepareLogin();
-  });
-});
-
-/**
- * Cleanup view for non-authenticated guests.
- *
- * @since 5.0.0
- */
-
-function fcn_cleanupGuestView() {
-  fcn_isLoggedIn = false;
-  document.body.classList.remove('logged-in', 'is-admin', 'is-moderator', 'is-editor', 'is-author');
-
-  _$$$('fictioneer-ajax-nonce')?.remove();
-
-  _$$('.only-moderators, .only-admins, .only-authors, .only-editors, .chapter-group__list-item-checkmark').forEach(element => {
-    element.remove();
-  });
-}
 
 // =============================================================================
 // AUTHENTICATE VIA AJAX
@@ -597,7 +624,7 @@ function fcn_ajaxAuth() {
       );
     } else {
       // If unsuccessful, clear local data
-      fcn_cleanupGuestView();
+      // fcn_cleanUpGuestView();
 
       // Fire fcnAuthFailed event
       const event = new Event('fcnAuthFailed');
@@ -607,7 +634,7 @@ function fcn_ajaxAuth() {
   .catch(() => {
     // Most likely 403 after likely unsafe logout, clear local data
     localStorage.removeItem('fcnAuth');
-    fcn_cleanupGuestView();
+    // fcn_cleanUpGuestView();
 
     // Fire fcnAuthError event
     const event = new Event('fcnAuthError');
@@ -640,8 +667,8 @@ if (!fcn_isLoggedIn && document.documentElement.dataset.ajaxAuth) {
     if (event.detail.loggedIn) {
       fcn_setLoggedInState(event.detail);
     } else {
-      fcn_cleanupWebStorage(true);
-      fcn_cleanupGuestView();
+      fcn_cleanUpWebStorage(true);
+      // fcn_cleanUpGuestView();
     }
   });
 }
@@ -742,7 +769,7 @@ document.body.addEventListener('click', e => {
   // --- LOGIN CLICKS ----------------------------------------------------------
 
   if (e.target.closest('.oauth-login-link, .subscriber-login, [data-prepare-login]')) {
-    fcn_prepareLogin();
+    fcn().removeUserData();
   }
 
   // --- DATA CLICK HANDLERS ---------------------------------------------------
@@ -772,7 +799,7 @@ document.body.addEventListener('click', e => {
       break;
     case 'logout':
       // Handle logout cleanup
-      fcn_cleanupWebStorage();
+      fcn_cleanUpWebStorage();
       break;
     case 'toggle-obfuscation':
       // Handle obfuscation

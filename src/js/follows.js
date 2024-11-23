@@ -217,7 +217,7 @@ function fcn_setupFollowsHTML() {
 
       // Use opportunity to fix broken login state
       if (fcn().userData().loggedIn === false) {
-        fcn_prepareLogin();
+        fcn().removeUserData();
         fcn().fetchUserData();
       }
     }
