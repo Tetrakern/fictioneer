@@ -2340,7 +2340,7 @@ function fcn_popupPosition() {
     }
 
     // Collision with screen borders?
-    const collision = fcn_detectScreenCollision(element);
+    const collision = FcnUtils.detectScreenCollision(element);
 
     // No collisions
     if (collision && collision.length === 0) {

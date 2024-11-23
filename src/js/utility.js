@@ -482,6 +482,43 @@ const FcnUtils = {
     // Build and return
     notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${sanitize ? fcn_sanitizeHTML(text) : text}</div>`;
     return notice;
+  },
+
+  /**
+   * Detects if an element is about to leave the visible screen
+   * and returns the collision directions. Threshold: 50px.
+   *
+   * @since 5.2.5
+   * @since 5.18.0 - Add horizontal collisions.
+   * @param {HTMLElement} element - The element to check for collision.
+   * @returns {Array} - Array of collision directions ('top', 'bottom', 'left', 'right').
+   */
+
+  detectScreenCollision(element) {
+    const rect = element.getBoundingClientRect();
+    const viewportHeight = window.innerHeight ?? document.documentElement.clientHeight;
+    const viewportWidth = window.innerWidth ?? document.documentElement.clientWidth;
+    const verticalOffset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16;
+    const bottomSpacing = viewportHeight - rect.bottom;
+    const result = [];
+
+    if (rect.top <= 50 && bottomSpacing > 50 + verticalOffset) {
+      result.push('top');
+    }
+
+    if (rect.bottom >= viewportHeight - 50 && rect.top > 50 + verticalOffset) {
+      result.push('bottom');
+    }
+
+    if (rect.left <= 10) {
+      result.push('left');
+    }
+
+    if (rect.right >= viewportWidth - 10) {
+      result.push('right');
+    }
+
+    return result;
   }
 };
 
@@ -605,47 +642,6 @@ function fcn_sanitizeHTML(html) {
   temp.textContent = typeof html === 'string' ? html : html.textContent;
 
   return temp.innerHTML;
-}
-
-// =============================================================================
-// SCREEN COLLISION DETECTION
-// =============================================================================
-
-/**
- * Detects if an element is about to leave the visible screen
- * and returns the collision directions. Threshold: 50px.
- *
- * @since 5.2.5
- * @since 5.18.0 - Add horizontal collisions.
- * @param {HTMLElement} element - The element to check for collision.
- * @returns {Array} - Array of collision directions ('top', 'bottom', 'left', 'right').
- */
-
-function fcn_detectScreenCollision(element) {
-  const rect = element.getBoundingClientRect();
-  const viewportHeight = window.innerHeight ?? document.documentElement.clientHeight;
-  const viewportWidth = window.innerWidth ?? document.documentElement.clientWidth;
-  const verticalOffset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16;
-  const bottomSpacing = viewportHeight - rect.bottom;
-  const result = [];
-
-  if (rect.top <= 50 && bottomSpacing > 50 + verticalOffset) {
-    result.push('top');
-  }
-
-  if (rect.bottom >= viewportHeight - 50 && rect.top > 50 + verticalOffset) {
-    result.push('bottom');
-  }
-
-  if (rect.left <= 10) {
-    result.push('left');
-  }
-
-  if (rect.right >= viewportWidth - 10) {
-    result.push('right');
-  }
-
-  return result;
 }
 
 // =============================================================================
