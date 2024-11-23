@@ -127,7 +127,7 @@ class FCN_Suggestion {
 
   toggleTools(instance) {
     if (
-      fcn_theSite.classList.contains('transformed-site') ||
+      FcnGlobals.eSite.classList.contains('transformed-site') ||
       window.getSelection().rangeCount < 1 ||
       !window.getSelection().getRangeAt(0).startContainer.parentNode.closest('.content-section')
     ) {
@@ -148,7 +148,7 @@ class FCN_Suggestion {
   }
 
   toggleViaParagraphTools(instance) {
-    if (fcn_theSite.classList.contains('transformed-site')) {
+    if (FcnGlobals.eSite.classList.contains('transformed-site')) {
       return;
     }
 
@@ -199,7 +199,7 @@ class FCN_Suggestion {
   }
 
   submitSuggestion(instance) {
-    const defaultEditor = _$(fictioneer_comments.form_selector ?? '#comment');
+    const defaultEditor = _$(FcnGlobals.commentFormSelector);
     const paragraphID = instance.paragraph?.id ?? null;
     const replacements = [
       ['¶', '&para;\n'],

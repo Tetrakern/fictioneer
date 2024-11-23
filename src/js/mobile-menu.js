@@ -57,18 +57,18 @@ function fcn_toggleAdvancedMobileMenu(isOpened) {
   // Get and preserve values before DOM changes destroy them
   const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
   const windowScrollY = window.scrollY;
-  const siteScrollTop = fcn_theSite.scrollTop;
+  const siteScrollTop = FcnGlobals.eSite.scrollTop;
 
   if (isOpened) {
     // Mobile menu was opened
     document.body.classList.add('mobile-menu-open', 'scrolling-down', 'scrolled-to-top');
     document.body.classList.remove('scrolling-up');
-    fcn_theSite.classList.add('transformed-scroll', 'transformed-site');
-    fcn_theSite.scrollTop = windowScrollY - adminBarOffset;
+    FcnGlobals.eSite.classList.add('transformed-scroll', 'transformed-site');
+    FcnGlobals.eSite.scrollTop = windowScrollY - adminBarOffset;
     fcn_updateThemeColor();
   } else {
     // Mobile menu was closed
-    fcn_theSite.classList.remove('transformed-site', 'transformed-scroll');
+    FcnGlobals.eSite.classList.remove('transformed-site', 'transformed-scroll');
     document.body.classList.remove('mobile-menu-open');
     fcn_updateThemeColor();
     fcn_closeMobileFrames(); // Close all frames
@@ -95,7 +95,7 @@ _$$$('mobile-menu-toggle')?.addEventListener('change', event => {
 });
 
 // Listen for click on the site to close mobile menu
-fcn_theSite.addEventListener('click', event => {
+FcnGlobals.eSite.addEventListener('click', event => {
   if (document.body.classList.contains('mobile-menu-open')) {
     event.preventDefault();
     fcn_toggleMobileMenu(false);

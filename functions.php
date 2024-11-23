@@ -221,11 +221,6 @@ if ( ! defined( 'FICTIONEER_AJAX_TTL' ) ) {
   define( 'FICTIONEER_AJAX_TTL', 60000 );
 }
 
-// Integer: AJAX login cache TTL in milliseconds
-if ( ! defined( 'FICTIONEER_AJAX_LOGIN_TTL' ) ) {
-  define( 'FICTIONEER_AJAX_LOGIN_TTL', 15000 );
-}
-
 // Integer: AJAX POST debounce rate in milliseconds
 if ( ! defined( 'FICTIONEER_AJAX_POST_DEBOUNCE_RATE' ) ) {
   define( 'FICTIONEER_AJAX_POST_DEBOUNCE_RATE', 700 );

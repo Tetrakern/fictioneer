@@ -184,7 +184,7 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
   // Update in database; only one request every n seconds
   fcn_userCheckmarksTimeout = setTimeout(() => {
     fcn_updateCheckmarks(storyId, fcn_checkmarks.data[storyId]);
-  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
+  }, FcnGlobals.debounceRate); // Debounce synchronization
 }
 
 /**

@@ -2,23 +2,95 @@
 // GLOBALS
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_theSite = _$$$('site');
+const FcnGlobals = {
+  /**
+   * Reference to the main site element.
+   *
+   * @type {HTMLElement}
+   */
 
+  eSite: _$$$('site'),
 
+  /**
+   * Parsed URL query parameters as an object.
+   *
+   * @type {Object}
+   */
 
-const /** @const {Object} */ fcn_urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
-const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
-const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
+  urlParams: Object.fromEntries(new URLSearchParams(window.location.search).entries()),
 
+  /**
+   * Timestamp when the page was loaded.
+   *
+   * @type {Number}
+   */
 
+  pageLoadTimestamp: Date.now(),
 
+  /**
+   * Threshold for AJAX request limits default 60 seconds).
+   *
+   * @type {Number}
+   */
 
+  ajaxLimitThreshold: Date.now() - parseInt(fictioneer_ajax.ttl),
+
+  /**
+   * URL for AJAX requests.
+   *
+   * @type {String}
+   */
+
+  ajaxURL: fictioneer_ajax.ajax_url,
+
+  /**
+   * URL for REST requests.
+   *
+   * @type {String}
+   */
+
+  restURL: fictioneer_ajax.rest_url,
+
+  /**
+   * Debounce rate in milliseconds (default 700).
+   *
+   * @type {Number}
+   */
+
+  debounceRate: fictioneer_ajax.post_debounce_rate,
+
+  /**
+   * Theme fonts.
+   *
+   * @type {Object}
+   */
+
+  fonts: fictioneer_fonts ?? [],
+
+  /**
+   * Theme font colors.
+   *
+   * @type {Object}
+   */
+
+  fontColors: fictioneer_font_colors ?? [],
+
+  /**
+   * CSS selector for the comment from (default '#comment').
+   *
+   * @type {Object}
+   */
+
+  commentFormSelector: fictioneer_comments?.selector ?? '#comment'
+};
+
+Object.freeze(FcnGlobals);
 
 // =============================================================================
 // BASE UTILITIES
 // =============================================================================
 
-const FictioneerUtils = {
+const FcnUtils = {
   /**
    * Returns or prepares locally cached user data.
    *
@@ -181,17 +253,6 @@ application.register('fictioneer', class extends Stimulus.Controller {
   }
 
   userReady = false;
-  urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
-  pageLoadTimestamp = Date.now();
-  ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
-  ajaxURL = fictioneer_ajax.ajax_url;
-  ajaxTTL = fictioneer_ajax.ttl;
-  restURL = fictioneer_ajax.rest_url;
-  loginTTL = fictioneer_ajax.login_ttl;
-  debounceRate = fictioneer_ajax.post_debounce_rate;
-  fonts = fictioneer_fonts ?? [];
-  fontColors = fictioneer_font_colors ?? [];
-  commentFormSelector = fictioneer_comments?.selector ?? '#comment';
 
   /**
    * Stimulus Controller initialize lifecycle callback.
@@ -226,7 +287,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   async aGet(data = {}, url = null, headers = {}) {
-    return FictioneerUtils.aGet(data, url, headers);
+    return FcnUtils.aGet(data, url, headers);
   }
 
   /**
@@ -240,7 +301,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   async aPost(data = {}, url = null, headers = {}) {
-    return FictioneerUtils.aPost(data, url, headers);
+    return FcnUtils.aPost(data, url, headers);
   }
 
   /**
@@ -251,7 +312,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   loggedIn() {
-    return FictioneerUtils.loggedIn();
+    return FcnUtils.loggedIn();
   }
 
   /**
@@ -262,7 +323,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   userData() {
-    return FictioneerUtils.userData();
+    return FcnUtils.userData();
   }
 
   /**
@@ -273,7 +334,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   setUserData(data) {
-    FictioneerUtils.setUserData(data);
+    FcnUtils.setUserData(data);
   }
 
   /**
@@ -283,7 +344,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   resetUserData() {
-    FictioneerUtils.resetUserData();
+    FcnUtils.resetUserData();
   }
 
   /**
@@ -293,7 +354,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   removeUserData() {
-    FictioneerUtils.removeUserData();
+    FcnUtils.removeUserData();
   }
 
   /**
@@ -313,7 +374,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
     }
 
     // Only update from server after some time has passed (e.g. 60 seconds)
-    if (this.ajaxLimitThreshold < currentUserData['lastLoaded'] || currentUserData.loggedIn === false) {
+    if (FcnGlobals.ajaxLimitThreshold < currentUserData['lastLoaded'] || currentUserData.loggedIn === false) {
       // Prepare event
       const event = new CustomEvent(
         'fcnUserDataReady',
@@ -422,13 +483,13 @@ function fcn() {
   }
 
   return {
-    userData: FictioneerUtils.userData,
-    setUserData: FictioneerUtils.setUserData,
-    resetUserData: FictioneerUtils.resetUserData,
-    removeUserData: FictioneerUtils.removeUserData,
-    loggedIn: FictioneerUtils.loggedIn,
-    aGet: FictioneerUtils.aGet,
-    aPost: FictioneerUtils.aPost
+    userData: FcnUtils.userData,
+    setUserData: FcnUtils.setUserData,
+    resetUserData: FcnUtils.resetUserData,
+    removeUserData: FcnUtils.removeUserData,
+    loggedIn: FcnUtils.loggedIn,
+    aGet: FcnUtils.aGet,
+    aPost: FcnUtils.aPost
   };
 }
 
@@ -627,7 +688,7 @@ function fcn_ajaxAuth() {
     eventFired = true;
 
     // ... but refresh from server after some time has passed (e.g. 60 seconds)
-    if (fcn_ajaxLimitThreshold < localAuth.lastLoaded) {
+    if (FcnGlobals.ajaxLimitThreshold < localAuth.lastLoaded) {
       return;
     }
   }
@@ -934,7 +995,7 @@ var /** @const {Number} */ fcn_lastScrollTop = 0;
 
 function fcn_scrollDirection() {
   // Stop if the mobile menu is open
-  if (fcn_theSite.classList.contains('transformed-scroll')) {
+  if (FcnGlobals.eSite.classList.contains('transformed-scroll')) {
     return;
   }
 
@@ -1096,14 +1157,14 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
 }
 
 // Show notices based on URL params (if any)
-if (fcn_urlParams) {
+if (FcnGlobals.urlParams) {
   // Print all failures in console
-  if (fcn_urlParams['failure']) {
-    console.error('Failure:', fcn_urlParams['failure']);
+  if (FcnGlobals.urlParams['failure']) {
+    console.error('Failure:', FcnGlobals.urlParams['failure']);
   }
 
   // Failure cases
-  switch (fcn_urlParams['failure']) {
+  switch (FcnGlobals.urlParams['failure']) {
     case 'oauth_email_taken':
       // Show OAuth 2.0 registration error notice (if any)
       fcn_showNotification(fictioneer_tl.notification.oauthEmailTaken, 5, 'warning');
@@ -1115,24 +1176,24 @@ if (fcn_urlParams) {
   }
 
   // Success cases
-  switch (fcn_urlParams['success']) {
+  switch (FcnGlobals.urlParams['success']) {
     case 'oauth_new':
       // Show new subscriber notice (if any)
       fcn_showNotification(fictioneer_tl.notification.oauthNew, 10);
       break;
     default:
       // Show OAuth 2.0 account merge notice (if any)
-      if (fcn_urlParams['success']?.startsWith('oauth_merged_')) {
+      if (FcnGlobals.urlParams['success']?.startsWith('oauth_merged_')) {
         fcn_showNotification(fictioneer_tl.notification.oauthAccountLinked, 3, 'success');
       }
   }
 
   // Generic messages
-  if (fcn_urlParams['fictioneer-notice']) {
-    let type = fcn_urlParams['failure'] === '1' ? 'warning' : 'base';
-    type = fcn_urlParams['success'] === '1' ? 'success' : type;
+  if (FcnGlobals.urlParams['fictioneer-notice']) {
+    let type = FcnGlobals.urlParams['failure'] === '1' ? 'warning' : 'base';
+    type = FcnGlobals.urlParams['success'] === '1' ? 'success' : type;
 
-    fcn_showNotification(fcn_sanitizeHTML(fcn_urlParams['fictioneer-notice']), 3, type);
+    fcn_showNotification(fcn_sanitizeHTML(FcnGlobals.urlParams['fictioneer-notice']), 3, type);
   }
 }
 
@@ -1894,7 +1955,7 @@ function fcn_contactFormSubmit(button) {
   button.innerHTML = button.dataset.disabled;
 
   // Delay trap (cannot be done server-side because of caching)
-  if (Date.now() < fcn_pageLoadTimestamp + 3000) {
+  if (Date.now() < FcnGlobals.pageLoadTimestamp + 3000) {
     return;
   }
 
@@ -1963,7 +2024,7 @@ document.body.querySelectorAll('.modal-toggle').forEach(element => {
         modalElement?.focus();
         modalElement?.blur();
       } else if (document.body.classList.contains('user-is-tabbing')) {
-        fcn_theSite.querySelector(`label[for="${event.currentTarget.id}"]`)?.focus();
+        FcnGlobals.eSite.querySelector(`label[for="${event.currentTarget.id}"]`)?.focus();
       }
     }
   );

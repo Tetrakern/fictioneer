@@ -136,7 +136,7 @@ function fcn_toggleReminder(storyId, set = null) {
 
       console.error(error);
     });
-  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
+  }, FcnGlobals.debounceRate); // Debounce synchronization
 }
 
 // =============================================================================

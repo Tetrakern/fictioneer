@@ -32,7 +32,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
   // Setup
   let commentText = '';
-  let commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment');
+  let commentTextarea = _$(FcnGlobals.commentFormSelector);
   let errorNote;
 
   // Preserve comment text (in case of pagination)
@@ -50,7 +50,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
   // Get page
   if (!page) {
-    page = fcn_urlParams.pg ?? 1;
+    page = FcnGlobals.urlParams.pg ?? 1;
   }
 
   // Get order
@@ -72,8 +72,8 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
     'fcn_fast_comment_ajax': 1
   };
 
-  if (fcn_urlParams.commentcode) {
-    payload['commentcode'] = fcn_urlParams.commentcode;
+  if (FcnGlobals.urlParams.commentcode) {
+    payload['commentcode'] = FcnGlobals.urlParams.commentcode;
   }
 
   // Request
@@ -106,7 +106,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
       temp.remove();
 
       // Append stored content (in case of pagination)
-      commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment'); // Yes, query again!
+      commentTextarea = _$(FcnGlobals.commentFormSelector); // Yes, query again!
 
       if (commentTextarea && !response.data.disabled) {
         commentTextarea.value = commentText;
@@ -126,15 +126,15 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
       // Add page to URL and preserve params/anchor
       const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
-      if (page > 1 || fcn_urlParams.pg) {
-        fcn_urlParams['pg'] = page;
+      if (page > 1 || FcnGlobals.urlParams.pg) {
+        FcnGlobals.urlParams['pg'] = page;
       }
 
-      if (order != 'desc' || fcn_urlParams.corder) {
-        fcn_urlParams['corder'] = order;
+      if (order != 'desc' || FcnGlobals.urlParams.corder) {
+        FcnGlobals.urlParams['corder'] = order;
       }
 
-      let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
+      let params = Object.entries(FcnGlobals.urlParams).map(([key, value]) => `${key}=${value}`).join('&');
 
       if (params !== '') {
         params = `?${params}`;
@@ -247,7 +247,7 @@ function fcn_loadCommentEarly() {
   // Check URL whether there is a comment anchor
   if (fcn_commentSection && location.hash.includes('#comment')) {
     // Start loading comments via AJAX if not done already
-    if (!_$(fictioneer_comments.form_selector ?? '#comment')) {
+    if (!_$(FcnGlobals.commentFormSelector)) {
       fct_commentSectionObserver.disconnect();
       fcn_reloadCommentsPage();
     }

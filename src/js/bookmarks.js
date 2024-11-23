@@ -305,7 +305,7 @@ function fcn_saveUserBookmarks(bookmarks) {
 
       console.error(error);
     });
-  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
+  }, FcnGlobals.debounceRate); // Debounce synchronization
 }
 
 // =============================================================================

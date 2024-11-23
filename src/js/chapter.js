@@ -178,7 +178,7 @@ function fcn_getQuote(e) {
 
 function fcn_addQuoteToStack(quote) {
   // Get comment form
-  const defaultEditor = _$(fictioneer_comments.form_selector ?? '#comment');
+  const defaultEditor = _$(FcnGlobals.commentFormSelector);
 
   // Add quote
   if (defaultEditor) {
@@ -345,8 +345,8 @@ function fcn_defaultFormatting() {
   return {
     ...{
       'font-saturation': 0,
-      'font-color': fictioneer_font_colors[0].css, // Set with wp_localize_script()
-      'font-name': fictioneer_fonts[0].css, // Set with wp_localize_script()
+      'font-color': FcnGlobals.fontColors[0].css, // Set with wp_localize_script()
+      'font-name': FcnGlobals.fonts[0].css, // Set with wp_localize_script()
       'font-size': 100,
       'letter-spacing': 0.0,
       'line-height': 1.7,
@@ -504,17 +504,17 @@ function fcn_setFormatting(value) {
 
   function fcn_updateFontColor(index, save = true) {
     // Stay within bounds
-    index = fcn_clamp(0, fictioneer_font_colors.length - 1, index);
+    index = fcn_clamp(0, FcnGlobals.fontColors.length - 1, index);
 
     // Update associated elements
     reset.classList.toggle('_modified', index > 0);
     select.value = index;
 
     // Update inline style
-    fcn_chapterFormatting.style.setProperty('--text-chapter', fictioneer_font_colors[index].css);
+    fcn_chapterFormatting.style.setProperty('--text-chapter', FcnGlobals.fontColors[index].css);
 
     // Update local storage
-    fcn_formatting['font-color'] = fictioneer_font_colors[index].css;
+    fcn_formatting['font-color'] = FcnGlobals.fontColors[index].css;
 
     if (save) {
       fcn_setFormatting(fcn_formatting);
@@ -529,8 +529,8 @@ function fcn_setFormatting(value) {
    */
 
   function fcn_setFontColor(step = 1) {
-    let index = (select.selectedIndex + parseInt(step)) % fictioneer_font_colors.length;
-    index = index < 0 ? fictioneer_font_colors.length - 1 : index;
+    let index = (select.selectedIndex + parseInt(step)) % FcnGlobals.fontColors.length;
+    index = index < 0 ? FcnGlobals.fontColors.length - 1 : index;
     fcn_updateFontColor(index);
   }
 
@@ -548,7 +548,7 @@ function fcn_setFormatting(value) {
   });
 
   // Initialize (using the CSS name makes it independent from the array position)
-  fcn_updateFontColor(fictioneer_font_colors.findIndex((item) => { return item.css == fcn_formatting['font-color'] }), false);
+  fcn_updateFontColor(FcnGlobals.fontColors.findIndex((item) => { return item.css == fcn_formatting['font-color'] }), false);
 })();
 
 // =============================================================================
@@ -577,14 +577,14 @@ function fcn_setFormatting(value) {
 
   function fcn_updateFontFamily(index, save = true) {
     // Stay within bounds
-    index = fcn_clamp(0, fictioneer_fonts.length - 1, index);
+    index = fcn_clamp(0, FcnGlobals.fonts.length - 1, index);
 
     // Prepare font family
-    let fontFamily = fictioneer_fonts[index].css;
+    let fontFamily = FcnGlobals.fonts[index].css;
 
     // Add alternative fonts if any
-    if (fictioneer_fonts[index].alt) {
-      fontFamily = `${fontFamily}, ${fictioneer_fonts[index].alt}`;
+    if (FcnGlobals.fonts[index].alt) {
+      fontFamily = `${fontFamily}, ${FcnGlobals.fonts[index].alt}`;
     }
 
     // Catch non-indexed values
@@ -603,7 +603,7 @@ function fcn_setFormatting(value) {
     });
 
     // Update local storage
-    fcn_formatting['font-name'] = fictioneer_fonts[index].css;
+    fcn_formatting['font-name'] = FcnGlobals.fonts[index].css;
 
     if (save) {
       fcn_setFormatting(fcn_formatting);
@@ -618,8 +618,8 @@ function fcn_setFormatting(value) {
    */
 
   function fcn_setFontFamily(step = 1) {
-    let index = (select.selectedIndex + parseInt(step)) % fictioneer_fonts.length;
-    index = index < 0 ? fictioneer_fonts.length - 1 : index;
+    let index = (select.selectedIndex + parseInt(step)) % FcnGlobals.fonts.length;
+    index = index < 0 ? FcnGlobals.fonts.length - 1 : index;
     fcn_updateFontFamily(index);
   }
 
@@ -637,7 +637,7 @@ function fcn_setFormatting(value) {
   });
 
   // Initialize (using the CSS name makes it independent from the array position)
-  fcn_updateFontFamily(fictioneer_fonts.findIndex((item) => { return item.css == fcn_formatting['font-name'] }), false);
+  fcn_updateFontFamily(FcnGlobals.fonts.findIndex((item) => { return item.css == fcn_formatting['font-name'] }), false);
 })();
 
 // =============================================================================

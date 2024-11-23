@@ -158,7 +158,7 @@ var /** @type {String[]} */ fcn_commentStack = [];
  */
 
 function fcn_applyCommentStack(editor = null) {
-  editor = editor ?? _$(fictioneer_comments.form_selector ?? '#comment');
+  editor = editor ?? _$(FcnGlobals.commentFormSelector);
 
   // Abort
   if (!editor) {
@@ -302,7 +302,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
 
   ajaxSubmit(event) {
     // Delay trap (cannot be done server-side because of caching)
-    if (Date.now() < fcn_pageLoadTimestamp + 3000) {
+    if (Date.now() < FcnGlobals.pageLoadTimestamp + 3000) {
       return;
     }
 
@@ -486,15 +486,15 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
         // Update URL
         const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
-        if (this.order != 'desc' || fcn_urlParams.corder) {
-          fcn_urlParams['corder'] = this.order;
+        if (this.order != 'desc' || FcnGlobals.urlParams.corder) {
+          FcnGlobals.urlParams['corder'] = this.order;
         }
 
         if (response.data.commentcode) {
-          fcn_urlParams['commentcode'] = response.data.commentcode;
+          FcnGlobals.urlParams['commentcode'] = response.data.commentcode;
         }
 
-        let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
+        let params = Object.entries(FcnGlobals.urlParams).map(([key, value]) => `${key}=${value}`).join('&');
 
         if (params !== '') {
           params = `?${params}`;

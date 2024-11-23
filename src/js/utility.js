@@ -58,11 +58,11 @@ const _$$$ = document.getElementById.bind(document);
 async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
   // Auto-complete REST request if not a full URL
   if (url && !url.startsWith('http')) {
-    url = fictioneer_ajax.rest_url + url;
+    url = FcnGlobals.restURL + url;
   }
 
   // Get URL if not provided
-  url = url ? url : fictioneer_ajax.ajax_url;
+  url = url ? url : FcnGlobals.ajaxURL;
 
   // Default headers
   let final_headers = {
@@ -106,11 +106,11 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
 async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   // Auto-complete REST request if not a full URL
   if (url && !url.startsWith('http')) {
-    url = fictioneer_ajax.rest_url + url;
+    url = FcnGlobals.restURL + url;
   }
 
   // Build URL
-  url = url ? url : fictioneer_ajax.ajax_url;
+  url = url ? url : FcnGlobals.ajaxURL;
   data = {...{'nonce': fcn_getNonce()}, ...data};
   url = fcn_buildUrl(data, url);
 
