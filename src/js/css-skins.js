@@ -254,8 +254,6 @@ _$('[data-css-skin-target="file"]')?.addEventListener('input', event => {
   const skins = fcn_getSkins();
   const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
-  console.log(input);
-
   if (Object.keys(skins.data).length > 2) {
     fcn_showNotification(fcn_skinTranslations.tooManySkins, 3, 'warning');
     return;

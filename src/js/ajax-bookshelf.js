@@ -99,7 +99,7 @@ function fcn_browseBookshelfPage(page) {
   history.pushState(
     {},
     '',
-    fcn_buildUrl({
+    FcnUtils.buildUrl({
       tab: fcn_bookshelfTarget.dataset.tab,
       pg: page,
       order: fcn_bookshelfTarget.dataset.order

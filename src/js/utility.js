@@ -411,6 +411,31 @@ const FcnUtils = {
     return _$$$('fictioneer-ajax-nonce')?.value ??
       _$$$('general-fictioneer-nonce')?.value ??
       _$('[name="fictioneer_nonce"]')?.value ?? 0;
+  },
+
+  /**
+   * Build new URL with search parameters.
+   *
+   * @since 5.0.0
+   * @param {Object} [params=] - Optional. Search params to add.
+   * @param {String|null} [url=] - Optional. The base URL string.
+   * @return {URL} The built URL.
+   */
+
+  buildUrl(params = {}, url = null) {
+    // Setup
+    url = url ? new URL(url) : new URL(
+      window.location.protocol + '//' + window.location.host + window.location.pathname
+    );
+
+    // Append parameters
+    if (params) {
+      Object.keys(params).forEach(key => {
+        url.searchParams.append(key, params[key]);
+      });
+    }
+
+    return url;
   }
 };
 
@@ -485,7 +510,7 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   // Build URL
   url = url ? url : (fictioneer_ajax.ajax_url ?? FcnGlobals.ajaxURL);
   data = {...{'nonce': FcnUtils.nonce()}, ...data};
-  url = fcn_buildUrl(data, url);
+  url = FcnUtils.buildUrl(data, url);
 
   // Default headers
   let final_headers = {
@@ -510,35 +535,6 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   } else {
     return Promise.reject(response);
   }
-}
-
-// =============================================================================
-// BUILD URL
-// =============================================================================
-
-/**
- * Build new URL with search parameters.
- *
- * @since 5.0.0
- * @param {Object} [params=] - Optional. Search params to add.
- * @param {String|null} [url=] - Optional. The base URL string.
- * @return {URL} The built URL.
- */
-
-function fcn_buildUrl(params = {}, url = null) {
-  // Setup
-  url = url ? new URL(url) : new URL(
-    window.location.protocol + '//' + window.location.host + window.location.pathname
-  );
-
-  // Append parameters
-  if (params) {
-    Object.keys(params).forEach(key => {
-      url.searchParams.append(key, params[key]);
-    });
-  }
-
-  return url;
 }
 
 // =============================================================================
