@@ -32,7 +32,7 @@ const FictioneerUtils = {
       'follows': false,
       'reminders': false,
       'checkmarks': false,
-      'bookmarks': {},
+      'bookmarks': null,
       'fingerprint': false,
       'nonceHtml': '',
       'nonce': '',
@@ -60,7 +60,7 @@ const FictioneerUtils = {
       'follows': false,
       'reminders': false,
       'checkmarks': false,
-      'bookmarks': {},
+      'bookmarks': null,
       'fingerprint': false,
       'isAdmin': false,
       'isModerator': false,
@@ -499,6 +499,51 @@ _$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(elemen
 });
 
 // =============================================================================
+// LOGGED-IN STATE
+// =============================================================================
+
+/**
+ * Set view to logged-in state.
+ *
+ * @since 5.xx.x
+ */
+
+function fcn_setLoggedInState() {
+  const userData = fcn().userData();
+
+  document.body.classList.toggle('logged-in', userData.loggedIn);
+  document.body.classList.toggle('is-admin', userData.isAdmin);
+  document.body.classList.toggle('is-moderator', userData.isModerator);
+  document.body.classList.toggle('is-author', userData.isAuthor);
+  document.body.classList.toggle('is-editor', userData.isEditor);
+
+  // Cleanup view for users
+  const removeSelectors = ['label[for="modal-login-toggle"]', '#modal-login-toggle', '#login-modal'];
+
+  if (!userData.isAdmin) {
+    removeSelectors.push('.only-admins');
+
+    if (!userData.isModerator) {
+      removeSelectors.push('.only-moderators');
+    }
+
+    if (!userData.isAuthor) {
+      removeSelectors.push('.only-authors');
+    }
+
+    if (!userData.isEditor) {
+      removeSelectors.push('.only-editors');
+    }
+  }
+
+  _$$(removeSelectors.join(', ')).forEach(element => element.remove());
+}
+
+document.addEventListener('fcnUserDataReady', () => {
+  fcn_setLoggedInState();
+});
+
+// =============================================================================
 // AVATAR
 // =============================================================================
 
@@ -655,64 +700,6 @@ function fcn_addNonceHTML(nonceHtml) {
 
   // Append hidden input with nonce to DOM
   document.body.appendChild(fcn_html`${nonceHtml}`);
-}
-
-// =============================================================================
-// UPDATE LOGIN STATE
-// =============================================================================
-
-// Only if AJAX authentication is active
-if (!fcn_isLoggedIn && document.documentElement.dataset.ajaxAuth) {
-  document.addEventListener('fcnAuthReady', (event) => {
-    if (event.detail.loggedIn) {
-      fcn_setLoggedInState(event.detail);
-    } else {
-      fcn_cleanUpWebStorage(true);
-      // fcn_cleanUpGuestView();
-    }
-  });
-}
-
-/**
- * Manually set logged-in state and call setup functions.
- *
- * @since 5.0.0
- * @param {Object} state - Fetched/Cached login state.
- */
-
-function fcn_setLoggedInState(state) {
-  // Update state and DOM
-  fcn_isLoggedIn = state.loggedIn;
-  document.body.classList.add('logged-in');
-  document.body.classList.toggle('is-admin', state.isAdmin);
-  document.body.classList.toggle('is-moderator', state.isModerator);
-  document.body.classList.toggle('is-author', state.isAuthor);
-  document.body.classList.toggle('is-editor', state.isEditor);
-
-  // Cleanup view for users
-  const removeSelectors = ['label[for="modal-login-toggle"]', '#modal-login-toggle', '#login-modal'];
-
-  if (!state.isAdmin) {
-    removeSelectors.push('.only-admins');
-
-    if (!state.isModerator) {
-      removeSelectors.push('.only-moderators');
-    }
-
-    if (!state.isAuthor) {
-      removeSelectors.push('.only-authors');
-    }
-
-    if (!state.isEditor) {
-      removeSelectors.push('.only-editors');
-    }
-  }
-
-  _$$(removeSelectors.join(', ')).forEach(element => element.remove());
-
-  // Initialize local user
-  fcn_getProfileImage();
-  fcn().fetchUserData();
 }
 
 // =============================================================================

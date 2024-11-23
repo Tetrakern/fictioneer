@@ -15,7 +15,9 @@ var /** @type {Number} */ fcn_userBookmarksTimeout;
 fcn_initializeLocalBookmarks();
 
 document.addEventListener('fcnUserDataReady', event => {
-  fcn_initializeUserBookmarks(event);
+  if (event.detail.data.loggedIn) {
+    fcn_initializeUserBookmarks(event);
+  }
 });
 
 // =============================================================================
@@ -43,7 +45,7 @@ function fcn_initializeLocalBookmarks() {
 }
 
 /**
- * Initialize bookmarks for logged-in users.
+ * Initialize bookmarks.
  *
  * @since 5.7.0
  * @param {Event} event - The fcnUserDataReady event.
@@ -51,7 +53,7 @@ function fcn_initializeLocalBookmarks() {
 
 function fcn_initializeUserBookmarks(event) {
   // Always update bookmarks in storage
-  fcn_setBookmarks(JSON.parse(event.detail.data.bookmarks), true);
+  fcn_setBookmarks(fcn_parseJSON(event.detail.data.bookmarks) ?? {}, true);
 
   // Update view
   fcn_updateBookmarksView();
