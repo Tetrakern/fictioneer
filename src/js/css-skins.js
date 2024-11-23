@@ -328,7 +328,7 @@ _$('[data-css-skin-target="file"]')?.addEventListener('input', event => {
 
 function fcn_uploadSkins(trigger) {
   // Ensure the theme login check is passed
-  if (!fcn().loggedIn() || trigger.classList.contains('disabled')) {
+  if (!FcnUtils.loggedIn() || trigger.classList.contains('disabled')) {
     return;
   }
 
@@ -388,7 +388,7 @@ _$('[data-action="click->css-skin#upload"]')?.addEventListener('click', event =>
 
 function fcn_downloadSkins(trigger) {
   // Ensure the theme login check is passed
-  if (!fcn().loggedIn() || trigger.classList.contains('disabled')) {
+  if (!FcnUtils.loggedIn() || trigger.classList.contains('disabled')) {
     return;
   }
 
@@ -405,7 +405,7 @@ function fcn_downloadSkins(trigger) {
     if (response.success) {
       fcn_showNotification(response.data.message, 3, 'success');
       fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
-      fcn_setSkins(JSON.parse(response.data.skins));
+      fcn_setSkins(fcn_parseJSON(response.data.skins));
       fcn_renderSkinList();
       fcn_applySkin();
     } else {

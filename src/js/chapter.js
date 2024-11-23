@@ -359,7 +359,7 @@ function fcn_defaultFormatting() {
       'show-paragraph-tools': true,
       'timestamp': 1664797604825 // Used to force resets on script updates
     },
-    ...JSON.parse(document.documentElement.dataset.defaultFormatting ?? '{}')
+    ...fcn_parseJSON(document.documentElement.dataset.defaultFormatting ?? '{}')
   };
 }
 
@@ -1232,7 +1232,7 @@ function fcn_readingProgress() {
   fcn_progressBar.style.width = `${p}%`;
 
   // If end of chapter has been reached and the user is logged in...
-  if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn().loggedIn()) {
+  if (p >= 100 && !fcn_chapterCheckmarkUpdated && FcnUtils.loggedIn()) {
     const storyId = document.body.dataset.storyId;
 
     // Only do this once per page load

@@ -1,3 +1,144 @@
+const FcnUtils = {
+  /**
+   * Returns or prepares locally cached user data.
+   *
+   * @since 5.xx.x
+   * @return {Object} The user data.
+   */
+
+  userData() {
+    const defaults = {
+      'lastLoaded': 0,
+      'timestamp': 0,
+      'loggedIn': 'pending',
+      'follows': false,
+      'reminders': false,
+      'checkmarks': false,
+      'bookmarks': null,
+      'likes': null,
+      'fingerprint': false,
+      'nonceHtml': '',
+      'nonce': '',
+      'isAdmin': false,
+      'isModerator': false,
+      'isAuthor': false,
+      'isEditor': false
+    };
+
+    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
+    return { ...defaults, ...data };
+  },
+
+  /**
+   * Reset local user data.
+   *
+   * @since 5.xx.x
+   */
+
+  resetUserData() {
+    const reset = {
+      'lastLoaded': 0,
+      'timestamp': 0,
+      'loggedIn': false,
+      'follows': false,
+      'reminders': false,
+      'checkmarks': false,
+      'likes': null,
+      'bookmarks': null,
+      'fingerprint': false,
+      'isAdmin': false,
+      'isModerator': false,
+      'isAuthor': false,
+      'isEditor': false
+    };
+
+    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
+    localStorage.setItem('fcnUserData', JSON.stringify({ ...data, ...reset }));
+  },
+
+  /**
+   * Remove user data in web storage.
+   *
+   * @since 5.xx.x
+   */
+
+  removeUserData() {
+    localStorage.removeItem('fcnUserData');
+  },
+
+  /**
+   * Update user data in web storage.
+   *
+   * @since 5.xx.x
+   * @param {Object} data - User data.
+   */
+
+  setUserData(data) {
+    localStorage.setItem('fcnUserData', JSON.stringify(data));
+  },
+
+  /**
+   * Returns whether the user is logged in (cookie).
+   *
+   * @since 5.xx.x
+   * @return {Boolean} True or false
+   */
+
+  loggedIn() {
+    const cookies = document.cookie.split(';');
+
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+
+      if (cookie.indexOf('fcnLoggedIn=') !== -1) {
+        return true;
+      }
+    }
+
+    return false;
+  },
+
+  /**
+   * Wrapper for utility fcn_ajaxGet().
+   *
+   * @since 5.xx.x
+   * @param {Object} data - The payload, including the action and nonce.
+   * @param {String} [url=null] - Optional. The request URL if different from the default.
+   * @param {Object} [headers={}] - Optional. Headers for the request.
+   * @return {Promise<JSON>} A Promise that resolves to the parsed JSON response.
+   */
+
+  async aGet(data = {}, url = null, headers = {}) {
+    try {
+      const response = await fcn_ajaxGet(data, url, headers);
+      return response;
+    } catch (error) {
+      console.error('aGet Error:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Wrapper for utility fcn_ajaxPost().
+   *
+   * @since 5.xx.x
+   * @param {Object} data - The payload, including the action and nonce.
+   * @param {String} [url=null] - Optional. The request URL if different from the default.
+   * @param {Object} [headers={}] - Optional. Headers for the request.
+   * @return {Promise<JSON>} A Promise that resolves to the parsed JSON response.
+   */
+
+  async aPost(data = {}, url = null, headers = {}) {
+    try {
+      const response = await fcn_ajaxPost(data, url, headers);
+      return response;
+    } catch (error) {
+      console.error('aPost Error:', error);
+      throw error;
+    }
+  }
+};
+
 // =============================================================================
 // SHORTHANDS TO GET ELEMENT(S)
 // =============================================================================
@@ -62,7 +203,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
   }
 
   // Get URL if not provided
-  url = url ? url : FcnGlobals.ajaxURL;
+  url = url ? url : (fictioneer_ajax.ajax_url ?? FcnGlobals.ajaxURL);
 
   // Default headers
   let final_headers = {
@@ -110,7 +251,7 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   }
 
   // Build URL
-  url = url ? url : FcnGlobals.ajaxURL;
+  url = url ? url : (fictioneer_ajax.ajax_url ?? FcnGlobals.ajaxURL);
   data = {...{'nonce': fcn_getNonce()}, ...data};
   url = fcn_buildUrl(data, url);
 
@@ -380,78 +521,6 @@ function fcn_bindEventToAnimationFrame(type, name, obj = window) {
 }
 
 // =============================================================================
-// TOGGLE LAST CLICKED
-// =============================================================================
-
-application.register('fictioneer-last-click', class extends Stimulus.Controller {
-  static get targets() {
-    return ['toggle']
-  }
-
-  last = null;
-
-  connect() {
-    document.addEventListener('fcnRemoveLastClicked', () => {
-      if (this.last) {
-        this.removeLastClick();
-      }
-    });
-  }
-
-  removeAll() {
-    if (this.last) {
-      this.#dispatchToggleEvent(this.last, false);
-      this.removeLastClick();
-    }
-  }
-
-  toggle(event) {
-    const target = event.target.closest('[data-fictioneer-last-click-target="toggle"]');
-
-    if (
-      !target ||
-      (
-        ['BUTTON', 'A', 'INPUT', 'SELECT'].includes(event.target.tagName) &&
-        !event.target.hasAttribute('data-fictioneer-last-click-target')
-      )
-    ) {
-      return;
-    }
-
-    const set = !target.classList.contains('last-clicked');
-
-    if (typeof fcn_popupPosition === 'function') {
-      fcn_popupPosition();
-    }
-
-    target.classList.toggle('last-clicked', set);
-    target.closest('.watch-last-clicked')?.classList.toggle('has-last-clicked', set);
-
-    if (this.last && this.last != target) {
-      this.removeLastClick();
-    }
-
-    this.last = target;
-
-    this.#dispatchToggleEvent(target, set);
-    event.stopPropagation();
-  }
-
-  removeLastClick() {
-    if (this.last) {
-      this.last.closest('.watch-last-clicked')?.classList.remove('has-last-clicked');
-      this.last.classList.remove('last-clicked');
-      this.last = null;
-      document.activeElement?.blur();
-    }
-  }
-
-  #dispatchToggleEvent(target, force) {
-    document.dispatchEvent(new CustomEvent('toggledLastClick', { detail: { target: target, force: force } }));
-  }
-});
-
-// =============================================================================
 // REMOVE PARAGRAPH TOOLS BUTTONS FROM TEXT SELECTION
 // =============================================================================
 
@@ -485,6 +554,8 @@ function fcn_cleanTextSelectionFromButtons(selection) {
 // =============================================================================
 // COOKIES
 // =============================================================================
+
+// TODO: Move to FcnUtils
 
 /**
  * Delete a cookie.

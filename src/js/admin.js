@@ -573,7 +573,7 @@ function fcn_tokensToggle(id, parent) {
   }
 
   // Setup
-  const tokenOptions = JSON.parse(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
+  const tokenOptions = fcn_parseJSON(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
   const tokenTrack = parent.querySelector('[data-target="fcn-meta-field-tokens-track"]');
   const tokenInput = parent.querySelector('[data-target="fcn-meta-field-tokens-values"]');
   const tokenValues = fcn_splitList(tokenInput.value).filter(item => !isNaN(item)).map(item => Math.abs(parseInt(item)));

@@ -750,7 +750,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
 
   flag() {
     // Only if user is logged in and button exists
-    if (!fcn().loggedIn() || !this.hasFlagButtonTarget) {
+    if (!FcnUtils.loggedIn() || !this.hasFlagButtonTarget) {
       return;
     }
 
@@ -803,7 +803,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
 
   selfDelete() {
     // Only if user is logged in and button exists
-    if (!fcn().loggedIn() || !this.hasDeleteButtonTarget) {
+    if (!FcnUtils.loggedIn() || !this.hasDeleteButtonTarget) {
       return;
     }
 
@@ -856,7 +856,6 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
    */
 
   startEditInline() {
-    console.log('foo');
     const template = _$$$('template-comment-inline-edit-form')?.content.cloneNode(true);
 
     if (!template) {

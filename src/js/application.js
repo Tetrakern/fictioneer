@@ -87,151 +87,6 @@ const FcnGlobals = {
 Object.freeze(FcnGlobals);
 
 // =============================================================================
-// BASE UTILITIES
-// =============================================================================
-
-const FcnUtils = {
-  /**
-   * Returns or prepares locally cached user data.
-   *
-   * @since 5.xx.x
-   * @return {Object} The user data.
-   */
-
-  userData() {
-    const defaults = {
-      'lastLoaded': 0,
-      'timestamp': 0,
-      'loggedIn': 'pending',
-      'follows': false,
-      'reminders': false,
-      'checkmarks': false,
-      'bookmarks': null,
-      'likes': null,
-      'fingerprint': false,
-      'nonceHtml': '',
-      'nonce': '',
-      'isAdmin': false,
-      'isModerator': false,
-      'isAuthor': false,
-      'isEditor': false
-    };
-
-    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
-    return { ...defaults, ...data };
-  },
-
-  /**
-   * Reset local user data.
-   *
-   * @since 5.xx.x
-   */
-
-  resetUserData() {
-    const reset = {
-      'lastLoaded': 0,
-      'timestamp': 0,
-      'loggedIn': false,
-      'follows': false,
-      'reminders': false,
-      'checkmarks': false,
-      'likes': null,
-      'bookmarks': null,
-      'fingerprint': false,
-      'isAdmin': false,
-      'isModerator': false,
-      'isAuthor': false,
-      'isEditor': false
-    };
-
-    const data = fcn_parseJSON(localStorage.getItem('fcnUserData')) || {};
-    localStorage.setItem('fcnUserData', JSON.stringify({ ...data, ...reset }));
-  },
-
-  /**
-   * Remove user data in web storage.
-   *
-   * @since 5.xx.x
-   */
-
-  removeUserData() {
-    localStorage.removeItem('fcnUserData');
-  },
-
-  /**
-   * Update user data in web storage.
-   *
-   * @since 5.xx.x
-   * @param {Object} data - User data.
-   */
-
-  setUserData(data) {
-    localStorage.setItem('fcnUserData', JSON.stringify(data));
-  },
-
-  /**
-   * Returns whether the user is logged in (cookie).
-   *
-   * @since 5.xx.x
-   * @return {Boolean} True or false
-   */
-
-  loggedIn() {
-    const cookies = document.cookie.split(';');
-
-    for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i].trim();
-
-      if (cookie.indexOf('fcnLoggedIn=') !== -1) {
-        return true;
-      }
-    }
-
-    return false;
-  },
-
-  /**
-   * Wrapper for utility fcn_ajaxGet().
-   *
-   * @since 5.xx.x
-   * @param {Object} data - The payload, including the action and nonce.
-   * @param {String} [url=null] - Optional. The request URL if different from the default.
-   * @param {Object} [headers={}] - Optional. Headers for the request.
-   * @return {Promise<JSON>} A Promise that resolves to the parsed JSON response.
-   */
-
-  async aGet(data = {}, url = null, headers = {}) {
-    try {
-      const response = await fcn_ajaxGet(data, url, headers);
-      return response;
-    } catch (error) {
-      console.error('aGet Error:', error);
-      throw error;
-    }
-  },
-
-  /**
-   * Wrapper for utility fcn_ajaxPost().
-   *
-   * @since 5.xx.x
-   * @param {Object} data - The payload, including the action and nonce.
-   * @param {String} [url=null] - Optional. The request URL if different from the default.
-   * @param {Object} [headers={}] - Optional. Headers for the request.
-   * @return {Promise<JSON>} A Promise that resolves to the parsed JSON response.
-   */
-
-  async aPost(data = {}, url = null, headers = {}) {
-    try {
-      const response = await fcn_ajaxPost(data, url, headers);
-      return response;
-    } catch (error) {
-      console.error('aPost Error:', error);
-      throw error;
-    }
-  }
-};
-
-// =============================================================================
 // STIMULUS: FICTIONEER
 // =============================================================================
 
@@ -263,7 +118,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   initialize() {
-    if (this.loggedIn() || this.ajaxAuthValue) {
+    if (FcnUtils.loggedIn() || this.ajaxAuthValue) {
       this.fetchUserData();
     } else {
       // Prepare event
@@ -289,45 +144,6 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
   connect() {
     window.FictioneerApp.Controllers.fictioneer = this;
-  }
-
-  /**
-   * AJAX: Wrapper for utility fcn_ajaxGet().
-   *
-   * @since 5.xx.x
-   * @param {Object} data - The payload, including the action and nonce.
-   * @param {String} [url] - Optional. The request URL if different from the default.
-   * @param {Object} [headers] - Optional. Headers for the request.
-   * @return {JSON} The parsed JSON response if successful.
-   */
-
-  async aGet(data = {}, url = null, headers = {}) {
-    return FcnUtils.aGet(data, url, headers);
-  }
-
-  /**
-   * AJAX: Wrapper for utility fcn_ajaxPost().
-   *
-   * @since 5.xx.x
-   * @param {Object} data - The payload, including the action and nonce.
-   * @param {String} [url] - Optional. The request URL if different from the default.
-   * @param {Object} [headers] - Optional. Headers for the request.
-   * @return {Promise} A Promise that resolves to the parsed JSON response if successful.
-   */
-
-  async aPost(data = {}, url = null, headers = {}) {
-    return FcnUtils.aPost(data, url, headers);
-  }
-
-  /**
-   * Returns whether the user is logged in (cookie).
-   *
-   * @since 5.xx.x
-   * @return {Boolean} True or false
-   */
-
-  loggedIn() {
-    return FcnUtils.loggedIn();
   }
 
   /**
@@ -382,7 +198,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
     let currentUserData = this.userData();
 
     // Fix broken login state
-    if (this.loggedIn() && currentUserData.loggedIn === false) {
+    if (FcnUtils.loggedIn() && currentUserData.loggedIn === false) {
       this.removeUserData();
 
       currentUserData = this.userData();
@@ -405,7 +221,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
       // Append nonce HTML
       if (currentUserData.nonceHtml) {
-        document.body.appendChild(fcn_html`${currentUserData.nonceHtml}`);
+        this.#appendAjaxNonce(currentUserData.nonceHtml);
       }
 
       // Fire event
@@ -417,7 +233,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
     }
 
     // Request
-    this.aGet({
+    FcnUtils.aGet({
       'action': 'fictioneer_ajax_get_user_data',
       'fcn_fast_ajax': 1
     })
@@ -436,7 +252,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
         // Append nonce HTML
         if (currentUserData.nonceHtml) {
-          document.body.appendChild(fcn_html`${currentUserData.nonceHtml}`);
+          this.#appendAjaxNonce(currentUserData.nonceHtml);
         }
 
         // Prepare event
@@ -486,6 +302,22 @@ application.register('fictioneer', class extends Stimulus.Controller {
       document.dispatchEvent(event);
     });
   }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  /**
+   * Appends hidden input with a nonce.
+   *
+   * @since 5.xx.x
+   * @param {String} html - The input HTML.
+   */
+
+  #appendAjaxNonce(html) {
+    _$$$('fictioneer-ajax-nonce')?.remove();
+    document.body.appendChild(fcn_html`${html}`);
+  }
 });
 
 /**
@@ -507,10 +339,7 @@ function fcn() {
     userData: FcnUtils.userData,
     setUserData: FcnUtils.setUserData,
     resetUserData: FcnUtils.resetUserData,
-    removeUserData: FcnUtils.removeUserData,
-    loggedIn: FcnUtils.loggedIn,
-    aGet: FcnUtils.aGet,
-    aPost: FcnUtils.aPost
+    removeUserData: FcnUtils.removeUserData
   };
 }
 
@@ -697,27 +526,6 @@ fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
 // TODO
 
 document.body.addEventListener('click', e => {
-  // --- LAST CLICK ------------------------------------------------------------
-
-  // const lastClickTarget = e.target.closest('.toggle-last-clicked');
-
-  // if (
-  //   lastClickTarget &&
-  //   (
-  //     !['BUTTON', 'A', 'INPUT', 'SELECT'].includes(e.target.tagName) ||
-  //     e.target.classList.contains('toggle-last-clicked')
-  //   )
-  // ) {
-  //   fcn_toggleLastClicked?.(lastClickTarget);
-
-  //   if (typeof fcn_popupPosition === 'function') {
-  //     fcn_popupPosition();
-  //   }
-
-  //   e.stopPropagation();
-  //   return;
-  // }
-
   // --- PAGINATION JUMP -------------------------------------------------------
 
   const pageDots = e.target.closest('.page-numbers.dots:not(button)');
@@ -1764,6 +1572,8 @@ function fcn_jumpPage(source) {
 // COLLAPSE/EXPAND CHAPTER GROUPS
 // =============================================================================
 
+// TODO
+
 _$$('.chapter-group__name').forEach(element => {
   element.addEventListener('click', event => {
     const group = event.currentTarget.closest('.chapter-group');
@@ -2089,7 +1899,7 @@ class FCN_KeywordInput {
     this.suggestionList = this.block.querySelector('.keyword-input__suggestion-list');
     this.tabSuggestion = this.block.querySelector('.keyword-input__tab-suggestion');
     this.allowText = this.form.querySelector('.allow-list')?.innerText ?? '{}';
-    this.allowList = JSON.parse(this.allowText);
+    this.allowList = fcn_parseJSON(this.allowText);
     this.hints = this.block.querySelector('.keyword-input__hints');
     this.noHint = this.block.querySelector('.keyword-input__no-suggestions');
     this.keywords = this.collection.value.length > 0 ? this.collection.value.split(',') : [];
@@ -2769,7 +2579,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       return this.#loggedInCache;
     }
 
-    this.#loggedInCache = fcn().loggedIn();
+    this.#loggedInCache = FcnUtils.loggedIn();
     this.#loggedInCacheTime = now;
 
     if (!this.#loggedInCache) {
@@ -2873,5 +2683,81 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     if (target && !target.closest(`.card.post-${this.postIdValue}`) && this.menOpen) {
       this.#hideMenu();
     }
+  }
+});
+
+// =============================================================================
+// STIMULUS: FICTIONEER LAST CLICK
+// =============================================================================
+
+application.register('fictioneer-last-click', class extends Stimulus.Controller {
+  static get targets() {
+    return ['toggle']
+  }
+
+  last = null;
+
+  connect() {
+    document.addEventListener('fcnRemoveLastClicked', () => {
+      if (this.last) {
+        this.removeLastClick();
+      }
+    });
+  }
+
+  removeAll() {
+    if (this.last) {
+      this.#dispatchToggleEvent(this.last, false);
+      this.removeLastClick();
+    }
+  }
+
+  toggle(event) {
+    const target = event.target.closest('[data-fictioneer-last-click-target="toggle"]');
+
+    if (
+      !target ||
+      (
+        ['BUTTON', 'A', 'INPUT', 'SELECT'].includes(event.target.tagName) &&
+        !event.target.hasAttribute('data-fictioneer-last-click-target')
+      )
+    ) {
+      return;
+    }
+
+    const set = !target.classList.contains('last-clicked');
+
+    if (typeof fcn_popupPosition === 'function') {
+      fcn_popupPosition();
+    }
+
+    target.classList.toggle('last-clicked', set);
+    target.closest('.watch-last-clicked')?.classList.toggle('has-last-clicked', set);
+
+    if (this.last && this.last != target) {
+      this.removeLastClick();
+    }
+
+    this.last = target;
+
+    this.#dispatchToggleEvent(target, set);
+    event.stopPropagation();
+  }
+
+  removeLastClick() {
+    if (this.last) {
+      this.last.closest('.watch-last-clicked')?.classList.remove('has-last-clicked');
+      this.last.classList.remove('last-clicked');
+      this.last = null;
+      document.activeElement?.blur();
+    }
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #dispatchToggleEvent(target, force) {
+    document.dispatchEvent(new CustomEvent('toggledLastClick', { detail: { target: target, force: force } }));
   }
 });
