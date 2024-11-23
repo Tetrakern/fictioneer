@@ -1326,6 +1326,6 @@ if (window.location.hash === '#start') {
   const targetElement = _$('.chapter__article');
 
   if (targetElement) {
-    fcn_scrollTo(targetElement, 128);
+    FcnUtils.scrollTo(targetElement, 128);
   }
 }

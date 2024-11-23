@@ -129,7 +129,7 @@ function fcn_setupMobileJumpButton(selector, callback) {
 
       // Scroll to position + offset
       if (target) {
-        fcn_scrollTo(target);
+        FcnUtils.scrollTo(target);
       }
     }, 200); // Wait for mobile menu to close
   });

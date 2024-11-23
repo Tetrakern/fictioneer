@@ -417,7 +417,7 @@ if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
   _$$$('button-tts-scroll')?.addEventListener(
     'click',
     () => {
-      fcn_scrollTo(_$(`p[id="${fcn_currentReadingId}"]`), 128)
+      FcnUtils.scrollTo(_$(`p[id="${fcn_currentReadingId}"]`), 128)
     }
   );
 
