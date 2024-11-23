@@ -44,7 +44,6 @@ if (document.documentElement.dataset.ajaxAuth) {
  * Get story settings JSON from local storage or create new one.
  *
  * @since 5.0.6
- * @see fcn_parseJSON()
  * @see fcn_defaultStorySettings()
  * @see fcn_setStorySettings();
  * @return {Object} The story settings.

@@ -307,7 +307,6 @@ _$$('.close-fullscreen').forEach(element => {
  * Get formatting JSON from local storage or create new one.
  *
  * @since 4.0.0
- * @see fcn_parseJSON()
  * @see fcn_defaultFormatting()
  * @see fcn_setFormatting();
  * @return {Object} The formatting settings.
@@ -1022,7 +1021,6 @@ function fcn_setFormatting(value) {
  * Update formatting and toggles on chapters.
  *
  * @since 5.9.4
- * @see fcn_evaluateAsBoolean();
  * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
  * @param {String} selector - The selector of the toggle.
@@ -1035,7 +1033,7 @@ function fcn_updateToggle(value, selector, setting, args = {}) {
   args = {...{ save: true }, ...args};
 
   // Evaluate
-  const checked = fcn_evaluateAsBoolean(value, true);
+  const checked = Boolean(value);
   const cb = _$(selector);
 
   // Update associated checkbox

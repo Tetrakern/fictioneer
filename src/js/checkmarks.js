@@ -63,8 +63,6 @@ function fcn_initializeCheckmarks(event) {
  * Toggle checkmarks for chapters and stories.
  *
  * @since 4.0.0
- * @see fcn_removeItemOnce()
- * @see fcn_updateCheckmarksView()
  * @param {Number} storyId - ID of the story.
  * @param {String} type - Either 'story' or 'chapter'.
  * @param {Number=} chapter - ID of the chapter.

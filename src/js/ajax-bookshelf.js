@@ -23,7 +23,6 @@ if (fcn_bookshelfTarget) {
  * Get bookshelf content from web storage or create new JSON.
  *
  * @since 4.3.0
- * @see fcn_parseJSON()
  */
 
 function fcn_getBookshelfContent() {

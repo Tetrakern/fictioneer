@@ -1,4 +1,27 @@
 /**
+ * Validates a CSS string.
+ *
+ * @since 5.26.0
+ * @param {String} css - The CSS to validate.
+ * @return {Boolean} True or false.
+ */
+
+function fcn_validateCss(css) {
+  const openBraces = (css.match(/{/g) || []).length;
+  const closeBraces = (css.match(/}/g) || []).length;
+
+  if (openBraces !== closeBraces) {
+    return false;
+  }
+
+  if (css.includes('<')) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
  * Returns the skins JSON from local storage or a default.
  *
  * @since 5.26.0

@@ -140,75 +140,6 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
 }
 
 // =============================================================================
-// EVALUATE AS BOOLEAN
-// =============================================================================
-
-/**
- * Evaluate anything as boolean with a fallback value.
- *
- * @since 5.0.0
- * @param {Any} candidate - The boolean hopeful to be evaluated.
- * @param {Boolean} fallback - Optional. The fallback boolean, default false.
- * @return {Boolean} True or false.
- */
-
-function fcn_evaluateAsBoolean(candidate, fallback = false) {
-  // Does the candidate even exist?
-  if (typeof candidate === 'undefined') {
-    return fallback;
-  }
-
-  // Is the candidate a boolean?
-  if (typeof candidate === 'boolean') {
-    return candidate;
-  }
-
-  // Is the candidate a checkbox?
-  if (candidate instanceof HTMLInputElement && candidate.getAttribute('type') === 'checkbox') {
-    return candidate.checked;
-  }
-
-  // Is the candidate a label? (not currently used)
-  // if (candidate instanceof HTMLInputElement && candidate.getAttribute('type') === 'label') {
-  //   const innerInput = candidate.querySelector('[type="checkbox"]');
-
-  //   if (innerInput) {
-  //     return innerInput.checked;
-  //   } else if( candidate.getAttribute('for') ) {
-  //     const forTarget = _$(`[type="checkbox"][name="${candidate.getAttribute('for')}"]`);
-
-  //     if (forTarget) {
-  //       return forTarget.checked;
-  //     }
-  //   }
-  // }
-
-  // Is the candidate an element with (data-) value?
-  if (candidate instanceof HTMLElement) {
-    if (candidate.hasAttribute('value')) {
-      candidate = candidate.value;
-    } else if (candidate.hasAttribute('data-value')) {
-      candidate = candidate.dataset.value;
-    }
-  }
-
-  // Truthy/Falsy value?
-  const s = String(candidate),
-        i = parseInt(candidate);
-
-  if (s === 'true' || s === '1' || i === 1) {
-    return true;
-  }
-
-  if (s === 'false' || s === '0' || i === 0) {
-    return false;
-  }
-
-  // Return fallback if nothing sticks
-  return fallback;
-}
-
-// =============================================================================
 // COPY TO CLIPBOARD
 // =============================================================================
 
@@ -237,7 +168,7 @@ function fcn_copyToClipboard(text, message = false) {
 // =============================================================================
 
 /**
- * Parse JSON and account for invalid strings
+ * Parse JSON and account for invalid strings.
  *
  * @since 5.7.0
  * @param {String} str - The string to parse.
@@ -564,7 +495,7 @@ function fcn_cleanTextSelectionFromButtons(selection) {
 }
 
 // =============================================================================
-// DELETE COOKIES
+// COOKIES
 // =============================================================================
 
 /**
@@ -598,10 +529,6 @@ function fcn_deleteAllCookies() {
   );
 }
 
-// =============================================================================
-// SET COOKIE
-// =============================================================================
-
 /**
  * Set a cookie.
  *
@@ -620,10 +547,6 @@ function fcn_setCookie(cname, value, days = 30) {
 
   document.cookie = cname + '=' + encodeURIComponent(value) + ';' + expires + ';SameSite=Strict;path=/';
 }
-
-// =============================================================================
-// GET COOKIE
-// =============================================================================
 
 /**
  * Retrieves the given cookie if available.
@@ -646,25 +569,6 @@ function fcn_getCookie(cname) {
   }
 
   return null;
-}
-
-// =============================================================================
-// CHECK IF URL IS VALID (SIMPLE)
-// =============================================================================
-
-/**
- * Very simple check whether an URL is valid.
- *
- * @since 4.7.0
- * @return {Boolean} True of the URL is valid, false otherwise.
- */
-
-function fcn_isValidUrl(url) {
-  if (!url) {
-    return false;
-  }
-
-  return(url.match(/^(https?:\/\/)/) != null);
 }
 
 // =============================================================================
@@ -714,7 +618,7 @@ function fcn_buildUrl(params = {}, url = null) {
 }
 
 // =============================================================================
-// GET ERROR NOTICE
+// ERROR NOTICE
 // =============================================================================
 
 /**
@@ -788,33 +692,6 @@ function fcn_sanitizeHTML(html) {
 }
 
 // =============================================================================
-// SANITIZE CSS
-// =============================================================================
-
-/**
- * Validates a CSS string.
- *
- * @since 5.26.0
- * @param {String} css - The CSS to validate.
- * @return {Boolean} True or false.
- */
-
-function fcn_validateCss(css) {
-  const openBraces = (css.match(/{/g) || []).length;
-  const closeBraces = (css.match(/}/g) || []).length;
-
-  if (openBraces !== closeBraces) {
-    return false;
-  }
-
-  if (css.includes('<')) {
-    return false;
-  }
-
-  return true;
-}
-
-// =============================================================================
 // SCREEN COLLISION DETECTION
 // =============================================================================
 
@@ -885,7 +762,7 @@ function fcn_scrollTo(target, offset = 64) {
  *
  * @since 5.4.5
  * @param {...string} args - The template strings and placeholders.
- * @returns {HTMLElement} The HTML element created from the template string.
+ * @return {HTMLElement} The HTML element created from the template string.
  *
  * @example
  * const element = fcn_html`
@@ -903,30 +780,6 @@ function fcn_html(...args) {
   template.innerHTML = String.raw(...args).trim();
 
   return template.content.firstChild;
-}
-
-// =============================================================================
-// SPLIT LIST INTO ARRAY
-// =============================================================================
-
-/**
- * Split string into an array
- *
- * @param {string} list - The input string to split.
- * @param {string} [separator=','] - The substring to use for splitting.
- *
- * @returns {Array<string>} - An array of items.
- */
-
-function fcn_splitList(list, separator = ',') {
-  if (!list || list.trim() === '') {
-    return [];
-  }
-
-  let array = list.replace(/\r?\n|\r/g, '').split(separator);
-  array = array.map(item => item.trim()).filter(item => item.length > 0);
-
-  return array;
 }
 
 // =============================================================================

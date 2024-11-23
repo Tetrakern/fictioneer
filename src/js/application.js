@@ -562,7 +562,7 @@ _$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(elemen
 });
 
 // =============================================================================
-// LOGGED-IN STATE
+// SET LOGGED-IN STATE
 // =============================================================================
 
 /**
@@ -1284,7 +1284,6 @@ function fcn_toggleLightMode() {
  * Set the light mode state.
  *
  * @since 4.3.0
- * @see fcn_updateThemeColor();
  * @param {Boolean} boolean - Set light mode to true or false.
  * @param {Boolean} [silent=false] - Optional. Whether to not update the theme color meta tag.
  */
@@ -1672,7 +1671,6 @@ function fcn_defaultSiteSettings() {
  * Get site settings JSON from web storage or create new one.
  *
  * @since 4.0.0
- * @see fcn_parseJSON()
  * @see fcn_defaultSiteSettings()
  * @return {Object} The site settings.
  */

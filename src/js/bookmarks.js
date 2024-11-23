@@ -67,7 +67,6 @@ function fcn_initializeUserBookmarks(event) {
  * Get bookmarks from local storage.
  *
  * @since 5.7.0
- * @see fcn_parseJSON()
  * @return {Object} The bookmarks JSON.
  */
 
@@ -320,11 +319,6 @@ function fcn_saveUserBookmarks(bookmarks) {
  * and calls to persist the updated JSON.
  *
  * @since 4.0.0
- * @see fcn_getBookmarks()
- * @see fcn_removeBookmark()
- * @see fcn_offset()
- * @see fcn_setMobileMenuBookmarks()
- * @see fcn_setBookmarks()
  * @param {Number} id - The ID of the chapter.
  * @param {String} [color=none] - The color of the bookmark.
  */
