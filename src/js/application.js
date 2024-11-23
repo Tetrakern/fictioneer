@@ -1,13 +1,15 @@
 // =============================================================================
-// GLOBAL SETUP (FIRST TO BE EXECUTED)
+// GLOBALS
 // =============================================================================
 
 const /** @const {HTMLElement} */ fcn_theSite = _$$$('site');
+
+
+
 const /** @const {Object} */ fcn_urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
 const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
-var /** @type {Boolean} */ fcn_isLoggedIn = document.body.classList.contains('logged-in');
 
 
 
@@ -597,7 +599,7 @@ function fcn_ajaxAuth() {
   let localAuth = fcn_parseJSON(localStorage.getItem('fcnAuth')) ?? false;
 
   // Clear left over guest authentication
-  if (fcn_isLoggedIn && !localAuth?.loggedIn) {
+  if (fcn().loggedIn() && !localAuth?.loggedIn) {
     localStorage.removeItem('fcnAuth');
     localAuth = false;
   }

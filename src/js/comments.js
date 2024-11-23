@@ -750,7 +750,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
 
   flag() {
     // Only if user is logged in and button exists
-    if (!fcn_isLoggedIn || !this.hasFlagButtonTarget) {
+    if (!fcn().loggedIn() || !this.hasFlagButtonTarget) {
       return;
     }
 
@@ -803,7 +803,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
 
   selfDelete() {
     // Only if user is logged in and button exists
-    if (!fcn_isLoggedIn || !this.hasDeleteButtonTarget) {
+    if (!fcn().loggedIn() || !this.hasDeleteButtonTarget) {
       return;
     }
 

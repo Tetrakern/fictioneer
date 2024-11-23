@@ -192,7 +192,7 @@ function fcn_setBookmarks(value, silent = false) {
   localStorage.setItem('fcnChapterBookmarks', JSON.stringify(value));
 
   // Keep user data updated as well
-  if (fcn_isLoggedIn) {
+  if (fcn().loggedIn()) {
     const currentUserData = fcn().userData();
 
     if (currentUserData) {
@@ -267,7 +267,7 @@ function fcn_updateBookmarksView() {
 
 function fcn_saveUserBookmarks(bookmarks) {
   // Do not proceed if not logged in
-  if (!fcn_isLoggedIn) {
+  if (!fcn().loggedIn()) {
     return;
   }
 

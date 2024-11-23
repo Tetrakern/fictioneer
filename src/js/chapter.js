@@ -1234,7 +1234,7 @@ function fcn_readingProgress() {
   fcn_progressBar.style.width = `${p}%`;
 
   // If end of chapter has been reached and the user is logged in...
-  if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn_isLoggedIn) {
+  if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn().loggedIn()) {
     const storyId = document.body.dataset.storyId;
 
     // Only do this once per page load
