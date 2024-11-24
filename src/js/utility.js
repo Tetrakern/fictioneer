@@ -124,14 +124,41 @@ const FcnUtils = {
     localStorage.setItem('fcnUserData', JSON.stringify(data));
   },
 
+  loggedInCache: null,
+  loggedInCacheTime: 0,
+
   /**
    * Returns whether the user is logged in (cookie).
+   *
+   * Note: This function temporarily stores the result for
+   * 20 ms to avoid having to process the cookie on each
+   * subsequent call in such a short time span.
    *
    * @since 5.xx.x
    * @return {Boolean} True or false
    */
 
   loggedIn() {
+    const now = Date.now();
+
+    if (FcnUtils.loggedInCache !== null && now - FcnUtils.loggedInCacheTime < 20) {
+      return FcnUtils.loggedInCache;
+    }
+
+    FcnUtils.loggedInCache = FcnUtils.hasLoginCookie();
+    FcnUtils.loggedInCacheTime = now;
+
+    return FcnUtils.loggedInCache;
+  },
+
+  /**
+   * Returns whether the sidecar login cookie is set.
+   *
+   * @since 5.xx.x
+   * @return {Boolean} True or false
+   */
+
+  hasLoginCookie() {
     const cookies = document.cookie.split(';');
 
     for (let i = 0; i < cookies.length; i++) {

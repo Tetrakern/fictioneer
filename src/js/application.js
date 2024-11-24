@@ -2541,24 +2541,20 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     chapterId: Number
   }
 
-  menOpen = false;
-  ready = false;
-  paused = false;
-
   initialize() {
     if (fcn()?.userReady) {
-      this.ready = true;
+      this.#ready = true;
     } else {
       document.addEventListener('fcnUserDataReady', () => {
         this.#refreshAll();
-        this.ready = true;
+        this.#ready = true;
         this.#watch();
       });
     }
   }
 
   connect() {
-    if (this.ready) {
+    if (this.#ready) {
       this.#refreshAll();
       this.#watch();
     }
@@ -2658,26 +2654,20 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   // ====== PRIVATE ======
   // =====================
 
-  #loggedInCache = null;
-  #loggedInCacheTime = 0;
+  #menuOpen = false;
+  #ready = false;
+  #paused = false;
 
   #loggedIn() {
-    const now = Date.now();
+    const loggedIn = FcnUtils.loggedIn();
 
-    if (this.#loggedInCache !== null && now - this.#loggedInCacheTime < 20) {
-      return this.#loggedInCache;
-    }
-
-    this.#loggedInCache = FcnUtils.loggedIn();
-    this.#loggedInCacheTime = now;
-
-    if (!this.#loggedInCache) {
+    if (!loggedIn) {
       this.#unwatch();
-      this.ready = false;
-      this.paused = true;
+      this.#ready = false;
+      this.#paused = true;
     }
 
-    return this.#loggedInCache;
+    return loggedIn;
   }
 
   #data() {
@@ -2695,7 +2685,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     }
 
     this.refreshInterval = setInterval(() => {
-      if (!this.paused && this.#userDataChanged()) {
+      if (!this.#paused && this.#userDataChanged()) {
         this.#refreshAll()
       }
     }, 30000 + Math.random() * 10000);
@@ -2707,11 +2697,11 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     this.visibilityStateCheck = () => {
       if (this.#loggedIn()) {
         if (document.visibilityState === 'visible') {
-          this.paused = false;
+          this.#paused = false;
           this.#refreshAll();
           this.#startRefreshInterval();
         } else {
-          this.paused = true;
+          this.#paused = true;
           clearInterval(this.refreshInterval);
           this.refreshInterval = null;
         }
@@ -2749,13 +2739,13 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   }
 
   #showMenu() {
-    this.menOpen = true;
+    this.#menuOpen = true;
     this.menuTarget.appendChild(this.menuFragment.cloneNode(true));
   }
 
   #hideMenu() {
-    if (this.menOpen) {
-      this.menOpen = false;
+    if (this.#menuOpen) {
+      this.#menuOpen = false;
 
       while (this.menuTarget.firstChild) {
         this.menuTarget.removeChild(this.menuTarget.firstChild);
@@ -2769,7 +2759,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       return;
     }
 
-    if (target && !target.closest(`.card.post-${this.postIdValue}`) && this.menOpen) {
+    if (target && !target.closest(`.card.post-${this.postIdValue}`) && this.#menuOpen) {
       this.#hideMenu();
     }
   }

@@ -1,3 +1,7 @@
+// =============================================================================
+// STIMULUS: FICTIONEER STORY
+// =============================================================================
+
 application.register('fictioneer-story', class extends Stimulus.Controller {
   static get targets() {
     return ['tab', 'tabContent', 'commentsPlaceholder', 'commentsWrapper', 'commentsList']
