@@ -300,7 +300,7 @@ function fictioneer_story_tabs( $args ) {
   <section id="tabs-<?php echo $story_id; ?>" class="story__tabs tabs-wrapper" data-current="chapters" data-order="asc" data-view="list">
 
     <div class="tabs">
-      <button class="tabs__item _current" data-target="chapters" tabindex="0"><?php
+      <button class="tabs__item _current" data-fictioneer-story-target="tab" data-fictioneer-story-tab-name-param="chapters" data-action="click->fictioneer-story#toggleTab" data-target="chapters" tabindex="0"><?php
         if ( $story['status'] === 'Oneshot' ) {
           _e( 'Oneshot', 'fictioneer' );
         } else {
@@ -313,7 +313,7 @@ function fictioneer_story_tabs( $args ) {
       ?></button>
 
       <?php if ( $blog_posts->have_posts() ) : ?>
-        <button class="tabs__item" data-target="blog" tabindex="0"><?php echo fcntr( 'story_blog' ); ?></button>
+        <button class="tabs__item" data-fictioneer-story-target="tab" data-fictioneer-story-tab-name-param="blog" data-action="click->fictioneer-story#toggleTab" data-target="blog" tabindex="0"><?php echo fcntr( 'story_blog' ); ?></button>
       <?php endif; ?>
 
       <?php
@@ -325,7 +325,7 @@ function fictioneer_story_tabs( $args ) {
               continue;
             }
 
-            echo "<button class='tabs__item' data-target='tab-page-{$index}' tabindex='0'>{$page[1]}</button>";
+            echo "<button class='tabs__item' data-fictioneer-story-target='tab' data-fictioneer-story-tab-name-param='tab-page-{$index}' data-action='click->fictioneer-story#toggleTab' data-target='tab-page-{$index}' tabindex='0'>{$page[1]}</button>";
 
             $index++;
 
@@ -339,11 +339,11 @@ function fictioneer_story_tabs( $args ) {
 
     <?php if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) : ?>
       <div class="story__chapter-list-toggles">
-        <button data-click-action="toggle-chapter-view" class="list-button story__toggle _view" data-view="list" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between list and grid view', 'fictioneer' ); ?>">
+        <button data-action="click->fictioneer-story#toggleChapterView" class="list-button story__toggle _view" data-view="list" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between list and grid view', 'fictioneer' ); ?>">
           <?php fictioneer_icon( 'grid-2x2', 'on' ); ?>
           <i class="fa-solid fa-list off"></i>
         </button>
-        <button data-click-action="toggle-chapter-order" class="list-button story__toggle _order" data-order="asc" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between ascending and descending order', 'fictioneer' ); ?>">
+        <button data-action="click->fictioneer-story#toggleChapterOrder" class="list-button story__toggle _order" data-order="asc" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between ascending and descending order', 'fictioneer' ); ?>">
           <i class="fa-solid fa-arrow-down-1-9 off"></i>
           <i class="fa-solid fa-arrow-down-9-1 on"></i>
         </button>
@@ -401,7 +401,7 @@ function fictioneer_story_scheduled_chapter( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section class="story__tab-target story__scheduled-chapter _current" data-finder="chapters">
+  <section class="story__tab-target story__scheduled-chapter _current" data-fictioneer-story-target="tabContent" data-tab-name="chapters">
     <i class="fa-solid fa-calendar-days"></i>
     <span><?php
       printf(
@@ -458,7 +458,7 @@ function fictioneer_story_pages( $args ) {
       }
 
       // Start HTML ---> ?>
-      <section class="story__tab-target content-section background-texture" data-finder="tab-page-<?php echo $index; ?>">
+      <section class="story__tab-target content-section background-texture" data-fictioneer-story-target="tabContent" data-tab-name="tab-page-<?php echo $index; ?>">
         <div class="story__custom-page"><?php echo apply_filters( 'the_content', $page[2] ); ?></div>
       </section>
       <?php // <--- End HTML
@@ -518,7 +518,7 @@ function fictioneer_story_chapters( $args ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <section class="story__tab-target _current story__chapters" data-finder="chapters" data-order="asc" data-view="list">
+  <section class="story__tab-target _current story__chapters" data-fictioneer-story-target="tabContent" data-tab-name="chapters" data-order="asc" data-view="list">
     <?php
       $chapters = fictioneer_get_story_chapter_posts( $story_id );
       $chapter_groups = fictioneer_prepare_chapter_groups( $story_id, $chapters );
@@ -592,7 +592,7 @@ function fictioneer_story_chapters( $args ) {
 
                 <?php if ( $chapter_folding && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
                   <li class="chapter-group__list-item _folding-toggle" style="order: <?php echo $reverse_order - $index; ?>">
-                    <button class="chapter-group__folding-toggle" tabindex="0">
+                    <button class="chapter-group__folding-toggle" data-action="click->fictioneer-story#unfoldChapters" tabindex="0">
                       <?php
                         printf(
                           __( 'Show %s more', 'fictioneer' ),
@@ -739,7 +739,7 @@ function fictioneer_story_blog( $args ) {
   $blog_posts = fictioneer_get_story_blog_posts( $story_id );
 
   // Start HTML ---> ?>
-  <section class="story__blog story__tab-target" data-finder="blog">
+  <section class="story__blog story__tab-target" data-fictioneer-story-target="tabContent" data-tab-name="blog">
     <ol class="story__blog-list">
       <?php
         if ( $blog_posts->have_posts() ) {
@@ -811,10 +811,10 @@ function fictioneer_story_comments( $args ) {
       ?></h2>
     <?php endif; ?>
     <?php do_action( 'fictioneer_story_before_comments_list', $args ); ?>
-    <div class="fictioneer-comments__list">
+    <div class="fictioneer-comments__list" data-fictioneer-story-target="commentsWrapper">
       <ul>
-        <li class="load-more-list-item">
-          <button class="load-more-comments-button" data-story-id="<?php echo $args['story_id']; ?>"><?php
+        <li class="load-more-list-item" data-fictioneer-story-target="commentsList">
+          <button class="load-more-comments-button" data-action="click->fictioneer-story#loadComments"><?php
             $load_n = $story['comment_count'] < get_option( 'comments_per_page' ) ?
               $story['comment_count'] : get_option( 'comments_per_page' );
 
@@ -829,7 +829,7 @@ function fictioneer_story_comments( $args ) {
             );
           ?></button>
         </li>
-        <div class="comments-loading-placeholder hidden"><i class="fa-solid fa-spinner spinner"></i></div>
+        <div class="comments-loading-placeholder hidden" data-fictioneer-story-target="commentsPlaceholder"><i class="fa-solid fa-spinner spinner"></i></div>
       </ul>
     </div>
   </section>

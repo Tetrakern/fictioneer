@@ -269,7 +269,7 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
 
       // Start HTML ---> ?>
       <li class="load-more-list-item">
-        <button class="load-more-comments-button" data-story-id="<?php echo $story_id; ?>"><?php
+        <button class="load-more-comments-button" data-action="click->fictioneer-story#loadComments"><?php
           printf(
             _n(
               'Load next comment (may contain spoilers)',
@@ -281,7 +281,7 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
           );
         ?></button>
       </li>
-      <div class="comments-loading-placeholder hidden"><i class="fas fa-spinner spinner"></i></div>
+      <div class="comments-loading-placeholder hidden" data-fictioneer-story-target="commentsPlaceholder"><i class="fas fa-spinner spinner"></i></div>
       <?php // <--- End HTML
     }
   } else {

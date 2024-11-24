@@ -1067,7 +1067,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // File download
     if ( $show_epub_download && ! $ebook_upload ) {
       $output['epub'] = sprintf(
-        '<a href="%s" class="button _secondary" rel="noreferrer noopener nofollow" data-action="download-epub" data-story-id="%d" aria-label="%s" download><i class="fa-solid fa-cloud-download-alt"></i><span class="span-epub hide-below-640">%s</span></a>',
+        '<a href="%s" class="button _secondary" rel="noreferrer noopener nofollow" data-action="click->fictioneer-story#startEpubDownload" data-story-id="%d" aria-label="%s" download><i class="fa-solid fa-cloud-download-alt"></i><span class="span-epub hide-below-640">%s</span></a>',
         esc_url( home_url( 'download-epub/' . $args['story_id'] ) ),
         $args['story_id'],
         esc_attr__( 'Download ePUB', 'fictioneer' ),
