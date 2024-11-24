@@ -51,7 +51,7 @@ $meta_output['rating'] = '<span class="story__meta-item story__rating" title="' 
 
 // Checkmark
 if ( $story['chapter_count'] > 0 ) {
-  $meta_output['checkmark'] = '<button class="story__meta-item checkmark story__meta-checkmark" data-type="story" data-story-id="' . $story_id . '" data-id="' . $story_id . '" data-status="' . esc_attr( $story['status'] ) . '" role="checkbox" aria-checked="false" aria-label="' . sprintf( esc_attr__( 'Story checkmark for %s.', 'fictioneer' ), $story['title'] ) . '"><i class="fa-solid fa-check"></i></button>';
+  $meta_output['checkmark'] = '<button class="story__meta-item checkmark story__meta-checkmark" data-fictioneer-checkmarks-target="storyCheck" data-fictioneer-checkmarks-story-param="' . $story_id . '" data-action="click->fictioneer-checkmarks#toggleStory" data-status="' . esc_attr( $story['status'] ) . '" role="checkbox" aria-checked="false" aria-label="' . sprintf( esc_attr__( 'Story checkmark for %s.', 'fictioneer' ), $story['title'] ) . '"><i class="fa-solid fa-check"></i></button>';
 }
 
 // Filter

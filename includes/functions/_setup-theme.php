@@ -1989,9 +1989,6 @@ function fictioneer_get_js_translations() {
       'enterPageNumber' => _x( 'Enter page number:', 'Pagination jump prompt.', 'fictioneer' ),
       'slowDown' => _x( 'Slow down.', 'Rate limit reached notification.', 'fictioneer' ),
       'error' => _x( 'Error', 'Generic error notification.', 'fictioneer' ),
-      'checkmarksResynchronized' => __( 'Checkmarks re-synchronized.', 'fictioneer' ),
-      'remindersResynchronized' => __( 'Reminders re-synchronized.', 'fictioneer' ),
-      'followsResynchronized' => __( 'Follows re-synchronized.', 'fictioneer' ),
       'suggestionAppendedToComment' => __( 'Suggestion appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer' ),
       'quoteAppendedToComment' => __( 'Quote appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer' ),
       'linkCopiedToClipboard' => __( 'Link copied to clipboard!', 'fictioneer' ),
@@ -1999,8 +1996,7 @@ function fictioneer_get_js_translations() {
       'oauthEmailTaken' => __( 'The associated email address is already taken. You can link additional accounts in your profile.', 'fictioneer' ),
       'oauthAccountAlreadyLinked' => __( 'Account already linked to another profile.', 'fictioneer' ),
       'oauthNew' => __( 'Your account has been successfully linked. <strong>Hint:</strong> You can change your display name in your profile and link additional accounts.', 'fictioneer' ),
-      'oauthAccountLinked' => __( 'Account has been successfully linked.', 'fictioneer' ),
-      'controllerNotConnected' => __( 'Error: Controller not connected.', 'fictioneer' )
+      'oauthAccountLinked' => __( 'Account has been successfully linked.', 'fictioneer' )
     )
   );
 }

@@ -1223,7 +1223,6 @@ function fcn_trackProgress() {
  * of the chapter is reached, the chapter is marked as read for logged-in users.
  *
  * @since 4.0.0
- * @see fcn_toggleCheckmark()
  */
 
 function fcn_readingProgress() {
@@ -1257,12 +1256,12 @@ function fcn_readingProgress() {
     fcn_chapterCheckmarkUpdated = true;
 
     // Make sure necessary data is available
-    if (!storyId || typeof fcn_toggleCheckmark != 'function') {
+    if (!storyId || typeof fcn_toggleCheckmark !== 'function') {
       return;
     }
 
     // Mark chapter as read
-    fcn_toggleCheckmark(storyId, 'progress', parseInt(document.body.dataset.postId), null, 'set');
+    fcn_toggleCheckmark(storyId, parseInt(document.body.dataset.postId), true);
   }
 }
 

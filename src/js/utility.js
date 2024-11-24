@@ -668,6 +668,25 @@ const FcnUtils = {
     ];
 
     return crawlers.some(crawler => userAgent.includes(crawler));
+  },
+
+  /**
+   * Remove item from array once.
+   *
+   * @since 4.0.0
+   * @param {Any[]} array - The array from which to remove the item from.
+   * @param {Any} value - The value of the item to remove.
+   * @return {Any[]} The modified array.
+   */
+
+  removeArrayItemOnce(array, value) {
+    var index = array.indexOf(value);
+
+    if (index > -1) {
+      array.splice(index, 1);
+    }
+
+    return array;
   }
 };
 

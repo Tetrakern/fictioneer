@@ -2636,9 +2636,9 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     }
   }
 
-  toggleCheckmarks(mode = 'toggle', type) {
+  toggleCheckmarks() {
     if (this.#loggedIn()) {
-      fcn_toggleCheckmark(this.storyIdValue, type, this.chapterIdValue, null, mode);
+      fcn_toggleCheckmark(this.storyIdValue, this.chapterIdValue);
       this.#refreshCheckmarkState();
     } else {
       _$$$('modal-login-toggle')?.click();

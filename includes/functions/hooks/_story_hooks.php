@@ -667,9 +667,10 @@ function fictioneer_story_chapters( $args ) {
                   <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
                     <button
                       class="checkmark chapter-group__list-item-checkmark only-logged-in"
-                      data-type="chapter"
-                      data-story-id="<?php echo $story_id; ?>"
-                      data-id="<?php echo $chapter['id']; ?>"
+                      data-fictioneer-checkmarks-target="chapterCheck"
+                      data-fictioneer-checkmarks-story-param="<?php echo $story_id; ?>"
+                      data-fictioneer-checkmarks-chapter-param="<?php echo $chapter['id']; ?>"
+                      data-action="click->fictioneer-checkmarks#toggleChapter"
                       role="checkbox"
                       aria-checked="false"
                       aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $chapter['title'] ); ?>"
