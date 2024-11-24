@@ -92,9 +92,21 @@ $action_args = array(
 // Body attributes
 $body_attributes = array(
   'data-post-id' => ( $post_id ?: -1 ),
-  'data-controller' => 'fictioneer-last-click fictioneer-follows',
+  'data-controller' => 'fictioneer-last-click',
   'data-action' => 'click->fictioneer-last-click#removeAll keydown.esc->fictioneer-last-click#removeAll click->fictioneer#bodyClick'
 );
+
+if ( get_option( 'fictioneer_enable_follows' ) ) {
+  $body_attributes['data-controller'] .= ' fictioneer-follows';
+}
+
+if ( get_option( 'fictioneer_enable_reminders' ) ) {
+  $body_attributes['data-controller'] .= ' fictioneer-reminders';
+}
+
+if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
+  $body_attributes['data-controller'] .= ' fictioneer-checkmarks';
+}
 
 if ( $story_id ) {
   $body_attributes['data-story-id'] = $story_id;
