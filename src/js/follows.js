@@ -9,6 +9,7 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
 
   followsLoaded = false;
   markedRead = false;
+  timeout = 0;
 
   initialize() {
     if (fcn()?.userReady) {
@@ -228,14 +229,12 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
 // AJAX: TOGGLE FOLLOW
 // =============================================================================
 
-var /** @type {Number} */ fcn_userFollowsTimeout;
-
 /**
- * Adds or removes a story ID from the Follows JSON, then calls for an update of
- * the view to reflect the changes and makes a save request to the database.
+ * Adds or removes a story ID from the Follows, then calls for an update
+ * of the view to reflect the changes and saves to the database.
  *
  * @since 4.3.0
- * @see fcn_updateFollowsView()
+ * @since 5.xx.x - Refactored for Stimulus Controller.
  * @param {Number} storyId - The ID of the story.
  * @param {Boolean} [set] - Optional. Whether to set (true) or unset (false).
  */
@@ -257,22 +256,21 @@ function fcn_toggleFollow(storyId, set = null) {
   if (!set) {
     delete userData.follows.data[storyId];
   } else {
-    // follows[storyId] = { 'story_id': parseInt(storyId), 'timestamp': Date.now() };
     userData.follows.data[storyId] = { 'story_id': parseInt(storyId), 'timestamp': Date.now() };
   }
 
   // Update local storage
   userData.lastLoaded = 0;
-  fcn().setUserData(userData);
+  FcnUtils.setUserData(userData);
 
   // Update view
   controller.refreshView();
 
   // Clear previous timeout (if still pending)
-  clearTimeout(fcn_userFollowsTimeout);
+  clearTimeout(controller.timeout);
 
   // Update in database; only one request every n seconds
-  fcn_userFollowsTimeout = setTimeout(() => {
+  controller.timeout = setTimeout(() => {
     FcnUtils.aPost({
       'action': 'fictioneer_ajax_toggle_follow',
       'fcn_fast_ajax': 1,

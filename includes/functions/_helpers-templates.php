@@ -1085,7 +1085,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Reminder
     if ( get_option( 'fictioneer_enable_reminders' ) ) {
       $output['reminder'] = sprintf(
-        '<button class="button _secondary button-read-later hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></button>',
+        '<button class="button _secondary button-read-later hide-if-logged-out" data-story-id="%1$d" data-fictioneer-reminders-target="toggleButton" data-action="click->fictioneer-reminders#toggleReminder" data-fictioneer-reminders-id-param="%1$d"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%2$s</span></button>',
         $story_id,
         fcntr( 'read_later' )
       );
