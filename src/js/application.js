@@ -535,17 +535,18 @@ function fcn() {
  */
 
 function fcn_getUserData() {
-  return fcn().userData();
+  return FcnUtils.userData();
 }
 
 /**
  * Legacy support for fcn().setUserData().
  *
  * @since 5.xx.x
+ * @param {Object} data - User data.
  */
 
-function fcn_setUserData() {
-  return fcn().setUserData();
+function fcn_setUserData(data) {
+  return FcnUtils.setUserData(data);
 }
 
 // =============================================================================
