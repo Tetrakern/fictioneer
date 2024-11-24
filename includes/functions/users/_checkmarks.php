@@ -120,8 +120,6 @@ if ( ! wp_doing_ajax() ) {
  * Set Checkmarks for a story via AJAX
  *
  * @since 4.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  * @see fictioneer_validate_id()
  * @see fictioneer_get_story_data()
@@ -198,8 +196,6 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
  * Clears Checkmarks for a story via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 

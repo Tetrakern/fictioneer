@@ -2554,6 +2554,8 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   }
 
   connect() {
+    window.FictioneerApp.Controllers.fictioneerLargeCard = this;
+
     if (this.#ready) {
       this.#refreshAll();
       this.#watch();
@@ -2583,11 +2585,11 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   }
 
   isFollowed() {
-    return this.#loggedIn() && !!this.#data()?.follows?.data?.[this.storyIdValue];
+    return !!(this.#loggedIn() && !!this.#data()?.follows?.data?.[this.storyIdValue]);
   }
 
   isRemembered() {
-    return this.#loggedIn() && !!this.#data()?.reminders?.data?.[this.storyIdValue];
+    return !!(this.#loggedIn() && !!this.#data()?.reminders?.data?.[this.storyIdValue]);
   }
 
   isRead() {
@@ -2676,7 +2678,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
   }
 
   #userDataChanged() {
-    return this.#loggedIn() && JSON.stringify(this.userData) !== JSON.stringify(this.#data());
+    return this.#loggedIn() && JSON.stringify(this.userData ?? 0) !== JSON.stringify(this.#data());
   }
 
   #startRefreshInterval() {
@@ -2688,7 +2690,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       if (!this.#paused && this.#userDataChanged()) {
         this.#refreshAll()
       }
-    }, 30000 + Math.random() * 10000);
+    }, 30000 + Math.random() * 1000);
   }
 
   #watch() {
@@ -2777,6 +2779,8 @@ application.register('fictioneer-last-click', class extends Stimulus.Controller 
   last = null;
 
   connect() {
+    window.FictioneerApp.Controllers.fictioneerLastClick = this;
+
     document.addEventListener('fcnRemoveLastClicked', () => {
       if (this.last) {
         this.removeLastClick();

@@ -57,8 +57,6 @@ if ( ! wp_doing_ajax() ) {
  *
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 
@@ -125,8 +123,6 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
  * Clears an user's Reminders via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 

@@ -1999,7 +1999,8 @@ function fictioneer_get_js_translations() {
       'oauthEmailTaken' => __( 'The associated email address is already taken. You can link additional accounts in your profile.', 'fictioneer' ),
       'oauthAccountAlreadyLinked' => __( 'Account already linked to another profile.', 'fictioneer' ),
       'oauthNew' => __( 'Your account has been successfully linked. <strong>Hint:</strong> You can change your display name in your profile and link additional accounts.', 'fictioneer' ),
-      'oauthAccountLinked' => __( 'Account has been successfully linked.', 'fictioneer' )
+      'oauthAccountLinked' => __( 'Account has been successfully linked.', 'fictioneer' ),
+      'controllerNotConnected' => __( 'Error: Controller not connected.', 'fictioneer' )
     )
   );
 }

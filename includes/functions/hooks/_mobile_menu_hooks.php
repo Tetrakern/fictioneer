@@ -164,11 +164,11 @@ function fictioneer_mobile_follows_frame() {
         <button class="mobile-menu__back-button">
           <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
         </button>
-        <button class="mark-follows-read mobile-menu__panel-action-button">
+        <button class="mark-follows-read mobile-menu__panel-action-button hidden" data-fictioneer-follows-target="mobileMarkRead" data-action="click->fictioneer-follows#markRead">
           <i class="fa-solid fa-check"></i>
         </button>
       </div>
-      <div id="mobile-menu-follows-list" class="mobile-menu__list mobile-follow-notifications">
+      <div id="mobile-menu-follows-list" class="mobile-menu__list mobile-follow-notifications"  data-fictioneer-follows-target="mobileScrollList">
         <div class="mobile-content-is-loading">
           <i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i>
         </div>
@@ -303,7 +303,7 @@ function fictioneer_mobile_lists_panel() {
   // Follows?
   if ( get_option( 'fictioneer_enable_follows' ) ) {
     $output['follows'] = sprintf(
-      '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-fictioneer-follows-target="newDisplay" data-frame-target="follows" data-action="click->fictioneer-follows#loadFollowsHtml:once"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
       fcntr( 'follows' )
     );
   }

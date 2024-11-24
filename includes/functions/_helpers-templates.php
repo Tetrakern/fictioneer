@@ -1102,7 +1102,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Follow
     if ( get_option( 'fictioneer_enable_follows' ) ) {
       $output['follow'] = sprintf(
-        '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-star"></i><span class="span-follow hide-below-400">%s</span></button>',
+        '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%1$d" data-fictioneer-follows-target="toggleButton" data-action="click->fictioneer-follows#toggleFollow" data-fictioneer-follows-id-param="%1$d"><i class="fa-solid fa-star"></i><span class="span-follow hide-below-400">%2$s</span></button>',
         $story_id,
         fcntr( 'follow' )
       );
@@ -2401,7 +2401,7 @@ function fictioneer_render_icon_menu( $args ) {
     fictioneer_show_auth_content()
   ) {
     $output['follows'] = sprintf(
-      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><button id="follow-menu-button" class="icon-menu__item _with-submenu follow-menu-item follows-alert-number mark-follows-read" aria-label="%1$s">%2$s<i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i><span class="follow-menu-item__read">%3$s</span></button><div class="follow-notifications sub-menu"><div id="follow-menu-scroll" class="follow-notifications__scroll"><div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">%4$s</div></div></div></div></div></div>',
+      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><button id="follow-menu-button" class="icon-menu__item _with-submenu follow-menu-item follows-alert-number mark-follows-read" aria-label="%1$s" data-fictioneer-follows-target="newDisplay" data-action="mouseover->fictioneer-follows#loadFollowsHtml:once focus->fictioneer-follows#loadFollowsHtml:once click->fictioneer-follows#markRead">%2$s<i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i><span class="follow-menu-item__read">%3$s</span></button><div class="follow-notifications sub-menu"><div id="follow-menu-scroll" class="follow-notifications__scroll" data-fictioneer-follows-target="scrollList"><div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">%4$s</div></div></div></div></div></div>',
       esc_attr__( 'Mark follows as read', 'fictioneer' ),
       fictioneer_get_icon( 'fa-bell' ),
       _x( 'Read', 'Mark as read button.', 'fictioneer' ),

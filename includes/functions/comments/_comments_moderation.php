@@ -442,8 +442,6 @@ if ( ! function_exists( 'fictioneer_comment_moderation' ) ) {
  * Performs comment moderation action via AJAX
  *
  * @since 4.7.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  */
 
 function fictioneer_ajax_moderate_comment() {

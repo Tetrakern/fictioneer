@@ -110,8 +110,6 @@ add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get
  * Delete an user's account via AJAX
  *
  * @since 4.5.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_validate_id()
  * @see fictioneer_get_validated_ajax_user()
  */
@@ -168,8 +166,6 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
  * and updating all comments.
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 
@@ -201,8 +197,6 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comment_subscriptions', 'fictionee
  * garbage, preserving the comment thread integrity.
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 
@@ -265,8 +259,6 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comments', 'fictioneer_ajax_clear_
  * Unset one of the user's OAuth bindings via AJAX
  *
  * @since 4.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  */
 
 function fictioneer_ajax_unset_my_oauth() {

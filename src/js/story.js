@@ -14,6 +14,7 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
   commentPage = 1;
 
   connect() {
+    window.FictioneerApp.Controllers.fictioneerStory = this;
     this.#applySettings();
   }
 

@@ -119,8 +119,6 @@ if ( ! wp_doing_ajax() ) {
  * Toggle Follow for a story via AJAX
  *
  * @since 4.3.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  * @see fictioneer_load_follows()
  */
@@ -190,8 +188,6 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
  * Clears an user's Follows via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 
@@ -231,8 +227,6 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
  * of them as read, you cannot mark single items in the list as read.
  *
  * @since 4.3.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 
