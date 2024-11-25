@@ -741,8 +741,12 @@ html:not(.logged-in) body:not(.logged-in) {
         color: var(--checkmark-checked);
         font-size: 18px;
         line-height: 1;
-        padding: 0 4px;
+        padding: 4px;
         margin-right: -4px;
+
+        &:focus-visible.marked {
+          color: var(--in-focus-color);
+        }
 
         &:not(.marked) {
           color: var(--checkmark-not-checked);
