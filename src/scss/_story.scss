@@ -143,7 +143,17 @@ $header_breakpoint: 640px;
   }
 
   &__thumbnail {
-    --focus-offset: 2px;
+    a {
+      display: block;
+      border-radius: var(--layout-border-radius-small);
+      box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
+
+      &:focus-visible {
+        outline: none;
+        background: none;
+        box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
+      }
+    }
 
     &:not(._in-content) {
       grid-area: 1 / 1 / 4 / 2;
@@ -185,7 +195,6 @@ $header_breakpoint: 640px;
       height: 100%;
       max-height: var(--this-img-height);
       object-fit: cover;
-      box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
     }
   }
 

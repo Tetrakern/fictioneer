@@ -58,12 +58,6 @@
 .follow-title-link {
   grid-area: 1 / 1 / 2 / 2;
   font-weight: var(--font-weight-medium);
-
-  @supports selector(:has(:focus-visible)) {
-    &:focus-visible {
-      outline: none;
-    }
-  }
 }
 
 .follow-meta {
@@ -100,8 +94,6 @@
   }
 
   .follow-item {
-    --focus-offset: -2px;
-
     &:not(:last-child) {
       border-bottom: var(--navigation-subitem-divider);
     }
@@ -119,6 +111,14 @@
     font-size: var(--fs-xs);
     padding: .35rem .75rem .45rem;
 
+    &:has(a:focus-visible) {
+      background: var(--in-focus-background);
+
+      :is(.follow-placeholder, .follow-meta) {
+        color: var(--in-focus-color) !important;
+      }
+    }
+
     &:hover {
       background: var(--navigation-subitem-background-hover);
     }
@@ -130,8 +130,12 @@
   }
 
   .follow-title-link {
-    --in-focus-outline: none;
     color: var(--follow-title-link-color, var(--fg-400));
+
+    &:focus-visible {
+      background: none !important;
+      box-shadow: var(--in-focus-box-shadow-override, none) !important;
+    }
 
     &:hover {
       color: var(--follow-title-link-color-hover, var(--fg-200));

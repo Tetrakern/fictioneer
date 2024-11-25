@@ -69,7 +69,6 @@ body:not(.is-editor):not(.is-admin) {
 }
 
 .truncate {
-  --focus-offset: -2px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

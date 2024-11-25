@@ -294,9 +294,10 @@
 
   // === FOCUS =================================================================
 
-  --in-focus-border-color: #ef4d4d;
-  --in-focus-outline: 2px solid var(--in-focus-border-color);
-  --in-focus-box-shadow: inset 0 0 0 2px rgb(0 0 0 / 75%);
+  --in-focus-color: white;
+  --in-focus-outline: none;
+  --in-focus-background: #ef4d4d;
+  --in-focus-box-shadow: 0 0 0 3px var(--in-focus-background);
 
   // === NAVIGATION ============================================================
 

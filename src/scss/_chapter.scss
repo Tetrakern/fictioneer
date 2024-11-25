@@ -235,9 +235,13 @@
       height: 32px;
       opacity: .5;
 
-      &:hover,
-      &:focus-visible {
+      &:hover {
         background: var(--button-secondary-background-hover);
+        opacity: 1;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--in-focus-box-shadow-override, none) !important;
         opacity: 1;
       }
     }
