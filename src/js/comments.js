@@ -143,8 +143,6 @@ function fcn_getCommentForm() {
 // COMMENT STACK
 // =============================================================================
 
-var /** @type {String[]} */ fcn_commentStack = [];
-
 /**
  * Append comment stack content to comment (if any)
  *
@@ -162,20 +160,20 @@ function fcn_applyCommentStack(editor = null) {
 
   // Append stack content to comment
   if (editor.tagName == 'TEXTAREA') {
-    fcn_commentStack.forEach(node => {
+    FcnGlobals.commentStack.forEach(node => {
       editor.value += node;
     });
 
     // Resize editor if necessary
     FcnUtils.adjustTextarea(editor);
   } else if (editor.tagName == 'DIV') {
-    fcn_commentStack.forEach(node => {
+    FcnGlobals.commentStack.forEach(node => {
       editor.innerHTML += node;
     });
   }
 
   // Empty stack
-  fcn_commentStack = [];
+  FcnGlobals.commentStack = [];
 }
 
 // =============================================================================

@@ -1230,21 +1230,21 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     // Open fullscreen
     $micro_menu['open_fullscreen'] = sprintf(
-      '<button type="button" title="%s" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">%s</button>',
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1" data-action="click->fictioneer-chapter#openFullscreen">%s</button>',
       esc_attr__( 'Enter fullscreen', 'fictioneer' ),
       fictioneer_get_icon( 'expand' )
     );
 
     // Close fullscreen
     $micro_menu['close_fullscreen'] = sprintf(
-      '<button type="button" title="%s" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">%s</button>',
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1" data-action="click->fictioneer-chapter#closeFullscreen">%s</button>',
       esc_attr__( 'Exit fullscreen', 'fictioneer' ),
       fictioneer_get_icon( 'collapse' )
     );
 
     // Scroll to bookmark
     $micro_menu['bookmark_jump'] = sprintf(
-      '<button type="button" title="%s" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1"><i class="fa-solid fa-bookmark"></i></button>',
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1" data-action="click->fictioneer-chapter#scrollToBookmark" data-fictioneer-chapter-target="bookmarkScroll"><i class="fa-solid fa-bookmark"></i></button>',
       fcntr( 'jump_to_bookmark', true )
     );
 
@@ -1259,7 +1259,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     // Scroll to top
     $micro_menu['top'] = sprintf(
-      '<a href="#top" data-block="center" aria-label="%s" class="micro-menu__item micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>',
+      '<a href="#top" data-block="center" aria-label="%s" class="micro-menu__item micro-menu__up up" tabindex="-1" data-action="click->fictioneer-chapter#scrollUp"><i class="fa-solid fa-caret-up"></i></a>',
       esc_attr__( 'Scroll to top of the chapter', 'fictioneer' )
     );
 

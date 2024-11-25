@@ -1,4 +1,133 @@
 // =============================================================================
+// STIMULUS: FICTIONEER REMINDERS
+// =============================================================================
+
+application.register('fictioneer-chapter', class extends Stimulus.Controller {
+  static get targets() {
+    return ['bookmarkScroll', 'contentWrapper']
+  }
+
+  static values = {
+    id: Number
+  }
+
+  startClick = 0;
+  lastToolsParagraph = null;
+  tools = document.getElementById('paragraph-tools');
+
+  initialize() {
+  }
+
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerChapter = this;
+  }
+
+  scrollDown() {
+
+  }
+
+  scrollUp() {
+
+  }
+
+  scrollToBookmark() {
+
+  }
+
+  increaseFont() {
+
+  }
+
+  decreaseFont() {
+
+  }
+
+  resetFont() {
+
+  }
+
+  openFullscreen() {
+
+  }
+
+  closeFullscreen() {
+
+  }
+
+  toggleTools(target) {
+    // Always close last paragraph tools (if open)
+    this.lastToolsParagraph?.classList.remove('selected-paragraph');
+
+    // Close if same paragraph
+    if (this.lastToolsParagraph === target) {
+      this.lastToolsParagraph = null;
+      return;
+    }
+
+    // Add tools to paragraph
+    this.lastToolsParagraph = target;
+    target.classList.add('selected-paragraph');
+    target.append(this.tools);
+
+    const innerText = Array.from(target.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent.trim())
+      .join(' ');
+
+    console.log(innerText);
+  }
+
+  clickContent(event) {
+    // console.log(event.target);
+    // console.log(event.target.closest('p'));
+  }
+
+  fastClick(event) {
+    if (window.getSelection().toString() != '') {
+      return;
+    }
+
+    this.startClick = Date.now();
+
+    document.addEventListener('mouseup', () => {
+      const endClick = Date.now();
+
+      if (endClick < this.startClick + 400) {
+        if (this.#isValidParagraph(event.target) && this.tools) {
+          this.toggleTools(event.target.closest('p'));
+        }
+      }
+    }, { once: true });
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #isValidParagraph(target) {
+    const interactiveSelector = '.popup-menu-toggle, .skip-tools, .tts-interface, .paragraph-tools__actions, .hidden, .inside-epub, a, button, label, input, textarea, select, option';
+
+    if (
+      target.classList.contains('spoiler') ||
+      !target.closest('p[data-paragraph-id]')?.textContent.trim().length ||
+      !target.closest('p')?.parentElement?.classList.contains('chapter-formatting') ||
+      target.closest(interactiveSelector)
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+});
+
+
+
+
+
+
+
+
+// =============================================================================
 // SETUP
 // =============================================================================
 
@@ -216,57 +345,57 @@ function fcn_addQuoteToStack(quote) {
       defaultEditor.innerHTML += `\n[quote]${quote}[/quote]\n`;
     }
   } else {
-    fcn_commentStack?.push(`\n[quote]${quote}[/quote]\n`); // AJAX comment form or section
+    FcnGlobals.commentStack.push(`\n[quote]${quote}[/quote]\n`); // AJAX comment form or section
   }
 }
 
-if (fcn_paragraphTools) {
-  // Listen for clicks/tabs on paragraphs
-  document.addEventListener('mousedown', (e) => { fcn_touchParagraph(e); });
+// if (fcn_paragraphTools) {
+//   // Listen for clicks/tabs on paragraphs
+//   document.addEventListener('mousedown', (e) => { fcn_touchParagraph(e); });
 
-  // Listen for click on paragraph tools close button
-  _$$$('button-close-paragraph-tools').onclick = (e) => { fcn_toggleParagraphTools(false); }
+//   // Listen for click on paragraph tools close button
+//   _$$$('button-close-paragraph-tools').onclick = (e) => { fcn_toggleParagraphTools(false); }
 
-  // Listen for click on paragraph tools copy link button
-  _$$$('button-get-link').onclick = (e) => {
-    FcnUtils.copyToClipboard(
-      `${location.protocol}//${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
-      fictioneer_tl.notification.linkCopiedToClipboard
-    );
-  }
+//   // Listen for click on paragraph tools copy link button
+//   _$$$('button-get-link').onclick = (e) => {
+//     FcnUtils.copyToClipboard(
+//       `${location.protocol}//${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
+//       fictioneer_tl.notification.linkCopiedToClipboard
+//     );
+//   }
 
-  // Listen for click on paragraph tools quote button
-  _$$$('button-comment-stack')?.addEventListener(
-    'click',
-    (e) => { fcn_getQuote(e); }
-  );
+//   // Listen for click on paragraph tools quote button
+//   _$$$('button-comment-stack')?.addEventListener(
+//     'click',
+//     (e) => { fcn_getQuote(e); }
+//   );
 
-  // Listen for click on paragraph tools bookmark color button
-  _$$('.paragraph-tools__bookmark-colors > div').forEach(element => {
-    element.onclick = (e) => {
-      fcn_bookmarkColor = e.target.dataset.color;
-    }
-  });
+//   // Listen for click on paragraph tools bookmark color button
+//   _$$('.paragraph-tools__bookmark-colors > div').forEach(element => {
+//     element.onclick = (e) => {
+//       fcn_bookmarkColor = e.target.dataset.color;
+//     }
+//   });
 
-  // Listen for click on paragraph tools bookmark button
-  _$$$('button-set-bookmark')?.addEventListener(
-    'click',
-    (e) => {
-      fcn_toggleBookmark(
-        e.target.closest('p[data-paragraph-id]').dataset.paragraphId,
-        fcn_bookmarkColor
-      );
+//   // Listen for click on paragraph tools bookmark button
+//   _$$$('button-set-bookmark')?.addEventListener(
+//     'click',
+//     (e) => {
+//       fcn_toggleBookmark(
+//         e.target.closest('p[data-paragraph-id]').dataset.paragraphId,
+//         fcn_bookmarkColor
+//       );
 
-      // Close paragraph tools on desktop after adding bookmark
-      if (window.matchMedia('(min-width: 1024px)').matches) {
-        fcn_toggleParagraphTools(false);
-      }
+//       // Close paragraph tools on desktop after adding bookmark
+//       if (window.matchMedia('(min-width: 1024px)').matches) {
+//         fcn_toggleParagraphTools(false);
+//       }
 
-      // Reset bookmark color
-      fcn_bookmarkColor = 'none';
-    }
-  );
-}
+//       // Reset bookmark color
+//       fcn_bookmarkColor = 'none';
+//     }
+//   );
+// }
 
 // =============================================================================
 // ENTER FULLSCREEN

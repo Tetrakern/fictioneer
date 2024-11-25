@@ -1,9 +1,10 @@
 .paragraph-tools {
   user-select: none;
   position: absolute;
-  inset: -0.5rem 0;
+  top: -0.5rem;
   display: none;
   content-visibility: hidden;
+  width: 100%;
 
   &__actions {
     position: absolute;
@@ -48,7 +49,7 @@
     transition: opacity var(--transition-duration);
 
     &-field {
-      flex: 1 1 auto;
+      flex: 1 1 20px;
       border-radius: var(--layout-border-radius-small);
       height: 20px;
       max-width: 20px;

@@ -233,7 +233,7 @@ class FCN_Suggestion {
         defaultEditor.innerHTML += instance.latest;
       }
     } else {
-      fcn_commentStack?.push(instance.latest); // AJAX comment form or section
+      FcnGlobals.commentStack.push(instance.latest); // AJAX comment form or section
     }
 
     // Close modal

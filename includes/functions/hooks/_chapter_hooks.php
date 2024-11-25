@@ -279,13 +279,13 @@ function fictioneer_chapter_resize_buttons() {
   $increase_label = esc_attr__( 'Increase font size', 'fictioneer' );
 
   // Start HTML ---> ?>
-  <button type="button" id="decrease-font" data-tooltip="<?php echo $decrease_label; ?>" data-modifier="-5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
+  <button type="button" id="decrease-font" data-tooltip="<?php echo $decrease_label; ?>" data-modifier="-5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>" data-action="click->fictioneer-chapter#decreaseFont">
     <?php fictioneer_icon( 'fa-minus' ); ?>
   </button>
-  <button type="reset" id="reset-font" data-tooltip="<?php echo $reset_label; ?>" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
+  <button type="reset" id="reset-font" data-tooltip="<?php echo $reset_label; ?>" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>" data-action="click->fictioneer-chapter#resetFont">
     <?php fictioneer_icon( 'fa-square' ); ?>
   </button>
-  <button type="button" id="increase-font" data-tooltip="<?php echo $increase_label; ?>" data-modifier="5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
+  <button type="button" id="increase-font" data-tooltip="<?php echo $increase_label; ?>" data-modifier="5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>" data-action="click->fictioneer-chapter#increaseFont">
     <?php fictioneer_icon( 'fa-plus' ); ?>
   </button>
   <?php // <--- End HTML
@@ -333,9 +333,9 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   <?php endif; ?>
 
   <?php if ( $location === 'top' ) : ?>
-    <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-down"></i></a>
+    <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>" data-action="click->fictioneer-chapter#scrollDown"><i class="fa-solid fa-caret-down"></i></a>
   <?php else : ?>
-    <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-up"></i></a>
+    <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>" data-action="click->fictioneer-chapter#scrollUp"><i class="fa-solid fa-caret-up"></i></a>
   <?php endif; ?>
 
   <?php if ( $show_nav && ! $unlisted && $args['next_index'] ) : ?>
@@ -415,10 +415,10 @@ function fictioneer_chapter_fullscreen_buttons() {
   $close = esc_attr__( 'Exit fullscreen', 'fictioneer' );
 
   // Start HTML ---> ?>
-  <button type="button" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped" data-tooltip="<?php echo $open; ?>" aria-label="<?php echo $open; ?>">
+  <button type="button" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped" data-tooltip="<?php echo $open; ?>" aria-label="<?php echo $open; ?>" data-action="click->fictioneer-chapter#openFullscreen">
     <?php fictioneer_icon( 'expand' ); ?>
   </button>
-  <button type="button" class="close-fullscreen button _secondary button--fullscreen show-on-fullscreen hide-on-iOS hidden tooltipped" data-tooltip="<?php echo $close; ?>" aria-label="<?php echo $close; ?>">
+  <button type="button" class="close-fullscreen button _secondary button--fullscreen show-on-fullscreen hide-on-iOS hidden tooltipped" data-tooltip="<?php echo $close; ?>" aria-label="<?php echo $close; ?>" data-action="click->fictioneer-chapter#closeFullscreen">
     <?php fictioneer_icon( 'collapse' ); ?>
   </button>
   <?php // <--- End HTML
@@ -494,7 +494,7 @@ function fictioneer_chapter_bookmark_jump_button() {
   }
 
   // Start HTML ---> ?>
-  <button type="button" class="button _secondary button--bookmark hidden">
+  <button type="button" class="button _secondary button--bookmark hidden" data-fictioneer-chapter-target="bookmarkScroll" data-action="click->fictioneer-chapter#scrollToBookmark">
     <i class="fa-solid fa-bookmark"></i>
     <span class="hide-below-tablet"><?php echo fcntr( 'bookmark' ); ?></span>
   </button>
@@ -711,7 +711,7 @@ function fictioneer_chapter_paragraph_tools() {
   $hide_if_logged_out = get_option( 'comment_registration' ) ? 'hide-if-logged-out' : ''; // Safer for cached site
 
   // Start HTML ---> ?>
-  <div id="paragraph-tools" class="paragraph-tools" data-nosnippet>
+  <div id="paragraph-tools" class="paragraph-tools" data-fictioneer-chapter-target="tools" data-nosnippet>
     <div class="paragraph-tools__actions">
       <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
         <button id="button-set-bookmark" type="button" class="button">

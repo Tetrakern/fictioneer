@@ -81,7 +81,16 @@ const FcnGlobals = {
    * @type {Object}
    */
 
-  commentFormSelector: fictioneer_comments?.selector ?? '#comment'
+  commentFormSelector: fictioneer_comments?.selector ?? '#comment',
+
+  /**
+   * Array that holds content to be applied to a delayed
+   * AJAX comment form.
+   *
+   * @type {String[]}
+   */
+
+  commentStack: []
 };
 
 Object.freeze(FcnGlobals);
