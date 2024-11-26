@@ -653,6 +653,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
     'title' => array(
       'label' => _x( 'Title', 'Sort and filter option.', 'fictioneer' ),
       'url' => add_query_arg( array( 'orderby' => 'title' ), $current_url ) . '#sof'
+    ),
+    'comment_count' => array(
+      'label' => _x( 'Comments', 'Sort and filter option.', 'fictioneer' ),
+      'url' => add_query_arg( array( 'orderby' => 'comment_count' ), $current_url ) . '#sof'
     )
   );
 
