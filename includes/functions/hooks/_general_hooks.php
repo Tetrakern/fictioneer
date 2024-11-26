@@ -558,6 +558,7 @@ add_action( 'fictioneer_inner_header', 'fictioneer_inner_header_background', 10 
 
 function fictioneer_sort_order_filter_interface( $args ) {
   // Setup
+  $template = get_page_template_slug();
   $current_url = fictioneer_get_clean_url();
   $post_type = null;
 
@@ -653,14 +654,17 @@ function fictioneer_sort_order_filter_interface( $args ) {
     'title' => array(
       'label' => _x( 'Title', 'Sort and filter option.', 'fictioneer' ),
       'url' => add_query_arg( array( 'orderby' => 'title' ), $current_url ) . '#sof'
-    ),
-    'comment_count' => array(
-      'label' => _x( 'Comments', 'Sort and filter option.', 'fictioneer' ),
-      'url' => add_query_arg( array( 'orderby' => 'comment_count' ), $current_url ) . '#sof'
     )
   );
 
-  if ( ! is_archive() ) {
+  if ( ! in_array( $template, ['recommendations.php', 'collections.php'] ) ) {
+    $orderby_menu['comment_count'] = array(
+      'label' => _x( 'Comments', 'Sort and filter option.', 'fictioneer' ),
+      'url' => add_query_arg( array( 'orderby' => 'comment_count' ), $current_url ) . '#sof'
+    );
+  }
+
+  if ( ! is_archive() && ! in_array( $template, ['recommendations.php', 'collections.php'] ) ) {
     $orderby_menu['words'] = array(
       'label' => _x( 'Words', 'Sort and filter option.', 'fictioneer' ),
       'url' => add_query_arg( array( 'orderby' => 'words' ), $current_url ) . '#sof'
