@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 23:29+0000\n"
+"POT-Creation-Date: 2024-11-26 17:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1018,62 +1018,62 @@ msgstr ""
 msgid "Advanced Capabilities"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:809
+#: includes/functions/hooks/_general_hooks.php:817
 msgctxt "Advanced search heading."
 msgid "Age Rating"
 msgstr ""
 
-#: searchform.php:393
+#: searchform.php:394
 msgctxt "Advanced search heading."
 msgid "Author"
 msgstr ""
 
-#: searchform.php:396
+#: searchform.php:397
 msgctxt "Advanced search heading."
 msgid "Authors"
 msgstr ""
 
-#: searchform.php:377
+#: searchform.php:378
 msgctxt "Advanced search heading."
 msgid "Characters"
 msgstr ""
 
-#: searchform.php:429
+#: searchform.php:430
 msgctxt "Advanced search heading."
 msgid "Exclude Authors"
 msgstr ""
 
-#: searchform.php:414
+#: searchform.php:415
 msgctxt "Advanced search heading."
 msgid "Exclude Characters"
 msgstr ""
 
-#: searchform.php:409
+#: searchform.php:410
 msgctxt "Advanced search heading."
 msgid "Exclude Fandoms"
 msgstr ""
 
-#: searchform.php:404
+#: searchform.php:405
 msgctxt "Advanced search heading."
 msgid "Exclude Genres"
 msgstr ""
 
-#: searchform.php:419
+#: searchform.php:420
 msgctxt "Advanced search heading."
 msgid "Exclude Tags"
 msgstr ""
 
-#: searchform.php:424
+#: searchform.php:425
 msgctxt "Advanced search heading."
 msgid "Exclude Warnings"
 msgstr ""
 
-#: searchform.php:372
+#: searchform.php:373
 msgctxt "Advanced search heading."
 msgid "Fandoms"
 msgstr ""
 
-#: searchform.php:367
+#: searchform.php:368
 msgctxt "Advanced search heading."
 msgid "Genres"
 msgstr ""
@@ -1083,17 +1083,17 @@ msgctxt "Advanced search heading."
 msgid "Match"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:899
+#: includes/functions/hooks/_general_hooks.php:907
 msgctxt "Advanced search heading."
 msgid "Max Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:868
+#: includes/functions/hooks/_general_hooks.php:876
 msgctxt "Advanced search heading."
 msgid "Min Words"
 msgstr ""
 
-#: searchform.php:354
+#: searchform.php:355
 msgctxt "Advanced search heading."
 msgid "Order"
 msgstr ""
@@ -1103,12 +1103,12 @@ msgctxt "Advanced search heading."
 msgid "Sort"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:841
+#: includes/functions/hooks/_general_hooks.php:849
 msgctxt "Advanced search heading."
 msgid "Status"
 msgstr ""
 
-#: searchform.php:382
+#: searchform.php:383
 msgctxt "Advanced search heading."
 msgid "Tags"
 msgstr ""
@@ -1118,91 +1118,91 @@ msgctxt "Advanced search heading."
 msgid "Type"
 msgstr ""
 
-#: searchform.php:387
+#: searchform.php:388
 msgctxt "Advanced search heading."
 msgid "Warnings"
 msgstr ""
 
-#: includes/functions/_module-search.php:86
-#: includes/functions/_module-search.php:163
+#: includes/functions/_module-search.php:87
+#: includes/functions/_module-search.php:164
 #, php-format
 msgctxt "Advanced search hint if nothing found."
 msgid "No matching %s found."
 msgstr ""
 
-#: includes/functions/_module-search.php:44
+#: includes/functions/_module-search.php:45
 msgctxt "Advanced search operator."
 msgid "AND"
 msgstr ""
 
-#: includes/functions/_module-search.php:45
+#: includes/functions/_module-search.php:46
 msgctxt "Advanced search operator."
 msgid "OR"
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:871
-#: includes/functions/hooks/_general_hooks.php:902
-msgctxt "Advanced search option."
-msgid "1,000 Words"
 msgstr ""
 
 #: includes/functions/hooks/_general_hooks.php:879
 #: includes/functions/hooks/_general_hooks.php:910
 msgctxt "Advanced search option."
+msgid "1,000 Words"
+msgstr ""
+
+#: includes/functions/hooks/_general_hooks.php:887
+#: includes/functions/hooks/_general_hooks.php:918
+msgctxt "Advanced search option."
 msgid "1,000,000 Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:873
-#: includes/functions/hooks/_general_hooks.php:904
+#: includes/functions/hooks/_general_hooks.php:881
+#: includes/functions/hooks/_general_hooks.php:912
 msgctxt "Advanced search option."
 msgid "10,000 Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:876
-#: includes/functions/hooks/_general_hooks.php:907
+#: includes/functions/hooks/_general_hooks.php:884
+#: includes/functions/hooks/_general_hooks.php:915
 msgctxt "Advanced search option."
 msgid "100,000 Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:874
-#: includes/functions/hooks/_general_hooks.php:905
+#: includes/functions/hooks/_general_hooks.php:882
+#: includes/functions/hooks/_general_hooks.php:913
 msgctxt "Advanced search option."
 msgid "25,000 Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:877
-#: includes/functions/hooks/_general_hooks.php:908
+#: includes/functions/hooks/_general_hooks.php:885
+#: includes/functions/hooks/_general_hooks.php:916
 msgctxt "Advanced search option."
 msgid "250,000 Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:872
-#: includes/functions/hooks/_general_hooks.php:903
+#: includes/functions/hooks/_general_hooks.php:880
+#: includes/functions/hooks/_general_hooks.php:911
 msgctxt "Advanced search option."
 msgid "5,000 Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:875
-#: includes/functions/hooks/_general_hooks.php:906
+#: includes/functions/hooks/_general_hooks.php:883
+#: includes/functions/hooks/_general_hooks.php:914
 msgctxt "Advanced search option."
 msgid "50,000 Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:878
-#: includes/functions/hooks/_general_hooks.php:909
+#: includes/functions/hooks/_general_hooks.php:886
+#: includes/functions/hooks/_general_hooks.php:917
 msgctxt "Advanced search option."
 msgid "500,000 Words"
 msgstr ""
 
 #: searchform.php:159 searchform.php:214 searchform.php:221 searchform.php:229
 #: searchform.php:238 searchform.php:322
-#: includes/functions/hooks/_general_hooks.php:811
-#: includes/functions/hooks/_general_hooks.php:843
+#: includes/functions/hooks/_general_hooks.php:819
+#: includes/functions/hooks/_general_hooks.php:851
 msgctxt "Advanced search option."
 msgid "Any"
 msgstr ""
 
-#: searchform.php:202 searchform.php:357
+#: searchform.php:202 searchform.php:358
 msgctxt "Advanced search option."
 msgid "Ascending"
 msgstr ""
@@ -1217,7 +1217,12 @@ msgctxt "Advanced search option."
 msgid "Collections"
 msgstr ""
 
-#: searchform.php:201 searchform.php:356
+#: searchform.php:350
+msgctxt "Advanced search option."
+msgid "Comments"
+msgstr ""
+
+#: searchform.php:201 searchform.php:357
 msgctxt "Advanced search option."
 msgid "Descending"
 msgstr ""
@@ -1227,12 +1232,12 @@ msgctxt "Advanced search option."
 msgid "Keywords"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:901
+#: includes/functions/hooks/_general_hooks.php:909
 msgctxt "Advanced search option."
 msgid "Maximum"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:870
+#: includes/functions/hooks/_general_hooks.php:878
 msgctxt "Advanced search option."
 msgid "Minimum"
 msgstr ""
@@ -1277,7 +1282,7 @@ msgctxt "Advanced search option."
 msgid "Updated"
 msgstr ""
 
-#: searchform.php:394
+#: searchform.php:395
 msgctxt "Advanced search placeholder."
 msgid "Search for an author"
 msgstr ""
@@ -1287,17 +1292,17 @@ msgctxt "Advanced search placeholder."
 msgid "Search keywords or phrase"
 msgstr ""
 
-#: searchform.php:155 searchform.php:435
+#: searchform.php:155 searchform.php:436
 msgctxt "Advanced search reset button."
 msgid "Reset"
 msgstr ""
 
-#: searchform.php:154 searchform.php:435
+#: searchform.php:154 searchform.php:436
 msgctxt "Advanced search reset message."
 msgid "Search form reset."
 msgstr ""
 
-#: searchform.php:438
+#: searchform.php:439
 msgctxt "Advanced search submit."
 msgid "Search"
 msgstr ""
@@ -1568,7 +1573,7 @@ msgstr ""
 msgid "All Genres"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:615
+#: includes/functions/hooks/_general_hooks.php:616
 msgid "All Posts"
 msgstr ""
 
@@ -1675,7 +1680,7 @@ msgstr ""
 msgid "Any"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:672
+#: includes/functions/hooks/_general_hooks.php:680
 msgid "Any Date"
 msgstr ""
 
@@ -2009,7 +2014,7 @@ msgctxt "Blog page name, mainly used in breadcrumbs."
 msgid "Blog"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:619
+#: includes/functions/hooks/_general_hooks.php:620
 msgid "Blog Posts"
 msgstr ""
 
@@ -3034,7 +3039,7 @@ msgctxt "Chapter card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1317
+#: includes/functions/_setup-shortcodes.php:1325
 #: includes/functions/hooks/_story_hooks.php:674
 #, php-format
 msgid "Chapter checkmark for %s."
@@ -3263,13 +3268,13 @@ msgstr ""
 
 #. Name of the template
 #: chapters.php:2 chapters.php:107 author.php:53 author.php:141
-#: partials/_card-story.php:251 partials/_latest-stories.php:329
-#: partials/_latest-stories-compact.php:342 partials/_card-collection.php:209
-#: partials/_latest-updates.php:449 partials/_collection-statistics.php:39
+#: partials/_card-story.php:251 partials/_latest-stories.php:334
+#: partials/_latest-stories-compact.php:347 partials/_card-collection.php:209
+#: partials/_latest-updates.php:454 partials/_collection-statistics.php:39
 #: includes/functions/_setup-types-and-terms.php:185
 #: includes/functions/settings/_settings_page_epubs.php:82
 #: includes/functions/hooks/_mobile_menu_hooks.php:291
-#: includes/functions/hooks/_general_hooks.php:627
+#: includes/functions/hooks/_general_hooks.php:628
 msgid "Chapters"
 msgstr ""
 
@@ -3338,7 +3343,7 @@ msgid ""
 "href=\"%s\" target=\"_blank\" rel=\"noopener\">base child theme</a>."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:1084
+#: includes/functions/hooks/_general_hooks.php:1092
 #, php-format
 msgid "Choose a %s to browse"
 msgstr ""
@@ -3414,7 +3419,7 @@ msgstr ""
 msgid "Clear %s (%s)"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1043
+#: includes/functions/_setup-shortcodes.php:1051
 msgid "Clear Cookies"
 msgstr ""
 
@@ -3445,7 +3450,7 @@ msgstr ""
 #: partials/_modal-bbcodes.php:19 partials/_modal-suggestions.php:22
 #: partials/_modal-tts-settings.php:23 partials/_modal-chapter-changelog.php:28
 #: includes/functions/hooks/_chapter_hooks.php:470
-#: includes/functions/hooks/_general_hooks.php:1234
+#: includes/functions/hooks/_general_hooks.php:1242
 msgid "Close modal"
 msgstr ""
 
@@ -3515,7 +3520,7 @@ msgstr ""
 #. Name of the template
 #: collections.php:2 collections.php:67
 #: includes/functions/_setup-types-and-terms.php:331
-#: includes/functions/hooks/_general_hooks.php:631
+#: includes/functions/hooks/_general_hooks.php:632
 msgid "Collections"
 msgstr ""
 
@@ -3605,6 +3610,14 @@ msgstr[1] ""
 #: includes/functions/comments/_comments_ajax.php:474
 msgid "Comment cannot be empty."
 msgstr ""
+
+#: partials/_latest-updates-list.php:301 partials/_latest-stories-list.php:259
+#, php-format
+msgctxt "Comment count in Latest * shortcode (type: list)."
+msgid "%1$s&nbsp;Comment"
+msgid_plural "%1$s&nbsp;Comments"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/functions/comments/_comments_moderation.php:162
 msgctxt "Comment edit history."
@@ -3833,10 +3846,12 @@ msgid "Commenting is disabled."
 msgstr ""
 
 #: author.php:149 partials/_card-story.php:268 partials/_card-story.php:268
+#: partials/_latest-stories.php:342 partials/_latest-stories-compact.php:355
 #: partials/_card-page.php:91 partials/_article-cards.php:308
-#: partials/_card-collection.php:219 partials/_collection-statistics.php:47
-#: partials/_card-post.php:114 partials/_latest-chapters.php:355
-#: partials/_card-chapter.php:265 partials/account/_data.php:119
+#: partials/_card-collection.php:219 partials/_latest-updates.php:462
+#: partials/_collection-statistics.php:47 partials/_card-post.php:114
+#: partials/_latest-chapters.php:355 partials/_card-chapter.php:265
+#: partials/account/_data.php:119
 #: includes/functions/settings/_settings_page_general.php:833
 #: includes/functions/hooks/_story_hooks.php:41
 msgid "Comments"
@@ -3964,7 +3979,7 @@ msgctxt "Contact form."
 msgid "Message field empty."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1370
+#: includes/functions/_setup-shortcodes.php:1378
 #: includes/functions/_module-forms.php:57
 msgctxt "Contact form."
 msgid "Nameless Form"
@@ -4019,7 +4034,7 @@ msgstr ""
 msgid "Cookie consent banner"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1043
+#: includes/functions/_setup-shortcodes.php:1051
 msgid ""
 "Cookies and local storage have been cleared. To keep it that way, you should "
 "leave the site."
@@ -4076,7 +4091,7 @@ msgstr ""
 msgid "Current status of the story."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:736
+#: includes/functions/hooks/_general_hooks.php:744
 msgid "Custom"
 msgstr ""
 
@@ -4896,7 +4911,7 @@ msgstr ""
 msgid "Default tags have been added to the list."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:1235
+#: includes/functions/hooks/_general_hooks.php:1243
 msgctxt "Default tooltip modal header."
 msgid "Note"
 msgstr ""
@@ -7105,9 +7120,9 @@ msgid ""
 "more</strong> is met unless the comment is set to ignore reports."
 msgstr ""
 
-#: partials/_card-story.php:261 partials/_latest-stories.php:340
-#: partials/_latest-stories-compact.php:353 partials/_article-cards.php:301
-#: partials/_card-collection.php:216 partials/_latest-updates.php:459
+#: partials/_card-story.php:261 partials/_latest-stories.php:349
+#: partials/_latest-stories-compact.php:362 partials/_article-cards.php:301
+#: partials/_card-collection.php:216 partials/_latest-updates.php:468
 #: partials/_latest-chapters.php:348 partials/_card-chapter.php:258
 msgid "Last Updated"
 msgstr ""
@@ -7499,7 +7514,7 @@ msgctxt "Login modal heading."
 msgid "Login"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:966
+#: includes/functions/hooks/_general_hooks.php:974
 msgid "Login/Register"
 msgstr ""
 
@@ -7681,7 +7696,7 @@ msgstr ""
 msgid "Maximum site width in pixels, should not be less than 896. Default 960."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1443
+#: includes/functions/_setup-shortcodes.php:1451
 msgid "Message sent!"
 msgstr ""
 
@@ -8063,7 +8078,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1660
+#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1668
 msgid "No (more) posts found."
 msgstr ""
 
@@ -8083,7 +8098,7 @@ msgstr ""
 msgid "No chapters found."
 msgstr ""
 
-#: author.php:62 includes/functions/_setup-shortcodes.php:1078
+#: author.php:62 includes/functions/_setup-shortcodes.php:1086
 #: includes/functions/hooks/_story_hooks.php:690
 msgid "No chapters published yet."
 msgstr ""
@@ -8160,7 +8175,7 @@ msgid "No recommendations published yet."
 msgstr ""
 
 #: includes/functions/_helpers-query.php:44
-#: includes/functions/hooks/_general_hooks.php:935
+#: includes/functions/hooks/_general_hooks.php:943
 msgid "No results."
 msgstr ""
 
@@ -8186,10 +8201,10 @@ msgstr ""
 msgid "No stories published yet."
 msgstr ""
 
-#: partials/_latest-stories.php:313
+#: partials/_latest-stories.php:318
 #: partials/_latest-recommendations-compact.php:265
-#: partials/_latest-stories-compact.php:325
-#: partials/_latest-recommendations.php:278 partials/_latest-updates.php:433
+#: partials/_latest-stories-compact.php:330
+#: partials/_latest-recommendations.php:278 partials/_latest-updates.php:438
 msgid "No taxonomies specified yet."
 msgstr ""
 
@@ -8224,14 +8239,14 @@ msgstr ""
 msgid "Not logged in."
 msgstr ""
 
-#: partials/_latest-chapters-compact.php:322 partials/_latest-stories.php:383
+#: partials/_latest-chapters-compact.php:322 partials/_latest-stories.php:392
 #: partials/_latest-recommendations-compact.php:280
-#: partials/_latest-stories-compact.php:397
-#: partials/_latest-updates-list.php:379
+#: partials/_latest-stories-compact.php:406
+#: partials/_latest-updates-list.php:399
 #: partials/_latest-recommendations.php:295 partials/_article-cards.php:338
-#: partials/_latest-chapters-list.php:336 partials/_latest-updates.php:499
-#: partials/_latest-stories-list.php:339
-#: partials/_latest-updates-compact.php:385 partials/_latest-posts.php:141
+#: partials/_latest-chapters-list.php:336 partials/_latest-updates.php:508
+#: partials/_latest-stories-list.php:359
+#: partials/_latest-updates-compact.php:386 partials/_latest-posts.php:141
 #: partials/_latest-chapters.php:395
 msgid "Nothing to show."
 msgstr ""
@@ -8348,8 +8363,8 @@ msgstr ""
 
 #: partials/_latest-chapters-compact.php:224
 #: partials/_latest-recommendations-compact.php:194
-#: partials/_latest-stories-compact.php:253
-#: partials/_latest-updates-compact.php:271
+#: partials/_latest-stories-compact.php:258
+#: partials/_latest-updates-compact.php:272
 msgid "Open info box"
 msgstr ""
 
@@ -8365,7 +8380,7 @@ msgstr ""
 msgid "Opens modal with timestamped chapter changes."
 msgstr ""
 
-#: includes/functions/_module-search.php:40
+#: includes/functions/_module-search.php:41
 msgid "Operator. Either must match (OR) or all must match (AND)."
 msgstr ""
 
@@ -8386,7 +8401,7 @@ msgstr ""
 msgid "Optional, leave empty to hide."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:738
+#: includes/functions/hooks/_general_hooks.php:746
 msgid "Order By"
 msgstr ""
 
@@ -8552,36 +8567,36 @@ msgstr ""
 msgid "Password required."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:755
+#: includes/functions/hooks/_general_hooks.php:763
 #, php-format
 msgid "Past %s Days"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:676
+#: includes/functions/hooks/_general_hooks.php:684
 msgid "Past 24 Hours"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:680
+#: includes/functions/hooks/_general_hooks.php:688
 msgid "Past 3 Days"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:692
+#: includes/functions/hooks/_general_hooks.php:700
 msgid "Past 3 Months"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:696
+#: includes/functions/hooks/_general_hooks.php:704
 msgid "Past 6 Months"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:688
+#: includes/functions/hooks/_general_hooks.php:696
 msgid "Past Month"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:684
+#: includes/functions/hooks/_general_hooks.php:692
 msgid "Past Week"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:700
+#: includes/functions/hooks/_general_hooks.php:708
 msgid "Past Year"
 msgstr ""
 
@@ -8811,11 +8826,11 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:924
+#: includes/functions/hooks/_general_hooks.php:932
 msgid "Please enter search parameters."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1430
+#: includes/functions/_setup-shortcodes.php:1438
 msgid "Please enter your message."
 msgstr ""
 
@@ -8855,7 +8870,7 @@ msgid "Post relationship registry reset."
 msgstr ""
 
 #: includes/functions/settings/_settings_actions.php:1855
-#: includes/functions/hooks/_general_hooks.php:723
+#: includes/functions/hooks/_general_hooks.php:731
 msgid "Post Type"
 msgstr ""
 
@@ -9060,8 +9075,8 @@ msgstr ""
 msgid "Provided post ID is not a story ID."
 msgstr ""
 
-#: partials/_card-story.php:259 partials/_latest-stories.php:342
-#: partials/_story-footer.php:43 partials/_latest-stories-compact.php:355
+#: partials/_card-story.php:259 partials/_latest-stories.php:351
+#: partials/_story-footer.php:43 partials/_latest-stories-compact.php:364
 #: partials/_card-page.php:88 partials/_article-cards.php:303
 #: partials/_card-collection.php:214 partials/_card-post.php:112
 #: partials/_latest-chapters.php:350 partials/_card-chapter.php:256
@@ -9230,7 +9245,7 @@ msgstr ""
 #. Name of the template
 #: recommendations.php:2 recommendations.php:67 author.php:68
 #: single-fcn_recommendation.php:97
-#: includes/functions/hooks/_general_hooks.php:635
+#: includes/functions/hooks/_general_hooks.php:636
 msgid "Recommendations"
 msgstr ""
 
@@ -9478,7 +9493,7 @@ msgstr ""
 msgid "Reset Colors"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1042
+#: includes/functions/_setup-shortcodes.php:1050
 msgid "Reset Consent"
 msgstr ""
 
@@ -9876,7 +9891,7 @@ msgstr ""
 msgid "Select which tiers ignore the password."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1443
+#: includes/functions/_setup-shortcodes.php:1451
 msgid "Sending…"
 msgstr ""
 
@@ -10411,10 +10426,10 @@ msgctxt "Small card: by {Author} on."
 msgid "by %s on"
 msgstr ""
 
-#: partials/_latest-stories.php:276
+#: partials/_latest-stories.php:281
 #: partials/_latest-recommendations-compact.php:224
-#: partials/_latest-stories-compact.php:289 partials/_latest-updates.php:344
-#: partials/_latest-updates-compact.php:307
+#: partials/_latest-stories-compact.php:294 partials/_latest-updates.php:349
+#: partials/_latest-updates-compact.php:308
 #, php-format
 msgctxt "Small card: by {Author} —."
 msgid "by %s —"
@@ -10481,22 +10496,27 @@ msgid ""
 "depends on the browser and OS."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:650
+#: includes/functions/hooks/_general_hooks.php:662
+msgctxt "Sort and filter option."
+msgid "Comments"
+msgstr ""
+
+#: includes/functions/hooks/_general_hooks.php:651
 msgctxt "Sort and filter option."
 msgid "Published"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:654
+#: includes/functions/hooks/_general_hooks.php:655
 msgctxt "Sort and filter option."
 msgid "Title"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:646
+#: includes/functions/hooks/_general_hooks.php:647
 msgctxt "Sort and filter option."
 msgid "Updated"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:661
+#: includes/functions/hooks/_general_hooks.php:669
 msgctxt "Sort and filter option."
 msgid "Words"
 msgstr ""
@@ -10518,14 +10538,14 @@ msgid "Spam"
 msgstr ""
 
 #: partials/_showcase.php:122 partials/_latest-chapters-compact.php:139
-#: partials/_latest-stories.php:144
+#: partials/_latest-stories.php:145
 #: partials/_latest-recommendations-compact.php:118
-#: partials/_latest-stories-compact.php:143
-#: partials/_latest-updates-list.php:155
+#: partials/_latest-stories-compact.php:144
+#: partials/_latest-updates-list.php:156
 #: partials/_latest-recommendations.php:115 partials/_article-cards.php:143
-#: partials/_latest-chapters-list.php:144 partials/_latest-updates.php:158
-#: partials/_latest-stories-list.php:144
-#: partials/_latest-updates-compact.php:152 partials/_latest-chapters.php:144
+#: partials/_latest-chapters-list.php:144 partials/_latest-updates.php:159
+#: partials/_latest-stories-list.php:145
+#: partials/_latest-updates-compact.php:153 partials/_latest-chapters.php:144
 msgid "Splide JSON is invalid and has been ignored."
 msgstr ""
 
@@ -10542,8 +10562,8 @@ msgstr ""
 msgid "Standalone solution for publishing and reading web fictions."
 msgstr ""
 
-#: includes/functions/_module-search.php:51
-#: includes/functions/_module-search.php:130
+#: includes/functions/_module-search.php:52
+#: includes/functions/_module-search.php:131
 msgid "Start typing for suggestions…"
 msgstr ""
 
@@ -10585,7 +10605,7 @@ msgstr ""
 #: stories.php:114 author.php:38 author.php:137 single-fcn_chapter.php:217
 #: partials/_card-collection.php:207 partials/_collection-statistics.php:35
 #: includes/functions/_setup-types-and-terms.php:116
-#: includes/functions/hooks/_general_hooks.php:623
+#: includes/functions/hooks/_general_hooks.php:624
 #: includes/functions/hooks/_story_hooks.php:33
 msgid "Stories"
 msgstr ""
@@ -10941,7 +10961,7 @@ msgstr ""
 msgid "Subitem short date format"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1371
+#: includes/functions/_setup-shortcodes.php:1379
 #: includes/functions/settings/_settings_page_setup.php:142
 msgid "Submit"
 msgstr ""
@@ -11500,7 +11520,7 @@ msgctxt "Thumbnail link title"
 msgid "Link to %s"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:762
+#: includes/functions/hooks/_general_hooks.php:770
 msgid "Time Range"
 msgstr ""
 
@@ -11529,7 +11549,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/_helpers-templates.php:1400
-#: includes/functions/hooks/_general_hooks.php:773
+#: includes/functions/hooks/_general_hooks.php:781
 #: includes/functions/hooks/_story_hooks.php:346
 msgid "Toggle between ascending and descending order"
 msgstr ""
@@ -11543,8 +11563,8 @@ msgstr ""
 msgid "Toggle between list and grid view"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1072
-#: includes/functions/_setup-shortcodes.php:1204
+#: includes/functions/_setup-shortcodes.php:1080
+#: includes/functions/_setup-shortcodes.php:1212
 #: includes/functions/hooks/_story_hooks.php:553
 #, php-format
 msgid "Toggle chapter group: %s"
@@ -11603,7 +11623,7 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:2416
+#: includes/functions/_setup-shortcodes.php:2424
 msgctxt "Tooltip shortcode."
 msgid "Click to see note"
 msgstr ""
@@ -11612,9 +11632,9 @@ msgstr ""
 msgid "Top Web Fiction"
 msgstr ""
 
-#: partials/_card-story.php:255 partials/_latest-stories.php:333
-#: partials/_story-footer.php:47 partials/_latest-stories-compact.php:346
-#: partials/_card-collection.php:211 partials/_latest-updates.php:453
+#: partials/_card-story.php:255 partials/_latest-stories.php:338
+#: partials/_story-footer.php:47 partials/_latest-stories-compact.php:351
+#: partials/_card-collection.php:211 partials/_latest-updates.php:458
 msgid "Total Words"
 msgstr ""
 
@@ -11684,7 +11704,7 @@ msgctxt "Undefined recommendation author."
 msgid "Undefined"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:721
+#: includes/functions/hooks/_general_hooks.php:729
 msgid "Unknown"
 msgstr ""
 
@@ -12361,8 +12381,8 @@ msgctxt "Word count in chapter list."
 msgid "%s Words"
 msgstr ""
 
-#: partials/_latest-updates-list.php:287 partials/_latest-chapters-list.php:266
-#: partials/_latest-stories-list.php:245
+#: partials/_latest-updates-list.php:292 partials/_latest-chapters-list.php:266
+#: partials/_latest-stories-list.php:250
 #, php-format
 msgctxt "Word count in Latest * shortcode (type: list)."
 msgid "%s&nbsp;Words"
