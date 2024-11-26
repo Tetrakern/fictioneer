@@ -45,7 +45,8 @@ a:focus-visible img,
   box-shadow: var(--in-focus-box-shadow);
 }
 
-*:not(.checkmark):focus-visible {
+*:not(.checkmark, select):focus-visible,
+.user-is-tabbing select:focus-visible {
   color: var(--in-focus-color) !important;
 }
 
