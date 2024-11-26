@@ -39,6 +39,7 @@
  * @internal $args['footer_date']         Whether to show the story date. Default true.
  * @internal $args['footer_status']       Whether to show the story status. Default true.
  * @internal $args['footer_rating']       Whether to show the story age rating. Default true.
+ * @internal $args['footer_comments']     Whether to show the post comment count. Default false.
  * @internal $args['classes']             String of additional CSS classes. Default empty.
  * @internal $args['splide']              Configuration JSON for the Splide slider. Default empty.
  */
@@ -233,6 +234,10 @@ if ( $splide ) {
               $classes[] = '_no-footer-rating';
             }
 
+            if ( ! $args['footer_comments'] ) {
+              $card_classes[] = '_no-footer-comments';
+            }
+
             if ( $splide ) {
               $classes[] = 'splide__slide';
             }
@@ -244,6 +249,21 @@ if ( $splide ) {
               $meta['words'] = '<span class="post-item-item__meta-words">' . sprintf(
                 _x( '%s&nbsp;Words', 'Word count in Latest * shortcode (type: list).', 'fictioneer' ),
                 number_format_i18n( $story['word_count'] )
+              ) . '</span>';
+            }
+
+            if ( $args['footer_comments'] ) {
+              $comment_count = get_comments_number( $post );
+
+              $meta['comments'] = '<span class="post-item-item__meta-comments">' . sprintf(
+                _nx(
+                  '%1$s&nbsp;Comment',
+                  '%1$s&nbsp;Comments',
+                  $comment_count,
+                  'Comment count in Latest * shortcode (type: list).',
+                  'fictioneer'
+                ),
+                number_format_i18n( $comment_count )
               ) . '</span>';
             }
 
