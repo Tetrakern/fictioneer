@@ -22,6 +22,12 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     window.FictioneerApp.Controllers.fictioneerChapter = this;
   }
 
+  bodyClick({ detail: { target } }) {
+    if (this.lastToolsParagraph && !target.closest('.selected-paragraph')) {
+      this.closeTools();
+    }
+  }
+
   scrollDown() {
 
   }
@@ -60,7 +66,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
     // Close if same paragraph
     if (this.lastToolsParagraph === target) {
-      this.lastToolsParagraph = null;
+      this.closeTools();
       return;
     }
 
@@ -69,12 +75,17 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     target.classList.add('selected-paragraph');
     target.append(this.tools);
 
-    const innerText = Array.from(target.childNodes)
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent.trim())
-      .join(' ');
+    // const innerText = Array.from(target.childNodes)
+    //   .filter(node => node.nodeType === Node.TEXT_NODE)
+    //   .map(node => node.textContent.trim())
+    //   .join(' ');
 
-    console.log(innerText);
+    // console.log(innerText);
+  }
+
+  closeTools() {
+    this.lastToolsParagraph?.classList.remove('selected-paragraph');
+    this.lastToolsParagraph = null;
   }
 
   clickContent(event) {
@@ -152,43 +163,43 @@ var /** @type {String} */ fcn_bookmarkColor = 'none';
  * @param {HTMLElement} [value=null] - The clicked paragraph if any.
  */
 
-function fcn_toggleParagraphTools(id = false, target = null) {
-  if (
-    target &&
-    target.classList.contains('spoiler') &&
-    !target.classList.contains('_open')
-  ) {
-    return;
-  }
+// function fcn_toggleParagraphTools(id = false, target = null) {
+//   if (
+//     target &&
+//     target.classList.contains('spoiler') &&
+//     !target.classList.contains('_open')
+//   ) {
+//     return;
+//   }
 
-  // Always close last paragraph tools (if open)
-  _$$$(`paragraph-${fcn_lastSelectedParagraphId}`)?.classList.remove('selected-paragraph');
+//   // Always close last paragraph tools (if open)
+//   _$$$(`paragraph-${fcn_lastSelectedParagraphId}`)?.classList.remove('selected-paragraph');
 
-  // Open paragraph tools?
-  if (id && fcn_formatting['show-paragraph-tools']) {
-    fcn_lastSelectedParagraphId = id;
-    target.classList.add('selected-paragraph');
+//   // Open paragraph tools?
+//   if (id && fcn_formatting['show-paragraph-tools']) {
+//     fcn_lastSelectedParagraphId = id;
+//     target.classList.add('selected-paragraph');
 
-    // Wrap if necessary
-    if (!target.classList.contains('is-wrapped')) {
-      target.innerHTML = `<span class="paragraph-inner">${target.innerHTML}</span>`;
-      target.classList.add('is-wrapped');
-    }
+//     // Wrap if necessary
+//     if (!target.classList.contains('is-wrapped')) {
+//       target.innerHTML = `<span class="paragraph-inner">${target.innerHTML}</span>`;
+//       target.classList.add('is-wrapped');
+//     }
 
-    // Append tools to paragraph
-    target.append(fcn_paragraphTools);
-  } else {
-    // Close
-    fcn_lastSelectedParagraphId = null;
-  }
-}
+//     // Append tools to paragraph
+//     target.append(fcn_paragraphTools);
+//   } else {
+//     // Close
+//     fcn_lastSelectedParagraphId = null;
+//   }
+// }
 
 // Close on click outside selected paragraph (if not another paragraph)
-document.addEventListener('click', event => {
-  if (!fcn_paragraphTools?.closest('p')?.contains(event.target)) {
-    fcn_toggleParagraphTools(false);
-  }
-});
+// document.addEventListener('click', event => {
+//   if (!fcn_paragraphTools?.closest('p')?.contains(event.target)) {
+//     fcn_toggleParagraphTools(false);
+//   }
+// });
 
 /**
  * Analyzes clicks and tabs on paragraphs.
@@ -197,63 +208,63 @@ document.addEventListener('click', event => {
  * @param {Event} e - The event.
  */
 
-function fcn_touchParagraph(e) {
-  // Do not call paragraphs tools on spoilers, popup menus, actions, or escape class
-  if (
-    e.target.classList.contains('spoiler') ||
-    e.target.closest('.popup-menu-toggle, .skip-tools, a, button, label, input, textarea') ||
-    !e.target.closest('p')?.textContent.trim().length
-  ) {
-    return;
-  }
+// function fcn_touchParagraph(e) {
+//   // Do not call paragraphs tools on spoilers, popup menus, actions, or escape class
+//   if (
+//     e.target.classList.contains('spoiler') ||
+//     e.target.closest('.popup-menu-toggle, .skip-tools, a, button, label, input, textarea') ||
+//     !e.target.closest('p')?.textContent.trim().length
+//   ) {
+//     return;
+//   }
 
-  // Ignore nested paragraphs
-  if (!e.target.closest('p')?.parentElement?.classList.contains('chapter-formatting')) {
-    return;
-  }
+//   // Ignore nested paragraphs
+//   if (!e.target.closest('p')?.parentElement?.classList.contains('chapter-formatting')) {
+//     return;
+//   }
 
-  // Ignore paragraphs with special classes
-  if (e.target.closest('.hidden, .inside-epub')) {
-    return;
-  }
+//   // Ignore paragraphs with special classes
+//   if (e.target.closest('.hidden, .inside-epub')) {
+//     return;
+//   }
 
-  // Text selection in progress
-  if (window.getSelection().toString() != '') {
-    return;
-  }
+//   // Text selection in progress
+//   if (window.getSelection().toString() != '') {
+//     return;
+//   }
 
-  // Bubble up and search for valid paragraph (if click was on nested tag)
-  const target = e.target.closest('p[data-paragraph-id]');
+//   // Bubble up and search for valid paragraph (if click was on nested tag)
+//   const target = e.target.closest('p[data-paragraph-id]');
 
-  // Ignore clicks inside TTS and paragraph tools buttons
-  if (e.target.closest('.tts-interface, .paragraph-tools__actions')) {
-    return;
-  }
+//   // Ignore clicks inside TTS and paragraph tools buttons
+//   if (e.target.closest('.tts-interface, .paragraph-tools__actions')) {
+//     return;
+//   }
 
-  // Clicked anywhere except on a valid paragraph or TTS
-  if (!target) {
-    fcn_toggleParagraphTools(false);
-    return;
-  }
+//   // Clicked anywhere except on a valid paragraph or TTS
+//   if (!target) {
+//     fcn_toggleParagraphTools(false);
+//     return;
+//   }
 
-  // Clicked on valid paragraph; check if already selected before toggling
-  let id = target.dataset.paragraphId ? target.dataset.paragraphId : false;
-  id = id == fcn_lastSelectedParagraphId ? false : id;
+//   // Clicked on valid paragraph; check if already selected before toggling
+//   let id = target.dataset.paragraphId ? target.dataset.paragraphId : false;
+//   id = id == fcn_lastSelectedParagraphId ? false : id;
 
-  // Remember click start time
-  const startClick = new Date().getTime();
+//   // Remember click start time
+//   const startClick = new Date().getTime();
 
-  // Evaluate click...
-  target.addEventListener('mouseup', () => {
-    const endClick = new Date().getTime();
-    const long = startClick + 300;
+//   // Evaluate click...
+//   target.addEventListener('mouseup', () => {
+//     const endClick = new Date().getTime();
+//     const long = startClick + 300;
 
-    // Click was short, which probably means the user wants to toggle the tools
-    if (endClick <= long) {
-      fcn_toggleParagraphTools(id, target);
-    }
-  }, { once: true });
-}
+//     // Click was short, which probably means the user wants to toggle the tools
+//     if (endClick <= long) {
+//       fcn_toggleParagraphTools(id, target);
+//     }
+//   }, { once: true });
+// }
 
 /**
  * Clean text selection from paragraph tools buttons.
@@ -1390,6 +1401,7 @@ function fcn_readingProgress() {
     }
 
     // Mark chapter as read
+    console.log('progress check');
     fcn_toggleCheckmark(storyId, parseInt(document.body.dataset.postId), true);
   }
 }

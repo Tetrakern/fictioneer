@@ -170,7 +170,7 @@ function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
   const controller = window.FictioneerApp.Controllers.fictioneerCheckmarks;
 
   if (!controller) {
-    fcn_showNotification('Error: Controller not connected.', 3, 'warning');
+    fcn_showNotification('Error: Checkmarks Controller not connected.', 3, 'warning');
     return;
   }
 

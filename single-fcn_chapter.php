@@ -30,7 +30,7 @@ get_header(
   <div class="progress__bar"></div>
 </div>
 
-<main id="main" class="main chapter" data-controller="fictioneer-chapter" data-fictioneer-chapter-id-value="<?php echo $post_id; ?>">
+<main id="main" class="main chapter" data-controller="fictioneer-chapter" data-fictioneer-chapter-id-value="<?php echo $post_id; ?>" data-action="fictioneer:bodyClick@window->fictioneer-chapter#bodyClick">
 
   <?php do_action( 'fictioneer_main', 'chapter' ); ?>
 

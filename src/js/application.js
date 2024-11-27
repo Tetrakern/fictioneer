@@ -411,6 +411,8 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   bodyClick(event) {
+    this.dispatch('bodyClick', { detail: { event: event, target: event.target } });
+
     let target;
 
     // Pagination jump

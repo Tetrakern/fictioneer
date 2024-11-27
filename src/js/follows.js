@@ -243,7 +243,7 @@ function fcn_toggleFollow(storyId, set = null) {
   const controller = window.FictioneerApp.Controllers.fictioneerFollows;
 
   if (!controller) {
-    fcn_showNotification('Error: Controller not connected.', 3, 'warning');
+    fcn_showNotification('Error: Follows Controller not connected.', 3, 'warning');
     return;
   }
 

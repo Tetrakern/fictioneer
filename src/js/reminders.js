@@ -138,7 +138,7 @@ function fcn_toggleReminder(storyId, set = null) {
   const controller = window.FictioneerApp.Controllers.fictioneerReminders;
 
   if (!controller) {
-    fcn_showNotification('Error: Controller not connected.', 3, 'warning');
+    fcn_showNotification('Error: Reminders Controller not connected.', 3, 'warning');
     return;
   }
 
