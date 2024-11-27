@@ -17,32 +17,37 @@ html:is(:root) {
   display: none !important;
 }
 
-*:not(input, textarea, select, .wp-block-file a, .button-unset-oauth):focus-visible,
+*:not(input, textarea, select, .wp-block-file a, .button-unset-oauth, .toggle):focus-visible,
 input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visible,
 .user-is-tabbing select:focus-visible,
-.button:focus-visible,
 .oauth-login-link button:focus-visible,
-.story__thumbnail a:focus-visible img,
 .user-is-tabbing .showcase li:focus-within,
-.comment-respond-option-toggle:focus-visible {
-  outline: var(--in-focus-outline);
-  outline-offset: var(--focus-offset, 0);
+.custom-skin._upload:focus-within,
+:is(.button, .comment-respond-option-toggle):focus-visible,
+.wp-block-file:focus-within a:focus-visible {
+  outline-offset: var(--in-focus-outline-offset, 0px);
+  outline: var(--in-focus-outline) !important;
+  background: var(--in-focus-background) !important;
+  box-shadow: var(--in-focus-box-shadow);
 }
 
-// Split off for browsers without support
-@supports selector(:has(:focus-visible)) {
-  .wp-block-file:has(a:focus-visible),
-  .card__link-list li:has(a:focus-visible),
-  .oauth-login-link:has(:focus-visible),
-  .follow-item:has(:focus-visible)  {
-    outline: var(--in-focus-outline);
-    outline-offset: var(--focus-offset, 0);
-  }
+input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visible,
+:is(select, button, .oauth-login-link):not(.toggle):focus-visible,
+.custom-skin._upload:focus-within,
+.wp-block-file:focus-within a {
+  box-shadow: var(--in-focus-box-shadow-override, none) !important;
+}
 
-  // Prevent double outline
-  .oauth-login-link button:focus-visible {
-    outline: none;
-  }
+a:focus-visible img,
+.toggle:focus-visible {
+  outline-offset: var(--in-focus-outline-offset, 0px);
+  outline: var(--in-focus-outline) !important;
+  box-shadow: var(--in-focus-box-shadow);
+}
+
+*:not(.checkmark, select):focus-visible,
+.user-is-tabbing select:focus-visible {
+  color: var(--in-focus-color) !important;
 }
 
 body:not(.user-is-tabbing) :is(.modal__close, .dialog-modal__close) {
@@ -70,7 +75,6 @@ body {
 
 main {
   img {
-    --focus-offset: 2px;
     max-width: 100%;
     max-height: 100%;
   }

@@ -605,7 +605,6 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 // =============================================================================
 
 .wp-block-file:where(:not(.no-theme-style)) {
-  --focus-offset: 2px;
   display: flex;
   gap: 0 1px;
   flex-direction: row-reverse;
@@ -622,12 +621,6 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
     .wp-block-file__embed {
       flex: 1 1 100%;
       margin-bottom: 1rem;
-    }
-  }
-
-  &:focus-within {
-    a:focus-visible {
-      outline: none;
     }
   }
 

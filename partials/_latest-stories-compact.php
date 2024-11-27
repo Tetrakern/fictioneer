@@ -9,37 +9,38 @@
  * @since 4.0.0
  * @see fictioneer_clause_sticky_stories()
  *
- * @internal $args['uid']               Unique ID of the shortcode. Pattern: shortcode-id-{id}.
- * @internal $args['type']              Type argument passed from shortcode ('compact').
- * @internal $args['count']             Number of posts provided by the shortcode.
- * @internal $args['author']            Author provided by the shortcode.
- * @internal $args['order']             Order of posts. Default 'DESC'.
- * @internal $args['orderby']           Sorting of posts. Default 'date'.
- * @internal $args['post_ids']          Array of post IDs. Default empty.
- * @internal $args['author_ids']        Array of author IDs. Default empty.
- * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
- * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
- * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
- * @internal $args['only_protected']    Whether to query only protected posts. Default false.
- * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
- * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['source']            Whether to show the author. Default true.
- * @internal $args['vertical']          Whether to show the vertical variant.
- * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
- * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
- * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
- * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
- * @internal $args['classes']           String of additional CSS classes. Default empty.
- * @internal $args['infobox']           Whether to show the info box and toggle. Default true.
- * @internal $args['terms']             Either inline, pills, none, or false. Default inline.
- * @internal $args['max_terms']         Maximum number of shown taxonomies. Default 10.
- * @internal $args['footer_chapters']   Whether to show the chapter count. Default true.
- * @internal $args['footer_words']      Whether to show the word count. Default true.
- * @internal $args['footer_date']       Whether to show the date. Default true.
- * @internal $args['footer_status']     Whether to show the status. Default true.
- * @internal $args['footer_rating']     Whether to show the age rating. Default true.
- * @internal $args['splide']            Configuration JSON for the Splide slider. Default empty.
+ * @internal $args['uid']                 Unique ID of the shortcode. Pattern: shortcode-id-{id}.
+ * @internal $args['type']                Type argument passed from shortcode ('compact').
+ * @internal $args['count']               Number of posts provided by the shortcode.
+ * @internal $args['author']              Author provided by the shortcode.
+ * @internal $args['order']               Order of posts. Default 'DESC'.
+ * @internal $args['orderby']             Sorting of posts. Default 'date'.
+ * @internal $args['post_ids']            Array of post IDs. Default empty.
+ * @internal $args['author_ids']          Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
+ * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']       Array of tag IDs to exclude. Default empty.
+ * @internal $args['ignore_protected']    Whether to ignore protected posts. Default false.
+ * @internal $args['only_protected']      Whether to query only protected posts. Default false.
+ * @internal $args['taxonomies']          Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']            Relationship between taxonomies.
+ * @internal $args['source']              Whether to show the author. Default true.
+ * @internal $args['vertical']            Whether to show the vertical variant.
+ * @internal $args['seamless']            Whether to render the image seamless. Default false (Customizer).
+ * @internal $args['aspect_ratio']        Aspect ratio for the image. Only with vertical.
+ * @internal $args['lightbox']            Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']           Whether the image is rendered. Default true (Customizer).
+ * @internal $args['classes']             String of additional CSS classes. Default empty.
+ * @internal $args['infobox']             Whether to show the info box and toggle. Default true.
+ * @internal $args['terms']               Either inline, pills, none, or false. Default inline.
+ * @internal $args['max_terms']           Maximum number of shown taxonomies. Default 10.
+ * @internal $args['footer_chapters']     Whether to show the chapter count. Default true.
+ * @internal $args['footer_words']        Whether to show the word count. Default true.
+ * @internal $args['footer_date']         Whether to show the date. Default true.
+ * @internal $args['footer_status']       Whether to show the status. Default true.
+ * @internal $args['footer_rating']       Whether to show the age rating. Default true.
+ * @internal $args['footer_comments']     Whether to show the post comment count. Default false.
+ * @internal $args['splide']              Configuration JSON for the Splide slider. Default empty.
  */
 
 
@@ -223,6 +224,10 @@ if ( $splide ) {
               $card_classes[] = '_no-footer-rating';
             }
 
+            if ( ! $args['footer_comments'] ) {
+              $card_classes[] = '_no-footer-comments';
+            }
+
             if ( $splide ) {
               $card_classes[] = 'splide__slide';
             }
@@ -344,6 +349,10 @@ if ( $splide ) {
 
                         if ( $args['footer_words'] && ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) ) {
                           $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
+                        }
+
+                        if ( $args['footer_comments'] ) {
+                          $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post ) . '</span>';
                         }
 
                         if ( $args['footer_date'] ) {

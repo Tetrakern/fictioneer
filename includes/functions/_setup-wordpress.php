@@ -304,6 +304,60 @@ function fictioneer_extend_taxonomy_pages( $query ) {
 add_action( 'pre_get_posts', 'fictioneer_extend_taxonomy_pages' );
 
 // =============================================================================
+// TAX CLOUDS
+// =============================================================================
+
+/**
+ * Re-queries the term counts for the tax cloud
+ *
+ * @since 5.26.1
+ * @link https://developer.wordpress.org/reference/hooks/get_terms/
+ *
+ * @param array      $terms       Array of found terms.
+ * @param array|null $taxonomies  An array of taxonomies if known.
+ *
+ * @return array Array of found terms with modified counts.
+ */
+
+function fictioneer_exclude_non_stories_from_cloud_counts( $terms, $taxonomies ) {
+  if ( ! is_tax() || is_admin() || empty( $terms ) || empty( $taxonomies ) ) {
+    return $terms;
+  }
+
+  global $wpdb;
+
+  $supported_taxonomies = ['fcn_genre', 'fcn_fandom', 'fcn_character', 'fcn_content_warning', 'post_tag', 'category'];
+  $matched_taxonomies = array_intersect( $supported_taxonomies, $taxonomies );
+
+  if ( ! empty( $matched_taxonomies ) ) {
+    foreach ( $terms as &$term ) {
+      $term_ids = get_term_children( $term->term_id, $term->taxonomy );
+      $term_ids[] = $term->term_id;
+
+      $count = $wpdb->get_var(
+        $wpdb->prepare(
+          "SELECT COUNT(*)
+            FROM {$wpdb->term_relationships} AS tr
+            INNER JOIN {$wpdb->posts} AS p ON p.ID = tr.object_id
+            WHERE p.post_status = 'publish'
+            AND p.post_type = 'fcn_story'
+            AND tr.term_taxonomy_id IN (" . implode( ',', array_fill( 0, count( $term_ids ), '%d' ) ) . ")",
+          $term_ids
+        )
+      );
+
+      $term->count = $count;
+    }
+  }
+
+  return $terms;
+}
+
+if ( get_option( 'fictioneer_exclude_non_stories_from_cloud_counts' ) ) {
+  add_filter( 'get_terms', 'fictioneer_exclude_non_stories_from_cloud_counts', 10, 3 );
+}
+
+// =============================================================================
 // MODIFY RSS FEEDS
 // =============================================================================
 

@@ -347,6 +347,7 @@ if ( $show_advanced ) {
             <option value="date" <?php echo $orderby == 'date' ? 'selected' : ''; ?>><?php _ex( 'Published', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="modified" <?php echo $orderby == 'modified' ? 'selected' : ''; ?>><?php _ex( 'Updated', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="title" <?php echo $orderby == 'title' ? 'selected' : ''; ?>><?php _ex( 'Title', 'Advanced search option.', 'fictioneer' ); ?></option>
+            <option value="comment_count" <?php echo $orderby == 'comment_count' ? 'selected' : ''; ?>><?php _ex( 'Comments', 'Advanced search option.', 'fictioneer' ); ?></option>
           </select>
         </div>
 
