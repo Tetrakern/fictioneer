@@ -413,8 +413,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_exclude_non_stories_from_cloud_counts',
-                    __( 'Exclude non-stories from taxonomy cloud counts', 'fictioneer' ),
-                    __( 'Taxonomy pages will still show and count all posts.', 'fictioneer' )
+                    __( 'Only count stories in taxonomy clouds', 'fictioneer' ),
+                    __( 'Taxonomy pages still list all posts in the results.', 'fictioneer' )
                   );
                 ?>
               </div>

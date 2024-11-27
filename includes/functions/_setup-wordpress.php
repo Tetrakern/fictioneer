@@ -319,8 +319,14 @@ add_action( 'pre_get_posts', 'fictioneer_extend_taxonomy_pages' );
  * @return array Array of found terms with modified counts.
  */
 
-function fictioneer_exclude_non_stories_from_cloud_counts( $terms, $taxonomies ) {
-  if ( ! is_tax() || is_admin() || empty( $terms ) || empty( $taxonomies ) ) {
+function fictioneer_exclude_non_stories_from_cloud_counts( $terms, $taxonomies, $args ) {
+  if (
+    ! ( is_tax() || is_tag() || is_category() ) ||
+    is_admin() ||
+    empty( $terms ) ||
+    empty( $taxonomies ) ||
+    ( $args['fictioneer_query_name'] ?? 0 ) !== 'tag_cloud'
+  ) {
     return $terms;
   }
 
@@ -331,7 +337,12 @@ function fictioneer_exclude_non_stories_from_cloud_counts( $terms, $taxonomies )
 
   if ( ! empty( $matched_taxonomies ) ) {
     foreach ( $terms as &$term ) {
-      $term_ids = get_term_children( $term->term_id, $term->taxonomy );
+      $term_ids = [];
+
+      if ( $args['pad_counts'] ?? 0 ) {
+        $term_ids = get_term_children( $term->term_id, $term->taxonomy );
+      }
+
       $term_ids[] = $term->term_id;
 
       $count = $wpdb->get_var(

@@ -64,6 +64,7 @@ get_header();
           <?php
             wp_tag_cloud(
               array(
+                'fictioneer_query_name' => 'tag_cloud',
                 'smallest' => .625,
                 'largest' => 1.25,
                 'unit' => 'rem',
