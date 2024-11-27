@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 01:08+0000\n"
+"POT-Creation-Date: 2024-11-27 20:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -6020,10 +6020,6 @@ msgstr ""
 msgid "Error: Insufficient permissions."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:416
-msgid "Exclude non-stories from taxonomy cloud counts"
-msgstr ""
-
 #: searchform.php:257
 #, php-format
 msgctxt "Excluded Advanced search summary."
@@ -8311,6 +8307,10 @@ msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3093
 msgid "Only applied to the page."
+msgstr ""
+
+#: includes/functions/settings/_settings_page_general.php:416
+msgid "Only count stories in taxonomy clouds"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:1463
@@ -11172,7 +11172,7 @@ msgid "(%s)"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:417
-msgid "Taxonomy pages will still show and count all posts."
+msgid "Taxonomy pages still list all posts in the results."
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:558
