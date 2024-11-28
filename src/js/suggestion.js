@@ -267,9 +267,3 @@ class FCN_Suggestion {
 
 const fcn_suggestions = _$('.chapter__article') && _$('.comment-section') && _$$$('selection-tools') ?
   new FCN_Suggestion() : null;
-
-if (fcn_suggestions) {
-  document.addEventListener('click', function(event) {
-    if (!event.target.closest('.content-section')) fcn_suggestions.hideTools();
-  });
-}

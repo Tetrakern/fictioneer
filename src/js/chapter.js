@@ -193,10 +193,6 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     this.#appendToComment(`\n[quote]${quote} ${anchor}[/quote]\n`);
   }
 
-  suggest(event) {
-
-  }
-
   toggleBookmark({ target }) {
     fcn_toggleBookmark(
       target.closest('p[data-paragraph-id]').dataset.paragraphId,
