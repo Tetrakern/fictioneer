@@ -4,18 +4,26 @@
 
 application.register('fictioneer-chapter', class extends Stimulus.Controller {
   static get targets() {
-    return ['bookmarkScroll', 'contentWrapper', 'index']
+    return ['bookmarkScroll', 'contentWrapper', 'index', 'content']
   }
 
   static values = {
-    id: Number
+    chapterId: Number,
+    storyId: Number
   }
 
   startClick = 0;
   lastToolsParagraph = null;
-  tools = document.getElementById('paragraph-tools');
+  tools = _$$$('paragraph-tools');
+  progressBar = _$('.progress__bar');
+  hasPassword = !!_$('article._password');
+  checkmarkUpdated = false;
 
   initialize() {
+    if (this.progressBar && this.hasContentTarget && !this.hasPassword) {
+      this.trackProgress();
+      window.addEventListener('scroll.rAF', FcnUtils.throttle(this.trackProgress.bind(this), 1000 / 48));
+    }
   }
 
   connect() {
@@ -24,7 +32,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     // Mark current chapter in index
     if (this.hasIndexTarget) {
       this.indexTargets.forEach(element => {
-        element.querySelector(`[data-id="${this.idValue}"]`)?.classList.add('current');
+        element.querySelector(`[data-id="${this.chapterIdValue}"]`)?.classList.add('current');
       });
     }
   }
@@ -223,6 +231,45 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     wrapper.dataset.order = wrapper.dataset.order === 'asc' ? 'desc' : 'asc';
   }
 
+  trackProgress() {
+    // Abort if...
+    if (
+      !this.progressBar || !this.hasContentTarget || this.hasPassword ||
+      fcn_settingMinimal.checked || !fcn_settingChapterProgressBar.checked
+    ) {
+      return;
+    }
+
+    // Calculate progress
+    const rect = this.contentTarget.getBoundingClientRect();
+    const height = rect.height;
+    const w = (height - rect.bottom - Math.max(rect.top, 0) + window.innerHeight);
+
+    let p = 100 * w / height;
+
+    // Show progress bar depending on progress
+    document.body.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
+
+    // Clamp percent between 0 and 100
+    p = FcnUtils.clamp(0, 100, p);
+
+    // Apply the percentage to the bar fill
+    this.progressBar.style.width = `${p}%`;
+
+    // If end of chapter has been reached and the user is logged in...
+    if (!this.checkmarkUpdated && !!this.storyIdValue && p >= 100 && FcnUtils.loggedIn()) {
+      this.checkmarkUpdated = true;
+
+      // Make sure necessary data is available
+      if (!this.chapterIdValue || typeof fcn_toggleCheckmark !== 'function') {
+        return;
+      }
+
+      // Mark chapter as read
+      fcn_toggleCheckmark(this.storyIdValue, this.chapterIdValue, true);
+    }
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================
@@ -269,111 +316,6 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     return true;
   }
 });
-
-
-
-
-
-
-
-
-
-
-// =============================================================================
-// READING PROGRESS BAR
-// =============================================================================
-
-const /** @const {HTMLElement} */ fcn_progressBar = _$('.progress__bar');
-const /** @const {HTMLElement} */ fcn_chapterContent = _$$$('chapter-content');
-
-var /** @type {Boolean} */ fcn_chapterCheckmarkUpdated = false;
-
-// Initialize
-if (_$('article:not(._password)')) {
-  fcn_trackProgress();
-}
-
-/**
- * Checks whether this is a chapter, then adds a throttled event listener to a
- * custom scroll event that is tied to request animation frame.
- *
- * @since 4.0.0
- */
-
-function fcn_trackProgress() {
-  if (!fcn_chapterContent) {
-    return;
-  }
-
-  fcn_readingProgress();
-  window.addEventListener('scroll.rAF', FcnUtils.throttle(fcn_readingProgress, 1000 / 48));
-}
-
-/**
- * Calculates the approximate reading progress based on the scroll offset of the
- * chapter and visualizes that information as filling bar at the top. If the end
- * of the chapter is reached, the chapter is marked as read for logged-in users.
- *
- * @since 4.0.0
- */
-
-function fcn_readingProgress() {
-  // Do nothing if minimal is enabled or the progress bar disabled
-  if (fcn_settingMinimal.checked || !fcn_settingChapterProgressBar.checked) {
-    return;
-  }
-
-  // Setup
-  const rect = fcn_chapterContent.getBoundingClientRect();
-  const height = rect.height;
-  const viewPortHeight = window.innerHeight;
-  const w = (height - rect.bottom - Math.max(rect.top, 0) + viewPortHeight);
-
-  let p = 100 * w / height;
-
-  // Show progress bar depending on progress
-  document.body.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
-
-  // Clamp percent between 0 and 100
-  p = FcnUtils.clamp(0, 100, p);
-
-  // Apply the percentage to the bar fill
-  fcn_progressBar.style.width = `${p}%`;
-
-  // If end of chapter has been reached and the user is logged in...
-  if (p >= 100 && !fcn_chapterCheckmarkUpdated && FcnUtils.loggedIn()) {
-    const storyId = document.body.dataset.storyId;
-
-    // Only do this once per page load
-    fcn_chapterCheckmarkUpdated = true;
-
-    // Make sure necessary data is available
-    if (!storyId || typeof fcn_toggleCheckmark !== 'function') {
-      return;
-    }
-
-    // Mark chapter as read
-    console.log('progress check');
-    fcn_toggleCheckmark(storyId, parseInt(document.body.dataset.postId), true);
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // =============================================================================
 // KEYBOARD NAVIGATION

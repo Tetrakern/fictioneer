@@ -14,6 +14,7 @@
 // Setup
 $password_required = post_password_required();
 $post_id = get_the_ID();
+$story_id = fictioneer_get_chapter_story_id( $post_id );
 
 // Header
 get_header(
@@ -30,7 +31,7 @@ get_header(
   <div class="progress__bar"></div>
 </div>
 
-<main id="main" class="main chapter" data-controller="fictioneer-chapter" data-fictioneer-chapter-id-value="<?php echo $post_id; ?>" data-action="fictioneer:bodyClick@window->fictioneer-chapter#clickOutside">
+<main id="main" class="main chapter" data-controller="fictioneer-chapter" data-fictioneer-chapter-chapter-id-value="<?php echo $post_id; ?>" data-fictioneer-chapter-story-id-value="<?php echo $story_id; ?>" data-action="fictioneer:bodyClick@window->fictioneer-chapter#clickOutside">
 
   <?php do_action( 'fictioneer_main', 'chapter' ); ?>
 
@@ -49,7 +50,6 @@ get_header(
         $age_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
         $this_breadcrumb = [ $title, get_the_permalink() ];
 
-        $story_id = fictioneer_get_chapter_story_id( $post_id );
         $story_data = null;
         $story_post = null;
 
@@ -152,7 +152,7 @@ get_header(
           }
         ?>
 
-        <section id="chapter-content" class="chapter__content content-section"><?php
+        <section id="chapter-content" class="chapter__content content-section" data-fictioneer-chapter-target="content"><?php
           if ( $password_required && $password_note ) {
             echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
           }
