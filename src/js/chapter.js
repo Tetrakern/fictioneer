@@ -139,8 +139,8 @@ function fcn_getQuote(e) {
   const anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
 
   let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerText;
-  let pre = '[…] ';
-  let suf = ' […]';
+  let pre = fictioneer_tl.partial.quoteFragmentPrefix;
+  let suf = fictioneer_tl.partial.quoteFragmentSuffix;
 
   // Build from text selection and add ellipsis if necessary
   if (quote.length > 16 && selection.replace(/\s/g, '').length) {

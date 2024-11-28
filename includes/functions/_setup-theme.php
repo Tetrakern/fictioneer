@@ -2020,6 +2020,10 @@ function fictioneer_get_js_translations() {
       'oauthAccountAlreadyLinked' => __( 'Account already linked to another profile.', 'fictioneer' ),
       'oauthNew' => __( 'Your account has been successfully linked. <strong>Hint:</strong> You can change your display name in your profile and link additional accounts.', 'fictioneer' ),
       'oauthAccountLinked' => __( 'Account has been successfully linked.', 'fictioneer' )
+    ),
+    'partial' => array(
+      'quoteFragmentPrefix' => _x( '[…] ', 'Prefix for partial quotes', 'fictioneer' ),
+      'quoteFragmentSuffix' => _x( ' […]', 'Suffix for partial quotes', 'fictioneer' )
     )
   );
 }
