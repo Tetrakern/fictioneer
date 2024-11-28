@@ -256,18 +256,21 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
  * Make sure local storage is cleared on logout
  *
  * @since 5.0.0
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  */
 
 function fictioneer_after_logout_cleanup() {
-  // Start HTML ---> ?>
-  <script>
-    localStorage.removeItem('fcnProfileAvatar');
-    localStorage.removeItem('fcnUserData');
-    localStorage.removeItem('fcnAuth');
-    localStorage.removeItem('fcnBookshelfContent');
-    localStorage.removeItem('fcnChapterBookmarks');
-  </script>
-  <?php // <--- End HTML
+  wp_print_inline_script_tag(
+    'localStorage.removeItem("fcnProfileAvatar"); localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnAuth"); localStorage.removeItem("fcnBookshelfContent"); localStorage.removeItem("fcnChapterBookmarks");',
+    array(
+      'id' => 'fictioneer-logout-cleanup',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1',
+    )
+  );
 }
 add_action( 'login_form', 'fictioneer_after_logout_cleanup' );
 

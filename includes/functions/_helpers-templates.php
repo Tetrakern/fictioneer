@@ -2804,7 +2804,21 @@ function fictioneer_render_skin_interface() {
     <div class="custom-skin-list" data-css-skin-target="list"></div>
 
     <div class="custom-skin _upload" data-css-skin-target="form">
-      <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">var fcn_skinTranslations = <?php echo json_encode( fictioneer_get_skin_translations() ); ?>;</script>
+      <?php
+
+        wp_print_inline_script_tag(
+          'var fcn_skinTranslations = ' . json_encode( fictioneer_get_skin_translations() ) . ';',
+          array(
+            'id' => 'fictioneer-skin-translations',
+            'type' => 'text/javascript',
+            'data-jetpack-boost' => 'ignore',
+            'data-no-optimize' => '1',
+            'data-no-defer' => '1',
+            'data-no-minify' => '1',
+          )
+        );
+
+      ?>
       <input type="file" name="css-file" accept=".css" data-css-skin-target="file">
       <i class="fa-solid fa-plus"></i>
     </div>

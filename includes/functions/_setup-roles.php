@@ -1282,6 +1282,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Hide subscriber profile blocks in admin panel
    *
    * @since 5.6.0
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
    */
 
   function fictioneer_remove_profile_blocks() {
@@ -1290,9 +1291,17 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
     // Remove password options
     if ( ! get_option( 'fictioneer_show_wp_login_link' ) ) {
-      echo '<style type="text/css">.user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap { display: none; }</style>';
-
-      echo '<script>document.addEventListener("DOMContentLoaded", () => {document.querySelectorAll(".user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap").forEach(element => {element.remove();});});</script>';
+      wp_print_inline_script_tag(
+        'document.addEventListener("DOMContentLoaded", () => {document.querySelectorAll(".user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap").forEach(element => {element.remove();});});',
+        array(
+          'id' => 'fictioneer-iife-remove-admin-profile-blocks',
+          'type' => 'text/javascript',
+          'data-jetpack-boost' => 'ignore',
+          'data-no-optimize' => '1',
+          'data-no-defer' => '1',
+          'data-no-minify' => '1'
+        )
+      );
     }
   }
 
@@ -1511,10 +1520,22 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Hide the permalink field with JS
    *
    * @since 5.6.2
+   * @since 5.26.1 - Use wp_print_inline_script_tag().
+   *
    */
 
   function fictioneer_hide_permalink_with_js() {
-    echo '<script type="text/javascript">document.querySelectorAll("#edit-slug-buttons").forEach(element => {element.remove();});</script>';
+    wp_print_inline_script_tag(
+      'document.querySelectorAll("#edit-slug-buttons").forEach(element => {element.remove();});',
+      array(
+        'id' => 'fictioneer-iife-hide-permalink-in-editor',
+        'type' => 'text/javascript',
+        'data-jetpack-boost' => 'ignore',
+        'data-no-optimize' => '1',
+        'data-no-defer' => '1',
+        'data-no-minify' => '1'
+      )
+    );
   }
 
   if ( ! current_user_can( 'fcn_edit_permalink' ) ) {
@@ -1577,10 +1598,21 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Inject javascript for the classic editor
    *
    * @since 5.6.2
+   * @since 5.26.1 - Use wp_print_inline_script_tag().
    */
 
   function fictioneer_classic_editor_js_restrictions() {
-    echo '<script type="text/javascript">document.querySelectorAll(".selectit[for=ping_status], #add-new-comment").forEach(element => {element.remove();});</script>';
+    wp_print_inline_script_tag(
+      'document.querySelectorAll(".selectit[for=ping_status], #add-new-comment").forEach(element => {element.remove();});',
+      array(
+        'id' => 'fictioneer-iife-classic-editor-restrictions',
+        'type' => 'text/javascript',
+        'data-jetpack-boost' => 'ignore',
+        'data-no-optimize' => '1',
+        'data-no-defer' => '1',
+        'data-no-minify' => '1'
+      )
+    );
   }
 
   /**

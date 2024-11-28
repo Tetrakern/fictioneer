@@ -261,6 +261,11 @@
     border-radius: var(--this-border-radius);
     overflow: hidden;
 
+    &:focus-visible {
+      box-shadow: var(--in-focus-box-shadow);
+      outline: var(--in-focus-outline);
+    }
+
     img {
       position: absolute;
       display: block;

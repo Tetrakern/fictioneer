@@ -28,30 +28,30 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
   outline-offset: var(--in-focus-outline-offset, 0px);
   outline: var(--in-focus-outline) !important;
   background: var(--in-focus-background) !important;
-  box-shadow: var(--in-focus-box-shadow);
-}
-
-input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visible,
-:is(select, button, .oauth-login-link):not(.toggle):focus-visible,
-.custom-skin._upload:focus-within,
-.wp-block-file:focus-within a {
-  box-shadow: var(--in-focus-box-shadow-override, none) !important;
 }
 
 a:focus-visible img,
+.wp-block-image img[data-lightbox]:focus-visible,
 .toggle:focus-visible {
   outline-offset: var(--in-focus-outline-offset, 0px);
   outline: var(--in-focus-outline) !important;
   box-shadow: var(--in-focus-box-shadow);
 }
 
-*:not(.checkmark, select):focus-visible,
+.user-is-tabbing *:not(.checkmark, select, input, textarea):focus-visible,
 .user-is-tabbing select:focus-visible {
   color: var(--in-focus-color) !important;
 }
 
 body:not(.user-is-tabbing) :is(.modal__close, .dialog-modal__close) {
   outline: none;
+}
+
+#wpadminbar {
+  --in-focus-background: #2c3338;
+  --in-focus-color: #72aee6;
+  --in-focus-box-shadow: none;
+  --in-focus-outline: none;
 }
 
 body {
