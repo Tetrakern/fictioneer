@@ -185,8 +185,15 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
   }
 
-  toggleBookmark(event) {
-    console.log('foo');
+  toggleBookmark({ target }) {
+    fcn_toggleBookmark(
+      target.closest('p[data-paragraph-id]').dataset.paragraphId,
+      target.closest('[data-color]')?.dataset.color ?? 'default'
+    );
+
+    if (window.matchMedia('(min-width: 1024px)').matches) {
+      this.closeTools();
+    }
   }
 
   /**
@@ -257,37 +264,6 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
 
 
-
-// if (fcn_paragraphTools) {
-
-
-
-//   // Listen for click on paragraph tools bookmark color button
-//   _$$('.paragraph-tools__bookmark-colors > div').forEach(element => {
-//     element.onclick = (e) => {
-//       fcn_bookmarkColor = e.target.dataset.color;
-//     }
-//   });
-
-//   // Listen for click on paragraph tools bookmark button
-//   _$$$('button-set-bookmark')?.addEventListener(
-//     'click',
-//     (e) => {
-//       fcn_toggleBookmark(
-//         e.target.closest('p[data-paragraph-id]').dataset.paragraphId,
-//         fcn_bookmarkColor
-//       );
-
-//       // Close paragraph tools on desktop after adding bookmark
-//       if (window.matchMedia('(min-width: 1024px)').matches) {
-//         fcn_toggleParagraphTools(false);
-//       }
-
-//       // Reset bookmark color
-//       fcn_bookmarkColor = 'none';
-//     }
-//   );
-// }
 
 
 
@@ -382,7 +358,6 @@ var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
 
 
 var /** @type {Number} */ fcn_lastSelectedParagraphId; // Used by suggestions
-var /** @type {String} */ fcn_bookmarkColor = 'none';
 
 
 
