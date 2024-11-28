@@ -102,7 +102,8 @@ class FCN_Suggestion {
   }
 
   textSelection() {
-    return fcn_cleanTextSelectionFromButtons(window.getSelection().toString());
+    // return fcn_cleanTextSelectionFromButtons(window.getSelection().toString());
+    return window.getSelection().toString();
   }
 
   clearSelection() {

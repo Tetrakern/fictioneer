@@ -714,7 +714,7 @@ function fictioneer_chapter_paragraph_tools() {
   <div id="paragraph-tools" class="paragraph-tools" data-fictioneer-chapter-target="tools" data-nosnippet>
     <div class="paragraph-tools__actions">
       <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
-        <button id="button-set-bookmark" type="button" class="button">
+        <button id="button-set-bookmark" type="button" class="button" data-action="click->fictioneer-chapter#toggleBookmark">
           <i class="fa-solid fa-bookmark"></i>
           <span><?php _ex( 'Bookmark', 'Paragraph tools bookmark button', 'fictioneer' ); ?></span>
           <div class="paragraph-tools__bookmark-colors">
@@ -726,13 +726,13 @@ function fictioneer_chapter_paragraph_tools() {
         </button>
       <?php endif; ?>
       <?php if ( $can_comment ) : ?>
-        <button id="button-comment-stack" type="button" class="button <?php echo $hide_if_logged_out ?>">
+        <button id="button-comment-stack" type="button" class="button <?php echo $hide_if_logged_out ?>" data-action="click->fictioneer-chapter#quote">
           <i class="fa-solid fa-quote-right"></i>
           <span><?php _ex( 'Quote', 'Paragraph tools quote button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
       <?php if ( $can_comment && get_option( 'fictioneer_enable_suggestions' ) ) : ?>
-        <button id="button-tools-add-suggestion" type="button" class="button <?php echo $hide_if_logged_out ?>">
+        <button id="button-tools-add-suggestion" type="button" class="button <?php echo $hide_if_logged_out ?>" data-action="click->fictioneer-chapter#suggest">
           <i class="fa-solid fa-highlighter"></i>
           <span class="hide-below-480"><?php _ex( 'Suggestion', 'Paragraph tools suggestion button', 'fictioneer' ); ?></span>
         </button>
@@ -743,11 +743,11 @@ function fictioneer_chapter_paragraph_tools() {
           <span class="hide-below-480"><?php _ex( 'TTS', 'Paragraph tools text-to-speech button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
-      <button id="button-get-link" type="button" class="button">
+      <button id="button-get-link" type="button" class="button" data-action="click->fictioneer-chapter#copyLink">
         <i class="fa-solid fa-link"></i>
         <span class="hide-below-480"><?php _ex( 'Link', 'Paragraph tools copy link button', 'fictioneer' ); ?></span>
       </button>
-      <button id="button-close-paragraph-tools" type="button" class="button">
+      <button id="button-close-paragraph-tools" type="button" class="button" data-action="click->fictioneer-chapter#closeTools">
         <i class="fa-solid fa-times"></i>
       </button>
     </div>

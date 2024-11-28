@@ -82,13 +82,6 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     this.lastToolsParagraph = target;
     target.classList.add('selected-paragraph');
     target.append(this.tools);
-
-    // const innerText = Array.from(target.childNodes)
-    //   .filter(node => node.nodeType === Node.TEXT_NODE)
-    //   .map(node => node.textContent.trim())
-    //   .join(' ');
-
-    // console.log(innerText);
   }
 
   closeTools() {
@@ -119,9 +112,89 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     }, { once: true });
   }
 
+  /**
+   * Get quote from paragraph or text selection.
+   *
+   * @since 3.0
+   * @since 5.xx.x - Folded into Stimulus Controller.
+   * @param {Event} event - The event.
+   */
+
+  quote(event) {
+    const target = event.target.closest('p[data-paragraph-id]');
+
+    if (!target) {
+      return;
+    }
+
+    const selection = window.getSelection() ? window.getSelection().toString().trim() : '';
+    const anchor = `[anchor]${target.id}[/anchor]`;
+
+    let quote = Array.from(target.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent.trim())
+      .join(' ');
+
+    if (quote.length > 16 && selection.replace(/\s/g, '').length) {
+      const fraction = Math.ceil(selection.length * .25);
+
+      let pre = fictioneer_tl.partial.quoteFragmentPrefix;
+      let suf = fictioneer_tl.partial.quoteFragmentSuffix;
+
+      if (selection.startsWith(quote.substring(0, fraction + 1))) {
+        pre = '';
+      }
+
+      if (selection.endsWith(quote.substring(quote.length - fraction, quote.length))) {
+        suf = '';
+      }
+
+      quote = `${pre}${selection}${suf}`;
+    }
+
+    fcn_showNotification(fictioneer_tl.notification.quoteAppendedToComment);
+
+    this.#appendToComment(`\n[quote]${quote} ${anchor}[/quote]\n`);
+  }
+
+  suggest(event) {
+
+  }
+
+  toggleBookmark(event) {
+
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================
+
+  /**
+   * Appends a content to the comment form.
+   *
+   * @since 3.0
+   * @since 5.xx.x - Folded into Stimulus Controller.
+   * @param {String} content - The content to append.
+   */
+
+  #appendToComment(content) {
+    const defaultEditor = _$(FcnGlobals.commentFormSelector);
+
+    if (!defaultEditor) {
+      FcnGlobals.commentStack.push(content);
+      return;
+    }
+
+    switch (defaultEditor.tagName) {
+      case 'TEXTAREA':
+        defaultEditor.value += content;
+        FcnUtils.adjustTextarea(defaultEditor);
+        break;
+      case 'DIV':
+        defaultEditor.innerHTML += content;
+        break;
+    }
+  }
 
   #isValidParagraph(target) {
     const interactiveSelector = '.popup-menu-toggle, .skip-tools, .tts-interface, .paragraph-tools__actions, .hidden, .inside-epub, a, button, label, input, textarea, select, option';
@@ -173,106 +246,9 @@ var /** @type {String} */ fcn_bookmarkColor = 'none';
 
 
 
-/**
- * Clean text selection from paragraph tools buttons.
- *
- * @description Probably the worst regex operation you have ever seen! This
- * needs to make sure to not accidentally remove content since, while not
- * common, the button labels may occur in the chapter text intentionally.
- *
- * @since 4.0.0
- * @param {String} selection - The text selection to be cleaned.
- * @return {String} The cleaned text selection.
- */
 
-function fcn_cleanTextSelectionFromButtons(selection) {
-  // Mark buttons based on line break pattern
-  selection = selection.replace(/[\r\n]{2,}/g, '__$__')
-
-  // Delete different possible button sets
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Link)', 'g'), '');
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__TTS|__Link)', 'g'), '');
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Suggestion|__TTS|__Link)', 'g'), '');
-  selection = selection.replace(new RegExp('(__Bookmark|__Quote|__Suggestion|__Link)', 'g'), '');
-  selection = selection.replace(/[__$]{1,}/g, '\n\n').replace(/^[\r\n]+|[\r\n]+$/g, '');
-
-  // Return cleaned string
-  return selection;
-}
-
-/**
- * Get quote from paragraph or text selection.
- *
- * @since 3.0
- * @param {Event} e - The event.
- */
-
-function fcn_getQuote(e) {
-  // Get paragraph text, selection, anchor, and prepare ellipsis
-  const selection = fcn_cleanTextSelectionFromButtons(window.getSelection().toString());
-  const anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
-
-  let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerText;
-  let pre = fictioneer_tl.partial.quoteFragmentPrefix;
-  let suf = fictioneer_tl.partial.quoteFragmentSuffix;
-
-  // Build from text selection and add ellipsis if necessary
-  if (quote.length > 16 && selection.replace(/\s/g, '').length) {
-    const fraction = Math.ceil(selection.length * .25);
-    const first = quote.substring(0, fraction + 1);
-    const last = quote.substring(quote.length - fraction, quote.length);
-
-    if (selection.startsWith(first)) {
-      pre = '';
-    }
-
-    if (selection.endsWith(last)) {
-      suf = '';
-    }
-
-    quote = `${pre}${selection}${suf}`;
-  }
-
-  // Add anchor to quote
-  quote = `${quote} ${anchor}`;
-
-  // Append to comment
-  fcn_addQuoteToStack(quote);
-
-  // Show notification
-  fcn_showNotification(fictioneer_tl.notification.quoteAppendedToComment);
-}
-
-/**
- * Appends a blockquote to the comment form.
- *
- * @since 3.0
- * @param {String} quote - The quote to wrap inside the blockquote.
- */
-
-function fcn_addQuoteToStack(quote) {
-  // Get comment form
-  const defaultEditor = _$(FcnGlobals.commentFormSelector);
-
-  // Add quote
-  if (defaultEditor) {
-    if (defaultEditor.tagName == 'TEXTAREA') {
-      defaultEditor.value += `\n[quote]${quote}[/quote]\n`;
-      FcnUtils.adjustTextarea(_$('textarea#comment')); // Adjust height of textarea if necessary
-    } else if (defaultEditor.tagName == 'DIV') {
-      defaultEditor.innerHTML += `\n[quote]${quote}[/quote]\n`;
-    }
-  } else {
-    FcnGlobals.commentStack.push(`\n[quote]${quote}[/quote]\n`); // AJAX comment form or section
-  }
-}
 
 // if (fcn_paragraphTools) {
-//   // Listen for clicks/tabs on paragraphs
-//   document.addEventListener('mousedown', (e) => { fcn_touchParagraph(e); });
-
-//   // Listen for click on paragraph tools close button
-//   _$$$('button-close-paragraph-tools').onclick = (e) => { fcn_toggleParagraphTools(false); }
 
 //   // Listen for click on paragraph tools copy link button
 //   _$$$('button-get-link').onclick = (e) => {
@@ -282,11 +258,6 @@ function fcn_addQuoteToStack(quote) {
 //     );
 //   }
 
-//   // Listen for click on paragraph tools quote button
-//   _$$$('button-comment-stack')?.addEventListener(
-//     'click',
-//     (e) => { fcn_getQuote(e); }
-//   );
 
 //   // Listen for click on paragraph tools bookmark color button
 //   _$$('.paragraph-tools__bookmark-colors > div').forEach(element => {
@@ -1276,6 +1247,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // =============================================================================
 // KEYBOARD NAVIGATION
 // =============================================================================
+
+// Add Option to disable
 
 // Keep removable reference
 const fcn_chapterKeyboardNavigation = event => {
