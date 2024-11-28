@@ -22,7 +22,16 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     window.FictioneerApp.Controllers.fictioneerChapter = this;
   }
 
-  bodyClick({ detail: { target } }) {
+  /**
+   * Close paragraph tools on click outside.
+   *
+   * Note: Event action dispatched by 'fictioneer' Stimulus Controller.
+   *
+   * @since 5.xx.x
+   * @param {HTMLElement} target -  The event target.
+   */
+
+  clickOutside({ detail: { target } }) {
     if (this.lastToolsParagraph && !target.closest('.selected-paragraph')) {
       this.closeTools();
     }
@@ -40,17 +49,11 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
   }
 
-  increaseFont() {
-
-  }
-
-  decreaseFont() {
-
-  }
-
-  resetFont() {
-
-  }
+  /**
+   * Open browser fullscreen view.
+   *
+   * @since 5.xx.x
+   */
 
   openFullscreen() {
     if (document.documentElement.requestFullscreen) {
@@ -60,6 +63,12 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     }
   }
 
+  /**
+   * Close browser fullscreen view.
+   *
+   * @since 5.xx.x
+   */
+
   closeFullscreen() {
     if (document.exitFullscreen) {
       document.exitFullscreen();
@@ -68,31 +77,46 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     }
   }
 
-  toggleTools(target) {
+  /**
+   * Toggle paragraph tools.
+   *
+   * @since 5.xx.x
+   * @param {HTMLElement} paragraph - The clicked paragraph.
+   */
+
+  toggleTools(paragraph) {
     // Always close last paragraph tools (if open)
     this.lastToolsParagraph?.classList.remove('selected-paragraph');
 
     // Close if same paragraph
-    if (this.lastToolsParagraph === target) {
+    if (this.lastToolsParagraph === paragraph) {
       this.closeTools();
       return;
     }
 
     // Add tools to paragraph
-    this.lastToolsParagraph = target;
-    target.classList.add('selected-paragraph');
-    target.append(this.tools);
+    this.lastToolsParagraph = paragraph;
+    paragraph.classList.add('selected-paragraph');
+    paragraph.append(this.tools);
   }
+
+  /**
+   * Close paragraph tools.
+   *
+   * @since 5.xx.x
+   */
 
   closeTools() {
     this.lastToolsParagraph?.classList.remove('selected-paragraph');
     this.lastToolsParagraph = null;
   }
 
-  clickContent(event) {
-    // console.log(event.target);
-    // console.log(event.target.closest('p'));
-  }
+  /**
+   * Listen to fast click on paragraph to open paragraph tools.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
 
   fastClick(event) {
     if (window.getSelection().toString() != '') {
@@ -162,7 +186,25 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   }
 
   toggleBookmark(event) {
+    console.log('foo');
+  }
 
+  /**
+   * Copy paragraph link to clipboard.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  copyLink(event) {
+    const target = event.target.closest('p[data-paragraph-id]');
+
+    if (target) {
+      FcnUtils.copyToClipboard(
+        `${location.protocol}//${location.host}${location.pathname}#${target.id}`,
+        fictioneer_tl.notification.linkCopiedToClipboard
+      );
+    }
   }
 
   // =====================
@@ -216,47 +258,8 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-// =============================================================================
-// SETUP
-// =============================================================================
-
-const /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting');
-
-var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
-
-// =============================================================================
-// PARAGRAPH TOOLS
-// =============================================================================
-
-
-var /** @type {Number} */ fcn_lastSelectedParagraphId; // Used by suggestions
-var /** @type {String} */ fcn_bookmarkColor = 'none';
-
-
-
-
-
-
 // if (fcn_paragraphTools) {
 
-//   // Listen for click on paragraph tools copy link button
-//   _$$$('button-get-link').onclick = (e) => {
-//     FcnUtils.copyToClipboard(
-//       `${location.protocol}//${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
-//       fictioneer_tl.notification.linkCopiedToClipboard
-//     );
-//   }
 
 
 //   // Listen for click on paragraph tools bookmark color button
@@ -285,6 +288,106 @@ var /** @type {String} */ fcn_bookmarkColor = 'none';
 //     }
 //   );
 // }
+
+
+
+
+
+
+
+
+
+// =============================================================================
+// SETUP CHAPTER INDEX DIALOG MODAL
+// =============================================================================
+
+_$('[data-click-action*="toggle-chapter-index-order"]')?.addEventListener('click', event => {
+  const wrapper = event.currentTarget.closest('.chapter-index');
+  wrapper.dataset.order = wrapper.dataset.order === 'asc' ? 'desc' : 'asc';
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const chapterIndex = _$('.chapter-index');
+  const postId = chapterIndex.closest('dialog').dataset.postId ?? 0;
+
+  if (chapterIndex) {
+    chapterIndex.querySelector(`[data-id="${postId}"]`)?.classList.add('current');
+  }
+});
+
+// =============================================================================
+// KEYBOARD NAVIGATION
+// =============================================================================
+
+// Keep removable reference
+const fcn_chapterKeyboardNavigation = event => {
+  const editableTags = ['INPUT', 'TEXTAREA', 'SELECT', 'OPTION'];
+
+  // Abort if inside input...
+  if (editableTags.includes(event.target.tagName) || event.target.isContentEditable) {
+    return;
+  }
+
+  let link = null;
+
+  // Check if arrow keys were pressed...
+  if (event.code === 'ArrowLeft') {
+    link = _$('a.button._navigation._prev');
+  } else if (event.code === 'ArrowRight') {
+    link = _$('a.button._navigation._next');
+  }
+
+  // Change page with scroll anchor
+  if (link && link.href) {
+    window.location.href = link + '#start';
+  }
+}
+
+document.addEventListener('keydown', fcn_chapterKeyboardNavigation);
+
+// =============================================================================
+// SCROLL TO START OF CHAPTER
+// =============================================================================
+
+if (window.location.hash === '#start') {
+  // remove anchor from URL
+  history.replaceState(null, document.title, window.location.pathname);
+
+  // Scroll to beginning of article
+  const targetElement = _$('.chapter__article');
+
+  if (targetElement) {
+    FcnUtils.scrollTo(targetElement, 128);
+  }
+}
+
+
+
+
+
+
+
+
+// =============================================================================
+// SETUP
+// =============================================================================
+
+const /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting');
+
+var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
+
+// =============================================================================
+// PARAGRAPH TOOLS
+// =============================================================================
+
+
+var /** @type {Number} */ fcn_lastSelectedParagraphId; // Used by suggestions
+var /** @type {String} */ fcn_bookmarkColor = 'none';
+
+
+
+
+
 
 // =============================================================================
 // GET FORMATTING
@@ -1223,71 +1326,5 @@ function fcn_readingProgress() {
     // Mark chapter as read
     console.log('progress check');
     fcn_toggleCheckmark(storyId, parseInt(document.body.dataset.postId), true);
-  }
-}
-
-// =============================================================================
-// SETUP CHAPTER INDEX DIALOG MODAL
-// =============================================================================
-
-_$('[data-click-action*="toggle-chapter-index-order"]')?.addEventListener('click', event => {
-  const wrapper = event.currentTarget.closest('.chapter-index');
-  wrapper.dataset.order = wrapper.dataset.order === 'asc' ? 'desc' : 'asc';
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const chapterIndex = _$('.chapter-index');
-  const postId = chapterIndex.closest('dialog').dataset.postId ?? 0;
-
-  if (chapterIndex) {
-    chapterIndex.querySelector(`[data-id="${postId}"]`)?.classList.add('current');
-  }
-});
-
-// =============================================================================
-// KEYBOARD NAVIGATION
-// =============================================================================
-
-// Add Option to disable
-
-// Keep removable reference
-const fcn_chapterKeyboardNavigation = event => {
-  const editableTags = ['INPUT', 'TEXTAREA', 'SELECT', 'OPTION'];
-
-  // Abort if inside input...
-  if (editableTags.includes(event.target.tagName) || event.target.isContentEditable) {
-    return;
-  }
-
-  let link = null;
-
-  // Check if arrow keys were pressed...
-  if (event.code === 'ArrowLeft') {
-    link = _$('a.button._navigation._prev');
-  } else if (event.code === 'ArrowRight') {
-    link = _$('a.button._navigation._next');
-  }
-
-  // Change page with scroll anchor
-  if (link && link.href) {
-    window.location.href = link + '#start';
-  }
-}
-
-document.addEventListener('keydown', fcn_chapterKeyboardNavigation);
-
-// =============================================================================
-// SCROLL TO START OF CHAPTER
-// =============================================================================
-
-if (window.location.hash === '#start') {
-  // remove anchor from URL
-  history.replaceState(null, document.title, window.location.pathname);
-
-  // Scroll to beginning of article
-  const targetElement = _$('.chapter__article');
-
-  if (targetElement) {
-    FcnUtils.scrollTo(targetElement, 128);
   }
 }

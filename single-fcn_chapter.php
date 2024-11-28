@@ -30,7 +30,7 @@ get_header(
   <div class="progress__bar"></div>
 </div>
 
-<main id="main" class="main chapter" data-controller="fictioneer-chapter" data-fictioneer-chapter-id-value="<?php echo $post_id; ?>" data-action="fictioneer:bodyClick@window->fictioneer-chapter#bodyClick">
+<main id="main" class="main chapter" data-controller="fictioneer-chapter" data-fictioneer-chapter-id-value="<?php echo $post_id; ?>" data-action="fictioneer:bodyClick@window->fictioneer-chapter#clickOutside">
 
   <?php do_action( 'fictioneer_main', 'chapter' ); ?>
 
@@ -157,7 +157,7 @@ get_header(
             echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
           }
 
-          echo '<div class="resize-font chapter-formatting chapter-font-color chapter-font-family" data-fictioneer-chapter-target="contentWrapper" data-action="click->fictioneer-chapter#clickContent mousedown->fictioneer-chapter#fastClick">';
+          echo '<div class="resize-font chapter-formatting chapter-font-color chapter-font-family" data-fictioneer-chapter-target="contentWrapper" data-action="mousedown->fictioneer-chapter#fastClick">';
 
           if ( $password_required && get_option( 'fictioneer_show_protected_excerpt' ) ) {
             echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post_id, 512 ) . '</p>';
