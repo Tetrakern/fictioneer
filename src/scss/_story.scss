@@ -85,6 +85,10 @@ $header_breakpoint: 640px;
     .story__taxonomies {
       grid-area: 2 / 2 / 3 / 3;
       align-self: center;
+
+      .tag-pill {
+        outline-offset: -1px;
+      }
     }
 
     .story__identity {
@@ -147,12 +151,7 @@ $header_breakpoint: 640px;
       display: block;
       border-radius: var(--layout-border-radius-small);
       box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
-
-      &:focus-visible {
-        outline: none;
-        background: none;
-        box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
-      }
+      outline-offset: 2px;
     }
 
     &:not(._in-content) {

@@ -55,6 +55,11 @@
   grid-template-rows: auto auto;
 }
 
+.follow-title {
+  padding: 0 2px; // Only for focus ring
+  margin: 0 -2px; // Compensate focus ring padding
+}
+
 .follow-title-link {
   grid-area: 1 / 1 / 2 / 2;
   font-weight: var(--font-weight-medium);
@@ -111,14 +116,6 @@
     font-size: var(--fs-xs);
     padding: .35rem .75rem .45rem;
 
-    &:has(a:focus-visible) {
-      background: var(--in-focus-background);
-
-      :is(.follow-placeholder, .follow-meta) {
-        color: var(--in-focus-color) !important;
-      }
-    }
-
     &:hover {
       background: var(--navigation-subitem-background-hover);
     }
@@ -131,11 +128,6 @@
 
   .follow-title-link {
     color: var(--follow-title-link-color, var(--fg-400));
-
-    &:focus-visible {
-      background: none !important;
-      box-shadow: var(--in-focus-box-shadow-override, none) !important;
-    }
 
     &:hover {
       color: var(--follow-title-link-color-hover, var(--fg-200));

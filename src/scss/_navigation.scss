@@ -216,10 +216,6 @@
     height: fit-content;
     transition: background-color .1s;
 
-    :is(a, label, button):focus-visible {
-      box-shadow: var(--in-focus-box-shadow-override, none) !important;
-    }
-
     &:not(:hover) {
       .sub-menu {
         pointer-events: none;
