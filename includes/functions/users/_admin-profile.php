@@ -1295,7 +1295,19 @@ function fictioneer_admin_profile_fields_skins( $profile_user ) {
         );
       ?></p>
       <input name="fictioneer_nonce" type="hidden" value="<?php echo wp_create_nonce( 'fictioneer_nonce' ); ?>">
-      <script type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">var fcn_skinTranslations = <?php echo json_encode( fictioneer_get_skin_translations() ); ?>;</script>
+      <?php
+        wp_print_inline_script_tag(
+          'var fcn_skinTranslations = ' . json_encode( fictioneer_get_skin_translations() ) . ';',
+          array(
+            'id' => 'fictioneer-skin-translations',
+            'type' => 'text/javascript',
+            'data-jetpack-boost' => 'ignore',
+            'data-no-optimize' => '1',
+            'data-no-defer' => '1',
+            'data-no-minify' => '1',
+          )
+        );
+      ?>
       <fieldset><?php fictioneer_render_skin_interface(); ?></fieldset>
     </td>
   </tr>
@@ -1368,7 +1380,17 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
 
   // Clear local bookmarks
   if ( $success && $success === 'admin-profile-cleared-data-node-bookmarks' ) {
-    echo "<script>localStorage.removeItem('fcnChapterBookmarks');</script>";
+    wp_print_inline_script_tag(
+      'localStorage.removeItem("fcnChapterBookmarks");',
+      array(
+        'id' => 'fictioneer-iife-clear-bookmarks',
+        'type' => 'text/javascript',
+        'data-jetpack-boost' => 'ignore',
+        'data-no-optimize' => '1',
+        'data-no-defer' => '1',
+        'data-no-minify' => '1'
+      )
+    );
   }
 
   // Comment subscriptions?

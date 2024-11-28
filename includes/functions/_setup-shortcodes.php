@@ -370,6 +370,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * are active since only one is needed.
  *
  * @since 5.25.0
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  *
  * @return string The inline script.
  */
@@ -383,7 +384,18 @@ function fictioneer_get_splide_inline_init() {
 
   $done = true;
 
-  return '<script class="temp-script" data-jetpack-boost="ignore" data-no-defer="1" data-no-optimize="1" data-no-minify="1">document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{e.querySelector(".splide__list")&&"undefined"!=typeof Splide&&(e.classList.remove("_splide-placeholder"),new Splide(e).mount())})});</script>';
+  return wp_get_inline_script_tag(
+    'document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{e.querySelector(".splide__list")&&"undefined"!=typeof Splide&&(e.classList.remove("_splide-placeholder"),new Splide(e).mount())})});',
+    array(
+      'id' => 'fictioneer-iife-splide',
+      'class' => 'temp-script',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
 }
 
 // =============================================================================
