@@ -693,7 +693,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
 function fictioneer_chapter_micro_menu( $args ) {
   echo fictioneer_get_chapter_micro_menu( $args );
 }
-add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_micro_menu', 10 );
+add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_micro_menu', 99 );
 
 // =============================================================================
 // CHAPTER PARAGRAPH TOOLS

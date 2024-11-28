@@ -81,7 +81,7 @@ main {
 }
 
 article {
-  contain: layout style; // Improve performance
+  contain: style; // Improve performance
 }
 
 :root a:where(:not(.wp-element-button, .modal-tooltip)):is(a) {
