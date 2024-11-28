@@ -287,7 +287,8 @@ body:not(.is-editor):not(.is-admin) {
   }
 
   @include bp(desktop) {
-    &:hover {
+    &:hover,
+    &:focus {
       &::before {
         opacity: 1;
       }

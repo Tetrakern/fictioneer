@@ -69,10 +69,6 @@
       outline: none;
     }
 
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow);
-    }
-
     &:hover {
       background: var(--header-nav-item-background-hover);
       color: var(--header-nav-item-color-hover);
@@ -81,10 +77,6 @@
     &.active {
       background: var(--header-nav-item-background-active);
       color: var(--header-nav-item-color-active);
-
-      &:focus-visible {
-        box-shadow: var(--in-focus-box-shadow);
-      }
     }
   }
 }
@@ -128,11 +120,6 @@
       box-shadow: none;
       outline: none;
     }
-
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow);
-      outline: none;
-    }
   }
 
   .dashicons-plus {
@@ -159,11 +146,6 @@
       outline: none;
     }
 
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow);
-      outline: none;
-    }
-
     &:hover {
       color: var(--subnav-item-color-hover);
       border-bottom-color: var(--subnav-item-border-color-hover);
@@ -173,10 +155,6 @@
       color: var(--subnav-item-color-active);
       font-weight: 600;
       border-bottom-color: var(--subnav-item-border-color-active);
-
-      &:focus-visible {
-        box-shadow: var(--in-focus-box-shadow);
-      }
     }
   }
 }

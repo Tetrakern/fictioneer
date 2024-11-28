@@ -26,10 +26,6 @@
       text-shadow: var(--tab-text-shadow-hover, var(--tab-text-shadow));
     }
 
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow-override, none) !important;
-    }
-
     &._current {
       background: var(--tab-background-active);
       color: var(--tab-color-active);

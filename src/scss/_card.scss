@@ -260,11 +260,7 @@
     background: var(--card-image-placeholder, var(--placeholder-background));
     border-radius: var(--this-border-radius);
     overflow: hidden;
-
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow);
-      outline: var(--in-focus-outline);
-    }
+    outline-offset: 2px;
 
     img {
       position: absolute;

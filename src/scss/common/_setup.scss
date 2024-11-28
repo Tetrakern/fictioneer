@@ -9,49 +9,16 @@ html:is(:root) {
   -webkit-tap-highlight-color: transparent;
 }
 
-:focus {
-  outline: none;
-}
-
 [hidden] {
   display: none !important;
 }
 
-*:not(input, textarea, select, .wp-block-file a, .button-unset-oauth, .toggle):focus-visible,
-input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visible,
-.user-is-tabbing select:focus-visible,
-.oauth-login-link button:focus-visible,
-.user-is-tabbing .showcase li:focus-within,
-.custom-skin._upload:focus-within,
-:is(.button, .comment-respond-option-toggle):focus-visible,
-.wp-block-file:focus-within a:focus-visible {
-  outline-offset: var(--in-focus-outline-offset, 0px);
-  outline: var(--in-focus-outline) !important;
-  background: var(--in-focus-background) !important;
-}
-
-a:focus-visible img,
-.wp-block-image img[data-lightbox]:focus-visible,
-.toggle:focus-visible {
-  outline-offset: var(--in-focus-outline-offset, 0px);
-  outline: var(--in-focus-outline) !important;
-  box-shadow: var(--in-focus-box-shadow);
-}
-
-.user-is-tabbing *:not(.checkmark, select, input, textarea):focus-visible,
-.user-is-tabbing select:focus-visible {
-  color: var(--in-focus-color) !important;
-}
-
-body:not(.user-is-tabbing) :is(.modal__close, .dialog-modal__close) {
+body:where(:not(.user-is-tabbing)) :is(input, select, textarea):focus {
   outline: none;
 }
 
-#wpadminbar {
-  --in-focus-background: #2c3338;
-  --in-focus-color: #72aee6;
-  --in-focus-box-shadow: none;
-  --in-focus-outline: none;
+body:where(.user-is-tabbing) :is(input, select, textarea):focus {
+  outline-offset: 3px;
 }
 
 body {

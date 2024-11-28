@@ -148,6 +148,7 @@
   width: fit-content;
   min-width: get_clamp(26, 32, 320, 375);
   box-shadow: var(--button-box-shadow);
+  outline-offset: 3px;
   transition: color, background-color, border-color, opacity;
   transition-duration: var(--transition-duration);
 
@@ -178,11 +179,6 @@ button[type=submit]:where(:not(._inline)),
 
 .button {
   @extend %button;
-
-  &:is(button, a, label):focus-visible {
-    color: var(--in-focus-color) !important;
-    box-shadow: var(--in-focus-box-shadow-override, none) !important;
-  }
 
   &._secondary {
     background: var(--button-secondary-background);
@@ -330,10 +326,6 @@ button[type=submit]:where(:not(._inline)),
     text-shadow: none;
     width: fit-content;
     contain: layout paint style; // Improve performance
-
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow-override, none) !important;
-    }
   }
 
   &:not(._inline):hover {
@@ -744,10 +736,6 @@ html:not(.logged-in) body:not(.logged-in) {
         line-height: 1;
         padding: 4px;
         margin-right: -4px;
-
-        &:focus-visible.marked {
-          color: var(--in-focus-color);
-        }
 
         &:not(.marked) {
           color: var(--checkmark-not-checked);
