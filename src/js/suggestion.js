@@ -153,8 +153,7 @@ class FCN_Suggestion {
       return;
     }
 
-    instance.text = _$('.selected-paragraph')
-      .querySelector('.paragraph-inner').innerText;
+    instance.text = FcnUtils.extractTextNodes(_$('.selected-paragraph'));
 
     instance.showModal(instance);
   }
@@ -165,9 +164,11 @@ class FCN_Suggestion {
   }
 
   showModal(instance) {
+    const controller = window.FictioneerApp.Controllers.fictioneerChapter;
+
     // Close paragraph tools if open
-    if (fcn_lastSelectedParagraphId) {
-      fcn_toggleParagraphTools(false);
+    if (controller) {
+      controller.closeTools();
     }
 
     // Setup modal content

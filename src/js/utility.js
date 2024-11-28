@@ -687,6 +687,21 @@ const FcnUtils = {
     }
 
     return array;
+  },
+
+  /**
+   * Extract and join all text nodes of an element.
+   *
+   * @since 5.xx.x
+   * @param {HTMLElement} element - The element.
+   * @return {String} Extracted text or empty string.
+   */
+
+  extractTextNodes(element) {
+    return Array.from(element.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent.trim())
+      .join(' ');
   }
 };
 

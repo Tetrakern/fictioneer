@@ -1397,11 +1397,11 @@ function fictioneer_get_chapter_index_html( $story_id ) {
   }
 
   // Compile HTML
-  $toggle = '<button type="button" data-click-action="toggle-chapter-index-order" class="chapter-index__order list-button" aria-label="' . esc_attr__( 'Toggle between ascending and descending order', 'fictioneer' ) . '"><i class="fa-solid fa-arrow-down-1-9 off"></i><i class="fa-solid fa-arrow-down-9-1 on"></i></button>';
+  $toggle = '<button type="button" data-action="click->fictioneer-chapter#toggleIndexOrder" class="chapter-index__order list-button" aria-label="' . esc_attr__( 'Toggle between ascending and descending order', 'fictioneer' ) . '"><i class="fa-solid fa-arrow-down-1-9 off"></i><i class="fa-solid fa-arrow-down-9-1 on"></i></button>';
 
   $back_link = '<a href="' . esc_url( $story_link ) . '" class="chapter-index__back-link"><i class="fa-solid fa-caret-left"></i> <span>' . __( 'Back to Story', 'fictioneer' ) . '</span></a>';
 
-  $html = '<div class="chapter-index" data-order="asc" data-story-id="' . $story_id . '"><div class="chapter-index__control">' . $back_link . '<div class="chapter-index__sof">' . $toggle . '</div></div><ul id="chapter-index-list" class="chapter-index__list">' . implode( '', $items ) . '</ul></div>';
+  $html = '<div class="chapter-index" data-fictioneer-chapter-target="index" data-order="asc"><div class="chapter-index__control">' . $back_link . '<div class="chapter-index__sof">' . $toggle . '</div></div><ul id="chapter-index-list" class="chapter-index__list">' . implode( '', $items ) . '</ul></div>';
 
   $html = apply_filters( 'fictioneer_filter_chapter_index_html', $html, $items, $story_id, $story_link );
 
