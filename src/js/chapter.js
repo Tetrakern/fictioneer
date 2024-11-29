@@ -369,6 +369,96 @@ const /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formattin
 
 var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
 
+
+
+
+
+const FcnFormatting = {
+  /**
+   * Returns default chapter formatting.
+   *
+   * @since 4.0.0
+   * @since 5.xx.x - Folded into FcnFormatting.
+   * @return {Object} Default chapter formatting settings.
+   */
+
+  defaults() {
+    return {
+      ...{
+        'font-saturation': 0,
+        'font-color': FcnGlobals.fontColors[0].css, // Set with wp_localize_script()
+        'font-name': FcnGlobals.fonts[0].css, // Set with wp_localize_script()
+        'font-size': 100,
+        'letter-spacing': 0.0,
+        'line-height': 1.7,
+        'paragraph-spacing': 1.5,
+        'site-width': document.documentElement.dataset.siteWidthDefault ?? '960',
+        'indent': true,
+        'show-sensitive-content': true,
+        'show-chapter-notes': true,
+        'justify': false,
+        'show-comments': true,
+        'show-paragraph-tools': true,
+        'timestamp': 1664797604825
+      },
+      ...FcnUtils.parseJSON(document.documentElement.dataset.defaultFormatting ?? '{}')
+    };
+  },
+
+  /**
+   * Returns chapter formatting from local storage.
+   *
+   * Note: The timestamp can be used to force a reset,
+   * which will absolutely annoy users.
+   *
+   * @since 4.0.0
+   * @since 5.xx.x - Folded into FcnFormatting.
+   * @return {Object} Chapter formatting settings.
+   */
+
+  get() {
+    let formatting = FcnUtils.parseJSON(localStorage.getItem('fcnChapterFormatting')) ?? FcnFormatting.defaults();
+
+    if (Object.keys(formatting).length < 15) {
+      formatting = FcnFormatting.defaults();
+
+      FcnFormatting.set(formatting);
+    }
+
+    if (formatting['timestamp'] < 1651164557584) {
+      formatting = FcnFormatting.defaults();
+      formatting['timestamp'] = Date.now();
+
+      FcnFormatting.set(formatting);
+    }
+
+    return formatting;
+  },
+
+  /**
+   * Save the chapter formatting settings to local storage.
+   *
+   * @since 4.0.0
+   * @since 5.xx.x - Folded into FcnFormatting.
+   * @param {Object} value - Chapter formatting settings.
+   */
+
+  set(value) {
+    if (typeof value === 'object') {
+      localStorage.setItem('fcnChapterFormatting', JSON.stringify(value));
+    }
+  }
+};
+
+
+
+
+
+
+
+
+
+
 // =============================================================================
 // GET FORMATTING
 // =============================================================================
@@ -483,6 +573,8 @@ function fcn_setFormatting(value) {
    */
 
   function fcn_updateFontSize(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
     value = FcnUtils.clamp(50, 200, value ?? 100);
 
@@ -497,10 +589,10 @@ function fcn_setFormatting(value) {
     });
 
     // Update local storage
-    fcn_formatting['font-size'] = value;
+    formatting['font-size'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -521,8 +613,10 @@ function fcn_setFormatting(value) {
    */
 
   function fcn_modifyFontSize() {
+    const formatting = FcnFormatting.get();
+
     fcn_updateFontSize(
-      parseFloat(fcn_formatting['font-size']) + parseFloat(this.dataset.modifier)
+      parseFloat(formatting['font-size']) + parseFloat(this.dataset.modifier)
     );
   }
 
@@ -543,7 +637,8 @@ function fcn_setFormatting(value) {
   _$$$('decrease-font')?.addEventListener('click', fcn_modifyFontSize);
 
   // Initialize
-  fcn_updateFontSize(fcn_formatting['font-size'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontSize(formatting['font-size'], false);
 })();
 
 // =============================================================================
