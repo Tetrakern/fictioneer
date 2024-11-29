@@ -379,12 +379,6 @@
     background: var(--paragraph-selection-background);
   }
 
-  > span {
-    position: relative;
-    z-index: 1;
-    display: block;
-  }
-
   .paragraph-tools {
     display: block;
     content-visibility: visible;
