@@ -52,16 +52,17 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     }
   }
 
-  scrollDown() {
-
-  }
-
-  scrollUp() {
-
-  }
-
   scrollToBookmark() {
+    const bookmarks = fcn_getBookmarks();
+    const paragraphID = bookmarks?.data?.[`ch-${this.chapterIdValue}`]?.['paragraph-id'];
 
+    if (!paragraphID) {
+      return;
+    }
+
+    const target = _$(`[data-paragraph-id="${paragraphID}"]`);
+
+    target?.scrollIntoView({ behavior: 'smooth' });
   }
 
   /**

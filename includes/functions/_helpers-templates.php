@@ -1259,7 +1259,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     // Scroll to top
     $micro_menu['top'] = sprintf(
-      '<a href="#top" data-block="center" aria-label="%s" class="micro-menu__item micro-menu__up up" tabindex="-1" data-action="click->fictioneer-chapter#scrollUp"><i class="fa-solid fa-caret-up"></i></a>',
+      '<a href="#top" data-block="center" aria-label="%s" class="micro-menu__item micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>',
       esc_attr__( 'Scroll to top of the chapter', 'fictioneer' )
     );
 

@@ -661,18 +661,3 @@ function fcn_removeBookmark(id) {
     element.remove();
   });
 }
-
-// =============================================================================
-// BOOKMARKS EVENT LISTENERS
-// =============================================================================
-
-fcn_jumpToBookmarkButtons.forEach(button => {
-  button.addEventListener(
-    'click',
-    () => {
-      const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
-
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  );
-});

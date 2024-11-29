@@ -333,9 +333,9 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   <?php endif; ?>
 
   <?php if ( $location === 'top' ) : ?>
-    <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>" data-action="click->fictioneer-chapter#scrollDown"><i class="fa-solid fa-caret-down"></i></a>
+    <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-down"></i></a>
   <?php else : ?>
-    <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>" data-action="click->fictioneer-chapter#scrollUp"><i class="fa-solid fa-caret-up"></i></a>
+    <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-up"></i></a>
   <?php endif; ?>
 
   <?php if ( $show_nav && ! $unlisted && $args['next_index'] ) : ?>
