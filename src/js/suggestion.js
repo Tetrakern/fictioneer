@@ -1,5 +1,5 @@
 // =============================================================================
-// SUGGESTION TOOLS
+// EXTEND DIFF-MATCH-PATCH
 // =============================================================================
 
 diff_match_patch.prototype.fcn_prettyHtml = function(diffs) {
@@ -27,6 +27,206 @@ diff_match_patch.prototype.fcn_prettyHtml = function(diffs) {
   }
   return html.join('');
 };
+
+// =============================================================================
+// STIMULUS: FICTIONEER SUGGESTION
+// =============================================================================
+
+application.register('fictioneer-suggestion', class extends Stimulus.Controller {
+
+  modal = _$$$('suggestions-modal');
+  floatingButton = _$$$('selection-tools');
+  input = _$$$('suggestions-modal-input');
+  current = _$$$('suggestions-modal-original');
+  diff = _$$$('suggestions-modal-diff');
+  reset = _$$$('button-suggestion-reset');
+  submit = _$$$('button-suggestion-submit');
+  original = '';
+  suggestion = '';
+  text = '';
+  open = false;
+  dmp = new diff_match_patch();
+
+  initialize() {
+    if (this.floatingButton) {
+      this.floatingButton.addEventListener('click', event => {
+        this.toggleModalViaSelection(event.currentTarget);
+      });
+    }
+
+    this.input.addEventListener('input', () => this.#edit());
+    this.reset.addEventListener('click', () => this.#reset());
+    this.submit.addEventListener('click', () => this.#append());
+  }
+
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerSuggestion = this;
+  }
+
+  /**
+   * Hide floating button on click outside.
+   *
+   * Note: Event action dispatched by 'fictioneer' Stimulus Controller.
+   *
+   * @since 5.xx.x
+   */
+
+  clickOutside() {
+    if (this.open) {
+      this.#hideFloatingButton();
+    }
+  }
+
+  toggleModalViaSelection(source) {
+    this.toggleModalVisibility(source);
+  }
+
+  toggleModalViaParagraph(event) {
+    this.text = FcnUtils.extractTextNodes(_$('.selected-paragraph'));
+    this.toggleModalVisibility(event.currentTarget);
+  }
+
+  toggleModalVisibility(source) {
+    const fictioneer = fcn();
+    const chapter = window.FictioneerApp.Controllers.fictioneerChapter;
+
+    if (!fictioneer) {
+      fcn_showNotification('Error: Fictioneer Controller not connected.', 3, 'warning');
+      return;
+    }
+
+    if (!chapter) {
+      fcn_showNotification('Error: Chapter Controller not connected.', 3, 'warning');
+      return;
+    }
+
+    fictioneer.toggleModalVisibility(source, 'suggestions-modal');
+    chapter.closeTools();
+
+    this.#clearSelection();
+    this.original = this.text;
+    this.suggestion = this.text;
+    this.current.innerText = this.text;
+    this.diff.innerText = this.text;
+    this.input.value = this.text;
+    this.input.focus();
+  }
+
+  toggleFloatingButton() {
+    if (
+      FcnGlobals.eSite.classList.contains('transformed-site') ||
+      window.getSelection().rangeCount < 1 ||
+      !window.getSelection().getRangeAt(0).startContainer.parentNode.closest('.content-section')
+    ) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.text = window.getSelection().toString().replaceAll('\n\n', '\n').trim();
+
+      if (this.text !== '') {
+        const pos = this.#caretCoordinates();
+
+        this.#showFloatingButton(pos.x, pos.y);
+      } else {
+        this.#hideFloatingButton();
+      }
+    }, 10);
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #showFloatingButton(x, y) {
+    this.open = true;
+
+    const offset = document.documentElement.offsetWidth / 2 + this.floatingButton.offsetWidth;
+    const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
+
+    if (x > offset) {
+      this.floatingButton.style.transform = 'translate(-100%)';
+    } else {
+      this.floatingButton.style.transform = 'translate(0)';
+    }
+
+    this.floatingButton.style.top = `${y + 4 - adminBarOffset}px`;
+    this.floatingButton.style.left = `${x}px`;
+    this.floatingButton.classList.remove('invisible');
+  }
+
+  #hideFloatingButton() {
+    this.open = false;
+    this.floatingButton.style.top = '0';
+    this.floatingButton.style.left = '-1000px';
+    this.floatingButton.classList.add('invisible');
+  }
+
+  #caretCoordinates() {
+    let x = 0;
+    let y = 0;
+
+    const isSupported = typeof window.getSelection !== 'undefined';
+
+    if (isSupported) {
+      const selection = window.getSelection();
+
+      if (selection.rangeCount !== 0) {
+        const range = selection.getRangeAt(0).cloneRange();
+
+        let rect = range.getClientRects();
+        rect = rect[rect.length - 1];
+
+        if (rect) {
+          x = rect.right + window.scrollX;
+          y = rect.bottom + window.scrollY;
+        }
+      }
+    }
+
+    return { x, y };
+  }
+
+  #clearSelection() {
+    if (window.getSelection) {
+      if (window.getSelection().empty) {
+        window.getSelection().empty(); // Chrome
+      } else if (window.getSelection().removeAllRanges) {
+        window.getSelection().removeAllRanges(); // Firefox
+      }
+    }
+  }
+
+  #edit() {
+    this.suggestion = this.#diff(this.original, this.input.value);
+    this.diff.innerHTML = this.suggestion;
+  }
+
+  #reset() {
+    this.suggestion = this.original;
+    this.input.value = this.original;
+    this.diff.innerText = this.original;
+  }
+
+  #diff(old, now) {
+    const diff = this.dmp.diff_main(old, now);
+
+    this.dmp.diff_cleanupEfficiency(diff);
+
+    return this.dmp.fcn_prettyHtml(diff);
+  }
+
+  #append() {
+
+  }
+});
+
+
+
+
+
+
+
 
 class FCN_Suggestion {
   constructor() {
@@ -200,7 +400,6 @@ class FCN_Suggestion {
   }
 
   submitSuggestion(instance) {
-    const defaultEditor = _$(FcnGlobals.commentFormSelector);
     const paragraphID = instance.paragraph?.id ?? null;
     const replacements = [
       ['¶', '&para;\n'],
@@ -225,17 +424,7 @@ class FCN_Suggestion {
       instance.latest = `\n[quote]${final}[/quote]\n`;
     }
 
-    // Send to comment form or remember for later
-    if (defaultEditor) {
-      if (defaultEditor.tagName == 'TEXTAREA') {
-        defaultEditor.value += instance.latest;
-        FcnUtils.adjustTextarea(_$('textarea#comment')); // Adjust height of textarea if necessary
-      } else if ( defaultEditor.tagName == 'DIV' ) {
-        defaultEditor.innerHTML += instance.latest;
-      }
-    } else {
-      FcnGlobals.commentStack.push(instance.latest); // AJAX comment form or section
-    }
+    FcnUtils.appendToComment(instance.latest);
 
     // Close modal
     // instance.toggle.click();
@@ -264,5 +453,5 @@ class FCN_Suggestion {
   }
 }
 
-const FcnSuggestions = _$('.chapter__article') && _$('.comment-section') && _$$$('selection-tools') ?
-  new FCN_Suggestion() : null;
+// const FcnSuggestions = _$('.chapter__article') && _$('.comment-section') && _$$$('selection-tools') ?
+//   new FCN_Suggestion() : null;

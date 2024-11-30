@@ -191,7 +191,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
     fcn_showNotification(fictioneer_tl.notification.quoteAppendedToComment);
 
-    this.#appendToComment(`\n[quote]${quote} ${anchor}[/quote]\n`);
+    FcnUtils.appendToComment(`\n[quote]${quote} ${anchor}[/quote]\n`);
   }
 
   toggleBookmark({ target }) {
@@ -270,33 +270,6 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   // =====================
   // ====== PRIVATE ======
   // =====================
-
-  /**
-   * Appends a content to the comment form.
-   *
-   * @since 3.0
-   * @since 5.xx.x - Folded into Stimulus Controller.
-   * @param {String} content - The content to append.
-   */
-
-  #appendToComment(content) {
-    const defaultEditor = _$(FcnGlobals.commentFormSelector);
-
-    if (!defaultEditor) {
-      FcnGlobals.commentStack.push(content);
-      return;
-    }
-
-    switch (defaultEditor.tagName) {
-      case 'TEXTAREA':
-        defaultEditor.value += content;
-        FcnUtils.adjustTextarea(defaultEditor);
-        break;
-      case 'DIV':
-        defaultEditor.innerHTML += content;
-        break;
-    }
-  }
 
   #isValidParagraph(target) {
     const interactiveSelector = '.popup-menu-toggle, .skip-tools, .tts-interface, .paragraph-tools__actions, .hidden, .inside-epub, a, button, label, input, textarea, select, option';

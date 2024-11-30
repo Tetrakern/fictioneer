@@ -702,6 +702,32 @@ const FcnUtils = {
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent.trim())
       .join(' ');
+  },
+
+  /**
+   * Appends a string to the comment form.
+   *
+   * @since 5.xx.x
+   * @param {String} content - The content to append.
+   */
+
+  appendToComment(content) {
+    const editor = _$(FcnGlobals.commentFormSelector);
+
+    if (!editor) {
+      FcnGlobals.commentStack.push(content);
+      return;
+    }
+
+    switch (editor.tagName) {
+      case 'TEXTAREA':
+        editor.value += content;
+        FcnUtils.adjustTextarea(editor);
+        break;
+      case 'DIV':
+        editor.innerHTML += content;
+        break;
+    }
   }
 };
 

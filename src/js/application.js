@@ -479,11 +479,11 @@ application.register('fictioneer', class extends Stimulus.Controller {
    */
 
   toggleSuggestionModal(event) {
-    if (typeof FcnSuggestions !== 'undefined') {
-      this.toggleModalVisibility(event.currentTarget, 'suggestions-modal');
+    // if (typeof FcnSuggestions !== 'undefined') {
+    //   this.toggleModalVisibility(event.currentTarget, 'suggestions-modal');
 
-      FcnSuggestions.toggleViaParagraphTools(FcnSuggestions);
-    }
+    //   FcnSuggestions.toggleViaParagraphTools(FcnSuggestions);
+    // }
   }
 
   /**

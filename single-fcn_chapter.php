@@ -31,7 +31,7 @@ get_header(
   <div class="progress__bar"></div>
 </div>
 
-<main id="main" class="main chapter" data-controller="fictioneer-chapter" data-fictioneer-chapter-chapter-id-value="<?php echo $post_id; ?>" data-fictioneer-chapter-story-id-value="<?php echo $story_id; ?>" data-action="fictioneer:bodyClick@window->fictioneer-chapter#clickOutside">
+<main id="main" class="main chapter" data-controller="fictioneer-chapter fictioneer-suggestion" data-fictioneer-chapter-chapter-id-value="<?php echo $post_id; ?>" data-fictioneer-chapter-story-id-value="<?php echo $story_id; ?>" data-action="fictioneer:bodyClick@window->fictioneer-chapter#clickOutside fictioneer:bodyClick@window->fictioneer-suggestion#clickOutside">
 
   <?php do_action( 'fictioneer_main', 'chapter' ); ?>
 
@@ -152,7 +152,7 @@ get_header(
           }
         ?>
 
-        <section id="chapter-content" class="chapter__content content-section" data-fictioneer-chapter-target="content"><?php
+        <section id="chapter-content" class="chapter__content content-section" data-fictioneer-chapter-target="content" data-action="mouseup->fictioneer-suggestion#toggleFloatingButton"><?php
           if ( $password_required && $password_note ) {
             echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
           }
