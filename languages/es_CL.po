@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-21 20:21+0000\n"
-"PO-Revision-Date: 2024-10-05 14:07-0300\n"
+"PO-Revision-Date: 2024-11-29 19:32-0300\n"
 "Last-Translator: \n"
 "Language-Team: Português do Brasil\n"
 "Language: es_CL\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: fictioneer\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Language: pt_BR\n"
 "X-Loco-Version: 2.6.11; wp-6.6.1\n"
 "X-Source-Language: C\n"
@@ -664,7 +664,7 @@ msgid ""
 msgstr ""
 "<strong>Agregar una colección predefinida de géneros y subgéneros de %1$s</"
 "strong> a la lista (inglés) o actualizar una lista existente, tomada del <a "
-"href=“%2$s” target=“_blank”>Proyecto de Taxonomía de Fictioneer</a>."
+"href=\"%2$s\" target=\"_blank\">Proyecto de Taxonomía de Fictioneer</a>."
 
 #: includes/functions/settings/_settings_page_tools.php:152
 #, php-format
@@ -674,8 +674,8 @@ msgid ""
 "target=\"_blank\">Fictioneer Taxonomy Project</a>."
 msgstr ""
 "<strong>Agregar una colección predefinida de etiquetas %1$s</strong> a la lista "
-"(inglés) o actualizar una lista existente, tomada del <a href=“%2$s” "
-"target=“_blank”>Proyecto de Taxonomía Fictioneer</a>."
+"(inglés) o actualizar una lista existente, tomada del <a href=\"%2$s\" "
+"target=\"_blank\"> Proyecto de Taxonomía Fictioneer</a>."
 
 #: includes/functions/settings/_settings_page_tools.php:254
 msgid ""
@@ -732,8 +732,8 @@ msgid ""
 "target=\"_blank\">download</a> and install the latest version at your next "
 "convenience."
 msgstr ""
-"<strong>Fictioneer %1$s</strong> esta disponible,  Por favor <a href=“%2$s” "
-"target=“_blank”>Descarga</a> e instala la siguiente versión cuando puedas."
+"<strong>Fictioneer %1$s</strong> Esta disponible. porfa <a href=\"%2$s\" "
+"target=\"_blank\">descarga</a> e instala la ultima versión cuando puedas."
 
 #: includes/functions/_setup-admin.php:254
 #, php-format
@@ -742,8 +742,8 @@ msgid ""
 "target=\"_blank\">download</a> and install the latest version at your next "
 "convenience.%3$s"
 msgstr ""
-"<strong>Fictioneer %1$s</strong> esta disponible. por favor <a href=“%2$s” "
-"target=“_blank”>descarga</a> e instala la siguiente versión.%3$s"
+"<strong>Fictioneer %1$s</strong> Esta disponible. porfa <a href=\"%2$s\" "
+"target=\"_blank\">descarga</a> e instala la ultima versión cuando puedas.%3$s"
 
 #: includes/functions/settings/_settings_page_tools.php:41
 msgid ""
@@ -1009,11 +1009,11 @@ msgstr "Agregar “%s” rol."
 
 #: includes/functions/settings/_settings_actions.php:588
 msgid "Added default genres."
-msgstr "Agregar géneros predeterminados"
+msgstr "Agregar géneros predeterminados."
 
 #: includes/functions/settings/_settings_actions.php:624
 msgid "Added default tags."
-msgstr "agregar tags predeterminados"
+msgstr "agregar tags predeterminados."
 
 #: includes/functions/settings/_settings_page_general.php:1467
 msgid "Additional options you most likely do not need."
@@ -2036,7 +2036,7 @@ msgid ""
 "content or excessive size. You can alternatively upload manually created ebooks "
 "as well."
 msgstr ""
-"ePUBs generados automáticamente. Pueden tardar un poco y fallar por contenido "
+"ePUBs generados automáticamente, Pueden tardar un poco y fallar por contenido "
 "no conforme o tamaño excesivo. También puede cargar libros electrónicos creados "
 "manualmente."
 
@@ -2089,7 +2089,7 @@ msgstr "Color de fondo del distintivo de comentario del moderador."
 #: includes/functions/_customizer-settings.php:537
 #: includes/functions/_customizer-settings.php:968
 msgid "Background color of the override comment badge."
-msgstr "Color de fondo de la insignia de la sobre escritura del comentario"
+msgstr "Color de fondo de la insignia de la sobre escritura del comentario."
 
 #: includes/functions/_customizer-settings.php:533
 #: includes/functions/_customizer-settings.php:964
@@ -7781,8 +7781,8 @@ msgid ""
 "whitespaces. Format: \"Link Name | https://www.address.abc\" (without quotes)."
 msgstr ""
 "Enlace al Patreon del autor, Ko-Fi, etc. Un enlace por línea y cuidado con los "
-"espacios en blanco. Formato: \"Nombre del enlace | https://www.address."
-"abc\" (sin comillas)."
+"espacios en blanco. Formato: \"Nombre del enlace | https://www.address.abc\" "
+"(sin comillas)."
 
 #: partials/_icon-menu.php:50
 msgid "Link to user profile"
@@ -9627,7 +9627,7 @@ msgstr "Purgar cachés de temas."
 
 #: includes/functions/settings/_settings_page_seo.php:151
 msgid "Purging…"
-msgstr "Purgar..."
+msgstr "Purgando..."
 
 #: includes/functions/settings/_settings_page_general.php:916
 msgid "Quick buttons to wrap text selection in BBCodes."
@@ -10164,7 +10164,7 @@ msgstr "Se han actualizado las funciones de los roles."
 
 #: includes/functions/settings/_settings_actions.php:129
 msgid "Role removed."
-msgstr "rol eliminado."
+msgstr "Rol eliminado."
 
 #: includes/functions/settings/_settings_actions.php:127
 msgid "Role renamed."
