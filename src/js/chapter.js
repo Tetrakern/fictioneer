@@ -335,18 +335,12 @@ if (window.location.hash === '#start') {
 }
 
 // =============================================================================
-// GLOBALS
+// FORMATTING UTILITIES
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting');
-
-var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
-
-
-
-
-
 const FcnFormatting = {
+  eFormattingTarget: _$('.chapter-formatting'),
+
   /**
    * Returns default chapter formatting.
    *
@@ -423,103 +417,6 @@ const FcnFormatting = {
   }
 };
 
-
-
-
-
-
-
-
-
-
-// =============================================================================
-// GET FORMATTING
-// =============================================================================
-
-/**
- * Get formatting JSON from local storage or create new one.
- *
- * @since 4.0.0
- * @see fcn_defaultFormatting()
- * @see fcn_setFormatting();
- * @return {Object} The formatting settings.
- */
-
-function fcn_getFormatting() {
-  // Get settings from local storage or use defaults
-  let formatting = FcnUtils.parseJSON(localStorage.getItem('fcnChapterFormatting')) ?? fcn_defaultFormatting();
-
-  // Simple validation
-  if (Object.keys(formatting).length < 15) {
-    formatting = fcn_defaultFormatting();
-  }
-
-  // Timestamp allows to force resets after script updates (may annoy users)
-  if (formatting['timestamp'] < 1651164557584) {
-    formatting = fcn_defaultFormatting();
-    formatting['timestamp'] = Date.now();
-  }
-
-  // Update local storage and return
-  fcn_setFormatting(formatting);
-
-  return formatting;
-}
-
-/**
- * Returns default formatting.
- *
- * @since 4.0.0
- * @return {Object} The formatting settings.
- */
-
-function fcn_defaultFormatting() {
-  return {
-    ...{
-      'font-saturation': 0,
-      'font-color': FcnGlobals.fontColors[0].css, // Set with wp_localize_script()
-      'font-name': FcnGlobals.fonts[0].css, // Set with wp_localize_script()
-      'font-size': 100,
-      'letter-spacing': 0.0,
-      'line-height': 1.7,
-      'paragraph-spacing': 1.5,
-      'site-width': document.documentElement.dataset.siteWidthDefault ?? '960',
-      'indent': true,
-      'show-sensitive-content': true,
-      'show-chapter-notes': true,
-      'justify': false,
-      'show-comments': true,
-      'show-paragraph-tools': true,
-      'timestamp': 1664797604825 // Used to force resets on script updates
-    },
-    ...FcnUtils.parseJSON(document.documentElement.dataset.defaultFormatting ?? '{}')
-  };
-}
-
-// =============================================================================
-// SET FORMATTING
-// =============================================================================
-
-/**
- * Set the formatting settings object and save to local storage.
- *
- * @since 4.0.0
- * @param {Object} value - The formatting settings.
- */
-
-function fcn_setFormatting(value) {
-  // Simple validation
-  if (typeof value !== 'object') {
-    return;
-  }
-
-  // Keep global updated
-  fcn_formatting = value;
-
-  // Update local storage
-  localStorage.setItem('fcnChapterFormatting', JSON.stringify(value));
-}
-
 // =============================================================================
 // CHAPTER FORMATTING: FONT SIZE
 // =============================================================================
@@ -540,7 +437,6 @@ function fcn_setFormatting(value) {
    * Update font size formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {Number} value - Integer between 50 and 200.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
@@ -633,12 +529,13 @@ function fcn_setFormatting(value) {
    * Update font color on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {String} index - Index of the CSS color value to set.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateFontColor(index, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Stay within bounds
     index = FcnUtils.clamp(0, FcnGlobals.fontColors.length - 1, index);
 
@@ -647,13 +544,13 @@ function fcn_setFormatting(value) {
     select.value = index;
 
     // Update inline style
-    fcn_chapterFormatting.style.setProperty('--text-chapter', FcnGlobals.fontColors[index].css);
+    FcnFormatting.eFormattingTarget.style.setProperty('--text-chapter', FcnGlobals.fontColors[index].css);
 
     // Update local storage
-    fcn_formatting['font-color'] = FcnGlobals.fontColors[index].css;
+    formatting['font-color'] = FcnGlobals.fontColors[index].css;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -674,17 +571,18 @@ function fcn_setFormatting(value) {
   reset.onclick = () => { fcn_updateFontColor(0) }
 
   // Listen for font color select input
-  select.onchange = (e) => { fcn_updateFontColor(e.target.value); }
+  select.onchange = (event) => { fcn_updateFontColor(event.target.value); }
 
   // Listen for font color step buttons
   _$$('.font-color-stepper').forEach(element => {
-    element.addEventListener('click', (e) => {
-      fcn_setFontColor(e.currentTarget.value);
+    element.addEventListener('click', (event) => {
+      fcn_setFontColor(event.currentTarget.value);
     });
   });
 
   // Initialize (using the CSS name makes it independent from the array position)
-  fcn_updateFontColor(FcnGlobals.fontColors.findIndex((item) => { return item.css == fcn_formatting['font-color'] }), false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontColor(FcnGlobals.fontColors.findIndex((item) => { return item.css == formatting['font-color'] }), false);
 })();
 
 // =============================================================================
@@ -706,12 +604,13 @@ function fcn_setFormatting(value) {
    * Update font family on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {String} index - Index of the font.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateFontFamily(index, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Stay within bounds
     index = FcnUtils.clamp(0, FcnGlobals.fonts.length - 1, index);
 
@@ -739,10 +638,10 @@ function fcn_setFormatting(value) {
     });
 
     // Update local storage
-    fcn_formatting['font-name'] = FcnGlobals.fonts[index].css;
+    formatting['font-name'] = FcnGlobals.fonts[index].css;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -773,7 +672,8 @@ function fcn_setFormatting(value) {
   });
 
   // Initialize (using the CSS name makes it independent from the array position)
-  fcn_updateFontFamily(FcnGlobals.fonts.findIndex((item) => { return item.css == fcn_formatting['font-name'] }), false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontFamily(FcnGlobals.fonts.findIndex((item) => { return item.css == formatting['font-name'] }), false);
 })();
 
 // =============================================================================
@@ -796,12 +696,13 @@ function fcn_setFormatting(value) {
    * Update font saturation formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between -1 and 1.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateFontSaturation(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
     value = FcnUtils.clamp(-1, 1, value ?? 0);
 
@@ -811,16 +712,16 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != 0);
 
     // Update font saturation property (squared for smooth progression)
-    fcn_chapterFormatting.style.setProperty(
+    FcnFormatting.eFormattingTarget.style.setProperty(
       '--font-saturation',
       `(${value >= 0 ? 1 + value ** 2 : 1 - value ** 2} + var(--font-saturation-offset))`
     );
 
     // Update local storage
-    fcn_formatting['font-saturation'] = value;
+    formatting['font-saturation'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -854,7 +755,8 @@ function fcn_setFormatting(value) {
   text?.addEventListener('input', fcn_setFontSaturationFromText);
 
   // Initialize
-  fcn_updateFontSaturation(fcn_formatting['font-saturation'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontSaturation(formatting['font-saturation'], false);
 })();
 
 // =============================================================================
@@ -867,7 +769,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-letter-spacing-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-letter-spacing-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-letter-spacing-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['letter-spacing'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['letter-spacing'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -878,12 +780,13 @@ function fcn_setFormatting(value) {
    * Update letter-spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between -0.1 and 0.2.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateLetterSpacing(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
     value = FcnUtils.clamp(-0.1, 0.2, value ?? _default);
 
@@ -893,13 +796,13 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != _default);
 
     // Update inline style
-    fcn_chapterFormatting.style.letterSpacing = `calc(${value}em + var(--font-letter-spacing-base))`;
+    FcnFormatting.eFormattingTarget.style.letterSpacing = `calc(${value}em + var(--font-letter-spacing-base))`;
 
     // Update local storage
-    fcn_formatting['letter-spacing'] = value;
+    formatting['letter-spacing'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -923,7 +826,8 @@ function fcn_setFormatting(value) {
   text?.addEventListener('input', fcn_setLetterSpacing);
 
   // Initialize
-  fcn_updateLetterSpacing(fcn_formatting['letter-spacing'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateLetterSpacing(formatting['letter-spacing'], false);
 })();
 
 // =============================================================================
@@ -936,7 +840,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-paragraph-spacing-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-paragraph-spacing-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-paragraph-spacing-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['paragraph-spacing'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['paragraph-spacing'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -947,12 +851,13 @@ function fcn_setFormatting(value) {
    * Update paragraph spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between 0 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateParagraphSpacing(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
     value = FcnUtils.clamp(0, 3, value ?? _default);
 
@@ -962,13 +867,13 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != _default);
 
     // Update paragraph-spacing property
-    fcn_chapterFormatting.style.setProperty('--paragraph-spacing', `${value}em`);
+    FcnFormatting.eFormattingTarget.style.setProperty('--paragraph-spacing', `${value}em`);
 
     // Update local storage
-    fcn_formatting['paragraph-spacing'] = value;
+    formatting['paragraph-spacing'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -992,7 +897,8 @@ function fcn_setFormatting(value) {
   text?.addEventListener('input', fcn_setParagraphSpacing);
 
   // Initialize
-  fcn_updateParagraphSpacing(fcn_formatting['paragraph-spacing'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateParagraphSpacing(formatting['paragraph-spacing'], false);
 })();
 
 // =============================================================================
@@ -1005,7 +911,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-line-height-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-line-height-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-line-height-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['line-height'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['line-height'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -1016,12 +922,13 @@ function fcn_setFormatting(value) {
    * Update line height formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between 0.8 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateLineHeight(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
     value = FcnUtils.clamp(0.8, 3.0, value ?? _default);
 
@@ -1031,13 +938,13 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != _default);
 
     // Update inline style
-    fcn_chapterFormatting.style.lineHeight = `${value}`;
+    FcnFormatting.eFormattingTarget.style.lineHeight = `${value}`;
 
     // Update local storage
-    fcn_formatting['line-height'] = value;
+    formatting['line-height'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -1061,7 +968,8 @@ function fcn_setFormatting(value) {
   text?.addEventListener('input', fcn_setLineHeight);
 
   // Initialize
-  fcn_updateLineHeight(fcn_formatting['line-height'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateLineHeight(formatting['line-height'], false);
 })();
 
 // =============================================================================
@@ -1074,7 +982,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-site-width-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-site-width-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-site-width-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['site-width'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['site-width'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -1088,12 +996,13 @@ function fcn_setFormatting(value) {
    * to avoid potential layout issues.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between 640 and 1920.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateSiteWidth(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Target
     const main = _$('main');
 
@@ -1115,10 +1024,10 @@ function fcn_setFormatting(value) {
     main.classList.toggle('_640-and-below', value <= 640);
 
     // Update local storage
-    fcn_formatting['site-width'] = value;
+    formatting['site-width'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -1142,7 +1051,8 @@ function fcn_setFormatting(value) {
   text?.addEventListener('input', fcn_setSiteWidth);
 
   // Initialize
-  fcn_updateSiteWidth(fcn_formatting['site-width'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateSiteWidth(formatting['site-width'], false);
 })();
 
 // =============================================================================
@@ -1153,7 +1063,6 @@ function fcn_setFormatting(value) {
  * Update formatting and toggles on chapters.
  *
  * @since 5.9.4
- * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
  * @param {String} selector - The selector of the toggle.
  * @param {String} setting - The name of the setting.
@@ -1161,6 +1070,8 @@ function fcn_setFormatting(value) {
  */
 
 function fcn_updateToggle(value, selector, setting, args = {}) {
+  const formatting = FcnFormatting.get();
+
   // Defaults
   args = {...{ save: true }, ...args};
 
@@ -1176,7 +1087,7 @@ function fcn_updateToggle(value, selector, setting, args = {}) {
 
   // Toggle classes on chapter content
   if (args.toggleClass) {
-    fcn_chapterFormatting.classList.toggle(args.toggleClass, args.invertClass ? !checked : checked);
+    FcnFormatting.eFormattingTarget.classList.toggle(args.toggleClass, args.invertClass ? !checked : checked);
   }
 
   // Case: Sensitive content
@@ -1202,10 +1113,10 @@ function fcn_updateToggle(value, selector, setting, args = {}) {
   }
 
   // Update local storage
-  fcn_formatting[setting] = checked;
+  formatting[setting] = checked;
 
   if (args.save) {
-    fcn_setFormatting(fcn_formatting);
+    FcnFormatting.set(formatting);
   }
 }
 
@@ -1221,7 +1132,8 @@ _$$('#reader-settings-indent-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- JUSTIFY ---------------------------------------------------------------
@@ -1236,7 +1148,8 @@ _$$('#reader-settings-justify-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- PARAGRAPH TOOLS -------------------------------------------------------
@@ -1250,7 +1163,8 @@ _$$('#reader-settings-paragraph-tools-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, { save: false });
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, { save: false });
 });
 
 // --- FOREWORD/AFTERWORD/WARNINGS -------------------------------------------
@@ -1265,7 +1179,8 @@ _$$('#reader-settings-chapter-notes-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- COMMENTS --------------------------------------------------------------
@@ -1280,7 +1195,8 @@ _$$('#reader-settings-comments-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- SENSITIVE CONTENT -----------------------------------------------------
@@ -1295,5 +1211,6 @@ _$$('#reader-settings-sensitive-content-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
