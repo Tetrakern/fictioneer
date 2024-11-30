@@ -1,5 +1,5 @@
 // =============================================================================
-// STIMULUS: FICTIONEER REMINDERS
+// STIMULUS: FICTIONEER CHAPTER
 // =============================================================================
 
 application.register('fictioneer-chapter', class extends Stimulus.Controller {

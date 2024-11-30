@@ -1,5 +1,5 @@
 // =============================================================================
-// STIMULUS: FICTIONEER REMINDERS
+// STIMULUS: FICTIONEER CHECKMARKS
 // =============================================================================
 
 application.register('fictioneer-checkmarks', class extends Stimulus.Controller {
