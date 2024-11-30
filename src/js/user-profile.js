@@ -289,9 +289,6 @@ _$('.button-clear-checkmarks')?.addEventListener(
     currentUserData.checkmarks = { 'data': {}, 'updated': Date.now() };
     fcn().setUserData(currentUserData);
 
-    // Update views
-    fcn_updateCheckmarksView();
-
     // Clear data
     fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_checkmarks', true);
   }
@@ -315,9 +312,6 @@ _$('.button-clear-reminders')?.addEventListener(
     currentUserData.reminders = { 'data': {} };
     fcn().setUserData(currentUserData);
 
-    // Update view
-    fcn_updateRemindersView();
-
     // Clear data
     fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_reminders', true);
   }
@@ -340,9 +334,6 @@ _$('.button-clear-follows')?.addEventListener(
     const currentUserData = fcn().userData();
     currentUserData.follows = { 'data': {} };
     fcn().setUserData(currentUserData);
-
-    // Update view
-    fcn_updateFollowsView();
 
     // Clear data
     fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_follows', true);
