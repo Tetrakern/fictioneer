@@ -472,21 +472,6 @@ application.register('fictioneer', class extends Stimulus.Controller {
   }
 
   /**
-   * Toggle suggestion modal.
-   *
-   * @since 5.xx.x
-   * @param {Event} event - The event.
-   */
-
-  toggleSuggestionModal(event) {
-    // if (typeof FcnSuggestions !== 'undefined') {
-    //   this.toggleModalVisibility(event.currentTarget, 'suggestions-modal');
-
-    //   FcnSuggestions.toggleViaParagraphTools(FcnSuggestions);
-    // }
-  }
-
-  /**
    * Toggle a modal.
    *
    * @since 5.xx.x
