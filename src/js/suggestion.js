@@ -30,7 +30,6 @@ diff_match_patch.prototype.fcn_prettyHtml = function(diffs) {
 
 class FCN_Suggestion {
   constructor() {
-    this.toggle = _$$$('suggestions-modal-toggle');
     this.tools = _$$$('selection-tools');
     this.button = _$$$('button-add-suggestion');
     this.toolsButton = _$$$('button-tools-add-suggestion');
@@ -179,8 +178,8 @@ class FCN_Suggestion {
     instance.paragraph = instance.getClosestParagraph();
 
     // Open modal
-    instance.toggle.click();
-    instance.toggle.checked = true;
+    // instance.toggle.click();
+    // instance.toggle.checked = true;
 
     // Clean up and set focus
     instance.clearSelection();
@@ -239,8 +238,8 @@ class FCN_Suggestion {
     }
 
     // Close modal
-    instance.toggle.click();
-    instance.toggle.checked = false;
+    // instance.toggle.click();
+    // instance.toggle.checked = false;
 
     // Show notification
     fcn_showNotification(fictioneer_tl.notification.suggestionAppendedToComment);
@@ -252,7 +251,7 @@ class FCN_Suggestion {
 
     // Show Modal
     this.button?.addEventListener('click', this.showModal.bind(null, this));
-    this.toolsButton?.addEventListener('click', this.toggleViaParagraphTools.bind(null, this));
+    // this.toolsButton?.addEventListener('click', this.toggleViaParagraphTools.bind(null, this));
 
     // Edit
     this.input?.addEventListener('input', this.editSuggestion.bind(null, this));
@@ -265,5 +264,5 @@ class FCN_Suggestion {
   }
 }
 
-const fcn_suggestions = _$('.chapter__article') && _$('.comment-section') && _$$$('selection-tools') ?
+const FcnSuggestions = _$('.chapter__article') && _$('.comment-section') && _$$$('selection-tools') ?
   new FCN_Suggestion() : null;

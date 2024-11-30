@@ -270,35 +270,23 @@
   position: fixed;
   inset: 0;
   z-index: 999999;
-  display: none;
-  content-visibility: hidden;
+  background: var(--modal-overlay);
   contain: content; // Improve performance
 
-  &.age-confirmation {
-    --modal-width: 450px;
-  }
-
-  &._open {
-    display: block;
-    content-visibility: visible;
+  &[hidden] {
+    content-visibility: hidden; // Improve performance
   }
 
   &__wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 1;
     transform: translate(-50%, -50%);
   }
+}
 
-  .background-close {
-    cursor: default;
-    position: absolute;
-    inset: 0;
-    display: block;
-    background: var(--modal-overlay);
-    height: 100%; // Prevent gaps caused by mobile interface
-  }
+.age-confirmation {
+  --modal-width: 450px;
 }
 
 .chapter-changelog {

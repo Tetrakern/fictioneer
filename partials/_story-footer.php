@@ -62,9 +62,9 @@ $meta_output = apply_filters( 'fictioneer_filter_story_footer_meta', $meta_outpu
 <footer class="story__footer">
   <div class="story__extra">
     <?php if ( $show_log ) : ?>
-      <label class="story__changelog hide-below-400" for="modal-chapter-changelog-toggle" tabindex="-1">
+      <button class="story__changelog hide-below-400" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="chapter-changelog-modal">
         <i class="fa-solid fa-clock-rotate-left"></i>
-      </label>
+      </button>
     <?php endif; ?>
   </div>
   <div class="story__meta"><?php echo implode( '', $meta_output ); ?></div>

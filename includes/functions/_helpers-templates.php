@@ -1092,7 +1092,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
 
       if ( $show_login ) {
         $output['reminder'] .= sprintf(
-          '<label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="%s"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></label>',
+          '<button class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" data-tooltip="%s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></button>',
           esc_attr__( 'Log in to set Reminders', 'fictioneer' ),
           fcntr( 'read_later' )
         );
@@ -1109,7 +1109,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
 
       if ( $show_login ) {
         $output['follow'] .= sprintf(
-          '<label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="%s"><i class="fa-regular fa-star off"></i><span class="span-follow hide-below-400">%s</span></label>',
+          '<button class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" data-tooltip="%s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal"><i class="fa-regular fa-star off"></i><span class="span-follow hide-below-400">%s</span></button>',
           esc_attr__( 'Log in to Follow', 'fictioneer' ),
           fcntr( 'follow' )
         );
@@ -1153,7 +1153,7 @@ function fictioneer_get_media_buttons( $args = [] ) {
 
   // Share modal button
   if ( $args['share'] ?? 1 ) {
-    $output['share'] = '<label for="modal-sharing-toggle" class="tooltipped media-buttons__item" data-tooltip="' . esc_attr__( 'Share', 'fictioneer' ) . '" tabindex="0"><i class="fa-solid fa-share-nodes"></i></label>';
+    $output['share'] = '<button class="tooltipped media-buttons__item" data-tooltip="' . esc_attr__( 'Share', 'fictioneer' ) . '" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="sharing-modal"><i class="fa-solid fa-share-nodes"></i></button>';
   }
 
   // Feed buttons
@@ -1224,7 +1224,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     // Open formatting modal
     $micro_menu['formatting'] = sprintf(
-      '<label for="modal-formatting-toggle" class="micro-menu__item micro-menu__modal-formatting" tabindex="-1">%s</label>',
+      '<button class="micro-menu__item micro-menu__modal-formatting" tabindex="-1" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="formatting-modal">%s</button>',
       fictioneer_get_icon( 'font-settings' )
     );
 
@@ -1641,7 +1641,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
     }
 
     // Site settings
-    $output['site_settings'] = '<li class="menu-item"><label for="modal-site-settings-toggle" tabindex="0">' . fcntr( 'site_settings' ) . '</label></li>';
+    $output['site_settings'] = '<li class="menu-item"><button data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="site-settings-modal">' . fcntr( 'site_settings' ) . '</button></li>';
 
     // Discord link
     if ( ! empty( $discord_link ) ) {
@@ -2360,7 +2360,7 @@ function fictioneer_render_icon_menu( $args ) {
   // Build items
   if ( fictioneer_show_login() ) {
     $output['login'] = sprintf(
-      '<div class="menu-item menu-item-icon subscriber-login hide-if-logged-in"><label for="modal-login-toggle" title="%1$s" tabindex="0" aria-label="%2$s">%3$s</label></div>',
+      '<div class="menu-item menu-item-icon subscriber-login hide-if-logged-in"><button title="%1$s" aria-label="%2$s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal">%3$s</button></div>',
       esc_attr__( 'Login', 'fictioneer' ),
       esc_attr__( 'Open login modal', 'fictioneer' ),
       fictioneer_get_icon( 'fa-login' )
@@ -2426,7 +2426,7 @@ function fictioneer_render_icon_menu( $args ) {
   );
 
   $output['settings'] = sprintf(
-    '<div class="menu-item menu-item-icon site-setting"><label for="modal-site-settings-toggle" title="%1$s" tabindex="0" aria-label="%2$s">%3$s</label></div>',
+    '<div class="menu-item menu-item-icon site-setting"><button title="%1$s" aria-label="%2$s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="site-settings-modal">%3$s</button></div>',
     esc_attr__( 'Site Settings', 'fictioneer' ),
     esc_attr__( 'Open site settings modal', 'fictioneer' ),
     fictioneer_get_icon( 'fa-tools' )

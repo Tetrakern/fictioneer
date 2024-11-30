@@ -359,10 +359,10 @@ add_action( 'fictioneer_chapter_actions_bottom_right', 'fictioneer_chapter_nav_b
 
 function fictioneer_chapter_formatting_button() {
   // Start HTML ---> ?>
-  <label class="button _secondary open" for="modal-formatting-toggle" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Open chapter formatting modal', 'fictioneer' ); ?>">
+  <button class="button _secondary open" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="formatting-modal" aria-label="<?php esc_attr_e( 'Open chapter formatting modal', 'fictioneer' ); ?>">
     <?php fictioneer_icon( 'font-settings' ); ?>
     <span class="hide-below-tablet"><?php echo fcntr( 'formatting' ); ?></span>
-  </label>
+  </button>
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_formatting_button', 10 );
@@ -732,7 +732,7 @@ function fictioneer_chapter_paragraph_tools() {
         </button>
       <?php endif; ?>
       <?php if ( $can_comment && get_option( 'fictioneer_enable_suggestions' ) ) : ?>
-        <button id="button-tools-add-suggestion" type="button" class="button <?php echo $hide_if_logged_out ?>" data-action="click->fictioneer-chapter#suggest">
+        <button id="button-tools-add-suggestion" type="button" class="button <?php echo $hide_if_logged_out ?>" data-action="click->fictioneer#toggleSuggestionModal">
           <i class="fa-solid fa-highlighter"></i>
           <span class="hide-below-480"><?php _ex( 'Suggestion', 'Paragraph tools suggestion button', 'fictioneer' ); ?></span>
         </button>

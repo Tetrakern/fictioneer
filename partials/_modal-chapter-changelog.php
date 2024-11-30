@@ -22,16 +22,16 @@ foreach ( $changelog as $entry ) {
 
 ?>
 
-<div id="chapter-changelog-modal" class="chapter-changelog modal" data-nosnippet hidden>
-  <label for="modal-chapter-changelog-toggle" class="background-close"></label>
+<div id="chapter-changelog-modal" class="chapter-changelog modal" data-fictioneer-target="modal" data-action="click->fictioneer#backgroundCloseModals keydown.esc@document->fictioneer#closeModals" data-nosnippet hidden>
   <div class="modal__wrapper">
-    <label class="close" for="modal-chapter-changelog-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
-      <?php fictioneer_icon( 'fa-xmark' ); ?>
-    </label>
+
+    <button class="close" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>" data-action="click->fictioneer#closeModals"><?php fictioneer_icon( 'fa-xmark' ); ?></button>
+
     <div class="modal__header drag-anchor"><?php _e( 'Changelog', 'fictioneer' ); ?></div>
 
     <div class="modal__row _textarea _small-top">
       <textarea class="modal__textarea _changelog" readonly><?php echo $output; ?></textarea>
     </div>
+
   </div>
 </div>

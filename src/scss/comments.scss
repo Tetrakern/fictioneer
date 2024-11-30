@@ -50,7 +50,7 @@
     font-size: var(--fs-xs);
     text-align: center;
 
-    :is(label, a) {
+    :is(label, a, button) {
       font-weight: 600;
       transition: color var(--transition-duration);
 

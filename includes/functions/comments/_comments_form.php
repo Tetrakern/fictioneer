@@ -43,7 +43,7 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
       return '';
     }
 
-    return '<div class="fictioneer-comment-toolbar" data-action="click->fictioneer-comment-form#toolbarButtons"><span class="fictioneer-comment-toolbar-bold" data-bbcode="b"><i class="fa-solid fa-bold"></i></span><span class="fictioneer-comment-toolbar-italic" data-bbcode="i"><i class="fa-solid fa-italic"></i></span><span class="fictioneer-comment-toolbar-strike" data-bbcode="s"><i class="fa-solid fa-strikethrough"></i></span><span class="fictioneer-comment-toolbar-image" data-bbcode="img"><i class="fa-solid fa-image"></i></span><span class="fictioneer-comment-toolbar-link" data-bbcode="link"><i class="fa-solid fa-link"></i></span><span class="fictioneer-comment-toolbar-quote" data-bbcode="quote"><i class="fa-solid fa-quote-left"></i></span><span class="fictioneer-comment-toolbar-spoiler" data-bbcode="spoiler"><i class="fa-solid fa-eye-low-vision"></i></span><label class="fictioneer-comment-toolbar-help" for="modal-bbcodes-toggle"><i class="fa-solid fa-circle-question"></i></label></div>';
+    return '<div class="fictioneer-comment-toolbar" data-action="click->fictioneer-comment-form#toolbarButtons"><span class="fictioneer-comment-toolbar-bold" data-bbcode="b"><i class="fa-solid fa-bold"></i></span><span class="fictioneer-comment-toolbar-italic" data-bbcode="i"><i class="fa-solid fa-italic"></i></span><span class="fictioneer-comment-toolbar-strike" data-bbcode="s"><i class="fa-solid fa-strikethrough"></i></span><span class="fictioneer-comment-toolbar-image" data-bbcode="img"><i class="fa-solid fa-image"></i></span><span class="fictioneer-comment-toolbar-link" data-bbcode="link"><i class="fa-solid fa-link"></i></span><span class="fictioneer-comment-toolbar-quote" data-bbcode="quote"><i class="fa-solid fa-quote-left"></i></span><span class="fictioneer-comment-toolbar-spoiler" data-bbcode="spoiler"><i class="fa-solid fa-eye-low-vision"></i></span><span class="fictioneer-comment-toolbar-help" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="bbcodes-modal"><i class="fa-solid fa-circle-question"></i></span></div>';
   }
 }
 
@@ -295,7 +295,7 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
         )
       );
     } else {
-      $args['must_log_in'] = '<div class="fictioneer-respond__must-login">' . __( 'You must be <label for="modal-login-toggle">logged in</label> to comment.', 'fictioneer' ) . '</div>';
+      $args['must_log_in'] = '<div class="fictioneer-respond__must-login">' . __( 'You must be <button data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal">logged in</button> to comment.', 'fictioneer' ) . '</div>';
     }
   }
 

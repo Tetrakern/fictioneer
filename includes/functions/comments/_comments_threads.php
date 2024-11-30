@@ -25,7 +25,7 @@ function fictioneer_comment_login_to_reply( $link, $args, $comment, $post ) {
 
   // Reply link or login modal toggle
   if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {
-    return $args['before'] . '<label for="modal-login-toggle" class="fictioneer-comment__login-to-reply">' . $args['login_text'] . '</label>' . $args['after'];
+    return $args['before'] . '<button class="fictioneer-comment__login-to-reply" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal">' . $args['login_text'] . '</button>' . $args['after'];
   } else {
     return $link;
   }

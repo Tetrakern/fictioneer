@@ -108,7 +108,7 @@ function fictioneer_mobile_quick_buttons() {
     );
 
     $output['formatting'] = sprintf(
-      '<label for="modal-formatting-toggle" class="button _quick"><span>%s</span></label>',
+      '<button class="button _quick" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="formatting-modal"><span>%s</span></button>',
       fcntr( 'formatting' )
     );
 
@@ -359,7 +359,7 @@ function fictioneer_mobile_user_menu() {
   }
 
   $output['site_settings'] = sprintf(
-    '<label for="modal-site-settings-toggle"><i class="fa-solid fa-tools mobile-menu__item-icon"></i> %s</label>',
+    '<button data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="site-settings-modal"><i class="fa-solid fa-tools mobile-menu__item-icon"></i> %s</button>',
     fcntr( 'site_settings' )
   );
 
@@ -397,7 +397,7 @@ function fictioneer_mobile_user_menu() {
 
   if ( $post_type === 'fcn_chapter' && ! is_search() ) {
     $output['formatting'] = sprintf(
-      '<label for="modal-formatting-toggle">%s %s</label>',
+      '<button data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="formatting-modal">%s %s</button>',
       fictioneer_get_icon( 'font-settings', 'mobile-menu__item-icon' ),
       fcntr( 'formatting' )
     );
@@ -439,7 +439,7 @@ function fictioneer_mobile_user_menu() {
 
   if ( fictioneer_show_login() ) {
     $output['login'] = sprintf(
-      '<label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">%s %s</label>',
+      '<button class="hide-if-logged-in subscriber-login" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal">%s %s</button>',
       fictioneer_get_icon( 'fa-login', 'mobile-menu__item-icon' ),
       fcntr( 'login' )
     );

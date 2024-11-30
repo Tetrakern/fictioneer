@@ -104,7 +104,7 @@ window.FictioneerApp.Controllers = window.FictioneerApp.Controllers || {};
 
 application.register('fictioneer', class extends Stimulus.Controller {
   static get targets() {
-    return ['avatarWrapper']
+    return ['avatarWrapper', 'modal']
   }
 
   static values = {
@@ -119,6 +119,8 @@ application.register('fictioneer', class extends Stimulus.Controller {
   }
 
   userReady = false;
+  lastModalToggle = null;
+  currentModal = null;
 
   /**
    * Stimulus Controller initialize lifecycle callback.
@@ -469,6 +471,91 @@ application.register('fictioneer', class extends Stimulus.Controller {
     });
   }
 
+  /**
+   * Toggle suggestion modal.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  toggleSuggestionModal(event) {
+    if (typeof FcnSuggestions !== 'undefined') {
+      this.toggleModalVisibility(event.currentTarget, 'suggestions-modal');
+
+      FcnSuggestions.toggleViaParagraphTools(FcnSuggestions);
+    }
+  }
+
+  /**
+   * Toggle a modal.
+   *
+   * @since 5.xx.x
+   * @param {Event} event - The event.
+   */
+
+  toggleModal(event) {
+    event.preventDefault();
+    this.toggleModalVisibility(event.currentTarget, event.params.id);
+  }
+
+  toggleModalVisibility(source, modalId) {
+    const target = _$$$(modalId);
+
+    if (!target) {
+      return;
+    }
+
+    if (this.currentModal !== target) {
+      this.closeModals();
+    }
+
+    this.lastModalToggle = source;
+
+    target.hidden = !target.hidden;
+
+    if (!target.hidden) {
+      const modalElement = target.querySelector('.close');
+
+      modalElement?.focus();
+      modalElement?.blur();
+    } else {
+      this.closeModals();
+    }
+  }
+
+  /**
+   * Close all modals.
+   *
+   * @since 5.xx.x
+   */
+
+  closeModals() {
+    if (this.hasModalTarget) {
+      this.modalTargets.forEach(modal => {
+        modal.hidden = true;
+      });
+    }
+
+    if (this.lastModalToggle) {
+      this.lastModalToggle?.focus();
+      this.lastModalToggle?.blur();
+      this.lastModalToggle.null;
+    }
+  }
+
+  /**
+   * Close all modals when clicking on a modal background.
+   *
+   * @since 5.xx.x
+   * @param {HTMLElement} target - The clicked element.
+   */
+
+  backgroundCloseModals({ target }) {
+    if (target.classList.contains('modal')) {
+      this.closeModals();
+    }
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================
@@ -652,8 +739,7 @@ function fcn_setLoggedInState() {
   const removeSelectors = [];
 
   if (loggedIn) {
-    removeSelectors.push('label[for="modal-login-toggle"]');
-    removeSelectors.push('#modal-login-toggle');
+    removeSelectors.push('[data-fictioneer-id-param="login-modal"]');
     removeSelectors.push('#login-modal');
   }
 
@@ -1820,44 +1906,8 @@ _$$('.fcn-contact-form').forEach(element => {
 });
 
 // =============================================================================
-// MODALS
+// DIALOG MODALS
 // =============================================================================
-
-// Toggle modals
-_$$('.modal-toggle').forEach(element => {
-  element.addEventListener('change', (event) => {
-    const target = _$$$(event.currentTarget.dataset.target);
-
-    // Toggle class
-    target.classList.toggle('_open', event.currentTarget.checked);
-    target.hidden = !event.currentTarget.checked;
-
-    // Set focus inside modal
-    const close = target.querySelector('.close');
-    close?.focus();
-    close?.blur();
-  });
-});
-
-/*
- * Set focus onto modal when opened.
- */
-
-document.body.querySelectorAll('.modal-toggle').forEach(element => {
-  element.addEventListener(
-    'change',
-    event => {
-      // Set current tabIndex into modal container
-      if (event.currentTarget.checked) {
-        const modalElement = event.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
-        modalElement?.focus();
-        modalElement?.blur();
-      } else if (document.body.classList.contains('user-is-tabbing')) {
-        FcnGlobals.eSite.querySelector(`label[for="${event.currentTarget.id}"]`)?.focus();
-      }
-    }
-  );
-});
 
 // Open dialog modal
 _$$('[data-click-action*="open-dialog-modal"]').forEach(element => {
@@ -2505,7 +2555,7 @@ function fcn_showAgeConfirmationModal() {
 
   // Disable site and show modal
   document.documentElement.classList.add('age-modal-open');
-  _$$$('age-confirmation-modal').classList.add('_open');
+  _$$$('age-confirmation-modal').hidden = false;
 
   // Confirm button
   _$$$('age-confirmation-confirm')?.addEventListener('click', event => {
@@ -2634,7 +2684,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       fcn_toggleFollow(this.storyIdValue, !this.isFollowed());
       this.#refreshFollowState();
     } else {
-      _$$$('modal-login-toggle')?.click();
+      _$('[data-fictioneer-id-param="login-modal"]')?.click();
     }
   }
 
@@ -2643,7 +2693,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       fcn_toggleReminder(this.storyIdValue, !this.isRemembered());
       this.#refreshReminderState();
     } else {
-      _$$$('modal-login-toggle')?.click();
+      _$('[data-fictioneer-id-param="login-modal"]')?.click();
     }
   }
 
@@ -2652,7 +2702,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
       fcn_toggleCheckmark(this.storyIdValue, this.chapterIdValue);
       this.#refreshCheckmarkState();
     } else {
-      _$$$('modal-login-toggle')?.click();
+      _$('[data-fictioneer-id-param="login-modal"]')?.click();
     }
   }
 

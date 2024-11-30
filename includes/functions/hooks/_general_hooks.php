@@ -137,10 +137,7 @@ function fictioneer_output_modals( $args ) {
 
   // Formatting and suggestions
   if ( ! $is_archive && $args['post_type'] == 'fcn_chapter' ) {
-    ?><input id="modal-formatting-toggle" data-target="formatting-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     fictioneer_get_cached_partial( 'partials/_modal-formatting' );
-
-    ?><input id="modal-tts-settings-toggle" data-target="tts-settings-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     fictioneer_get_cached_partial( 'partials/_modal-tts-settings' );
 
     if (
@@ -148,23 +145,19 @@ function fictioneer_output_modals( $args ) {
       ! fictioneer_is_commenting_disabled( get_the_ID() ) &&
       comments_open()
     ) {
-      ?><input id="suggestions-modal-toggle" data-target="suggestions-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
       fictioneer_get_cached_partial( 'partials/_modal-suggestions' );
     }
   }
 
   // Login
   if ( fictioneer_show_login() ) {
-    ?><input id="modal-login-toggle" data-target="login-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-login' );
   }
 
   // Social sharing
-  ?><input id="modal-sharing-toggle" data-target="sharing-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
   get_template_part( 'partials/_modal-sharing' );
 
   // Site settings
-  ?><input id="modal-site-settings-toggle" data-target="site-settings-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
   fictioneer_get_cached_partial( 'partials/_modal-site-settings' );
 
   // BBCodes tutorial
@@ -174,7 +167,6 @@ function fictioneer_output_modals( $args ) {
     comments_open() &&
     ! fictioneer_is_commenting_disabled( $args['post_id'] )
   ) {
-    ?><input id="modal-bbcodes-toggle" data-target="bbcodes-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     fictioneer_get_cached_partial( 'partials/_modal-bbcodes' );
   }
 
@@ -185,7 +177,6 @@ function fictioneer_output_modals( $args ) {
     FICTIONEER_ENABLE_STORY_CHANGELOG &&
     get_option( 'fictioneer_show_story_changelog' )
   ) {
-    ?><input id="modal-chapter-changelog-toggle" data-target="chapter-changelog-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-chapter-changelog' );
   }
 
