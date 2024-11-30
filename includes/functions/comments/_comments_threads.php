@@ -307,7 +307,7 @@ if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fict
  */
 
 function fictioneer_replace_comment_line_breaks( $comment_content ) {
-  $lines = preg_split( '/\R/', $comment_content );
+  $lines = preg_split( '/\R/u', $comment_content );
 
   $wrapped = array_map( function( $line ) {
     if ( trim( $line ) === '' ) {
