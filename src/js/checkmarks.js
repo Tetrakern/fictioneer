@@ -51,14 +51,15 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
   refreshView() {
     const checkmarks = this.data();
 
-    if (!checkmarks) {
+    if (Object.keys(checkmarks).length < 1) {
+      this.uncheckAll();
       return;
     }
 
     Object.entries(checkmarks).forEach(([storyId, chapterArray]) => {
       storyId = parseInt(storyId);
 
-      const storyChecked = chapterArray.includes(storyId);
+      const storyChecked = chapterArray?.includes(storyId);
 
       if (this.hasChapterCheckTarget) {
         if (storyChecked) {
@@ -72,7 +73,7 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
             const chapterStoryId = parseInt(chapterCheckmark.dataset.fictioneerCheckmarksStoryParam);
 
             if (chapterStoryId === storyId) {
-              const chapterChecked = chapterArray.includes(chapterId);
+              const chapterChecked = chapterArray?.includes(chapterId);
 
               chapterCheckmark.classList.toggle('marked', chapterChecked);
               chapterCheckmark.setAttribute('aria-checked', chapterChecked);
@@ -90,6 +91,20 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
         this.ribbonTarget.classList.toggle('hidden', !storyChecked);
       }
     });
+  }
+
+  uncheckAll() {
+    if (this.hasChapterCheckTarget) {
+      this.chapterCheckTargets.forEach(chapterCheckmark => {
+        chapterCheckmark.classList.toggle('marked', false);
+        chapterCheckmark.setAttribute('aria-checked', false);
+      });
+    }
+
+    if (this.hasStoryCheckTarget) {
+      this.storyCheckTarget.classList.toggle('marked', false);
+      this.storyCheckTarget.setAttribute('aria-checked', false);
+    }
   }
 
   // =====================
@@ -206,9 +221,9 @@ function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
   // Decide force if not given
   if (set === null) {
     if (type === 'chapter') {
-      set = userData.checkmarks.data[storyId].includes(chapterId) ? false : true;
+      set = userData.checkmarks.data[storyId]?.includes(chapterId) ? false : true;
     } else {
-      set = userData.checkmarks.data[storyId].includes(storyId) ? false : true;
+      set = userData.checkmarks.data[storyId]?.includes(storyId) ? false : true;
     }
   }
 
