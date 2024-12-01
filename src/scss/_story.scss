@@ -150,6 +150,7 @@ $header_breakpoint: 640px;
     a {
       display: block;
       border-radius: var(--layout-border-radius-small);
+      height: 100%;
       box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
       outline-offset: 2px;
     }
