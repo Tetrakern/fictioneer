@@ -5,7 +5,7 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 5.4.5
- * @since 5.xx.x - Updated for Stimulus Controller.
+ * @since 5.27.0 - Updated for Stimulus Controller.
  */
 
 

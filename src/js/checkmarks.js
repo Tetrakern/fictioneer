@@ -175,7 +175,7 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
  * Toggle checkmarks for chapters and stories.
  *
  * @since 4.0.0
- * @since 5.xx.x - Refactored.
+ * @since 5.27.0 - Refactored.
  * @param {Number} storyId - ID of the story.
  * @param {Number} [chapterId=null] - ID of the chapter.
  * @param {Boolean} [set=null] - True or false. Toggling by default.

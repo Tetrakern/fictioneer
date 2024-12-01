@@ -42,7 +42,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
    *
    * Note: Event action dispatched by 'fictioneer' Stimulus Controller.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {HTMLElement} target -  The event target.
    */
 
@@ -68,7 +68,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   /**
    * Open browser fullscreen view.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   openFullscreen() {
@@ -82,7 +82,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   /**
    * Close browser fullscreen view.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   closeFullscreen() {
@@ -96,7 +96,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   /**
    * Toggle paragraph tools.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {HTMLElement} paragraph - The clicked paragraph.
    */
 
@@ -119,7 +119,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   /**
    * Close paragraph tools.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   closeTools() {
@@ -130,7 +130,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   /**
    * Listen to fast click on paragraph to open paragraph tools.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -156,7 +156,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
    * Get quote from paragraph or text selection.
    *
    * @since 3.0
-   * @since 5.xx.x - Folded into Stimulus Controller.
+   * @since 5.27.0 - Folded into Stimulus Controller.
    * @param {Event} event - The event.
    */
 
@@ -208,7 +208,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   /**
    * Copy paragraph link to clipboard.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -345,7 +345,7 @@ const FcnFormatting = {
    * Returns default chapter formatting.
    *
    * @since 4.0.0
-   * @since 5.xx.x - Folded into FcnFormatting.
+   * @since 5.27.0 - Folded into FcnFormatting.
    * @return {Object} Default chapter formatting settings.
    */
 
@@ -379,7 +379,7 @@ const FcnFormatting = {
    * which will absolutely annoy users.
    *
    * @since 4.0.0
-   * @since 5.xx.x - Folded into FcnFormatting.
+   * @since 5.27.0 - Folded into FcnFormatting.
    * @return {Object} Chapter formatting settings.
    */
 
@@ -406,7 +406,7 @@ const FcnFormatting = {
    * Save the chapter formatting settings to local storage.
    *
    * @since 4.0.0
-   * @since 5.xx.x - Folded into FcnFormatting.
+   * @since 5.27.0 - Folded into FcnFormatting.
    * @param {Object} value - Chapter formatting settings.
    */
 

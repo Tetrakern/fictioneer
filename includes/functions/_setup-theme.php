@@ -1906,7 +1906,7 @@ if ( get_option( 'fictioneer_enable_css_skins' ) ) {
 /**
  * Outputs Stimulus in <head>
  *
- * @since 5.xx.x
+ * @since 5.27.0
  */
 
 function fictioneer_output_stimulus() {

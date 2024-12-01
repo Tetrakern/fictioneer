@@ -129,7 +129,7 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
  * of the view to reflect the changes and saves to the database.
  *
  * @since 5.0.0
- * @since 5.xx.x - Refactored for Stimulus Controller.
+ * @since 5.27.0 - Refactored for Stimulus Controller.
  * @param {Number} storyId - The ID of the story.
  * @param {Boolean} [set] - Optional. Whether to set (true) or unset (false).
  */

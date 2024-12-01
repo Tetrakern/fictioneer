@@ -198,7 +198,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
   /**
    * Resize textarea on input when necessary
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   adjustTextarea() {
@@ -208,7 +208,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
   /**
    * Handle clicks into toolbar
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -227,7 +227,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
   /**
    * Apply BBCodes on key combo
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -265,7 +265,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
    * show and could be used better. A hashcash for example, to make spamming
    * really expensive!
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   addJSTrap() {
@@ -277,7 +277,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
   /**
    * Reveal comment input fields.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   revealFormInputs() {
@@ -289,7 +289,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
   /**
    * AJAX: Submit comment (if enabled).
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -515,7 +515,7 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
   /**
    * Perform actions when the private comment toggle changes.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   togglePrivate() {
@@ -544,7 +544,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Stimulus Controller initialize lifecycle callback.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   initialize() {
@@ -566,7 +566,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Stimulus Controller connect lifecycle callback.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   connect() {
@@ -604,7 +604,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Add or remove moderation menu HTML.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {String} [force] - Optional. Force 'open' or 'close'.
    */
 
@@ -630,7 +630,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Handle clicks anywhere in comment.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -643,7 +643,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'approve' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   approve() {
@@ -653,7 +653,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'unapprove' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   unapprove() {
@@ -663,7 +663,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'offensive' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   offensive() {
@@ -673,7 +673,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'unoffensive' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   unoffensive() {
@@ -683,7 +683,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'open' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   open() {
@@ -693,7 +693,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'close' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   close() {
@@ -703,7 +703,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'sticky' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   sticky() {
@@ -713,7 +713,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'unsticky' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   unsticky() {
@@ -723,7 +723,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'trash' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   trash() {
@@ -733,7 +733,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Delegate to 'spam' action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   spam() {
@@ -743,7 +743,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * AJAX: Flag a comment.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   flag() {
@@ -796,7 +796,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * AJAX: Delete comment (by the owner).
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   selfDelete() {
@@ -850,7 +850,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Start editing comment inline.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   startEditInline() {
@@ -873,7 +873,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Cancel editing comment inline.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   cancelEditInline() {
@@ -883,7 +883,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Submit inline-edited comment.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   submitEditInline() {
@@ -948,7 +948,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Handle cmd/ctrl + key combos.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -985,7 +985,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Reveal self-delete button on comment
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #revealDeleteButton() {
@@ -997,7 +997,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Reveal inline edit button on comment
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #revealEditButton() {
@@ -1022,7 +1022,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Check whether the comment fingerprint matches the user's
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @return {Boolean} True or false.
    */
 
@@ -1039,7 +1039,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Restore comment to non-editing state.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Boolean} [undo] - Whether to restore the previous content. Default false.
    * @param {String} [update] - Updated content. Default null.
    */
@@ -1065,7 +1065,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Append menu template and set edit link.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #showMenu() {
@@ -1081,7 +1081,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Remove menu items and reset last-clicked element.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #hideMenu() {
@@ -1097,7 +1097,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Display an moderation error notification for 5 seconds.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {String} message - Error message.
    */
 
@@ -1114,7 +1114,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * Display and log an error notification for 5 seconds.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Object} error - Error object from Promise.
    */
 
@@ -1129,7 +1129,7 @@ application.register('fictioneer-comment', class extends Stimulus.Controller {
   /**
    * AJAX: Perform moderation action.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {String} operation - The moderation operation.
    */
 

@@ -68,7 +68,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
    *
    * Note: Event action dispatched by 'fictioneer' Stimulus Controller.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   clickOutside() {
@@ -80,7 +80,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Toggle modal with the text selection floating button.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {HTMLElement} source - Trigger of the modal.
    */
 
@@ -92,7 +92,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Toggle modal from the paragraph tools.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -105,7 +105,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Toggle modal visibility.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {HTMLElement} source - Trigger of the modal.
    */
 
@@ -137,7 +137,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Toggle floating button.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   toggleFloatingButton() {
@@ -165,7 +165,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Close and reset the modal.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   closeModal() {
@@ -184,7 +184,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Display floating button on coordinates.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Integer} x - The x coordinate.
    * @param {Integer} y - The y coordinate.
    */
@@ -209,7 +209,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Hide the floating button.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #hideFloatingButton() {
@@ -222,7 +222,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Find closest paragraph to the text selection.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #closestParagraph() {
@@ -238,7 +238,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Returns the bottom-right x/y coordinates for the text selection.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @return {Object} An object containing the x and y coordinates.
    */
 
@@ -270,7 +270,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Clear the current text selection.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #clearSelection() {
@@ -286,7 +286,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Handle editing of the suggestion.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #edit() {
@@ -296,7 +296,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Handle resetting the suggestion.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #reset() {
@@ -307,7 +307,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Returns diff of two strings.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {String} old - Original string.
    * @param {String} now - Current string.
    */
@@ -323,7 +323,7 @@ application.register('fictioneer-suggestion', class extends Stimulus.Controller 
   /**
    * Finalize suggestion and append to comment.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   #append() {

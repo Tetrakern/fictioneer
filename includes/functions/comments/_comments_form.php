@@ -8,7 +8,7 @@ if ( ! function_exists( 'fictioneer_comment_form' ) ) {
   /**
    * Renders comment form with injected custom HTML
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    *
    * @param array       $args  Default arguments and form fields to override.
    * @param int|WP_Post $post  Post ID or WP_Post object to generate the form for. Default current post.

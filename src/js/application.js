@@ -125,7 +125,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Stimulus Controller initialize lifecycle callback.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   initialize() {
@@ -153,7 +153,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Stimulus Controller connect lifecycle callback.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   connect() {
@@ -163,7 +163,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Returns or prepares locally cached user data.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @return {Object} The user data.
    */
 
@@ -174,7 +174,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Update user data in web storage.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Object} data - User data.
    */
 
@@ -185,7 +185,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Reset user data in web storage.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   resetUserData() {
@@ -195,7 +195,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Remove user data in web storage.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   removeUserData() {
@@ -205,7 +205,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * AJAX: Refresh local user data if expired, fire global events.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   fetchUserData() {
@@ -320,7 +320,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Copy value of an input to the clipboard.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -332,7 +332,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Clear the consent cookie.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -345,7 +345,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * AJAX: Clear all cookies and local storage.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -386,7 +386,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Prepare logout
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   logout() {
@@ -396,7 +396,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Toggle obfuscation state.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -408,7 +408,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
    * Delete special clicks on the body not covered
    * by controller actions for various reasons.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -433,7 +433,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Toggle chapter groups smoothly.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -474,7 +474,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Toggle a modal.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Event} event - The event.
    */
 
@@ -511,7 +511,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Close all modals.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   closeModals() {
@@ -531,7 +531,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Close all modals when clicking on a modal background.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {HTMLElement} target - The clicked element.
    */
 
@@ -548,7 +548,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   /**
    * Appends hidden input with a nonce.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {String} html - The input HTML.
    */
 
@@ -592,7 +592,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
  * Return the primary Fictioneer Stimulus Controller or
  * placeholder with important utility functions.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @return {stimulus.Controller} Stimulus Controller.
  */
 
@@ -614,7 +614,7 @@ function fcn() {
 /**
  * Legacy support for fcn().userData().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  */
 
 function fcn_getUserData() {
@@ -624,7 +624,7 @@ function fcn_getUserData() {
 /**
  * Legacy support for fcn().setUserData().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @param {Object} data - User data.
  */
 
@@ -653,7 +653,7 @@ document.addEventListener('fcnUserDataReady', () => {
  * Clean-up web storage.
  *
  * @since 4.5.0
- * @since 5.xx.x - Refactored.
+ * @since 5.27.0 - Refactored.
  * @param {Boolean} keepBookmarks - Whether to keep bookmarks.
  */
 
@@ -675,7 +675,7 @@ function fcn_cleanUpWebStorage(keepBookmarks = false) {
  * Cleanup view for non-authenticated guests.
  *
  * @since 5.0.0
- * @since 5.xx.x - Refactored.
+ * @since 5.27.0 - Refactored.
  */
 
 function fcn_cleanUpGuestView() {
@@ -707,7 +707,7 @@ _$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(elemen
 /**
  * Set view to logged-in state.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  */
 
 function fcn_setLoggedInState() {
@@ -758,7 +758,7 @@ document.addEventListener('fcnUserDataReady', () => {
 /**
  * Set avatar image where required.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  */
 
 function fcn_setAvatar() {

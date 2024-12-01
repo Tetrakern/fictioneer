@@ -188,7 +188,7 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
   /**
    * Initiate the download of an EPUB file.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {HTMLElement} link - The link that triggered the download.
    * @param {number} times - The number of times the function has been called recursively.
    */

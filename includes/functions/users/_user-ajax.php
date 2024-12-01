@@ -309,7 +309,7 @@ add_action( 'wp_ajax_fictioneer_ajax_unset_my_oauth', 'fictioneer_ajax_unset_my_
 /**
  * Clear all cookies and log out.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  */
 
 function fictioneer_ajax_clear_cookies() {

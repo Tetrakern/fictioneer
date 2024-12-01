@@ -49,7 +49,7 @@ const FcnUtils = {
   /**
    * Returns or prepares locally cached user data.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @return {Object} The user data.
    */
 
@@ -79,7 +79,7 @@ const FcnUtils = {
   /**
    * Reset local user data.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   resetUserData() {
@@ -106,7 +106,7 @@ const FcnUtils = {
   /**
    * Remove user data in web storage.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    */
 
   removeUserData() {
@@ -116,7 +116,7 @@ const FcnUtils = {
   /**
    * Update user data in web storage.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Object} data - User data.
    */
 
@@ -134,7 +134,7 @@ const FcnUtils = {
    * 20 ms to avoid having to process the cookie on each
    * subsequent call in such a short time span.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @return {Boolean} True or false
    */
 
@@ -154,7 +154,7 @@ const FcnUtils = {
   /**
    * Returns whether the sidecar login cookie is set.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @return {Boolean} True or false
    */
 
@@ -175,7 +175,7 @@ const FcnUtils = {
   /**
    * Wrapper for utility fcn_ajaxGet().
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Object} data - The payload, including the action and nonce.
    * @param {String} [url=null] - Optional. The request URL if different from the default.
    * @param {Object} [headers={}] - Optional. Headers for the request.
@@ -195,7 +195,7 @@ const FcnUtils = {
   /**
    * Wrapper for utility fcn_ajaxPost().
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {Object} data - The payload, including the action and nonce.
    * @param {String} [url=null] - Optional. The request URL if different from the default.
    * @param {Object} [headers={}] - Optional. Headers for the request.
@@ -692,7 +692,7 @@ const FcnUtils = {
   /**
    * Extract and join all text nodes of an element.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {HTMLElement} element - The element.
    * @return {String} Extracted text or empty string.
    */
@@ -707,7 +707,7 @@ const FcnUtils = {
   /**
    * Appends a string to the comment form.
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    * @param {String} content - The content to append.
    */
 
