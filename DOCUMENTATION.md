@@ -1181,6 +1181,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **footer_date:** Whether to show the date. Default `true`.
 * **footer_status:** Whether to show the status. Default `true`.
 * **footer_rating:** Whether to show the age rating. Default `true`.
+* **footer_comments:** Whether to show the post comment count. Default `false`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
@@ -1262,6 +1263,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **footer_date:** Whether to show the story date. Default `true`.
 * **footer_status:** Whether to show the story status. Default `true`.
 * **footer_rating:** Whether to show the story age rating. Default `true`.
+* **footer_comments:** Whether to show the post comment count. Default `false`.
 * **class:** Additional CSS classes, separated by whitespace.
 * **splide:** Configuration JSON to turn the grid into a slider. See [Slider](#slider).
 * **cache:** Whether the shortcode should be cached. Default `true`.
