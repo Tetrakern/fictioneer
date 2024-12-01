@@ -28,7 +28,7 @@
   list-style: none;
   position: relative;
   border-radius: var(--layout-border-radius-small);
-  max-width: calc(100vw - 20px);
+  max-width: min(100%, calc(100vw - 20px));
   box-shadow: var(--card-box-shadow, var(--box-shadow-m));
   clear: both;
   contain: style layout; // Improve performance
@@ -166,7 +166,6 @@
     }
 
     a {
-      --focus-offset: 1px;
       color: var(--card-heading-link, var(--heading-link-color));
       width: fit-content;
 
@@ -188,7 +187,6 @@
 
   &__delete,
   &__info-toggle {
-    --focus-offset: -8px;
     cursor: pointer;
     position: absolute;
     top: 0;
@@ -256,13 +254,13 @@
   }
 
   &__image {
-    --focus-offset: 2px;
     --this-border-radius: var(--layout-border-radius-small);
     position: relative;
     display: block;
     background: var(--card-image-placeholder, var(--placeholder-background));
     border-radius: var(--this-border-radius);
     overflow: hidden;
+    outline-offset: 2px;
 
     img {
       position: absolute;
@@ -394,12 +392,6 @@
 
       @include bp(desktop) {
         padding: 0.175em 0.35em 0.175em 0;
-      }
-
-      @supports selector(:has(:focus-visible)) {
-        a:focus-visible {
-          outline: none;
-        }
       }
     }
 

@@ -98,7 +98,6 @@
 }
 
 .main-navigation {
-  --focus-offset: -2px;
   top: calc(-0.1px - var(--nav-observer-offset, 0px)); // -0.1px to prevent hairline gaps
   z-index: 1000;
   color: var(--navigation-color);
@@ -374,17 +373,6 @@
 .user-is-tabbing {
   :is(.main-navigation, .icon-menu) {
     :is(.menu-item, .page_item) {
-      :where(a, label, button):focus-visible {
-        color: var(--navigation-color-hover);
-        background: var(--navigation-item-background-hover);
-      }
-
-      .sub-menu {
-        :where(a, label, button):focus-visible {
-          color: var(--navigation-subitem-color-hover, var(--navigation-color-hover));
-        }
-      }
-
       &:focus-within {
         background: var(--navigation-item-background-hover);
 

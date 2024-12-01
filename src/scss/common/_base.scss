@@ -148,6 +148,7 @@
   width: fit-content;
   min-width: get_clamp(26, 32, 320, 375);
   box-shadow: var(--button-box-shadow);
+  outline-offset: 3px;
   transition: color, background-color, border-color, opacity;
   transition-duration: var(--transition-duration);
 
@@ -176,12 +177,7 @@ button[type=submit]:where(:not(._inline)),
 }
 
 .button {
-  --focus-offset: -2px;
   @extend %button;
-
-  &:focus-visible {
-    box-shadow: var(--in-focus-box-shadow);
-  }
 
   &._secondary {
     background: var(--button-secondary-background);
@@ -319,7 +315,6 @@ button[type=submit]:where(:not(._inline)),
   cursor: pointer;
 
   &:not(._inline) {
-    --focus-offset: -2px;
     display: block;
     background: var(--tag-background);
     color: var(--tag-color);
@@ -330,10 +325,6 @@ button[type=submit]:where(:not(._inline)),
     text-shadow: none;
     width: fit-content;
     contain: layout paint style; // Improve performance
-
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow);
-    }
   }
 
   &:not(._inline):hover {
@@ -479,7 +470,6 @@ button[type=submit]:where(:not(._inline)),
 .popup-menu {
   --translateX: translateX(0);
   --translateY: translateY(0);
-  --focus-offset: -2px;
   position: absolute;
   z-index: 10;
   background: var(--popup-menu-background);
@@ -697,7 +687,6 @@ html:not(.logged-in) body:not(.logged-in) {
       }
 
       &-link {
-        --focus-offset: 1px;
         grid-area: 1 / 2 / 2 / 3;
         color: var(--chapter-list-link-color, var(--heading-link-color));
         font-family: var(--ff-chapter-list-title);
@@ -739,13 +728,12 @@ html:not(.logged-in) body:not(.logged-in) {
       }
 
       .checkmark {
-        --focus-offset: 2px;
         grid-area: 1 / 3 / 3 / 4;
         display: block;
         color: var(--checkmark-checked);
         font-size: 18px;
         line-height: 1;
-        padding: 0 4px;
+        padding: 4px;
         margin-right: -4px;
 
         &:not(.marked) {

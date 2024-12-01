@@ -22,7 +22,7 @@ However, there are a few guidelines:
 * CSS may use `rgb()` and `hsl()`, which is even required for some features.
 * CSS is compiled from SCSS (Dart Sass) and minified, never edit the processed styles.
 * You may `return` from within a case statement, but still add the `break` afterwards.
-* JavaScript (ES11) does not need to mirror the PHP formatting.
+* JavaScript (ES13) does not need to mirror the PHP formatting.
 
 ## Build Pipeline
 

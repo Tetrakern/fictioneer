@@ -68,14 +68,14 @@ body {
   }
 
   p.has-drop-cap::first-letter {
-    position: static;
-    float: left;
-    display: block;
-    font-size: 3.75em;
-    font-weight: inherit;
-    line-height: .9;
-    padding: 0 .05em 0 0;
-    margin: 0;
+    position: static !important;
+    float: left !important;
+    display: block !important;
+    font-size: 3.75em !important;
+    font-weight: inherit !important;
+    line-height: .9 !important;
+    padding: 0 .05em 0 0 !important;
+    margin: 0 !important;
   }
 
   p {

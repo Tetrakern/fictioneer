@@ -82,14 +82,14 @@ if ( $show_advanced ) {
   $allow_list = [];
 
   foreach ( $all_terms as $term ) {
-    $allow_list[ base64_encode( mb_strtolower( $term->name, 'UTF-8' ) ) ] = $term->term_id;
+    $allow_list[ $term->taxonomy . '_' . base64_encode( mb_strtolower( $term->name, 'UTF-8' ) ) ] = $term->term_id;
   }
 
   if ( ! $skip_author_keywords ) {
     foreach ( $all_authors as $author ) {
       $author_key = base64_encode( mb_strtolower( $author->display_name, 'UTF-8' ) );
 
-      $allow_list[ $author_key . '_' . $author->ID ] = $author->ID;
+      $allow_list[ 'author_' . $author_key . '_' . $author->ID ] = $author->ID;
     }
   }
 }
@@ -347,6 +347,7 @@ if ( $show_advanced ) {
             <option value="date" <?php echo $orderby == 'date' ? 'selected' : ''; ?>><?php _ex( 'Published', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="modified" <?php echo $orderby == 'modified' ? 'selected' : ''; ?>><?php _ex( 'Updated', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="title" <?php echo $orderby == 'title' ? 'selected' : ''; ?>><?php _ex( 'Title', 'Advanced search option.', 'fictioneer' ); ?></option>
+            <option value="comment_count" <?php echo $orderby == 'comment_count' ? 'selected' : ''; ?>><?php _ex( 'Comments', 'Advanced search option.', 'fictioneer' ); ?></option>
           </select>
         </div>
 
@@ -365,27 +366,27 @@ if ( $show_advanced ) {
 
       <?php if ( ! empty( $all_genres ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Genres', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_genres, 'genres', 'genres_and', 'genre', 'genres', array( 'preselected' => $args['preselect_genres'] ?? null ) ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_genres, 'fcn_genre', 'genres', 'genres_and', 'genre', 'genres', array( 'preselected' => $args['preselect_genres'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_fandoms ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Fandoms', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_fandoms, 'fandoms', 'fandoms_and', 'fandom', 'fandoms', array( 'preselected' => $args['preselect_fandoms'] ?? null ) ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_fandoms, 'fcn_fandom', 'fandoms', 'fandoms_and', 'fandom', 'fandoms', array( 'preselected' => $args['preselect_fandoms'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_characters ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Characters', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_characters, 'characters', 'characters_and', 'character', 'characters', array( 'preselected' => $args['preselect_characters'] ?? null ) ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_characters, 'fcn_character', 'characters', 'characters_and', 'character', 'characters', array( 'preselected' => $args['preselect_characters'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_tags ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Tags', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_tags, 'tags', 'tags_and', 'tag', 'tags', array( 'preselected' => $args['preselect_tags'] ?? null ) ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_tags, 'post_tag', 'tags', 'tags_and', 'tag', 'tags', array( 'preselected' => $args['preselect_tags'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_warnings ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Warnings', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_warnings, 'warnings', 'warnings_and', 'warning', 'warnings', array( 'preselected' => $args['preselect_warnings'] ?? null ) ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_warnings, 'fcn_content_warning', 'warnings', 'warnings_and', 'warning', 'warnings', array( 'preselected' => $args['preselect_warnings'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( count( $all_authors ) > 1 ) : ?>
@@ -402,27 +403,27 @@ if ( $show_advanced ) {
 
       <?php if ( ! empty( $all_genres ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Exclude Genres', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_genres, 'ex_genres', 'ex_genres_and', 'genre', 'genres' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_genres, 'fcn_genre', 'ex_genres', 'ex_genres_and', 'genre', 'genres' ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_fandoms ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Exclude Fandoms', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_fandoms, 'ex_fandoms', 'ex_fandoms_and', 'fandom', 'fandoms' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_fandoms, 'fcn_fandom', 'ex_fandoms', 'ex_fandoms_and', 'fandom', 'fandoms' ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_characters ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Exclude Characters', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_characters, 'ex_characters', 'ex_characters_and', 'character', 'characters' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_characters, 'fcn_character', 'ex_characters', 'ex_characters_and', 'character', 'characters' ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_tags ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Exclude Tags', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_tags, 'ex_tags', 'ex_tags_and', 'tag', 'tags' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_tags, 'post_tag', 'ex_tags', 'ex_tags_and', 'tag', 'tags' ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_warnings ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Exclude Warnings', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_warnings, 'ex_warnings', 'ex_warnings_and', 'warning', 'warnings' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_warnings, 'fcn_content_warning', 'ex_warnings', 'ex_warnings_and', 'warning', 'warnings' ); ?>
       <?php endif; ?>
 
       <?php if ( count( $all_authors ) > 1 && ! $skip_author_keywords ) : ?>

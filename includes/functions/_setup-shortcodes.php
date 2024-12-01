@@ -370,6 +370,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * are active since only one is needed.
  *
  * @since 5.25.0
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  *
  * @return string The inline script.
  */
@@ -383,7 +384,18 @@ function fictioneer_get_splide_inline_init() {
 
   $done = true;
 
-  return '<script class="temp-script" data-jetpack-boost="ignore" data-no-defer="1" data-no-optimize="1" data-no-minify="1">document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{e.querySelector(".splide__list")&&"undefined"!=typeof Splide&&(e.classList.remove("_splide-placeholder"),new Splide(e).mount())})});</script>';
+  return wp_get_inline_script_tag(
+    'document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".splide:not(.no-auto-splide, .is-initialized)").forEach(e=>{e.querySelector(".splide__list")&&"undefined"!=typeof Splide&&(e.classList.remove("_splide-placeholder"),new Splide(e).mount())})});',
+    array(
+      'id' => 'fictioneer-iife-splide',
+      'class' => 'temp-script',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
 }
 
 // =============================================================================
@@ -654,6 +666,7 @@ add_shortcode( 'fictioneer_latest_chapters', 'fictioneer_shortcode_latest_chapte
  * @param string|null $attr['footer_chapters']     Optional. Whether to show the story chapter count. Default true.
  * @param string|null $attr['footer_status']       Optional. Whether to show the story status. Default true.
  * @param string|null $attr['footer_rating']       Optional. Whether to show the story age rating. Default true.
+ * @param string|null $attr['footer_comments']     Optional. Whether to show the post comment count. Default false.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
@@ -666,6 +679,9 @@ function fictioneer_shortcode_latest_stories( $attr ) {
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );
+
+  // Comments
+  $args['footer_comments'] = filter_var( $attr['footer_comments'] ?? 0, FILTER_VALIDATE_BOOLEAN );
 
   // Terms
   $args['terms'] = fictioneer_sanitize_query_var( $attr['terms'] ?? 0, ['inline', 'pills', 'none', 'false'], 'inline' );
@@ -763,6 +779,7 @@ add_shortcode( 'fictioneer_latest_stories', 'fictioneer_shortcode_latest_stories
  * @param string|null $attr['footer_chapters']     Optional. Whether to show the story chapter count. Default true.
  * @param string|null $attr['footer_status']       Optional. Whether to show the story status. Default true.
  * @param string|null $attr['footer_rating']       Optional. Whether to show the story/chapter age rating. Default true.
+ * @param string|null $attr['footer_comments']     Optional. Whether to show the post comment count. Default false.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  * @param string|null $args['splide']              Configuration JSON for the Splide slider. Default empty.
  *
@@ -773,6 +790,9 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   // Defaults
   $args = fictioneer_get_default_shortcode_args( $attr, 4 );
   $args['single'] = filter_var( $attr['single'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+
+  // Comments
+  $args['footer_comments'] = filter_var( $attr['footer_comments'] ?? 0, FILTER_VALIDATE_BOOLEAN );
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );

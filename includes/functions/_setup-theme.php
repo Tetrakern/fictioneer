@@ -1597,11 +1597,22 @@ add_filter( 'customize_refresh_nonces', 'fictioneer_add_customizer_refresh_nonce
  * Print scripts to the wp-login-php
  *
  * @since 5.7.3
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  */
 
 function fictioneer_wp_login_scripts() {
   // Clear web storage in preparation of login
-  echo "<script type='text/javascript' data-no-optimize='1' data-no-defer='1' data-no-minify='1'>localStorage.removeItem('fcnUserData'); localStorage.removeItem('fcnAuth');</script>";
+  wp_print_inline_script_tag(
+    'localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnAuth");',
+    array(
+      'id' => 'fictioneer-login-scripts',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
 }
 add_action( 'login_head', 'fictioneer_wp_login_scripts' );
 
@@ -1801,6 +1812,7 @@ add_action( 'elementor/editor/after_enqueue_scripts', 'fictioneer_output_head_fo
  * Outputs script to prevent flickering of layout on page load
  *
  * @since 5.22.1
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  */
 
 function fictioneer_output_head_anti_flicker() {
@@ -1809,8 +1821,19 @@ function fictioneer_output_head_anti_flicker() {
   <noscript>
     <style>body {visibility: visible !important;}</style>
   </noscript>
-  <script>document.addEventListener('readystatechange', () => {if (document.readyState === "interactive") document.body.style.visibility = "visible";});</script>
   <?php // <--- End HTML
+
+  wp_print_inline_script_tag(
+    'document.addEventListener("readystatechange", () => {if (document.readyState === "interactive") document.body.style.visibility = "visible";});console.log("foo");',
+    array(
+      'id' => 'fictioneer-anti-flicker',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
 }
 
 if ( get_option( 'fictioneer_enable_anti_flicker' ) ) {
@@ -1832,12 +1855,21 @@ if ( get_option( 'fictioneer_enable_anti_flicker' ) ) {
  *
  * @since 5.0.0
  * @since 5.18.1 - No longer pluggable, hooked into wp_head
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  */
 
 function fictioneer_output_head_critical_scripts() {
-  // Start HTML ---> ?>
-  <script id="fictioneer-critical-scripts" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,s])=>{switch(e){case"minimal":t.classList.toggle("minimal",s);break;case"taxonomies":t.classList.toggle("no-taxonomies",!s);break;case"darken":a=s>=0?1+s**2:1-s**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=s>=0?1+s**2:1-s**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!s)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const s=o.darken?o.darken:0,r=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=s>=0?1+s**2:1-s**2;o=r>=0?1+r**2:1-r**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}(),document.documentElement.classList.remove("no-js");</script>
-  <?php // <--- End HTML
+  wp_print_inline_script_tag(
+    '!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,s])=>{switch(e){case"minimal":t.classList.toggle("minimal",s);break;case"taxonomies":t.classList.toggle("no-taxonomies",!s);break;case"darken":a=s>=0?1+s**2:1-s**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=s>=0?1+s**2:1-s**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!s)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const s=o.darken?o.darken:0,r=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=s>=0?1+s**2:1-s**2;o=r>=0?1+r**2:1-r**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}(),document.documentElement.classList.remove("no-js");',
+    array(
+      'id' => 'fictioneer-critical-scripts',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
 }
 add_action( 'wp_head', 'fictioneer_output_head_critical_scripts', 9999 );
 
@@ -1845,12 +1877,21 @@ add_action( 'wp_head', 'fictioneer_output_head_critical_scripts', 9999 );
  * Outputs critical skin scripts in the <head>
  *
  * @since 5.26.0
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  */
 
 function fictioneer_output_critical_skin_scripts() {
-  // Start HTML ---> ?>
-  <script id="fictioneer-skin-script" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){const e="fcnLoggedIn=",t=document.cookie.split(";");let n=null;for(var c=0;c<t.length;c++){const i=t[c].trim();if(0==i.indexOf(e)){n=decodeURIComponent(i.substring(12,i.length));break}}if(!n)return;const i=JSON.parse(localStorage.getItem("fcnSkins"))??{data:{},active:null,fingerprint:n};if(i?.data?.[i.active]?.css&&n===i?.fingerprint){const e=document.createElement("style");e.textContent=i.data[i.active].css,e.id="fictioneer-active-custom-skin",document.querySelector("head").appendChild(e)}}();</script>
-  <?php // <--- End HTML
+  wp_print_inline_script_tag(
+    '!function(){const e="fcnLoggedIn=",t=document.cookie.split(";");let n=null;for(var c=0;c<t.length;c++){const i=t[c].trim();if(0==i.indexOf(e)){n=decodeURIComponent(i.substring(12,i.length));break}}if(!n)return;const i=JSON.parse(localStorage.getItem("fcnSkins"))??{data:{},active:null,fingerprint:n};if(i?.data?.[i.active]?.css&&n===i?.fingerprint){const e=document.createElement("style");e.textContent=i.data[i.active].css,e.id="fictioneer-active-custom-skin",document.querySelector("head").appendChild(e)}}();',
+    array(
+      'id' => 'fictioneer-skin-scripts',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
 }
 
 if ( get_option( 'fictioneer_enable_css_skins' ) ) {
@@ -1979,6 +2020,10 @@ function fictioneer_get_js_translations() {
       'oauthAccountAlreadyLinked' => __( 'Account already linked to another profile.', 'fictioneer' ),
       'oauthNew' => __( 'Your account has been successfully linked. <strong>Hint:</strong> You can change your display name in your profile and link additional accounts.', 'fictioneer' ),
       'oauthAccountLinked' => __( 'Account has been successfully linked.', 'fictioneer' )
+    ),
+    'partial' => array(
+      'quoteFragmentPrefix' => _x( '[…] ', 'Prefix for partial quotes', 'fictioneer' ),
+      'quoteFragmentSuffix' => _x( ' […]', 'Suffix for partial quotes', 'fictioneer' )
     )
   );
 }
@@ -1987,10 +2032,21 @@ function fictioneer_get_js_translations() {
  * Outputs JSON with translation into the <head>
  *
  * @since 5.12.2
+ * @since 5.26.1 - Use wp_print_inline_script_tag().
  */
 
 function fictioneer_output_head_translations() {
-  echo "<script id='fictioneer-translations' type='text/javascript' data-no-optimize='1' data-no-defer='1' data-no-minify='1'>const fictioneer_tl = " . json_encode( fictioneer_get_js_translations() ) . ";</script>";
+  wp_print_inline_script_tag(
+    'const fictioneer_tl = ' . json_encode( fictioneer_get_js_translations() ) . ';',
+    array(
+      'id' => 'fictioneer-translations',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
 }
 add_action( 'wp_head', 'fictioneer_output_head_translations' );
 

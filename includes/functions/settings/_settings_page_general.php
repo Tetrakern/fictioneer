@@ -409,6 +409,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
             <h3 class="fictioneer-card__header"><?php _e( 'Tags & Taxonomies', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
+            <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_exclude_non_stories_from_cloud_counts',
+                    __( 'Only count stories in taxonomy clouds', 'fictioneer' ),
+                    __( 'Taxonomy pages still list all posts in the results.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
               <div class="fictioneer-card__row">
                 <p><?php _e( 'Taxonomies on cards include fandoms, genres, tags (if shown), and characters in that order.', 'fictioneer' ); ?></p>
               </div>

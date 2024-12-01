@@ -6,7 +6,6 @@
   grid-column: 1 / -1; // Span all grid columns if any
 
   .page-numbers {
-    --focus-offset: -2px;
     @extend %button;
     background: var(--pagination-background);
     color: var(--pagination-color);

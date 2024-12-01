@@ -395,6 +395,10 @@ function fictioneer_ajax_get_follows_list() {
   // Validations
   $user = fictioneer_get_validated_ajax_user();
 
+  if ( ! is_user_logged_in() ) {
+    wp_send_json_error( array( 'error' => 'You must be logged in.' ) );
+  }
+
   if ( ! $user ) {
     wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }

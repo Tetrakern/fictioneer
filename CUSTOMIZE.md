@@ -200,8 +200,8 @@ function child_prefix_chapter_index_list_item( $item, $post, $args ) {
     $post->ID,
     get_the_permalink( $post->ID ),
     $args['icon'],
-    $prefix ? $prefix . ' ' : '', // New %6$s
-    $args['list_title'] ?: $args['title'] // Moved to %7$s
+    $prefix ? $prefix . ' ' : '',
+    $args['list_title'] ?: $args['title']
   );
 }
 

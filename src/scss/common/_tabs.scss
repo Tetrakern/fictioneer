@@ -8,7 +8,6 @@
   }
 
   &__item {
-    --focus-offset: -2px;
     background: var(--tab-background);
     color: var(--tab-color);
     font-size: var(--fs-dxs);
@@ -25,10 +24,6 @@
       background: var(--tab-background-hover);
       color: var(--tab-color-hover);
       text-shadow: var(--tab-text-shadow-hover, var(--tab-text-shadow));
-    }
-
-    &:focus-visible {
-      box-shadow: var(--in-focus-box-shadow);
     }
 
     &._current {

@@ -366,7 +366,17 @@ function fictioneer_output_schemas( $post_id = null ) {
 
   // If schema has been found, echo for selected post types
   if ( $schema ) {
-    echo $schema ? '<script type="application/ld+json">' . $schema . '</script>' : '';
+    wp_print_inline_script_tag(
+      $schema,
+      array(
+        'id' => 'fictioneer-schema-json',
+        'type' => 'application/ld+json',
+        'data-jetpack-boost' => 'ignore',
+        'data-no-optimize' => '1',
+        'data-no-defer' => '1',
+        'data-no-minify' => '1'
+      )
+    );
   }
 }
 

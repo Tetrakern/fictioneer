@@ -33,7 +33,6 @@
   }
 
   &__list-item {
-    --focus-offset: 2px;
     position: relative;
     aspect-ratio: var(--showcase-item-aspect-ratio);
     border-radius: var(--layout-border-radius-small);
@@ -70,10 +69,6 @@
   &__list-item-link {
     display: block;
     height: 100%;
-
-    &:focus-visible {
-      outline: none;
-    }
 
     &:hover {
       img {

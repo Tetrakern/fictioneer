@@ -56,7 +56,7 @@ Filters the data to be returned as JSON by the `fictioneer_ajax_get_user_data()`
 ### `apply_filters( 'fictioneer_filter_allowed_chapter_permalinks', $statuses )`
 Filters the array of chapter statuses that control whether the chapter permalink is rendered in the `fictioneer_prepare_chapter_groups()` function. By default, the statuses only include `['publish']`.
 
-**Note:** Used by `fictioneer_story_chapters()`.
+**Note:** Used by `fictioneer_story_chapters()`. If you enable the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant, the filter will be used to treat scheduled chapters as published.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
@@ -323,6 +323,8 @@ Filters the intermediate output array in the `_chapter-header.php` partial befor
 ### `apply_filters( 'fictioneer_filter_chapter_index_list_statuses', $statuses, $story_id )`
 Filters the array of allowed chapter statuses when building the simple chapter list items in the `function fictioneer_get_chapter_list_data()` function. By default, only `['publish']` chapters are shown.
 
+**Note:** If you enable the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant, the filter will be used to treat scheduled chapters as published.
+
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
 * $story_id (int) – Post ID of the story.
@@ -366,8 +368,8 @@ function child_prefix_chapter_index_list_item( $item, $post, $args ) {
     $post->ID,
     get_the_permalink( $post->ID ),
     $args['icon'],
-    $prefix ? $prefix . ' ' : '', // New %6$s
-    $args['list_title'] ?: $args['title'] // Moved to %7$s
+    $prefix ? $prefix . ' ' : '',
+    $args['list_title'] ?: $args['title']
   );
 }
 add_filter( 'fictioneer_filter_chapter_index_item', 'child_prefix_chapter_index_list_item', 1, 3 );
@@ -416,6 +418,8 @@ Filters the intermediate output array of the chapter micro menu in the `fictione
 
 ### `apply_filters( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', $statuses, $post_id, $args, $location )`
 Filters the array of allowed post statuses for the chapter navigation buttons in the `fictioneer_chapter_nav_buttons()` function. The default is `['publish']`, but you could add `'private'` or `'future'` if you want to allow the navigation to render with these statuses.
+
+**Note:** If you enable the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant, the filter will be used to treat scheduled chapters as published.
 
 **Parameters:**
 * $statuses (array) – Array of allowed post statuses.
@@ -546,6 +550,8 @@ Filters the array of support links returned for the current post (or post ID if 
 ### `apply_filters( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', $statuses, $story_id )`
 Filters the array of chapter statuses that can be appended to a story’s `indexed_chapter_ids` array in the `fictioneer_get_story_data()` function. These chapters are a subset of the queried chapters, which need to be filtered separately. By default, the statuses are `['publish']`.
 
+**Note:** If you enable the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant, the filter will be used to treat scheduled chapters as published.
+
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
 * $story_id (int) – The story post ID.
@@ -564,6 +570,8 @@ add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_
 
 ### `apply_filters( 'fictioneer_filter_get_story_data_queried_chapter_statuses', $statuses, $story_id )`
 Filters the array of queried chapter statuses in the `fictioneer_get_story_data()` function. These chapters may appear in lists but cannot necessarily be navigated to (for example, `'future'` chapters). By default, the statuses are `['publish']`.
+
+**Note:** If you enable the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant, the filter will be used to treat scheduled chapters as published.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
@@ -596,6 +604,8 @@ Filters the prepared raw SQL used to query chapters in the `fictioneer_get_story
 
 ### `apply_filters( 'fictioneer_filter_chapters_added_statuses', $statuses, $story_id )`
 Filters the array of chapter statuses that are eligible to update the `fictioneer_chapters_modified` story meta field in several functions. By default, the statuses are `['publish']`. Note that hidden chapters (meta flag) will still be ignored regardless of status since they are not listed.
+
+**Note:** If you enable the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant, the filter will be used to treat scheduled chapters as published.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.

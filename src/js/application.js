@@ -1725,6 +1725,7 @@ fcn_theBody.addEventListener(
 class FCN_KeywordInput {
   constructor(input) {
     this.input = input;
+    this.type = input.dataset.type;
     this.operator = input.closest('.keyword-input').querySelector('.keyword-input__operator input');
     this.inputWrapper = input.closest('.keyword-input__input-wrapper');
     this.block = input.closest('.keyword-input');
@@ -1828,11 +1829,11 @@ class FCN_KeywordInput {
   addNode(text = null, trigger = null) {
     // Get and prepare value
     const name = text ?? this.input.value.replace(',', '');
-    let value = this.allowList[this.encode(name)];
+    let value = this.allowList[`${this.type}_${this.encode(name)}`];
 
     // Author names can be duplicates
     if ((this.collection.name == 'authors' || this.collection.name == 'ex_authors') && trigger) {
-      value = this.allowList[this.encode(name) + `_${trigger.value}`];
+      value = this.allowList[`${this.type}_${this.encode(name)}_${trigger.value}`];
     }
 
     // Only allowed value and no duplicates

@@ -238,7 +238,6 @@
 
 .dialog-modal__close,
 .modal .close {
-  --focus-offset: -4px;
   position: absolute;
   top: 0;
   right: 0;
@@ -248,7 +247,7 @@
   line-height: 1;
   text-shadow: none;
   padding: 7px 12px;
-  border-radius: 5px;
+  border-radius: 0 5px 0 5px;
   transition: color var(--transition-duration);
 
   &:hover {
