@@ -1335,7 +1335,12 @@ function fictioneer_shortcode_chapter_list( $attr ) {
                 data-action="click->fictioneer-checkmarks#toggleChapter"
                 role="checkbox"
                 aria-checked="false"
-                aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $title ); ?>"
+                aria-label="<?php
+                  printf(
+                    esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ),
+                    esc_attr( wp_strip_all_tags( $title ) )
+                  );
+                ?>"
               ><i class="fa-solid fa-check"></i></button>
             <?php endif; ?>
           </li>
