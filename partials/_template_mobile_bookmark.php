@@ -13,9 +13,9 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<template id="mobile-bookmark-template" hidden>
+<template id="mobile-bookmark-template">
   <li class="mobile-menu__bookmark">
-    <button class="mobile-menu-bookmark-delete-button" data-bookmark-id><i class="fa-solid fa-trash-alt"></i></button>
+    <button class="mobile-menu-bookmark-delete-button" data-fictioneer-mobile-menu-id-param data-action="click->fictioneer-mobile-menu#deleteBookmark"><i class="fa-solid fa-trash-alt"></i></button>
     <i class="fa-solid fa-bookmark"></i>
     <a href="#"><span></span></a>
     <div class="mobile-menu__bookmark-progress"><div><div class="mobile-menu__bookmark-bg" style></div></div></div>

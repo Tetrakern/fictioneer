@@ -92,7 +92,7 @@ $action_args = array(
 // Body attributes
 $body_attributes = array(
   'data-post-id' => ( $post_id ?: -1 ),
-  'data-controller' => 'fictioneer-last-click',
+  'data-controller' => 'fictioneer-last-click fictioneer-mobile-menu',
   'data-action' => 'click->fictioneer-last-click#removeAll keydown.esc->fictioneer-last-click#removeAll click->fictioneer#bodyClick'
 );
 

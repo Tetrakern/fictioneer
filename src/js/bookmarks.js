@@ -391,9 +391,6 @@ function fcn_toggleBookmark(id, color = 'none') {
     p.setAttribute('data-bookmark-color', color);
   }
 
-  // Reset HTML in mobile menu
-  fcn_setMobileMenuBookmarks();
-
   // Save bookmarks
   fcn_setBookmarks(fcn_bookmarks);
 }
@@ -442,66 +439,6 @@ function fcn_showChapterBookmark() {
     // Add bookmark line and color
     p.classList.add('current-bookmark');
     p.setAttribute('data-bookmark-color', color);
-  }
-}
-
-// =============================================================================
-// SET MOBILE MENU BOOKMARKS
-// =============================================================================
-
-/**
- * Set up bookmarks frame in mobile menu.
- *
- * @description Clears any previous HTML and rebuilds the bookmarks list for the
- * mobile menu (usually when a new bookmark is added or the menu panel opened for
- * the first time per page load).
- *
- * @since 4.0.0
- * @since 5.9.4 - Refactored with DocumentFragment.
- * @see fcn_bookmarkDeleteHandler()
- */
-
-function fcn_setMobileMenuBookmarks() {
-  // Clear target container of previous entries
-  fcn_mobileBookmarkList.innerHTML = '';
-
-  const bookmarks = Object.entries(fcn_bookmarks.data);
-  const template = _$('#mobile-bookmark-template');
-
-  if (bookmarks.length > 0) {
-    // Use fragment to collect nodes
-    const fragment = document.createDocumentFragment();
-
-    // Append bookmarks to fragment
-    bookmarks.forEach(([id, { color, progress, link, chapter, 'paragraph-id': paragraphId }]) => {
-      const clone = template.content.cloneNode(true);
-      const bookmarkElement = clone.querySelector('.mobile-menu__bookmark');
-
-      bookmarkElement.classList.add(`bookmark-${id}`);
-      bookmarkElement.dataset.color = color;
-      clone.querySelector('.mobile-menu__bookmark-progress > div > div').style.width = `${progress.toFixed(1)}%`;
-      clone.querySelector('.mobile-menu__bookmark a').href = `${link}#paragraph-${paragraphId}`;
-      clone.querySelector('.mobile-menu__bookmark a span').innerText = chapter;
-      clone.querySelector('.mobile-menu-bookmark-delete-button').setAttribute('data-bookmark-id', id);
-
-      fragment.appendChild(clone);
-    });
-
-    // Append fragment to DOM
-    fcn_mobileBookmarkList.appendChild(fragment);
-
-    // Register events for delete buttons
-    fcn_bookmarkDeleteHandler(_$$('.mobile-menu-bookmark-delete-button'));
-  } else {
-    // No bookmarks found!
-    const node = document.createElement('li');
-
-    // Create text node with notice
-    node.classList.add('no-bookmarks');
-    node.textContent = fcn_mobileBookmarkList.dataset.empty;
-
-    // Append node
-    fcn_mobileBookmarkList.appendChild(node);
   }
 }
 

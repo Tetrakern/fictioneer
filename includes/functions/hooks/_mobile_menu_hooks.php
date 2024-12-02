@@ -33,11 +33,10 @@ function fictioneer_output_mobile_menu( $args ) {
   }
 
   // Start HTML ---> ?>
-  <input id="mobile-menu-toggle" type="checkbox" autocomplete="off" tabindex="-1" hidden>
-  <div class="mobile-menu <?php echo implode( ' ', $classes ); ?>">
+  <div class="mobile-menu <?php echo implode( ' ', $classes ); ?>" data-action="fictioneer:bodyClick@window->fictioneer-mobile-menu#clickOutside">
     <div class="mobile-menu__top"><?php do_action( 'fictioneer_mobile_menu_top' ); ?></div>
     <div class="mobile-menu__center">
-      <div class="mobile-menu__frame _active" data-frame="main"><?php
+      <div id="mobile-frame-main" class="mobile-menu__frame _active" data-fictioneer-mobile-menu-target="frame"><?php
         do_action( 'fictioneer_mobile_menu_main_frame_panels' );
       ?></div>
       <?php do_action( 'fictioneer_mobile_menu_center' ); ?>
@@ -158,10 +157,10 @@ add_action( 'fictioneer_mobile_menu_bottom', 'fictioneer_mobile_quick_buttons', 
 
 function fictioneer_mobile_follows_frame() {
   // Start HTML ---> ?>
-  <div class="mobile-menu__frame"  data-frame="follows">
+  <div id="mobile-frame-follows" class="mobile-menu__frame" data-fictioneer-mobile-menu-target="frame">
     <div class="mobile-menu__panel mobile-menu__follows-panel">
       <div class="mobile-menu__panel-header">
-        <button class="mobile-menu__back-button">
+        <button class="mobile-menu__back-button" data-action="click->fictioneer-mobile-menu#back">
           <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
         </button>
         <button class="mark-follows-read mobile-menu__panel-action-button hidden" data-fictioneer-follows-target="mobileMarkRead" data-action="click->fictioneer-follows#markRead">
@@ -196,17 +195,17 @@ function fictioneer_mobile_bookmarks_frame() {
   fictioneer_get_cached_partial( 'partials/_template_mobile_bookmark' );
 
   // Start HTML ---> ?>
-  <div class="mobile-menu__frame" data-frame="bookmarks">
-    <div class="mobile-menu__panel mobile-menu__bookmarks-panel" data-editing="false">
+  <div id="mobile-frame-bookmarks" class="mobile-menu__frame" data-fictioneer-mobile-menu-target="frame">
+    <div class="mobile-menu__panel mobile-menu__bookmarks-panel" data-editing="false" data-fictioneer-mobile-menu-target="panelBookmarks">
       <div class="mobile-menu__panel-header">
-        <button class="mobile-menu__back-button">
+        <button class="mobile-menu__back-button" data-action="click->fictioneer-mobile-menu#back">
           <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
         </button>
-        <button id="button-mobile-menu-toggle-bookmarks-edit" class="mobile-menu__panel-action-button">
+        <button id="button-mobile-menu-toggle-bookmarks-edit" class="mobile-menu__panel-action-button" data-action="click->fictioneer-mobile-menu#toggleBookmarksEdit">
           <i class="fa-solid fa-pen off"></i><i class="fa-solid fa-check on"></i>
         </button>
       </div>
-      <ul class="mobile-menu__list mobile-menu__bookmark-list" data-empty="<?php echo fcntr( 'no_bookmarks', true ); ?>"></ul>
+      <ul class="mobile-menu__list mobile-menu__bookmark-list" data-empty="<?php echo fcntr( 'no_bookmarks', true ); ?>" data-fictioneer-mobile-menu-target="bookmarks"></ul>
     </div>
   </div>
   <?php // <--- End HTML
@@ -295,7 +294,7 @@ function fictioneer_mobile_lists_panel() {
   // Bookmarks?
   if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
     $output['bookmarks'] = sprintf(
-      '<button class="mobile-menu__frame-button" data-frame-target="bookmarks"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      '<button class="mobile-menu__frame-button" data-action="click->fictioneer-mobile-menu#openFrame click->fictioneer-mobile-menu#setMobileBookmarks" data-fictioneer-mobile-menu-frame-param="bookmarks"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
       fcntr( 'bookmarks' )
     );
   }
@@ -303,7 +302,7 @@ function fictioneer_mobile_lists_panel() {
   // Follows?
   if ( get_option( 'fictioneer_enable_follows' ) ) {
     $output['follows'] = sprintf(
-      '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-fictioneer-follows-target="newDisplay" data-frame-target="follows" data-action="click->fictioneer-follows#loadFollowsHtml:once"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-fictioneer-follows-target="newDisplay" data-frame-target="follows" data-action="click->fictioneer-follows#loadFollowsHtml:once click->fictioneer-mobile-menu#openFrame" data-fictioneer-mobile-menu-frame-param="follows"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
       fcntr( 'follows' )
     );
   }
@@ -411,7 +410,7 @@ function fictioneer_mobile_user_menu() {
     ! $password_required
   ) {
     $output['comment_jump'] = sprintf(
-      '<a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow"><i class="fa-solid fa-comments mobile-menu__item-icon"></i> %s</a>',
+      '<a id="mobile-menu-comment-jump" class="comments-toggle" data-action="click->fictioneer-mobile-menu#scrollToComments"><i class="fa-solid fa-comments mobile-menu__item-icon"></i> %s</a>',
       fcntr( 'jump_to_comments' )
     );
   }
@@ -423,7 +422,7 @@ function fictioneer_mobile_user_menu() {
     ! $password_required
   ) {
     $output['bookmark_jump'] = sprintf(
-      '<a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> %s</a>',
+      '<a id="mobile-menu-bookmark-jump" data-action="click->fictioneer-mobile-menu#scrollToBookmark" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> %s</a>',
       fcntr( 'jump_to_bookmark' )
     );
   }

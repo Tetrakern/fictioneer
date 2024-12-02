@@ -1,147 +1,181 @@
 // =============================================================================
-// MOBILE MENU
+// STIMULUS: FICTIONEER MOBILE MENU
 // =============================================================================
 
-/**
- * Delegate toggling of the mobile menu.
- *
- * @since 5.8.7
- * @param {boolean} isOpened - True or false.
- */
-
-function fcn_toggleMobileMenu(isOpened) {
-  // Clone main navigation into mobile menu
-
-  if (_$('.mobile-menu._advanced-mobile-menu')) {
-    fcn_toggleAdvancedMobileMenu(isOpened);
-  } else {
-    fcn_toggleSimpleMobileMenu(isOpened);
+application.register('fictioneer-mobile-menu', class extends Stimulus.Controller {
+  static get targets() {
+    return ['frame', 'bookmarks', 'panelBookmarks']
   }
-}
 
-/**
- * Open or close the simple mobile menu.
- *
- * @since 5.8.7
- * @param {boolean} isOpened - True or false.
- */
+  advanced = !!_$('.mobile-menu._advanced-mobile-menu');
+  open = false;
+  editingBookmarks = false;
+  currentFrame = null;
+  bookmarkTemplate = _$$$('mobile-bookmark-template');
 
-function fcn_toggleSimpleMobileMenu(isOpened) {
-  if (isOpened) {
-    // Mobile menu was opened
-    document.body.classList.add('mobile-menu-open', 'scrolling-down');
-    document.body.classList.remove('scrolling-up');
-  } else {
-    // Mobile menu was closed
-    document.body.classList.remove('mobile-menu-open');
-    fcn_closeMobileFrames(); // Close all frames
-    fcn_openMobileFrame('main'); // Reset to main frame
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.27.0
+   */
 
-    // Reset control checkbox
-    _$$$('mobile-menu-toggle').checked = false;
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerMobileMenu = this;
   }
-}
 
-/**
- * Open or close the advanced mobile menu.
- *
- * @description When the site is transformed, the scroll context is changed as
- * well. So the scroll position needs to be corrected by remembering the
- * position before the transformation and setting it after.
- *
- * @since 4.0.0
- * @param {boolean} isOpened - True or false.
- */
+  toggle(open = null) {
+    this.open = open ?? !this.open;
 
-function fcn_toggleAdvancedMobileMenu(isOpened) {
-  // Get and preserve values before DOM changes destroy them
-  const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
-  const windowScrollY = window.scrollY;
-  const siteScrollTop = FcnGlobals.eSite.scrollTop;
-
-  if (isOpened) {
-    // Mobile menu was opened
-    document.body.classList.add('mobile-menu-open', 'scrolling-down', 'scrolled-to-top');
-    document.body.classList.remove('scrolling-up');
-    FcnGlobals.eSite.classList.add('transformed-scroll', 'transformed-site');
-    FcnGlobals.eSite.scrollTop = windowScrollY - adminBarOffset;
-    fcn_updateThemeColor();
-  } else {
-    // Mobile menu was closed
-    FcnGlobals.eSite.classList.remove('transformed-site', 'transformed-scroll');
-    document.body.classList.remove('mobile-menu-open');
-    fcn_updateThemeColor();
-    fcn_closeMobileFrames(); // Close all frames
-    fcn_openMobileFrame('main'); // Reset to main frame
-
-    // Restore scroll position
-    document.documentElement.style.scrollBehavior = 'auto';
-    window.scroll(0, siteScrollTop + adminBarOffset);
-    document.documentElement.style.scrollBehavior = '';
-
-    // Reset control checkbox
-    _$$$('mobile-menu-toggle').checked = false;
-
-    // Restart progress bar
-    if (typeof fcn_trackProgress === 'function') {
-      fcn_trackProgress();
+    if (this.advanced) {
+      this.#toggleAdvanced(this.open);
+    } else {
+      this.#toggleSimple(this.open);
     }
   }
-}
 
-// Listen for change of mobile menu toggle checkbox
-_$$$('mobile-menu-toggle')?.addEventListener('change', event => {
-  fcn_toggleMobileMenu(event.currentTarget.checked);
-});
-
-// Listen for click on the site to close mobile menu
-FcnGlobals.eSite.addEventListener('click', event => {
-  if (document.body.classList.contains('mobile-menu-open')) {
-    event.preventDefault();
-    fcn_toggleMobileMenu(false);
-  }
-});
-
-// =============================================================================
-// JUMP BUTTONS
-// =============================================================================
-
-/**
- * Adds event to a mobile menu jump button.
- *
- * @since 5.9.4
- * @param {String} selector - Selector for the button.
- * @param {Function} callback - Function to query the scroll target.
- */
-
-function fcn_setupMobileJumpButton(selector, callback) {
-  const button = _$(selector);
-
-  if (!button) {
-    return;
+  clickOutside({ detail: { target } }) {
+    if (this.open && target?.id === 'site') {
+      this.toggle(false);
+    }
   }
 
-  button.addEventListener('click', () => {
-    fcn_toggleMobileMenu(false);
+  openFrame({ params: { frame } }) {
+    const targetId = `mobile-frame-${frame}`;
+
+    this.editingBookmarks = false;
+    this.panelBookmarksTarget.dataset.editing = false;
+
+    if (this.hasFrameTarget) {
+      this.frameTargets.forEach(element => {
+        element.classList.toggle('_active', element.id === targetId);
+
+        if (element.id === targetId) {
+          this.currentFrame = element;
+        }
+      });
+    }
+  }
+
+  back() {
+    this.openFrame({ params: { frame: 'main' } });
+  }
+
+  setMobileBookmarks() {
+    if (this.hasBookmarksTarget) {
+      const bookmarksData = Object.entries(fcn_getBookmarks()?.data ?? {});
+
+      this.bookmarksTarget.innerHTML = '';
+
+      if (bookmarksData.length < 1) {
+        const node = document.createElement('li');
+
+        node.classList.add('no-bookmarks');
+        node.textContent = this.bookmarksTarget.dataset.empty;
+
+        this.bookmarksTarget.appendChild(node);
+
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      bookmarksData.forEach(([id, { color, progress, link, chapter, 'paragraph-id': paragraphId }]) => {
+        const clone = this.bookmarkTemplate.content.cloneNode(true);
+        const bookmarkElement = clone.querySelector('.mobile-menu__bookmark');
+
+        bookmarkElement.classList.add(`bookmark-${id}`);
+        bookmarkElement.dataset.color = color;
+        clone.querySelector('.mobile-menu__bookmark-progress > div > div').style.width = `${progress.toFixed(1)}%`;
+        clone.querySelector('.mobile-menu__bookmark a').href = `${link}#paragraph-${paragraphId}`;
+        clone.querySelector('.mobile-menu__bookmark a span').innerText = chapter;
+        clone.querySelector('.mobile-menu-bookmark-delete-button').setAttribute('data-fictioneer-mobile-menu-id-param', id);
+
+        fragment.appendChild(clone);
+      });
+
+      this.bookmarksTarget.appendChild(fragment);
+    }
+  }
+
+  deleteBookmark({ params: { id } }) {
+    fcn_removeBookmark(id);
+    fcn_setBookmarks(fcn_bookmarks);
+
+    if (Object.keys(fcn_bookmarks.data).length < 1) {
+      _$('.bookmarks-block')?.classList.add('hidden');
+
+      _$$('.show-if-bookmarks').forEach(element => {
+        element.classList.add('hidden');
+      });
+    }
+  }
+
+  toggleBookmarksEdit() {
+    this.editingBookmarks = !this.editingBookmarks;
+    this.panelBookmarksTarget.dataset.editing = this.editingBookmarks;
+  }
+
+  scrollToComments() {
+    this.toggle(false);
 
     setTimeout(() => {
-      const target = callback();
+      const target = _$$$('comments');
 
-      // Scroll to position + offset
       if (target) {
         FcnUtils.scrollTo(target);
       }
     }, 200); // Wait for mobile menu to close
-  });
-}
+  }
 
-// Setup for comment jump
-fcn_setupMobileJumpButton('#mobile-menu-comment-jump', () => _$$$('comments'));
+  scrollToBookmark() {
+    this.toggle(false);
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #toggleSimple(open) {
+    this.back();
+
+    if (open) {
+      document.body.classList.add('mobile-menu-open', 'scrolling-down');
+      document.body.classList.remove('scrolling-up');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+  }
+
+  #toggleAdvanced(open) {
+    const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
+    const windowScrollY = window.scrollY;
+    const siteScrollTop = FcnGlobals.eSite.scrollTop;
+
+    this.back();
+
+    if (open) {
+      document.body.classList.add('mobile-menu-open', 'scrolling-down', 'scrolled-to-top');
+      document.body.classList.remove('scrolling-up');
+      FcnGlobals.eSite.classList.add('transformed-scroll', 'transformed-site');
+      FcnGlobals.eSite.scrollTop = windowScrollY - adminBarOffset;
+    } else {
+      FcnGlobals.eSite.classList.remove('transformed-site', 'transformed-scroll');
+      document.body.classList.remove('mobile-menu-open');
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scroll(0, siteScrollTop + adminBarOffset);
+      document.documentElement.style.scrollBehavior = '';
+    }
+  }
+});
+
 
 // Setup for bookmark jump
-fcn_setupMobileJumpButton('#mobile-menu-bookmark-jump', () => {
-  return _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
-});
+// fcn_setupMobileJumpButton('#mobile-menu-bookmark-jump', () => {
+//   return _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
+// });
+
+
+
 
 // =============================================================================
 // QUICK BUTTONS
@@ -153,79 +187,3 @@ _$$('.button-change-lightness').forEach(element => {
     fcn_updateDarken(fcn_siteSettings['darken'] + parseFloat(event.currentTarget.value));
   });
 });
-
-// =============================================================================
-// FRAMES
-// =============================================================================
-
-/**
- * Opens mobile menu frame.
- *
- * @since 4.0.0
- * @param {String} target - Name of the target frame.
- */
-
-function fcn_openMobileFrame(target) {
-  fcn_closeMobileFrames();
-  _$(`.mobile-menu__frame[data-frame="${target}"]`)?.classList.add('_active');
-}
-
-/**
- * Closes all open mobile menu frames.
- *
- * @since 4.0.0
- */
-
-function fcn_closeMobileFrames() {
-  // Close all open frames (should only be one)
-  _$$('.mobile-menu__frame._active').forEach(element => {
-    element.classList.remove('_active');
-  });
-
-  // End bookmarks edit mode
-  const bookmarksPanel = _$('.mobile-menu__bookmarks-panel');
-
-  if (bookmarksPanel) {
-    bookmarksPanel.dataset.editing = 'false';
-  }
-}
-
-// Listen for clicks on frame buttons...
-_$$('.mobile-menu__frame-button').forEach(element => {
-  element.addEventListener('click', event => {
-    fcn_openMobileFrame(event.currentTarget.dataset.frameTarget);
-  });
-});
-
-// Listen for clicks on back buttons...
-_$$('.mobile-menu__back-button').forEach(element => {
-  element.addEventListener('click', () => {
-    fcn_openMobileFrame('main');
-  });
-});
-
-// =============================================================================
-// CHAPTERS FRAME
-// =============================================================================
-
-/* See chapters.js */
-
-// =============================================================================
-// FOLLOWS FRAME
-// =============================================================================
-
-/* See follows.js */
-
-// =============================================================================
-// BOOKMARKS FRAME
-// =============================================================================
-
-_$$$('button-mobile-menu-toggle-bookmarks-edit')?.addEventListener('click', event => {
-  const panel = event.currentTarget.closest('.mobile-menu__bookmarks-panel');
-  panel.dataset.editing = panel.dataset.editing == 'false' ? 'true' : 'false';
-});
-
-// Append bookmarks when bookmarks frame is opened, once
-_$('.mobile-menu__frame-button[data-frame-target="bookmarks"]')?.addEventListener('click', () => {
-  fcn_setMobileMenuBookmarks();
-}, { once: true });

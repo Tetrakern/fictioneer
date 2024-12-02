@@ -104,7 +104,7 @@ window.FictioneerApp.Controllers = window.FictioneerApp.Controllers || {};
 
 application.register('fictioneer', class extends Stimulus.Controller {
   static get targets() {
-    return ['avatarWrapper', 'modal']
+    return ['avatarWrapper', 'modal', 'mobileMenuToggle']
   }
 
   static values = {
@@ -483,6 +483,14 @@ application.register('fictioneer', class extends Stimulus.Controller {
     this.toggleModalVisibility(event.currentTarget, event.params.id);
   }
 
+  /**
+   * Toggle a modal visibility.
+   *
+   * @since 5.27.0
+   * @param {HTMLElement} source - The trigger element.
+   * @param {String} modalId - The modal element ID.
+   */
+
   toggleModalVisibility(source, modalId) {
     const target = _$$$(modalId);
 
@@ -538,6 +546,22 @@ application.register('fictioneer', class extends Stimulus.Controller {
   backgroundCloseModals({ target }) {
     if (target.classList.contains('modal')) {
       this.closeModals();
+    }
+  }
+
+  /**
+   * Toggle the mobile menu via its own controller.
+   *
+   * @since 5.27.0
+   */
+
+  toggleMobileMenu(event) {
+    event.preventDefault();
+
+    const controller = window.FictioneerApp.Controllers.fictioneerMobileMenu;
+
+    if (controller) {
+      controller.toggle();
     }
   }
 
@@ -1168,10 +1192,10 @@ if (FcnGlobals.urlParams) {
  * Update theme color meta tag.
  *
  * @since 4.0.0
- * @param {String|Boolean} [color=false] - Optional color code.
+ * @param {String} [color=null] - Optional color code.
  */
 
-function fcn_updateThemeColor(color = false) {
+function fcn_updateThemeColor(color = null) {
   const darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0;
   const saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0;
   const hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0;
@@ -1182,7 +1206,7 @@ function fcn_updateThemeColor(color = false) {
 
   themeColor = `hsl(${(parseInt(themeColor[0]) + hueRotate) % 360}deg ${(parseInt(themeColor[1]) * s).toFixed(2)}% ${(parseInt(themeColor[2]) * d).toFixed(2)}%)`;
 
-  _$('meta[name=theme-color]').setAttribute('content', color || themeColor);
+  _$('meta[name=theme-color]').setAttribute('content', color ?? themeColor);
 }
 
 // =============================================================================

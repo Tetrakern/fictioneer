@@ -51,13 +51,13 @@ if ( $header_style === 'wide' ) {
 
       <?php do_action( 'fictioneer_navigation_wrapper_start', $args ); ?>
 
-      <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number" data-fictioneer-follows-target="newDisplay">
+      <button class="mobile-menu-button follows-alert-number" data-fictioneer-follows-target="newDisplay" data-action="click->fictioneer#toggleMobileMenu">
         <?php
           fictioneer_icon( 'fa-bars', 'off' );
           fictioneer_icon( 'fa-xmark', 'on' );
         ?>
         <span class="mobile-menu-button__label"><?php _ex( 'Menu' , 'Mobile menu label', 'fictioneer' ); ?></span>
-      </label>
+      </button>
 
       <nav class="main-navigation__left" aria-label="<?php echo esc_attr__( 'Main Navigation', 'fictioneer' ); ?>">
         <?php
