@@ -294,24 +294,6 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
   }
 }
 
-function custom_blur_title_with_spoiler( $title, $post_id, $context ) {
-    // Check if the context is relevant to modify the title (don't affect checkmarks)
-    if ( ! in_array( $context, ['story-chapter-list', 'shortcode-chapter-list'] ) ) {
-        return $title;
-    }
-
-    // Check if the title should be treated as a spoiler
-    // $has_spoiler = get_post_meta( $post_id, '_has_spoiler', true ); // Custom meta to mark spoilers
-
-    if ( true ) {
-        // Adds the class to the title without changing the HTML structure
-        $title = '<span class="spoiler-title">' . $title . '</span>'; // Using a neutral tag like <span>
-    }
-
-    return $title;
-}
-add_filter( 'fictioneer_filter_safe_title', 'custom_blur_title_with_spoiler', 10, 3 );
-
 /**
  * Returns sanitized safe title
  *
