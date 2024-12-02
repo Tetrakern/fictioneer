@@ -128,6 +128,10 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
     this.#scrollTo(target);
   }
 
+  changeLightness({ currentTarget }) {
+    fcn_updateDarken(fcn_siteSettings['darken'] + parseFloat(currentTarget.value));
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================
@@ -173,14 +177,4 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
       document.documentElement.style.scrollBehavior = '';
     }
   }
-});
-
-
-
-
-// Listen for clicks on the darken/brighten quick buttons
-_$$('.button-change-lightness').forEach(element => {
-  element.addEventListener('click', event => {
-    fcn_updateDarken(fcn_siteSettings['darken'] + parseFloat(event.currentTarget.value));
-  });
 });

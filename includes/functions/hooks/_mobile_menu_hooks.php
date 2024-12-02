@@ -87,12 +87,12 @@ function fictioneer_mobile_quick_buttons() {
 
   if ( $post_type === 'fcn_chapter' && ! is_search() ) {
     $output['darken'] = sprintf(
-      '<button class="button _quick button-change-lightness" value="-0.2">%s</button>',
+      '<button class="button _quick" data-action="click->fictioneer-mobile-menu#changeLightness" value="-0.2">%s</button>',
       __( 'Darken', 'fictioneer' )
     );
 
     $output['brighten'] = sprintf(
-      '<button class="button _quick button-change-lightness" value="0.2">%s</button>',
+      '<button class="button _quick" data-action="click->fictioneer-mobile-menu#changeLightness" value="0.2">%s</button>',
       __( 'Brighten', 'fictioneer' )
     );
 
