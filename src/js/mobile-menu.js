@@ -12,6 +12,7 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
   editingBookmarks = false;
   currentFrame = null;
   bookmarkTemplate = _$$$('mobile-bookmark-template');
+  chapterId = _$('article')?.id;
 
   /**
    * Stimulus Controller connect lifecycle callback.
@@ -116,24 +117,30 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
   }
 
   scrollToComments() {
-    this.toggle(false);
-
-    setTimeout(() => {
-      const target = _$$$('comments');
-
-      if (target) {
-        FcnUtils.scrollTo(target);
-      }
-    }, 200); // Wait for mobile menu to close
+    this.#scrollTo(_$$$('comments'));
   }
 
   scrollToBookmark() {
-    this.toggle(false);
+    const bookmarksData = fcn_getBookmarks()?.data ?? {};
+    const paragraphId = bookmarksData[this.chapterId]?.['paragraph-id'];
+    const target = _$(`[data-paragraph-id="${paragraphId}"]`);
+
+    this.#scrollTo(target);
   }
 
   // =====================
   // ====== PRIVATE ======
   // =====================
+
+  #scrollTo(target) {
+    this.toggle(false);
+
+    if (target) {
+      setTimeout(() => {
+        FcnUtils.scrollTo(target);
+      }, 200); // Wait for mobile menu to close
+    }
+  }
 
   #toggleSimple(open) {
     this.back();
@@ -169,17 +176,7 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
 });
 
 
-// Setup for bookmark jump
-// fcn_setupMobileJumpButton('#mobile-menu-bookmark-jump', () => {
-//   return _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
-// });
 
-
-
-
-// =============================================================================
-// QUICK BUTTONS
-// =============================================================================
 
 // Listen for clicks on the darken/brighten quick buttons
 _$$('.button-change-lightness').forEach(element => {
