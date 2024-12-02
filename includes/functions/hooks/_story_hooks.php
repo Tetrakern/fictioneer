@@ -671,7 +671,12 @@ function fictioneer_story_chapters( $args ) {
                       data-id="<?php echo $chapter['id']; ?>"
                       role="checkbox"
                       aria-checked="false"
-                      aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $chapter['title'] ); ?>"
+                      aria-label="<?php
+                        printf(
+                          esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ),
+                          esc_attr( wp_strip_all_tags( $chapter['title'] ) )
+                        );
+                      ?>"
                     ><i class="fa-solid fa-check"></i></button>
                   <?php endif; ?>
 
