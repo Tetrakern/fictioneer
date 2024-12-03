@@ -96,6 +96,10 @@ $body_attributes = array(
   'data-action' => 'click->fictioneer-last-click#removeAll keydown.esc->fictioneer-last-click#removeAll click->fictioneer#bodyClick'
 );
 
+if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
+  $body_attributes['data-controller'] .= ' fictioneer-bookmarks';
+}
+
 if ( get_option( 'fictioneer_enable_follows' ) ) {
   $body_attributes['data-controller'] .= ' fictioneer-follows';
 }

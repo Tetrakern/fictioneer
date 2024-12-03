@@ -1,4 +1,280 @@
 // =============================================================================
+// STIMULUS: FICTIONEER BOOKMARKS
+// =============================================================================
+
+application.register('fictioneer-bookmarks', class extends Stimulus.Controller {
+  static get targets() {
+    return []
+  }
+
+  timeout = 0;
+  chapterId = _$('.chapter__article')?.id;
+
+  initialize() {
+    if (fcn()?.userReady || !FcnUtils.loggedIn()) {
+      this.#ready = true;
+    } else {
+      document.addEventListener('fcnUserDataReady', () => {
+        this.#ready = true;
+
+        this.refreshView();
+        this.#watch();
+      });
+    }
+  }
+
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerBookmarks = this;
+
+    if (this.#ready) {
+      this.refreshView();
+      this.#watch();
+    }
+  }
+
+  data() {
+    this.bookmarksCachedData = FcnUtils.loggedIn() ? this.#getUserBookmarks() : this.#getLocalBookmarks();
+
+    return this.#fixBookmarks(this.bookmarksCachedData).data;
+  }
+
+  toggle(paragraphId, color = 'none') {
+    if (!this.chapterId) {
+      return;
+    }
+
+    const bookmarksData = this.data();
+
+
+
+    // Synchronize with local storage again
+    /*
+    fcn_bookmarks = fcn_getBookmarks();
+
+    // Get article node with chapter data
+    const chapter = _$('.chapter__article');
+    const currentBookmark = _$('.current-bookmark');
+
+    // Check whether an article has been found or abort
+    if (!chapter) {
+      return;
+    }
+
+    // Look for existing bookmark...
+    const b = fcn_bookmarks.data[chapter.id];
+
+    // Add, update, or remove bookmark...
+    if (b && b['paragraph-id'] == id && currentBookmark) {
+      if (color != 'none' && color != b['color']) {
+        // --- Update bookmark color ---------------------------------------------
+        _$('.current-bookmark').dataset.bookmarkColor = color;
+        b['color'] = color;
+      } else {
+        // --- Remove bookmark ---------------------------------------------------
+        fcn_removeBookmark(chapter.id);
+      }
+    } else {
+      // --- Add new bookmark ----------------------------------------------------
+
+      // Maximum of 50 bookmarks
+      if (Object.keys(fcn_bookmarks.data).length >= 50) {
+        // Remove oldest
+        fcn_removeBookmark(Object.keys(fcn_bookmarks.data)[0]);
+      }
+
+      // Setup
+      const p = _$(`[data-paragraph-id="${id}"]`);
+      const fcn_chapterBookmarkData = _$$$('chapter-bookmark-data').dataset;
+
+      // Add data node (chapter-id: {}) to bookmarks JSON
+      fcn_bookmarks.data[chapter.id] = {
+        'paragraph-id': id,
+        'progress': (FcnUtils.offset(p).top - FcnUtils.offset(p.parentElement).top) * 100 / p.parentElement.clientHeight,
+        'date': (new Date()).toISOString(), // This happens anyway when stringified
+        'color': color,
+        'chapter': fcn_chapterBookmarkData.title.trim(),
+        'link': fcn_chapterBookmarkData.link,
+        'thumb': fcn_chapterBookmarkData.thumb,
+        'image': fcn_chapterBookmarkData.image,
+        'story': fcn_chapterBookmarkData.storyTitle.trim(),
+        'content': p.querySelector('span').innerHTML.substring(0, 128) + '…'
+      };
+
+      // Reveal jump buttons
+      fcn_jumpToBookmarkButtons.forEach(element => {
+        element.classList.remove('hidden');
+      });
+
+      fcn_mobileBookmarkJump?.removeAttribute('hidden');
+
+      // Remove current-bookmark class from previous paragraph (if any)
+      currentBookmark?.classList.remove('current-bookmark');
+
+      // Add new current-bookmark class to paragraph
+      p.classList.add('current-bookmark');
+      p.setAttribute('data-bookmark-color', color);
+    }
+
+    // Save bookmarks
+    fcn_setBookmarks(fcn_bookmarks);
+    */
+  }
+
+  set() {
+
+
+    // Make sure this is a JSON object
+    /*
+    if (typeof value !== 'object') {
+      return;
+    }
+
+    // Keep global updated
+    fcn_bookmarks = value;
+    localStorage.setItem('fcnChapterBookmarks', JSON.stringify(value));
+
+    // Keep user data updated as well
+    if (FcnUtils.loggedIn()) {
+      const currentUserData = fcn().userData();
+
+      if (currentUserData) {
+        currentUserData.bookmarks = JSON.stringify(value);
+        fcn().setUserData(currentUserData);
+      }
+    }
+
+    // Do not save to database if silent update
+    if (silent) {
+      return;
+    }
+
+    // Update database for user
+    fcn_saveUserBookmarks(value);
+    */
+  }
+
+  refreshView() {
+    console.log(this.data());
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #ready = false;
+  #paused = false;
+
+  #getLocalBookmarks() {
+    return FcnUtils.parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { data: {} };
+  }
+
+  #getUserBookmarks() {
+    return FcnUtils.parseJSON(FcnUtils.userData()?.bookmarks) ?? { data: {} };
+  }
+
+  #fixBookmarks(bookmarks) {
+    if (
+      typeof bookmarks !== 'object' ||
+      !('data' in bookmarks) ||
+      (Array.isArray(bookmarks.data) && bookmarks.data.length === 0)
+    ) {
+      return { data: {} };
+    }
+
+    const fixedNodes = {};
+
+    for (const key in bookmarks.data) {
+      if (key.startsWith('ch-')) {
+        const node = this.#fixNode(bookmarks.data[key]);
+
+        if (node) {
+          fixedNodes[key] = node;
+        }
+      }
+    }
+
+    return { data: fixedNodes };
+  }
+
+  #fixNode(node) {
+    const fixedNode = {};
+    const structure = {
+      'paragraph-id': '',
+      'progress': 0.0,
+      'date': '',
+      'color': '',
+      'chapter': '',
+      'link': '',
+      'thumb': '',
+      'image': '',
+      'story': '',
+      'content': ''
+    };
+
+    for (const key in structure) {
+      if (typeof node[key] === typeof structure[key]) {
+        fixedNode[key] = node[key];
+      } else {
+        return null;
+      }
+    }
+
+    const date = new Date(fixedNode['date']);
+
+    if (!date || Object.prototype.toString.call(date) !== '[object Date]' || isNaN(date)) {
+      fixedNode['date'] = (new Date()).toISOString(); // This happens anyway when stringified
+    }
+
+    if (typeof fixedNode['progress'] !== 'number' || fixedNode['progress'] < 0) {
+      fixedNode['progress'] = 0.0;
+    }
+
+    return fixedNode;
+  }
+
+  #userDataChanged() {
+    return JSON.stringify(this.bookmarksCachedData ?? 0) !== JSON.stringify(this.data());
+  }
+
+  #startRefreshInterval() {
+    if (this.refreshInterval) {
+      return;
+    }
+
+    this.refreshInterval = setInterval(() => {
+      if (!this.#paused && this.#userDataChanged()) {
+        this.refreshView()
+      }
+    }, 30000 + Math.random() * 1000);
+  }
+
+  #watch() {
+    this.#startRefreshInterval();
+
+    this.visibilityStateCheck = () => {
+      if (document.visibilityState === 'visible') {
+        this.#paused = false;
+        this.refreshView();
+        this.#startRefreshInterval();
+      } else {
+        this.#paused = true;
+        clearInterval(this.refreshInterval);
+        this.refreshInterval = null;
+      }
+    };
+
+    document.addEventListener('visibilitychange', this.visibilityStateCheck);
+  }
+});
+
+
+
+
+
+
+
+
+// =============================================================================
 // BOOKMARKS
 // =============================================================================
 
