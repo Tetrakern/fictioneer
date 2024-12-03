@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 :is(:fullscreen, :-webkit-full-screen) {
   --page-inset-top: 0px;
 

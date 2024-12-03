@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 .tabs {
   display: flex;
   flex-wrap: wrap;

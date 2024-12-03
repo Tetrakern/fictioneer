@@ -1,6 +1,6 @@
-@import '_functions';
-@import '_mixins';
-@import '_variables';
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
 
 // =============================================================================
 // WEAK - CANNOT OVERRIDE CHILD THEME VIA SITE SETTINGS

@@ -1,5 +1,6 @@
-@import '../common/_functions';
-@import '../common/_mixins';
+@use '../common/_functions' as *;
+@use '../common/_mixins' as *;
+@use '../common/_variables' as *;
 
 :root.page-style-polygon-interface-a:not(.minimal) {
   --o: #{get_clamp(0, 8, 375, 1024)};
@@ -8,10 +9,6 @@
   --s: #{get_clamp(0, 32, 320, 768)};
   --p: #{get_clamp(92, 230, 320, 768)};
   --i: 0px;
-
-  @include bp(desktop) {
-    --i: 4px;
-  }
 
   --page-polygon: polygon(
     0% calc(var(--o) + var(--m)),
@@ -69,6 +66,10 @@
     var(--m) 100%,
     0% calc(100% - 1 * var(--m))
   );
+
+  @include bp(desktop) {
+    --i: 4px;
+  }
 
   .main__background {
     filter: var(--page-drop-shadow);

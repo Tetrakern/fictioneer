@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 .media-buttons {
   display: flex;
   gap: 16px get_clamp(12, 16, 320, 480);

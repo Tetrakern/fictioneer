@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 .footer {
   --layout-link-color-hover: var(--footer-link-color-hover, var(--fg-300));
   position: relative;

@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 .text-icon,
 .icon {
   display: inline-block;

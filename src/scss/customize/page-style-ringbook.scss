@@ -1,5 +1,6 @@
-@import '../common/_functions';
-@import '../common/_mixins';
+@use '../common/_functions' as *;
+@use '../common/_mixins' as *;
+@use '../common/_variables' as *;
 
 :root.page-style-mask-image-ringbook:not(.minimal) .main__background {
   filter: var(--page-drop-shadow);

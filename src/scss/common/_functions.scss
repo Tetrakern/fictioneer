@@ -1,4 +1,7 @@
 @use 'sass:math';
+@use 'sass:string';
+@use '_mixins' as *;
+@use '_variables' as *;
 
 @function get_clamp($min, $max, $wmin, $wmax, $unit: 'vw') {
   $vw: math.div($min - $max, math.div($wmin, 100) - math.div($wmax, 100));
@@ -50,13 +53,11 @@
 }
 
 @function unicode($str) {
-  @return unquote("\"")+unquote(str-insert($str, "\\", 1))+unquote("\"")
+  @return string.unquote("\"")+string.unquote(string.insert($str, "\\", 1))+string.unquote("\"");
 }
 
-/*
-https://toward.studio/latest/making-css-gradients-smooth
-https://css-tricks.com/easing-linear-gradients/
-*/
+// https://toward.studio/latest/making-css-gradients-smooth
+// https://css-tricks.com/easing-linear-gradients/
 
 @function scrim_gradient($startColor: #000000, $direction: 'to bottom', $startOpacity: 1, $offset: 0) {
   $scrimCoordinates: (
@@ -87,5 +88,5 @@ https://css-tricks.com/easing-linear-gradients/
     $stops: append($stops, $stop, comma);
   }
 
-  @return linear-gradient(unquote($direction), $stops);
+  @return linear-gradient(string.unquote($direction), $stops);
 }

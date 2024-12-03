@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 :where(input, textarea, button, select) {
   -webkit-appearance: none;
   appearance: none;

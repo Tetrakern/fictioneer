@@ -1,5 +1,6 @@
-@import '../common/_functions';
-@import '../common/_mixins';
+@use '../common/_functions' as *;
+@use '../common/_mixins' as *;
+@use '../common/_variables' as *;
 
 .footer._footer-isolated {
   --layout-link-color-hover: var(--fg-isolated-footer-hover);

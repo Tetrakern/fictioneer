@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 .fcn-contact-form {
   position: relative;
   display: flex;

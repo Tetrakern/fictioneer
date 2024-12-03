@@ -1,4 +1,7 @@
 @use 'sass:math';
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
 
 $block-spacing: 32px;
 

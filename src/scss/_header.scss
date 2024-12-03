@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 .header {
   position: relative;
   height: var(--header-height);

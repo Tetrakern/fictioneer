@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 @keyframes spinning-animation {
   0% {
     transform: rotate(0);

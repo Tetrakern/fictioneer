@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 html:is(:root) {
   font-size: get_clamp(15, 16, 400, $full-width);
 }

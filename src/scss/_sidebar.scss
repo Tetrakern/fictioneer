@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 .widget {
   --block-latest-posts-title-font-size: 1.1em;
   color: var(--fg-700);

@@ -3000,19 +3000,6 @@
       "oS" : 3,
       "pg" : 0
     },
-    "\/src\/scss\/admin\/_header.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/src\/scss\/admin\/css\/_header.css",
-      "oF" : 0,
-      "oS" : 3,
-      "pg" : 0
-    },
     "\/src\/scss\/admin\/_properties.scss" : {
       "aP" : 0,
       "bl" : 0,
