@@ -34,7 +34,7 @@
 }
 
 .main {
-  margin-top: var(--main-offset, 0);
+  margin-top: var(--main-offset, 0px);
   max-width: var(--site-width);
 
   // Allows for semi-transparent and clipped backgrounds without affecting the content
