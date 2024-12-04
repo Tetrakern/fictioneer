@@ -48,6 +48,15 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
     fcn_toggleCheckmark(story);
   }
 
+  clear() {
+    const userData = FcnUtils.userData();
+
+    userData.checkmarks = { data: {}, updated: Date.now() };
+
+    fcn().setUserData(userData);
+    this.refreshView();
+  }
+
   refreshView() {
     const checkmarks = this.data();
 

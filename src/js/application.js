@@ -565,6 +565,67 @@ application.register('fictioneer', class extends Stimulus.Controller {
     }
   }
 
+  /**
+   * AJAX: Helper to execute a POST action.
+   *
+   * @since 5.27.0
+   * @param {string} action - The action to perform.
+   * @param {Object} [options] - Optional. Additional options for the request.
+   * @param {HTMLElement|null} [options.element=null] - Optional. Element to mark as "in-progress".
+   * @param {Function|null} [options.callback=null] - Optional. Callback on success with (response, element).
+   * @param {string|null} [options.nonce=null] - Optional. The nonce to use.
+   * @param {boolean} [options.fast=true] - Optional. Whether to use the Fast AJAX pipeline.
+   * @param {Object} [options.payload={}] - Optional. Additional payload merged with the defaults.
+   *
+   * @example
+   * remoteAction('someAction', {
+   *   element: document.getElementById('myElement'),
+   *   callback: (response, element) => {
+   *     console.log('Success:', response);
+   *   },
+   *   nonce: 'abcd1234',
+   *   fast: false
+   * });
+   */
+
+  remoteAction(action, { element = null, callback = null, nonce = null, fast = true, payload = {} } = {}) {
+    element?.classList.add('ajax-in-progress');
+
+    FcnUtils.aPost({
+      ...{
+        'action': action,
+        'fcn_fast_ajax': !!fast,
+        'nonce': nonce ?? FcnUtils.nonce()
+      },
+      ...payload
+    })
+    .then(response => {
+      if (response.success) {
+        callback(response, element);
+      } else {
+        fcn_showNotification(
+          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
+          10,
+          'warning'
+        );
+
+        if (response.data.error || response.data.failure) {
+          console.error('Error:', response.data.error ?? response.data.failure);
+        }
+      }
+    })
+    .catch(error => {
+      if (error.status && error.statusText) {
+        fcn_showNotification(`${error.status}: ${error.statusText}`, 10, 'warning');
+      }
+
+      console.error(error);
+    })
+    .then(() => {
+      element?.classList.remove('ajax-in-progress');
+    });
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================

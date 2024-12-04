@@ -4,7 +4,7 @@
 
 application.register('fictioneer-bookmarks', class extends Stimulus.Controller {
   static get targets() {
-    return ['bookmarkScroll', 'shortcodeBlock', 'dataCard', 'overviewPageIconLink']
+    return ['bookmarkScroll', 'shortcodeBlock', 'dataCard', 'overviewPageIconLink', 'noBookmarksNote']
   }
 
   timeout = 0;
@@ -151,7 +151,7 @@ application.register('fictioneer-bookmarks', class extends Stimulus.Controller {
 
     if (this.hasNoBookmarksNoteTarget) {
       this.noBookmarksNoteTargets.forEach(element => {
-        element.classList.toggle('hidden', hidden);
+        element.classList.toggle('hidden', !hidden);
       });
     }
 

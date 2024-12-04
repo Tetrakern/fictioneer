@@ -57,6 +57,15 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
     }
   }
 
+  clear() {
+    const userData = FcnUtils.userData();
+
+    userData.follows = { data: {} };
+
+    fcn().setUserData(userData);
+    this.refreshView();
+  }
+
   refreshView() {
     this.toggleButtonTargets.forEach(button => {
       const storyId = button.dataset.storyId;

@@ -52,6 +52,15 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
     }
   }
 
+  clear() {
+    const userData = FcnUtils.userData();
+
+    userData.reminders = { data: {} };
+
+    fcn().setUserData(userData);
+    this.refreshView();
+  }
+
   refreshView() {
     this.toggleButtonTargets.forEach(button => {
       const storyId = button.dataset.storyId;
