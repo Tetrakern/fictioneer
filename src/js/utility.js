@@ -220,7 +220,7 @@ const FcnUtils = {
    * @param {Object} [options] - Optional. Additional options for the request.
    * @param {HTMLElement|null} [options.element=null] - Optional. Element to mark as "in-progress".
    * @param {Function|null} [options.callback=null] - Optional. Callback with response and element.
-   * @param {Function|null} [options.errorCallback=null] - Optional. Callback with error.
+   * @param {Function|null} [options.errorCallback=null] - Optional. Callback with error and element.
    * @param {string|null} [options.nonce=null] - Optional. The nonce to use.
    * @param {boolean} [options.fast=true] - Optional. Whether to use the Fast AJAX pipeline.
    * @param {Object} [options.payload={}] - Optional. Additional payload merged with the defaults.
@@ -270,7 +270,7 @@ const FcnUtils = {
       }
 
       if (errorCallback) {
-        errorCallback(error);
+        errorCallback(error, element);
       }
 
       console.error(error);

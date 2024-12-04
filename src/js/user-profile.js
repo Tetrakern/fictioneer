@@ -21,53 +21,30 @@ function fcn_unsetOauth(button) {
     return;
   }
 
-  const connection = _$$$(`oauth-${button.dataset.channel}`);
-
-  // Mark as in-progress
-  connection.classList.add('ajax-in-progress');
-
-  // Request
-  FcnUtils.aPost(payload = {
-    'action': 'fictioneer_ajax_unset_my_oauth',
-    'nonce': button.dataset.nonce,
-    'channel': button.dataset.channel,
-    'id': button.dataset.id
-  })
-  .then(response => {
-    if (response.success) {
-      // Successfully unset
-      connection.classList.remove('_connected');
-      connection.classList.add('_disconnected');
-      connection.querySelector('button').remove();
-      fcn_showNotification(connection.dataset.unset);
-    } else {
-      // Failed to unset
-      connection.style.background = 'var(--notice-warning-background)';
-
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        5,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_unset_my_oauth',
+    {
+      nonce: button.dataset.nonce,
+      element: _$$$(`oauth-${button.dataset.channel}`),
+      payload: {
+        channel: button.dataset.channel,
+        id: button.dataset.id
+      },
+      callback: (response, element) => {
+        if (response.success) {
+          element.classList.remove('_connected');
+          element.classList.add('_disconnected');
+          element.querySelector('button').remove();
+          fcn_showNotification(element.dataset.unset);
+        } else {
+          element.style.background = 'var(--notice-warning-background)';
+        }
+      },
+      errorCallback: (error, element) => {
+        element.style.background = 'var(--notice-warning-background)';
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      connection.style.background = 'var(--notice-warning-background)';
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    // Regardless of outcome
-    connection.classList.remove('ajax-in-progress');
-  });
+  );
 }
 
 // Listen to click on unset buttons
