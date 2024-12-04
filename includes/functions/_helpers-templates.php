@@ -1244,7 +1244,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     // Scroll to bookmark
     $micro_menu['bookmark_jump'] = sprintf(
-      '<button type="button" title="%s" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1" data-action="click->fictioneer-chapter#scrollToBookmark" data-fictioneer-chapter-target="bookmarkScroll"><i class="fa-solid fa-bookmark"></i></button>',
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__bookmark button--bookmark" tabindex="-1" data-action="click->fictioneer-chapter#scrollToBookmark" data-fictioneer-chapter-target="bookmarkScroll" data-fictioneer-bookmarks-target="bookmarkScroll" hidden><i class="fa-solid fa-bookmark"></i></button>',
       fcntr( 'jump_to_bookmark', true )
     );
 
@@ -2379,7 +2379,7 @@ function fictioneer_render_icon_menu( $args ) {
 
   if ( ! empty( $bookmarks_link ) ) {
     $output['bookmarks'] = sprintf(
-      '<div class="menu-item menu-item-icon icon-menu-bookmarks hidden hide-if-logged-in"><a href="%1$s" title="%2$s" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-bookmark"></i></a></div>',
+      '<div class="menu-item menu-item-icon icon-menu-bookmarks hidden hide-if-logged-in" data-fictioneer-bookmarks-target="overviewPageIconLink"><a href="%1$s" title="%2$s" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-bookmark"></i></a></div>',
       esc_url( $bookmarks_link ),
       esc_attr__( 'Bookmarks Page', 'fictioneer' ),
       esc_attr__( 'Link to bookmarks page', 'fictioneer' )

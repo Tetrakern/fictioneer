@@ -626,15 +626,6 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 }
 
 /**
- * Add the bookmarks feature.
- */
-
-if ( get_option( 'fictioneer_enable_bookmarks' ) && is_admin() ) {
-  // Only used for AJAX
-  require_once __DIR__ . '/includes/functions/users/_bookmarks.php';
-}
-
-/**
  * Add the skins feature.
  */
 

@@ -62,8 +62,10 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
   }
 
   setMobileBookmarks() {
-    if (this.hasBookmarksTarget) {
-      const bookmarksData = Object.entries(fcn_getBookmarks()?.data ?? {});
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+
+    if (controller && this.hasBookmarksTarget) {
+      const bookmarksData = Object.entries(controller.data());
 
       this.bookmarksTarget.innerHTML = '';
 
@@ -99,15 +101,13 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
   }
 
   deleteBookmark({ params: { id } }) {
-    fcn_removeBookmark(id);
-    fcn_setBookmarks(fcn_bookmarks);
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
 
-    if (Object.keys(fcn_bookmarks.data).length < 1) {
-      _$('.bookmarks-block')?.classList.add('hidden');
-
-      _$$('.show-if-bookmarks').forEach(element => {
-        element.classList.add('hidden');
-      });
+    if (controller) {
+      controller.remove({ params: { id: id } });
+      this.setMobileBookmarks();
+    } else {
+      fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
     }
   }
 
@@ -121,8 +121,14 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
   }
 
   scrollToBookmark() {
-    const bookmarksData = fcn_getBookmarks()?.data ?? {};
-    const paragraphId = bookmarksData[this.chapterId]?.['paragraph-id'];
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+
+    if (!controller) {
+      fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
+      return;
+    }
+
+    const paragraphId = controller.data()?.[this.chapterId]?.['paragraph-id'];
     const target = _$(`[data-paragraph-id="${paragraphId}"]`);
 
     this.#scrollTo(target);

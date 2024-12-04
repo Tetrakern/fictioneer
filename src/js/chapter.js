@@ -53,8 +53,14 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   }
 
   scrollToBookmark() {
-    const bookmarks = fcn_getBookmarks();
-    const paragraphID = bookmarks?.data?.[`ch-${this.chapterIdValue}`]?.['paragraph-id'];
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+
+    if (!controller) {
+      fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
+      return;
+    }
+
+    const paragraphID = controller.data()?.[`ch-${this.chapterIdValue}`]?.['paragraph-id'];
 
     if (!paragraphID) {
       return;
@@ -195,9 +201,16 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   }
 
   toggleBookmark({ target }) {
-    fcn_toggleBookmark(
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+
+    if (!controller) {
+      fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
+      return;
+    }
+
+    controller.toggle(
       target.closest('p[data-paragraph-id]').dataset.paragraphId,
-      target.closest('[data-color]')?.dataset.color ?? 'default'
+      target.closest('[data-color]')?.dataset.color ?? 'none'
     );
 
     if (window.matchMedia('(min-width: 1024px)').matches) {

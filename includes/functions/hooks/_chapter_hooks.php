@@ -494,7 +494,7 @@ function fictioneer_chapter_bookmark_jump_button() {
   }
 
   // Start HTML ---> ?>
-  <button type="button" class="button _secondary button--bookmark hidden" data-fictioneer-chapter-target="bookmarkScroll" data-action="click->fictioneer-chapter#scrollToBookmark">
+  <button type="button" class="button _secondary button--bookmark" data-fictioneer-chapter-target="bookmarkScroll" data-fictioneer-bookmarks-target="bookmarkScroll" data-action="click->fictioneer-chapter#scrollToBookmark" hidden>
     <i class="fa-solid fa-bookmark"></i>
     <span class="hide-below-tablet"><?php echo fcntr( 'bookmark' ); ?></span>
   </button>

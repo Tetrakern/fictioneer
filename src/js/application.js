@@ -668,7 +668,7 @@ if (typeof fcn_removeQueryArgs === 'function') {
 // Remove old local data
 document.addEventListener('fcnUserDataReady', () => {
   if (!fcn().userData().loggedIn) {
-    fcn_cleanUpWebStorage(true);
+    fcn_cleanUpWebStorage();
     fcn_cleanUpGuestView();
   }
 });
@@ -678,15 +678,10 @@ document.addEventListener('fcnUserDataReady', () => {
  *
  * @since 4.5.0
  * @since 5.27.0 - Refactored.
- * @param {Boolean} keepBookmarks - Whether to keep bookmarks.
  */
 
-function fcn_cleanUpWebStorage(keepBookmarks = false) {
+function fcn_cleanUpWebStorage() {
   const localItems = ['fcnBookshelfContent'];
-
-  if (!keepBookmarks) {
-    localItems.push('fcnChapterBookmarks');
-  }
 
   // Remove local data
   localItems.forEach(item => localStorage.removeItem(item));

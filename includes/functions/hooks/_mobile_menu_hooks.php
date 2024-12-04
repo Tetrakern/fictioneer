@@ -422,7 +422,7 @@ function fictioneer_mobile_user_menu() {
     ! $password_required
   ) {
     $output['bookmark_jump'] = sprintf(
-      '<a id="mobile-menu-bookmark-jump" data-action="click->fictioneer-mobile-menu#scrollToBookmark" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> %s</a>',
+      '<a id="mobile-menu-bookmark-jump" data-fictioneer-bookmarks-target="bookmarkScroll" data-action="click->fictioneer-mobile-menu#scrollToBookmark" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> %s</a>',
       fcntr( 'jump_to_bookmark' )
     );
   }

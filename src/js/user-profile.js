@@ -353,11 +353,15 @@ _$('.button-clear-bookmarks')?.addEventListener(
       return;
     }
 
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+
+    if (!controller) {
+      fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
+      return;
+    }
+
     // Remove bookmarks
-    const currentUserData = fcn().userData();
-    currentUserData.bookmarks = '{}';
-    fcn().setUserData(currentUserData);
-    fcn_bookmarks.data = {};
+    controller.clear();
 
     // Update view
     e.currentTarget.closest('.card').querySelector('.card__content').innerHTML = fcn_profileDataTranslations.clearedSuccess;
