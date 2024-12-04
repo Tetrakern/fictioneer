@@ -334,43 +334,25 @@ function fcn_uploadSkins(trigger) {
   const skins = fcn_getSkins();
 
   // Toggle button progress
-  FcnUtils.toggleInProgress(trigger);
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
-  FcnUtils.aPost({
-    'action': 'fictioneer_ajax_save_skins',
-    'fcn_fast_ajax': 1,
-    'skins': JSON.stringify(skins)
-  })
-  .then(response => {
-    if (response.success) {
-      fcn_showNotification(response.data.message, 3, 'success');
-      fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
-    } else {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        3,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_save_skins',
+    {
+      element: trigger,
+      payload: { skins: JSON.stringify(skins) },
+      callback: (response) => {
+        if (response.success) {
+          fcn_showNotification(response.data.message, 3, 'success');
+          fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
+        }
+      },
+      finalCallback: () => {
+        _$('[data-css-skin-target="file"]').value = '';
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    _$('[data-css-skin-target="file"]').value = '';
-    FcnUtils.toggleInProgress(trigger);
-  });
+  );
 }
 
 _$('[data-action="click->css-skin#upload"]')?.addEventListener('click', event => {
@@ -391,45 +373,27 @@ function fcn_downloadSkins(trigger) {
   }
 
   // Toggle button progress
-  FcnUtils.toggleInProgress(trigger);
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
-  FcnUtils.aPost({
-    'action': 'fictioneer_ajax_get_skins',
-    'fcn_fast_ajax': 1
-  })
-  .then(response => {
-    if (response.success) {
-      fcn_showNotification(response.data.message, 3, 'success');
-      fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
-      fcn_setSkins(FcnUtils.parseJSON(response.data.skins));
-      fcn_renderSkinList();
-      fcn_applySkin();
-    } else {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        3,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_get_skins',
+    {
+      element: trigger,
+      callback: (response) => {
+        if (response.success) {
+          fcn_showNotification(response.data.message, 3, 'success');
+          fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
+          fcn_setSkins(FcnUtils.parseJSON(response.data.skins));
+          fcn_renderSkinList();
+          fcn_applySkin();
+        }
+      },
+      finalCallback: () => {
+        _$('[data-css-skin-target="file"]').value = '';
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    _$('[data-css-skin-target="file"]').value = '';
-    FcnUtils.toggleInProgress(trigger);
-  });
+  );
 }
 
 _$('[data-action="click->css-skin#download"]')?.addEventListener('click', event => {
