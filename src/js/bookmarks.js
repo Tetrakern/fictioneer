@@ -361,31 +361,10 @@ application.register('fictioneer-bookmarks', class extends Stimulus.Controller {
     clearTimeout(this.timeout);
 
     this.timeout = setTimeout(() => {
-      FcnUtils.aPost({
-        'action': 'fictioneer_ajax_save_bookmarks',
-        'fcn_fast_ajax': 1,
-        'bookmarks': bookmarksString
-      })
-      .then(response => {
-        if (!response.success) {
-          fcn_showNotification(
-            response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-            3,
-            'warning'
-          );
-
-          if (response.data.error || response.data.failure) {
-            console.error('Error:', response.data.error ?? response.data.failure);
-          }
-        }
-      })
-      .catch(error => {
-        if (error.status && error.statusText) {
-          fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
-        }
-
-        console.error(error);
-      });
+      FcnUtils.remoteAction(
+        'fictioneer_ajax_save_bookmarks',
+        { payload: { bookmarks: bookmarksString } }
+      );
     }, FcnGlobals.debounceRate); // Debounce
   }
 });
