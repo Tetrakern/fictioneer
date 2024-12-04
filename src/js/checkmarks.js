@@ -266,33 +266,14 @@ function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
 
   // Update in database; only one request every n seconds
   controller.timeout = setTimeout(() => {
-    FcnUtils.aPost({
-      'action': 'fictioneer_ajax_set_checkmark',
-      'fcn_fast_ajax': 1,
-      'story_id': storyId,
-      'update': userData.checkmarks.data[storyId].join(' ')
-    })
-    .then(response => {
-      // Check for failure
-      if (!response.success) {
-        fcn_showNotification(
-          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-          3,
-          'warning'
-        );
-
-        // Make sure the actual error (if any) is printed to the console too
-        if (response.data.error || response.data.failure) {
-          console.error('Error:', response.data.error ?? response.data.failure);
+    FcnUtils.remoteAction(
+      'fictioneer_ajax_set_checkmark',
+      {
+        payload: {
+          update: userData.checkmarks.data[storyId].join(' '),
+          story_id: storyId
         }
       }
-    })
-    .catch(error => {
-      if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      }
-
-      console.error(error);
-    });
+    );
   }, FcnGlobals.debounceRate); // Debounce synchronization
 }

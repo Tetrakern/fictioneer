@@ -134,7 +134,6 @@ function fictioneer_ajax_delete_my_account() {
         'button' => __( 'Denied', 'fictioneer' )
       )
     );
-    die(); // Just to be sure
   }
 
   // Delete user

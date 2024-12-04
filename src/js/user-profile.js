@@ -51,8 +51,8 @@ function fcn_unsetOauth(button) {
 _$$('.button-unset-oauth').forEach(element => {
   element.addEventListener(
     'click',
-    e => {
-      fcn_unsetOauth(e.currentTarget);
+    event => {
+      fcn_unsetOauth(event.currentTarget);
     }
   );
 });
@@ -75,68 +75,47 @@ _$$('.button-unset-oauth').forEach(element => {
  */
 
 function fcn_deleteMyAccount(button) {
-  if (_$$$('button-delete-my-account').hasAttribute('disabled')) {
-    return;
-  }
-
   const confirm = prompt(button.dataset.warning);
 
   if (!confirm || confirm.toLowerCase() != button.dataset.confirm.toLowerCase()) {
     return;
   }
 
-  // Disable button
-  _$$$('button-delete-my-account').setAttribute('disabled', true);
+  button.disabled = true;
 
-  // Request
-  FcnUtils.aPost({
-    'action': 'fictioneer_ajax_delete_my_account',
-    'nonce': button.dataset.nonce,
-    'id': button.dataset.id
-  })
-  .then(response => {
-    if (response.success) {
-      // Successfully deleted
-      location.reload();
-    } else {
-      // Could not be deleted
-      _$$$('button-delete-my-account').innerHTML = response.data.button;
-
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        5,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_delete_my_account',
+    {
+      nonce: button.dataset.nonce,
+      element: button,
+      payload: {
+        id: button.dataset.id
+      },
+      callback: (response, element) => {
+        if (response.success) {
+          location.reload();
+        } else {
+          element.innerHTML = response.data.button;
+        }
+      },
+      errorCallback: (error, element) => {
+        element.innerHTML = error.status ?? fictioneer_tl.notification.error;
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      _$$$('button-delete-my-account').innerHTML = response.data.button;
-    }
-
-    console.error(error);
-  });
+  );
 }
 
 // Listen for click on delete profile button
 _$$$('button-delete-my-account')?.addEventListener(
   'click',
-  e => {
-    fcn_deleteMyAccount(e.currentTarget);
+  event => {
+    fcn_deleteMyAccount(event.currentTarget);
   }
 );
 
 // =============================================================================
 // CLEAR DATA
 // =============================================================================
-
-const /** @const {DOMStringMap} */ fcn_profileDataTranslations = _$$$('profile-data-translations')?.dataset;
 
 /**
  * Prompt with string submission before deletion of user data.
@@ -288,6 +267,7 @@ _$('.button-clear-bookmarks')?.addEventListener(
   event => {
     if (fcn_dataDeletionPrompt(event.currentTarget)) {
       const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+      const translations = _$$$('profile-data-translations')?.dataset;
 
       if (!controller) {
         fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
@@ -295,7 +275,7 @@ _$('.button-clear-bookmarks')?.addEventListener(
       }
 
       controller.clear();
-      event.currentTarget.closest('.card').querySelector('.card__content').innerHTML = fcn_profileDataTranslations.clearedSuccess;
+      event.currentTarget.closest('.card').querySelector('.card__content').innerHTML = translations.clearedSuccess;
     }
   }
 );
