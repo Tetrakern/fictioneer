@@ -275,5 +275,5 @@ function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
         }
       }
     );
-  }, FcnGlobals.debounceRate); // Debounce synchronization
+  }, FcnGlobals.debounceRate); // Debounce
 }
