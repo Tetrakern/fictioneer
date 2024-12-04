@@ -120,8 +120,6 @@ function fcn_deleteMyAccount(button) {
   .then(response => {
     if (response.success) {
       // Successfully deleted
-      localStorage.removeItem('fcnAuth');
-      localStorage.removeItem('fcnProfileAvatar');
       location.reload();
     } else {
       // Could not be deleted

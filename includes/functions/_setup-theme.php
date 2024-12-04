@@ -1604,7 +1604,7 @@ add_filter( 'customize_refresh_nonces', 'fictioneer_add_customizer_refresh_nonce
 function fictioneer_wp_login_scripts() {
   // Clear web storage in preparation of login
   wp_print_inline_script_tag(
-    'localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnAuth");',
+    'localStorage.removeItem("fcnUserData");',
     array(
       'id' => 'fictioneer-login-scripts',
       'type' => 'text/javascript',

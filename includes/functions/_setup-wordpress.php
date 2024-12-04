@@ -261,7 +261,7 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
 
 function fictioneer_after_logout_cleanup() {
   wp_print_inline_script_tag(
-    'localStorage.removeItem("fcnProfileAvatar"); localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnAuth"); localStorage.removeItem("fcnBookshelfContent"); localStorage.removeItem("fcnChapterBookmarks");',
+    'localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnBookshelfContent"); localStorage.removeItem("fcnChapterBookmarks");',
     array(
       'id' => 'fictioneer-logout-cleanup',
       'type' => 'text/javascript',

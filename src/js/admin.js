@@ -293,9 +293,7 @@ _$$('[data-confirm-dialog]').forEach(element => {
 
 // Admin bar logout link
 _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
-  localStorage.removeItem('fcnProfileAvatar');
   localStorage.removeItem('fcnUserData');
-  localStorage.removeItem('fcnAuth');
   localStorage.removeItem('fcnBookshelfContent');
   localStorage.removeItem('fcnChapterBookmarks');
 });
