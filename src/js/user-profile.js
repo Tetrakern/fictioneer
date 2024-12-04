@@ -193,13 +193,13 @@ function fcn_clearData(button, action) {
   localStorage.removeItem('fcnBookshelfContent');
   button.remove();
 
-  fcn().remoteAction(
+  FcnUtils.remoteAction(
     action,
     {
       nonce: button.dataset.nonce,
       element: element,
       callback: (response, element) => {
-        if (element) {
+        if (response.success && element) {
           element.querySelector('.card__content').innerHTML = response.data.success;
         }
       }
