@@ -175,35 +175,14 @@ function fcn_toggleReminder(storyId, set = null) {
 
   // Update in database; only one request every n seconds
   controller.timeout = setTimeout(() => {
-    FcnUtils.aPost({
-      'action': 'fictioneer_ajax_toggle_reminder',
-      'fcn_fast_ajax': 1,
-      'story_id': storyId,
-      'set': set
-    })
-    .then(response => {
-      // Check for failure
-      if (!response.success) {
-        fcn_showNotification(
-          response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-          5,
-          'warning'
-        );
-
-        // Make sure the actual error (if any) is printed to the console too
-        if (response.data.error || response.data.failure) {
-          console.error('Error:', response.data.error ?? response.data.failure);
+    FcnUtils.remoteAction(
+      'fictioneer_ajax_toggle_reminder',
+      {
+        payload: {
+          set: set,
+          story_id: storyId
         }
       }
-    })
-    .catch(error => {
-      if (error.status === 429) {
-        fcn_showNotification(fictioneer_tl.notification.slowDown, 3, 'warning');
-      } else if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      }
-
-      console.error(error);
-    });
-  }, FcnGlobals.debounceRate); // Debounce synchronization
+    );
+  }, FcnGlobals.debounceRate); // Debounce
 }
