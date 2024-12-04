@@ -265,8 +265,10 @@ const FcnUtils = {
       }
     })
     .catch(error => {
-      if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 10, 'warning');
+      if (error.status === 429) {
+        fcn_showNotification(fictioneer_tl.notification.slowDown, 3, 'warning');
+      } else if (error.status && error.statusText) {
+        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       }
 
       if (errorCallback) {
