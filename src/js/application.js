@@ -2518,10 +2518,7 @@ fcn_markCurrentMenuItem();
 // =============================================================================
 
 if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation') !== '1' && !FcnUtils.isSearchEngineCrawler()) {
-  // Delay to avoid impacting web vitals
-  setTimeout(() => {
-    fcn_showAgeConfirmationModal();
-  }, 2500);
+  fcn_showAgeConfirmationModal();
 } else {
   _$$$('age-confirmation-modal')?.remove();
 }
