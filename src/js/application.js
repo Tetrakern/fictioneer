@@ -2894,3 +2894,142 @@ application.register('fictioneer-last-click', class extends Stimulus.Controller 
     document.dispatchEvent(new CustomEvent('toggledLastClick', { detail: { target: target, force: force } }));
   }
 });
+
+// =============================================================================
+// CONSENT MANAGEMENT
+// =============================================================================
+
+const /** @const {HTMLElement} */ fcn_consentBanner = _$$$('consent-banner');
+
+// Show consent banner if no consent has been set, remove otherwise;
+if (fcn_consentBanner && (FcnUtils.getCookie('fcn_cookie_consent') ?? '') === '' && !FcnUtils.isSearchEngineCrawler()) {
+  // Delay to avoid impacting web vitals
+  setTimeout(() => {
+    fcn_loadConsentBanner();
+  }, 4000);
+} else {
+  fcn_consentBanner?.remove();
+}
+
+/**
+ * Load consent banner if required.
+ *
+ * @since 3.0
+ */
+
+function fcn_loadConsentBanner() {
+  fcn_consentBanner.classList.remove('hidden');
+  fcn_consentBanner.hidden = false;
+
+  // Listen for click on full consent button
+  _$$$('consent-accept-button')?.addEventListener('click', () => {
+    FcnUtils.setCookie('fcn_cookie_consent', 'full')
+    fcn_consentBanner.classList.add('hidden');
+    fcn_consentBanner.hidden = true;
+  });
+
+  // Listen for click on necessary only consent button
+  _$$$('consent-reject-button')?.addEventListener('click', () => {
+    FcnUtils.setCookie('fcn_cookie_consent', 'necessary')
+    fcn_consentBanner.classList.add('hidden');
+    fcn_consentBanner.hidden = true;
+  });
+}
+
+// =============================================================================
+// SHOW LIGHTBOX
+// =============================================================================
+
+/**
+ * Show image in lightbox.
+ *
+ * @since 5.0.3
+ * @param {HTMLElement} target - The lightbox source image.
+ */
+
+function fcn_showLightbox(target) {
+  const lightbox = _$$$('fictioneer-lightbox');
+  const lightboxContent = _$('.lightbox__content');
+
+  let valid = false;
+  let img = null;
+
+  // Cleanup previous content (if any)
+  lightboxContent.innerHTML = '';
+
+  // Bookmark source element for later use
+  target.classList.add('lightbox-last-trigger');
+
+  // Image or link?
+  if (target.tagName == 'IMG') {
+    img = target.cloneNode();
+    valid = true;
+  } else if (target.href) {
+    img = document.createElement('img');
+    img.src = target.href;
+    valid = true;
+  }
+
+  // Show lightbox
+  if (valid && img) {
+    ['class', 'style', 'height', 'width'].forEach(attr => img.removeAttribute(attr));
+    lightboxContent.appendChild(img);
+    lightbox.classList.add('show');
+
+    const close = lightbox.querySelector('.lightbox__close');
+
+    close?.focus();
+    close?.blur();
+  }
+}
+
+// =============================================================================
+// EVENTS
+// =============================================================================
+
+document.body.addEventListener('click', e => {
+  const target = e.target.closest('[data-lightbox]:not(.no-auto-lightbox)');
+
+  if (target) {
+    // Prevent links from working
+    e.preventDefault();
+
+    // Call lightbox
+    fcn_showLightbox(target);
+  }
+});
+
+document.body.addEventListener('keydown', e => {
+  const target = e.target.closest('[data-lightbox]:not(.no-auto-lightbox)');
+
+  if (target) {
+    // Check pressed key
+    if (e.key === ' ' || e.key === 'Enter') {
+      // Prevent links from working
+      e.preventDefault();
+
+      // Call lightbox
+      fcn_showLightbox(target);
+    }
+  }
+});
+
+// Lightbox controls
+document.querySelectorAll('.lightbox__close, .lightbox').forEach(element => {
+  element.addEventListener(
+    'click',
+    e => {
+      if (e.target.tagName != 'IMG') {
+        // Restore default view
+        _$$$('fictioneer-lightbox').classList.remove('show');
+
+        // Restore last tab focus
+        const lastTrigger = _$('.lightbox-last-trigger');
+
+        lastTrigger?.focus();
+        lastTrigger?.blur();
+        lastTrigger?.classList.remove('lightbox-last-trigger');
+      }
+    }
+  );
+});

@@ -1325,16 +1325,8 @@ function fictioneer_add_custom_scripts() {
     // Application
     wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'fictioneer-dynamic-scripts'], $cache_bust, $strategy );
 
-    // Lightbox
-    if ( get_option( 'fictioneer_enable_lightbox' ) ) {
-      wp_enqueue_script( 'fictioneer-lightbox', get_template_directory_uri() . '/js/lightbox.min.js', ['fictioneer-application-scripts'], $cache_bust, $strategy );
-    }
-
     // Mobile menu
     wp_register_script( 'fictioneer-mobile-menu-scripts', get_template_directory_uri() . '/js/mobile-menu.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
-
-    // Consent
-    wp_register_script( 'fictioneer-consent-scripts', get_template_directory_uri() . '/js/laws.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Chapter
     wp_register_script( 'fictioneer-chapter-scripts', get_template_directory_uri() . '/js/chapter.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
@@ -1386,11 +1378,6 @@ function fictioneer_add_custom_scripts() {
 
     // Enqueue mobile menu
     wp_enqueue_script( 'fictioneer-mobile-menu-scripts' );
-
-    // Enqueue consent
-    if ( get_option( 'fictioneer_cookie_banner' ) ) {
-      wp_enqueue_script( 'fictioneer-consent-scripts' );
-    }
 
     // Enqueue chapter
     if ( $post_type == 'fcn_chapter' && ! is_archive() && ! is_search() ) {

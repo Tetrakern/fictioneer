@@ -1,8 +1,6 @@
 // @codekit-append 'utility.js';
 // @codekit-append 'application.js';
-// @codekit-append 'lightbox.js';
 // @codekit-append 'mobile-menu.js';
-// @codekit-append 'laws.js';
 // @codekit-append 'chapter.js';
 // @codekit-append 'diff-match-patch.js';
 // @codekit-append 'suggestion.js';
