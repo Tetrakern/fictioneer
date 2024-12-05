@@ -1846,7 +1846,6 @@ function fcn_contactFormSubmit(button) {
   // Setup
   const form = button.closest('form');
   const formData = new FormData(form);
-  const payload = {'action': 'fictioneer_ajax_submit_contact_form'};
 
   // Form valid?
   if (!form.reportValidity()) {
@@ -1863,41 +1862,34 @@ function fcn_contactFormSubmit(button) {
   }
 
   // Prepare payload
+  const payload = {};
+
   for (const [key, value] of formData) {
     payload[key] = value;
   }
 
-  // Set ajax-in-progress
-  form.classList.add('ajax-in-progress');
-
   // Request
-  FcnUtils.aPost(payload)
-  .then(response => {
-    if (response.success) {
-      // Success
-      form.querySelector('textarea').value = '';
-      button.innerHTML = button.dataset.done;
-      fcn_showNotification(response.data.success, 3, 'success');
-    } else if (response.data.failure) {
-      // Failure
-      button.disabled = false;
-      button.innerHTML = button.dataset.enabled;
-      fcn_showNotification(response.data.failure, 5, 'warning');
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_submit_contact_form',
+    {
+      element: form,
+      payload: payload,
+      callback: (response) => {
+        if (response.success) {
+          form.querySelector('textarea').value = '';
+          button.innerHTML = button.dataset.done;
+          fcn_showNotification(response.data.success, 3, 'success');
+        } else if (response.data.failure) {
+          button.disabled = false;
+          button.innerHTML = button.dataset.enabled;
+        }
+      },
+      errorCallback: () => {
+        button.disabled = false;
+        button.innerHTML = button.dataset.enabled;
+      }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      button.disabled = false;
-      button.innerHTML = button.dataset.enabled;
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    // Regardless of outcome
-    form.classList.remove('ajax-in-progress');
-  });
+  );
 }
 
 _$$('.fcn-contact-form').forEach(element => {
