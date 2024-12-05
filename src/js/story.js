@@ -112,8 +112,6 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
    * Get story settings JSON from local storage or create new one.
    *
    * @since 5.0.6
-   * @see fcn_defaultStorySettings()
-   * @see fcn_setStorySettings();
    * @return {Object} The story settings.
    */
 

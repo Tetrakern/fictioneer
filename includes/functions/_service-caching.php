@@ -949,7 +949,6 @@ function fictioneer_get_cache_salt() {
  * Get static HTML of cached template partial
  *
  * @since 5.18.3
- * @see get_template_directory()
  *
  * @param string|null $dir  Optional. Directory path to override the default.
  *
@@ -999,7 +998,6 @@ function fictioneer_create_html_cache_directory( $dir = null ) {
  * Get static HTML of cached template partial
  *
  * @since 5.18.1
- * @see get_template_part()
  *
  * @param string      $slug        The slug name for the generic template.
  * @param string      $identifier  Optional. Additional identifier string for the file. Default empty string.

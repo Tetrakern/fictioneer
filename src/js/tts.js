@@ -78,7 +78,6 @@ function fcn_setTTSsettings(value) {
  * found, an empty settings JSON is created and returned.
  *
  * @since 3.0
- * @see fcn_setTTSsettings()
  */
 
 function fcn_getTTSsettings() {

@@ -2266,7 +2266,6 @@ if ( ! function_exists( 'fictioneer_check_comment_disallowed_list' ) ) {
    * returns the offenders within the comment content
    *
    * @since 5.0.0
-   * @see wp_check_comment_disallowed_list()
    *
    * @param string $author      The author of the comment.
    * @param string $email       The email of the comment.

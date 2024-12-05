@@ -1396,7 +1396,6 @@ add_action( 'admin_post_fictioneer_tools_add_chapter_hidden_fields', 'fictioneer
  * Append chapters to a story by ID
  *
  * @since 5.8.6
- * @see fictioneer_append_chapter_to_story()
  */
 
 function fictioneer_tools_append_chapters() {

@@ -1308,7 +1308,6 @@ function fictioneer_register_settings() {
  * Sanitizes the 'words per minute' setting with fallback
  *
  * @since 4.0.0
- * @see fictioneer_sanitize_integer()
  *
  * @param mixed $input  The input value to sanitize.
  *
@@ -1323,7 +1322,6 @@ function fictioneer_sanitize_words_per_minute( $input ) {
  * Sanitizes integer to be 1 or more
  *
  * @since 4.6.0
- * @see fictioneer_sanitize_integer()
  *
  * @param mixed $input  The input value to sanitize.
  *
@@ -1374,7 +1372,6 @@ function fictioneer_sanitize_absint_or_empty_string( $input ) {
  * problematic HTML.
  *
  * @since 4.6.0
- * @see wp_kses_post()
  *
  * @param mixed $input  The content for the cookie consent banner.
  *

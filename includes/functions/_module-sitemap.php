@@ -95,9 +95,6 @@ function fictioneer_frequency_node( $content ) {
  * Get <url> node helper
  *
  * @since 4.0.0
- * @see fictioneer_loc_node()
- * @see fictioneer_lastmod_node()
- * @see fictioneer_frequency_node()
  *
  * @param string $loc      URL.
  * @param string $lastmod  Optional. Last modified timestamp.

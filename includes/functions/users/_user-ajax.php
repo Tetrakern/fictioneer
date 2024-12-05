@@ -110,8 +110,6 @@ add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get
  * Delete an user's account via AJAX
  *
  * @since 4.5.0
- * @see fictioneer_validate_id()
- * @see fictioneer_get_validated_ajax_user()
  */
 
 function fictioneer_ajax_delete_my_account() {
@@ -165,7 +163,6 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
  * and updating all comments.
  *
  * @since 5.0.0
- * @see fictioneer_get_validated_ajax_user()
  */
 
 function fictioneer_ajax_clear_my_comment_subscriptions() {
@@ -196,7 +193,6 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comment_subscriptions', 'fictionee
  * garbage, preserving the comment thread integrity.
  *
  * @since 5.0.0
- * @see fictioneer_get_validated_ajax_user()
  */
 
 function fictioneer_ajax_clear_my_comments() {
@@ -361,7 +357,6 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_cookies', 'fictioneer_ajax_clear_cook
  * Everything else happens client-side.
  *
  * @since 4.0.0
- * @see fictioneer_get_validated_ajax_user()
  */
 
 function fictioneer_ajax_save_bookmarks() {

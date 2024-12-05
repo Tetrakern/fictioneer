@@ -1076,7 +1076,6 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  * Returns empty chapter list
  *
  * @since 5.9.4
- * @see fictioneer_shortcode_chapter_list()
  *
  * @param string|null $attr['heading']  Optional. Show <h5> heading above list.
  *
@@ -1107,8 +1106,6 @@ function fictioneer_shortcode_chapter_list_empty( $attr ) {
  * Shortcode to show chapter list outside of story pages
  *
  * @since 5.0.0
- * @see fictioneer_validate_id()
- * @see fictioneer_get_story_data()
  *
  * @param string      $attr['story_id']     Either/Or. The ID of the story the chapters belong to.
  * @param string|null $attr['chapter_ids']  Either/Or. Comma-separated list of chapter IDs.
