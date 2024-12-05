@@ -18,6 +18,8 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   progressBar = _$('.progress__bar');
   hasPassword = !!_$('article._password');
   checkmarkUpdated = false;
+  checkboxProgressBar = _$$$('site-setting-chapter-progress-bar');
+  checkboxMinimalist = _$$$('site-setting-minimal');
 
   initialize() {
     if (this.progressBar && this.hasContentTarget && !this.hasPassword) {
@@ -245,7 +247,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     // Abort if...
     if (
       !this.progressBar || !this.hasContentTarget || this.hasPassword ||
-      fcn_settingMinimal.checked || !fcn_settingChapterProgressBar.checked
+      (this.checkboxMinimalist.checked ?? 0) || !(this.checkboxProgressBar?.checked ?? 1)
     ) {
       return;
     }

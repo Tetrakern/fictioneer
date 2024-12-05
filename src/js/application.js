@@ -1208,8 +1208,6 @@ function fcn_updateThemeColor(color = null) {
 // SITE SETTINGS
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_settingMinimal = _$$$('site-setting-minimal');
-const /** @const {HTMLElement} */ fcn_settingChapterProgressBar = _$$$('site-setting-chapter-progress-bar');
 const /** @const {HTMLElement} */ fcn_settingHueRotateRange = _$$$('site-setting-hue-rotate-range');
 const /** @const {HTMLElement} */ fcn_settingHueRotateText = _$$$('site-setting-hue-rotate-text');
 const /** @const {HTMLElement} */ fcn_settingHueRotateReset = _$$$('site-setting-hue-rotate-reset');
@@ -1244,7 +1242,6 @@ var /** @var {OBJECT} */ fcn_siteSettings = fcn_getSiteSettings();
  * Toggle a single site setting.
  *
  * @since 4.0.0
- * @see fcn_applySiteSettings();
  * @param {HTMLElement} target - The clicked toggle.
  * @param {String} key - The setting to set.
  * @param {Boolean} value - Set setting to true or false
@@ -1275,7 +1272,6 @@ fcn_settingEvents.forEach(setting => {
  * view and local storage via fcn_setLightMode().
  *
  * @since 4.3.0
- * @see fcn_setLightMode();
  */
 
 function fcn_toggleLightMode() {
@@ -1678,7 +1674,6 @@ function fcn_defaultSiteSettings() {
  * Get site settings JSON from web storage or create new one.
  *
  * @since 4.0.0
- * @see fcn_defaultSiteSettings()
  * @return {Object} The site settings.
  */
 
