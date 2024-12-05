@@ -1459,6 +1459,7 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
               data-confirm-dialog
               data-dialog-message="<?php echo esc_attr( $confirmation_message ); ?>"
               data-dialog-confirm="<?php echo esc_attr( $confirmation_string ); ?>"
+              data-action="click->fictioneer-admin-profile#purgeLocalUserData"
             >
               <?php echo $node[1]; ?>
               <span><?php

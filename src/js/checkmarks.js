@@ -60,7 +60,7 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
   refreshView() {
     const checkmarks = this.data();
 
-    if (Object.keys(checkmarks).length < 1) {
+    if (!checkmarks || Object.keys(checkmarks).length < 1) {
       this.uncheckAll();
       return;
     }

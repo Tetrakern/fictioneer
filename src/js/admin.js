@@ -288,14 +288,54 @@ _$$('[data-confirm-dialog]').forEach(element => {
 });
 
 // =============================================================================
-// LOGOUT
+// USER
 // =============================================================================
+
+/**
+ * AJAX: Refresh local user data.
+ *
+ * @since 5.27.0
+ */
+
+function fcn_fetchUserData() {
+  FcnUtils.aGet({
+    'action': 'fictioneer_ajax_get_user_data',
+    'fcn_fast_ajax': 1
+  })
+  .then(response => {
+    if (response.success) {
+      const userData = response.data;
+      userData['lastLoaded'] = Date.now();
+      FcnUtils.setUserData(userData);
+    }
+  })
+  .catch(error => {
+    localStorage.removeItem('fcnUserData');
+    console.error(error);
+  });
+}
+
+// Fetch new user data after purge
+(() => {
+  const currentUserData = FcnUtils.parseJSON(localStorage.getItem('fcnUserData'));
+
+  if (!currentUserData) {
+    fcn_fetchUserData();
+  }
+})();
 
 // Admin bar logout link
 _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
   localStorage.removeItem('fcnUserData');
   localStorage.removeItem('fcnBookshelfContent');
-  localStorage.removeItem('fcnChapterBookmarks');
+});
+
+// Data node purge
+_$$('[data-action="click->fictioneer-admin-profile#purgeLocalUserData"]').forEach(link => {
+  link.addEventListener('click', () => {
+    localStorage.removeItem('fcnUserData');
+    localStorage.removeItem('fcnBookshelfContent');
+  });
 });
 
 // =============================================================================

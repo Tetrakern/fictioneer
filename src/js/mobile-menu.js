@@ -69,7 +69,7 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
 
       this.bookmarksTarget.innerHTML = '';
 
-      if (bookmarksData.length < 1) {
+      if (!bookmarksData || bookmarksData.length < 1) {
         const node = document.createElement('li');
 
         node.classList.add('no-bookmarks');
