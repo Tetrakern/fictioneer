@@ -2983,10 +2983,6 @@ function fcn_showLightbox(target) {
   }
 }
 
-// =============================================================================
-// EVENTS
-// =============================================================================
-
 document.body.addEventListener('click', e => {
   const target = e.target.closest('[data-lightbox]:not(.no-auto-lightbox)');
 
