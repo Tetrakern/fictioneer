@@ -129,7 +129,9 @@ font-size: clamp(1.35em, 1vw + 18.4px, 1.75em); // CSS
 
 ## JavaScript
 
-Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard dependencies, *especially* not jQuery which is to be avoided like the plague. Bad enough that WordPress and most plugins insist on the performance hog. If you need something from an external library, just copy the functions and credit the source. Avoid additional overhead. There is also an argument for refactoring the JS into classes and modules. But since everything is already working, this would be a labor of passion without immediate benefit.
+~~Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard dependencies, *especially* not jQuery which is to be avoided like the plague. Bad enough that WordPress and most plugins insist on the performance hog. If you need something from an external library, just copy the functions and credit the source. Avoid additional overhead. There is also an argument for refactoring the JS into classes and modules. But since everything is already working, this would be a labor of passion without immediate benefit.~~
+
+As of 5.27.0, the theme uses [Stimulus](https://stimulus.hotwired.dev/). This section will be updated in the future.
 
 ### Libraries
 
