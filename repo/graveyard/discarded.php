@@ -453,8 +453,6 @@ function validate_tags($content) {
  * Sends the user's Checkmarks as JSON via Ajax
  *
  * @since 4.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  * @see fictioneer_load_checkmarks()
  */
@@ -487,8 +485,6 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
  * Sends the user's Reminders as JSON via Ajax
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  * @see fictioneer_load_reminders()
  */
@@ -521,8 +517,6 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
  * Sends the user's Follows as JSON via Ajax
  *
  * @since 4.3.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 
@@ -570,8 +564,6 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
  * Sends the user's fingerprint via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 
@@ -596,8 +588,6 @@ add_action( 'wp_ajax_fictioneer_ajax_get_fingerprint', 'fictioneer_ajax_get_fing
  * Get an user's bookmarks via AJAX
  *
  * @since 4.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
  */
 

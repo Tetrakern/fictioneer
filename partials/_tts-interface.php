@@ -36,10 +36,10 @@ defined( 'ABSPATH' ) OR exit;
         <i class="fa-solid fa-arrows-alt-v"></i>
         <span class="hide-below-375"><?php _e( 'Scroll', 'fictioneer' ); ?></span>
       </button>
-      <label for="modal-tts-settings-toggle" class="button settings" role="button" tabindex="0">
+      <button class="button settings" type="button" tabindex="0" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="tts-settings-modal">
         <i class="fa-solid fa-cog"></i>
         <span class="hide-below-480"><?php _e( 'Settings', 'fictioneer' ); ?></span>
-      </label>
+      </button>
     </div>
   </div>
 </div>

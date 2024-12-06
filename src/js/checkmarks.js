@@ -1,59 +1,180 @@
 // =============================================================================
-// SETUP
+// STIMULUS: FICTIONEER CHECKMARKS
 // =============================================================================
 
-var /** @type {Object} */ fcn_checkmarks;
-var /** @type {Number} */ fcn_userCheckmarksTimeout;
-
-// Initialize
-document.addEventListener('fcnUserDataReady', event => {
-  fcn_initializeCheckmarks(event);
-});
-
-// =============================================================================
-// INITIALIZE
-// =============================================================================
-
-/**
- * Initialize checkmarks.
- *
- * @since 5.0.0
- * @param {Event} event - The fcnUserDataReady event.
- */
-
-function fcn_initializeCheckmarks(event) {
-  // Unpack
-  const checkmarks = event.detail.data.checkmarks;
-
-  // Validate
-  if (checkmarks === false) {
-    return;
+application.register('fictioneer-checkmarks', class extends Stimulus.Controller {
+  static get targets() {
+    return ['chapterCheck', 'storyCheck', 'ribbon']
   }
 
-  // Fix empty array that should be an object
-  if (Array.isArray(checkmarks.data) && checkmarks.data.length === 0) {
-    checkmarks.data = {};
+  timeout = 0;
+
+  initialize() {
+    if (fcn()?.userReady) {
+      this.#ready = true;
+    } else {
+      document.addEventListener('fcnUserDataReady', () => {
+        this.refreshView();
+        this.#ready = true;
+        this.#watch();
+      });
+    }
   }
 
-  // Set checkmarks instance
-  fcn_checkmarks = checkmarks;
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerCheckmarks = this;
 
-  // Update view
-  fcn_updateCheckmarksView();
+    if (this.#ready) {
+      this.refreshView();
+      this.#watch();
+    }
+  }
 
-  // Clear cached bookshelf content (if any)
-  localStorage.removeItem('fcnBookshelfContent');
+  data() {
+    this.checkmarksCachedData = FcnUtils.userData().checkmarks?.data;
 
-  // Listen for clicks on checkmarks
-  _$$('button.checkmark').forEach(element => {
-    element.addEventListener(
-      'click',
-      (e) => {
-        fcn_clickCheckmark(e.currentTarget)
+    if (Array.isArray(this.checkmarksCachedData) && this.checkmarksCachedData.length === 0) {
+      this.checkmarksCachedData = {};
+    }
+
+    return this.checkmarksCachedData;
+  }
+
+  toggleChapter({ params: { chapter, story } }) {
+    fcn_toggleCheckmark(story, chapter);
+  }
+
+  toggleStory({ params: { story } }) {
+    fcn_toggleCheckmark(story);
+  }
+
+  clear() {
+    const userData = FcnUtils.userData();
+
+    userData.checkmarks = { data: {}, updated: Date.now() };
+
+    fcn().setUserData(userData);
+    this.refreshView();
+  }
+
+  refreshView() {
+    const checkmarks = this.data();
+
+    if (!checkmarks || Object.keys(checkmarks).length < 1) {
+      this.uncheckAll();
+      return;
+    }
+
+    Object.entries(checkmarks).forEach(([storyId, chapterArray]) => {
+      storyId = parseInt(storyId);
+
+      const storyChecked = chapterArray?.includes(storyId);
+
+      if (this.hasChapterCheckTarget) {
+        if (storyChecked) {
+          this.chapterCheckTargets.forEach(chapterCheckmark => {
+            chapterCheckmark.classList.toggle('marked', true);
+            chapterCheckmark.setAttribute('aria-checked', true);
+          });
+        } else {
+          this.chapterCheckTargets.forEach(chapterCheckmark => {
+            const chapterId = parseInt(chapterCheckmark.dataset.fictioneerCheckmarksChapterParam);
+            const chapterStoryId = parseInt(chapterCheckmark.dataset.fictioneerCheckmarksStoryParam);
+
+            if (chapterStoryId === storyId) {
+              const chapterChecked = chapterArray?.includes(chapterId);
+
+              chapterCheckmark.classList.toggle('marked', chapterChecked);
+              chapterCheckmark.setAttribute('aria-checked', chapterChecked);
+            }
+          });
+        }
       }
-    );
-  });
-}
+
+      if (this.hasStoryCheckTarget) {
+        this.storyCheckTarget.classList.toggle('marked', storyChecked);
+        this.storyCheckTarget.setAttribute('aria-checked', storyChecked);
+      }
+
+      if (this.hasRibbonTarget) {
+        this.ribbonTarget.classList.toggle('hidden', !storyChecked);
+      }
+    });
+  }
+
+  uncheckAll() {
+    if (this.hasChapterCheckTarget) {
+      this.chapterCheckTargets.forEach(chapterCheckmark => {
+        chapterCheckmark.classList.toggle('marked', false);
+        chapterCheckmark.setAttribute('aria-checked', false);
+      });
+    }
+
+    if (this.hasStoryCheckTarget) {
+      this.storyCheckTarget.classList.toggle('marked', false);
+      this.storyCheckTarget.setAttribute('aria-checked', false);
+    }
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #ready = false;
+  #paused = false;
+
+  #loggedIn() {
+    const loggedIn = FcnUtils.loggedIn();
+
+    if (!loggedIn) {
+      this.#unwatch();
+      this.#paused = true;
+    }
+
+    return loggedIn;
+  }
+
+  #userDataChanged() {
+    return this.#loggedIn() && JSON.stringify(this.checkmarksCachedData ?? 0) !== JSON.stringify(this.data());
+  }
+
+  #startRefreshInterval() {
+    if (this.refreshInterval) {
+      return;
+    }
+
+    this.refreshInterval = setInterval(() => {
+      if (!this.#paused && this.#userDataChanged()) {
+        this.refreshView()
+      }
+    }, 30000 + Math.random() * 1000);
+  }
+
+  #watch() {
+    this.#startRefreshInterval();
+
+    this.visibilityStateCheck = () => {
+      if (this.#loggedIn()) {
+        if (document.visibilityState === 'visible') {
+          this.#paused = false;
+          this.refreshView();
+          this.#startRefreshInterval();
+        } else {
+          this.#paused = true;
+          clearInterval(this.refreshInterval);
+          this.refreshInterval = null;
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', this.visibilityStateCheck);
+  }
+
+  #unwatch() {
+    clearInterval(this.refreshInterval);
+    document.removeEventListener('visibilitychange', this.visibilityStateCheck);
+  }
+});
 
 // =============================================================================
 // TOGGLE CHECKMARK
@@ -63,264 +184,96 @@ function fcn_initializeCheckmarks(event) {
  * Toggle checkmarks for chapters and stories.
  *
  * @since 4.0.0
- * @see fcn_removeItemOnce()
- * @see fcn_updateCheckmarksView()
+ * @since 5.27.0 - Refactored.
  * @param {Number} storyId - ID of the story.
- * @param {String} type - Either 'story' or 'chapter'.
- * @param {Number=} chapter - ID of the chapter.
- * @param {HTMLElement=} source - Source of the event. Default null.
- * @param {String} [mode=toggle] - Force specific change with 'toggle', 'set', or 'unset'.
+ * @param {Number} [chapterId=null] - ID of the chapter.
+ * @param {Boolean} [set=null] - True or false. Toggling by default.
  */
 
-function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode = 'toggle') {
-  // Get current data
-  const currentUserData = fcn_getUserData();
+function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
+  const controller = window.FictioneerApp.Controllers.fictioneerCheckmarks;
 
-  // Prevent error in case something went very wrong
-  if (!fcn_checkmarks || !currentUserData.checkmarks) {
+  if (!controller) {
+    fcn_showNotification('Error: Checkmarks Controller not connected.', 3, 'warning');
     return;
   }
 
-  // Clear cached bookshelf content (if any)
-  localStorage.removeItem('fcnBookshelfContent');
+  const userData = FcnUtils.userData();
 
-  // Re-synchronize if data has diverged from other tab/window
-  if (
-    mode === 'toggle' &&
-    JSON.stringify(fcn_checkmarks.data[storyId]) !== JSON.stringify(currentUserData.checkmarks.data[storyId])
-  ) {
-    fcn_checkmarks = currentUserData.checkmarks;
-    fcn_showNotification(fictioneer_tl.notification.checkmarksResynchronized);
-    fcn_updateCheckmarksView();
+  let type = 'story';
 
+  // Validate story ID
+  storyId = parseInt(storyId ?? 0);
+
+  if (storyId < 1) {
+    fcn_showNotification('Error: Invalid story ID.', 3, 'warning');
     return;
+  }
+
+  // Validate chapter ID
+  if (chapterId !== null) {
+    chapterId = parseInt(chapterId);
+
+    if (chapterId < 1) {
+      fcn_showNotification('Error: Invalid chapter ID.', 3, 'warning');
+      return;
+    }
+
+    type = 'chapter';
   }
 
   // Initialize if story is not yet tracked
-  if (!fcn_checkmarks.data[storyId]) {
-    fcn_checkmarks.data[storyId] = [];
+  if (!userData.checkmarks.data[storyId]) {
+    userData.checkmarks.data[storyId] = [];
   }
 
-  if (!currentUserData.checkmarks.data[storyId]) {
-    currentUserData.checkmarks.data[storyId] = [];
-  }
-
-  // Set by reading progress (if not already)
-  if (chapter && type === 'progress' && !fcn_checkmarks.data[storyId].includes(chapter)) {
-    // Add chapter checkmark to JSON
-    fcn_checkmarks.data[storyId].push(chapter);
-  }
-
-  // Set/Unset chapter checkmark
-  if (chapter && type === 'chapter') {
-    if ((fcn_checkmarks.data[storyId].includes(chapter) || mode === 'unset') && mode !== 'set') {
-      // Remove chapter checkmark from JSON
-      fcn_removeItemOnce(fcn_checkmarks.data[storyId], chapter);
-
-      // Update chapter checkmark in HTML
-      if (source) {
-        source.classList.remove('marked');
-        source.setAttribute('aria-checked', false);
-      }
-
-      // Not complete anymore
-      fcn_removeItemOnce(fcn_checkmarks.data[storyId], storyId);
-
-      const completeCheckmark = _$('button[data-type="story"]');
-
-      if (completeCheckmark) {
-        completeCheckmark.classList.remove('marked');
-        completeCheckmark.setAttribute('aria-checked', false);
-      }
+  // Decide force if not given
+  if (set === null) {
+    if (type === 'chapter') {
+      set = userData.checkmarks.data[storyId]?.includes(chapterId) ? false : true;
     } else {
-      // Add chapter checkmark to JSON
-      fcn_checkmarks.data[storyId].push(chapter);
-
-      // Update chapter checkmark in HTML
-      if (source) {
-        source.classList.add('marked');
-        source.setAttribute('aria-checked', true);
-      }
+      set = userData.checkmarks.data[storyId]?.includes(storyId) ? false : true;
     }
   }
 
-  // Flip all checkmarks if necessary
-  if (type === 'story') {
-    // Unset all?
-    const unsetAll = (fcn_checkmarks.data[storyId].includes(storyId) || mode === 'unset') && mode !== 'set';
+  // Add/Remove checkmark
+  const targetId = type === 'chapter' ? chapterId : storyId;
 
-    // Always remove all from JSON
-    fcn_checkmarks.data[storyId] = [];
+  if (set) {
+    userData.checkmarks.data[storyId].push(targetId);
+  } else {
+    FcnUtils.removeArrayItemOnce(userData.checkmarks.data[storyId], targetId);
 
-    if (!unsetAll) {
-      // (Re-)add checkmarks to JSON based on buttons
-      _$$('button.checkmark').forEach(item => {
-        fcn_checkmarks.data[storyId].push(parseInt(item.dataset.id));
-      });
-
-      // Make sure story has been added if completed
-      if (!fcn_checkmarks.data[storyId].includes(storyId)) {
-        fcn_checkmarks.data[storyId].push(storyId);
-      }
+    if (type === 'chapter') {
+      FcnUtils.removeArrayItemOnce(userData.checkmarks.data[storyId], storyId);
     }
   }
 
   // Make sure IDs are unique
-  fcn_checkmarks.data[storyId] = fcn_checkmarks.data[storyId].filter(
+  userData.checkmarks.data[storyId] = userData.checkmarks.data[storyId].filter(
     (value, index, self) => self.indexOf(value) == index
   );
 
   // Update local storage
-  currentUserData.checkmarks.data[storyId] = fcn_checkmarks.data[storyId];
-  currentUserData.lastLoaded = 0;
-  fcn_setUserData(currentUserData);
+  userData.lastLoaded = 0;
+  FcnUtils.setUserData(userData);
 
   // Update view
-  fcn_updateCheckmarksView();
+  controller.refreshView();
 
   // Clear previous timeout (if still pending)
-  clearTimeout(fcn_userCheckmarksTimeout);
+  clearTimeout(controller.timeout);
 
   // Update in database; only one request every n seconds
-  fcn_userCheckmarksTimeout = setTimeout(() => {
-    fcn_updateCheckmarks(storyId, fcn_checkmarks.data[storyId]);
-  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
-}
-
-/**
- * Evaluate click on a checkmark.
- *
- * @since 4.0.0
- * @see fcn_toggleCheckmark()
- * @param {HTMLElement} source - Source of the event.
- */
-
-function fcn_clickCheckmark(source) {
-  fcn_toggleCheckmark(
-    parseInt(source.dataset.storyId),
-    source.dataset.type,
-    parseInt(source.dataset.id),
-    source
-  );
-}
-
-// =============================================================================
-// UPDATE CHECKMARKS IN DATABASE
-// =============================================================================
-
-/**
- * Update checkmarks in database (POST)
- *
- * @since 5.7.0
- * @param {Number} storyId - ID of the story.
- * @param {Array=} checkmarks - The story's checkmarks.
- */
-
-function fcn_updateCheckmarks(storyId, checkmarks = null) {
-  // Prepare update
-  checkmarks = checkmarks ? checkmarks : fcn_getUserData().checkmarks.data[storyId];
-
-  // Request
-  fcn_ajaxPost({
-    'action': 'fictioneer_ajax_set_checkmark',
-    'fcn_fast_ajax': 1,
-    'story_id': storyId,
-    'update': checkmarks.join(' ')
-  })
-  .then(response => {
-    // Check for failure
-    if (!response.success) {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        3,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
-      }
-    }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-    }
-
-    console.error(error);
-  });
-}
-
-// =============================================================================
-// UPDATE CHECKMARKS IN VIEW
-// =============================================================================
-
-/**
- * Update the view with the current checkmarks state.
- *
- * @since 4.0.0
- */
-
-function fcn_updateCheckmarksView() {
-  // Get current data
-  const currentUserData = fcn_getUserData();
-  const checkmarks = currentUserData.checkmarks;
-
-  if (!checkmarks) {
-    return;
-  }
-
-  // Completed story pages
-  const storyId = parseInt(fcn_theBody.dataset.storyId);
-
-  if (storyId) {
-    const completed = checkmarks.data[storyId] && checkmarks.data[storyId].includes(storyId);
-
-    // Add missing checkmarks
-    if (completed) {
-      let updated = false;
-
-      _$$('button.checkmark').forEach(item => {
-        const checkId = parseInt(item.dataset.id);
-
-        if (!checkmarks.data[storyId].includes(checkId)) {
-          checkmarks.data[storyId].push(checkId);
-          updated = true;
+  controller.timeout = setTimeout(() => {
+    FcnUtils.remoteAction(
+      'fictioneer_ajax_set_checkmark',
+      {
+        payload: {
+          update: userData.checkmarks.data[storyId].join(' '),
+          story_id: storyId
         }
-      });
-
-      if (updated) {
-        currentUserData.checkmarks = checkmarks; // Global
-        fcn_setUserData(currentUserData);
-        fcn_updateCheckmarks(storyId, checkmarks.data[storyId]);
       }
-    }
-
-    // Ribbon
-    _$$$('ribbon-read')?.classList.toggle('hidden', !completed);
-  }
-
-  // Update checkmarks on story pages
-  _$$('button.checkmark').forEach(button => {
-    const checkStoryId = parseInt(button.dataset.storyId);
-
-    if (checkmarks.data[checkStoryId]) {
-      const checked = checkmarks.data[checkStoryId].includes(parseInt(button.dataset.id));
-
-      button.classList.toggle('marked', checked);
-      button.setAttribute('aria-checked', checked);
-    }
-  });
-
-  // Update icon and buttons on cards
-  _$$('.card').forEach(card => {
-    const cardStoryId = parseInt(card.dataset.storyId);
-    const force = checkmarks.data[cardStoryId] &&
-      (
-        checkmarks.data[cardStoryId].includes(parseInt(card.dataset.checkId)) ||
-        checkmarks.data[cardStoryId].includes(cardStoryId)
-      );
-
-    card.classList.toggle('has-checkmark', force == true); // Must be boolean, not undefined!
-  });
+    );
+  }, FcnGlobals.debounceRate); // Debounce
 }

@@ -51,7 +51,7 @@ $meta_output['rating'] = '<span class="story__meta-item story__rating" title="' 
 
 // Checkmark
 if ( $story['chapter_count'] > 0 ) {
-  $meta_output['checkmark'] = '<button class="story__meta-item checkmark story__meta-checkmark" data-type="story" data-story-id="' . $story_id . '" data-id="' . $story_id . '" data-status="' . esc_attr( $story['status'] ) . '" role="checkbox" aria-checked="false" aria-label="' . sprintf( esc_attr__( 'Story checkmark for %s.', 'fictioneer' ), $story['title'] ) . '"><i class="fa-solid fa-check"></i></button>';
+  $meta_output['checkmark'] = '<button class="story__meta-item checkmark story__meta-checkmark" data-fictioneer-checkmarks-target="storyCheck" data-fictioneer-checkmarks-story-param="' . $story_id . '" data-action="click->fictioneer-checkmarks#toggleStory" data-status="' . esc_attr( $story['status'] ) . '" role="checkbox" aria-checked="false" aria-label="' . sprintf( esc_attr__( 'Story checkmark for %s.', 'fictioneer' ), $story['title'] ) . '"><i class="fa-solid fa-check"></i></button>';
 }
 
 // Filter
@@ -62,9 +62,9 @@ $meta_output = apply_filters( 'fictioneer_filter_story_footer_meta', $meta_outpu
 <footer class="story__footer">
   <div class="story__extra">
     <?php if ( $show_log ) : ?>
-      <label class="story__changelog hide-below-400" for="modal-chapter-changelog-toggle" tabindex="-1">
+      <button class="story__changelog hide-below-400" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="chapter-changelog-modal">
         <i class="fa-solid fa-clock-rotate-left"></i>
-      </label>
+      </button>
     <?php endif; ?>
   </div>
   <div class="story__meta"><?php echo implode( '', $meta_output ); ?></div>

@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 :is(h1, h2, h3, h4, h5, h6) {
   --font-weight-strong: var(--font-weight-heading);
   display: block;

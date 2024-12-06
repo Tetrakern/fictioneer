@@ -18,12 +18,11 @@ $story_link = get_post_meta( get_the_ID(), 'fictioneer_story_redirect_link', tru
 
 ?>
 
-<div id="sharing-modal" class="sharing modal" data-nosnippet hidden>
-  <label for="modal-sharing-toggle" class="background-close"></label>
+<div id="sharing-modal" class="sharing modal" data-fictioneer-target="modal" data-action="click->fictioneer#backgroundCloseModals keydown.esc@document->fictioneer#closeModals" data-nosnippet hidden>
   <div class="modal__wrapper">
-    <label class="close" for="modal-sharing-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
-      <?php fictioneer_icon( 'fa-xmark' ); ?>
-    </label>
+
+    <button class="close" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>" data-action="click->fictioneer#closeModals"><?php fictioneer_icon( 'fa-xmark' ); ?></button>
+
     <div class="modal__header drag-anchor"><?php _ex( 'Share', 'Share modal heading.', 'fictioneer' ); ?></div>
 
     <div class="modal__row media-buttons _modal">
@@ -65,7 +64,8 @@ $story_link = get_post_meta( get_the_ID(), 'fictioneer_story_redirect_link', tru
     </div>
 
     <div class="modal__row">
-      <input type="text" value="<?php echo $story_link; ?>" data-click="copy-to-clipboard" data-message="<?php _e( 'Link copied to clipboard!', 'fictioneer' ); ?>" name="permalink" readonly>
+      <input type="text" value="<?php echo $story_link; ?>" data-action="click->fictioneer#copyInput" data-message="<?php _e( 'Link copied to clipboard!', 'fictioneer' ); ?>" name="permalink" readonly>
     </div>
+
   </div>
 </div>

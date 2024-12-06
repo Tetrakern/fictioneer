@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 .is-layout-flex > :where(.small-card-block, .article-card-block) {
   flex: 1 1 auto;
 }

@@ -608,7 +608,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
 
     // Build, filter, and return
     $html = sprintf(
-      '<figure class="story__thumbnail ' . $classes . '"><a href="%s" %s>%s<div id="ribbon-read" class="story__thumbnail-ribbon hidden"><div class="ribbon">%s</div></div></a></figure>',
+      '<figure class="story__thumbnail ' . $classes . '"><a href="%s" %s>%s<div id="ribbon-read" class="story__thumbnail-ribbon hidden" data-fictioneer-checkmarks-target="ribbon"><div class="ribbon">%s</div></div></a></figure>',
       get_the_post_thumbnail_url( $story['id'], 'full' ),
       fictioneer_get_lightbox_attribute(),
       get_the_post_thumbnail( $story['id'], array( 200, 300 ), array(
@@ -1057,7 +1057,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Subscribe
     if ( ! empty( $subscribe_buttons ) ) {
       $output['subscribe'] = sprintf(
-        '<div class="toggle-last-clicked subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
+        '<div class="subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
         fcntr( 'subscribe', true ),
         fcntr( 'subscribe' ),
         $subscribe_buttons
@@ -1067,7 +1067,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // File download
     if ( $show_epub_download && ! $ebook_upload ) {
       $output['epub'] = sprintf(
-        '<a href="%s" class="button _secondary" rel="noreferrer noopener nofollow" data-action="download-epub" data-story-id="%d" aria-label="%s" download><i class="fa-solid fa-cloud-download-alt"></i><span class="span-epub hide-below-640">%s</span></a>',
+        '<a href="%s" class="button _secondary" rel="noreferrer noopener nofollow" data-action="click->fictioneer-story#startEpubDownload" data-story-id="%d" aria-label="%s" download><i class="fa-solid fa-cloud-download-alt"></i><span class="span-epub hide-below-640">%s</span></a>',
         esc_url( home_url( 'download-epub/' . $args['story_id'] ) ),
         $args['story_id'],
         esc_attr__( 'Download ePUB', 'fictioneer' ),
@@ -1085,14 +1085,14 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Reminder
     if ( get_option( 'fictioneer_enable_reminders' ) ) {
       $output['reminder'] = sprintf(
-        '<button class="button _secondary button-read-later hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></button>',
+        '<button class="button _secondary button-read-later hide-if-logged-out" data-story-id="%1$d" data-fictioneer-reminders-target="toggleButton" data-action="click->fictioneer-reminders#toggleReminder" data-fictioneer-reminders-id-param="%1$d"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%2$s</span></button>',
         $story_id,
         fcntr( 'read_later' )
       );
 
       if ( $show_login ) {
         $output['reminder'] .= sprintf(
-          '<label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="%s"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></label>',
+          '<button class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" data-tooltip="%s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></button>',
           esc_attr__( 'Log in to set Reminders', 'fictioneer' ),
           fcntr( 'read_later' )
         );
@@ -1102,14 +1102,14 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Follow
     if ( get_option( 'fictioneer_enable_follows' ) ) {
       $output['follow'] = sprintf(
-        '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-star"></i><span class="span-follow hide-below-400">%s</span></button>',
+        '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%1$d" data-fictioneer-follows-target="toggleButton" data-action="click->fictioneer-follows#toggleFollow" data-fictioneer-follows-id-param="%1$d"><i class="fa-solid fa-star"></i><span class="span-follow hide-below-400">%2$s</span></button>',
         $story_id,
         fcntr( 'follow' )
       );
 
       if ( $show_login ) {
         $output['follow'] .= sprintf(
-          '<label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="%s"><i class="fa-regular fa-star off"></i><span class="span-follow hide-below-400">%s</span></label>',
+          '<button class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" data-tooltip="%s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal"><i class="fa-regular fa-star off"></i><span class="span-follow hide-below-400">%s</span></button>',
           esc_attr__( 'Log in to Follow', 'fictioneer' ),
           fcntr( 'follow' )
         );
@@ -1153,7 +1153,7 @@ function fictioneer_get_media_buttons( $args = [] ) {
 
   // Share modal button
   if ( $args['share'] ?? 1 ) {
-    $output['share'] = '<label for="modal-sharing-toggle" class="tooltipped media-buttons__item" data-tooltip="' . esc_attr__( 'Share', 'fictioneer' ) . '" tabindex="0"><i class="fa-solid fa-share-nodes"></i></label>';
+    $output['share'] = '<button class="tooltipped media-buttons__item" data-tooltip="' . esc_attr__( 'Share', 'fictioneer' ) . '" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="sharing-modal"><i class="fa-solid fa-share-nodes"></i></button>';
   }
 
   // Feed buttons
@@ -1224,27 +1224,27 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     // Open formatting modal
     $micro_menu['formatting'] = sprintf(
-      '<label for="modal-formatting-toggle" class="micro-menu__item micro-menu__modal-formatting" tabindex="-1">%s</label>',
+      '<button class="micro-menu__item micro-menu__modal-formatting" tabindex="-1" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="formatting-modal">%s</button>',
       fictioneer_get_icon( 'font-settings' )
     );
 
     // Open fullscreen
     $micro_menu['open_fullscreen'] = sprintf(
-      '<button type="button" title="%s" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">%s</button>',
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1" data-action="click->fictioneer-chapter#openFullscreen">%s</button>',
       esc_attr__( 'Enter fullscreen', 'fictioneer' ),
       fictioneer_get_icon( 'expand' )
     );
 
     // Close fullscreen
     $micro_menu['close_fullscreen'] = sprintf(
-      '<button type="button" title="%s" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">%s</button>',
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1" data-action="click->fictioneer-chapter#closeFullscreen">%s</button>',
       esc_attr__( 'Exit fullscreen', 'fictioneer' ),
       fictioneer_get_icon( 'collapse' )
     );
 
     // Scroll to bookmark
     $micro_menu['bookmark_jump'] = sprintf(
-      '<button type="button" title="%s" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1"><i class="fa-solid fa-bookmark"></i></button>',
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__bookmark button--bookmark" tabindex="-1" data-action="click->fictioneer-chapter#scrollToBookmark" data-fictioneer-chapter-target="bookmarkScroll" data-fictioneer-bookmarks-target="bookmarkScroll" hidden><i class="fa-solid fa-bookmark"></i></button>',
       fcntr( 'jump_to_bookmark', true )
     );
 
@@ -1397,11 +1397,11 @@ function fictioneer_get_chapter_index_html( $story_id ) {
   }
 
   // Compile HTML
-  $toggle = '<button type="button" data-click-action="toggle-chapter-index-order" class="chapter-index__order list-button" aria-label="' . esc_attr__( 'Toggle between ascending and descending order', 'fictioneer' ) . '"><i class="fa-solid fa-arrow-down-1-9 off"></i><i class="fa-solid fa-arrow-down-9-1 on"></i></button>';
+  $toggle = '<button type="button" data-action="click->fictioneer-chapter#toggleIndexOrder" class="chapter-index__order list-button" aria-label="' . esc_attr__( 'Toggle between ascending and descending order', 'fictioneer' ) . '"><i class="fa-solid fa-arrow-down-1-9 off"></i><i class="fa-solid fa-arrow-down-9-1 on"></i></button>';
 
   $back_link = '<a href="' . esc_url( $story_link ) . '" class="chapter-index__back-link"><i class="fa-solid fa-caret-left"></i> <span>' . __( 'Back to Story', 'fictioneer' ) . '</span></a>';
 
-  $html = '<div class="chapter-index" data-order="asc" data-story-id="' . $story_id . '"><div class="chapter-index__control">' . $back_link . '<div class="chapter-index__sof">' . $toggle . '</div></div><ul id="chapter-index-list" class="chapter-index__list">' . implode( '', $items ) . '</ul></div>';
+  $html = '<div class="chapter-index" data-fictioneer-chapter-target="index" data-order="asc"><div class="chapter-index__control">' . $back_link . '<div class="chapter-index__sof">' . $toggle . '</div></div><ul id="chapter-index-list" class="chapter-index__list">' . implode( '', $items ) . '</ul></div>';
 
   $html = apply_filters( 'fictioneer_filter_chapter_index_html', $html, $items, $story_id, $story_link );
 
@@ -1641,7 +1641,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
     }
 
     // Site settings
-    $output['site_settings'] = '<li class="menu-item"><label for="modal-site-settings-toggle" tabindex="0">' . fcntr( 'site_settings' ) . '</label></li>';
+    $output['site_settings'] = '<li class="menu-item"><button data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="site-settings-modal">' . fcntr( 'site_settings' ) . '</button></li>';
 
     // Discord link
     if ( ! empty( $discord_link ) ) {
@@ -1668,7 +1668,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
 
     // Logout
     if ( fictioneer_show_auth_content() ) {
-      $output['logout'] = '<li class="menu-item hide-if-logged-out"><a href="' . fictioneer_get_logout_url() . '" data-click="logout" rel="noopener noreferrer nofollow">' . fcntr( 'logout' ) . '</a></li>';
+      $output['logout'] = '<li class="menu-item hide-if-logged-out"><a href="' . fictioneer_get_logout_url() . '" data-action="click->fictioneer#logout" rel="noopener noreferrer nofollow">' . fcntr( 'logout' ) . '</a></li>';
     }
 
     // Apply filters
@@ -1817,9 +1817,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Follows menu item
     if ( $can_follows ) {
       $menu['follow'] = sprintf(
-        '<button class="popup-action-follow" data-click="card-toggle-follow" data-story-id="%1$s">%2$s</button>' .
-        '<button class="popup-action-unfollow" data-click="card-toggle-follow" data-story-id="%1$s">%3$s</button>',
-        $story_id,
+        '<button class="popup-action-follow" data-action="click->fictioneer-large-card#toggleFollow">%1$s</button>' .
+        '<button class="popup-action-unfollow" data-action="click->fictioneer-large-card#toggleFollow">%2$s</button>',
         fcntr( 'follow' ),
         fcntr( 'unfollow' )
       );
@@ -1828,9 +1827,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Reminders menu item
     if ( $can_reminders ) {
       $menu['reminder'] = sprintf(
-        '<button class="popup-action-reminder" data-click="card-toggle-reminder" data-story-id="%1$s">%2$s</button>' .
-        '<button class="popup-action-forget" data-click="card-toggle-reminder" data-story-id="%1$s">%3$s</button>',
-        $story_id,
+        '<button class="popup-action-reminder" data-action="click->fictioneer-large-card#toggleReminder">%1$s</button>' .
+        '<button class="popup-action-forget" data-action="click->fictioneer-large-card#toggleReminder">%2$s</button>',
         fcntr( 'read_later' ),
         fcntr( 'forget' )
       );
@@ -1839,11 +1837,9 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Checkmark menu item
     if ( $can_checkmarks ) {
       $menu['checkmark'] = sprintf(
-        '<button class="popup-action-mark-read" data-click="card-toggle-checkmarks" data-story-id="%1$s" data-type="%2$s" data-chapter-id="%3$s" data-mode="set">%4$s</button>' .
-        '<button class="popup-action-mark-unread" data-click="card-toggle-checkmarks" data-story-id="%1$s" data-type="%2$s" data-chapter-id="%3$s" data-mode="unset">%5$s</button>',
-        $story_id,
+        '<button class="popup-action-mark-read" data-action="click->fictioneer-large-card#setCheckmarks" data-fictioneer-large-card-type-param="%1$s">%2$s</button>' .
+        '<button class="popup-action-mark-unread" data-action="click->fictioneer-large-card#unsetCheckmarks" data-fictioneer-large-card-type-param="%1$s">%3$s</button>',
         $type,
-        $chapter_id ?: 'null',
         fcntr( 'mark_read' ),
         fcntr( 'mark_unread' )
       );
@@ -1852,26 +1848,29 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     // Apply filters
     $icons = apply_filters( 'fictioneer_filter_card_control_icons', $icons, $story_id, $chapter_id );
     $menu = apply_filters( 'fictioneer_filter_card_control_menu', $menu, $story_id, $chapter_id );
+    $menu_count = count( $menu );
 
     // Abort if...
-    if ( count( $icons ) < 1 || count( $menu ) < 1 ) {
+    if ( count( $icons ) < 1 || $menu_count < 1 ) {
       return '';
     }
 
     // Build menu
     $menu_html = '';
 
-    if ( count( $menu ) > 0 ) {
+    if ( $menu_count > 0 ) {
       $menu_html = sprintf(
         '<i class="fa-solid fa-ellipsis-vertical card__popup-menu-toggle" tabindex="0"></i>' .
-        '<div class="popup-menu _fixed-position _bottom">%s</div>',
+        '<div class="popup-menu _fixed-position _bottom" data-fictioneer-large-card-target="menu">%s</div>',
         implode( '', $menu )
       );
     }
 
     $output = sprintf(
-      '<div class="card__controls %s">%s%s</div>',
-      count( $menu ) > 0 ? 'popup-menu-toggle toggle-last-clicked' : '',
+      '<div class="card__controls %s" %s data-fictioneer-large-card-target="controls" data-action="click->fictioneer-large-card#toggleMenu %s">%s%s</div>',
+      $menu_count > 0 ? 'popup-menu-toggle' : '',
+      $menu_count > 0 ? 'data-fictioneer-last-click-target="toggle"' : '',
+      $menu_count > 0 ? 'click->fictioneer-last-click#toggle' : '',
       implode( '', $icons ),
       $menu_html
     );
@@ -2361,7 +2360,7 @@ function fictioneer_render_icon_menu( $args ) {
   // Build items
   if ( fictioneer_show_login() ) {
     $output['login'] = sprintf(
-      '<div class="menu-item menu-item-icon subscriber-login hide-if-logged-in"><label for="modal-login-toggle" title="%1$s" tabindex="0" aria-label="%2$s">%3$s</label></div>',
+      '<div class="menu-item menu-item-icon subscriber-login hide-if-logged-in"><button title="%1$s" aria-label="%2$s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal">%3$s</button></div>',
       esc_attr__( 'Login', 'fictioneer' ),
       esc_attr__( 'Open login modal', 'fictioneer' ),
       fictioneer_get_icon( 'fa-login' )
@@ -2370,7 +2369,7 @@ function fictioneer_render_icon_menu( $args ) {
 
   if ( fictioneer_show_auth_content() ) {
     $output['profile'] = sprintf(
-      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><a href="%1$s" title="%2$s" class="subscriber-profile" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-circle-user user-icon"></i></a><ul class="sub-menu">%4$s</ul></div>',
+      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><a href="%1$s" title="%2$s" class="subscriber-profile" data-fictioneer-target="avatarWrapper" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-circle-user user-icon"></i></a><ul class="sub-menu">%4$s</ul></div>',
       esc_url( $profile_link ),
       esc_attr__( 'User Profile', 'fictioneer' ),
       esc_attr__( 'Link to user profile', 'fictioneer' ),
@@ -2380,7 +2379,7 @@ function fictioneer_render_icon_menu( $args ) {
 
   if ( ! empty( $bookmarks_link ) ) {
     $output['bookmarks'] = sprintf(
-      '<div class="menu-item menu-item-icon icon-menu-bookmarks hidden hide-if-logged-in"><a href="%1$s" title="%2$s" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-bookmark"></i></a></div>',
+      '<div class="menu-item menu-item-icon icon-menu-bookmarks hidden hide-if-logged-in" data-fictioneer-bookmarks-target="overviewPageIconLink"><a href="%1$s" title="%2$s" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-bookmark"></i></a></div>',
       esc_url( $bookmarks_link ),
       esc_attr__( 'Bookmarks Page', 'fictioneer' ),
       esc_attr__( 'Link to bookmarks page', 'fictioneer' )
@@ -2402,7 +2401,7 @@ function fictioneer_render_icon_menu( $args ) {
     fictioneer_show_auth_content()
   ) {
     $output['follows'] = sprintf(
-      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><button id="follow-menu-button" class="icon-menu__item _with-submenu follow-menu-item follows-alert-number mark-follows-read" aria-label="%1$s">%2$s<i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i><span class="follow-menu-item__read">%3$s</span></button><div class="follow-notifications sub-menu"><div id="follow-menu-scroll" class="follow-notifications__scroll"><div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">%4$s</div></div></div></div></div></div>',
+      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><button id="follow-menu-button" class="icon-menu__item _with-submenu follow-menu-item follows-alert-number mark-follows-read" aria-label="%1$s" data-fictioneer-follows-target="newDisplay" data-action="mouseover->fictioneer-follows#loadFollowsHtml:once focus->fictioneer-follows#loadFollowsHtml:once click->fictioneer-follows#markRead">%2$s<i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i><span class="follow-menu-item__read">%3$s</span></button><div class="follow-notifications sub-menu"><div id="follow-menu-scroll" class="follow-notifications__scroll" data-fictioneer-follows-target="scrollList"><div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">%4$s</div></div></div></div></div></div>',
       esc_attr__( 'Mark follows as read', 'fictioneer' ),
       fictioneer_get_icon( 'fa-bell' ),
       _x( 'Read', 'Mark as read button.', 'fictioneer' ),
@@ -2427,7 +2426,7 @@ function fictioneer_render_icon_menu( $args ) {
   );
 
   $output['settings'] = sprintf(
-    '<div class="menu-item menu-item-icon site-setting"><label for="modal-site-settings-toggle" title="%1$s" tabindex="0" aria-label="%2$s">%3$s</label></div>',
+    '<div class="menu-item menu-item-icon site-setting"><button title="%1$s" aria-label="%2$s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="site-settings-modal">%3$s</button></div>',
     esc_attr__( 'Site Settings', 'fictioneer' ),
     esc_attr__( 'Open site settings modal', 'fictioneer' ),
     fictioneer_get_icon( 'fa-tools' )
@@ -2445,7 +2444,7 @@ function fictioneer_render_icon_menu( $args ) {
 
   if ( $location === 'in-mobile-menu' && fictioneer_show_auth_content() ) {
     $output['logout'] = sprintf(
-      '<div class="menu-item menu-item-icon hide-if-logged-out"><a href="%1$s" title="%2$s" data-click="logout" rel="noopener noreferrer nofollow" aria-label="%3$s">%4$s</a></div>',
+      '<div class="menu-item menu-item-icon hide-if-logged-out"><a href="%1$s" title="%2$s" data-action="click->fictioneer#logout" rel="noopener noreferrer nofollow" aria-label="%3$s">%4$s</a></div>',
       fictioneer_get_logout_url(),
       esc_attr__( 'Logout', 'fictioneer' ),
       esc_attr__( 'Click to log out', 'fictioneer' ),

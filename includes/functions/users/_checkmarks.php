@@ -120,12 +120,6 @@ if ( ! wp_doing_ajax() ) {
  * Set Checkmarks for a story via AJAX
  *
  * @since 4.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @see fictioneer_get_validated_ajax_user()
- * @see fictioneer_validate_id()
- * @see fictioneer_get_story_data()
- * @see fictioneer_load_checkmarks()
  */
 
 function fictioneer_ajax_set_checkmark() {
@@ -152,23 +146,17 @@ function fictioneer_ajax_set_checkmark() {
   $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
 
   // Prepare update
-  $update = isset( $_POST['update'] ) ? explode( ' ', sanitize_text_field( $_POST['update'] ) ) : [];
+  $update = isset( $_POST['update'] ) ? array_map( 'absint', explode( ' ', sanitize_text_field( $_POST['update'] ) ) ) : [];
   $update_ids = [];
 
-  // Check update...
-  if ( in_array( $story_id, $update ) ) {
-    // If story ID in update, add all chapters and mark story as read
-    $update_ids = array_map( function ( $a ) { return absint( $a ); }, $story_data['chapter_ids'] );
-    $update_ids[] = absint( $story_id );
-  } else {
-    // Check if chapter IDs are part of the story
-    foreach ( $update as $chapter_id ) {
-      $chapter_id = absint( $chapter_id );
+  // Prepare story chapter IDs
+  $chapter_ids = array_map( 'absint', $story_data['chapter_ids'] );
 
-      if ( in_array( $chapter_id, $story_data['chapter_ids'] ) ) {
-        $update_ids[] = $chapter_id;
-      }
-    }
+  // Prepare valid update IDs
+  if ( in_array( $story_id, $update, true ) ) {
+    $update_ids = array_merge( $chapter_ids, [ $story_id ] );
+  } else {
+    $update_ids = array_intersect( $update, $chapter_ids );
   }
 
   // Prepare Checkmarks
@@ -198,9 +186,6 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
  * Clears Checkmarks for a story via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @see fictioneer_get_validated_ajax_user()
  */
 
 function fictioneer_ajax_clear_my_checkmarks() {

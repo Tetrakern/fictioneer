@@ -26,7 +26,7 @@ if ( empty( $redirect_url ) ) {
 
 ?>
 
-<div id="age-confirmation-modal" class="modal age-confirmation">
+<div id="age-confirmation-modal" class="modal age-confirmation" data-nosnippet hidden>
 
   <div class="modal__wrapper">
 

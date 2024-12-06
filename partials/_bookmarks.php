@@ -26,9 +26,9 @@ fictioneer_get_cached_partial( 'partials/_template_bookmark', '', null, null, $a
 
 ?>
 
-<section class="small-card-block bookmarks-block <?php echo $show_empty ? '' : 'hidden' ?>" data-count="<?php echo $count; ?>">
+<section class="small-card-block bookmarks-block <?php echo $show_empty ? '' : 'hidden' ?>" data-count="<?php echo $count; ?>" data-fictioneer-bookmarks-target="shortcodeBlock">
   <?php if ( $show_empty ) : ?>
-    <div class="bookmarks-block__no-bookmarks no-results"><?php echo fcntr( 'no_bookmarks' ); ?></div>
+    <div class="bookmarks-block__no-bookmarks no-results" data-fictioneer-bookmarks-target="noBookmarksNote"><?php echo fcntr( 'no_bookmarks' ); ?></div>
   <?php endif; ?>
   <ul class="grid-columns"></ul>
 </section>

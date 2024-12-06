@@ -359,10 +359,10 @@ add_action( 'fictioneer_chapter_actions_bottom_right', 'fictioneer_chapter_nav_b
 
 function fictioneer_chapter_formatting_button() {
   // Start HTML ---> ?>
-  <label class="button _secondary open" for="modal-formatting-toggle" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Open chapter formatting modal', 'fictioneer' ); ?>">
+  <button class="button _secondary open" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="formatting-modal" aria-label="<?php esc_attr_e( 'Open chapter formatting modal', 'fictioneer' ); ?>">
     <?php fictioneer_icon( 'font-settings' ); ?>
     <span class="hide-below-tablet"><?php echo fcntr( 'formatting' ); ?></span>
-  </label>
+  </button>
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_formatting_button', 10 );
@@ -390,7 +390,7 @@ function fictioneer_chapter_subscribe_button() {
 
   if ( ! empty( $subscribe_buttons ) ) {
     // Start HTML ---> ?>
-    <div class="toggle-last-clicked button _secondary popup-menu-toggle" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
+    <div class="button _secondary popup-menu-toggle" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle">
       <i class="fa-solid fa-bell"></i> <span class="hide-below-tablet"><?php echo fcntr( 'subscribe' ); ?></span>
       <div class="popup-menu _top _center"><?php echo $subscribe_buttons; ?></div>
     </div>
@@ -415,10 +415,10 @@ function fictioneer_chapter_fullscreen_buttons() {
   $close = esc_attr__( 'Exit fullscreen', 'fictioneer' );
 
   // Start HTML ---> ?>
-  <button type="button" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped" data-tooltip="<?php echo $open; ?>" aria-label="<?php echo $open; ?>">
+  <button type="button" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped" data-tooltip="<?php echo $open; ?>" aria-label="<?php echo $open; ?>" data-action="click->fictioneer-chapter#openFullscreen">
     <?php fictioneer_icon( 'expand' ); ?>
   </button>
-  <button type="button" class="close-fullscreen button _secondary button--fullscreen show-on-fullscreen hide-on-iOS hidden tooltipped" data-tooltip="<?php echo $close; ?>" aria-label="<?php echo $close; ?>">
+  <button type="button" class="close-fullscreen button _secondary button--fullscreen show-on-fullscreen hide-on-iOS hidden tooltipped" data-tooltip="<?php echo $close; ?>" aria-label="<?php echo $close; ?>" data-action="click->fictioneer-chapter#closeFullscreen">
     <?php fictioneer_icon( 'collapse' ); ?>
   </button>
   <?php // <--- End HTML
@@ -494,7 +494,7 @@ function fictioneer_chapter_bookmark_jump_button() {
   }
 
   // Start HTML ---> ?>
-  <button type="button" class="button _secondary button--bookmark hidden">
+  <button type="button" class="button _secondary button--bookmark" data-fictioneer-chapter-target="bookmarkScroll" data-fictioneer-bookmarks-target="bookmarkScroll" data-action="click->fictioneer-chapter#scrollToBookmark" hidden>
     <i class="fa-solid fa-bookmark"></i>
     <span class="hide-below-tablet"><?php echo fcntr( 'bookmark' ); ?></span>
   </button>
@@ -693,7 +693,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
 function fictioneer_chapter_micro_menu( $args ) {
   echo fictioneer_get_chapter_micro_menu( $args );
 }
-add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_micro_menu', 10 );
+add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_micro_menu', 99 );
 
 // =============================================================================
 // CHAPTER PARAGRAPH TOOLS
@@ -711,10 +711,10 @@ function fictioneer_chapter_paragraph_tools() {
   $hide_if_logged_out = get_option( 'comment_registration' ) ? 'hide-if-logged-out' : ''; // Safer for cached site
 
   // Start HTML ---> ?>
-  <div id="paragraph-tools" class="paragraph-tools" data-nosnippet>
+  <div id="paragraph-tools" class="paragraph-tools" data-fictioneer-chapter-target="tools" data-nosnippet>
     <div class="paragraph-tools__actions">
       <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
-        <button id="button-set-bookmark" type="button" class="button">
+        <button id="button-set-bookmark" type="button" class="button" data-action="click->fictioneer-chapter#toggleBookmark">
           <i class="fa-solid fa-bookmark"></i>
           <span><?php _ex( 'Bookmark', 'Paragraph tools bookmark button', 'fictioneer' ); ?></span>
           <div class="paragraph-tools__bookmark-colors">
@@ -726,13 +726,13 @@ function fictioneer_chapter_paragraph_tools() {
         </button>
       <?php endif; ?>
       <?php if ( $can_comment ) : ?>
-        <button id="button-comment-stack" type="button" class="button <?php echo $hide_if_logged_out ?>">
+        <button id="button-comment-stack" type="button" class="button <?php echo $hide_if_logged_out ?>" data-action="click->fictioneer-chapter#quote">
           <i class="fa-solid fa-quote-right"></i>
           <span><?php _ex( 'Quote', 'Paragraph tools quote button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
       <?php if ( $can_comment && get_option( 'fictioneer_enable_suggestions' ) ) : ?>
-        <button id="button-tools-add-suggestion" type="button" class="button <?php echo $hide_if_logged_out ?>">
+        <button id="button-tools-add-suggestion" type="button" class="button <?php echo $hide_if_logged_out ?>" data-action="click->fictioneer-suggestion#toggleModalViaParagraph">
           <i class="fa-solid fa-highlighter"></i>
           <span class="hide-below-480"><?php _ex( 'Suggestion', 'Paragraph tools suggestion button', 'fictioneer' ); ?></span>
         </button>
@@ -743,11 +743,11 @@ function fictioneer_chapter_paragraph_tools() {
           <span class="hide-below-480"><?php _ex( 'TTS', 'Paragraph tools text-to-speech button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
-      <button id="button-get-link" type="button" class="button">
+      <button id="button-get-link" type="button" class="button" data-action="click->fictioneer-chapter#copyLink">
         <i class="fa-solid fa-link"></i>
         <span class="hide-below-480"><?php _ex( 'Link', 'Paragraph tools copy link button', 'fictioneer' ); ?></span>
       </button>
-      <button id="button-close-paragraph-tools" type="button" class="button">
+      <button id="button-close-paragraph-tools" type="button" class="button" data-action="click->fictioneer-chapter#closeTools">
         <i class="fa-solid fa-times"></i>
       </button>
     </div>

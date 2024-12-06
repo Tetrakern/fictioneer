@@ -38,7 +38,7 @@ get_header(
 
 ?>
 
-<main id="main" class="main singular">
+<main id="main" class="main singular" data-controller="fictioneer-story" data-fictioneer-story-id-value="<?php echo $story_id; ?>">
 
   <?php do_action( 'fictioneer_main', 'singular-story' ); ?>
 

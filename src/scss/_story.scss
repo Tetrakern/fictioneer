@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 $header_breakpoint: 640px;
 
 .button-follow-story._followed,

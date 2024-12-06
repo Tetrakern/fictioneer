@@ -282,7 +282,7 @@ if ( $splide ) {
                 ?></a></h3>
 
                 <div class="card__content _small cell-desc">
-                  <div class="truncate <?php echo $truncate_factor; ?> <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>" data-obfuscation-target>
+                  <div class="truncate <?php echo $truncate_factor; ?> <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>" data-fictioneer-target="obfuscated">
                     <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] && $args['footer_author'] ) : ?>
                       <span class="card__by-author"><?php
                         printf( _x( 'by %s', 'Small card: by {Author}.', 'fictioneer' ), fictioneer_get_author_node() );
@@ -308,7 +308,7 @@ if ( $splide ) {
                     ?>
                     <?php if ( mb_strlen( str_replace( '…', '', $excerpt ) ) > 2 ) : ?>
                       <?php if ( ! $args['spoiler'] ) : ?>
-                        <span data-click="toggle-obfuscation" tabindex="0">
+                        <span data-action="click->fictioneer#toggleObfuscation" tabindex="0">
                           <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
                           <span class="clean"><?php
                             echo $args['source'] ? '— ' : '';

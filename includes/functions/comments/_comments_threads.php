@@ -25,7 +25,7 @@ function fictioneer_comment_login_to_reply( $link, $args, $comment, $post ) {
 
   // Reply link or login modal toggle
   if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {
-    return $args['before'] . '<label for="modal-login-toggle" class="fictioneer-comment__login-to-reply">' . $args['login_text'] . '</label>' . $args['after'];
+    return $args['before'] . '<button class="fictioneer-comment__login-to-reply" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="login-modal">' . $args['login_text'] . '</button>' . $args['after'];
   } else {
     return $link;
   }
@@ -226,6 +226,9 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
         <i class="fa-solid fa-arrow-up-short-wide _off"></i><i class="fa-solid fa-arrow-down-wide-short _on"></i>
       </button>
     </div>
+
+    <?php fictioneer_comment_moderation_template(); ?>
+
     <ol class="fictioneer-comments__list commentlist">
       <?php wp_list_comments( $list_args, $comments ); ?>
     </ol>
@@ -339,14 +342,14 @@ function fictioneer_get_comment_delete_button( $hidden = true ) {
   static $html_start = null;
 
   if ( is_null( $html_start ) ) {
-    $html_start = '<button class="fictioneer-comment__delete comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-dialog-message="' .
+    $html_start = '<button class="fictioneer-comment__delete comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-fictioneer-comment-target="deleteButton" data-action="click->fictioneer-comment#selfDelete" data-dialog-message="' .
       sprintf(
         __( 'Are you sure you want to delete your comment? Enter %s to confirm.', 'fictioneer' ),
         mb_strtoupper( _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) )
       ) .
       '" data-dialog-confirm="' . esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ) .
       '" data-tooltip="' . esc_attr_x( 'Delete', 'Delete comment inline.', 'fictioneer' ) .
-      '" data-click="delete-my-comment" %s><i class="fa-solid fa-eraser"></i></button>';
+      '" %s><i class="fa-solid fa-eraser"></i></button>';
   }
 
   return sprintf(
@@ -369,7 +372,7 @@ function fictioneer_get_comment_edit_button( $hidden = true ) {
   static $html_start = null;
 
   if ( is_null( $html_start ) ) {
-    $html_start = '<button class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-tooltip="' . esc_attr_x( 'Edit', 'Edit comment inline.', 'fictioneer' ) . '" data-click="trigger-inline-comment-edit" %s><i class="fa-solid fa-pen"></i></button>';
+    $html_start = '<button class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax" type="button" data-fictioneer-comment-target="editButton" data-action="click->fictioneer-comment#startEditInline" data-tooltip="' . esc_attr_x( 'Edit', 'Edit comment inline.', 'fictioneer' ) . '" %s><i class="fa-solid fa-pen"></i></button>';
   }
 
   return sprintf(
@@ -551,14 +554,14 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 
     // Build HTML (tag closed by WordPress!)
     $comment_class = comment_class( $classes, $comment, $comment->comment_post_ID, false );
-    $fingerprint_data = empty( $fingerprint ) ? '' : "data-fingerprint=\"$fingerprint\"";
+    $fingerprint_data = empty( $fingerprint ) ? '' : "data-fictioneer-comment-fingerprint-value=\"$fingerprint\"";
 
     if ( $is_new ) {
       $comment_class = str_replace( 'depth-1', "depth-$depth", $comment_class );
     }
 
-    $open = "<{$tag} id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"{$depth}\" data-timestamp=\"" . ( $timestamp * 1000 ) . "\" {$fingerprint_data}>";
-    $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\">";
+    $open = "<{$tag} id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"{$depth}\">";
+    $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\" data-controller=\"fictioneer-comment\" data-action=\"click->fictioneer-comment#commentClick mouseleave->fictioneer-comment#mouseLeave:stop\" data-fictioneer-comment-id-value=\"{$comment->comment_ID}\" data-fictioneer-comment-timestamp-value=\"" . ( $timestamp * 1000 ) . "\" {$fingerprint_data}>";
 
     if ( $is_sticky ) {
       $open .= '<i class="fa-solid fa-thumbtack sticky-pin"></i>';
@@ -613,7 +616,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
             <?php _e( 'Comment has been deleted by user.', 'fictioneer' ); ?>
           </div>
           <div class="fictioneer-comment__footer-right hide-unless-hover-on-desktop">
-            <?php fictioneer_comment_mod_menu( $comment ); ?>
+            <?php fictioneer_comment_moderation( $comment ); ?>
           </div>
         </div>
       </div>
@@ -677,15 +680,19 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         // COMMENT CONTENT
         // =============================================================================
         ?>
-        <div class="fictioneer-comment__content"><?php comment_text( $comment ); ?></div>
+        <div class="fictioneer-comment__content" data-fictioneer-comment-target="content"><?php
+          comment_text( $comment );
+        ?></div>
         <?php
         // =============================================================================
         // COMMENT EDIT
         // =============================================================================
         ?>
         <?php if ( ( $can_edit && $is_editable ) || ( $cache_plugin_active && ! $is_deleted_by_owner) ) : ?>
-          <div class="fictioneer-comment__edit" hidden>
-            <textarea class="comment-inline-edit-content"><?php echo $comment->comment_content; ?></textarea>
+          <div class="fictioneer-comment__edit" data-fictioneer-comment-target="inlineEditWrapper" hidden>
+            <textarea class="comment-inline-edit-content" data-fictioneer-comment-target="inlineEditTextarea" data-action="keydown->fictioneer-comment#keyComboCodes"><?php
+              echo $comment->comment_content;
+            ?></textarea>
           </div>
         <?php endif; ?>
         <?php
@@ -694,7 +701,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         // =============================================================================
         ?>
         <?php if ( ! empty( $edit_stack ) && ! $is_deleted_by_owner ) : ?>
-          <div class="fictioneer-comment__edit-note"><?php
+          <div class="fictioneer-comment__edit-note" data-fictioneer-comment-target="editNote"><?php
             $edit_data = $edit_stack[count( $edit_stack ) - 1];
             $edit_user = isset( $edit_data['user_id'] ) && $comment->user_id != $edit_data['user_id'] ?
               get_user_by( 'id', $edit_data['user_id'] ) : false;
@@ -832,7 +839,8 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           <?php if ( fictioneer_show_auth_content() && $is_reportable ) : ?>
             <button
             class="fictioneer-report-comment-button comment-quick-button hide-if-logged-out tooltipped <?php echo $flag_classes ?> <?php echo $is_flagged_by_current_user ? 'on' : ''; ?> hide-on-ajax"
-            data-click="flag-comment"
+            data-fictioneer-comment-target="flagButton"
+            data-action="click->fictioneer-comment#flag"
             data-tooltip="<?php echo esc_attr_x( 'Report', 'Report this comment.', 'fictioneer' ); ?>"
           ><i class="fa-solid fa-flag"></i></button>
           <?php endif; ?>
@@ -841,7 +849,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           // FRONTEND MODERATION
           // =============================================================================
           ?>
-          <?php fictioneer_comment_mod_menu( $comment ); ?>
+          <?php fictioneer_comment_moderation( $comment ); ?>
         </div>
 
       </div>

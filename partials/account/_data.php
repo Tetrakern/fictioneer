@@ -271,7 +271,7 @@ $delete_bookmarks_prompt = sprintf(
             ?></h3>
           </div>
           <div class="card__main _small">
-            <div class="card__content cell-data _small profile-bookmarks-stats">
+            <div class="card__content cell-data _small profile-bookmarks-stats" data-fictioneer-bookmarks-target="dataCard">
               <?php _e( 'You have currently <strong>%s bookmark(s)</strong> set. Bookmarks are only processed in your browser.', 'fictioneer' ); ?>
             </div>
           </div>

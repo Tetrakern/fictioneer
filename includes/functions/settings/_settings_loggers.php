@@ -466,7 +466,6 @@ add_action( 'untrashed_post', function( $post_id ) {
  * Helper to log published posts
  *
  * @since 5.0.0
- * @see fictioneer_log_post_update()
  *
  * @param int $post_id  The post ID.
  */
@@ -502,7 +501,6 @@ add_action( 'publish_fcn_recommendation', 'fictioneer_log_published_posts' );
  * Helper to log pending posts
  *
  * @since 5.0.0
- * @see fictioneer_log_post_update()
  *
  * @param int $post_id  The post ID.
  */
@@ -532,7 +530,6 @@ add_action( 'pending_fcn_recommendation', 'fictioneer_log_published_posts' );
  * Helper to log deleted posts
  *
  * @since 5.0.0
- * @see fictioneer_log_post_update()
  *
  * @param int $post_id  The post ID.
  */

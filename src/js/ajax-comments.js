@@ -32,7 +32,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
   // Setup
   let commentText = '';
-  let commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment');
+  let commentTextarea = _$(FcnGlobals.commentFormSelector);
   let errorNote;
 
   // Preserve comment text (in case of pagination)
@@ -50,7 +50,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
   // Get page
   if (!page) {
-    page = fcn_urlParams.pg ?? 1;
+    page = FcnGlobals.urlParams.pg ?? 1;
   }
 
   // Get order
@@ -72,12 +72,12 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
     'fcn_fast_comment_ajax': 1
   };
 
-  if (fcn_urlParams.commentcode) {
-    payload['commentcode'] = fcn_urlParams.commentcode;
+  if (FcnGlobals.urlParams.commentcode) {
+    payload['commentcode'] = FcnGlobals.urlParams.commentcode;
   }
 
   // Request
-  fcn_ajaxGet(payload)
+  FcnUtils.aGet(payload)
   .then(response => {
     // Check for success
     if (response.success) {
@@ -106,7 +106,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
       temp.remove();
 
       // Append stored content (in case of pagination)
-      commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment'); // Yes, query again!
+      commentTextarea = _$(FcnGlobals.commentFormSelector); // Yes, query again!
 
       if (commentTextarea && !response.data.disabled) {
         commentTextarea.value = commentText;
@@ -114,18 +114,6 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
         // Append stack contents (if any)
         fcn_applyCommentStack(commentTextarea);
       }
-
-      // Bind events
-      fcn_addCommentMouseleaveEvents();
-      fcn_addCommentFormEvents();
-      fcn_bindAJAXCommentSubmit();
-
-      // JS trap (if active)
-      fcn_addJSTrap();
-
-      // Reveal edit/delete buttons
-      fcn_revealEditButton();
-      fcn_revealDeleteButton();
 
       // Scroll to top of comment section
       const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond';
@@ -138,15 +126,15 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
       // Add page to URL and preserve params/anchor
       const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
-      if (page > 1 || fcn_urlParams.pg) {
-        fcn_urlParams['pg'] = page;
+      if (page > 1 || FcnGlobals.urlParams.pg) {
+        FcnGlobals.urlParams['pg'] = page;
       }
 
-      if (order != 'desc' || fcn_urlParams.corder) {
-        fcn_urlParams['corder'] = order;
+      if (order != 'desc' || FcnGlobals.urlParams.corder) {
+        FcnGlobals.urlParams['corder'] = order;
       }
 
-      let params = Object.entries(fcn_urlParams).map(([key, value]) => `${key}=${value}`).join('&');
+      let params = Object.entries(FcnGlobals.urlParams).map(([key, value]) => `${key}=${value}`).join('&');
 
       if (params !== '') {
         params = `?${params}`;
@@ -154,11 +142,11 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
       window.history.pushState({ path: refresh }, '', refresh + params + location.hash);
     } else {
-      errorNote = fcn_buildErrorNotice(response.data.error); // Also writes to the console
+      errorNote = FcnUtils.buildErrorNotice(response.data.error); // Also writes to the console
     }
   })
   .catch(error => {
-    errorNote = fcn_buildErrorNotice(error); // Also writes to the console
+    errorNote = FcnUtils.buildErrorNotice(error); // Also writes to the console
   })
   .then(() => {
     // Update view regardless of success
@@ -204,14 +192,9 @@ function fcn_jumpToCommentPage() {
 
 var /** @type {IntersectionObserver} */ fct_commentSectionObserver;
 
-// In case of AJAX authentication...
-if (fcn_theRoot.dataset.ajaxAuth) {
-  document.addEventListener('fcnAuthReady', () => {
-    fcn_setupCommentSectionObserver();
-  });
-} else {
+document.addEventListener('fcnUserDataReady', () => {
   fcn_setupCommentSectionObserver();
-}
+});
 
 /**
  * Helper to set up comment section observer.
@@ -240,14 +223,9 @@ function fcn_setupCommentSectionObserver() {
 // SCROLL NEW COMMENT INTO VIEW SUBMITTING VIA RELOAD
 // =============================================================================
 
-// In case of AJAX authentication...
-if (fcn_theRoot.dataset.ajaxAuth) {
-  document.addEventListener('fcnAuthReady', () => {
-    fcn_loadCommentEarly();
-  });
-} else {
+document.addEventListener('fcnUserDataReady', () => {
   fcn_loadCommentEarly();
-}
+});
 
 /**
  * Load comment section early if there is a comment* anchor.
@@ -259,7 +237,7 @@ function fcn_loadCommentEarly() {
   // Check URL whether there is a comment anchor
   if (fcn_commentSection && location.hash.includes('#comment')) {
     // Start loading comments via AJAX if not done already
-    if (!_$(fictioneer_comments.form_selector ?? '#comment')) {
+    if (!_$(FcnGlobals.commentFormSelector)) {
       fct_commentSectionObserver.disconnect();
       fcn_reloadCommentsPage();
     }

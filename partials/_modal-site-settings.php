@@ -13,12 +13,11 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="site-settings-modal" class="site-settings modal" data-nosnippet hidden>
-  <label for="modal-site-settings-toggle" class="background-close"></label>
+<div id="site-settings-modal" class="site-settings modal" data-fictioneer-target="modal" data-action="click->fictioneer#backgroundCloseModals keydown.esc@document->fictioneer#closeModals" data-nosnippet hidden>
   <div class="modal__wrapper narrow-inputs">
-    <label class="close" for="modal-site-settings-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
-      <?php fictioneer_icon( 'fa-xmark' ); ?>
-    </label>
+
+    <button class="close" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>" data-action="click->fictioneer#closeModals"><?php fictioneer_icon( 'fa-xmark' ); ?></button>
+
     <div class="modal__header drag-anchor"><?php echo fcntr( 'site_settings' ); ?></div>
     <div class="modal__description modal__row site-settings__description site-settings__row _small-top">
       <p><?php _e( 'You can toggle selected features and styles per device/browser to boost performance. Some options may not be available.', 'fictioneer' ); ?></p>

@@ -1,392 +1,436 @@
 // =============================================================================
-// SETUP
+// STIMULUS: FICTIONEER CHAPTER
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting');
-
-var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
-
-// =============================================================================
-// PARAGRAPH TOOLS
-// =============================================================================
-
-const /** @const {HTMLElement} */ fcn_paragraphTools = _$$$('paragraph-tools');
-
-var /** @type {Number} */ fcn_lastSelectedParagraphId;
-var /** @type {String} */ fcn_bookmarkColor = 'none';
-
-/**
- * Toggles the paragraph tools on a chapter paragraph.
- *
- * @since 3.0
- * @param {Number|Boolean} id - ID of the paragraph or false to close the tools.
- * @param {HTMLElement} [value=null] - The clicked paragraph if any.
- */
-
-function fcn_toggleParagraphTools(id = false, target = null) {
-  if (
-    target &&
-    target.classList.contains('spoiler') &&
-    !target.classList.contains('_open')
-  ) {
-    return;
+application.register('fictioneer-chapter', class extends Stimulus.Controller {
+  static get targets() {
+    return ['bookmarkScroll', 'contentWrapper', 'index', 'content']
   }
 
-  // Always close last paragraph tools (if open)
-  _$$$(`paragraph-${fcn_lastSelectedParagraphId}`)?.classList.remove('selected-paragraph');
+  static values = {
+    chapterId: Number,
+    storyId: Number
+  }
 
-  // Open paragraph tools?
-  if (id && fcn_formatting['show-paragraph-tools']) {
-    fcn_lastSelectedParagraphId = id;
-    target.classList.add('selected-paragraph');
+  startClick = 0;
+  lastToolsParagraph = null;
+  tools = _$$$('paragraph-tools');
+  progressBar = _$('.progress__bar');
+  hasPassword = !!_$('article._password');
+  checkmarkUpdated = false;
+  checkboxProgressBar = _$$$('site-setting-chapter-progress-bar');
+  checkboxMinimalist = _$$$('site-setting-minimal');
 
-    // Wrap if necessary
-    if (!target.classList.contains('is-wrapped')) {
-      target.innerHTML = `<span class="paragraph-inner">${target.innerHTML}</span>`;
-      target.classList.add('is-wrapped');
+  initialize() {
+    if (this.progressBar && this.hasContentTarget && !this.hasPassword) {
+      this.trackProgress();
+      window.addEventListener('scroll.rAF', FcnUtils.throttle(this.trackProgress.bind(this), 1000 / 48));
+    }
+  }
+
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerChapter = this;
+
+    // Mark current chapter in index
+    if (this.hasIndexTarget) {
+      this.indexTargets.forEach(element => {
+        element.querySelector(`[data-id="${this.chapterIdValue}"]`)?.classList.add('current');
+      });
+    }
+  }
+
+  /**
+   * Close paragraph tools on click outside.
+   *
+   * Note: Event action dispatched by 'fictioneer' Stimulus Controller.
+   *
+   * @since 5.27.0
+   * @param {HTMLElement} target -  The event target.
+   */
+
+  clickOutside({ detail: { target } }) {
+    if (this.lastToolsParagraph && !target.closest('.selected-paragraph')) {
+      this.closeTools();
+    }
+  }
+
+  scrollToBookmark() {
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+
+    if (!controller) {
+      fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
+      return;
     }
 
-    // Append tools to paragraph
-    target.append(fcn_paragraphTools);
-  } else {
-    // Close
-    fcn_lastSelectedParagraphId = null;
-  }
-}
+    const paragraphID = controller.data()?.[`ch-${this.chapterIdValue}`]?.['paragraph-id'];
 
-// Close on click outside selected paragraph (if not another paragraph)
-document.addEventListener('click', event => {
-  if (!fcn_paragraphTools?.closest('p')?.contains(event.target)) {
-    fcn_toggleParagraphTools(false);
-  }
-});
-
-/**
- * Analyzes clicks and tabs on paragraphs.
- *
- * @since 3.0
- * @param {Event} e - The event.
- */
-
-function fcn_touchParagraph(e) {
-  // Do not call paragraphs tools on spoilers, popup menus, actions, or escape class
-  if (
-    e.target.classList.contains('spoiler') ||
-    e.target.closest('.popup-menu-toggle, .skip-tools, a, button, label, input, textarea') ||
-    !e.target.closest('p')?.textContent.trim().length
-  ) {
-    return;
-  }
-
-  // Ignore nested paragraphs
-  if (!e.target.closest('p')?.parentElement?.classList.contains('chapter-formatting')) {
-    return;
-  }
-
-  // Ignore paragraphs with special classes
-  if (e.target.closest('.hidden, .inside-epub')) {
-    return;
-  }
-
-  // Text selection in progress
-  if (window.getSelection().toString() != '') {
-    return;
-  }
-
-  // Bubble up and search for valid paragraph (if click was on nested tag)
-  const target = e.target.closest('p[data-paragraph-id]');
-
-  // Ignore clicks inside TTS and paragraph tools buttons
-  if (e.target.closest('.tts-interface, .paragraph-tools__actions')) {
-    return;
-  }
-
-  // Clicked anywhere except on a valid paragraph or TTS
-  if (!target) {
-    fcn_toggleParagraphTools(false);
-    return;
-  }
-
-  // Clicked on valid paragraph; check if already selected before toggling
-  let id = target.dataset.paragraphId ? target.dataset.paragraphId : false;
-  id = id == fcn_lastSelectedParagraphId ? false : id;
-
-  // Remember click start time
-  const startClick = new Date().getTime();
-
-  // Evaluate click...
-  target.addEventListener('mouseup', () => {
-    const endClick = new Date().getTime();
-    const long = startClick + 300;
-
-    // Click was short, which probably means the user wants to toggle the tools
-    if (endClick <= long) {
-      fcn_toggleParagraphTools(id, target);
-    }
-  }, { once: true });
-}
-
-/**
- * Get quote from paragraph or text selection.
- *
- * @since 3.0
- * @param {Event} e - The event.
- */
-
-function fcn_getQuote(e) {
-  // Get paragraph text, selection, anchor, and prepare ellipsis
-  const selection = fcn_cleanTextSelectionFromButtons(window.getSelection().toString());
-  const anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
-
-  let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerText;
-  let pre = fictioneer_tl.partial.quoteFragmentPrefix;
-  let suf = fictioneer_tl.partial.quoteFragmentSuffix;
-
-  // Build from text selection and add ellipsis if necessary
-  if (quote.length > 16 && selection.replace(/\s/g, '').length) {
-    const fraction = Math.ceil(selection.length * .25);
-    const first = quote.substring(0, fraction + 1);
-    const last = quote.substring(quote.length - fraction, quote.length);
-
-    if (selection.startsWith(first)) {
-      pre = '';
+    if (!paragraphID) {
+      return;
     }
 
-    if (selection.endsWith(last)) {
-      suf = '';
-    }
+    const target = _$(`[data-paragraph-id="${paragraphID}"]`);
 
-    quote = `${pre}${selection}${suf}`;
+    target?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // Add anchor to quote
-  quote = `${quote} ${anchor}`;
+  /**
+   * Open browser fullscreen view.
+   *
+   * @since 5.27.0
+   */
 
-  // Append to comment
-  fcn_addQuoteToStack(quote);
-
-  // Show notification
-  fcn_showNotification(fictioneer_tl.notification.quoteAppendedToComment);
-}
-
-/**
- * Appends a blockquote to the comment form.
- *
- * @since 3.0
- * @param {String} quote - The quote to wrap inside the blockquote.
- */
-
-function fcn_addQuoteToStack(quote) {
-  // Get comment form
-  const defaultEditor = _$(fictioneer_comments.form_selector ?? '#comment');
-
-  // Add quote
-  if (defaultEditor) {
-    if (defaultEditor.tagName == 'TEXTAREA') {
-      defaultEditor.value += `\n[quote]${quote}[/quote]\n`;
-      fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
-    } else if (defaultEditor.tagName == 'DIV') {
-      defaultEditor.innerHTML += `\n[quote]${quote}[/quote]\n`;
+  openFullscreen() {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
     }
-  } else {
-    fcn_commentStack?.push(`\n[quote]${quote}[/quote]\n`); // AJAX comment form or section
-  }
-}
-
-if (fcn_paragraphTools) {
-  // Listen for clicks/tabs on paragraphs
-  document.addEventListener('mousedown', (e) => { fcn_touchParagraph(e); });
-
-  // Listen for click on paragraph tools close button
-  _$$$('button-close-paragraph-tools').onclick = (e) => { fcn_toggleParagraphTools(false); }
-
-  // Listen for click on paragraph tools copy link button
-  _$$$('button-get-link').onclick = (e) => {
-    fcn_copyToClipboard(
-      `${location.protocol}//${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
-      fictioneer_tl.notification.linkCopiedToClipboard
-    );
   }
 
-  // Listen for click on paragraph tools quote button
-  _$$$('button-comment-stack')?.addEventListener(
-    'click',
-    (e) => { fcn_getQuote(e); }
-  );
+  /**
+   * Close browser fullscreen view.
+   *
+   * @since 5.27.0
+   */
 
-  // Listen for click on paragraph tools bookmark color button
-  _$$('.paragraph-tools__bookmark-colors > div').forEach(element => {
-    element.onclick = (e) => {
-      fcn_bookmarkColor = e.target.dataset.color;
+  closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
     }
-  });
+  }
 
-  // Listen for click on paragraph tools bookmark button
-  _$$$('button-set-bookmark')?.addEventListener(
-    'click',
-    (e) => {
-      fcn_toggleBookmark(
-        e.target.closest('p[data-paragraph-id]').dataset.paragraphId,
-        fcn_bookmarkColor
-      );
+  /**
+   * Toggle paragraph tools.
+   *
+   * @since 5.27.0
+   * @param {HTMLElement} paragraph - The clicked paragraph.
+   */
 
-      // Close paragraph tools on desktop after adding bookmark
-      if (window.matchMedia('(min-width: 1024px)').matches) {
-        fcn_toggleParagraphTools(false);
+  toggleTools(paragraph) {
+    // Always close last paragraph tools (if open)
+    this.lastToolsParagraph?.classList.remove('selected-paragraph');
+
+    // Close if same paragraph
+    if (this.lastToolsParagraph === paragraph) {
+      this.closeTools();
+      return;
+    }
+
+    // Add tools to paragraph
+    this.lastToolsParagraph = paragraph;
+    paragraph.classList.add('selected-paragraph');
+    paragraph.append(this.tools);
+  }
+
+  /**
+   * Close paragraph tools.
+   *
+   * @since 5.27.0
+   */
+
+  closeTools() {
+    this.lastToolsParagraph?.classList.remove('selected-paragraph');
+    this.lastToolsParagraph = null;
+  }
+
+  /**
+   * Listen to fast click on paragraph to open paragraph tools.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   */
+
+  fastClick(event) {
+    if (window.getSelection().toString() != '') {
+      return;
+    }
+
+    this.startClick = Date.now();
+
+    document.addEventListener('mouseup', () => {
+      const endClick = Date.now();
+
+      if (endClick < this.startClick + 400) {
+        if (this.#isValidParagraph(event.target) && this.tools) {
+          this.toggleTools(event.target.closest('p'));
+        }
+      }
+    }, { once: true });
+  }
+
+  /**
+   * Get quote from paragraph or text selection.
+   *
+   * @since 3.0
+   * @since 5.27.0 - Folded into Stimulus Controller.
+   * @param {Event} event - The event.
+   */
+
+  quote(event) {
+    const target = event.target.closest('p[data-paragraph-id]');
+
+    if (!target) {
+      return;
+    }
+
+    const selection = window.getSelection() ? window.getSelection().toString().trim() : '';
+    const anchor = `[anchor]${target.id}[/anchor]`;
+
+    let quote = FcnUtils.extractTextNodes(target);
+
+    if (quote.length > 16 && selection.replace(/\s/g, '').length) {
+      const fraction = Math.ceil(selection.length * .25);
+
+      let pre = fictioneer_tl.partial.quoteFragmentPrefix;
+      let suf = fictioneer_tl.partial.quoteFragmentSuffix;
+
+      if (selection.startsWith(quote.substring(0, fraction + 1))) {
+        pre = '';
       }
 
-      // Reset bookmark color
-      fcn_bookmarkColor = 'none';
+      if (selection.endsWith(quote.substring(quote.length - fraction, quote.length))) {
+        suf = '';
+      }
+
+      quote = `${pre}${selection}${suf}`;
     }
-  );
-}
 
-// =============================================================================
-// ENTER FULLSCREEN
-// =============================================================================
+    fcn_showNotification(fictioneer_tl.notification.quoteAppendedToComment);
 
-/**
- * Enter fullscreen mode.
- *
- * @since 4.2.0
- */
-
-function fcn_openFullscreen() {
-  if (document.documentElement.requestFullscreen) {
-    document.documentElement.requestFullscreen();
-  } else if (document.documentElement.webkitRequestFullscreen) {
-    // Safari
-    document.documentElement.webkitRequestFullscreen();
+    FcnUtils.appendToComment(`\n[quote]${quote} ${anchor}[/quote]\n`);
   }
-}
 
-// Listen for click to enter fullscreen mode
-_$$('.open-fullscreen').forEach(element => {
-  element.addEventListener(
-    'click',
-    () => {
-      fcn_openFullscreen();
+  toggleBookmark({ target }) {
+    const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+
+    if (!controller) {
+      fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
+      return;
     }
-  );
+
+    controller.toggle(
+      target.closest('p[data-paragraph-id]').dataset.paragraphId,
+      target.closest('[data-color]')?.dataset.color ?? 'none'
+    );
+
+    if (window.matchMedia('(min-width: 1024px)').matches) {
+      this.closeTools();
+    }
+  }
+
+  /**
+   * Copy paragraph link to clipboard.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   */
+
+  copyLink(event) {
+    const target = event.target.closest('p[data-paragraph-id]');
+
+    if (target) {
+      FcnUtils.copyToClipboard(
+        `${location.protocol}//${location.host}${location.pathname}#${target.id}`,
+        fictioneer_tl.notification.linkCopiedToClipboard
+      );
+    }
+  }
+
+  toggleIndexOrder({ currentTarget }) {
+    const wrapper = currentTarget.closest('.chapter-index');
+    wrapper.dataset.order = wrapper.dataset.order === 'asc' ? 'desc' : 'asc';
+  }
+
+  trackProgress() {
+    // Abort if...
+    if (
+      !this.progressBar || !this.hasContentTarget || this.hasPassword ||
+      (this.checkboxMinimalist.checked ?? 0) || !(this.checkboxProgressBar?.checked ?? 1)
+    ) {
+      return;
+    }
+
+    // Calculate progress
+    const rect = this.contentTarget.getBoundingClientRect();
+    const height = rect.height;
+    const w = (height - rect.bottom - Math.max(rect.top, 0) + window.innerHeight);
+
+    let p = 100 * w / height;
+
+    // Show progress bar depending on progress
+    document.body.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
+
+    // Clamp percent between 0 and 100
+    p = FcnUtils.clamp(0, 100, p);
+
+    // Apply the percentage to the bar fill
+    this.progressBar.style.width = `${p}%`;
+
+    // If end of chapter has been reached and the user is logged in...
+    if (!this.checkmarkUpdated && !!this.storyIdValue && p >= 100 && FcnUtils.loggedIn()) {
+      this.checkmarkUpdated = true;
+
+      // Make sure necessary data is available
+      if (!this.chapterIdValue || typeof fcn_toggleCheckmark !== 'function') {
+        return;
+      }
+
+      // Mark chapter as read
+      fcn_toggleCheckmark(this.storyIdValue, this.chapterIdValue, true);
+    }
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #isValidParagraph(target) {
+    const interactiveSelector = '.popup-menu-toggle, .skip-tools, .tts-interface, .paragraph-tools__actions, .hidden, .inside-epub, a, button, label, input, textarea, select, option';
+
+    if (
+      target.classList.contains('spoiler') ||
+      !target.closest('p[data-paragraph-id]')?.textContent.trim().length ||
+      !target.closest('p')?.parentElement?.classList.contains('chapter-formatting') ||
+      target.closest(interactiveSelector)
+    ) {
+      return false;
+    }
+
+    return true;
+  }
 });
 
 // =============================================================================
-// CLOSE FULLSCREEN
+// KEYBOARD NAVIGATION
 // =============================================================================
 
-/**
- * Close fullscreen mode.
- *
- * @since 4.2.0
- */
-
-function fcn_closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) {
-    // Safari
-    document.webkitExitFullscreen();
-  }
-}
-
-// Listen for click to close fullscreen
-_$$('.close-fullscreen').forEach(element => {
-  element.addEventListener(
-    'click',
-    () => {
-      fcn_closeFullscreen();
-    }
-  );
-});
-
-// =============================================================================
-// GET FORMATTING
-// =============================================================================
-
-/**
- * Get formatting JSON from local storage or create new one.
- *
- * @since 4.0.0
- * @see fcn_parseJSON()
- * @see fcn_defaultFormatting()
- * @see fcn_setFormatting();
- * @return {Object} The formatting settings.
- */
-
-function fcn_getFormatting() {
-  // Get settings from local storage or use defaults
-  let formatting = fcn_parseJSON(localStorage.getItem('fcnChapterFormatting')) ?? fcn_defaultFormatting();
-
-  // Simple validation
-  if (Object.keys(formatting).length < 15) {
-    formatting = fcn_defaultFormatting();
-  }
-
-  // Timestamp allows to force resets after script updates (may annoy users)
-  if (formatting['timestamp'] < 1651164557584) {
-    formatting = fcn_defaultFormatting();
-    formatting['timestamp'] = Date.now();
-  }
-
-  // Update local storage and return
-  fcn_setFormatting(formatting);
-
-  return formatting;
-}
-
-/**
- * Returns default formatting.
- *
- * @since 4.0.0
- * @return {Object} The formatting settings.
- */
-
-function fcn_defaultFormatting() {
-  return {
-    ...{
-      'font-saturation': 0,
-      'font-color': fictioneer_font_colors[0].css, // Set with wp_localize_script()
-      'font-name': fictioneer_fonts[0].css, // Set with wp_localize_script()
-      'font-size': 100,
-      'letter-spacing': 0.0,
-      'line-height': 1.7,
-      'paragraph-spacing': 1.5,
-      'site-width': fcn_theRoot.dataset.siteWidthDefault ?? '960',
-      'indent': true,
-      'show-sensitive-content': true,
-      'show-chapter-notes': true,
-      'justify': false,
-      'show-comments': true,
-      'show-paragraph-tools': true,
-      'timestamp': 1664797604825 // Used to force resets on script updates
-    },
-    ...JSON.parse(fcn_theRoot.dataset.defaultFormatting ?? '{}')
-  };
-}
-
-// =============================================================================
-// SET FORMATTING
-// =============================================================================
-
-/**
- * Set the formatting settings object and save to local storage.
- *
- * @since 4.0.0
- * @param {Object} value - The formatting settings.
- */
-
-function fcn_setFormatting(value) {
-  // Simple validation
-  if (typeof value !== 'object') {
+// Keep removable reference
+const fcn_chapterKeyboardNavigation = event => {
+  if (
+    ['INPUT', 'TEXTAREA', 'SELECT', 'OPTION'].includes(event.target.tagName) ||
+    event.target.isContentEditable
+  ) {
     return;
   }
 
-  // Keep global updated
-  fcn_formatting = value;
+  const keyMap = {
+    ArrowLeft: 'a.button._navigation._prev',
+    ArrowRight: 'a.button._navigation._next'
+  };
 
-  // Update local storage
-  localStorage.setItem('fcnChapterFormatting', JSON.stringify(value));
+  if (!keyMap[event.code]) {
+    return;
+  }
+
+  const link = _$(keyMap[event.code]);
+
+  if (link?.href) {
+    window.location.href = `${link.href}#start`;
+  }
 }
+
+document.addEventListener('keydown', fcn_chapterKeyboardNavigation);
+
+// =============================================================================
+// SCROLL TO START OF CHAPTER
+// =============================================================================
+
+if (window.location.hash === '#start') {
+  // remove anchor from URL
+  history.replaceState(null, document.title, window.location.pathname);
+
+  // Scroll to beginning of article
+  const targetElement = _$('.chapter__article');
+
+  if (targetElement) {
+    FcnUtils.scrollTo(targetElement, 128);
+  }
+}
+
+// =============================================================================
+// FORMATTING UTILITIES
+// =============================================================================
+
+const FcnFormatting = {
+  eFormattingTarget: _$('.chapter-formatting'),
+
+  /**
+   * Returns default chapter formatting.
+   *
+   * @since 4.0.0
+   * @since 5.27.0 - Folded into FcnFormatting.
+   * @return {Object} Default chapter formatting settings.
+   */
+
+  defaults() {
+    return {
+      ...{
+        'font-saturation': 0,
+        'font-color': FcnGlobals.fontColors[0].css, // Set with wp_localize_script()
+        'font-name': FcnGlobals.fonts[0].css, // Set with wp_localize_script()
+        'font-size': 100,
+        'letter-spacing': 0.0,
+        'line-height': 1.7,
+        'paragraph-spacing': 1.5,
+        'site-width': document.documentElement.dataset.siteWidthDefault ?? '960',
+        'indent': true,
+        'show-sensitive-content': true,
+        'show-chapter-notes': true,
+        'justify': false,
+        'show-comments': true,
+        'show-paragraph-tools': true,
+        'timestamp': 1664797604825
+      },
+      ...FcnUtils.parseJSON(document.documentElement.dataset.defaultFormatting ?? '{}')
+    };
+  },
+
+  /**
+   * Returns chapter formatting from local storage.
+   *
+   * Note: The timestamp can be used to force a reset,
+   * which will absolutely annoy users.
+   *
+   * @since 4.0.0
+   * @since 5.27.0 - Folded into FcnFormatting.
+   * @return {Object} Chapter formatting settings.
+   */
+
+  get() {
+    let formatting = FcnUtils.parseJSON(localStorage.getItem('fcnChapterFormatting')) ?? FcnFormatting.defaults();
+
+    if (Object.keys(formatting).length < 15) {
+      formatting = FcnFormatting.defaults();
+
+      FcnFormatting.set(formatting);
+    }
+
+    if (formatting['timestamp'] < 1651164557584) {
+      formatting = FcnFormatting.defaults();
+      formatting['timestamp'] = Date.now();
+
+      FcnFormatting.set(formatting);
+    }
+
+    return formatting;
+  },
+
+  /**
+   * Save the chapter formatting settings to local storage.
+   *
+   * @since 4.0.0
+   * @since 5.27.0 - Folded into FcnFormatting.
+   * @param {Object} value - Chapter formatting settings.
+   */
+
+  set(value) {
+    if (typeof value === 'object') {
+      localStorage.setItem('fcnChapterFormatting', JSON.stringify(value));
+    }
+  }
+};
 
 // =============================================================================
 // CHAPTER FORMATTING: FONT SIZE
@@ -408,15 +452,15 @@ function fcn_setFormatting(value) {
    * Update font size formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
-   * @see fcn_setFormatting();
    * @param {Number} value - Integer between 50 and 200.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateFontSize(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
-    value = fcn_clamp(50, 200, value ?? 100);
+    value = FcnUtils.clamp(50, 200, value ?? 100);
 
     // Update associated elements
     text.value = value;
@@ -429,10 +473,10 @@ function fcn_setFormatting(value) {
     });
 
     // Update local storage
-    fcn_formatting['font-size'] = value;
+    formatting['font-size'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -453,8 +497,10 @@ function fcn_setFormatting(value) {
    */
 
   function fcn_modifyFontSize() {
+    const formatting = FcnFormatting.get();
+
     fcn_updateFontSize(
-      parseFloat(fcn_formatting['font-size']) + parseFloat(this.dataset.modifier)
+      parseFloat(formatting['font-size']) + parseFloat(this.dataset.modifier)
     );
   }
 
@@ -463,7 +509,7 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateFontSize(100) });
 
   // Listen for font size range input
-  range?.addEventListener('input', fcn_throttle(fcn_setFontSize, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setFontSize, 1000 / 24));
 
   // Listen for font size text input
   text?.addEventListener('input', fcn_setFontSize);
@@ -475,7 +521,8 @@ function fcn_setFormatting(value) {
   _$$$('decrease-font')?.addEventListener('click', fcn_modifyFontSize);
 
   // Initialize
-  fcn_updateFontSize(fcn_formatting['font-size'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontSize(formatting['font-size'], false);
 })();
 
 // =============================================================================
@@ -497,27 +544,28 @@ function fcn_setFormatting(value) {
    * Update font color on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {String} index - Index of the CSS color value to set.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateFontColor(index, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Stay within bounds
-    index = fcn_clamp(0, fictioneer_font_colors.length - 1, index);
+    index = FcnUtils.clamp(0, FcnGlobals.fontColors.length - 1, index);
 
     // Update associated elements
     reset.classList.toggle('_modified', index > 0);
     select.value = index;
 
     // Update inline style
-    fcn_chapterFormatting.style.setProperty('--text-chapter', fictioneer_font_colors[index].css);
+    FcnFormatting.eFormattingTarget.style.setProperty('--text-chapter', FcnGlobals.fontColors[index].css);
 
     // Update local storage
-    fcn_formatting['font-color'] = fictioneer_font_colors[index].css;
+    formatting['font-color'] = FcnGlobals.fontColors[index].css;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -529,8 +577,8 @@ function fcn_setFormatting(value) {
    */
 
   function fcn_setFontColor(step = 1) {
-    let index = (select.selectedIndex + parseInt(step)) % fictioneer_font_colors.length;
-    index = index < 0 ? fictioneer_font_colors.length - 1 : index;
+    let index = (select.selectedIndex + parseInt(step)) % FcnGlobals.fontColors.length;
+    index = index < 0 ? FcnGlobals.fontColors.length - 1 : index;
     fcn_updateFontColor(index);
   }
 
@@ -538,17 +586,18 @@ function fcn_setFormatting(value) {
   reset.onclick = () => { fcn_updateFontColor(0) }
 
   // Listen for font color select input
-  select.onchange = (e) => { fcn_updateFontColor(e.target.value); }
+  select.onchange = (event) => { fcn_updateFontColor(event.target.value); }
 
   // Listen for font color step buttons
   _$$('.font-color-stepper').forEach(element => {
-    element.addEventListener('click', (e) => {
-      fcn_setFontColor(e.currentTarget.value);
+    element.addEventListener('click', (event) => {
+      fcn_setFontColor(event.currentTarget.value);
     });
   });
 
   // Initialize (using the CSS name makes it independent from the array position)
-  fcn_updateFontColor(fictioneer_font_colors.findIndex((item) => { return item.css == fcn_formatting['font-color'] }), false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontColor(FcnGlobals.fontColors.findIndex((item) => { return item.css == formatting['font-color'] }), false);
 })();
 
 // =============================================================================
@@ -570,21 +619,22 @@ function fcn_setFormatting(value) {
    * Update font family on chapters.
    *
    * @since 4.0.0
-   * @see fcn_setFormatting();
    * @param {String} index - Index of the font.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateFontFamily(index, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Stay within bounds
-    index = fcn_clamp(0, fictioneer_fonts.length - 1, index);
+    index = FcnUtils.clamp(0, FcnGlobals.fonts.length - 1, index);
 
     // Prepare font family
-    let fontFamily = fictioneer_fonts[index].css;
+    let fontFamily = FcnGlobals.fonts[index].css;
 
     // Add alternative fonts if any
-    if (fictioneer_fonts[index].alt) {
-      fontFamily = `${fontFamily}, ${fictioneer_fonts[index].alt}`;
+    if (FcnGlobals.fonts[index].alt) {
+      fontFamily = `${fontFamily}, ${FcnGlobals.fonts[index].alt}`;
     }
 
     // Catch non-indexed values
@@ -603,10 +653,10 @@ function fcn_setFormatting(value) {
     });
 
     // Update local storage
-    fcn_formatting['font-name'] = fictioneer_fonts[index].css;
+    formatting['font-name'] = FcnGlobals.fonts[index].css;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -618,8 +668,8 @@ function fcn_setFormatting(value) {
    */
 
   function fcn_setFontFamily(step = 1) {
-    let index = (select.selectedIndex + parseInt(step)) % fictioneer_fonts.length;
-    index = index < 0 ? fictioneer_fonts.length - 1 : index;
+    let index = (select.selectedIndex + parseInt(step)) % FcnGlobals.fonts.length;
+    index = index < 0 ? FcnGlobals.fonts.length - 1 : index;
     fcn_updateFontFamily(index);
   }
 
@@ -637,7 +687,8 @@ function fcn_setFormatting(value) {
   });
 
   // Initialize (using the CSS name makes it independent from the array position)
-  fcn_updateFontFamily(fictioneer_fonts.findIndex((item) => { return item.css == fcn_formatting['font-name'] }), false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontFamily(FcnGlobals.fonts.findIndex((item) => { return item.css == formatting['font-name'] }), false);
 })();
 
 // =============================================================================
@@ -660,15 +711,15 @@ function fcn_setFormatting(value) {
    * Update font saturation formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between -1 and 1.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateFontSaturation(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
-    value = fcn_clamp(-1, 1, value ?? 0);
+    value = FcnUtils.clamp(-1, 1, value ?? 0);
 
     // Update associated elements
     text.value = parseInt(value * 100);
@@ -676,16 +727,16 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != 0);
 
     // Update font saturation property (squared for smooth progression)
-    fcn_chapterFormatting.style.setProperty(
+    FcnFormatting.eFormattingTarget.style.setProperty(
       '--font-saturation',
       `(${value >= 0 ? 1 + value ** 2 : 1 - value ** 2} + var(--font-saturation-offset))`
     );
 
     // Update local storage
-    fcn_formatting['font-saturation'] = value;
+    formatting['font-saturation'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -713,13 +764,14 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateFontSaturation(0) });
 
   // Listen for text saturation range input
-  range?.addEventListener('input', fcn_throttle(fcn_setFontSaturationFromRange, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setFontSaturationFromRange, 1000 / 24));
 
   // Listen for text saturation text input
   text?.addEventListener('input', fcn_setFontSaturationFromText);
 
   // Initialize
-  fcn_updateFontSaturation(fcn_formatting['font-saturation'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateFontSaturation(formatting['font-saturation'], false);
 })();
 
 // =============================================================================
@@ -732,7 +784,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-letter-spacing-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-letter-spacing-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-letter-spacing-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['letter-spacing'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['letter-spacing'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -743,15 +795,15 @@ function fcn_setFormatting(value) {
    * Update letter-spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between -0.1 and 0.2.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateLetterSpacing(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
-    value = fcn_clamp(-0.1, 0.2, value ?? _default);
+    value = FcnUtils.clamp(-0.1, 0.2, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -759,13 +811,13 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != _default);
 
     // Update inline style
-    fcn_chapterFormatting.style.letterSpacing = `calc(${value}em + var(--font-letter-spacing-base))`;
+    FcnFormatting.eFormattingTarget.style.letterSpacing = `calc(${value}em + var(--font-letter-spacing-base))`;
 
     // Update local storage
-    fcn_formatting['letter-spacing'] = value;
+    formatting['letter-spacing'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -783,13 +835,14 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateLetterSpacing(_default) });
 
   // Listen for letter-spacing range input
-  range?.addEventListener('input', fcn_throttle(fcn_setLetterSpacing, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setLetterSpacing, 1000 / 24));
 
   // Listen for letter-spacing text input
   text?.addEventListener('input', fcn_setLetterSpacing);
 
   // Initialize
-  fcn_updateLetterSpacing(fcn_formatting['letter-spacing'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateLetterSpacing(formatting['letter-spacing'], false);
 })();
 
 // =============================================================================
@@ -802,7 +855,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-paragraph-spacing-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-paragraph-spacing-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-paragraph-spacing-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['paragraph-spacing'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['paragraph-spacing'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -813,15 +866,15 @@ function fcn_setFormatting(value) {
    * Update paragraph spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between 0 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateParagraphSpacing(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
-    value = fcn_clamp(0, 3, value ?? _default);
+    value = FcnUtils.clamp(0, 3, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -829,13 +882,13 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != _default);
 
     // Update paragraph-spacing property
-    fcn_chapterFormatting.style.setProperty('--paragraph-spacing', `${value}em`);
+    FcnFormatting.eFormattingTarget.style.setProperty('--paragraph-spacing', `${value}em`);
 
     // Update local storage
-    fcn_formatting['paragraph-spacing'] = value;
+    formatting['paragraph-spacing'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -853,13 +906,14 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateParagraphSpacing(_default) });
 
   // Listen for paragraph spacing range input
-  range?.addEventListener('input', fcn_throttle(fcn_setParagraphSpacing, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setParagraphSpacing, 1000 / 24));
 
   // Listen for paragraph spacing text input
   text?.addEventListener('input', fcn_setParagraphSpacing);
 
   // Initialize
-  fcn_updateParagraphSpacing(fcn_formatting['paragraph-spacing'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateParagraphSpacing(formatting['paragraph-spacing'], false);
 })();
 
 // =============================================================================
@@ -872,7 +926,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-line-height-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-line-height-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-line-height-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['line-height'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['line-height'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -883,15 +937,15 @@ function fcn_setFormatting(value) {
    * Update line height formatting on chapters.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between 0.8 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateLineHeight(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Evaluate
-    value = fcn_clamp(0.8, 3.0, value ?? _default);
+    value = FcnUtils.clamp(0.8, 3.0, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -899,13 +953,13 @@ function fcn_setFormatting(value) {
     reset.classList.toggle('_modified', value != _default);
 
     // Update inline style
-    fcn_chapterFormatting.style.lineHeight = `${value}`;
+    FcnFormatting.eFormattingTarget.style.lineHeight = `${value}`;
 
     // Update local storage
-    fcn_formatting['line-height'] = value;
+    formatting['line-height'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -923,13 +977,14 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateLineHeight(_default) });
 
   // Listen for line height range input
-  range?.addEventListener('input', fcn_throttle(fcn_setLineHeight, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setLineHeight, 1000 / 24));
 
   // Listen for line height text input
   text?.addEventListener('input', fcn_setLineHeight);
 
   // Initialize
-  fcn_updateLineHeight(fcn_formatting['line-height'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateLineHeight(formatting['line-height'], false);
 })();
 
 // =============================================================================
@@ -942,7 +997,7 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-site-width-text');
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-site-width-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-site-width-reset');
-  const /** @const {Number} */ _default = fcn_defaultFormatting()['site-width'];
+  const /** @const {Number} */ _default = FcnFormatting.defaults()['site-width'];
 
   // Abort if nothing to do
   if (!reset) {
@@ -956,18 +1011,18 @@ function fcn_setFormatting(value) {
    * to avoid potential layout issues.
    *
    * @since 4.0.0
-   * @see fcn_clamp();
-   * @see fcn_setFormatting();
    * @param {Number} value - Float between 640 and 1920.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
   function fcn_updateSiteWidth(value, save = true) {
+    const formatting = FcnFormatting.get();
+
     // Target
     const main = _$('main');
 
     // Evaluate
-    value = fcn_clamp(640, 1920, value ?? _default);
+    value = FcnUtils.clamp(640, 1920, value ?? _default);
 
     // Update associated elements
     text.value = value;
@@ -978,16 +1033,16 @@ function fcn_setFormatting(value) {
     main.style.setProperty('--site-width', `${value}px`);
 
     // Toggle utility classes
-    main.classList.toggle('_default-width', value == fcn_theRoot.dataset.siteWidthDefault);
+    main.classList.toggle('_default-width', value == document.documentElement.dataset.siteWidthDefault);
     main.classList.toggle('_below-1024', value < 1024 && value >= 768);
     main.classList.toggle('_below-768', value < 768 && value > 640);
     main.classList.toggle('_640-and-below', value <= 640);
 
     // Update local storage
-    fcn_formatting['site-width'] = value;
+    formatting['site-width'] = value;
 
     if (save) {
-      fcn_setFormatting(fcn_formatting);
+      FcnFormatting.set(formatting);
     }
   }
 
@@ -1005,13 +1060,14 @@ function fcn_setFormatting(value) {
   reset?.addEventListener('click', () => { fcn_updateSiteWidth(_default) });
 
   // Listen for site width range input
-  range?.addEventListener('input', fcn_throttle(fcn_setSiteWidth, 1000 / 24));
+  range?.addEventListener('input', FcnUtils.throttle(fcn_setSiteWidth, 1000 / 24));
 
   // Listen for site width text input
   text?.addEventListener('input', fcn_setSiteWidth);
 
   // Initialize
-  fcn_updateSiteWidth(fcn_formatting['site-width'], false);
+  const formatting = FcnFormatting.get();
+  fcn_updateSiteWidth(formatting['site-width'], false);
 })();
 
 // =============================================================================
@@ -1022,8 +1078,6 @@ function fcn_setFormatting(value) {
  * Update formatting and toggles on chapters.
  *
  * @since 5.9.4
- * @see fcn_evaluateAsBoolean();
- * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
  * @param {String} selector - The selector of the toggle.
  * @param {String} setting - The name of the setting.
@@ -1031,11 +1085,13 @@ function fcn_setFormatting(value) {
  */
 
 function fcn_updateToggle(value, selector, setting, args = {}) {
+  const formatting = FcnFormatting.get();
+
   // Defaults
   args = {...{ save: true }, ...args};
 
   // Evaluate
-  const checked = fcn_evaluateAsBoolean(value, true);
+  const checked = Boolean(value);
   const cb = _$(selector);
 
   // Update associated checkbox
@@ -1046,7 +1102,7 @@ function fcn_updateToggle(value, selector, setting, args = {}) {
 
   // Toggle classes on chapter content
   if (args.toggleClass) {
-    fcn_chapterFormatting.classList.toggle(args.toggleClass, args.invertClass ? !checked : checked);
+    FcnFormatting.eFormattingTarget.classList.toggle(args.toggleClass, args.invertClass ? !checked : checked);
   }
 
   // Case: Sensitive content
@@ -1072,10 +1128,10 @@ function fcn_updateToggle(value, selector, setting, args = {}) {
   }
 
   // Update local storage
-  fcn_formatting[setting] = checked;
+  formatting[setting] = checked;
 
   if (args.save) {
-    fcn_setFormatting(fcn_formatting);
+    FcnFormatting.set(formatting);
   }
 }
 
@@ -1091,7 +1147,8 @@ _$$('#reader-settings-indent-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- JUSTIFY ---------------------------------------------------------------
@@ -1106,7 +1163,8 @@ _$$('#reader-settings-justify-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- PARAGRAPH TOOLS -------------------------------------------------------
@@ -1120,7 +1178,8 @@ _$$('#reader-settings-paragraph-tools-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, { save: false });
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, { save: false });
 });
 
 // --- FOREWORD/AFTERWORD/WARNINGS -------------------------------------------
@@ -1135,7 +1194,8 @@ _$$('#reader-settings-chapter-notes-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- COMMENTS --------------------------------------------------------------
@@ -1150,7 +1210,8 @@ _$$('#reader-settings-comments-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
 
 // --- SENSITIVE CONTENT -----------------------------------------------------
@@ -1165,151 +1226,6 @@ _$$('#reader-settings-sensitive-content-toggle').forEach(toggle => {
   }
 
   // Initialize
-  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+  const formatting = FcnFormatting.get();
+  fcn_updateToggle(formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
 });
-
-// =============================================================================
-// READING PROGRESS BAR
-// =============================================================================
-
-const /** @const {HTMLElement} */ fcn_progressBar = _$('.progress__bar');
-const /** @const {HTMLElement} */ fcn_chapterContent = _$$$('chapter-content');
-
-var /** @type {Boolean} */ fcn_chapterCheckmarkUpdated = false;
-
-// Initialize
-if (_$('article:not(._password)')) {
-  fcn_trackProgress();
-}
-
-/**
- * Checks whether this is a chapter, then adds a throttled event listener to a
- * custom scroll event that is tied to request animation frame.
- *
- * @since 4.0.0
- * @see fcn_readingProgress()
- * @see fcn_bindEventToAnimationFrame()
- */
-
-function fcn_trackProgress() {
-  if (!fcn_chapterContent) {
-    return;
-  }
-
-  fcn_readingProgress();
-  window.addEventListener('scroll.rAF', fcn_throttle(fcn_readingProgress, 1000 / 48));
-}
-
-/**
- * Calculates the approximate reading progress based on the scroll offset of the
- * chapter and visualizes that information as filling bar at the top. If the end
- * of the chapter is reached, the chapter is marked as read for logged-in users.
- *
- * @since 4.0.0
- * @see fcn_toggleCheckmark()
- * @see fcn_clamp()
- */
-
-function fcn_readingProgress() {
-  // Do nothing if minimal is enabled or the progress bar disabled
-  if (fcn_settingMinimal.checked || !fcn_settingChapterProgressBar.checked) {
-    return;
-  }
-
-  // Setup
-  const rect = fcn_chapterContent.getBoundingClientRect();
-  const height = rect.height;
-  const viewPortHeight = window.innerHeight;
-  const w = (height - rect.bottom - Math.max(rect.top, 0) + viewPortHeight);
-
-  let p = 100 * w / height;
-
-  // Show progress bar depending on progress
-  fcn_theBody.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
-
-  // Clamp percent between 0 and 100
-  p = fcn_clamp(0, 100, p);
-
-  // Apply the percentage to the bar fill
-  fcn_progressBar.style.width = `${p}%`;
-
-  // If end of chapter has been reached and the user is logged in...
-  if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn_isLoggedIn) {
-    const storyId = fcn_theBody.dataset.storyId;
-
-    // Only do this once per page load
-    fcn_chapterCheckmarkUpdated = true;
-
-    // Make sure necessary data is available
-    if (!storyId || typeof fcn_toggleCheckmark != 'function') {
-      return;
-    }
-
-    // Mark chapter as read
-    fcn_toggleCheckmark(storyId, 'progress', parseInt(fcn_theBody.dataset.postId), null, 'set');
-  }
-}
-
-// =============================================================================
-// SETUP CHAPTER INDEX DIALOG MODAL
-// =============================================================================
-
-_$('[data-click-action*="toggle-chapter-index-order"]')?.addEventListener('click', event => {
-  const wrapper = event.currentTarget.closest('.chapter-index');
-  wrapper.dataset.order = wrapper.dataset.order === 'asc' ? 'desc' : 'asc';
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const chapterIndex = _$('.chapter-index');
-  const postId = chapterIndex.closest('dialog').dataset.postId ?? 0;
-
-  if (chapterIndex) {
-    chapterIndex.querySelector(`[data-id="${postId}"]`)?.classList.add('current');
-  }
-});
-
-// =============================================================================
-// KEYBOARD NAVIGATION
-// =============================================================================
-
-// Keep removable reference
-const fcn_chapterKeyboardNavigation = event => {
-  const editableTags = ['INPUT', 'TEXTAREA', 'SELECT', 'OPTION'];
-
-  // Abort if inside input...
-  if (editableTags.includes(event.target.tagName) || event.target.isContentEditable) {
-    return;
-  }
-
-  let link = null;
-
-  // Check if arrow keys were pressed...
-  if (event.code === 'ArrowLeft') {
-    link = _$('a.button._navigation._prev');
-  } else if (event.code === 'ArrowRight') {
-    link = _$('a.button._navigation._next');
-  }
-
-  // Change page with scroll anchor
-  if (link && link.href) {
-    window.location.href = link + '#start';
-  }
-}
-
-document.addEventListener('keydown', fcn_chapterKeyboardNavigation);
-
-// =============================================================================
-// SCROLL TO START OF CHAPTER
-// =============================================================================
-
-if (window.location.hash === '#start') {
-  // remove anchor from URL
-  history.replaceState(null, document.title, window.location.pathname);
-
-  // Scroll to beginning of article
-  const targetElement = _$('.chapter__article');
-
-  if (targetElement) {
-    fcn_scrollTo(targetElement, 128);
-  }
-}

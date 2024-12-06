@@ -301,8 +301,6 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
  * @since 4.7.0
  * @link https://developer.wordpress.org/reference/hooks/comment_post/
  * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/comment.php
- * @see add_comment_meta()
- * @see filter_var()
  *
  * @param int        $comment_id        The comment ID.
  * @param int|string $comment_approved  1 if the comment is approved, 0 if not, 'spam' if spam.

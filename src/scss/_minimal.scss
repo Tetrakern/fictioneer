@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 :root.minimal {
   --layout-spacing-horizontal-minimal: 10px;
   --layout-spacing-vertical-minimal: 10px;

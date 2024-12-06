@@ -21,7 +21,7 @@ var /** @type {SpeechSynthesis} */ fcn_synth;
 if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
   fcn_synth = window.speechSynthesis;
   fcn_utter = new SpeechSynthesisUtterance();
-  fcn_utter.lang = fcn_theRoot.lang;
+  fcn_utter.lang = document.documentElement.lang;
 
   // Some browsers do not support the voiceschanged event,
   // so we just wait for two seconds and hope for the best!
@@ -78,13 +78,11 @@ function fcn_setTTSsettings(value) {
  * found, an empty settings JSON is created and returned.
  *
  * @since 3.0
- * @see fcn_parseJSON()
- * @see fcn_setTTSsettings()
  */
 
 function fcn_getTTSsettings() {
   // Get JSON string from local storage
-  const settings = fcn_parseJSON(localStorage.getItem('ttsSettings')) ?? {};
+  const settings = FcnUtils.parseJSON(localStorage.getItem('ttsSettings')) ?? {};
 
   // Set up locals
   fcn_setTTSsettings(settings);
@@ -193,7 +191,7 @@ function fcn_updateVoice(id) {
 
 function fcn_updateVolume(value) {
   value = isNaN(value) ? 100 : parseInt(value);
-  value = fcn_clamp(0, 100, value);
+  value = FcnUtils.clamp(0, 100, value);
 
   _$$$('tts-volume-range').value = value;
   _$$$('tts-volume-text').value = value;
@@ -214,7 +212,7 @@ function fcn_updateVolume(value) {
 
 function fcn_updatePitch(value) {
   value = isNaN(value) ? 1.0 : parseFloat(value);
-  value = fcn_clamp(0.2, 1.8, value);
+  value = FcnUtils.clamp(0.2, 1.8, value);
 
   _$$$('tts-pitch-range').value = value;
   _$$$('tts-pitch-text').value = value;
@@ -235,7 +233,7 @@ function fcn_updatePitch(value) {
 
 function fcn_updateRate(value) {
   value = isNaN(value) ? 1.0 : parseFloat(value);
-  value = fcn_clamp(0.2, 1.8, value);
+  value = FcnUtils.clamp(0.2, 1.8, value);
 
   _$$$('tts-rate-range').value = value;
   _$$$('tts-rate-text').value = value;
@@ -356,7 +354,7 @@ if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
     fcn_readTextStack();
 
     // Show interface
-    fcn_theBody.classList.add('tts-open');
+    document.body.classList.add('tts-open');
     fcn_ttsInterface.classList.remove('hidden', 'ended', 'paused');
     fcn_ttsInterface.classList.add('playing');
     playButton.focus();
@@ -369,7 +367,7 @@ if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
 
     fcn_ttsInterface.classList.add('hidden', 'ended');
     fcn_ttsInterface.classList.remove('playing', 'paused');
-    fcn_theBody.classList.remove('tts-open');
+    document.body.classList.remove('tts-open');
 
     if (current) {
       current.classList.remove('current-reading');
@@ -418,7 +416,7 @@ if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
   _$$$('button-tts-scroll')?.addEventListener(
     'click',
     () => {
-      fcn_scrollTo(_$(`p[id="${fcn_currentReadingId}"]`), 128)
+      FcnUtils.scrollTo(_$(`p[id="${fcn_currentReadingId}"]`), 128)
     }
   );
 

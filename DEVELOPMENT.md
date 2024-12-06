@@ -129,7 +129,9 @@ font-size: clamp(1.35em, 1vw + 18.4px, 1.75em); // CSS
 
 ## JavaScript
 
-Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard dependencies, *especially* not jQuery which is to be avoided like the plague. Bad enough that WordPress and most plugins insist on the performance hog. If you need something from an external library, just copy the functions and credit the source. Avoid additional overhead. There is also an argument for refactoring the JS into classes and modules. But since everything is already working, this would be a labor of passion without immediate benefit.
+~~Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard dependencies, *especially* not jQuery which is to be avoided like the plague. Bad enough that WordPress and most plugins insist on the performance hog. If you need something from an external library, just copy the functions and credit the source. Avoid additional overhead. There is also an argument for refactoring the JS into classes and modules. But since everything is already working, this would be a labor of passion without immediate benefit.~~
+
+As of 5.27.0, the theme uses [Stimulus](https://stimulus.hotwired.dev/). This section will be updated in the future.
 
 ### Libraries
 
@@ -145,7 +147,6 @@ Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard depende
 
 * **scroll.rAF:** Window scroll event bound to [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
 * **resize.rAF:** Window resize event bound to [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
-* **fcnAuthReady:** Fires when the user has been successfully authenticated via AJAX.
 * **fcnUserDataReady:** Fires when the user data has been successfully fetched via AJAX.
 * **fcnUserDataFailed:** Fires when the user data could not be fetched via AJAX.
 * **fcnUserDataError:** Fires when there was an error while fetching the user data via AJAX.
@@ -155,10 +156,10 @@ Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard depende
 AJAX requests can be made with the theme’s [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) helper functions, returning an object parsed from a JSON response. For that to work, the server must always respond with a JSON (which can contain an HTML node, of course). You can use [wp_send_json_success()](https://developer.wordpress.org/reference/functions/wp_send_json_success/) and [wp_send_json_error()](https://developer.wordpress.org/reference/functions/wp_send_json_error/) for this, making it easier to evaluate the result client-side.
 
 ```js
-fcn_ajaxGet(
+FcnUtils.aGet(
   {
     'action': 'fictioneer_ajax_your_function',
-    'nonce': fcn_getNonce(), // Optional
+    'nonce': FcnUtils.nonce(), // Optional
     'payload': 'foobar'
   },
   null, // Optional AJAX URL
@@ -173,10 +174,10 @@ fcn_ajaxGet(
 ```
 
 ```js
-fcn_ajaxPost(
+FcnUtils.aPost(
   {
     'action': 'fictioneer_ajax_your_function',
-    'nonce': fcn_getNonce(), // Optional
+    'nonce': FcnUtils.nonce(), // Optional
     'payload': 'foobar'
   },
   null, // Optional AJAX URL
@@ -310,14 +311,14 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `trashed_post` | `fictioneer_refresh_post_caches` (20), `fictioneer_track_chapter_and_story_updates` (10), `fictioneer_update_modified_date_on_story_for_chapter` (10), `fictioneer_purge_transients_after_update` (10), `fictioneer_remove_chapter_from_story` (10)
 | `untrash_post` | `fictioneer_refresh_post_caches` (20), `fictioneer_track_chapter_and_story_updates` (10), `fictioneer_update_modified_date_on_story_for_chapter` (10), `fictioneer_purge_transients_after_update` (10)
 | `update_option_*` | `fictioneer_update_option_disable_extended_chapter_list_meta_queries` (10), `fictioneer_update_option_disable_extended_story_list_meta_queries` (10)
-| `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks` (10), `fictioneer_ajax_clear_my_comments` (10), `fictioneer_ajax_clear_my_comment_subscriptions` (10), `fictioneer_ajax_clear_my_follows` (10), `fictioneer_ajax_clear_my_reminders` (10), `fictioneer_ajax_delete_epub` (10), `fictioneer_ajax_delete_my_account` (10), `fictioneer_ajax_delete_my_comment` (10), `fictioneer_ajax_edit_comment` (10), `fictioneer_ajax_get_avatar` (10), `fictioneer_ajax_get_comment_form` (10), `fictioneer_ajax_get_comment_section` (10), `fictioneer_ajax_get_finished_checkmarks_list` (10), `fictioneer_ajax_get_follows_list` (10), `fictioneer_ajax_get_follows_notifications` (10), `fictioneer_ajax_get_reminders_list` (10), `fictioneer_ajax_mark_follows_read` (10), `fictioneer_ajax_moderate_comment` (10), `fictioneer_ajax_report_comment` (10), `fictioneer_ajax_save_bookmarks` (10), `fictioneer_ajax_set_checkmark` (10), `fictioneer_ajax_submit_comment` (10), `fictioneer_ajax_toggle_follow` (10), `fictioneer_ajax_toggle_reminder` (10), `fictioneer_ajax_unset_my_oauth` (10), `fictioneer_ajax_get_user_data` (10), `fictioneer_ajax_get_auth` (10), `fictioneer_ajax_purge_schema` (10), `fictioneer_ajax_purge_all_schemas` (10), `fictioneer_ajax_reset_theme_colors` (10), `fictioneer_ajax_search_posts_to_unlock` (10), `fictioneer_ajax_get_chapter_group_options` (10)
-| `wp_ajax_nopriv_*` | `fictioneer_ajax_get_comment_form` (10), `fictioneer_ajax_get_comment_section` (10), `fictioneer_ajax_submit_comment` (10), `fictioneer_ajax_get_auth` (10)
+| `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks` (10), `fictioneer_ajax_clear_my_comments` (10), `fictioneer_ajax_clear_my_comment_subscriptions` (10), `fictioneer_ajax_clear_my_follows` (10), `fictioneer_ajax_clear_my_reminders` (10), `fictioneer_ajax_delete_epub` (10), `fictioneer_ajax_delete_my_account` (10), `fictioneer_ajax_delete_my_comment` (10), `fictioneer_ajax_edit_comment` (10), `fictioneer_ajax_get_comment_form` (10), `fictioneer_ajax_get_comment_section` (10), `fictioneer_ajax_get_finished_checkmarks_list` (10), `fictioneer_ajax_get_follows_list` (10), `fictioneer_ajax_get_follows_notifications` (10), `fictioneer_ajax_get_reminders_list` (10), `fictioneer_ajax_mark_follows_read` (10), `fictioneer_ajax_moderate_comment` (10), `fictioneer_ajax_report_comment` (10), `fictioneer_ajax_save_bookmarks` (10), `fictioneer_ajax_set_checkmark` (10), `fictioneer_ajax_submit_comment` (10), `fictioneer_ajax_toggle_follow` (10), `fictioneer_ajax_toggle_reminder` (10), `fictioneer_ajax_unset_my_oauth` (10), `fictioneer_ajax_get_user_data` (10), `fictioneer_ajax_purge_schema` (10), `fictioneer_ajax_purge_all_schemas` (10), `fictioneer_ajax_reset_theme_colors` (10), `fictioneer_ajax_search_posts_to_unlock` (10), `fictioneer_ajax_get_chapter_group_options` (10), `fictioneer_ajax_clear_cookies` (10)
+| `wp_ajax_nopriv_*` | `fictioneer_ajax_get_comment_form` (10), `fictioneer_ajax_get_comment_section` (10), `fictioneer_ajax_submit_comment` (10), `fictioneer_ajax_get_user_data` (10)
 | `wp_before_admin_bar_render` | `fictioneer_remove_admin_bar_links` (10), `fictioneer_remove_dashboard_from_admin_bar` (10), `fictioneer_remove_comments_from_admin_bar` (10)
 | `wp_dashboard_setup` | `fictioneer_remove_dashboard_widgets` (10)
 | `wp_default_scripts` | `fictioneer_remove_jquery_migrate` (10)
 | `wp_enqueue_scripts` | `fictioneer_add_custom_scripts` (10), `fictioneer_style_queue` (10), `fictioneer_output_customize_css` (9999), `fictioneer_output_customize_preview_css` (9999), `fictioneer_elementor_override_styles` (9999)
 | `wp_footer` | `fictioneer_render_category_submenu` (10), `fictioneer_render_tag_submenu` (10), `fictioneer_render_genre_submenu` (10), `fictioneer_render_fandom_submenu` (10), `fictioneer_render_character_submenu` (10), `fictioneer_render_warning_submenu` (10)
-| `wp_head` | `fictioneer_output_head_seo` (5), `fictioneer_output_rss` (10), `fictioneer_output_schemas` (10), `fictioneer_add_fiction_css` (10), `fictioneer_output_head_fonts` (5), `fictioneer_output_head_translations` (10), `fictioneer_remove_mu_registration_styles` (1), `fictioneer_output_mu_registration_style` (10), `fictioneer_output_head_meta` (1), `fictioneer_output_head_critical_scripts` (9999). `fictioneer_output_head_anti_flicker` (10), `fictioneer_cleanup_discord_meta` (10), `fictioneer_output_critical_skin_scripts` (9999)
+| `wp_head` | `fictioneer_output_head_seo` (5), `fictioneer_output_rss` (10), `fictioneer_output_schemas` (10), `fictioneer_add_fiction_css` (10), `fictioneer_output_head_fonts` (5), `fictioneer_output_head_translations` (10), `fictioneer_remove_mu_registration_styles` (1), `fictioneer_output_mu_registration_style` (10), `fictioneer_output_head_meta` (1), `fictioneer_output_head_critical_scripts` (9999). `fictioneer_output_head_anti_flicker` (10), `fictioneer_cleanup_discord_meta` (10), `fictioneer_output_critical_skin_scripts` (9999), `fictioneer_output_stimulus` (5)
 | `wp_insert_comment` | `fictioneer_delete_cached_story_card_by_comment` (10), `fictioneer_increment_story_comment_count` (10)
 | `wp_logout` | `fictioneer_remove_logged_in_cookie` (10)
 | `wp_update_nav_menu` | `fictioneer_purge_nav_menu_transients` (10)

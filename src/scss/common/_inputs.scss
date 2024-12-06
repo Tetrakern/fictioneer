@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 :where(input, textarea, button, select) {
   -webkit-appearance: none;
   appearance: none;
@@ -72,15 +76,16 @@ select {
   color: var(--input-color);
   border: none;
   border-radius: var(--input-border-radius, var(--layout-border-radius-small));
-  box-shadow: var(--input-shadow);
+  box-shadow: var(--input-shadow, 0 0 transparent), var(--input-validation-shadow, 0 0 transparent);
 
   // Only iOS
   @supports (-webkit-touch-callout: none) {
     font-size: 16px; // Prevent zoom-in
   }
 
-  &[disabled] {
+  &:is([disabled], ._disabled) {
     cursor: not-allowed;
+    pointer-events: none;
     background: var(--input-background-disabled);
     color: var(--input-color-disabled);
   }

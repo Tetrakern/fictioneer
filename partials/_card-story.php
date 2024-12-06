@@ -104,8 +104,10 @@ if ( $card_cache_active ) {
 <li
   id="story-card-<?php echo $post_id; ?>"
   class="post-<?php echo $post_id; ?> card _large _story <?php echo implode( ' ', $card_classes ); ?>"
-  data-story-id="<?php echo $post_id; ?>"
-  data-check-id="<?php echo $post_id; ?>"
+  data-controller="fictioneer-large-card"
+  data-fictioneer-large-card-post-id-value="<?php echo $post_id; ?>"
+  data-fictioneer-large-card-story-id-value="<?php echo $post_id; ?>"
+  data-action="click->fictioneer-large-card#cardClick"
   <?php echo $card_attributes; ?>
 >
   <div class="card__body polygon">

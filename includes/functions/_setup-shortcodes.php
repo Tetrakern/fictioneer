@@ -1059,8 +1059,8 @@ function fictioneer_shortcode_cookie_buttons( $attr ) {
 
   // Start HTML ---> ?>
   <div class="cookies spacing-top spacing-bottom ">
-    <button type="button" data-click="reset-consent" class="button"><?php _e( 'Reset Consent', 'fictioneer' ); ?></button>
-    <button type="button" data-click="clear-cookies" data-message="<?php _e( 'Cookies and local storage have been cleared. To keep it that way, you should leave the site.', 'fictioneer' ); ?>" class="button"><?php _e( 'Clear Cookies', 'fictioneer' ); ?></button>
+    <button type="button" data-action="click->fictioneer#clearConsent" class="button"><?php _e( 'Reset Consent', 'fictioneer' ); ?></button>
+    <button type="button" data-action="click->fictioneer#clearCookies" data-message="<?php _e( 'Cookies and local storage have been cleared. To keep it that way, you should leave the site.', 'fictioneer' ); ?>" class="button"><?php _e( 'Clear Cookies', 'fictioneer' ); ?></button>
   </div>
   <?php // <--- End HTML
 
@@ -1076,7 +1076,6 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  * Returns empty chapter list
  *
  * @since 5.9.4
- * @see fictioneer_shortcode_chapter_list()
  *
  * @param string|null $attr['heading']  Optional. Show <h5> heading above list.
  *
@@ -1089,7 +1088,7 @@ function fictioneer_shortcode_chapter_list_empty( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group chapter-list _standalone _empty">
     <?php if ( ! empty( $attr['heading'] ) ) : ?>
-      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $attr['heading'] ) ); ?>" tabindex="0">
+      <button class="chapter-group__name" data-action="click->fictioneer#toggleChapterGroup" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $attr['heading'] ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $attr['heading']; ?></span>
       </button>
@@ -1107,8 +1106,6 @@ function fictioneer_shortcode_chapter_list_empty( $attr ) {
  * Shortcode to show chapter list outside of story pages
  *
  * @since 5.0.0
- * @see fictioneer_validate_id()
- * @see fictioneer_get_story_data()
  *
  * @param string      $attr['story_id']     Either/Or. The ID of the story the chapters belong to.
  * @param string|null $attr['chapter_ids']  Either/Or. Comma-separated list of chapter IDs.
@@ -1221,7 +1218,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group chapter-list _standalone <?php echo esc_attr( $classes ); ?>">
     <?php if ( $heading ) : ?>
-      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $heading ) ); ?>" tabindex="0">
+      <button class="chapter-group__name" data-action="click->fictioneer#toggleChapterGroup" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $heading ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $heading; ?></span>
       </button>
@@ -1328,10 +1325,11 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
               <button
-                class="checkmark chapter-group__list-item-checkmark"
-                data-type="chapter"
-                data-story-id="<?php echo $chapter_story_id; ?>"
-                data-id="<?php echo $chapter_id; ?>"
+                class="checkmark chapter-group__list-item-checkmark only-logged-in"
+                data-fictioneer-checkmarks-target="chapterCheck"
+                data-fictioneer-checkmarks-story-param="<?php echo $chapter_story_id; ?>"
+                data-fictioneer-checkmarks-chapter-param="<?php echo $chapter_id; ?>"
+                data-action="click->fictioneer-checkmarks#toggleChapter"
                 role="checkbox"
                 aria-checked="false"
                 aria-label="<?php
@@ -2111,7 +2109,7 @@ function fictioneer_shortcode_subscribe_button( $attr ) {
   // Build and return button
   if ( ! empty( $subscribe_buttons ) ) {
     return sprintf(
-      '<div class="toggle-last-clicked subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last ' . esc_attr( $classes ) . '" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
+      '<div class="subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last ' . esc_attr( $classes ) . '" tabindex="0" role="button" aria-label="%s" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
       fcntr( 'subscribe', true ),
       fcntr( 'subscribe' ),
       $subscribe_buttons

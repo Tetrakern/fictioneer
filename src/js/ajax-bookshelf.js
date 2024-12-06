@@ -6,13 +6,9 @@ const fcn_bookshelfTarget = _$$$('ajax-bookshelf-target');
 
 // Initialize
 if (fcn_bookshelfTarget) {
-  if (fcn_theRoot.dataset.ajaxAuth) {
-    document.addEventListener('fcnAuthReady', () => {
-      fcn_updateBookshelfView();
-    });
-  } else {
+  document.addEventListener('fcnUserDataReady', () => {
     fcn_updateBookshelfView();
-  }
+  });
 }
 
 // =============================================================================
@@ -23,11 +19,10 @@ if (fcn_bookshelfTarget) {
  * Get bookshelf content from web storage or create new JSON.
  *
  * @since 4.3.0
- * @see fcn_parseJSON()
  */
 
 function fcn_getBookshelfContent() {
-  return fcn_parseJSON(localStorage.getItem('fcnBookshelfContent')) ?? { html: {}, count: {} };
+  return FcnUtils.parseJSON(localStorage.getItem('fcnBookshelfContent')) ?? { html: {}, count: {} };
 }
 
 // =============================================================================
@@ -104,7 +99,7 @@ function fcn_browseBookshelfPage(page) {
   history.pushState(
     {},
     '',
-    fcn_buildUrl({
+    FcnUtils.buildUrl({
       tab: fcn_bookshelfTarget.dataset.tab,
       pg: page,
       order: fcn_bookshelfTarget.dataset.order
@@ -131,7 +126,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
   const storage = fcn_getBookshelfContent();
 
   // Request
-  fcn_ajaxGet({
+  FcnUtils.aGet({
     'action': action,
     'fcn_fast_ajax': 1,
     'page': page,
@@ -152,7 +147,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
       _$('.item-number').innerHTML = `(${response.data.count})`;
     } else {
       fcn_bookshelfTarget.innerHTML = '';
-      fcn_bookshelfTarget.appendChild(fcn_buildErrorNotice(response.data.error));
+      fcn_bookshelfTarget.appendChild(FcnUtils.buildErrorNotice(response.data.error));
     }
   })
   .catch(error => {
@@ -161,7 +156,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
     fcn_bookshelfTarget.innerHTML = '';
 
     // Add error message
-    fcn_bookshelfTarget.appendChild(fcn_buildErrorNotice(`${error.status}: ${error.statusText}`));
+    fcn_bookshelfTarget.appendChild(FcnUtils.buildErrorNotice(`${error.status}: ${error.statusText}`));
   })
   .then(() => {
     // Regardless of outcome

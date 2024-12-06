@@ -1,6 +1,6 @@
-@import 'common/_functions';
-@import 'common/_mixins';
-@import 'common/_variables';
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
 
 .comment-section {
   --layout-link-color-hover: var(--comment-link-color-hover, var(--fg-300));
@@ -50,7 +50,7 @@
     font-size: var(--fs-xs);
     text-align: center;
 
-    :is(label, a) {
+    :is(label, a, button) {
       font-weight: 600;
       transition: color var(--transition-duration);
 
@@ -66,6 +66,12 @@
 
       textarea {
         filter: var(--ajax-in-progress-filter, blur(1px));
+      }
+    }
+
+    &._invalid {
+      input:invalid {
+        --input-validation-shadow: inset 0 0 0 2px var(--red-500);
       }
     }
 
@@ -86,7 +92,7 @@
       background: var(--input-background);
       border-radius: var(--layout-border-radius-small);
       transition: filter var(--transition-duration); // AJAX
-      box-shadow: var(--input-shadow);
+      box-shadow: var(--input-shadow, 0 0 transparent), var(--input-validation-shadow, 0 0 transparent);
     }
 
     .notice {
@@ -301,7 +307,7 @@
   contain: layout style; // Improve performance
 
   &.parent .children {
-    button:is([data-action=sticky], [data-action=unsticky]) {
+    button:is([data-action*="#sticky"], [data-action*="#unsticky"]) {
       display: none;
     }
   }
@@ -324,7 +330,7 @@
       margin-top: 0;
     }
 
-    button:is([data-action=sticky], [data-action=approve], [data-action=unapprove], [data-action=offensive], [data-action=unoffensive]) {
+    button:is([data-action*="#sticky"], [data-action*="#approve"], [data-action*="#unapprove"], [data-action*="#offensive"], [data-action*="#unoffensive"]) {
       display: none;
     }
   }
@@ -350,25 +356,25 @@
   &._unapproved > .fictioneer-comment__container {
     color: var(--fg-800);
 
-    :is([data-action=unapprove], .fictioneer-comment__actions) {
+    :is([data-action*="#unapprove"], .fictioneer-comment__actions) {
       display: none;
     }
   }
 
   &:not(._unapproved) > .fictioneer-comment__container {
-    :is([data-action=approve], .moderation-note-unapproved) {
+    :is([data-action*="#approve"], .moderation-note-unapproved) {
       display: none;
     }
   }
 
   &._offensive > .fictioneer-comment__container {
-    [data-action=offensive] {
+    [data-action*="#offensive"] {
       display: none;
     }
   }
 
   &:not(._offensive) > .fictioneer-comment__container {
-    :is([data-action=unoffensive], .moderation-note-offensive) {
+    :is([data-action*="#unoffensive"], .moderation-note-offensive) {
       display: none;
     }
   }
@@ -381,7 +387,7 @@
       border: var(--comment-border-sticky);
     }
 
-    [data-action=sticky] {
+    [data-action*="#sticky"] {
       display: none;
     }
 
@@ -401,13 +407,13 @@
   }
 
   &:not(._sticky) {
-    :is([data-action=unsticky], .sticky-pin) {
+    :is([data-action*="#unsticky"], .sticky-pin) {
       display: none;
     }
   }
 
   &._closed {
-    > .fictioneer-comment__container :is([data-action=close], .fictioneer-comment__edit-toggle),
+    > .fictioneer-comment__container :is([data-action*="#close"], .fictioneer-comment__edit-toggle),
     .fictioneer-comment__actions {
       display: none;
     }
@@ -420,7 +426,7 @@
   }
 
   &:not(._closed) > .fictioneer-comment__container {
-    :is([data-action=open], .closed-icon) {
+    :is([data-action*="#open"], .closed-icon) {
       display: none;
     }
   }

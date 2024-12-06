@@ -1,6 +1,6 @@
-@import '../common/functions';
-@import '../common/mixins';
-@import '../common/variables';
+@use '../common/functions' as *;
+@use '../common/mixins' as *;
+@use '../common/variables' as *;
 
 // =============================================================================
 // GLOBAL PROPERTIES

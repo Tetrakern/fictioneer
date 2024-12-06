@@ -26,6 +26,14 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
 $order_link = add_query_arg( 'corder', $order === 'desc' ? 'asc' : 'desc', home_url( $wp->request ) ) . '#comments';
 $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
 
+// Edit template
+if (
+  get_option( 'fictioneer_enable_user_comment_editing' ) &&
+  ! fictioneer_is_commenting_disabled()
+) {
+  get_template_part( 'partials/_template_comment_edit' );
+}
+
 ?>
 
 <div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo $post_id; ?>" data-order="<?php echo $order; ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>" <?php echo $is_ajax_comments ? 'data-ajax-comments' : ''; ?>><?php
@@ -62,7 +70,11 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
       if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
         fictioneer_comments_ajax_form_skeleton();
       } else {
-        comment_form();
+        if ( get_option( 'fictioneer_disable_comment_form' ) ) {
+          comment_form();
+        } else {
+          fictioneer_comment_form();
+        }
       }
     } else {
       echo '<div class="fictioneer-comments__disabled">' . __( 'Commenting is disabled.', 'fictioneer' ) . '</div>';
@@ -80,6 +92,9 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
 
     // Count all comments regardless of status
     $count = count( $comments );
+
+    // Moderation menu template
+    fictioneer_comment_moderation_template();
 
     // Comment list
     if (
@@ -104,13 +119,4 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
       the_comments_pagination( $pag_args );
     }
   }
-
-  // Edit template
-  if (
-    get_option( 'fictioneer_enable_user_comment_editing' ) &&
-    ! fictioneer_is_commenting_disabled()
-  ) {
-    get_template_part( 'partials/_template_comment_edit' );
-  }
-
 ?></div>

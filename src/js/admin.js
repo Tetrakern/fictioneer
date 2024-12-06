@@ -1,32 +1,4 @@
 // =============================================================================
-// PROGRESSIVE ACTIONS
-// =============================================================================
-
-/**
- * Toggles progression state of an element.
- *
- * @since 5.7.2
- * @param {HTMLElement} element - The element.
- * @param {Boolean|null} force - Whether to disable or enable. Defaults to
- *                               the opposite of the current state.
- */
-
-function fcn_toggleInProgress(element, force = null) {
-  force = force !== null ? force : !element.disabled;
-
-  if (force) {
-    element.dataset.enableWith = element.innerHTML;
-    element.innerHTML = element.dataset.disableWith;
-    element.disabled = true;
-    element.classList.add('disabled');
-  } else {
-    element.innerHTML = element.dataset.enableWith;
-    element.disabled = false;
-    element.classList.remove('disabled');
-  }
-}
-
-// =============================================================================
 // SCHEMAS
 // =============================================================================
 
@@ -46,7 +18,7 @@ function fcn_purgeSchema(post_id) {
   actions.remove();
 
   // Request
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_purge_schema',
     'nonce': document.getElementById('fictioneer_admin_nonce').value,
     'post_id': post_id
@@ -88,13 +60,13 @@ function fcn_purgeAllSchemas(offset = 0, total = null, processed = 0) {
 
   if ( total === null ) {
     buttons.forEach(element => {
-      fcn_toggleInProgress(element, true);
+      FcnUtils.toggleInProgress(element, true);
     });
   }
 
   // --- Request ---------------------------------------------------------------
 
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_purge_all_schemas',
     'offset': offset,
     'nonce': document.getElementById('fictioneer_admin_nonce').value
@@ -115,7 +87,7 @@ function fcn_purgeAllSchemas(offset = 0, total = null, processed = 0) {
       );
     } else {
       buttons.forEach(element => {
-        fcn_toggleInProgress(element, false);
+        FcnUtils.toggleInProgress(element, false);
       });
 
       _$$('tr').forEach(row => {
@@ -159,7 +131,7 @@ _$$('[data-fcn-dialog-target="schema-dialog"]').forEach(element => {
  */
 
 function fcn_delete_epub(name) {
-  fcn_ajaxPost({
+  FcnUtils.aPost({
     'action': 'fictioneer_ajax_delete_epub',
     'name': name,
     'nonce': document.getElementById('fictioneer_admin_nonce').value
@@ -316,16 +288,54 @@ _$$('[data-confirm-dialog]').forEach(element => {
 });
 
 // =============================================================================
-// LOGOUT
+// USER
 // =============================================================================
+
+/**
+ * AJAX: Refresh local user data.
+ *
+ * @since 5.27.0
+ */
+
+function fcn_fetchUserData() {
+  FcnUtils.aGet({
+    'action': 'fictioneer_ajax_get_user_data',
+    'fcn_fast_ajax': 1
+  })
+  .then(response => {
+    if (response.success) {
+      const userData = response.data;
+      userData['lastLoaded'] = Date.now();
+      FcnUtils.setUserData(userData);
+    }
+  })
+  .catch(error => {
+    localStorage.removeItem('fcnUserData');
+    console.error(error);
+  });
+}
+
+// Fetch new user data after purge
+(() => {
+  const currentUserData = FcnUtils.parseJSON(localStorage.getItem('fcnUserData'));
+
+  if (!currentUserData) {
+    fcn_fetchUserData();
+  }
+})();
 
 // Admin bar logout link
 _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
-  localStorage.removeItem('fcnProfileAvatar');
   localStorage.removeItem('fcnUserData');
-  localStorage.removeItem('fcnAuth');
   localStorage.removeItem('fcnBookshelfContent');
-  localStorage.removeItem('fcnChapterBookmarks');
+});
+
+// Data node purge
+_$$('[data-action="click->fictioneer-admin-profile#purgeLocalUserData"]').forEach(link => {
+  link.addEventListener('click', () => {
+    localStorage.removeItem('fcnUserData');
+    localStorage.removeItem('fcnBookshelfContent');
+  });
 });
 
 // =============================================================================
@@ -535,6 +545,28 @@ _$$('[data-target="fcn-meta-field-ebook-remove"]').forEach(button => {
 // =============================================================================
 
 /**
+ * Split string into an array
+ *
+ * @since 5.7.4
+ *
+ * @param {string} list - The input string to split.
+ * @param {string} [separator=','] - The substring to use for splitting.
+ *
+ * @return {Array<string>} - An array of items.
+ */
+
+function fcn_splitList(list, separator = ',') {
+  if (!list || list.trim() === '') {
+    return [];
+  }
+
+  let array = list.replace(/\r?\n|\r/g, '').split(separator);
+  array = array.map(item => item.trim()).filter(item => item.length > 0);
+
+  return array;
+}
+
+/**
  * Add or remove ID from token field
  *
  * @since 5.7.4
@@ -551,7 +583,7 @@ function fcn_tokensToggle(id, parent) {
   }
 
   // Setup
-  const tokenOptions = JSON.parse(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
+  const tokenOptions = FcnUtils.parseJSON(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
   const tokenTrack = parent.querySelector('[data-target="fcn-meta-field-tokens-track"]');
   const tokenInput = parent.querySelector('[data-target="fcn-meta-field-tokens-values"]');
   const tokenValues = fcn_splitList(tokenInput.value).filter(item => !isNaN(item)).map(item => Math.abs(parseInt(item)));
@@ -569,7 +601,7 @@ function fcn_tokensToggle(id, parent) {
   tokenTrack.innerHTML = '';
 
   tokenValues.forEach(item => {
-    const name = fcn_sanitizeHTML(tokenOptions[item] ? tokenOptions[item] : item);
+    const name = FcnUtils.sanitizeHTML(tokenOptions[item] ? tokenOptions[item] : item);
 
     tokenTrack.innerHTML += `<span class="fictioneer-meta-field__token" data-id="${item}"><span class="fictioneer-meta-field__token-name">${name}</span><button type="button" class="fictioneer-meta-field__token-button" data-id="${item}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"></path></svg></button></span>`;
   });
@@ -736,14 +768,14 @@ function fcn_setGroupDataList(source) {
   }
 
   // Request group options (if any)
-  fcn_ajaxGet({
+  FcnUtils.aGet({
     'action': 'fictioneer_ajax_get_chapter_group_options',
     'story_id': storyId,
     'nonce': fictioneer_ajax.fictioneer_nonce
   })
   .then(response => {
     if (response.success) {
-      const list = fcn_html`<datalist id="${listID}">${response.data.html}</datalist>>`;
+      const list = FcnUtils.html`<datalist id="${listID}">${response.data.html}</datalist>>`;
       document.body.appendChild(list);
     } else if (response.data.error) {
       console.error('Error:', response.data.error);
@@ -973,7 +1005,7 @@ function fcn_queryRelationshipPosts(payload, container, append = true) {
   const selectedList = field.querySelector('[data-target="fcn-relationships-values"]');
   let errorMessage = null;
 
-  fcn_ajaxPost(payload)
+  FcnUtils.aPost(payload)
   .then(response => {
     // Remove observer (if any)
     container.querySelector('[data-target="fcn-relationships-observer"]')?.remove();
@@ -1164,7 +1196,7 @@ function fcn_unlockPostsSearch() {
   container.classList.add('ajax-in-progress');
 
   // Request
-  fcn_ajaxPost(payload)
+  FcnUtils.aPost(payload)
   .then(response => {
     if (response.success) {
       results.innerHTML = response.data.html;
@@ -1268,7 +1300,7 @@ function fcn_intervalAction(trigger, action, payload = {}) {
 
   // Indicate process
   if (index < 1 || index >= goal) {
-    fcn_toggleInProgress(trigger, index < 1);
+    FcnUtils.toggleInProgress(trigger, index < 1);
   }
 
   if (index < goal) {
@@ -1281,7 +1313,7 @@ function fcn_intervalAction(trigger, action, payload = {}) {
   }
 
   // Request
-  fcn_ajaxPost(payload)
+  FcnUtils.aPost(payload)
   .then(response => {
     if (!response?.data?.done) {
       fcn_intervalAction(

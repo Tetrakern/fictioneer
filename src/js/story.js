@@ -1,18 +1,232 @@
 // =============================================================================
-// SETUP
+// STIMULUS: FICTIONEER STORY
 // =============================================================================
 
-var /** @type {Number} */ fcn_storyCommentPage = 1;
+application.register('fictioneer-story', class extends Stimulus.Controller {
+  static get targets() {
+    return ['tab', 'tabContent', 'commentsPlaceholder', 'commentsWrapper', 'commentsList']
+  }
 
-// Initialize
-var /** @type {Object} */ fcn_storySettings = fcn_getStorySettings();
+  static values = {
+    id: Number
+  }
 
-// =============================================================================
-// CLEANUP
-// =============================================================================
+  commentPage = 1;
+
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerStory = this;
+    this.#applySettings();
+  }
+
+  toggleChapterOrder() {
+    const settings = this.#getSettings();
+
+    settings.order = settings.order === 'asc' ? 'desc' : 'asc';
+
+    this.#setSettings(settings);
+    this.#applySettings();
+  }
+
+  toggleChapterView() {
+    const settings = this.#getSettings();
+
+    settings.view = settings.view=== 'list' ? 'grid' : 'list';
+
+    this.#setSettings(settings);
+    this.#applySettings();
+  }
+
+  unfoldChapters(event) {
+    const group = event.currentTarget.closest('.chapter-group[data-folded]');
+
+    if (group) {
+      group.dataset.folded = group.dataset.folded == 'true' ? 'false' : 'true';
+    }
+  }
+
+  toggleTab(event) {
+    const newTab = event.currentTarget;
+
+    this.tabTargets.forEach(target => {
+      target.classList.remove('_current');
+    });
+
+    this.tabContentTargets.forEach(target => {
+      if (target.dataset.tabName === event.params.tabName) {
+        target.classList.add('_current');
+      } else {
+        target.classList.remove('_current');
+      }
+    });
+
+    newTab.classList.add('_current');
+  }
+
+  loadComments(event) {
+    if (!this.hasIdValue || !this.hasCommentsListTarget) {
+      return;
+    }
+
+    event.currentTarget.remove();
+
+    if (this.hasCommentsPlaceholderTarget) {
+      this.commentsPlaceholderTarget.classList.remove('hidden');
+    }
+
+    // REST
+    FcnUtils.aGet(
+      { 'post_id': this.idValue, 'page': this.commentPage },
+      'get_story_comments'
+    )
+    .then(response => {
+      if (this.hasCommentsPlaceholderTarget) {
+        this.commentsPlaceholderTarget.remove();
+      }
+
+      if (response.success) {
+        this.commentsListTarget.innerHTML += response.data.html;
+        this.commentPage++;
+      } else if (response.data?.error) {
+        this.commentsListTarget.appendChild(FcnUtils.buildErrorNotice(response.data.error));
+      }
+    })
+    .catch(error => {
+      if (this.hasCommentsPlaceholderTarget) {
+        this.commentsPlaceholderTarget.remove();
+      }
+
+      this.commentsListTarget.appendChild(FcnUtils.buildErrorNotice(error));
+    });
+  }
+
+  startEpubDownload(event) {
+    event.preventDefault();
+    this.#downloadEpub(event.currentTarget, 0)
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  /**
+   * Get story settings JSON from local storage or create new one.
+   *
+   * @since 5.0.6
+   * @return {Object} The story settings.
+   */
+
+  #getSettings() {
+    let settings = FcnUtils.parseJSON(localStorage.getItem('fcnStorySettings')) ?? this.#getDefaultSettings();
+
+    // Timestamp allows to force resets after script updates (will annoy users)
+    if (settings['timestamp'] < 1674770712849) {
+      settings = this.#getDefaultSettings();
+      settings['timestamp'] = Date.now();
+    }
+
+    this.#setSettings(settings);
+
+    return settings;
+  }
+
+  /**
+   * Returns default story settings.
+   *
+   * @since 5.0.6
+   * @return {Object} The formatting settings.
+   */
+
+  #getDefaultSettings() {
+    return {
+      'view': 'list',
+      'order': 'asc',
+      'timestamp': 1674770712849 // Used to force resets on script updates
+    };
+  }
+
+  /**
+   * Set the story settings object and save to local storage.
+   *
+   * @since 5.0.6
+   * @param {Object} settings - The formatting settings.
+   */
+
+  #setSettings(settings) {
+    if (typeof settings !== 'object') {
+      return;
+    }
+
+    localStorage.setItem('fcnStorySettings', JSON.stringify(settings));
+  }
+
+  /**
+   * Apply story settings.
+   *
+   * @since 5.0.6
+   */
+
+  #applySettings() {
+    const settings = this.#getSettings();
+
+    if (typeof settings !== 'object') {
+      return;
+    }
+
+    // List view
+    _$$('[data-view]').forEach(element => {
+      element.dataset.view = settings.view;
+    });
+
+    // List order
+    _$$('[data-order]').forEach(element => {
+      element.dataset.order = settings.order;
+    });
+  }
+
+  /**
+   * Initiate the download of an EPUB file.
+   *
+   * @since 5.27.0
+   * @param {HTMLElement} link - The link that triggered the download.
+   * @param {number} times - The number of times the function has been called recursively.
+   */
+
+  #downloadEpub(link, times = 0) {
+    if (link.classList.contains('ajax-in-progress') || !this.hasIdValue) {
+      return;
+    }
+
+    if (times > 3) {
+      link.classList.remove('ajax-in-progress')
+      return;
+    }
+
+    link.classList.add('ajax-in-progress');
+
+    FcnUtils.aGet({
+      'action': 'fictioneer_ajax_download_epub',
+      'story_id': this.idValue
+    })
+    .then(response => {
+      if (response.success) {
+        window.location.href = link.href;
+        setTimeout(() => { link.classList.remove('ajax-in-progress') }, 2000);
+      } else {
+        setTimeout(() => { fcn_startEpubDownload(link, times + 1) }, 2000);
+      }
+    })
+    .catch(error => {
+      link.classList.remove('ajax-in-progress');
+
+      if (error.status && error.statusText) {
+        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
+      }
+    });
+  }
+});
 
 /**
- * Remove hidden story actions after page load
+ * Remove hidden story actions after page load.
  *
  * @since 5.22.2
  */
@@ -28,313 +242,6 @@ function fcn_cleanUpActions() {
   );
 }
 
-if (fcn_theRoot.dataset.ajaxAuth) {
-  document.addEventListener('fcnAuthReady', () => {
-    fcn_cleanUpActions();
-  });
-} else {
-  document.addEventListener('DOMContentLoaded', () => { fcn_cleanUpActions() });
-}
-
-// =============================================================================
-// LOAD USER SETTINGS
-// =============================================================================
-
-/**
- * Get story settings JSON from local storage or create new one.
- *
- * @since 5.0.6
- * @see fcn_parseJSON()
- * @see fcn_defaultStorySettings()
- * @see fcn_setStorySettings();
- * @return {Object} The story settings.
- */
-
-function fcn_getStorySettings() {
-  // Get settings from local storage or use defaults
-  let settings = fcn_parseJSON(localStorage.getItem('fcnStorySettings')) ?? fcn_defaultStorySettings();
-
-  // Timestamp allows to force resets after script updates (may annoy users)
-  if (settings['timestamp'] < 1674770712849) {
-    settings = fcn_defaultStorySettings();
-    settings['timestamp'] = Date.now();
-  }
-
-  // Update local storage and return
-  fcn_setStorySettings(settings);
-  return settings;
-}
-
-/**
- * Returns default story settings.
- *
- * @since 5.0.6
- * @return {Object} The formatting settings.
- */
-
-function fcn_defaultStorySettings() {
-  return {
-    'view': 'list',
-    'order': 'asc',
-    'timestamp': 1674770712849 // Used to force resets on script updates
-  };
-}
-
-/**
- * Set the story settings object and save to local storage.
- *
- * @since 5.0.6
- * @param {Object} settings - The formatting settings.
- */
-
-function fcn_setStorySettings(settings) {
-  // Simple validation
-  if (typeof settings !== 'object') {
-    return;
-  }
-
-  // Keep global updated
-  fcn_storySettings = settings;
-
-  // Update local storage
-  localStorage.setItem('fcnStorySettings', JSON.stringify(settings));
-}
-
-/**
- * Apply story settings
- *
- * @since 5.0.6
- */
-
-function fcn_applyStorySettings() {
-  // Simple validation
-  if (typeof fcn_storySettings !== 'object') {
-    return;
-  }
-
-  // List view
-  _$$('[data-view]').forEach(element => {
-    element.dataset.view = fcn_storySettings.view == 'grid' ? 'grid' : 'list';
-  });
-
-  // List order
-  _$$('[data-order]').forEach(element => {
-    element.dataset.order = fcn_storySettings.order == 'desc' ? 'desc' : 'asc';
-  });
-}
-
-// Initialize
-fcn_applyStorySettings();
-
-// =============================================================================
-// ORDER & VIEW
-// =============================================================================
-
-var fcn_isToggling = false;
-
-// Event listener for to toggle chapter order
-_$$('[data-click-action*="toggle-chapter-order"]').forEach(button => {
-  button.addEventListener(
-    'click',
-    event => {
-      if (fcn_isToggling) {
-        return; // Prevent multi-fire
-      }
-
-      fcn_isToggling = true;
-      setTimeout( () => fcn_isToggling = false, 50 );
-
-      fcn_storySettings['order'] = event.currentTarget.dataset.order === 'asc' ? 'desc' : 'asc';
-      fcn_setStorySettings(fcn_storySettings);
-      fcn_applyStorySettings();
-    }
-  );
-});
-
-// Event listener for to toggle chapter view
-_$$('[data-click-action*="toggle-chapter-view"]').forEach(button => {
-  button.addEventListener(
-    'click',
-    event => {
-      if (fcn_isToggling) {
-        return; // Prevent multi-fire
-      }
-
-      fcn_isToggling = true;
-      setTimeout( () => fcn_isToggling = false, 50 );
-
-      fcn_storySettings['view'] = event.currentTarget.dataset.view === 'list' ? 'grid' : 'list';
-      fcn_setStorySettings(fcn_storySettings);
-      fcn_applyStorySettings();
-    }
-  );
-});
-
-// =============================================================================
-// CHAPTER FOLDING
-// =============================================================================
-
-_$$('.chapter-group__folding-toggle').forEach(element => {
-  element.addEventListener(
-    'click',
-    event => {
-      const group = event.currentTarget.closest('.chapter-group[data-folded]');
-
-      if (group) {
-        group.dataset.folded = group.dataset.folded == 'true' ? 'false' : 'true';
-      }
-    }
-  );
-});
-
-// =============================================================================
-// STORY TABS
-// =============================================================================
-
-/**
- * Toggles the active story tab.
- *
- * @since 5.4.0
- *
- * @param {HTMLElement} target - The clicked tab element.
- */
-
-function fcn_toggleStoryTab(target) {
-  const container = target.closest('.story');
-
-  // Clear previous tab
-  container.querySelectorAll('.story__tab-target._current, .story__tabs ._current').forEach(item => {
-    item.classList.remove('_current');
-  });
-
-  // Set new tab
-  container.querySelectorAll(`[data-finder="${target.dataset.target}"]`).forEach(element => {
-    element.classList.add('_current');
-  });
-
-  container.querySelector('.story__tabs').dataset.current = target.dataset.target;
-  target.classList.add('_current');
-}
-
-// Listen for clicks on tabs...
-_$$('.tabs__item').forEach(element => {
-  element.addEventListener(
-    'click',
-    event => {
-      fcn_toggleStoryTab(event.currentTarget);
-    }
-  );
-});
-
-// =============================================================================
-// LOAD STORY COMMENTS
-// =============================================================================
-
-/**
- * Fetch and insert the HTML for the next batch of comments on the story page.
- *
- * @since 4.0.0
- */
-
-function fcn_loadStoryComments(button) {
-  // Setup
-  let errorNote;
-
-  // Prepare view
-  _$('.load-more-list-item').remove();
-  _$('.comments-loading-placeholder').classList.remove('hidden');
-
-  // REST request
-  fcn_ajaxGet(
-    {
-      'post_id': button.dataset.storyId ?? fcn_theBody.dataset.postId,
-      'page': fcn_storyCommentPage
-    },
-    'get_story_comments'
-  )
-  .then(response => {
-    // Check for success
-    if (response.success) {
-      _$('.fictioneer-comments__list > ul').innerHTML += response.data.html;
-      fcn_storyCommentPage++;
-    } else if (response.data?.error) {
-      errorNote = fcn_buildErrorNotice(response.data.error);
-    }
-  })
-  .catch(error => {
-    errorNote = fcn_buildErrorNotice(error);
-  })
-  .then(() => {
-    // Remove progress state
-    _$('.comments-loading-placeholder').remove();
-
-    // Add error if any
-    if (errorNote) {
-      _$('.fictioneer-comments__list > ul').appendChild(errorNote);
-    }
-  });
-}
-
-// Listen for clicks to load more comments...
-_$('.comment-section')?.addEventListener('click', event => {
-  if (event.target?.classList.contains('load-more-comments-button')) {
-    fcn_loadStoryComments(event.target);
-  }
-});
-
-// =============================================================================
-// EPUB DOWNLOAD
-// =============================================================================
-
-/**
- * Initiates the download of an EPUB file.
- *
- * @since 5.7.2
- * @param {HTMLElement} link - The link that triggered the download.
- * @param {number} times - The number of times the function has been called recursively.
- */
-
-function fcn_startEpubDownload(link, times = 0) {
-  if (times > 3) {
-    link.classList.remove('ajax-in-progress')
-    return;
-  }
-
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_download_epub',
-    'story_id': link.dataset.storyId
-  })
-  .then(response => {
-    if (response.success) {
-      window.location.href = link.href;
-      setTimeout(() => { link.classList.remove('ajax-in-progress') }, 2000);
-    } else {
-      setTimeout(() => { fcn_startEpubDownload(link, times + 1) }, 2000);
-    }
-  })
-  .catch(error => {
-    link.classList.remove('ajax-in-progress');
-
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-    }
-  });
-}
-
-_$$('[data-action="download-epub"]').forEach(element => {
-  element.addEventListener('click', event => {
-    // Stop link
-    event.preventDefault();
-
-    // Abort if...
-    if (event.currentTarget.classList.contains('ajax-in-progress')) {
-      return;
-    }
-
-    // Disable button
-    event.currentTarget.classList.add('ajax-in-progress');
-
-    // Request
-    fcn_startEpubDownload(event.currentTarget);
-  });
+document.addEventListener('fcnUserDataReady', () => {
+  fcn_cleanUpActions();
 });

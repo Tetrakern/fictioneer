@@ -8,8 +8,6 @@
  * Sends the comment form HTML via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
 
 function fictioneer_ajax_get_comment_form() {
@@ -38,7 +36,7 @@ function fictioneer_ajax_get_comment_form() {
   if ( get_option( 'fictioneer_disable_comment_form' ) ) {
     comment_form( [], $post_id );
   } else {
-    comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
+    fictioneer_comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
   }
 
   // Get buffer
@@ -63,8 +61,6 @@ if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
  * Sends the comment section HTML via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
 
 function fictioneer_ajax_get_comment_section() {
@@ -138,7 +134,7 @@ function fictioneer_ajax_get_comment_section() {
     if ( get_option( 'fictioneer_disable_comment_form' ) ) {
       comment_form( [], $post_id );
     } else {
-      comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
+      fictioneer_comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
     }
   } else {
     echo '<div class="fictioneer-comments__disabled">' . __( 'Commenting is disabled.', 'fictioneer' ) . '</div>';
@@ -209,8 +205,6 @@ if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
  *
  * @since 5.0.0
  * @since 5.20.3 - Use form field names as keys.
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
 
 function fictioneer_ajax_submit_comment() {
@@ -429,8 +423,6 @@ if ( get_option( 'fictioneer_enable_ajax_comment_submit' ) ) {
  * Edit comment via AJAX
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
 
 function fictioneer_ajax_edit_comment() {
@@ -567,8 +559,6 @@ if ( get_option( 'fictioneer_enable_user_comment_editing' ) ) {
  * Delete a user's comment on AJAX request
  *
  * @since 5.0.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
 
 function fictioneer_ajax_delete_my_comment() {

@@ -1,2 +1,6 @@
-@import 'common/_properties';
-@import 'common/_lightmode';
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
+@use 'common/_properties';
+@use 'common/_lightmode';

@@ -13,17 +13,10 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="tts-settings-modal" class="tts-settings modal" data-nosnippet hidden>
-  <label for="modal-tts-settings-toggle" class="background-close"></label>
+<div id="tts-settings-modal" class="tts-settings modal" data-fictioneer-target="modal" data-action="click->fictioneer#backgroundCloseModals keydown.esc@document->fictioneer#closeModals" data-nosnippet hidden>
   <div class="modal__wrapper narrow-inputs">
-    <label
-      class="close"
-      for="modal-tts-settings-toggle"
-      tabindex="0"
-      aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>"
-    >
-      <?php fictioneer_icon( 'fa-xmark' ); ?>
-    </label>
+
+    <button class="close" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>" data-action="click->fictioneer#closeModals"><?php fictioneer_icon( 'fa-xmark' ); ?></button>
 
     <div class="modal__header drag-anchor"><?php _ex( 'TTS Settings', 'TTS modal heading.', 'fictioneer' ); ?></div>
 

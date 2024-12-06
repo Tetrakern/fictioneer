@@ -1,3 +1,7 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
 :is(body:not(.scrolling-up), body:not(.is-inside-main), .is-end-of-chapter, .mobile-menu-open) {
   .micro-menu {
     pointer-events: none;

@@ -52,8 +52,6 @@ fictioneer_add_stud_post_actions( 'fictioneer_update_modified_date_on_story_for_
  * @since 3.0.0
  * @since 5.23.0 - Account for non-Latin scripts.
  * @since 5.25.0 - Split into action and utility function.
- * @see fictioneer_count_words()
- * @see update_post_meta()
  *
  * @param int $post_id  Post ID.
  */
@@ -79,7 +77,6 @@ if ( ! get_option( 'fictioneer_count_characters_as_words' ) ) {
  * Store character count of posts as word count
  *
  * @since 5.9.4
- * @see update_post_meta()
  *
  * @param int $post_id  Post ID.
  */

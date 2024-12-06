@@ -1,4 +1,27 @@
 /**
+ * Validates a CSS string.
+ *
+ * @since 5.26.0
+ * @param {String} css - The CSS to validate.
+ * @return {Boolean} True or false.
+ */
+
+function fcn_validateCss(css) {
+  const openBraces = (css.match(/{/g) || []).length;
+  const closeBraces = (css.match(/}/g) || []).length;
+
+  if (openBraces !== closeBraces) {
+    return false;
+  }
+
+  if (css.includes('<')) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
  * Returns the skins JSON from local storage or a default.
  *
  * @since 5.26.0
@@ -6,14 +29,14 @@
  */
 
 function fcn_getSkins() {
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   if (!fingerprint) {
     return null;
   }
 
   const _default = { 'data': {}, 'active': null, 'fingerprint': fingerprint };
-  const skins = fcn_parseJSON(localStorage.getItem('fcnSkins')) ?? _default;
+  const skins = FcnUtils.parseJSON(localStorage.getItem('fcnSkins')) ?? _default;
 
   if (!skins?.fingerprint || fingerprint !== skins.fingerprint) {
     return _default;
@@ -42,7 +65,7 @@ function fcn_setSkins(skins) {
     return;
   }
 
-  if (!skins?.fingerprint || fcn_getCookie('fcnLoggedIn') !== skins.fingerprint) {
+  if (!skins?.fingerprint || FcnUtils.getCookie('fcnLoggedIn') !== skins.fingerprint) {
     fcn_showNotification(fcn_skinTranslations.wrongFingerprint, 3, 'warning');
     return;
   }
@@ -64,9 +87,9 @@ function fcn_getSkinInfo(css) {
   const versionMatch = css.match(/Version:\s*(.+)/);
 
   return {
-    name: nameMatch ? fcn_sanitizeHTML(nameMatch[1].trim()) : null,
-    author: authorMatch ? fcn_sanitizeHTML(authorMatch[1].trim()) : null,
-    version: versionMatch ? fcn_sanitizeHTML(versionMatch[1].trim()) : null
+    name: nameMatch ? FcnUtils.sanitizeHTML(nameMatch[1].trim()) : null,
+    author: authorMatch ? FcnUtils.sanitizeHTML(authorMatch[1].trim()) : null,
+    version: versionMatch ? FcnUtils.sanitizeHTML(versionMatch[1].trim()) : null
   };
 }
 
@@ -124,7 +147,7 @@ function fcn_deleteSkin(target) {
  */
 
 function fcn_applySkin() {
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   // Ensure user is logged-in and not inside admin panel
   if (!fingerprint || _$('body.wp-admin')) {
@@ -161,7 +184,7 @@ function fcn_applySkin() {
 
 function fcn_renderSkinList() {
   const container = _$('[data-css-skin-target="list"]');
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   // Ensure the theme login check is passed
   if (!fingerprint || !container) {
@@ -229,9 +252,7 @@ _$('[data-css-skin-target="file"]')?.addEventListener('input', event => {
   const input = event.currentTarget;
   const file = input.files[0];
   const skins = fcn_getSkins();
-  const fingerprint = fcn_getCookie('fcnLoggedIn');
-
-  console.log(input);
+  const fingerprint = FcnUtils.getCookie('fcnLoggedIn');
 
   if (Object.keys(skins.data).length > 2) {
     fcn_showNotification(fcn_skinTranslations.tooManySkins, 3, 'warning');
@@ -305,7 +326,7 @@ _$('[data-css-skin-target="file"]')?.addEventListener('input', event => {
 
 function fcn_uploadSkins(trigger) {
   // Ensure the theme login check is passed
-  if (!fcn_isUserLoggedIn() || trigger.classList.contains('disabled')) {
+  if (!FcnUtils.loggedIn() || trigger.classList.contains('disabled')) {
     return;
   }
 
@@ -313,43 +334,25 @@ function fcn_uploadSkins(trigger) {
   const skins = fcn_getSkins();
 
   // Toggle button progress
-  fcn_toggleInProgress(trigger);
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
-  fcn_ajaxPost({
-    'action': 'fictioneer_ajax_save_skins',
-    'fcn_fast_ajax': 1,
-    'skins': JSON.stringify(skins)
-  })
-  .then(response => {
-    if (response.success) {
-      fcn_showNotification(response.data.message, 3, 'success');
-      fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
-    } else {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        3,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_save_skins',
+    {
+      element: trigger,
+      payload: { skins: JSON.stringify(skins) },
+      callback: (response) => {
+        if (response.success) {
+          fcn_showNotification(response.data.message, 3, 'success');
+          fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
+        }
+      },
+      finalCallback: () => {
+        _$('[data-css-skin-target="file"]').value = '';
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    _$('[data-css-skin-target="file"]').value = '';
-    fcn_toggleInProgress(trigger);
-  });
+  );
 }
 
 _$('[data-action="click->css-skin#upload"]')?.addEventListener('click', event => {
@@ -365,50 +368,32 @@ _$('[data-action="click->css-skin#upload"]')?.addEventListener('click', event =>
 
 function fcn_downloadSkins(trigger) {
   // Ensure the theme login check is passed
-  if (!fcn_isUserLoggedIn() || trigger.classList.contains('disabled')) {
+  if (!FcnUtils.loggedIn() || trigger.classList.contains('disabled')) {
     return;
   }
 
   // Toggle button progress
-  fcn_toggleInProgress(trigger);
   _$('[data-css-skin-target="action-status-message"]').classList.add('invisible');
 
   // Request
-  fcn_ajaxPost({
-    'action': 'fictioneer_ajax_get_skins',
-    'fcn_fast_ajax': 1
-  })
-  .then(response => {
-    if (response.success) {
-      fcn_showNotification(response.data.message, 3, 'success');
-      fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
-      fcn_setSkins(JSON.parse(response.data.skins));
-      fcn_renderSkinList();
-      fcn_applySkin();
-    } else {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        3,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_get_skins',
+    {
+      element: trigger,
+      callback: (response) => {
+        if (response.success) {
+          fcn_showNotification(response.data.message, 3, 'success');
+          fcn_toggleSkinNotice(_$('[data-css-skin-target="action-status-message"]'));
+          fcn_setSkins(FcnUtils.parseJSON(response.data.skins));
+          fcn_renderSkinList();
+          fcn_applySkin();
+        }
+      },
+      finalCallback: () => {
+        _$('[data-css-skin-target="file"]').value = '';
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    _$('[data-css-skin-target="file"]').value = '';
-    fcn_toggleInProgress(trigger);
-  });
+  );
 }
 
 _$('[data-action="click->css-skin#download"]')?.addEventListener('click', event => {

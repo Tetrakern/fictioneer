@@ -1,5 +1,5 @@
 // =============================================================================
-// SUGGESTION TOOLS
+// EXTEND DIFF-MATCH-PATCH
 // =============================================================================
 
 diff_match_patch.prototype.fcn_prettyHtml = function(diffs) {
@@ -28,27 +28,221 @@ diff_match_patch.prototype.fcn_prettyHtml = function(diffs) {
   return html.join('');
 };
 
-class FCN_Suggestion {
-  constructor() {
-    this.toggle = _$$$('suggestions-modal-toggle');
-    this.tools = _$$$('selection-tools');
-    this.button = _$$$('button-add-suggestion');
-    this.toolsButton = _$$$('button-tools-add-suggestion');
-    this.reset = _$$$('button-suggestion-reset');
-    this.submit = _$$$('button-suggestion-submit');
-    this.current = _$$$('suggestions-modal-original');
-    this.input = _$$$('suggestions-modal-input');
-    this.output = _$$$('suggestions-modal-diff');
-    this.chapter = _$('.chapter__article');
-    this.text = '';
-    this.original = '';
-    this.latest = '';
-    this.paragraph = null;
-    this.dmp = new diff_match_patch();
-    this.bindEvents();
+// =============================================================================
+// STIMULUS: FICTIONEER SUGGESTION
+// =============================================================================
+
+application.register('fictioneer-suggestion', class extends Stimulus.Controller {
+
+  modal = _$$$('suggestions-modal');
+  floatingButton = _$$$('selection-tools');
+  input = _$$$('suggestions-modal-input');
+  current = _$$$('suggestions-modal-original');
+  diff = _$$$('suggestions-modal-diff');
+  reset = _$$$('button-suggestion-reset');
+  submit = _$$$('button-suggestion-submit');
+  original = '';
+  text = '';
+  open = false;
+  paragraph = null;
+  dmp = new diff_match_patch();
+
+  initialize() {
+    if (this.floatingButton) {
+      this.floatingButton.addEventListener('click', event => {
+        this.toggleModalViaSelection(event.currentTarget);
+      });
+    }
+
+    this.input.addEventListener('input', () => this.#edit());
+    this.reset.addEventListener('click', () => this.#reset());
+    this.submit.addEventListener('click', () => this.#append());
   }
 
-  getCaretCoordinates() {
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerSuggestion = this;
+  }
+
+  /**
+   * Hide floating button on click outside.
+   *
+   * Note: Event action dispatched by 'fictioneer' Stimulus Controller.
+   *
+   * @since 5.27.0
+   */
+
+  clickOutside() {
+    if (this.open) {
+      this.#hideFloatingButton();
+    }
+  }
+
+  /**
+   * Toggle modal with the text selection floating button.
+   *
+   * @since 5.27.0
+   * @param {HTMLElement} source - Trigger of the modal.
+   */
+
+  toggleModalViaSelection(source) {
+    this.paragraph = this.#closestParagraph();
+    this.toggleModalVisibility(source);
+  }
+
+  /**
+   * Toggle modal from the paragraph tools.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   */
+
+  toggleModalViaParagraph(event) {
+    this.paragraph = _$('.selected-paragraph');
+    this.text = FcnUtils.extractTextNodes(this.paragraph);
+    this.toggleModalVisibility(event.currentTarget);
+  }
+
+  /**
+   * Toggle modal visibility.
+   *
+   * @since 5.27.0
+   * @param {HTMLElement} source - Trigger of the modal.
+   */
+
+  toggleModalVisibility(source) {
+    const fictioneer = fcn();
+    const chapter = window.FictioneerApp.Controllers.fictioneerChapter;
+
+    if (!fictioneer) {
+      fcn_showNotification('Error: Fictioneer Controller not connected.', 3, 'warning');
+      return;
+    }
+
+    if (!chapter) {
+      fcn_showNotification('Error: Chapter Controller not connected.', 3, 'warning');
+      return;
+    }
+
+    fictioneer.toggleModalVisibility(source, 'suggestions-modal');
+    chapter.closeTools();
+
+    this.#clearSelection();
+    this.original = this.text;
+    this.current.innerText = this.text;
+    this.diff.innerText = this.text;
+    this.input.value = this.text;
+    this.input.focus();
+  }
+
+  /**
+   * Toggle floating button.
+   *
+   * @since 5.27.0
+   */
+
+  toggleFloatingButton() {
+    if (
+      FcnGlobals.eSite.classList.contains('transformed-site') ||
+      window.getSelection().rangeCount < 1 ||
+      !window.getSelection().getRangeAt(0).startContainer.parentNode.closest('.content-section')
+    ) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.text = window.getSelection().toString().replaceAll('\n\n', '\n').trim();
+
+      if (this.text !== '') {
+        const pos = this.#caretCoordinates();
+
+        this.#showFloatingButton(pos.x, pos.y);
+      } else {
+        this.#hideFloatingButton();
+      }
+    }, 10);
+  }
+
+  /**
+   * Close and reset the modal.
+   *
+   * @since 5.27.0
+   */
+
+  closeModal() {
+    this.open = false;
+    this.original = '';
+    this.text = '';
+    this.paragraph = null;
+
+    fcn().closeModals();
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  /**
+   * Display floating button on coordinates.
+   *
+   * @since 5.27.0
+   * @param {Integer} x - The x coordinate.
+   * @param {Integer} y - The y coordinate.
+   */
+
+  #showFloatingButton(x, y) {
+    this.open = true;
+
+    const offset = document.documentElement.offsetWidth / 2 + this.floatingButton.offsetWidth;
+    const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
+
+    if (x > offset) {
+      this.floatingButton.style.transform = 'translate(-100%)';
+    } else {
+      this.floatingButton.style.transform = 'translate(0)';
+    }
+
+    this.floatingButton.style.top = `${y + 4 - adminBarOffset}px`;
+    this.floatingButton.style.left = `${x}px`;
+    this.floatingButton.classList.remove('invisible');
+  }
+
+  /**
+   * Hide the floating button.
+   *
+   * @since 5.27.0
+   */
+
+  #hideFloatingButton() {
+    this.open = false;
+    this.floatingButton.style.top = '0';
+    this.floatingButton.style.left = '-1000px';
+    this.floatingButton.classList.add('invisible');
+  }
+
+  /**
+   * Find closest paragraph to the text selection.
+   *
+   * @since 5.27.0
+   */
+
+  #closestParagraph() {
+    const selection = window.getSelection();
+
+    if (!selection.rangeCount) {
+      return null;
+    }
+
+    return selection.getRangeAt(0).startContainer.parentNode.closest('p');
+  }
+
+  /**
+   * Returns the bottom-right x/y coordinates for the text selection.
+   *
+   * @since 5.27.0
+   * @return {Object} An object containing the x and y coordinates.
+   */
+
+  #caretCoordinates() {
     let x = 0;
     let y = 0;
 
@@ -56,10 +250,13 @@ class FCN_Suggestion {
 
     if (isSupported) {
       const selection = window.getSelection();
+
       if (selection.rangeCount !== 0) {
         const range = selection.getRangeAt(0).cloneRange();
+
         let rect = range.getClientRects();
         rect = rect[rect.length - 1];
+
         if (rect) {
           x = rect.right + window.scrollX;
           y = rect.bottom + window.scrollY;
@@ -70,54 +267,52 @@ class FCN_Suggestion {
     return { x, y };
   }
 
-  getClosestParagraph() {
-    const selection = window.getSelection();
+  /**
+   * Clear the current text selection.
+   *
+   * @since 5.27.0
+   */
 
-    if (!selection.rangeCount) {
-      return null;
-    }
-
-    return selection.getRangeAt(0).startContainer.parentNode.closest('p');
-  }
-
-  showTools(top, left) {
-    const offset = document.documentElement.offsetWidth / 2 + this.tools.offsetWidth;
-    const adminBar = _$$$('wpadminbar') ? _$$$('wpadminbar').offsetHeight : 0;
-
-    if (left > offset) {
-      this.tools.style.transform = 'translate(-100%)';
-    } else {
-      this.tools.style.transform = 'translate(0)';
-    }
-
-    this.tools.style.top = `${top + 4 - adminBar}px`;
-    this.tools.style.left = `${left}px`;
-    this.tools.classList.remove('invisible');
-  }
-
-  hideTools() {
-    this.tools.style.top = '0';
-    this.tools.style.left = '-1000px';
-    this.tools.classList.add('invisible');
-  }
-
-  textSelection() {
-    return fcn_cleanTextSelectionFromButtons(window.getSelection().toString());
-  }
-
-  clearSelection() {
+  #clearSelection() {
     if (window.getSelection) {
-      if (window.getSelection().empty) {  // Chrome
-        window.getSelection().empty();
-      } else if (window.getSelection().removeAllRanges) {  // Firefox
-        window.getSelection().removeAllRanges();
+      if (window.getSelection().empty) {
+        window.getSelection().empty(); // Chrome
+      } else if (window.getSelection().removeAllRanges) {
+        window.getSelection().removeAllRanges(); // Firefox
       }
-    } else if (document.selection) {  // IE?
-      document.selection.empty();
     }
   }
 
-  getDiff(old, now) {
+  /**
+   * Handle editing of the suggestion.
+   *
+   * @since 5.27.0
+   */
+
+  #edit() {
+    this.diff.innerHTML = this.#diff(this.original, this.input.value);
+  }
+
+  /**
+   * Handle resetting the suggestion.
+   *
+   * @since 5.27.0
+   */
+
+  #reset() {
+    this.input.value = this.original;
+    this.diff.innerText = this.original;
+  }
+
+  /**
+   * Returns diff of two strings.
+   *
+   * @since 5.27.0
+   * @param {String} old - Original string.
+   * @param {String} now - Current string.
+   */
+
+  #diff(old, now) {
     const diff = this.dmp.diff_main(old, now);
 
     this.dmp.diff_cleanupEfficiency(diff);
@@ -125,82 +320,14 @@ class FCN_Suggestion {
     return this.dmp.fcn_prettyHtml(diff);
   }
 
-  toggleTools(instance) {
-    if (
-      fcn_theSite.classList.contains('transformed-site') ||
-      window.getSelection().rangeCount < 1 ||
-      !window.getSelection().getRangeAt(0).startContainer.parentNode.closest('.content-section')
-    ) {
-      return;
-    }
+  /**
+   * Finalize suggestion and append to comment.
+   *
+   * @since 5.27.0
+   */
 
-    setTimeout(() => {
-      instance.text = instance.textSelection().replaceAll('\n\n', '\n');
-
-      if (instance.text !== '') {
-        const pos = instance.getCaretCoordinates();
-
-        instance.showTools(pos.y, pos.x);
-      } else {
-        instance.hideTools();
-      }
-    }, 10);
-  }
-
-  toggleViaParagraphTools(instance) {
-    if (fcn_theSite.classList.contains('transformed-site')) {
-      return;
-    }
-
-    instance.text = _$('.selected-paragraph')
-      .querySelector('.paragraph-inner').innerText;
-
-    instance.showModal(instance);
-  }
-
-  resizeInput() {
-    this.input.style.height = 'auto';
-    this.input.style.height = `${fcn_clamp(32, 108, this.input.scrollHeight + 4)}px`;
-  }
-
-  showModal(instance) {
-    // Close paragraph tools if open
-    if (fcn_lastSelectedParagraphId) {
-      fcn_toggleParagraphTools(false);
-    }
-
-    // Setup modal content
-    instance.original = instance.text;
-    instance.current.innerHTML = instance.text.replaceAll('\n', '<br>');
-    instance.input.value = instance.text;
-    instance.output.innerHTML = instance.getDiff(instance.original, instance.text);
-    instance.paragraph = instance.getClosestParagraph();
-
-    // Open modal
-    instance.toggle.click();
-    instance.toggle.checked = true;
-
-    // Clean up and set focus
-    instance.clearSelection();
-    instance.hideTools();
-    instance.resizeInput();
-    instance.input.focus();
-  }
-
-  editSuggestion(instance) {
-    instance.resizeInput();
-    instance.output.innerHTML = instance.getDiff(instance.original, instance.input.value);
-  }
-
-  resetSuggestion(instance) {
-    instance.input.value = instance.original;
-    instance.resizeInput();
-    instance.output.innerHTML = instance.getDiff(instance.original, instance.original);
-  }
-
-  submitSuggestion(instance) {
-    const defaultEditor = _$(fictioneer_comments.form_selector ?? '#comment');
-    const paragraphID = instance.paragraph?.id ?? null;
+  #append() {
+    const paragraphID = this.paragraph?.id ?? null;
     const replacements = [
       ['¶', '&para;\n'],
       ['<br>', '\n'],
@@ -210,64 +337,20 @@ class FCN_Suggestion {
       ['</del>', '[/del]']
     ];
 
-    // Perform replacements
-    let final = instance.output.innerHTML;
+    let final = this.diff.innerHTML;
 
     replacements.forEach(([source, target]) => {
       final = final.replaceAll(source, target);
     });
 
-    // Output
     if (paragraphID) {
-      instance.latest = `\n[quote]${final} [anchor]${paragraphID}[/anchor][/quote]\n`;
-    } else {
-      instance.latest = `\n[quote]${final}[/quote]\n`;
+      final = `${final} [anchor]${paragraphID}[/anchor]`;
     }
 
-    // Send to comment form or remember for later
-    if (defaultEditor) {
-      if (defaultEditor.tagName == 'TEXTAREA') {
-        defaultEditor.value += instance.latest;
-        fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
-      } else if ( defaultEditor.tagName == 'DIV' ) {
-        defaultEditor.innerHTML += instance.latest;
-      }
-    } else {
-      fcn_commentStack?.push(instance.latest); // AJAX comment form or section
-    }
+    FcnUtils.appendToComment(`\n[quote]${final}[/quote]\n`);
 
-    // Close modal
-    instance.toggle.click();
-    instance.toggle.checked = false;
+    this.closeModal();
 
-    // Show notification
     fcn_showNotification(fictioneer_tl.notification.suggestionAppendedToComment);
   }
-
-  bindEvents() {
-    // Show Button
-    this.chapter?.addEventListener('mouseup', this.toggleTools.bind(null, this));
-
-    // Show Modal
-    this.button?.addEventListener('click', this.showModal.bind(null, this));
-    this.toolsButton?.addEventListener('click', this.toggleViaParagraphTools.bind(null, this));
-
-    // Edit
-    this.input?.addEventListener('input', this.editSuggestion.bind(null, this));
-
-    // Reset
-    this.reset?.addEventListener('click', this.resetSuggestion.bind(null, this));
-
-    // Submit
-    this.submit?.addEventListener('click', this.submitSuggestion.bind(null, this));
-  }
-}
-
-const fcn_suggestions = _$('.chapter__article') && _$('.comment-section') && _$$$('selection-tools') ?
-  new FCN_Suggestion() : null;
-
-if (fcn_suggestions) {
-  document.addEventListener('click', function(event) {
-    if (!event.target.closest('.content-section')) fcn_suggestions.hideTools();
-  });
-}
+});

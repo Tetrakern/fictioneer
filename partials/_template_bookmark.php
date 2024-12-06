@@ -45,7 +45,7 @@ if ( $args['seamless'] ?? 0 ) {
         </div>
         <div class="card__content _small cell-desc bookmark-card__excerpt truncate _cq-2-3"></div>
       </div>
-      <button class="card__delete button-delete-bookmark" data-bookmark-id><i class="fa-solid fa-trash-can"></i></button>
+      <button class="card__delete button-delete-bookmark" data-action="click->fictioneer-bookmarks#remove"><i class="fa-solid fa-trash-can"></i></button>
     </div>
   </li>
 </template>

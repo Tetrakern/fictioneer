@@ -1531,7 +1531,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_DEFAULT_SITE_WIDTH | integer | Default site width. Default `960`.
 | FICTIONEER_COMMENTCODE_TTL | integer | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
 | FICTIONEER_AJAX_TTL | integer | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
-| FICTIONEER_AJAX_LOGIN_TTL | integer | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
 | FICTIONEER_AJAX_POST_DEBOUNCE_RATE | integer | How long to debounce AJAX requests of the same type in _milliseconds_. Default `700`.
 | FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT | integer | Maximum number of authors in the advanced search suggestions. Default `100`.
 | FICTIONEER_UPDATE_CHECK_TIMEOUT | integer | Timeout between checks for theme updates in _seconds_. Default `43200`.

@@ -261,7 +261,7 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
 
 function fictioneer_after_logout_cleanup() {
   wp_print_inline_script_tag(
-    'localStorage.removeItem("fcnProfileAvatar"); localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnAuth"); localStorage.removeItem("fcnBookshelfContent"); localStorage.removeItem("fcnChapterBookmarks");',
+    'localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnBookshelfContent"); localStorage.removeItem("fcnChapterBookmarks");',
     array(
       'id' => 'fictioneer-logout-cleanup',
       'type' => 'text/javascript',
@@ -1533,11 +1533,10 @@ function fictioneer_fast_ajax() {
     'fictioneer_ajax_clear_my_checkmarks',
     'fictioneer_ajax_get_finished_checkmarks_list',
     // User
-    'fictioneer_ajax_get_auth',
     'fictioneer_ajax_get_user_data',
-    'fictioneer_ajax_get_avatar',
     'fictioneer_ajax_save_skins',
     'fictioneer_ajax_get_skins',
+    'fictioneer_ajax_clear_cookies',
     // Admin
     'fictioneer_ajax_query_relationship_posts',
     'fictioneer_ajax_search_posts_to_unlock'

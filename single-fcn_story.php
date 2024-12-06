@@ -37,7 +37,7 @@ get_header(
 
 ?>
 
-<main id="main" class="main story <?php echo get_option( 'fictioneer_enable_checkmarks' ) ? '' : '_no-checkmarks'; ?>">
+<main id="main" class="main story <?php echo get_option( 'fictioneer_enable_checkmarks' ) ? '' : '_no-checkmarks'; ?>" data-controller="fictioneer-story" data-fictioneer-story-id-value="<?php echo $post_id; ?>">
 
   <?php do_action( 'fictioneer_main', 'story' ); ?>
 

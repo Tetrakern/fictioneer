@@ -372,131 +372,63 @@ function fictioneer_track_comment_edit( $data, $comment ) {
 add_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10, 2 );
 
 // =============================================================================
-// GET COMMENT ACTION LINK
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
-  /**
-   * Returns a link to an admin comment moderation action or false
-   *
-   * @since 4.7.0
-   * @link https://github.com/WordPress/WordPress/blob/master/wp-admin/comment.php
-   *
-   * @param int            $comment_id   The ID of the comment.
-   * @param string         $action       Optional. The action to perform. Default 'edit'.
-   * @param string|boolean $redirect_to  Optional. Return URL after action. Default false.
-   *
-   * @return string|boolean The link or false if an invalid call.
-   */
-
-  function fictioneer_get_comment_action_link( $comment_id, $action = 'edit', $redirect_to = false ) {
-    // Setup
-    $comment_id = fictioneer_validate_id( $comment_id );
-
-    // Validation
-    if ( ! $comment_id ) {
-      return false;
-    }
-
-    // Data
-    $template = '<a class="comment-' . $action . '-link" href="%1$s">%2$s</a>';
-    $admin_url = admin_url( 'comment.php?c=' . $comment_id . '&action=' );
-    $redirect_to = $redirect_to ? '&redirect_to=' . $redirect_to : '';
-    $output = false;
-
-    switch ( $action ) {
-      case 'edit':
-        $output = sprintf( $template, $admin_url . 'editcomment', __( 'Edit' ) );
-        break;
-      case 'spam':
-        $nonce_url = esc_url( wp_nonce_url( $admin_url . 'spamcomment', 'delete-comment_' . $comment_id ) );
-        $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Spam' ) );
-        break;
-      case 'trash':
-        $nonce_url = esc_url( wp_nonce_url( $admin_url . 'trashcomment', 'delete-comment_' . $comment_id ) );
-        $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Trash' ) );
-        break;
-      case 'approve':
-        $nonce_url = esc_url( wp_nonce_url( $admin_url . 'approvecomment', 'approve-comment_' . $comment_id ) );
-        $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Approve' ) );
-        break;
-      case 'unapprove':
-        $nonce_url = esc_url( wp_nonce_url( $admin_url . 'unapprovecomment', 'approve-comment_' . $comment_id ) );
-        $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Unapprove' ) );
-        break;
-      case 'delete':
-        $nonce_url = esc_url( wp_nonce_url( $admin_url . 'deletecomment', 'delete-comment_' . $comment_id ) );
-        $output = sprintf( $template, $nonce_url . $redirect_to, __( 'Delete' ) );
-        break;
-    }
-
-    return $output;
-  }
-}
-
-// =============================================================================
 // RENDER COMMENT MODERATION MENU
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
+function fictioneer_comment_moderation_template() {
+  // Abort if...
+  if ( ! get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
+    return;
+  }
+
+  // Start HTML ---> ?>
+  <template id="template-comment-frontend-moderation-menu">
+    <button data-action="click->fictioneer-comment#trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#offensive"><?php _e( 'Offensive', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#unoffensive"><?php _e( 'Unoffensive', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#close"><?php _e( 'Close', 'fictioneer' ); ?></button>
+    <button data-action="click->fictioneer-comment#open"><?php _e( 'Open', 'fictioneer' ); ?></button>
+
+    <?php if ( get_option( 'fictioneer_enable_sticky_comments' ) ) : ?>
+      <button data-action="click->fictioneer-comment#sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
+    <?php endif; ?>
+
+    <a class="comment-edit-link" data-fictioneer-comment-target="editLink"><?php _e( 'Edit' ); ?></a>
+
+  </template>
+  <?php // <--- End HTML
+}
+
+if ( ! function_exists( 'fictioneer_comment_moderation' ) ) {
   /**
-   * Renders HTML for the moderation menu
+   * Renders icon and frame for the frontend comment moderation
    *
    * @since 4.7.0
    *
    * @param WP_Comment $comment  Comment object.
    */
 
-  function fictioneer_comment_mod_menu( $comment ) {
-    // Setup
-    $comment_id = $comment->comment_ID;
-    $user_can_moderate = fictioneer_user_can_moderate( $comment );
-
+  function fictioneer_comment_moderation( $comment ) {
     // Abort conditions...
     if (
       ! current_user_can( 'moderate_comments' ) &&
-      ! $user_can_moderate &&
+      ! fictioneer_user_can_moderate( $comment ) &&
       ! get_option( 'fictioneer_enable_public_cache_compatibility' )
     ) {
       return;
     }
 
-    // Start HTML ---> ?>
-    <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0">
-      <i class="fa-solid fa-gear mod-menu-toggle-icon"></i>
-      <div class="popup-menu hide-if-logged-out only-moderators _top _justify-right _fixed-position">
-        <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="offensive"><?php _e( 'Offensive', 'fictioneer' ); ?></button>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="unoffensive"><?php _e( 'Unoffensive', 'fictioneer' ); ?></button>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="close"><?php _e( 'Close', 'fictioneer' ); ?></button>
-          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="open"><?php _e( 'Open', 'fictioneer' ); ?></button>
-        <?php else : ?>
-          <?php
-            echo fictioneer_get_comment_action_link( $comment_id, 'trash', '#comments' );
-            echo fictioneer_get_comment_action_link( $comment_id, 'spam', '#comments' );
+    // Setup
+    $edit_link = admin_url( 'comment.php?c=' . $comment->comment_ID . '&action=editcomment' );
 
-            if ( $comment->comment_approved == '0' ) {
-              echo fictioneer_get_comment_action_link( $comment_id, 'approve', get_comment_link( $comment_id ) );
-            } else {
-              echo fictioneer_get_comment_action_link( $comment_id, 'unapprove', get_comment_link( $comment_id ) );
-            }
-          ?>
-        <?php endif; ?>
-        <?php
-          if (
-            get_option( 'fictioneer_enable_sticky_comments' ) &&
-            get_option( 'fictioneer_enable_ajax_comment_moderation' )
-          ) :
-        ?>
-          <button data-click="ajax-mod-action" data-id="<?php echo $comment_id; ?>" data-action="sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
-          <button data-click="ajax-mod-action" data-id="<?php echo $comment_id; ?>" data-action="unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
-        <?php endif; ?>
-        <?php echo fictioneer_get_comment_action_link( $comment_id, 'edit' ); ?>
-      </div>
+    // Start HTML ---> ?>
+    <div class="popup-menu-toggle comment-quick-button hide-if-logged-out only-moderators hide-on-ajax" tabindex="0" data-fictioneer-last-click-target="toggle" data-fictioneer-comment-target="modMenuToggle" data-action="click->fictioneer-comment#toggleMenu click->fictioneer-last-click#toggle">
+      <i class="fa-solid fa-gear mod-menu-toggle-icon" data-fictioneer-comment-target="modIcon"></i>
+      <div data-fictioneer-comment-target="modMenu" data-edit-link="<?php echo esc_attr( $edit_link ); ?>" class="popup-menu _top _justify-right _fixed-position"></div>
     </div>
     <?php // <--- End HTML
   }
@@ -510,8 +442,6 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
  * Performs comment moderation action via AJAX
  *
  * @since 4.7.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  */
 
 function fictioneer_ajax_moderate_comment() {

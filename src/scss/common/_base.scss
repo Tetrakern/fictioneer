@@ -1,3 +1,7 @@
+@use '_functions' as *;
+@use '_mixins' as *;
+@use '_variables' as *;
+
 :root.age-modal-open {
   overflow: hidden;
 
@@ -34,7 +38,7 @@
 }
 
 .main {
-  margin-top: var(--main-offset, 0);
+  margin-top: var(--main-offset, 0px);
   max-width: var(--site-width);
 
   // Allows for semi-transparent and clipped backgrounds without affecting the content
@@ -157,8 +161,9 @@
     background: var(--button-primary-background-hover);
   }
 
-  &[disabled] {
+  &:is([disabled], ._disabled) {
     cursor: not-allowed;
+    pointer-events: none;
     background: var(--button-primary-background-disabled);
     color: var(--button-primary-color-disabled);
     border: var(--button-primary-border-disabled, 1px solid transparent);

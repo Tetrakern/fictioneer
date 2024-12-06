@@ -21,61 +21,38 @@ function fcn_unsetOauth(button) {
     return;
   }
 
-  const connection = _$$$(`oauth-${button.dataset.channel}`);
-
-  // Mark as in-progress
-  connection.classList.add('ajax-in-progress');
-
-  // Request
-  fcn_ajaxPost(payload = {
-    'action': 'fictioneer_ajax_unset_my_oauth',
-    'nonce': button.dataset.nonce,
-    'channel': button.dataset.channel,
-    'id': button.dataset.id
-  })
-  .then(response => {
-    if (response.success) {
-      // Successfully unset
-      connection.classList.remove('_connected');
-      connection.classList.add('_disconnected');
-      connection.querySelector('button').remove();
-      fcn_showNotification(connection.dataset.unset);
-    } else {
-      // Failed to unset
-      connection.style.background = 'var(--notice-warning-background)';
-
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        5,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_unset_my_oauth',
+    {
+      nonce: button.dataset.nonce,
+      element: _$$$(`oauth-${button.dataset.channel}`),
+      payload: {
+        channel: button.dataset.channel,
+        id: button.dataset.id
+      },
+      callback: (response, element) => {
+        if (response.success) {
+          element.classList.remove('_connected');
+          element.classList.add('_disconnected');
+          element.querySelector('button').remove();
+          fcn_showNotification(element.dataset.unset);
+        } else {
+          element.style.background = 'var(--notice-warning-background)';
+        }
+      },
+      errorCallback: (error, element) => {
+        element.style.background = 'var(--notice-warning-background)';
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      connection.style.background = 'var(--notice-warning-background)';
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    // Regardless of outcome
-    connection.classList.remove('ajax-in-progress');
-  });
+  );
 }
 
 // Listen to click on unset buttons
 _$$('.button-unset-oauth').forEach(element => {
   element.addEventListener(
     'click',
-    e => {
-      fcn_unsetOauth(e.currentTarget);
+    event => {
+      fcn_unsetOauth(event.currentTarget);
     }
   );
 });
@@ -98,70 +75,47 @@ _$$('.button-unset-oauth').forEach(element => {
  */
 
 function fcn_deleteMyAccount(button) {
-  if (_$$$('button-delete-my-account').hasAttribute('disabled')) {
-    return;
-  }
-
   const confirm = prompt(button.dataset.warning);
 
   if (!confirm || confirm.toLowerCase() != button.dataset.confirm.toLowerCase()) {
     return;
   }
 
-  // Disable button
-  _$$$('button-delete-my-account').setAttribute('disabled', true);
+  button.disabled = true;
 
-  // Request
-  fcn_ajaxPost({
-    'action': 'fictioneer_ajax_delete_my_account',
-    'nonce': button.dataset.nonce,
-    'id': button.dataset.id
-  })
-  .then(response => {
-    if (response.success) {
-      // Successfully deleted
-      localStorage.removeItem('fcnAuth');
-      localStorage.removeItem('fcnProfileAvatar');
-      location.reload();
-    } else {
-      // Could not be deleted
-      _$$$('button-delete-my-account').innerHTML = response.data.button;
-
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        5,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    'fictioneer_ajax_delete_my_account',
+    {
+      nonce: button.dataset.nonce,
+      element: button,
+      payload: {
+        id: button.dataset.id
+      },
+      callback: (response, element) => {
+        if (response.success) {
+          location.reload();
+        } else {
+          element.innerHTML = response.data.button;
+        }
+      },
+      errorCallback: (error, element) => {
+        element.innerHTML = error.status ?? fictioneer_tl.notification.error;
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      _$$$('button-delete-my-account').innerHTML = response.data.button;
-    }
-
-    console.error(error);
-  });
+  );
 }
 
 // Listen for click on delete profile button
 _$$$('button-delete-my-account')?.addEventListener(
   'click',
-  e => {
-    fcn_deleteMyAccount(e.currentTarget);
+  event => {
+    fcn_deleteMyAccount(event.currentTarget);
   }
 );
 
 // =============================================================================
 // CLEAR DATA
 // =============================================================================
-
-const /** @const {DOMStringMap} */ fcn_profileDataTranslations = _$$$('profile-data-translations')?.dataset;
 
 /**
  * Prompt with string submission before deletion of user data.
@@ -190,49 +144,23 @@ function fcn_dataDeletionPrompt(button) {
  */
 
 function fcn_clearData(button, action) {
-  // Update view
-  const card = button.closest('.card');
+  const element = button.closest('.card');
 
-  // Clear web storage
   localStorage.removeItem('fcnBookshelfContent');
-
-  // Indicator
-  card.classList.add('ajax-in-progress');
   button.remove();
 
-  // Request
-  fcn_ajaxPost({
-    'action': action,
-    'fcn_fast_ajax': 1,
-    'nonce': button.dataset.nonce
-  })
-  .then(response => {
-    // Check for success
-    if (response.success) {
-      card.querySelector('.card__content').innerHTML = response.data.success;
-    } else {
-      fcn_showNotification(
-        response.data.failure ?? response.data.error ?? fictioneer_tl.notification.error,
-        10,
-        'warning'
-      );
-
-      // Make sure the actual error (if any) is printed to the console too
-      if (response.data.error || response.data.failure) {
-        console.error('Error:', response.data.error ?? response.data.failure);
+  FcnUtils.remoteAction(
+    action,
+    {
+      nonce: button.dataset.nonce,
+      element: element,
+      callback: (response, element) => {
+        if (response.success && element) {
+          element.querySelector('.card__content').innerHTML = response.data.success;
+        }
       }
     }
-  })
-  .catch(error => {
-    if (error.status && error.statusText) {
-      fcn_showNotification(`${error.status}: ${error.statusText}`, 10, 'warning');
-    }
-
-    console.error(error);
-  })
-  .then(() => {
-    card.classList.remove('ajax-in-progress');
-  });
+  );
 }
 
 // =============================================================================
@@ -242,14 +170,10 @@ function fcn_clearData(button, action) {
 // Listen for click on clear comments button
 _$('.button-clear-comments')?.addEventListener(
   'click',
-  e => {
-    // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
-      return;
+  event => {
+    if (fcn_dataDeletionPrompt(event.currentTarget)) {
+      fcn_clearData(event.currentTarget, 'fictioneer_ajax_clear_my_comments');
     }
-
-    // Clear data
-    fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_comments');
   }
 );
 
@@ -260,14 +184,10 @@ _$('.button-clear-comments')?.addEventListener(
 // Listen for click on clear comment subscriptions button
 _$('.button-clear-comment-subscriptions')?.addEventListener(
   'click',
-  e => {
-    // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
-      return;
+  event => {
+    if (fcn_dataDeletionPrompt(event.currentTarget)) {
+      fcn_clearData(event.currentTarget, 'fictioneer_ajax_clear_my_comment_subscriptions');
     }
-
-    // Clear data
-    fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_comment_subscriptions');
   }
 );
 
@@ -278,22 +198,18 @@ _$('.button-clear-comment-subscriptions')?.addEventListener(
 // Listen for click on clear checkmarks button
 _$('.button-clear-checkmarks')?.addEventListener(
   'click',
-  e => {
-    // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
-      return;
+  event => {
+    if (fcn_dataDeletionPrompt(event.currentTarget)) {
+      const controller = window.FictioneerApp.Controllers.fictioneerCheckmarks;
+
+      if (!controller) {
+        fcn_showNotification('Error: Checkmarks Controller not connected.', 3, 'warning');
+        return;
+      }
+
+      controller.clear();
+      fcn_clearData(event.currentTarget, 'fictioneer_ajax_clear_my_checkmarks', true);
     }
-
-    // Update local storage and view
-    const currentUserData = fcn_getUserData();
-    currentUserData.checkmarks = { 'data': {}, 'updated': Date.now() };
-    fcn_setUserData(currentUserData);
-
-    // Update views
-    fcn_updateCheckmarksView();
-
-    // Clear data
-    fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_checkmarks', true);
   }
 );
 
@@ -304,22 +220,18 @@ _$('.button-clear-checkmarks')?.addEventListener(
 // Listen for click on clear reminders button
 _$('.button-clear-reminders')?.addEventListener(
   'click',
-  e => {
-    // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
-      return;
+  event => {
+    if (fcn_dataDeletionPrompt(event.currentTarget)) {
+      const controller = window.FictioneerApp.Controllers.fictioneerReminders;
+
+      if (!controller) {
+        fcn_showNotification('Error: Reminders Controller not connected.', 3, 'warning');
+        return;
+      }
+
+      controller.clear();
+      fcn_clearData(event.currentTarget, 'fictioneer_ajax_clear_my_reminders', true);
     }
-
-    // Update local storage and view
-    const currentUserData = fcn_getUserData();
-    currentUserData.reminders = { 'data': {} };
-    fcn_setUserData(currentUserData);
-
-    // Update view
-    fcn_updateRemindersView();
-
-    // Clear data
-    fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_reminders', true);
   }
 );
 
@@ -330,22 +242,18 @@ _$('.button-clear-reminders')?.addEventListener(
 // Listen for click on clear follows button
 _$('.button-clear-follows')?.addEventListener(
   'click',
-  e => {
-    // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
-      return;
+  event => {
+    if (fcn_dataDeletionPrompt(event.currentTarget)) {
+      const controller = window.FictioneerApp.Controllers.fictioneerFollows;
+
+      if (!controller) {
+        fcn_showNotification('Error: Follows Controller not connected.', 3, 'warning');
+        return;
+      }
+
+      controller.clear();
+      fcn_clearData(event.currentTarget, 'fictioneer_ajax_clear_my_follows', true);
     }
-
-    // Update local storage and view
-    const currentUserData = fcn_getUserData();
-    currentUserData.follows = { 'data': {} };
-    fcn_setUserData(currentUserData);
-
-    // Update view
-    fcn_updateFollowsView();
-
-    // Clear data
-    fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_follows', true);
   }
 );
 
@@ -356,22 +264,18 @@ _$('.button-clear-follows')?.addEventListener(
 // Listen for click on clear bookmarks button
 _$('.button-clear-bookmarks')?.addEventListener(
   'click',
-  e => {
-    // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
-      return;
+  event => {
+    if (fcn_dataDeletionPrompt(event.currentTarget)) {
+      const controller = window.FictioneerApp.Controllers.fictioneerBookmarks;
+      const translations = _$$$('profile-data-translations')?.dataset;
+
+      if (!controller) {
+        fcn_showNotification('Error: Bookmarks Controller not connected.', 3, 'warning');
+        return;
+      }
+
+      controller.clear();
+      event.currentTarget.closest('.card').querySelector('.card__content').innerHTML = translations.clearedSuccess;
     }
-
-    // Remove bookmarks
-    const currentUserData = fcn_getUserData();
-    currentUserData.bookmarks = '{}';
-    fcn_setUserData(currentUserData);
-    fcn_bookmarks.data = {};
-
-    // Update view
-    e.currentTarget.closest('.card').querySelector('.card__content').innerHTML = fcn_profileDataTranslations.clearedSuccess;
-
-    // Update local storage and database
-    fcn_setBookmarks(fcn_bookmarks);
   }
 );

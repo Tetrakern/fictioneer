@@ -1,5 +1,6 @@
-@import '../common/_functions';
-@import '../common/_mixins';
+@use '../common/_functions' as *;
+@use '../common/_mixins' as *;
+@use '../common/_variables' as *;
 
 :root.page-style-mask-image-layered-peaks-a:not(.minimal) .main__background {
   top: max(0px, calc(var(--page-inset-top, 0px)) - 1rem);

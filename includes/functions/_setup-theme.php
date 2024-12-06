@@ -705,6 +705,9 @@ function fictioneer_root_attributes() {
     $classes[] = 'no-page-shadow';
   }
 
+  // Stimulus
+  $output['data-controller'] = 'fictioneer';
+
   // Prepare
   $output['class'] = implode( ' ', $classes );
   $output['data-mode-default'] = get_option( 'fictioneer_dark_mode_as_default', false ) ? 'dark' : 'light';
@@ -738,26 +741,30 @@ function fictioneer_root_attributes() {
   }
 
   $conditions = array(
-    'data-age-confirmation' => get_option( 'fictioneer_enable_site_age_confirmation' ),
-    'data-caching-active' => fictioneer_caching_active( 'root_attribute' ),
-    'data-ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
-    'data-force-child-theme' => ! FICTIONEER_THEME_SWITCH,
-    'data-public-caching' => get_option( 'fictioneer_enable_public_cache_compatibility', false ),
-    'data-ajax-auth' => get_option( 'fictioneer_enable_ajax_authentication', false ),
-    'data-edit-time' => get_option( 'fictioneer_enable_user_comment_editing', false ) ?
+    'age-confirmation' => get_option( 'fictioneer_enable_site_age_confirmation' ),
+    'caching-active' => fictioneer_caching_active( 'root_attribute' ),
+    'ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
+    'force-child-theme' => ! FICTIONEER_THEME_SWITCH,
+    'public-caching' => get_option( 'fictioneer_enable_public_cache_compatibility', false ),
+    'ajax-auth' => get_option( 'fictioneer_enable_ajax_authentication', false ),
+    'edit-time' => get_option( 'fictioneer_enable_user_comment_editing', false ) ?
       get_option( 'fictioneer_user_comment_edit_time', 15 ) : false,
   );
 
   // Iterate conditions and add the truthy to the output
   foreach ( $conditions as $key => $condition ) {
     if ( $condition ) {
-      $output[ $key ] = is_bool( $condition ) ? '1' : $condition;
+      $value = is_bool( $condition ) ? '1' : $condition;
+
+      $output["data-{$key}"] = $value;
+      $output["data-fictioneer-{$key}-value"] = $value;
     }
   }
 
   // Fingerprint
   if ( $post_author_id ) {
     $output['data-author-fingerprint'] = fictioneer_get_user_fingerprint( $post_author_id );
+    $output['data-fictioneer-fingerprint-value'] = $output['data-author-fingerprint'];
   }
 
   // Filter output
@@ -1250,7 +1257,6 @@ function fictioneer_build_dynamic_scripts() {
     'ajax_url' => admin_url( 'admin-ajax.php' ),
     'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
     'ttl' => FICTIONEER_AJAX_TTL,
-    'login_ttl' => FICTIONEER_AJAX_LOGIN_TTL,
     'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE
   )) . ";";
 
@@ -1319,16 +1325,8 @@ function fictioneer_add_custom_scripts() {
     // Application
     wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'fictioneer-dynamic-scripts'], $cache_bust, $strategy );
 
-    // Lightbox
-    if ( get_option( 'fictioneer_enable_lightbox' ) ) {
-      wp_enqueue_script( 'fictioneer-lightbox', get_template_directory_uri() . '/js/lightbox.min.js', ['fictioneer-application-scripts'], $cache_bust, $strategy );
-    }
-
     // Mobile menu
     wp_register_script( 'fictioneer-mobile-menu-scripts', get_template_directory_uri() . '/js/mobile-menu.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
-
-    // Consent
-    wp_register_script( 'fictioneer-consent-scripts', get_template_directory_uri() . '/js/laws.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Chapter
     wp_register_script( 'fictioneer-chapter-scripts', get_template_directory_uri() . '/js/chapter.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
@@ -1345,26 +1343,23 @@ function fictioneer_add_custom_scripts() {
     // Story
     wp_register_script( 'fictioneer-story-scripts', get_template_directory_uri() . '/js/story.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
-    // User
-    wp_register_script( 'fictioneer-user-scripts', get_template_directory_uri() . '/js/user.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
-
     // User Profile
-    wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // CSS Skins
-    wp_register_script( 'fictioneer-css-skins-scripts', get_template_directory_uri() . '/js/css-skins.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-css-skins-scripts', get_template_directory_uri() . '/js/css-skins.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Bookmarks
-    wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Follows
-    wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Checkmarks
-    wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Reminders
-    wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], $cache_bust, $strategy );
+    wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
 
     // Comments
     wp_register_script( 'fictioneer-comments-scripts', get_template_directory_uri() . '/js/comments.min.js', [ 'fictioneer-application-scripts'], $cache_bust, $strategy );
@@ -1383,11 +1378,6 @@ function fictioneer_add_custom_scripts() {
 
     // Enqueue mobile menu
     wp_enqueue_script( 'fictioneer-mobile-menu-scripts' );
-
-    // Enqueue consent
-    if ( get_option( 'fictioneer_cookie_banner' ) ) {
-      wp_enqueue_script( 'fictioneer-consent-scripts' );
-    }
 
     // Enqueue chapter
     if ( $post_type == 'fcn_chapter' && ! is_archive() && ! is_search() ) {
@@ -1424,10 +1414,8 @@ function fictioneer_add_custom_scripts() {
       wp_enqueue_script( 'fictioneer-story-scripts' );
     }
 
-    // Enqueue users + user profile + follows + checkmarks + reminders
+    // Enqueue user profile + follows + checkmarks + reminders
     if ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) ) {
-      wp_enqueue_script( 'fictioneer-user-scripts' );
-
       if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
         wp_enqueue_script( 'fictioneer-checkmarks-scripts' );
       }
@@ -1603,7 +1591,7 @@ add_filter( 'customize_refresh_nonces', 'fictioneer_add_customizer_refresh_nonce
 function fictioneer_wp_login_scripts() {
   // Clear web storage in preparation of login
   wp_print_inline_script_tag(
-    'localStorage.removeItem("fcnUserData"); localStorage.removeItem("fcnAuth");',
+    'localStorage.removeItem("fcnUserData");',
     array(
       'id' => 'fictioneer-login-scripts',
       'type' => 'text/javascript',
@@ -1679,7 +1667,7 @@ add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css' );
  */
 
 function fictioneer_ao_exclude_js( $exclude ) {
-  return $exclude . ', fictioneer/js/splide.min.js';
+  return $exclude . ', fictioneer/js/splide.min.js, fictioneer/js/stimulus.umd.min.js';
 }
 add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_js' );
 
@@ -1899,6 +1887,26 @@ if ( get_option( 'fictioneer_enable_css_skins' ) ) {
 }
 
 // =============================================================================
+// STIMULUS
+// =============================================================================
+
+/**
+ * Outputs Stimulus in <head>
+ *
+ * @since 5.27.0
+ */
+
+function fictioneer_output_stimulus() {
+  $link = get_template_directory_uri() . '/js/stimulus.umd.min.js?bust=' . fictioneer_get_cache_bust();
+
+  // Start HTML ---> ?>
+  <script id="fictioneer-stimulus-umd" src="<?php echo esc_url( $link ); ?>" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1"></script>
+  <script id="fictioneer-stimulus-setup" type="text/javascript" data-jetpack-boost="ignore" data-no-optimize="1" data-no-defer="1" data-no-minify="1">const application = Stimulus.Application.start();</script>
+  <?php // <--- End HTML
+}
+add_action( 'wp_head', 'fictioneer_output_stimulus', 5 );
+
+// =============================================================================
 // ADD EXCERPTS TO PAGES
 // =============================================================================
 
@@ -2009,9 +2017,6 @@ function fictioneer_get_js_translations() {
       'enterPageNumber' => _x( 'Enter page number:', 'Pagination jump prompt.', 'fictioneer' ),
       'slowDown' => _x( 'Slow down.', 'Rate limit reached notification.', 'fictioneer' ),
       'error' => _x( 'Error', 'Generic error notification.', 'fictioneer' ),
-      'checkmarksResynchronized' => __( 'Checkmarks re-synchronized.', 'fictioneer' ),
-      'remindersResynchronized' => __( 'Reminders re-synchronized.', 'fictioneer' ),
-      'followsResynchronized' => __( 'Follows re-synchronized.', 'fictioneer' ),
       'suggestionAppendedToComment' => __( 'Suggestion appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer' ),
       'quoteAppendedToComment' => __( 'Quote appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer' ),
       'linkCopiedToClipboard' => __( 'Link copied to clipboard!', 'fictioneer' ),

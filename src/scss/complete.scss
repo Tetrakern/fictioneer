@@ -5,20 +5,20 @@
 * parallel. Loading many small files in sequence is slower than one large file.
 ***************************************************************************** */
 
-@import 'properties';
-@import 'application';
-@import 'comments';
-@import 'fonts-full';
-@import 'collections';
-@import 'post-list';
+@use 'properties';
+@use 'application';
+@use 'comments';
+@use 'fonts-full';
+@use 'collections';
+@use 'post-list';
 
-@import '_reader-settings';
-@import '_suggestions';
-@import '_progress_bar';
-@import '_tts';
-@import '_micro-menu';
-@import '_chapter';
-@import '_paragraph-tools';
-@import '_recommendation';
-@import '_story';
-@import '_tax-cloud';
+@use '_reader-settings';
+@use '_suggestions';
+@use '_progress_bar';
+@use '_tts';
+@use '_micro-menu';
+@use '_chapter';
+@use '_paragraph-tools';
+@use '_recommendation';
+@use '_story';
+@use '_tax-cloud';

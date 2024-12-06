@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "sass:meta";
+
 $breakpoints: (
   'mobile-s': (min-width: 320px),
   'mobile-m': (min-width: 375px),
@@ -9,8 +12,8 @@ $breakpoints: (
 );
 
 @mixin bp($name_or_pixel) {
-  @if map-has-key($breakpoints, $name_or_pixel) {
-    @media only screen and #{inspect(map-get($breakpoints, $name_or_pixel))} {
+  @if map.has-key($breakpoints, $name_or_pixel) {
+    @media only screen and #{meta.inspect(map.get($breakpoints, $name_or_pixel))} {
       @content;
     }
   }

@@ -5,9 +5,9 @@
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.26.1' );
+define( 'FICTIONEER_VERSION', '5.27.0-beta2' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.26.1' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.27.0-beta2' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', null );
@@ -221,11 +221,6 @@ if ( ! defined( 'FICTIONEER_AJAX_TTL' ) ) {
   define( 'FICTIONEER_AJAX_TTL', 60000 );
 }
 
-// Integer: AJAX login cache TTL in milliseconds
-if ( ! defined( 'FICTIONEER_AJAX_LOGIN_TTL' ) ) {
-  define( 'FICTIONEER_AJAX_LOGIN_TTL', 15000 );
-}
-
 // Integer: AJAX POST debounce rate in milliseconds
 if ( ! defined( 'FICTIONEER_AJAX_POST_DEBOUNCE_RATE' ) ) {
   define( 'FICTIONEER_AJAX_POST_DEBOUNCE_RATE', 700 );
@@ -273,7 +268,7 @@ if ( ! defined( 'FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT' ) ) {
 
 // Integer: Requests per minute
 if ( ! defined( 'FICTIONEER_REQUESTS_PER_MINUTE' ) ) {
-  define( 'FICTIONEER_REQUESTS_PER_MINUTE', 5 );
+  define( 'FICTIONEER_REQUESTS_PER_MINUTE', 10 );
 }
 
 // Integer: Maximum number of IDs in 'post__in' and 'post__not_in' query arguments
@@ -628,15 +623,6 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 
 if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
   require_once __DIR__ . '/includes/functions/users/_checkmarks.php';
-}
-
-/**
- * Add the bookmarks feature.
- */
-
-if ( get_option( 'fictioneer_enable_bookmarks' ) && is_admin() ) {
-  // Only used for AJAX
-  require_once __DIR__ . '/includes/functions/users/_bookmarks.php';
 }
 
 /**

@@ -418,7 +418,6 @@ Fires right after the `<main>` container is closed in the `single-fcn_chapter.ph
 * $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Hooked Actions:**
-* `fictioneer_chapter_micro_menu( $args )` – Add the HTML for the chapter micro menu. Priority 10.
 * `fictioneer_chapter_paragraph_tools()` – Add the HTML for the chapter paragraph tools. Priority 10.
 * `fictioneer_chapter_suggestion_tools()` – Add the HTML for the chapter suggestion tools. Priority 10.
 
@@ -482,6 +481,7 @@ List page template hook. Fires right after the content section in the `chapters.
 **Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_chapters_list( $args )` – Paginated card list of all visible chapters. Priority 30.
+* `fictioneer_chapter_micro_menu( $args )` – Add the HTML for the chapter micro menu. Priority 99.
 
 ---
 
