@@ -25,6 +25,7 @@
     align-items: center;
     justify-content: space-between;
     container-type: inline-size;
+    contain: layout style;
 
     &-left {
       flex-basis: 19%;
