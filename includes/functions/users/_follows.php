@@ -54,14 +54,14 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
    *
    * @since 4.3.0
    *
-   * @param array        $story_ids   IDs of the followed stories.
-   * @param string|false $after_date  Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
-   * @param int          $count       Optional. Maximum number of chapters to be returned. Default 20.
+   * @param array       $story_ids   IDs of the followed stories.
+   * @param string|null $after_date  Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
+   * @param int         $count       Optional. Maximum number of chapters to be returned. Default 20.
    *
    * @return array Collection of chapters.
    */
 
-  function fictioneer_query_followed_chapters( $story_ids, $after_date = false, $count = 20 ) {
+  function fictioneer_query_followed_chapters( $story_ids, $after_date = null, $count = 20 ) {
     // Setup
     $query_args = array (
       'post_type' => 'fcn_chapter',
@@ -99,6 +99,55 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
 
     // Return final results
     return $chapters;
+  }
+}
+
+if ( ! function_exists( 'fictioneer_query_new_followed_chapters_count' ) ) {
+  /**
+   * Query count of new chapters for followed stories
+   *
+   * @since 5.xx.x
+   *
+   * @param array       $story_ids   IDs of the followed stories.
+   * @param string|null $after_date  Optional. Only return chapters after this date,
+   *                                 e.g. wp_date( 'Y-m-d H:i:s', $timestamp ).
+   * @param int         $count       Optional. Maximum number of chapters. Default 20.
+   *
+   * @return array Number of new chapters found.
+   */
+
+  function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date = null, $count = 20 ) {
+    global $wpdb;
+
+    $story_ids = array_map( 'absint', $story_ids );
+
+    if ( empty( $story_ids ) ) {
+      return 0;
+    }
+
+    $story_ids_placeholder = implode( ',', array_fill( 0, count( $story_ids ), '%d' ) );
+
+    $sql = "
+      SELECT COUNT(p.ID) as count
+      FROM {$wpdb->posts} p
+      INNER JOIN {$wpdb->postmeta} pm_story ON p.ID = pm_story.post_id
+      LEFT JOIN {$wpdb->postmeta} pm_hidden ON p.ID = pm_hidden.post_id
+      WHERE p.post_type = 'fcn_chapter'
+        AND p.post_status = 'publish'
+        AND pm_story.meta_key = 'fictioneer_chapter_story'
+        AND pm_story.meta_value IN ({$story_ids_placeholder})
+        AND (pm_hidden.meta_key IS NULL OR pm_hidden.meta_value = '0')
+    ";
+
+    if ( $after_date ) {
+      $sql .= " AND p.post_date > %s";
+    }
+
+    $sql .= " LIMIT %d";
+
+    $query_args = array_merge( $story_ids, $after_date ? [ $after_date ] : [], [ $count ] );
+
+    return (int) $wpdb->get_var( $wpdb->prepare( $sql, $query_args ) );
   }
 }
 

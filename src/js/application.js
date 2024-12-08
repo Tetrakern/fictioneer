@@ -52,6 +52,22 @@ const FcnGlobals = {
   restURL: fictioneer_ajax.rest_url,
 
   /**
+   * URL for FFCNR requests.
+   *
+   * @type {String}
+   */
+
+  ffcnrURL: fictioneer_ajax.ffcnr_url,
+
+  /**
+   * Whether to use the FFCNR user authentication.
+   *
+   * @type {Boolean}
+   */
+
+  ffcnrAuth: fictioneer_ajax.ffcnr_auth,
+
+  /**
    * Debounce rate in milliseconds (default 700).
    *
    * @type {Number}
@@ -247,10 +263,13 @@ application.register('fictioneer', class extends Stimulus.Controller {
     }
 
     // Request
-    FcnUtils.aGet({
-      'action': 'fictioneer_ajax_get_user_data',
-      'fcn_fast_ajax': 1
-    })
+    FcnUtils.aGet(
+      {
+        'action': FcnGlobals.ffcnrAuth ? 'auth' : 'fictioneer_ajax_get_user_data',
+        'fcn_fast_ajax': 1
+      },
+      FcnGlobals.ffcnrAuth ? FcnGlobals.ffcnrURL : null
+    )
     .then(response => {
       if (response.success) {
         // Prepare user data object

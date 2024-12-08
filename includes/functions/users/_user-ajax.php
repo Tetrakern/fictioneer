@@ -54,17 +54,16 @@ function fictioneer_ajax_get_user_data() {
   if ( $logged_in && get_option( 'fictioneer_enable_follows' ) ) {
     $follows = fictioneer_load_follows( $user );
     $follows['new'] = false;
-    $latest = 0;
 
     // New notifications?
     if ( count( $follows['data'] ) > 0 ) {
-      $latest = fictioneer_query_followed_chapters(
+      $latest_count = fictioneer_query_new_followed_chapters_count(
         array_keys( $follows['data'] ),
-        wp_date( 'c', $follows['seen'] / 1000 )
+        wp_date( 'Y-m-d H:i:s', $follows['seen'] / 1000 )
       );
 
-      if ( $latest ) {
-        $follows['new'] = count( $latest );
+      if ( $latest_count > 0 ) {
+        $follows['new'] = $latest_count;
       }
     }
 

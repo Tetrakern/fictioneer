@@ -1256,8 +1256,10 @@ function fictioneer_build_dynamic_scripts() {
   $scripts .= "var fictioneer_ajax = " . json_encode( array(
     'ajax_url' => admin_url( 'admin-ajax.php' ),
     'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
+    'ffcnr_url' => get_template_directory_uri() . '/ffcnr.php',
     'ttl' => FICTIONEER_AJAX_TTL,
-    'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE
+    'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE,
+    'ffcnr_auth' => get_option( 'fictioneer_enable_ffcnr_auth', 0 ) ? 1 : 0
   )) . ";";
 
   // --- Removable query args --------------------------------------------------

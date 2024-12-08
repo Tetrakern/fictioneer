@@ -743,6 +743,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_enable_ffcnr_auth' => array(
+      'name' => 'fictioneer_enable_ffcnr_auth',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1217,6 +1223,8 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_chapter_list_transients' => __( 'Disable chapter list Transient caching', 'fictioneer' ),
       'fictioneer_disable_shortcode_transients' => __( 'Disable shortcode Transient caching', 'fictioneer' ),
       'fictioneer_enable_css_skins' => __( 'Enable CSS skins (requires account)', 'fictioneer' ),
+      'fictioneer_exclude_non_stories_from_cloud_counts' => __( 'Only count stories in taxonomy clouds', 'fictioneer' ),
+      'fictioneer_enable_ffcnr_auth' => __( 'Enable FFCNR user authentication', 'fictioneer' ),
     );
   }
 

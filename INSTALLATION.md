@@ -1491,6 +1491,14 @@ Visit [Google Fonts](https://fonts.google.com/) and browse for a font you like. 
 https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap
 ```
 
+### FFCNR (Fast Fictioneer Requests)
+
+FFCNR is an alternative bootloader that utilizes the `SHORTINIT` constant to load a minimal WordPress environment. Although `SHORTINIT` is not officially documented, you can find guides about it with a quick search. In this mode, almost nothing is loaded: no themes, no plugins, and only a small subset of WordPress itself. For implementation details, refer to `ffcnr.php` in the theme directory.
+
+In FFCNR mode, you have access to the `$wpdb` object for database communication, anything defined in `wp-config.php`, and `apply_filters()` and `do_action()` functionality. However, **you do not** have access to user authentication functions like `wp_get_current_user()` or permission checks such as `current_user_can()`. Additionally, you cannot use conditionals like `is_single()`, utility functions like `esc_attr()` or `get_permalink()`, or content functions such as `the_content()`.
+
+FFCNR is meant exclusively for performance-critical requests, such as AJAX calls to retrieve or write data to the database. It is not secure and should never be used for sensitive operations unless you fully understand the implications. For that reason, no further guidance will be provided here. If you cannot figure this out on your own, you should not be experimenting with it.
+
 ### Constants
 
 Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) or access to your **wp-config.php**. Just override them in the child theme’s own **function.php** or config, but only if you know what you are doing!

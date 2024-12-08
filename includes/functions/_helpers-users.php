@@ -43,7 +43,7 @@ if ( ! function_exists( 'fictioneer_get_custom_avatar_url' ) ) {
 
 function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
   // Abort conditions...
-  if ( $args['force_default'] ?? false || empty( $id_or_email ) ) {
+  if ( ( $args['force_default'] ?? false ) || empty( $id_or_email ) ) {
     return $url;
   }
 
@@ -402,12 +402,7 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
     // If hash does not yet exist, create one
     if ( empty( $fingerprint ) ) {
       $fingerprint = md5( $user->user_login . $user_id );
-
-      update_user_meta(
-        $user_id,
-        'fictioneer_user_fingerprint',
-        $fingerprint
-      );
+      update_user_meta( $user_id, 'fictioneer_user_fingerprint', $fingerprint );
     }
 
     // Return hash

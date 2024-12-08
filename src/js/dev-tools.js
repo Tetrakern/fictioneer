@@ -22,6 +22,16 @@ async function fcn_benchmarkAjax(n = 1, data = {}, url = null, headers = {}, met
 
   console.log(`Starting benchmark with ${n} AJAX requests...`);
 
+  try {
+    if (method === 'get') {
+      await FcnUtils.aGet(data, url, headers);
+    } else {
+      await FcnUtils.aPost(data, url, headers);
+    }
+  } catch (error) {
+    console.error('Error during warm-up request:', error);
+  }
+
   for (let i = 0; i < n; i++) {
     const startTime = performance.now();
 
