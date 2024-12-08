@@ -306,11 +306,9 @@ function fictioneer_get_user_fingerprint( $user ) {
 
 function ffcnr_get_user_data() {
   // Load options
-  global $wpdb;
-
   $options = ffcnr_load_options([
-    'siteurl', 'avatar_default', 'fictioneer_enable_reminders', 'fictioneer_enable_checkmarks',
-    'fictioneer_enable_bookmarks', 'fictioneer_enable_follows', "{$wpdb->prefix}user_roles"
+    'fictioneer_enable_reminders', 'fictioneer_enable_checkmarks',
+    'fictioneer_enable_bookmarks', 'fictioneer_enable_follows'
   ]);
 
   // Setup

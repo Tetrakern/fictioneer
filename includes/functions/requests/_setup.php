@@ -14,19 +14,22 @@
  * @global wpdb $wpdb            WordPress database object.
  * @global array $ffcnr_options  Array of previously loaded options.
  *
- * @param array $option_names  Optional. Array of option names to load.
+ * @param array    $option_names      Optional. Array of option names to load.
+ * @param int|null $blog_id_override  Optional. Override current blog ID.
  *
  * @return array Array of loaded options.
  */
 
-function ffcnr_load_options( $option_names = [] ) {
-  global $wpdb, $ffcnr_options;
+function ffcnr_load_options( $option_names = [], $blog_id_override = null ) {
+  global $wpdb, $blog_id, $ffcnr_options;
 
   if ( ! isset( $ffcnr_options ) ) {
     $ffcnr_options = [];
   }
 
-  $default_options = ['siteurl', 'home', 'blogname', 'blogdescription', 'users_can_register', 'admin_email', 'timezone_string', 'date_format', 'time_format', 'posts_per_page', 'permalink_structure', 'upload_path', 'template', 'blog_charset', 'active_plugins', 'gmt_offset', 'stylesheet', 'default_role', 'avatar_rating', 'show_avatars', 'avatar_default', 'page_for_posts', 'page_on_front', 'site_icon', 'wp_user_roles', 'cron', 'nonce_key', 'nonce_salt', 'current_theme', 'show_on_front', 'blog_public', 'theme_switched'];
+  $_blog_id = $blog_id_override ?? $blog_id ?? 1;
+  $site_prefix = $wpdb->get_blog_prefix( $_blog_id );
+  $default_options = ['siteurl', 'home', 'blogname', 'blogdescription', 'users_can_register', 'admin_email', 'timezone_string', 'date_format', 'time_format', 'posts_per_page', 'permalink_structure', 'upload_path', 'template', 'blog_charset', 'active_plugins', 'gmt_offset', 'stylesheet', 'default_role', 'avatar_rating', 'show_avatars', 'avatar_default', 'page_for_posts', 'page_on_front', 'site_icon', 'wp_user_roles', 'cron', 'nonce_key', 'nonce_salt', 'current_theme', 'show_on_front', 'blog_public', 'theme_switched', "{$site_prefix}user_roles"];
 
   $default_options = apply_filters( 'ffcnr_load_options_defaults', $default_options );
 
@@ -170,7 +173,7 @@ function ffcnr_nonce_tick( $action = -1 ) {
  * @since 5.xx.x
  *
  * @param string $action  Scalar value to add context to the nonce.
- * @param int    $uid     User Id.
+ * @param int    $uid     User ID.
  *
  * @return string The nonce.
  */
@@ -202,7 +205,7 @@ function ffcnr_get_current_user( $options = null, $blog_id_override = null ) {
 
   $_blog_id = $blog_id_override ?? $blog_id ?? 1;
   $site_prefix = $wpdb->get_blog_prefix( $_blog_id );
-  $options = $options ?: ffcnr_load_options( ['siteurl', "{$site_prefix}user_roles"] );
+  $options = $options ?: ffcnr_load_options( [], $blog_id_override );
   $cookie = ffcnr_get_auth_cookie();
   $cookie_elements = explode( '|', $cookie );
 
