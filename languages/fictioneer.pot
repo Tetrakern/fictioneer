@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-08 13:35+0000\n"
+"POT-Creation-Date: 2024-12-08 17:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -9292,8 +9292,8 @@ msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:1100
 msgid ""
-"Recommended. Significantly faster frontend user setup, but can cause issues "
-"in rare cases."
+"Recommended. Significantly faster frontend user setup, but might not work in "
+"rare cases. Not safe for multi-sites."
 msgstr ""
 
 #: includes/functions/settings/_settings_page_tools.php:266

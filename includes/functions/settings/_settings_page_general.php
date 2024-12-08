@@ -1097,7 +1097,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ffcnr_auth',
                     __( 'Enable FFCNR user authentication', 'fictioneer' ),
-                    __( 'Recommended. Significantly faster frontend user setup, but can cause issues in rare cases.', 'fictioneer' ),
+                    __( 'Recommended. Significantly faster frontend user setup, but might not work in rare cases. Not safe for multi-sites.', 'fictioneer' ),
                     sprintf(
                       __( 'FFCNR stands for <em>Fast Fictioneer Requests</em>, an alternative entry point to WordPress with minimal environment. In this mode, almost nothing is loaded: no themes, no plugins, and only a tiny subset of WordPress itself. This reduced environment significantly improves performance for certain tasks, such as fetching user data for the frontend. Refer to the <a href="%s" target="_blank" rel="noopener noreferrer">installation guide</a> for details on interacting with FFCNR.', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#ffcnr-fast-fictioneer-requests'
