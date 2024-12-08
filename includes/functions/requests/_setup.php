@@ -116,7 +116,8 @@ function ffcnr_get_auth_cookie() {
   }
 
   $ffcnr_options = ffcnr_load_options( ['siteurl'] );
-  $cookie_hash = md5( $ffcnr_options['siteurl'] );
+  $site_url = rtrim( mb_strtolower( $ffcnr_options['siteurl'], 'UTF-8' ), '/' );
+  $cookie_hash = apply_filters( 'ffcnr_auth_cookie_hash', md5( $site_url ), $site_url, $ffcnr_options );
 
   if ( ! isset( $_COOKIE[ "wordpress_logged_in_{$cookie_hash}" ] ) ) {
     return false;
