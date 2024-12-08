@@ -284,19 +284,26 @@ function ffcnr_get_current_user( $options = null, $blog_id_override = null ) {
  * @since 5.xx.x
  * @global wpdb $wpdb  WordPress database object.
  *
- * @param int    $user_id  User ID.
- * @param string $filter   Optional. String to filter meta keys. Only keys
- *                         containing this string will be considered.
- * @param bool   $reload   Skip the static cache and query again.
+ * @param int    $user_id   User ID.
+ * @param string $filter    Optional. String to filter meta keys. Only keys
+ *                          containing this string will be considered.
+ * @param bool   $reload    Skip the static cache and query again.
+ * @param string $meta_key  Optional. Check whether meta key is cached.
  *
  * @return array Array of meta data.
  */
 
-function ffcnr_load_user_meta( $user_id, $filter = '', $reload = false ) {
+function ffcnr_load_user_meta( $user_id, $filter = '', $reload = false, $meta_key = null ) {
   static $cache = [];
 
   if ( ! $reload && isset( $cache[ $user_id ] ) ) {
-    return $cache[ $user_id ];
+    if ( $meta_key ) {
+      if ( isset( $cache[ $user_id ][ $meta_key ] ) ) {
+        return $cache[ $user_id ];
+      }
+    } else {
+      return $cache[ $user_id ];
+    }
   }
 
   global $wpdb;
@@ -315,7 +322,7 @@ function ffcnr_load_user_meta( $user_id, $filter = '', $reload = false ) {
   $meta = [];
 
   foreach ( $result as $key => $value ) {
-    $meta[ $key ] = maybe_unserialize( $value->meta_value );
+    $meta[ $key ] = maybe_unserialize( $value->meta_value ) ?? '';
   }
 
   $cache[ $user_id ] = $meta;
@@ -340,7 +347,7 @@ function ffcnr_load_user_meta( $user_id, $filter = '', $reload = false ) {
  */
 
 function ffcnr_get_user_meta( $user_id, $meta_key, $filter = '' ) {
-  $meta = ffcnr_load_user_meta( $user_id, $filter );
+  $meta = ffcnr_load_user_meta( $user_id, $filter, false, $meta_key );
   $value = apply_filters( 'ffcnr_get_user_meta', $meta[ $meta_key ] ?? '', $user_id, $meta_key, $filter );
 
   return $value;
