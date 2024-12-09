@@ -46,6 +46,24 @@ const _$$$ = document.getElementById.bind(document);
 // =============================================================================
 
 const FcnUtils = {
+  userDataDefaults: {
+    'lastLoaded': 0,
+    'timestamp': 0,
+    'loggedIn': 'pending',
+    'follows': false,
+    'reminders': false,
+    'checkmarks': false,
+    'bookmarks': null,
+    'likes': null,
+    'fingerprint': false,
+    'nonceHtml': '',
+    'nonce': '',
+    'isAdmin': false,
+    'isModerator': false,
+    'isAuthor': false,
+    'isEditor': false
+  },
+
   /**
    * Returns or prepares locally cached user data.
    *
@@ -54,26 +72,8 @@ const FcnUtils = {
    */
 
   userData() {
-    const defaults = {
-      'lastLoaded': 0,
-      'timestamp': 0,
-      'loggedIn': 'pending',
-      'follows': false,
-      'reminders': false,
-      'checkmarks': false,
-      'bookmarks': null,
-      'likes': null,
-      'fingerprint': false,
-      'nonceHtml': '',
-      'nonce': '',
-      'isAdmin': false,
-      'isModerator': false,
-      'isAuthor': false,
-      'isEditor': false
-    };
-
     const data = FcnUtils.parseJSON(localStorage.getItem('fcnUserData')) || {};
-    return { ...defaults, ...data };
+    return { ...FcnUtils.userDataDefaults, ...data };
   },
 
   /**
@@ -87,21 +87,10 @@ const FcnUtils = {
 
     const reset = {
       'lastLoaded': data.lastLoaded ?? 0,
-      'timestamp': 0,
-      'loggedIn': (FcnGlobals.ajaxAuth && data.loggedIn === false) ? false : 'pending',
-      'follows': false,
-      'reminders': false,
-      'checkmarks': false,
-      'likes': null,
-      'bookmarks': null,
-      'fingerprint': false,
-      'isAdmin': false,
-      'isModerator': false,
-      'isAuthor': false,
-      'isEditor': false
+      'loggedIn': (FcnGlobals.ajaxAuth && data.loggedIn === false) ? false : 'pending'
     };
 
-    localStorage.setItem('fcnUserData', JSON.stringify({ ...data, ...reset }));
+    localStorage.setItem('fcnUserData', JSON.stringify({ ...data, ...FcnUtils.userDataDefaults, ...reset }));
   },
 
   /**
