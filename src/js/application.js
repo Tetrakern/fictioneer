@@ -76,6 +76,14 @@ const FcnGlobals = {
   debounceRate: fictioneer_ajax.post_debounce_rate,
 
   /**
+   * Whether AJAX authentication is enabled.
+   *
+   * @type {Boolean}
+   */
+
+  ajaxAuth: document.documentElement.dataset.fictioneerAjaxAuthValue ?? false,
+
+  /**
    * Theme fonts.
    *
    * @type {Object}
@@ -235,7 +243,10 @@ application.register('fictioneer', class extends Stimulus.Controller {
     }
 
     // Only update from server after some time has passed (e.g. 60 seconds)
-    if (FcnGlobals.ajaxLimitThreshold < currentUserData.lastLoaded || currentUserData.loggedIn === false) {
+    if (
+      (FcnGlobals.ajaxLimitThreshold < currentUserData.lastLoaded || currentUserData.loggedIn === false) &&
+      currentUserData.loggedIn !== 'pending'
+    ) {
       // Prepare event
       const event = new CustomEvent(
         'fcnUserDataReady',
