@@ -64,19 +64,31 @@ if ( $post_id ) {
 
   // Custom header image?
   if ( get_post_meta( $post_id, 'fictioneer_custom_header_image', true ) ) {
-    $header_image_url = get_post_meta( $post_id, 'fictioneer_custom_header_image', true );
-    $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
+    $header_image_id = get_post_meta( $post_id, 'fictioneer_custom_header_image', true );
+    $header_image_url = wp_get_attachment_image_url( $header_image_id, 'full' );
     $header_image_source = 'post';
   } elseif ( ! empty( $story_id ) && get_post_meta( $story_id, 'fictioneer_custom_header_image', true ) ) {
-    $header_image_url = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
-    $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
+    $header_image_id = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
+    $header_image_url = wp_get_attachment_image_url( $header_image_id, 'full' );
     $header_image_source = 'story';
   }
 }
 
 // Filter header image
-if ( ! empty( $post_id ) && $header_image_url ) {
-  $header_image_url = apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id );
+$header_image_preload = '';
+
+if ( $header_image_url ) {
+  $header_image_url = apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id, $header_image_source );
+
+  if ( $header_image_url ) {
+    $header_image_preload = apply_filters(
+      'fictioneer_filter_header_image_preload',
+      "<link rel='preload' href='{$header_image_url}' as='image' fetchPriority='high'>",
+      $header_image_url,
+      $post_id,
+      $header_image_source
+    );
+  }
 }
 
 // Action arguments
@@ -131,7 +143,7 @@ $body_attributes = array_map(
 
 <html <?php language_attributes(); ?> <?php fictioneer_root_attributes(); ?>>
 
-  <head><?php wp_head(); ?></head>
+  <head><?php echo $header_image_preload; wp_head(); ?></head>
 
   <body <?php body_class( 'site-bg scrolled-to-top' ); echo implode( ' ', $body_attributes ); ?>>
     <?php

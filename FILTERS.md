@@ -972,12 +972,24 @@ Filters the font array compiled from all valid font folders and Google Fonts lin
 
 ---
 
-### `apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id )`
+### `apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id, $source )`
 Filters the URL of the header image in the `header.php` template.
 
 **Parameters:**
 * $header_image_url (string) – URL of the current header image, either global or custom.
 * $post_id (int|null) – Current post ID. Unsafe since this may be an archive, author, etc.
+* $source (string) – Either `'default'`, `'post'`, or `'story'`.
+
+---
+
+### `apply_filters( 'fictioneer_filter_header_image_preload', $tag, $header_image_url, $post_id, $source )`
+Filters the preload link tag of the header image in the `header.php` template.
+
+**Parameters:**
+* $tag (string) – Link tag for preloading the header image.
+* $header_image_url (string) – URL of the current header image, either global or custom.
+* $post_id (int|null) – Current post ID. Unsafe since this may be an archive, author, etc.
+* $source (string) – Either `'default'`, `'post'`, or `'story'`.
 
 ---
 
