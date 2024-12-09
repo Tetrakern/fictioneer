@@ -88,7 +88,7 @@ const FcnUtils = {
     const reset = {
       'lastLoaded': data.lastLoaded ?? 0,
       'timestamp': 0,
-      'loggedIn': false,
+      'loggedIn': 'pending',
       'follows': false,
       'reminders': false,
       'checkmarks': false,

@@ -235,7 +235,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
     }
 
     // Only update from server after some time has passed (e.g. 60 seconds)
-    if (FcnGlobals.ajaxLimitThreshold < currentUserData.lastLoaded || !currentUserData.lastLoaded) {
+    if (FcnGlobals.ajaxLimitThreshold < currentUserData.lastLoaded || currentUserData.loggedIn === false) {
       // Prepare event
       const event = new CustomEvent(
         'fcnUserDataReady',
