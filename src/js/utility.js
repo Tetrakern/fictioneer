@@ -83,8 +83,10 @@ const FcnUtils = {
    */
 
   resetUserData() {
+    const data = FcnUtils.parseJSON(localStorage.getItem('fcnUserData')) || {};
+
     const reset = {
-      'lastLoaded': 0,
+      'lastLoaded': data.lastLoaded ?? 0,
       'timestamp': 0,
       'loggedIn': false,
       'follows': false,
@@ -99,7 +101,6 @@ const FcnUtils = {
       'isEditor': false
     };
 
-    const data = FcnUtils.parseJSON(localStorage.getItem('fcnUserData')) || {};
     localStorage.setItem('fcnUserData', JSON.stringify({ ...data, ...reset }));
   },
 
