@@ -9,7 +9,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 5.xx.x
+ * @since 5.27.0
  */
 
 define( 'SHORTINIT', true );

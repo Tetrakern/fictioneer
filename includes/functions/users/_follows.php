@@ -106,7 +106,7 @@ if ( ! function_exists( 'fictioneer_query_new_followed_chapters_count' ) ) {
   /**
    * Query count of new chapters for followed stories
    *
-   * @since 5.xx.x
+   * @since 5.27.0
    *
    * @param array       $story_ids   IDs of the followed stories.
    * @param string|null $after_date  Optional. Only return chapters after this date,

@@ -10,7 +10,7 @@
  * Note: Regardless of the given option names to query, the function
  * always queries a set of default WP options for convenience.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @global wpdb $wpdb            WordPress database object.
  * @global array $ffcnr_options  Array of previously loaded options.
  *
@@ -66,7 +66,7 @@ function ffcnr_load_options( $option_names = [], $blog_id_override = null ) {
  *
  * Note: Reduced alternative to wp_hash().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param string $data    Plain text to hash.
  * @param string $scheme  Authentication scheme (auth, nonce).
@@ -88,7 +88,7 @@ function ffcnr_hash( $data, $scheme = 'auth' ){
  *
  * Note: Reduced alternative to WP_Session_Tokens::hash_token().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param string $token  Session token to hash.
  *
@@ -106,7 +106,7 @@ function ffcnr_hash_token( $token ){
 /**
  * Returns authentication cookie.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @return string The unprocessed cookie string.
  */
@@ -136,7 +136,7 @@ function ffcnr_get_auth_cookie() {
  *
  * Note: Alternative to wp_get_session_token().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @return string The session token or empty string.
  */
@@ -153,7 +153,7 @@ function ffcnr_get_session_token() {
  *
  * Note: Alternative to wp_nonce_tick().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @return float Float value rounded up to the next highest integer.
  */
@@ -170,7 +170,7 @@ function ffcnr_nonce_tick( $action = -1 ) {
  *
  * Note: Alternative to wp_create_nonce().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param string $action  Scalar value to add context to the nonce.
  * @param int    $uid     User ID.
@@ -192,7 +192,7 @@ function ffcnr_create_nonce( $action, $uid ) {
 /**
  * Returns current user.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param array    $options           Optional. Pre-queried theme options.
  * @param int|null $blog_id_override  Optional. Override current blog ID.
@@ -285,7 +285,7 @@ function ffcnr_get_current_user( $options = null, $blog_id_override = null ) {
 /**
  * Loads meta fields for a given user ID.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @global wpdb $wpdb  WordPress database object.
  *
  * @param int    $user_id   User ID.
@@ -339,7 +339,7 @@ function ffcnr_load_user_meta( $user_id, $filter = '', $reload = false, $meta_ke
  *
  * Note: Alternative to get_user_meta().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param int    $user_id  User ID.
  * @param string $meta_key Meta key.
@@ -362,7 +362,7 @@ function ffcnr_get_user_meta( $user_id, $meta_key, $filter = '' ) {
  *
  * Note: Alternative to update_user_meta().
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @global wpdb $wpdb  WordPress database object.
  *
  * @param int    $user_id     User ID.
@@ -419,7 +419,7 @@ function ffcnr_update_user_meta( $user_id, $meta_key, $meta_value ) {
 /**
  * Includes a ffcnr-functions.php file from the active theme.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @return bool True if included, false if not.
  */

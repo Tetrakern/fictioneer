@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) OR exit;
 /**
  * Returns the user avatar URL.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param stdClass $user  User object.
  * @param int      $size  Optional. Size of the avatar. Default 96.
@@ -66,7 +66,7 @@ function ffcnr_get_avatar_url( $user, $size = 96 ) {
 /**
  * Checks if an user is an administrator.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param stdClass $user  User object.
  *
@@ -80,7 +80,7 @@ function ffcnr_is_admin( $user ) {
 /**
  * Checks if an user is an author.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param stdClass $user  User object.
  *
@@ -97,7 +97,7 @@ function ffcnr_is_author( $user ) {
 /**
  * Checks if an user is a moderator.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param stdClass $user  User object.
  *
@@ -111,7 +111,7 @@ function ffcnr_is_moderator( $user ) {
 /**
  * Checks if an user is an editor.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  *
  * @param stdClass $user  User object.
  *
@@ -125,7 +125,7 @@ function ffcnr_is_editor( $user ) {
 /**
  * Returns an user's Follows
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @see includes/functions/users/_follows.php
  *
  * @param stdClass $user  User to get the Follows for.
@@ -161,7 +161,7 @@ function fictioneer_load_follows( $user ) {
 /**
  * Query count of new chapters for followed stories
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @see includes/functions/users/_follows.php
  *
  * @param array       $story_ids   IDs of the followed stories.
@@ -212,7 +212,7 @@ function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date =
  * Get an user's Reminders array from the database or creates a new one if it
  * does not yet exist.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @see includes/functions/users/_reminders.php
  *
  * @param stdClass $user  User to get the Reminders for.
@@ -246,7 +246,7 @@ function fictioneer_load_reminders( $user ) {
  * Get an user's Checkmarks array from the database or creates a new one if it
  * does not yet exist.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @see includes/functions/users/_checkmarks.php
  *
  * @param stdClass $user  User to get the checkmarks for.
@@ -277,7 +277,7 @@ function fictioneer_load_checkmarks( $user ) {
 /**
  * Returns an unique MD5 hash for the user.
  *
- * @since 5.xx.x
+ * @since 5.27.0
  * @see includes/functions/_helpers-users.php
  *
  * @param stdClass $user  User to get the fingerprint for.
