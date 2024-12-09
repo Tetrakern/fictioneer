@@ -1315,20 +1315,24 @@ Filters the array of query args to be removed after being parsed on page load.
 Filters the intermediate output array of the `fictioneer_root_attributes()` function in the `header.php` template before it is looped and rendered. Note that the array keys are used as attribute names and include hyphens.
 
 **$attributes:**
-* $class (string) – CSS classes. Depends on options, can be empty.
-* $data-mode-default (string) – Mode of the site, light or dark. Default 'dark'.
-* $data-site-width-default (string) – Site width in pixels (without unit). Default '960'.
-* $data-theme (string) – Active theme or child theme. Default 'default'.
-* $data-mode (string) – Active theme mode. Default empty (dark).
-* $data-font-weight (string) – Current font weight set (default, thinner, or normal). Default 'default'.
-* $data-primary-font (string) – CSS name of primary font. Default 'Open Sans'.
-* $data-ajax-submit (string|null) – Optional. Toggle to use AJAX comment submit.
-* $data-ajax-nonce (string|null) – Optional. Toggle to load nonce via AJAX.
-* $data-ajax-auth (string|null) – Optional. Toggle to load user login state via AJAX.
-* $data-force-child-theme (string|null) – Optional. Toggle to disable parent theme switch.
-* $data-public-caching (string|null) – Optional. Indicates that public caches are served to all users.
-* $data-ajax-auth (string|null) – Optional. Indicates that the logged-in status of users is set via AJAX.
-* $data-edit-time (string|null) – Optional. Time in minutes that logged-in users can edit their comments.
+* 'class' (string) – CSS classes. Depends on options, can be empty.
+* 'data-mode-default' (string) – Mode of the site, light or dark. Default 'dark'.
+* 'data-site-width-default' (string) – Site width in pixels (without unit). Default '960'.
+* 'data-theme' (string) – Active theme or child theme. Default 'default'.
+* 'data-mode' (string) – Active theme mode. Default empty (dark).
+* 'data-font-weight' (string) – Current font weight set (default, thinner, or normal). Default 'default'.
+* 'data-primary-font' (string) – CSS name of primary font. Default 'Open Sans'.
+* 'data-ajax-submit' (string|null) – Optional. Toggle to use AJAX comment submit.
+* 'data-ajax-nonce' (string|null) – Optional. Toggle to load nonce via AJAX.
+* 'data-ajax-auth' (string|null) – Optional. Toggle to load user login state via AJAX.
+* 'data-force-child-theme' (string|null) – Optional. Toggle to disable parent theme switch.
+* 'data-caching-active' – Optional. Whether the site is cached.
+* 'data-public-caching' (string|null) – Optional. Indicates that public caches are served to all users.
+* 'data-ajax-auth' (string|null) – Optional. Indicates that the logged-in status of users is set via AJAX.
+* 'data-edit-time' (string|null) – Optional. Time in minutes that logged-in users can edit their comments.
+* 'data-author-fingerprint' – Optional. Fingerprint hash of the post author.
+* 'data-age-confirmation' – Optional. Whether the age confirmation modal should be triggered.
+* 'data-fictioneer-{$key}-value' (string|null) – Optional. Stimulus controller values.
 
 ---
 
