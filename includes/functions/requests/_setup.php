@@ -65,6 +65,73 @@ function ffcnr_load_options( $option_names = [], $blog_id_override = null ) {
 }
 
 /**
+ * Returns an option value or default.
+ *
+ * @since 5.27.0
+ *
+ * @param string   $option   The option to get.
+ * @param mixed    $default  Optional default value. Default ''.
+ * @param string[] $load     Array of options to query fro th é database.
+ *
+ * @return mixed The option value if found, otherwise the default.
+ */
+
+function ffcnr_get_option( $option, $default = '', $load = [] ) {
+  $options = ffcnr_load_options( $load );
+
+  return $options[ $option ] ?? $default;
+}
+
+/**
+ * Add or update an option in the WordPress options table.
+ *
+ * @since 5.27.0
+ * @global wpdb $wpdb  WordPress database object.
+ *
+ * @param string $name      The name of the option.
+ * @param mixed  $value     The value of the option.
+ * @param bool   $autoload  Whether to autoload the option. Default false.
+ *
+ * @return bool True on success, false on failure.
+ */
+
+function ffcnr_update_option( $name, $value, $autoload = false ) {
+  global $wpdb;
+
+  $name = trim( $name );
+  $autoload = $autoload ? 'yes' : 'no';
+
+  $existing_option = $wpdb->get_var(
+    $wpdb->prepare(
+      "SELECT option_id FROM {$wpdb->options} WHERE option_name = %s LIMIT 1",
+      $name
+    )
+  );
+
+  $value = maybe_serialize( $value );
+
+  if ( $existing_option ) {
+    $updated = $wpdb->update(
+      $wpdb->options,
+      array( 'option_value' => $value, 'autoload' => $autoload ),
+      array( 'option_name' => $name ),
+      ['%s', '%s'],
+      ['%s']
+    );
+
+    return $updated !== false;
+  } else {
+    $inserted = $wpdb->insert(
+      $wpdb->options,
+      array( 'option_name' => $name, 'option_value' => $value, 'autoload' => $autoload ),
+      ['%s', '%s', '%s']
+    );
+
+    return $inserted !== false;
+  }
+}
+
+/**
  * Returns hash of a given string.
  *
  * Note: Reduced alternative to wp_hash().
