@@ -819,14 +819,14 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
   // Get URL if not provided
   url = url ? url : (fictioneer_ajax.ajax_url ?? FcnGlobals.ajaxURL);
 
-  // Default headers
-  let final_headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Cache-Control': 'no-cache'
+  // Merge default headers with custom headers (if any)
+  const final_headers = {
+    ...{
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cache-Control': 'no-cache'
+    },
+    ...headers
   };
-
-  // Merge in custom headers (if any)
-  final_headers = {...final_headers, ...headers};
 
   // Merge with default nonce
   data = {...{'nonce': FcnUtils.nonce()}, ...data};
@@ -840,11 +840,14 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
     body: new URLSearchParams(data)
   });
 
-  // Return response
-  if (response.ok) {
-    return response.json();
-  } else {
-    return Promise.reject(response);
+  // Handle response by status code
+  switch (response.status) {
+    case 200: // OK
+      return response.json();
+    case 204: // No Content
+      return null;
+    default:
+      return Promise.reject(response);
   }
 }
 
@@ -869,14 +872,14 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   data = {...{'nonce': FcnUtils.nonce()}, ...data};
   url = FcnUtils.buildUrl(data, url);
 
-  // Default headers
-  let final_headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Cache-Control': 'no-cache'
+  // Merge default headers with custom headers (if any)
+  const final_headers = {
+    ...{
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cache-Control': 'no-cache'
+    },
+    ...headers
   };
-
-  // Merge in custom headers (if any)
-  final_headers = {...final_headers, ...headers};
 
   // Fetch promise
   const response = await fetch(url, {
@@ -886,10 +889,13 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
     mode: 'same-origin'
   });
 
-  // Return response
-  if (response.ok) {
-    return response.json();
-  } else {
-    return Promise.reject(response);
+  // Handle response by status code
+  switch (response.status) {
+    case 200: // OK
+      return response.json();
+    case 204: // No Content
+      return null;
+    default:
+      return Promise.reject(response);
   }
 }

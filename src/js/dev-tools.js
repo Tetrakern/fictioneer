@@ -59,15 +59,17 @@ async function fcn_benchmarkAjax(n = 1, data = {}, url = null, headers = {}, met
  * Makes a GET request and prints the response to the console
  *
  * @param {Object} payload - Payload to be sent with the request.
- * @param {String} method - Either 'get' or 'post'. Default 'get'.
+ * @param {Object} [options] - Optional. Additional options for the request.
+ * @param {String} [options.method=get] - Optional. The request method. Default 'get'.
+ * @param {String|null} [options.url=null] - Optional. The request URL. Default null.
  *
  * @example fcn_ajaxPrintResponse({'action': 'the_function', 'fcn_fast_ajax': 1})
  */
 
-function fcn_printAjaxResponse(payload, method = 'get') {
+function fcn_printAjaxResponse(payload, { method = 'get', url = null } = {}) {
   if (method === 'get') {
-    FcnUtils.aGet(payload).then((response) => { console.log(response); });
+    FcnUtils.aGet(payload, url).then((response) => { console.log(response); });
   } else {
-    FcnUtils.aPost(payload).then((response) => { console.log(response); });
+    FcnUtils.aPost(payload, url).then((response) => { console.log(response); });
   }
 }
