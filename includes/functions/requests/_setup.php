@@ -514,8 +514,10 @@ function ffcnr_load_child_theme_functions() {
 ffcnr_load_child_theme_functions();
 
 // =============================================================================
-// DELEGATE TO REQUEST
+// DELEGATE REQUEST
 // =============================================================================
+
+global $action;
 
 $action = apply_filters( 'ffcnr_request_action', $_REQUEST['action'] ?? 0 );
 
