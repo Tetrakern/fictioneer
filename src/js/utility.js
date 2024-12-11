@@ -801,44 +801,51 @@ const FcnUtils = {
 // =============================================================================
 
 /**
- * Make a POST request with the Fetch API
+ * Helper function to make Fetch API requests.
  *
- * @since 5.0.0
+ * Note: Legacy helper function.
+ *
+ * @since 5.27.0
+ * @param {String} method - The HTTP method (GET or POST).
  * @param {Object} data - The payload, including the action and nonce.
  * @param {String} [url] - Optional. The request URL if different from the default.
  * @param {Object} [headers] - Optional. Headers for the request.
- * @return {Promise} A Promise that resolves to the parsed JSON response if successful.
+ * @return {Promise} Promise that resolves to the parsed JSON response (200) or null (204).
  */
 
-async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
+async function fcn_ajaxRequest(method, data = {}, url = null, headers = {}) {
   // Auto-complete REST request if not a full URL
   if (url && !url.startsWith('http')) {
     url = FcnGlobals.restURL + url;
   }
 
-  // Get URL if not provided
+  // Get default URL if not provided
   url = url ? url : (fictioneer_ajax.ajax_url ?? FcnGlobals.ajaxURL);
 
-  // Merge default headers with custom headers (if any)
-  const final_headers = {
-    ...{
+  // Merge default nonce into data
+  data = { nonce: FcnUtils.nonce(), ...data };
+
+  // Request options
+  const options = {
+    method,
+    credentials: 'same-origin',
+    headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      ...headers
     },
-    ...headers
+    mode: 'same-origin'
   };
 
-  // Merge with default nonce
-  data = {...{'nonce': FcnUtils.nonce()}, ...data};
+  // Add body or query string based on method
+  if (method === 'POST') {
+    options.body = new URLSearchParams(data);
+  } else if (method === 'GET') {
+    url = FcnUtils.buildUrl(data, url);
+  }
 
   // Fetch promise
-  const response = await fetch(url, {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: final_headers,
-    mode: 'same-origin',
-    body: new URLSearchParams(data)
-  });
+  const response = await fetch(url, options);
 
   // Handle response by status code
   switch (response.status) {
@@ -852,50 +859,33 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
 }
 
 /**
- * Make a GET request with the Fetch API.
+ * Make a POST request with the Fetch API.
+ *
+ * Note: Legacy helper function.
  *
  * @since 5.0.0
  * @param {Object} data - The payload, including the action and nonce.
  * @param {String} [url] - Optional. The request URL if different from the default.
  * @param {Object} [headers] - Optional. Headers for the request.
- * @return {JSON} The parsed JSON response if successful.
+ * @return {Promise} Promise that resolves to the parsed JSON response (200) or null (204).
+ */
+
+async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
+  return fcn_ajaxRequest('POST', data, url, headers);
+}
+
+/**
+ * Make a GET request with the Fetch API.
+ *
+ * Note: Legacy helper function.
+ *
+ * @since 5.0.0
+ * @param {Object} data - The payload, including the action and nonce.
+ * @param {String} [url] - Optional. The request URL if different from the default.
+ * @param {Object} [headers] - Optional. Headers for the request.
+ * @return {Promise} Promise that resolves to the parsed JSON response (200) or null (204).
  */
 
 async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
-  // Auto-complete REST request if not a full URL
-  if (url && !url.startsWith('http')) {
-    url = FcnGlobals.restURL + url;
-  }
-
-  // Build URL
-  url = url ? url : (fictioneer_ajax.ajax_url ?? FcnGlobals.ajaxURL);
-  data = {...{'nonce': FcnUtils.nonce()}, ...data};
-  url = FcnUtils.buildUrl(data, url);
-
-  // Merge default headers with custom headers (if any)
-  const final_headers = {
-    ...{
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Cache-Control': 'no-cache'
-    },
-    ...headers
-  };
-
-  // Fetch promise
-  const response = await fetch(url, {
-    method: 'GET',
-    credentials: 'same-origin',
-    headers: final_headers,
-    mode: 'same-origin'
-  });
-
-  // Handle response by status code
-  switch (response.status) {
-    case 200: // OK
-      return response.json();
-    case 204: // No Content
-      return null;
-    default:
-      return Promise.reject(response);
-  }
+  return fcn_ajaxRequest('GET', data, url, headers);
 }
