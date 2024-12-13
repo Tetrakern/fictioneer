@@ -676,7 +676,7 @@
       margin-bottom: 0;
 
       img {
-        aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
+        aspect-ratio: var(--card-image-aspect-ratio, 3 / 1) !important; // Harden against lazy-load plugins
         position: static;
         height: auto;
       }
