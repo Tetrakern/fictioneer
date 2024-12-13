@@ -5,7 +5,7 @@ Author URI: https://github.com/Tetrakern
 Donate link: [Support me on Ko-Fi](https://ko-fi.com/tetrakern)
 Contributors: tetrakern
 Requires at least: 6.1.0
-Tested up to: 6.6.2
+Tested up to: 6.7.1
 Requires PHP: 7.4
 Stable tag: 5.27.0
 License: GNU General Public License v3.0 or later
