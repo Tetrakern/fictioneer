@@ -32,7 +32,7 @@ function ffcnr_load_options( $option_names = [], $blog_id_override = null ) {
 
   $_blog_id = $blog_id_override ?? $blog_id ?? 1;
   $site_prefix = $wpdb->get_blog_prefix( $_blog_id );
-  $default_options = ['siteurl', 'home', 'blogname', 'blogdescription', 'users_can_register', 'admin_email', 'timezone_string', 'date_format', 'time_format', 'posts_per_page', 'permalink_structure', 'upload_path', 'template', 'blog_charset', 'active_plugins', 'gmt_offset', 'stylesheet', 'default_role', 'avatar_rating', 'show_avatars', 'avatar_default', 'page_for_posts', 'page_on_front', 'site_icon', 'wp_user_roles', 'cron', 'nonce_key', 'nonce_salt', 'current_theme', 'show_on_front', 'blog_public', 'theme_switched', "{$site_prefix}user_roles"];
+  $default_options = ['siteurl', 'home', 'blogname', 'blogdescription', 'users_can_register', 'admin_email', 'timezone_string', 'date_format', 'time_format', 'posts_per_page', 'permalink_structure', 'upload_path', 'template', 'blog_charset', 'active_plugins', 'gmt_offset', 'stylesheet', 'default_role', 'avatar_rating', 'show_avatars', 'avatar_default', 'page_for_posts', 'page_on_front', 'site_icon', 'wp_user_roles', 'cron', 'nonce_key', 'nonce_salt', 'current_theme', 'show_on_front', 'blog_public', 'theme_switched', "{$site_prefix}user_roles", 'fictioneer_ffcnr_salt'];
 
   $default_options = apply_filters( 'ffcnr_load_options_defaults', $default_options );
 
@@ -479,6 +479,61 @@ function ffcnr_update_user_meta( $user_id, $meta_key, $meta_value ) {
     );
 
     return $inserted !== false;
+  }
+}
+
+// =============================================================================
+// SECURITY
+// =============================================================================
+
+/**
+ * Returns the daily randomized salt.
+ *
+ * @since 5.27.0
+ *
+ * @param string $salt_name  Option name of the salt. Default 'fictioneer_ffcnr_salt'.
+ *
+ * @return string The daily salt.
+ */
+
+function ffcnr_get_daily_salt( $salt_name = 'fictioneer_ffcnr_salt' ) {
+  $salts = ffcnr_get_option( $salt_name, [] );
+  $salts = is_array( $salts ) ? $salts : [];
+  $current_date = gmdate( 'Y-m-d' );
+
+  if ( ! isset( $salts[ $current_date ] ) ) {
+    $salts[ $current_date ] = bin2hex( random_bytes( 16 ) );
+
+    ffcnr_update_option( $salt_name, $salts );
+  }
+
+  ffcnr_cleanup_salts( $salts, $salt_name );
+
+  return $salts[ $current_date ];
+}
+
+/**
+ * Deletes salts that are no longer needed.
+ *
+ * @since 5.27.0
+ *
+ * @param string[] $salts   Array of salts.
+ * @param string   $option  Option name of the salt.
+ */
+
+function ffcnr_cleanup_salts( $salts, $option ) {
+  $current_date = gmdate( 'Y-m-d' );
+  $salt_count = count( $salts );
+  $keep_days = 2; // Keep for two days for debug purposes
+
+  foreach ( $salts as $date => $salt ) {
+    if ( strtotime( $date ) < strtotime( "$current_date -$keep_days days" ) ) {
+      unset( $salts[ $date ] );
+    }
+  }
+
+  if ( $salt_count !== count( $salts ) ) {
+    ffcnr_update_option( $option, $salts );
   }
 }
 

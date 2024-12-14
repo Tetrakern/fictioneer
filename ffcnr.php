@@ -22,11 +22,13 @@ header( 'X-Frame-Options: DENY' );
 header( 'Referrer-Policy: no-referrer' );
 header( "Content-Security-Policy: default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none';" ); // Just because
 
+// Ping
 if ( ! ( $_REQUEST['action'] ?? 0 ) ) {
   header( 'HTTP/1.1 204 No Content' );
   exit;
 }
 
+// Initialize
 if ( isset( $_SERVER['DOCUMENT_ROOT'] ) && file_exists( $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php' ) ) {
   require_once $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
 } else {
@@ -43,5 +45,6 @@ if ( isset( $_SERVER['DOCUMENT_ROOT'] ) && file_exists( $_SERVER['DOCUMENT_ROOT'
 
 require_once __DIR__ . '/includes/functions/requests/_setup.php';
 
+// That didn't work
 header( 'HTTP/1.1 400 Bad Request' );
 exit;
