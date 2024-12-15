@@ -167,12 +167,12 @@ function fictioneer_load_follows( $user ) {
  * @param array       $story_ids   IDs of the followed stories.
  * @param string|null $after_date  Optional. Only return chapters after this date,
  *                                 e.g. wp_date( 'Y-m-d H:i:s', $timestamp ).
- * @param int         $count       Optional. Maximum number of chapters. Default 20.
+ * @param int         $count       Optional. Maximum number of chapters. Default 99.
  *
  * @return array Number of new chapters found.
  */
 
-function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date = null, $count = 20 ) {
+function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date = null, $count = 99 ) {
   global $wpdb;
 
   $story_ids = array_map( 'absint', $story_ids );
@@ -187,7 +187,7 @@ function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date =
     SELECT COUNT(p.ID) as count
     FROM {$wpdb->posts} p
     INNER JOIN {$wpdb->postmeta} pm_story ON p.ID = pm_story.post_id
-    LEFT JOIN {$wpdb->postmeta} pm_hidden ON p.ID = pm_hidden.post_id
+    LEFT JOIN {$wpdb->postmeta} pm_hidden ON p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden'
     WHERE p.post_type = 'fcn_chapter'
       AND p.post_status = 'publish'
       AND pm_story.meta_key = 'fictioneer_chapter_story'
@@ -199,11 +199,9 @@ function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date =
     $sql .= " AND p.post_date > %s";
   }
 
-  $sql .= " LIMIT %d";
+  $query_args = array_merge( $story_ids, $after_date ? [ $after_date ] : [] );
 
-  $query_args = array_merge( $story_ids, $after_date ? [ $after_date ] : [], [ $count ] );
-
-  return (int) $wpdb->get_var( $wpdb->prepare( $sql, $query_args ) );
+  return min( (int) $wpdb->get_var( $wpdb->prepare( $sql, $query_args ) ), $count );
 }
 
 /**
