@@ -430,7 +430,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         $meta_cache['comment_count_timestamp'] = time();
 
         // Update post database comment count
-        fictioneer_sql_update_comment_count( $story_id, $comment_count );
+        $story_comment_count = get_approved_comments( $story_id, array( 'count' => true ) ) ?: 0;
+        fictioneer_sql_update_comment_count( $story_id, $comment_count + $story_comment_count );
 
         // Update meta cache and purge
         update_post_meta( $story_id, 'fictioneer_story_data_collection', $meta_cache );
@@ -583,7 +584,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     update_post_meta( $story_id, 'fictioneer_story_total_word_count', $word_count );
 
     // Update post database comment count
-    fictioneer_sql_update_comment_count( $story_id, $comment_count );
+    $story_comment_count = get_approved_comments( $story_id, array( 'count' => true ) ) ?: 0;
+    fictioneer_sql_update_comment_count( $story_id, $comment_count + $story_comment_count );
 
     // Done
     return $result;
