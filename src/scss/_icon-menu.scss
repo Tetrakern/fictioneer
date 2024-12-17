@@ -55,12 +55,6 @@
     @include bp(desktop) {
       border-radius: var(--layout-border-radius-small);
     }
-
-    &.menu-item-has-children {
-      @include bp(desktop) {
-        border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
-      }
-    }
   }
 
   .sub-menu .menu-item :where(a, label, button):where(:not(._no-menu-item-style)) {

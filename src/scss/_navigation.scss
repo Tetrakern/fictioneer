@@ -204,12 +204,6 @@
       @include bp(desktop) {
         border-radius: var(--layout-border-radius-small);
       }
-
-      &.menu-item-has-children {
-        @include bp(desktop) {
-          border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
-        }
-      }
     }
   }
 }
@@ -219,6 +213,17 @@
     position: relative;
     height: fit-content;
     transition: background-color .1s;
+
+    &.menu-item-has-children {
+      transition: background-color .1s, border-radius .1s;
+      transition-delay: 0s, .3s;
+
+      &:hover {
+        @include bp(desktop) {
+        border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
+      }
+      }
+    }
 
     &:not(:hover) {
       .sub-menu {
