@@ -392,6 +392,10 @@
           transform: scale(1);
         }
       }
+
+      > :is(input, button, label, a) {
+        outline-offset: -2px;
+      }
     }
   }
 }
