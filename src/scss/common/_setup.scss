@@ -13,10 +13,6 @@ html:is(:root) {
   -webkit-tap-highlight-color: transparent;
 }
 
-[hidden] {
-  display: none !important;
-}
-
 body:where(:not(.user-is-tabbing)) :is(input, select, textarea, button, label, a):focus {
   outline: none;
 }
