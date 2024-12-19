@@ -2598,8 +2598,15 @@ add_action( 'wp_logout', 'fictioneer_remove_logged_in_cookie' );
  */
 
 function fictioneer_fix_logged_in_cookie() {
-  if ( ! get_current_user_id() && isset( $_COOKIE['fcnLoggedIn'] ) ) {
+  $user_id = get_current_user_id();
+
+  if ( ! $user_id && isset( $_COOKIE['fcnLoggedIn'] ) ) {
     fictioneer_remove_logged_in_cookie();
+  }
+
+  if ( $user_id && ! isset( $_COOKIE['fcnLoggedIn'] ) ) {
+    // Unknown how long WP login cookie still lasts, so just take an hour
+    fictioneer_set_logged_in_cookie( null, time() + HOUR_IN_SECONDS, null, $user_id );
   }
 }
 add_action( 'init', 'fictioneer_fix_logged_in_cookie' );
