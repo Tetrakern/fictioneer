@@ -245,7 +245,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
     // Only update from server after some time has passed (e.g. 60 seconds)
     if (
       (FcnGlobals.ajaxLimitThreshold < currentUserData.lastLoaded || currentUserData.loggedIn === false) &&
-      currentUserData.loggedIn !== 'pending'
+      (currentUserData.loggedIn !== 'pending' || this.ajaxAuthValue)
     ) {
       // Prepare event
       const event = new CustomEvent(
