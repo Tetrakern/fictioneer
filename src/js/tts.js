@@ -283,7 +283,7 @@ function fcn_readTextStack() {
       current.classList.remove('current-reading');
     }
 
-    _$$$(fcn_currentReadingId).classList.add('current-reading');
+    _$$$(fcn_currentReadingId)?.classList.add('current-reading');
   }
 
   fcn_utter.text = fcn_ttsCurrentText;
@@ -333,8 +333,7 @@ if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
     // Prepare items to read
     fcn_ttsStack = fcn_ttsStack.flatMap(node => {
       const result = [];
-      const inner = node.querySelector('.paragraph-inner');
-      const text = inner ? inner.textContent : node.textContent;
+      const text = FcnUtils.extractTextNodes(node);
 
       // Split text into array of sentences using a regex pattern
       const sentences = text.replace(regex, '$1|').split('|');

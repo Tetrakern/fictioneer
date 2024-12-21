@@ -759,14 +759,28 @@ const FcnUtils = {
    *
    * @since 5.27.0
    * @param {HTMLElement} element - The element.
+   * @param {Set<String>} allowedTags - Set of allowed tag names.
    * @return {String} Extracted text or empty string.
    */
 
-  extractTextNodes(element) {
-    return Array.from(element.childNodes)
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent.trim())
-      .join(' ');
+  extractTextNodes(element, allowedTags = new Set(['strong', 'b', 'em', 'i', 'u', 'code', 'a', 's', 'kbd', 'sub', 'sup', 'span', 'label', 'button', 'ins', 'del', 'small', 'mark', 'q', 'abbr', 'time', 'cite'])) {
+    let result = '';
+
+    element.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        result += node.textContent.replace(/\r?\n/g, ' ');
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const tagName = node.tagName.toLowerCase();
+
+        if (tagName === 'br') {
+          result += ' ';
+        } else if (allowedTags.has(tagName)) {
+          result += FcnUtils.extractTextNodes(node, allowedTags);
+        }
+      }
+    });
+
+    return result.replace(/\s+/g, ' ').trim();
   },
 
   /**
