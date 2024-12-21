@@ -154,7 +154,7 @@
         text-indent: 1.5rem;
       }
 
-      :is(kbd, code, table, ul, ol, form, del, ins, mark, input, select, button, embed, iframe, sub, sup) {
+      :is(abbr, kbd, code, table, ul, ol, form, del, ins, mark, input, select, button, embed, iframe, sub, sup, i, em, b, strong) {
         text-indent: 0;
       }
     }
