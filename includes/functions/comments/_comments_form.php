@@ -21,6 +21,33 @@ if ( ! function_exists( 'fictioneer_comment_form' ) ) {
   }
 }
 
+/**
+ * Some cache plugins need the controller added after loading
+ *
+ * @since 5.27.1
+ */
+
+function fictioneer_fix_comment_form_stimulus_controller() {
+  wp_print_inline_script_tag(
+    '(()=>{let e=document.getElementById("commentform");if(e){let t="fictioneer-comment-form",l=e.dataset.controller||"";l.split(" ").includes(t)||(e.dataset.controller=l+(l?" ":"")+t)}})();',
+    array(
+      'id' => 'fictioneer-fix-comment-form-controller-scripts',
+      'type' => 'text/javascript',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
+}
+
+if (
+  ! get_option( 'fictioneer_enable_ajax_comment_form' ) &&
+  ! get_option( 'fictioneer_enable_ajax_comments' )
+) {
+  add_action( 'comment_form_top', 'fictioneer_fix_comment_form_stimulus_controller' );
+}
+
 // =============================================================================
 // COMMENT TOOLBAR
 // =============================================================================

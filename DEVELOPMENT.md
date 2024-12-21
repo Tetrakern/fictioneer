@@ -276,6 +276,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `admin_post_*` | `fictioneer_delete_all_epubs` (10), `fictioneer_tools_add_moderator_role` (10), `fictioneer_tools_move_story_tags_to_genres` (10), `fictioneer_tools_duplicate_story_tags_to_genres` (10), `fictioneer_tools_purge_theme_caches` (10), `fictioneer_tools_move_chapter_tags_to_genres` (10), `fictioneer_tools_duplicate_chapter_tags_to_genres` (10), `fictioneer_tools_append_default_genres` (10), `fictioneer_tools_append_default_tags` (10), `fictioneer_tools_remove_unused_tags` (10), `fictioneer_tools_reset_post_relationship_registry` (10), `fictioneer_admin_profile_unset_oauth` (10), `fictioneer_admin_profile_clear_data_node` (10), `fictioneer_update_frontend_profile` (10), `fictioneer_cancel_frontend_email_change` (10), `fictioneer_add_role` (10), `fictioneer_remove_role` (10), `fictioneer_rename_role` (10), `fictioneer_connection_get_patreon_tiers` (10), `fictioneer_connection_delete_patreon_tiers` (10)
 | `after_setup_theme` | `fictioneer_theme_setup` (10)
 | `bulk_edit_custom_box` | `fictioneer_add_patreon_bulk_edit_tiers` (10), `fictioneer_add_patreon_bulk_edit_amount` (10)
+| `comment_form_top` | `fictioneer_fix_comment_form_stimulus_controller` (10)
 | `comment_post` | `fictioneer_comment_post` (20), `fictioneer_post_comment_to_discord` (99)
 | `current_screen` | `fictioneer_restrict_admin_only_pages` (10), `fictioneer_restrict_comment_edit` (10)
 | `customize_controls_enqueue_scripts` | `fictioneer_enqueue_customizer_scripts` (10)
