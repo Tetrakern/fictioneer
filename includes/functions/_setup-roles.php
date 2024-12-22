@@ -1561,7 +1561,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   function fictioneer_prevent_publish_date_update( $data, $postarr ) {
     // New post?
-    if ( $postarr['post_status'] === 'auto-draft' || empty( $postarr['post_date_gmt'] ) ) {
+    if ( empty( $postarr['ID'] ) || $postarr['post_status'] === 'auto-draft' || empty( $postarr['post_date_gmt'] ) ) {
       return $data;
     }
 
