@@ -1176,7 +1176,7 @@ function fictioneer_ajax_get_chapter_group_options() {
     wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
   }
 
-  if ( ! $user || ! current_user_can( 'edit_fcn_stories' ) ) {
+  if ( ! $user || ! current_user_can( 'edit_fcn_chapters' ) ) {
     wp_send_json_error( array( 'error' => 'User did not pass validation.' ) );
   }
 
