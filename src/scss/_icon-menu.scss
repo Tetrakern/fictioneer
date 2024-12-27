@@ -5,15 +5,14 @@
 .icon-menu {
   display: flex;
   color: var(--navigation-color);
-  font-size: var(--navigation-font-size);
-  font-weight: var(--font-weight-navigation);
 
   .menu-item {
     :is(a, label, button):where(:not(._no-menu-item-style)) {
       display: flex;
       align-items: center;
       color: var(--navigation-color);
-      font-size: inherit;
+      font-size: var(--navigation-font-size);
+      font-weight: var(--font-weight-navigation);
       letter-spacing: 0;
       padding: 0 10px;
       height: var(--navigation-height);
