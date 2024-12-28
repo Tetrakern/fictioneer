@@ -44,7 +44,10 @@ application.register('fictioneer-mobile-menu', class extends Stimulus.Controller
     const targetId = `mobile-frame-${frame}`;
 
     this.editingBookmarks = false;
-    this.panelBookmarksTarget.dataset.editing = false;
+
+    if (this.hasPanelBookmarksTarget) {
+      this.panelBookmarksTarget.dataset.editing = false;
+    }
 
     if (this.hasFrameTarget) {
       this.frameTargets.forEach(element => {
