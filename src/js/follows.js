@@ -258,6 +258,15 @@ function fcn_toggleFollow(storyId, set = null) {
 
   const userData = FcnUtils.userData();
 
+  // Ensure data object is properly initialized
+  if (
+    typeof userData.follows.data !== 'object' ||
+    userData.follows.data === null ||
+    Array.isArray(userData.follows.data)
+  ) {
+    userData.follows.data = {};
+  }
+
   // Decide force if not given
   set = set ?? !userData.follows.data[storyId];
 

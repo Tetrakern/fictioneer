@@ -153,6 +153,15 @@ function fcn_toggleReminder(storyId, set = null) {
 
   const userData = FcnUtils.userData();
 
+  // Ensure data object is properly initialized
+  if (
+    typeof userData.reminders.data !== 'object' ||
+    userData.reminders.data === null ||
+    Array.isArray(userData.reminders.data)
+  ) {
+    userData.reminders.data = {};
+  }
+
   // Decide force if not given
   set = set ?? !userData.reminders.data[storyId];
 

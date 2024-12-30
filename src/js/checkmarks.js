@@ -222,6 +222,7 @@ function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
     type = 'chapter';
   }
 
+  // Ensure data object is properly initialized
   if (
     typeof userData.checkmarks.data !== 'object' ||
     userData.checkmarks.data === null ||
