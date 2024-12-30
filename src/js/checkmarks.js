@@ -222,6 +222,14 @@ function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
     type = 'chapter';
   }
 
+  if (
+    typeof userData.checkmarks.data !== 'object' ||
+    userData.checkmarks.data === null ||
+    Array.isArray(userData.checkmarks.data)
+  ) {
+    userData.checkmarks.data = {};
+  }
+
   // Initialize if story is not yet tracked
   if (!userData.checkmarks.data[storyId]) {
     userData.checkmarks.data[storyId] = [];

@@ -269,11 +269,11 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     this.progressBar.style.width = `${p}%`;
 
     // If end of chapter has been reached and the user is logged in...
-    if (!this.checkmarkUpdated && !!this.storyIdValue && p >= 100 && FcnUtils.loggedIn()) {
+    if (!this.checkmarkUpdated && this.hasStoryIdValue && !!this.storyIdValue && p >= 100 && FcnUtils.loggedIn()) {
       this.checkmarkUpdated = true;
 
       // Make sure necessary data is available
-      if (!this.chapterIdValue || typeof fcn_toggleCheckmark !== 'function') {
+      if (!this.hasChapterIdValue || !this.chapterIdValue || typeof fcn_toggleCheckmark !== 'function') {
         return;
       }
 
