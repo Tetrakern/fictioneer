@@ -877,9 +877,33 @@ add_filter( 'fictioneer_filter_default_search_form_args', 'child_pre_select_sear
 Filters the chapter message array passed to `fictioneer_discord_send_message()` in `_module-discord.php` before it is encoded as JSON. Allows you to customize the webhook message. If made falsy, the message will not be sent.
 
 **Parameters:**
-* $message (array) – The message and fields posted to the Discord webhook.
-* $post (WP_Post) – The new chapter being published.
-* $story_id (int|null) – The ID of the associated story if set. Unsafe.
+* 'message' (array) – The message and fields posted to the Discord webhook.
+  * 'content' (string) - The actual discord message.
+  * 'embeds' (array) - Array of array with embedded items. Only uses the `0` index item.
+    * `0` (array) - First item in the array of embeds.
+      * 'title' (string) - Title.
+      * 'description' (string) - Description.
+      * 'url' (string) - URL.
+      * 'color' (string) - Color integer. Defaults to `FICTIONEER_DISCORD_EMBED_COLOR` (`9692513`).
+      * 'author' (array) - Array of author data.
+        * 'name' (string) - Author name.
+        * 'icon_url' (string) - Avatar URL.
+      * 'timestamp' (string) - [ISO 8601](https://wordpress.org/documentation/article/customize-date-and-time-format/) timestamp.
+      * 'footer' (string|null) - Optional. Title of the story.
+      * 'thumbnail' (array|null) - Optional. Array of thumbnail data.
+        * 'url' (string) - Thumbnail URL.
+* 'post' (WP_Post) – The new chapter being published.
+* 'story_id' (int|null) – The ID of the associated story if set. Unsafe.
+
+**Example:**
+```php
+function child_remove_discord_chapter_message_embed_description( $message ) {
+  $message['embeds'][0]['description'] = '';
+
+  return $message;
+}
+add_filter( 'fictioneer_filter_discord_chapter_message', 'child_remove_discord_chapter_message_embed_description' );
+```
 
 ---
 
