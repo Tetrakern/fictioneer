@@ -15,8 +15,11 @@ $author = get_userdata( $author_id );
 
 // Return home if not a valid author
 if (
-  ! fictioneer_is_author( $author_id ) ||
-  count_user_posts( $author_id, ['fcn_story', 'fcn_chapter'] ) < 1
+  ! FICTIONEER_ENABLE_ALL_AUTHOR_PROFILES &&
+  (
+    ! fictioneer_is_author( $author_id ) ||
+    count_user_posts( $author_id, ['fcn_story', 'fcn_chapter'] ) < 1
+  )
 ) {
   wp_redirect( home_url() );
   exit();

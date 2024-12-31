@@ -444,6 +444,11 @@ if ( ! defined( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS' ) ) {
   define( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS', false );
 }
 
+// Boolean: Whether to enable all author profile pages
+if ( ! defined( 'FICTIONEER_ENABLE_ALL_AUTHOR_PROFILES' ) ) {
+  define( 'FICTIONEER_ENABLE_ALL_AUTHOR_PROFILES', false );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================

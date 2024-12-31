@@ -1579,4 +1579,5 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN | boolean | Whether the [onload pattern](https://www.filamentgroup.com/lab/load-css-simpler/) for asynchronous CSS loading is used. Default `true`.
 | FICTIONEER_SHOW_LATEST_CHAPTERS_ON_STORY_CARDS | boolean | Whether to show the latest instead of the first chapters on story cards. Default `false`.
 | FICTIONEER_LIST_SCHEDULED_CHAPTERS | boolean | Whether to show scheduled chapters in lists. Default `false`.
+| FICTIONEER_ENABLE_ALL_AUTHOR_PROFILES | boolean | Whether to enable all author profile pages. Default `false`.
 | FICTIONEER_EXAMPLE_CHAPTER_ICONS | array | Collection of example Font Awesome icon class strings.
