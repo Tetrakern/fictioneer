@@ -877,7 +877,7 @@ add_filter( 'fictioneer_filter_default_search_form_args', 'child_pre_select_sear
 Filters the chapter message array passed to `fictioneer_discord_send_message()` in `_module-discord.php` before it is encoded as JSON. Allows you to customize the webhook message. If made falsy, the message will not be sent.
 
 **Parameters:**
-* 'message' (array) – The message and fields posted to the Discord webhook.
+* $message (array) – The message and fields posted to the Discord webhook.
   * 'content' (string) - The actual discord message.
   * 'embeds' (array) - Array of array with embedded items. Only uses the `0` index item.
     * `0` (array) - First item in the array of embeds.
@@ -892,8 +892,8 @@ Filters the chapter message array passed to `fictioneer_discord_send_message()` 
       * 'footer' (string|null) - Optional. Title of the story.
       * 'thumbnail' (array|null) - Optional. Array of thumbnail data.
         * 'url' (string) - Thumbnail URL.
-* 'post' (WP_Post) – The new chapter being published.
-* 'story_id' (int|null) – The ID of the associated story if set. Unsafe.
+* $post (WP_Post) – The new chapter being published.
+* $story_id (int|null) – The ID of the associated story if set. Unsafe.
 
 **Example:**
 ```php
