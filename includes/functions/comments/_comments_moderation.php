@@ -375,26 +375,29 @@ add_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10, 2 );
 // RENDER COMMENT MODERATION MENU
 // =============================================================================
 
-function fictioneer_comment_moderation_template() {
-  // Abort if...
-  if ( ! get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
-    return;
-  }
+/**
+ * Renders the comment moderation menu template
+ *
+ * @since 4.27.0
+ */
 
+function fictioneer_comment_moderation_template() {
   // Start HTML ---> ?>
   <template id="template-comment-frontend-moderation-menu">
-    <button data-action="click->fictioneer-comment#trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
-    <button data-action="click->fictioneer-comment#spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
-    <button data-action="click->fictioneer-comment#offensive"><?php _e( 'Offensive', 'fictioneer' ); ?></button>
-    <button data-action="click->fictioneer-comment#unoffensive"><?php _e( 'Unoffensive', 'fictioneer' ); ?></button>
-    <button data-action="click->fictioneer-comment#unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
-    <button data-action="click->fictioneer-comment#approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
-    <button data-action="click->fictioneer-comment#close"><?php _e( 'Close', 'fictioneer' ); ?></button>
-    <button data-action="click->fictioneer-comment#open"><?php _e( 'Open', 'fictioneer' ); ?></button>
+    <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
+      <button data-action="click->fictioneer-comment#trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#offensive"><?php _e( 'Offensive', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#unoffensive"><?php _e( 'Unoffensive', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#close"><?php _e( 'Close', 'fictioneer' ); ?></button>
+      <button data-action="click->fictioneer-comment#open"><?php _e( 'Open', 'fictioneer' ); ?></button>
 
-    <?php if ( get_option( 'fictioneer_enable_sticky_comments' ) ) : ?>
-      <button data-action="click->fictioneer-comment#sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
-      <button data-action="click->fictioneer-comment#unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
+      <?php if ( get_option( 'fictioneer_enable_sticky_comments' ) ) : ?>
+        <button data-action="click->fictioneer-comment#sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
+        <button data-action="click->fictioneer-comment#unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
+      <?php endif; ?>
     <?php endif; ?>
 
     <a class="comment-edit-link" data-fictioneer-comment-target="editLink"><?php _e( 'Edit' ); ?></a>
