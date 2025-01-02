@@ -1535,6 +1535,16 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'right' => _x( 'Right', 'Customizer header sidebar option.', 'fictioneer' )
   );
 
+  if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
+    $description = sprintf(
+      '%s <div style="margin: 10px 0;">%s</div>',
+      __( 'Choose whether and where to render the sidebar. You can set it up under Widgets; it will not appear before that.', 'fictioneer' ),
+      __( '<strong>Note:</strong> Widgets are currently disabled under Fictioneer > General > Performance. You need to enable them first.', 'fictioneer' )
+    );
+  } else {
+    $description = __( 'Choose whether and where to render the sidebar. You can set it up under Widgets; it will not appear before that.', 'fictioneer' );
+  }
+
   $manager->add_control(
     'sidebar_style',
     array(
@@ -1542,12 +1552,12 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 6,
       'section' => 'layout',
       'label' => __( 'Sidebar', 'fictioneer' ),
-      'description' => __( 'Choose whether and where to render the sidebar. You can set it up under Widgets.', 'fictioneer' ),
+      'description' => $description,
       'choices' => apply_filters( 'fictioneer_filter_customizer_sidebar_style', $sidebar_styles )
     )
   );
 
-  // Disable story sidebar
+  // Disable mobile sidebar
   $manager->add_setting(
     'sidebar_hide_on_mobile',
     array(

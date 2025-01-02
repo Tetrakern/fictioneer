@@ -1156,7 +1156,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_all_widgets',
                     __( 'Disable all widgets', 'fictioneer' ),
-                    __( 'The theme does not use widgets by default and removing them slightly boosts performance.', 'fictioneer' )
+                    __( 'Required for sidebar. If not used, removing widgets slightly boosts performance.', 'fictioneer' )
                   );
                 ?>
               </div>
