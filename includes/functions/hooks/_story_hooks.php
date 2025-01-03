@@ -632,29 +632,41 @@ function fictioneer_story_chapters( $args ) {
                     class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>"
                   ><?php
 
+                    $title_output = '';
+
                     // Non-published chapter prefixes
                     if ( in_array( $chapter['status'], ['future', 'trash', 'private'] ) ) {
                       $status_prefix = fcntr( "{$chapter['status']}_prefix" );
 
                       if ( $status_prefix ) {
-                        echo '<span class="chapter-group__list-item-status">' . $status_prefix . '</span> '; // Mind the space
+                        $title_output .= '<span class="chapter-group__list-item-status">' . $status_prefix . '</span> '; // Mind the space
                       }
                     }
 
+                    $chapter['prefix'] = apply_filters(
+                      'fictioneer_filter_list_chapter_prefix',
+                      $chapter['prefix'], $chapter['id'], 'story'
+                    );
+
                     if ( ! empty( $chapter['prefix'] ) ) {
                       // Mind space between prefix and title
-                      echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $chapter['prefix'] ) . ' ';
+                      $title_output .= $chapter['prefix'] . ' ';
                     }
 
                     if ( ! empty( $chapter['list_title'] ) && $chapter['title'] !== $chapter['list_title'] ) {
-                      printf(
+                      $title_output .= sprintf(
                         ' <span class="chapter-group__list-item-title list-view">%s</span><span class="grid-view">%s</span>',
                         $chapter['title'],
                         wp_strip_all_tags( $chapter['list_title'] )
                       );
                     } else {
-                      echo $chapter['title'];
+                      $title_output .= $chapter['title'];
                     }
+
+                    echo apply_filters(
+                      'fictioneer_filter_list_chapter_title_row',
+                      $title_output, $chapter['id'], $chapter['prefix'], $chapter['password'], 'story'
+                    );
 
                   ?></a>
 

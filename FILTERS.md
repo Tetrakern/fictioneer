@@ -1073,11 +1073,42 @@ Filters the boolean return value of the `fictioneer_is_editor( $user_id )` funct
 
 ---
 
-### `apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix )`
+### `apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix, $chapter_id, $context )`
 Filters the prefix string (if any) in front of a chapter title before it is rendered in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode. Useful if you want to add a wrapper for styling purposes.
 
 **Parameters:**
 * $prefix (string) – Chapter prefix.
+* $chapter_id (int) - Post ID of the chapter.
+* $context (string) – Either `'story'` or `'shortcode'`.
+
+---
+
+### `apply_filters( 'fictioneer_filter_list_chapter_title_row', $output, $chapter_id, $prefix, $has_password, $context )`
+Filters the intermediate output HTML of the chapter list title row before it is rendered in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode.
+
+**Parameters:**
+* $output (string) – The chapter title row HTML.
+* $chapter_id (int) - Post ID of the chapter.
+* $prefix (string) – Filtered chapter prefix.
+* $has_password (boolean) – Whether the chapter has a password.
+* $context (string) – Either `'story'` or `'shortcode'`.
+
+**Example:**
+```php
+function child_display_pw_expiration_date_in_chapter_lists( $output, $chapter_id ) {
+  $password_expiration_date_utc = get_post_meta( $chapter_id, 'fictioneer_post_password_expiration_date', true );
+
+  if ( empty( $password_expiration_date_utc ) ) {
+    return $output;
+  }
+
+  $local_time = get_date_from_gmt( $password_expiration_date_utc );
+  $formatted_datetime = date_i18n( get_option('date_format') . ' ' . get_option('time_format'), strtotime( $local_time ) );
+
+  return "[{$formatted_datetime}] {$output}";
+}
+add_filter( 'fictioneer_filter_list_chapter_title_row', 'child_display_pw_expiration_date_in_chapter_lists', 10, 2 );
+```
 
 ---
 

@@ -1300,12 +1300,20 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               class="chapter-group__list-item-link truncate _1-1 <?php echo $has_password ? '_password' : ''; ?>"
             ><?php
 
+              $title_output = '';
+              $prefix = apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix, $chapter_id, 'shortcode' );
+
               if ( ! empty( $prefix ) ) {
                 // Mind space between prefix and title
-                echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix ) . ' ';
+                $title_output .= $prefix . ' ';
               }
 
-              echo $title;
+              $title_output .= $title;
+
+              echo apply_filters(
+                'fictioneer_filter_list_chapter_title_row',
+                $title_output, $chapter_id, $prefix, $has_password, 'shortcode'
+              );
 
             ?></a>
 
