@@ -7,6 +7,9 @@ You can migrate an existing database through several means. The easiest, albeit 
 Add the following script to your `functions.php` file, for example via the **Theme File Editor** under **Appearance**. This serves as the base for the described migration methods and as a template if you want to write your own script. Make sure to remove the code once you are done; you do not want to leave this in a production environment. You can find a list of all story and chapter meta fields in the [development guide](DEVELOPMENT.md#story-meta-fields).
 
 ```php
+// This is just the base migration script to convert and assign chapters;
+// you also need to add one of the method scripts described afterwards!
+
 function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $preview = true ) {
   // Security check (only allow admins to execute script)
   if ( ! current_user_can( 'manage_options' ) ) {
@@ -160,7 +163,7 @@ function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $previ
 }
 ```
 
-## Simple Migration
+## Method 1: Simple Migration
 
 Add the following script to your `functions.php` file. This script will query ALL posts and convert them to chapters, optionally appending them to a prepared story post. You can customize the parameters if needed. The action can be called by opening `/wp-admin/admin-post.php?action=fictioneer_migrate` on your site. You will first get a preview of which chapters are about to be migrated; if you are happy with the preview, click the "Start migration!" link.
 
@@ -168,7 +171,7 @@ Add the following script to your `functions.php` file. This script will query AL
 function fictioneer_migrate() {
   // Story data if you want to append the chapters
   $story_args = array(
-    'story_id' => null, // Leave null if you only want to convert chapters
+    'story_id' => null, // Existing story post ID; leave null if you only want to convert chapters
     'age_rating' => 'Everyone', // Choose: 'Everyone', 'Teen', 'Mature', or 'Adult' (capitalized and in English)
     'status' => 'Ongoing', // Choose: 'Ongoing', 'Completed', 'Oneshot', 'Hiatus', or 'Cancelled' (capitalized and in English)
     'description' => null, // Used on cards; falls back to excerpt
@@ -206,7 +209,7 @@ function fictioneer_migrate() {
 add_action( 'admin_post_fictioneer_migrate', 'fictioneer_migrate' );
 ```
 
-## Migrate by Author(s)
+## Method 2: Migrate by Author(s)
 
 Add the following script to your `functions.php` file. Unlike the simple approach, this script will loop over a predefined set of author data (created by you) to migrate specific posts to specific stories. In this case, a category is used as a discriminator, but other attributes can work too. The action can be called by opening `/wp-admin/admin-post.php?action=fictioneer_migrate_by_author` on your site. Note that you will NOT get a preview; the migration happens immediately!
 
