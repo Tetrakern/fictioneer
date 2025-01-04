@@ -1095,7 +1095,11 @@ Filters the intermediate output HTML of the chapter list title row before it is 
 
 **Example:**
 ```php
-function child_display_pw_expiration_date_in_chapter_lists( $output, $chapter_id ) {
+function child_display_pw_expiration_date_in_chapter_lists( $output, $chapter_id, $prefix, $has_password ) {
+  if ( ! $has_password ) {
+    return $output;
+  }
+
   $password_expiration_date_utc = get_post_meta( $chapter_id, 'fictioneer_post_password_expiration_date', true );
 
   if ( empty( $password_expiration_date_utc ) ) {
@@ -1103,11 +1107,11 @@ function child_display_pw_expiration_date_in_chapter_lists( $output, $chapter_id
   }
 
   $local_time = get_date_from_gmt( $password_expiration_date_utc );
-  $formatted_datetime = date_i18n( get_option('date_format') . ' ' . get_option('time_format'), strtotime( $local_time ) );
+  $formatted_datetime = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $local_time ) );
 
   return "[{$formatted_datetime}] {$output}";
 }
-add_filter( 'fictioneer_filter_list_chapter_title_row', 'child_display_pw_expiration_date_in_chapter_lists', 10, 2 );
+add_filter( 'fictioneer_filter_list_chapter_title_row', 'child_display_pw_expiration_date_in_chapter_lists', 10, 4 );
 ```
 
 ---
