@@ -927,10 +927,11 @@ Filters the story message array passed to `fictioneer_discord_send_message()` in
 
 ---
 
-### `apply_filters( 'fictioneer_filter_discord_chapter_webhook', $post, $story_id )`
+### `apply_filters( 'fictioneer_filter_discord_chapter_webhook', $webhook, $post, $story_id )`
 Filters the webhook used for the Discord notification about a new chapters.
 
 **Parameters:**
+* $webhook (string) - The Discord webhook.
 * $post (WP_Post) - The chapter post.
 * $story_id (int|null) - The ID of the story post (if any). Unsafe.
 
