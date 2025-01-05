@@ -607,6 +607,14 @@ List page template hook. Fires right at the top of an empty result list in the `
 
 ---
 
+### `do_action( 'fictioneer_expired_post_password', $post )`
+Fires after a post password has been expired, which happens when a visitor tries to access the post.
+
+**$args:**
+* $post (WP_Post) – The post that had its password expired.
+
+---
+
 ### `do_action( 'fictioneer_footer', $args )`
 Fires outside the `#site` container and before the `wp_footer` hook, near the end of the document. Not to be confused with the `fictioneer_site_footer` hook.
 
