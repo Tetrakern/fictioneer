@@ -1245,6 +1245,21 @@ Filters the HTML of the message displayed below the Patreon unlock button. The m
 
 ---
 
+### `apply_filters( 'fictioneer_filter_patreon_tier_unlock', $required, $post, $user, $patreon_post_data )`
+Filters the boolean to determine whether a post is unlocked via Patreon tier.
+
+**Parameters:**
+* $required (boolean) – Whether the post is unlocked.
+* $post (WP_Post) – The post object.
+* $user (WP_User) – The current user.
+* $patreon_post_data (array) – Relevant Patreon data for the post.
+  * 'gated' (boolean) - Whether the post has tiers or a cent amount assigned.
+  * 'gate_tiers' (array) - Tiers that unlock the post.
+  * 'gated' (int) - Minimum cent amount that unlocks the post.
+  * 'gate_lifetime_cents' (int) - Minimum lifetime cent amount that unlocks the post.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_post_card_footer', $footer_items, $post, $args )`
 Filters the intermediate output array in the `_card-post.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing date, and comments.
 

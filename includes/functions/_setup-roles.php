@@ -546,6 +546,8 @@ function fictioneer_bypass_password( $required, $post ) {
           ( $patreon_user_data['lifetime_support_cents'] ?? -1 ) >= $patreon_check_lifetime_amount_cents
         );
 
+        $required = apply_filters( 'fictioneer_filter_patreon_tier_unlock', $required, $post, $user, $patreon_post_data );
+
         if ( ! $required ) {
           break;
         }
