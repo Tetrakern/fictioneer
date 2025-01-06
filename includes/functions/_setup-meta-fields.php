@@ -4426,6 +4426,225 @@ if (
 // =============================================================================
 
 /**
+ * Save bulk edit chapter meta.
+ *
+ * @since 5.27.2
+ * @link https://developer.wordpress.org/reference/hooks/bulk_edit_posts/
+ *
+ * @param int[] $updated_post_ids  An array of updated post IDs.
+ * @param int[] $shared_post_data  Associative array containing the post data.
+ */
+
+function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data ) {
+  // Validate
+  if (
+    ! wp_verify_nonce( $shared_post_data['fictioneer_bulk_edit_chapters_nonce'] ?? 0, 'fictioneer_bulk_edit_chapters' ) ||
+    ( $shared_post_data['action2'] ?? 0 ) === 'trash' ||
+    ( $shared_post_data['screen'] ?? 0 ) !== 'edit-fcn_chapter' ||
+    ( $shared_post_data['post_type'] ?? 0 ) !== 'fcn_chapter' ||
+    empty( $updated_post_ids )
+  ) {
+    return;
+  }
+
+  global $wpdb;
+
+  // Setup
+  $story_id = sanitize_text_field( $shared_post_data['bulk_edit_fictioneer_chapter_story_id'] ?? '' );
+  $icon = sanitize_text_field( $shared_post_data['bulk_edit_fictioneer_chapter_icon'] ?? '' );
+  $text_icon = sanitize_text_field( $shared_post_data['bulk_edit_fictioneer_chapter_text_icon'] ?? '' );
+  $prefix = sanitize_text_field( $shared_post_data['bulk_edit_fictioneer_chapter_prefix'] ?? '' );
+  $group = sanitize_text_field( $shared_post_data['bulk_edit_fictioneer_chapter_group'] ?? '' );
+  $user_id = get_current_user_id();
+  $user_is_editor = current_user_can( 'edit_others_fcn_chapters' ) || current_user_can( 'manage_options' );
+
+  // Nothing to do?
+  if ( $story_id === '' && $icon === '' && $text_icon === '' && $prefix === '' && $group === '' ) {
+    return;
+  }
+
+  // Prepare post author map
+  $post_author_map = [];
+
+  $posts_and_authors = $wpdb->get_results(
+    $wpdb->prepare(
+      "SELECT ID, post_author
+      FROM {$wpdb->posts}
+      WHERE ID IN (" . implode( ',', array_fill( 0, count( $updated_post_ids ), '%d' ) ) . ")",
+      $updated_post_ids
+    ), ARRAY_A
+  );
+
+  foreach ( $posts_and_authors as $post ) {
+    $post_author_map[ (int) $post['ID'] ] = (int) $post['post_author'];
+  }
+
+  // Update icon
+  if ( $icon ) {
+    foreach ( $updated_post_ids as $post_id ) {
+      if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
+        continue;
+      }
+
+      if ( strpos( $icon, 'fa-' ) === 0 && $icon !== FICTIONEER_DEFAULT_CHAPTER_ICON ) {
+        update_post_meta( $post_id, 'fictioneer_chapter_icon', $icon );
+      } elseif ( $icon === '_remove' ) {
+        delete_post_meta( $post_id, 'fictioneer_chapter_icon' );
+      }
+    }
+  }
+
+  // Update text icon
+  if ( $text_icon && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    foreach ( $updated_post_ids as $post_id ) {
+      if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
+        continue;
+      }
+
+      if ( $text_icon === '_remove' ) {
+        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', 0 );
+      } else {
+        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', mb_substr( $text_icon, 0, 10, 'UTF-8' ) );
+      }
+    }
+  }
+
+  // Update prefix
+  if ( $prefix && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    foreach ( $updated_post_ids as $post_id ) {
+      if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
+        continue;
+      }
+
+      if ( $prefix === '_remove' ) {
+        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', 0 );
+      } else {
+        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', $prefix );
+      }
+    }
+  }
+
+  // Update chapter group
+  if ( $group ) {
+    foreach ( $updated_post_ids as $post_id ) {
+      if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
+        continue;
+      }
+
+      if ( $group === '_remove' ) {
+        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', 0 );
+      } else {
+        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', $group );
+      }
+    }
+  }
+
+  // Update story ID
+  if ( $story_id !== '' ) {
+    $story_id = intval( $story_id );
+    $story_author_id = (int) get_post_field( 'post_author', $story_id );
+
+    if ( $user_is_editor || $story_author_id === $user_id ) {
+      if ( $story_id < 1 || fictioneer_validate_id( $story_id, 'fcn_story' ) ) {
+        fictioneer_bulk_edit_chapter_story( $updated_post_ids, $story_id, $post_author_map );
+      }
+    }
+  }
+
+  // Clear story meta caches (if not already done)
+  if ( $story_id === '' ) {
+    $updated_stories = [];
+
+    foreach ( $updated_post_ids as $chapter_id ) {
+      $current_story_id = intval( fictioneer_get_chapter_story_id( $chapter_id ) );
+
+      if ( ! $current_story_id ) {
+        continue;
+      }
+
+      if ( ! in_array( $current_story_id, $updated_stories ) ) {
+        wp_update_post( array( 'ID' => $current_story_id, 'post_type' => 'fcn_story' ) ); // Trigger hooks
+
+        $updated_stories[] = $current_story_id;
+      }
+    }
+  }
+}
+add_action( 'bulk_edit_posts', 'fictioneer_save_chapter_bulk_edit', 10, 2 );
+
+/**
+ * Bulk edit chapter stories.
+ *
+ * @since 5.27.2
+ *
+ * @param int[] $chapter_ids  Array of post IDs.
+ * @param int   $story_id     ID of the story or 0 to unset.
+ * @param int[] $author_map   Array of post ID => author ID.
+ */
+
+function fictioneer_bulk_edit_chapter_story( $chapter_ids, $story_id, $author_map ) {
+  // Setup
+  $user_id = get_current_user_id();
+  $user_is_editor = current_user_can( 'edit_others_fcn_chapters' ) || current_user_can( 'manage_options' );
+  $updated_stories = [];
+  $allowed_chapter_ids = $user_is_editor
+    ? $chapter_ids
+    : array_filter( $chapter_ids, fn( $post_id ) => $user_id === $author_map[ (int) $post_id ] );
+
+  // Unset old story
+  foreach ( $allowed_chapter_ids as $chapter_id ) {
+    $current_story_id = intval( fictioneer_get_chapter_story_id( $chapter_id ) );
+
+    if ( ! $current_story_id || $current_story_id === $story_id ) {
+      continue;
+    }
+
+    $other_story_chapters = fictioneer_get_story_chapter_ids( $current_story_id );
+    $other_story_chapters = array_diff( $other_story_chapters, [ strval( $chapter_id ) ] );
+
+    update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_chapters );
+
+    if ( $story_id < 1 ) {
+      delete_post_meta( $chapter_id, 'fictioneer_chapter_story' );
+      fictioneer_set_chapter_story_parent( $chapter_id, 0 );
+    }
+
+    if ( ! in_array( $current_story_id, $updated_stories ) ) {
+      update_post_meta( $current_story_id, 'fictioneer_chapters_modified', current_time( 'mysql', 1 ) );
+      wp_update_post( array( 'ID' => $current_story_id, 'post_type' => 'fcn_story' ) ); // Trigger hooks
+
+      $updated_stories[] = $current_story_id;
+    }
+  }
+
+  // Assign new story
+  if ( $story_id > 0 ) {
+    $previous_story_chapter_ids = fictioneer_get_story_chapter_ids( $story_id );
+    $new_story_chapter_ids = $previous_story_chapter_ids;
+
+    foreach ( $allowed_chapter_ids as $chapter_id ) {
+      if ( ! in_array( $chapter_id, $previous_story_chapter_ids ) ) {
+        update_post_meta( $chapter_id, 'fictioneer_chapter_story', $story_id );
+        fictioneer_set_chapter_story_parent( $chapter_id, $story_id );
+
+        if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
+          $new_story_chapter_ids[] = $chapter_id;
+        }
+      }
+    }
+
+    $new_story_chapter_ids = array_unique( $new_story_chapter_ids );
+
+    if ( $previous_story_chapter_ids !== $new_story_chapter_ids ) {
+      update_post_meta( $story_id, 'fictioneer_story_chapters', array_map( 'strval', $new_story_chapter_ids ) );
+      update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql', 1 ) );
+      update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', 1 ) );
+      wp_update_post( array( 'ID' => $story_id, 'post_type' => 'fcn_story' ) ); // Trigger hooks
+    }
+  }
+}
+
+/**
  * Add chapter meta fields to bulk edit
  *
  * @since 5.24.1
@@ -4435,21 +4654,30 @@ if (
  */
 
 function fictioneer_add_bulk_edit_chapter_meta( $column_name, $post_type ) {
-  // Check post type
-  if ( $post_type !== 'fcn_chapter' ) {
-    return;
-  }
-
-  // Make sure this function is only executed once
   static $added = false;
 
-  if ( $added ) {
+  // Abort if...
+  if ( $post_type !== 'fcn_chapter' || $added ) {
     return;
   }
 
   $added = true;
 
+  // Nonce
+  wp_nonce_field( 'fictioneer_bulk_edit_chapters', 'fictioneer_bulk_edit_chapters_nonce', false );
+
   // Start HTML ---> ?>
+  <?php if ( current_user_can( 'edit_others_fcn_chapters' ) || current_user_can( 'manage_options' ) ) : ?>
+    <fieldset class="inline-edit-col-right">
+      <div class="inline-edit-chapter-story-wrap">
+        <label class="inline-edit-chapter-story">
+          <span class="title"><?php _ex( 'Story', 'Chapter story meta field label.', 'fictioneer' ); ?></span>
+          <input type="text" name="bulk_edit_fictioneer_chapter_story_id" autocomplete="off" autocorrect="off" placeholder="<?php _e( 'Post ID (0 to remove)', 'fictioneer' ); ?>">
+        </label>
+        </div>
+    </fieldset>
+  <?php endif; ?>
+
   <p class="bulk-edit-help"><?php _e( 'Use <code>_remove</code> to remove current values.', 'fictioneer' ); ?></p>
 
   <?php if ( ! get_option( 'fictioneer_hide_chapter_icons' ) ) : ?>
@@ -4495,72 +4723,6 @@ function fictioneer_add_bulk_edit_chapter_meta( $column_name, $post_type ) {
   <?php // <--- End HTML
 }
 add_action( 'bulk_edit_custom_box', 'fictioneer_add_bulk_edit_chapter_meta', 10, 2 );
-
-/**
- * Save chapter bulk edit fields
- *
- * @since 5.24.1
- *
- * @param int $post_id  ID of the updated post.
- */
-
-function fictioneer_bulk_edit_save_chapter_fields( $post_id ) {
-  // Abort if...
-  if (
-    ! wp_verify_nonce( $_REQUEST['_wpnonce'] ?? 0, 'bulk-posts' ) ||
-    ( $_REQUEST['action2'] ?? 0 ) === 'trash' ||
-    ! fictioneer_validate_save_action_user( $post_id, 'fcn_chapter' )
-  ) {
-    return;
-  }
-
-  // Setup
-  $icon = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_icon'] ?? '' );
-  $text_icon = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_text_icon'] ?? '' );
-  $prefix = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_prefix'] ?? '' );
-  $group = sanitize_text_field( $_REQUEST['bulk_edit_fictioneer_chapter_group'] ?? '' );
-
-  // Update icon
-  if ( $icon && ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
-    if ( strpos( $icon, 'fa-' ) === 0 && $icon !== FICTIONEER_DEFAULT_CHAPTER_ICON  ) {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_icon', $icon );
-    } elseif ( $icon === '_remove' ) {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_icon', 0 );
-    }
-  }
-
-  // Update text icon
-  if (
-    $text_icon &&
-    ! get_option( 'fictioneer_hide_chapter_icons' ) &&
-    get_option( 'fictioneer_enable_advanced_meta_fields' )
-  ) {
-    if ( $text_icon === '_remove' ) {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', 0 );
-    } else {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', mb_substr( $text_icon, 0, 10, 'UTF-8' ) );
-    }
-  }
-
-  // Update prefix
-  if ( $prefix && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
-    if ( $prefix === '_remove' ) {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', 0 );
-    } else {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', $prefix );
-    }
-  }
-
-  // Update group
-  if ( $group ) {
-    if ( $group === '_remove' ) {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', 0 );
-    } else {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', $group );
-    }
-  }
-}
-add_action( 'save_post', 'fictioneer_bulk_edit_save_chapter_fields' );
 
 // =============================================================================
 // PASSWORD EXPIRATION NOTE IN POST TABLE
