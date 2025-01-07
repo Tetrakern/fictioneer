@@ -2464,3 +2464,117 @@ function fictioneer_shortcode_tooltip( $atts, $content = null ) {
   return $html;
 }
 add_shortcode( 'fcnt', 'fictioneer_shortcode_tooltip' );
+
+// =============================================================================
+// TERMS SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show taxonomies.
+ *
+ * @since 5.27.2
+ *
+ * @param string|null $attr['term_type']      Term type. Default 'post_tag'.
+ * @param int|null    $attr['post_id']        Post ID. Default 0.
+ * @param int|null    $attr['count']          Maximum number of terms. Default -1 (all).
+ * @param string|null $attr['orderby']        Orderby argument. Default 'count'.
+ * @param string|null $attr['order']          Order argument. Default 'DESC'.
+ * @param bool|null   $attr['show_empty']     Whether to show empty terms. Default false.
+ * @param bool|null   $attr['show_count']     Whether to show term counts. Default false.
+ * @param string|null $attr['classes']        Additional section CSS classes. Default empty.
+ * @param string|null $attr['inner_classes']  Additional term CSS classes. Default empty.
+ * @param string|null $attr['style']          Inline section CSS style. Default empty.
+ * @param string|null $attr['inner_style']    Inline term CSS style. Default empty.
+ * @param string|null $attr['empty']          Override message for empty query result.
+ *
+ * @return string The shortcode HTML.
+ */
+
+function fictioneer_shortcode_terms( $attr ) {
+  // Setup
+  $type = sanitize_key( $attr['type'] ?? 'tag' );
+  $post_id = absint( $attr['post_id'] ?? 0 );
+  $count = max( -1, intval( $attr['count'] ?? -1 ) );
+  $orderby = sanitize_text_field( $attr['orderby'] ?? 'count' );
+  $order = sanitize_text_field( $attr['order'] ?? 'DESC' );
+  $show_empty = filter_var( $attr['show_empty'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $show_count = filter_var( $attr['show_count'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $classes = esc_attr( wp_strip_all_tags( $attr['classes'] ?? $attr['class'] ?? '' ) );
+  $inner_classes = esc_attr( wp_strip_all_tags( $attr['inner_classes'] ?? $attr['inner_class'] ?? '' ) );
+  $style = esc_attr( wp_strip_all_tags( $attr['style'] ?? '' ) );
+  $inner_style = esc_attr( wp_strip_all_tags( $attr['inner_style'] ?? '' ) );
+  $empty = sanitize_text_field( $attr['empty'] ?? __( 'No taxonomies specified yet.', 'fictioneer' ) );
+
+  $term_map = array(
+    'tag' => 'post_tag',
+    'genre' => 'fcn_genre',
+    'fandom' => 'fcn_fandom',
+    'character' => 'fcn_character',
+    'warning' => 'fcn_content_warning'
+  );
+
+  $term_type = $term_map[ $type ] ?? $type;
+
+  // Term exists?
+  if ( ! taxonomy_exists( $term_type ) ) {
+    return 'Error: Taxonomy does not exist.';
+  }
+
+  // Post exists?
+  if ( $post_id && ! get_post( $post_id ) ) {
+    return 'Error: Post not found.';
+  }
+
+  // Prepare query args
+  $args = array(
+    'taxonomy' => $term_type,
+    'orderby' => $orderby,
+    'order' => $order,
+    'hide_empty' => ! $show_empty
+  );
+
+  if ( $count > 0 ) {
+    $args['number'] = $count;
+  }
+
+  // Query terms
+  if ( $post_id ) {
+    $terms = wp_get_post_terms( $post_id, $term_type, $args );
+  } else {
+    $terms = get_terms( $args );
+  }
+
+  // All good?
+  if ( is_wp_error( $terms ) ) {
+    return 'Error: ' . $terms->get_error_message();
+  }
+
+  // Build and return HTML
+  $html = '';
+
+  if ( ! empty( $terms ) ) {
+    foreach ( $terms as $term ) {
+      $html .= sprintf(
+        '<a href="%s" class="tag-pill _taxonomy-%s _taxonomy-slug-%s %s" style="%s">%s</a>',
+        get_tag_link( $term ),
+        str_replace( 'fcn_', '', $term->taxonomy ),
+        $term->slug,
+        'tag-pill ' . $inner_classes,
+        $inner_style,
+        $show_count
+          ? sprintf( _x( '%1$s (%2$s)', 'Terms shortcode with count.', 'fictioneer' ), $term->name, $term->count )
+          : $term->name
+      );
+    }
+  } else {
+    $html = $empty;
+  }
+
+  return sprintf(
+    '<section class="terms-shortcode tag-group %s" style="%s">%s</section>',
+    "_{$term_type} {$classes} " . wp_unique_id( 'shortcode-id-' ),
+    $style,
+    $html
+  );
+}
+add_shortcode( 'fictioneer_terms', 'fictioneer_shortcode_terms' );
