@@ -801,7 +801,7 @@ Renders a subscribe button for the specified story.
 
 ### Terms Shortcode
 
-Renders a group of taxonomy terms, either globally or for a specific post.
+Renders a group of terms similar to those on story pages, either globally or for a specific post.
 
 * **type:** The queried taxonomy. Choose between `category`, `tag`, `genre`, `fandom`, `character`, and `warning`. Default `tag`.
 * **post_id:** Query only terms for a specific post. Default `0` (none).
