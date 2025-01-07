@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-02 23:59+0000\n"
+"POT-Creation-Date: 2025-01-07 08:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -471,7 +471,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/hooks/_story_hooks.php:809
+#: includes/functions/hooks/_story_hooks.php:821
 #, php-format
 msgid "<span>%s</span> <span>Comment</span>"
 msgid_plural "<span>%s</span> <span>Comments</span>"
@@ -759,8 +759,8 @@ msgstr ""
 msgid "Access Denied"
 msgstr ""
 
-#: includes/functions/_setup-roles.php:812
-#: includes/functions/_setup-roles.php:942
+#: includes/functions/_setup-roles.php:814
+#: includes/functions/_setup-roles.php:944
 #: includes/functions/users/_admin-profile.php:66
 msgid "Access denied."
 msgstr ""
@@ -3045,8 +3045,8 @@ msgctxt "Chapter card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1337
-#: includes/functions/hooks/_story_hooks.php:678
+#: includes/functions/_setup-shortcodes.php:1345
+#: includes/functions/hooks/_story_hooks.php:690
 #, php-format
 msgid "Chapter checkmark for %s."
 msgstr ""
@@ -3130,7 +3130,7 @@ msgid "Formatting"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2748
-#: includes/functions/_setup-meta-fields.php:4490
+#: includes/functions/_setup-meta-fields.php:4760
 msgctxt "Chapter group meta field label."
 msgid "Group"
 msgstr ""
@@ -3144,7 +3144,7 @@ msgid "Chapter Hidden"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2514
-#: includes/functions/_setup-meta-fields.php:4459
+#: includes/functions/_setup-meta-fields.php:4729
 msgctxt "Chapter icon meta field label."
 msgid "Icon"
 msgstr ""
@@ -3189,7 +3189,7 @@ msgid "Password Note"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2551
-#: includes/functions/_setup-meta-fields.php:4480
+#: includes/functions/_setup-meta-fields.php:4750
 msgctxt "Chapter prefix meta field label."
 msgid "Prefix"
 msgstr ""
@@ -3203,12 +3203,13 @@ msgctxt "Chapter short title meta field label."
 msgid "Short Title"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4643
+#: includes/functions/_setup-meta-fields.php:4847
 msgctxt "Chapter story list table column title."
 msgid "Story"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2704
+#: includes/functions/_setup-meta-fields.php:4716
 msgctxt "Chapter story meta field label."
 msgid "Story"
 msgstr ""
@@ -3244,7 +3245,7 @@ msgid "Chapter tags duplicated as genres."
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2529
-#: includes/functions/_setup-meta-fields.php:4468
+#: includes/functions/_setup-meta-fields.php:4738
 msgctxt "Chapter text icon meta field label."
 msgid "Text Icon"
 msgstr ""
@@ -3983,7 +3984,7 @@ msgctxt "Contact form."
 msgid "Message field empty."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1393
+#: includes/functions/_setup-shortcodes.php:1401
 #: includes/functions/_module-forms.php:55
 msgctxt "Contact form."
 msgid "Nameless Form"
@@ -6041,7 +6042,7 @@ msgstr ""
 msgid "Exit fullscreen"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4588
+#: includes/functions/_setup-meta-fields.php:4792
 #, php-format
 msgctxt "Expiration suffix for protected note in post list tables."
 msgid "%1$s (until %2$s)"
@@ -6402,7 +6403,7 @@ msgstr ""
 msgid "Footer Style"
 msgstr ""
 
-#: includes/functions/_service-posts.php:517
+#: includes/functions/_service-posts.php:519
 msgid "Footnotes"
 msgstr ""
 
@@ -7458,7 +7459,7 @@ msgctxt "List of stories to read later."
 msgid "Reminders"
 msgstr ""
 
-#: includes/functions/hooks/_story_hooks.php:828
+#: includes/functions/hooks/_story_hooks.php:840
 #, php-format
 msgid "Load latest comment (may contain spoilers)"
 msgid_plural "Load latest %s comments (may contain spoilers)"
@@ -7714,7 +7715,7 @@ msgstr ""
 msgid "Maximum site width in pixels, should not be less than 896. Default 960."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1466
+#: includes/functions/_setup-shortcodes.php:1474
 msgid "Message sent!"
 msgstr ""
 
@@ -8096,7 +8097,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1683
+#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1691
 msgid "No (more) posts found."
 msgstr ""
 
@@ -8117,7 +8118,7 @@ msgid "No chapters found."
 msgstr ""
 
 #: author.php:65 includes/functions/_setup-shortcodes.php:1097
-#: includes/functions/hooks/_story_hooks.php:697
+#: includes/functions/hooks/_story_hooks.php:709
 msgid "No chapters published yet."
 msgstr ""
 
@@ -8633,7 +8634,7 @@ msgstr ""
 msgid "Patreon account successfully linked."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4345
+#: includes/functions/_setup-meta-fields.php:4351
 msgctxt "Patreon amount cents bulk edit label."
 msgid "Patreon Amount Cents (Override)"
 msgstr ""
@@ -8728,7 +8729,7 @@ msgctxt "Patreon tier meta field token (title and amount_cents)."
 msgid "%s (%s)"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4294
+#: includes/functions/_setup-meta-fields.php:4297
 msgctxt "Patreon tiers bulk edit label."
 msgid "Patreon Tiers (Override)"
 msgstr ""
@@ -8853,7 +8854,7 @@ msgstr ""
 msgid "Please enter search parameters."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1453
+#: includes/functions/_setup-shortcodes.php:1461
 msgid "Please enter your message."
 msgstr ""
 
@@ -8881,6 +8882,10 @@ msgstr ""
 
 #: includes/functions/_customizer-settings.php:1799
 msgid "Post Content Header ID"
+msgstr ""
+
+#: includes/functions/_setup-meta-fields.php:4717
+msgid "Post ID (0 to remove)"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_tools.php:243
@@ -9378,7 +9383,7 @@ msgstr ""
 msgid "Remove cover image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4303
+#: includes/functions/_setup-meta-fields.php:4306
 msgid "Remove Tiers"
 msgstr ""
 
@@ -9927,7 +9932,7 @@ msgstr ""
 msgid "Select which tiers ignore the password."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1466
+#: includes/functions/_setup-shortcodes.php:1474
 msgid "Sending…"
 msgstr ""
 
@@ -10997,7 +11002,7 @@ msgstr ""
 msgid "Subitem short date format"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1394
+#: includes/functions/_setup-shortcodes.php:1402
 #: includes/functions/settings/_settings_page_setup.php:142
 msgid "Submit"
 msgstr ""
@@ -11668,7 +11673,7 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:2439
+#: includes/functions/_setup-shortcodes.php:2447
 msgctxt "Tooltip shortcode."
 msgid "Click to see note"
 msgstr ""
@@ -11945,7 +11950,7 @@ msgstr ""
 msgid "URL to Top Web Fiction page."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4453
+#: includes/functions/_setup-meta-fields.php:4723
 msgid "Use <code>_remove</code> to remove current values."
 msgstr ""
 
@@ -12490,7 +12495,7 @@ msgid ""
 "email notification for each direct reply."
 msgstr ""
 
-#: includes/functions/_setup-roles.php:1384
+#: includes/functions/_setup-roles.php:1386
 msgid "You are not allowed to upload files of this type."
 msgstr ""
 
