@@ -799,6 +799,31 @@ Renders a subscribe button for the specified story.
 [fictioneer_subscribe_button story_id="228"]
 ```
 
+### Terms Shortcode
+
+Renders a group of taxonomy terms, either globally or for a specific post.
+
+* **type:** The queried taxonomy. Choose between `category`, `tag`, `genre`, `fandom`, `character`, and `warning`. Default `tag`.
+* **post_id:** Query only terms for a specific post. Default `0` (none).
+* **count:** Limit the number of items. Default `-1` (all).
+* **order:** Either DESC (descending) or ASC (ascending). Default `desc`.
+* **orderby:** The default is `count`, but you can also use `name` and [more](https://developer.wordpress.org/reference/classes/wp_term_query/__construct/).
+* **show_empty:** Whether to show empty terms. Default `false`.
+* **show_count:** Whether to show the term count. Default `false`.
+* **class:** Additional CSS classes, separated by whitespace.
+* **inner_class:** Additional CSS classes for nested elements (if any), separated by whitespace.
+* **style:** Inline CSS style applied to the wrapping element.
+* **inner_style:** Inline CSS style applied to nested elements (if any).
+* **empty:** Override message for empty query results.
+
+```
+[fictioneer_terms count="15"]
+```
+
+```
+[fictioneer_terms type="genre" post_id="228" inner_class="_secondary" show_count="true" style="margin: 2rem 0;" empty=""]
+```
+
 ### Font Awesome Shortcode
 
 Renders a *free* [Font Awesome](https://fontawesome.com/) icon, which you could technically do manually in the code editor as well. Somewhat more convenient, I guess? Just omit the shortcode block and write it directly into the text. This shortcode also works if your role lacks the shortcode capability.
