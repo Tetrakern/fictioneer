@@ -2527,6 +2527,7 @@ function fictioneer_shortcode_terms( $attr ) {
 
   // Prepare query args
   $args = array(
+    'fictioneer_query_name' => 'terms_shortcode',
     'taxonomy' => $term_type,
     'orderby' => $orderby,
     'order' => $order,
@@ -2536,6 +2537,9 @@ function fictioneer_shortcode_terms( $attr ) {
   if ( $count > 0 ) {
     $args['number'] = $count;
   }
+
+  // Apply filters
+  $args = apply_filters( 'fictioneer_filter_shortcode_terms_query_args', $args, $attr );
 
   // Query terms
   if ( $post_id ) {

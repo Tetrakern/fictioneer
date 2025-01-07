@@ -1575,7 +1575,7 @@ Filters the WP_Query arguments in the `fictioneer_blog` shortcode.
 * $posts_per_page (int) – `$args['posts_per_page']`
 * $tax_query (array|null) – `fictioneer_get_shortcode_tax_query( $args )`
 
-**$attr:**
+**$args:**
 * $posts_per_page (int) – The number of posts per page. Defaults to WordPress.
 * $page (int) – Current main query page number. Default `1`.
 * $ignore_sticky (boolean) – Optional. Whether to ignore sticky posts. Default `false`.
@@ -1922,6 +1922,33 @@ Filters the WP_Query arguments in the `fictioneer_showcase` shortcode. The optio
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $no_cap (boolean) – Whether to hide captions. Default `false`.
 * $classes (string) – String of additional CSS classes. Default empty.
+
+---
+
+### `apply_filters( 'fictioneer_filter_shortcode_terms_query_args', $query_args, $attr )`
+Filters the WP_Term_Query arguments in the `fictioneer_terms` shortcode.
+
+**$query_args:**
+* 'fictioneer_query_name' (string) – `'terms_shortcode'`
+* 'taxonomy' (string) – As specified in the shortcode. Either `'category'`, `'post_tag'`, `'fcn_genre'`, `'fcn_fandom'`, `'fcn_character'`, or `'fcn_content_warning'`.
+* 'orderby' (string) – As specified in the shortcode. Default `'count'`.
+* 'order' (string) – As specified in the shortcode. Default `'desc'`.
+* 'number' (int|null) – As specified in the shortcode. Default `null`.
+* 'hide_empty' (bool) – As specified in the shortcode. Default `true`.
+
+**$attr:**
+* 'term_type' (string|null) – Either `'category'`, `'tag'`, `'genre'`, `'fandom'`, `'character'`, or `'warning'`. Default `'tag'`.
+* 'post_id' (int|null) – Limit terms to a specific post. Default `0`.
+* 'count' (int|null) – Limit number of queried terms. Default `-1` (all).
+* 'orderby' (string|null) – Default `'count'`.
+* 'order' (string|null) – Default `'desc'`.
+* 'show_empty' (boolean|null) – Whether to query unused terms. Default `false`.
+* 'show_count' (boolean|null) – Whether to show the term counts. Default `false`.
+* 'classes' (string|null) – String of additional outer CSS classes. Default empty.
+* 'inner_classes' (string|null) – String of additional inner CSS classes. Default empty.
+* 'style' (string|null) – String of additional outer inline styles. Default empty.
+* 'inner_style' (string|null) – String of additional inner inline styles. Default empty.
+* 'empty' (string|null) – Override message for empty query result. Default empty.
 
 ---
 
