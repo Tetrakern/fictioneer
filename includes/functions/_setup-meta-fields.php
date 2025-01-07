@@ -4156,7 +4156,7 @@ add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
 // =============================================================================
 
 /**
- * Hide Patreon columns in list table views by default
+ * Hide Patreon columns in list table views by default.
  *
  * @since 5.17.0
  *
@@ -4182,7 +4182,7 @@ function fictioneer_default_hide_patreon_posts_columns( $hidden, $screen ) {
 add_filter( 'default_hidden_columns', 'fictioneer_default_hide_patreon_posts_columns', 10, 2 );
 
 /**
- * Add Patreon columns to list table views
+ * Add Patreon columns to list table views.
  *
  * @since 5.17.0
  *
@@ -4202,7 +4202,7 @@ function fictioneer_add_posts_columns_patreon( $post_columns ) {
 }
 
 /**
- * Output Patreon values in list table views
+ * Output Patreon values in list table views.
  *
  * @since 5.17.0
  *
@@ -4249,7 +4249,7 @@ function fictioneer_manage_posts_column_patreon( $column_name, $post_id ) {
 }
 
 /**
- * Add Patreon tiers to bulk edit
+ * Add Patreon tiers to bulk edit.
  *
  * @since 5.17.0
  *
@@ -4286,6 +4286,9 @@ function fictioneer_add_patreon_bulk_edit_tiers( $column_name, $post_type ) {
     );
   }
 
+  // Nonce
+  wp_nonce_field( 'fictioneer_bulk_edit_patreon', 'fictioneer_bulk_edit_patreon_nonce', false );
+
   // Start HTML ---> ?>
   <fieldset class="inline-edit-col-left">
     <div class="inline-edit-patreon-tiers-wrap">
@@ -4296,17 +4299,17 @@ function fictioneer_add_patreon_bulk_edit_tiers( $column_name, $post_type ) {
 
       <div class="bulk-edit-box">
 
-        <input type="hidden" name="fictioneer_patreon_lock_tiers_bulk" value="no_change">
+        <input type="hidden" name="fictioneer_bulk_edit_patreon_lock_tiers" value="no_change">
 
         <label class="bulk-edit-checkbox-label-pair">
-          <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk" value="remove">
+          <input type="checkbox" name="fictioneer_bulk_edit_patreon_lock_tiers" value="remove">
           <span><?php _e( 'Remove Tiers', 'fictioneer' ); ?></span>
         </label>
 
         <?php foreach ( $tier_options as $key => $tier ) : ?>
 
           <label class="bulk-edit-checkbox-label-pair">
-            <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk[]" value="<?php echo $key; ?>">
+            <input type="checkbox" name="fictioneer_bulk_edit_patreon_lock_tiers[]" value="<?php echo $key; ?>">
             <span><?php echo $tier; ?></span>
           </label>
 
@@ -4320,7 +4323,7 @@ function fictioneer_add_patreon_bulk_edit_tiers( $column_name, $post_type ) {
 }
 
 /**
- * Add Patreon amount_cents to bulk edit
+ * Add Patreon amount_cents to bulk edit.
  *
  * @since 5.17.0
  *
@@ -4337,6 +4340,9 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
     return;
   }
 
+  // Nonce
+  wp_nonce_field( 'fictioneer_bulk_edit_patreon', 'fictioneer_bulk_edit_patreon_nonce', false );
+
   // Start HTML ---> ?>
   <fieldset class="inline-edit-col-left">
     <div class="inline-edit-patreon-amount-cents-wrap">
@@ -4346,7 +4352,7 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
       ?></span>
 
       <div>
-        <input type="number" name="fictioneer_patreon_lock_amount_bulk" autocomplete="off" min="0">
+        <input type="number" name="fictioneer_bulk_edit_patreon_lock_amount" autocomplete="off" min="0">
       </div>
 
     </div>
@@ -4355,54 +4361,91 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
 }
 
 /**
- * Save Patreon bulk edit fields
+ * Save bulk edit Patreon meta.
  *
- * @since 5.17.0
+ * @since 5.27.2
+ * @link https://developer.wordpress.org/reference/hooks/bulk_edit_posts/
  *
- * @param int $post_id  ID of the updated post.
+ * @param int[] $updated_post_ids  An array of updated post IDs.
+ * @param int[] $shared_post_data  Associative array containing the post data.
  */
 
-function fictioneer_bulk_edit_save_patreon( $post_id ) {
-  // Abort if...
+function fictioneer_save_patreon_bulk_edit( $updated_post_ids, $shared_post_data ) {
+  // Validate
   if (
-    ! wp_verify_nonce( $_REQUEST['_wpnonce'] ?? 0, 'bulk-posts' ) ||
-    ( $_REQUEST['action2'] ?? 0 ) === 'trash' ||
+    ! wp_verify_nonce( $shared_post_data['fictioneer_bulk_edit_patreon_nonce'] ?? 0, 'fictioneer_bulk_edit_patreon' ) ||
+    ( $shared_post_data['action2'] ?? 0 ) === 'trash' ||
     ! in_array(
-      get_post_type( $post_id ),
+      $shared_post_data['post_type'] ?? 0,
       ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
     ) ||
-    ! ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_assign_patreon_tiers' ) )
+    ! ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_assign_patreon_tiers' ) ) ||
+    empty( $updated_post_ids )
   ) {
     return;
   }
 
+  global $wpdb;
+
   // Setup
-  $tiers = $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] ?? 0;
-  $amount = $_REQUEST['fictioneer_patreon_lock_amount_bulk'] ?? '';
+  $tiers = $shared_post_data['fictioneer_bulk_edit_patreon_lock_tiers'] ?? 'no_change';
+  $amount = sanitize_text_field( $shared_post_data['fictioneer_bulk_edit_patreon_lock_amount'] ?? '' );
+  $user_id = get_current_user_id();
 
-  // Patreon tiers
+  // Nothing to do?
+  if ( $tiers === 'no_change' && $amount === '' ) {
+    return;
+  }
+
+  // Prepare post author map
+  $post_author_map = [];
+
+  $posts_and_authors = $wpdb->get_results(
+    $wpdb->prepare(
+      "SELECT ID, post_author
+      FROM {$wpdb->posts}
+      WHERE ID IN (" . implode( ',', array_fill( 0, count( $updated_post_ids ), '%d' ) ) . ")",
+      $updated_post_ids
+    ), ARRAY_A
+  );
+
+  foreach ( $posts_and_authors as $post ) {
+    $post_author_map[ (int) $post['ID'] ] = (int) $post['post_author'];
+  }
+
+  // Update Patreon tiers
   if ( $tiers !== 'no_change' ) {
-    // Remove or update...
-    if ( $tiers === 'remove' ) {
-      fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', 0 );
-    } else {
-      $allowed_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
-      $allowed_tiers = is_array( $allowed_tiers ) ? $allowed_tiers : [];
+    foreach ( $updated_post_ids as $post_id ) {
+      if ( ! current_user_can( 'manage_options' ) && $user_id !== $post_author_map[ (int) $post_id ] ) {
+        continue;
+      }
 
-      if ( ! empty( $allowed_tiers ) ) {
-        $tiers = array_intersect( $tiers, array_keys( $allowed_tiers ) );
-        $tiers = array_map( 'absint', $tiers );
-        $tiers = array_unique( $tiers );
-        $tiers = array_map( 'strval', $tiers ); // Safer to match with LIKE in SQL
+      if ( $tiers === 'remove' ) {
+        fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', 0 );
+      } elseif ( is_array( $tiers ) ) {
+        $allowed_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+        $allowed_tiers = is_array( $allowed_tiers ) ? $allowed_tiers : [];
 
-        fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', $tiers );
+        if ( ! empty( $allowed_tiers ) ) {
+          $tiers = array_intersect( $tiers, array_keys( $allowed_tiers ) );
+          $tiers = array_map( 'strval', $tiers ); // Safer to match with LIKE in SQL
+          $tiers = array_unique( $tiers );
+
+          fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', $tiers );
+        }
       }
     }
   }
 
-  // Patreon amount cents
+  // Update Patreon amount cents
   if ( $amount !== '' ) {
-    fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_amount', absint( $amount ) );
+    foreach ( $updated_post_ids as $post_id ) {
+      if ( ! current_user_can( 'manage_options' ) && $user_id !== $post_author_map[ (int) $post_id ] ) {
+        continue;
+      }
+
+      fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_amount', absint( $amount ) );
+    }
   }
 }
 
@@ -4417,8 +4460,7 @@ if (
 
   add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_tiers', 10, 2 );
   add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_amount', 10, 2 );
-
-  add_action( 'save_post', 'fictioneer_bulk_edit_save_patreon' );
+  add_action( 'bulk_edit_posts', 'fictioneer_save_patreon_bulk_edit', 10, 2 );
 }
 
 // =============================================================================
