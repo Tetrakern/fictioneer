@@ -4156,7 +4156,7 @@ add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
 // =============================================================================
 
 /**
- * Hide Patreon columns in list table views by default.
+ * Hides Patreon columns in list table views by default.
  *
  * @since 5.17.0
  *
@@ -4182,7 +4182,7 @@ function fictioneer_default_hide_patreon_posts_columns( $hidden, $screen ) {
 add_filter( 'default_hidden_columns', 'fictioneer_default_hide_patreon_posts_columns', 10, 2 );
 
 /**
- * Add Patreon columns to list table views.
+ * Adds Patreon columns to list table views.
  *
  * @since 5.17.0
  *
@@ -4202,7 +4202,7 @@ function fictioneer_add_posts_columns_patreon( $post_columns ) {
 }
 
 /**
- * Output Patreon values in list table views.
+ * Renders Patreon values in list table views.
  *
  * @since 5.17.0
  *
@@ -4249,7 +4249,7 @@ function fictioneer_manage_posts_column_patreon( $column_name, $post_id ) {
 }
 
 /**
- * Add Patreon tiers to bulk edit.
+ * Adds Patreon tiers to bulk edit.
  *
  * @since 5.17.0
  *
@@ -4323,7 +4323,7 @@ function fictioneer_add_patreon_bulk_edit_tiers( $column_name, $post_type ) {
 }
 
 /**
- * Add Patreon amount_cents to bulk edit.
+ * Adds Patreon amount_cents to bulk edit.
  *
  * @since 5.17.0
  *
@@ -4361,7 +4361,7 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
 }
 
 /**
- * Save bulk edit Patreon meta.
+ * Saves bulk edit Patreon meta.
  *
  * @since 5.27.2
  * @link https://developer.wordpress.org/reference/hooks/bulk_edit_posts/
@@ -4468,7 +4468,7 @@ if (
 // =============================================================================
 
 /**
- * Save bulk edit chapter meta.
+ * Saves bulk edit chapter meta.
  *
  * @since 5.27.2
  * @link https://developer.wordpress.org/reference/hooks/bulk_edit_posts/
@@ -4687,7 +4687,7 @@ function fictioneer_bulk_edit_chapter_story( $chapter_ids, $story_id, $author_ma
 }
 
 /**
- * Add chapter meta fields to bulk edit
+ * Adds chapter meta fields to bulk edit.
  *
  * @since 5.24.1
  *
