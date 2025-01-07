@@ -977,7 +977,7 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 // LATEST COMMENTS
 // =============================================================================
 
-.wp-block-latest-comments:where(:not(.no-theme-style)) {
+.wp-block-latest-comments:is(:not(.no-theme-style)) {
   list-style: none;
   padding-left: 0;
 
@@ -1009,7 +1009,7 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 
   .wp-block-latest-comments__comment-avatar {
     float: left;
-    margin: 3px 8px 4px 0;
+    margin: 3px 8px 3px 0;
     border-radius: var(--layout-border-radius-small);
     height: 32px;
     width: 32px;
