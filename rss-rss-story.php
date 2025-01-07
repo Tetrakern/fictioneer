@@ -13,6 +13,7 @@
  * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/feed-rss2.php
  */
 
+
 // Get ID from parameter
 $story_id = fictioneer_validate_id( $_GET[ 'story_id' ] ?? 0, 'fcn_story' );
 $is_hidden = get_post_meta( $story_id ?: 0, 'fictioneer_story_hidden', true );
@@ -141,6 +142,8 @@ do_action( 'rss_tag_pre', 'rss2' );
           'posts_per_page' => get_option( 'posts_per_rss' ) + 4, // Buffer for hidden items
           'no_found_rows' => true // Improve performance
         );
+
+        $query_args = apply_filters( 'fictioneer_filter_rss_story_query_args', $query_args, $story_id );
 
         $chapter_query = new WP_Query( $query_args );
 

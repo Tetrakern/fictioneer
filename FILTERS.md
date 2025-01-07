@@ -1421,6 +1421,43 @@ Filters the RSS link returned by the `fictioneer_get_rss_link( $post_type, $post
 
 ---
 
+### `apply_filters( 'fictioneer_filter_rss_main_query_args', $query_args )`
+Filters the query arguments for the main RSS feed in the `rss-rss-main.php` template.
+
+**Parameters:**
+* $query_args (array) – Associative array of query arguments.
+
+**Example:**
+```php
+function child_exclude_protected_posts_from_main_rss( $query_args ) {
+  $query_args['has_password'] = false;
+
+  return $query_args;
+}
+add_filter( 'fictioneer_filter_rss_story_query_args', 'child_exclude_protected_posts_from_main_rss' );
+```
+
+---
+
+### `apply_filters( 'fictioneer_filter_rss_story_query_args', $query_args, $story_id )`
+Filters the query arguments for the story RSS feed in the `rss-rss-story.php` template.
+
+**Parameters:**
+* $query_args (array) – Associative array of query arguments.
+* $story_id (int) – Post ID of the story.
+
+**Example:**
+```php
+function child_exclude_protected_posts_from_story_rss( $query_args ) {
+  $query_args['has_password'] = false;
+
+  return $query_args;
+}
+add_filter( 'fictioneer_filter_rss_story_query_args', 'child_exclude_protected_posts_from_story_rss' );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_safe_title', $title, $post_id, $context, $args )`
 Filters the string returned by the `fictioneer_get_safe_title( $post_id )` function, after all tags and line breaks have been stripped. No further sanitization is applied here, so you can add HTML again.
 

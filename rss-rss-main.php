@@ -8,21 +8,24 @@
  * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/feed-rss2.php
  */
 
-// Query posts
-$posts = get_posts(
-  array(
-    'fictioneer_query_name' => 'main_rss',
-    'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation'],
-    'post_status' => 'publish',
-    'ignore_sticky_posts' => 1,
-    'orderby' => 'date',
-    'order' => 'DESC',
-    'posts_per_page' => get_option( 'posts_per_rss' ) + 8, // Buffer in case of invalid results
-    'update_post_meta_cache' => true,
-    'update_post_term_cache' => true,
-    'no_found_rows' => true
-  )
+
+// Query
+$query_args = array(
+  'fictioneer_query_name' => 'main_rss',
+  'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation'],
+  'post_status' => 'publish',
+  'ignore_sticky_posts' => 1,
+  'orderby' => 'date',
+  'order' => 'DESC',
+  'posts_per_page' => get_option( 'posts_per_rss' ) + 8, // Buffer in case of invalid results
+  'update_post_meta_cache' => true,
+  'update_post_term_cache' => true,
+  'no_found_rows' => true // Improve performance
 );
+
+$query_args = apply_filters( 'fictioneer_filter_rss_main_query_args', $query_args );
+
+$posts = get_posts( $query_args );
 
 // Filter out hidden posts (faster than meta query)
 $posts = array_filter( $posts, function ( $post ) {
