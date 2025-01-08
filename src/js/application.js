@@ -128,7 +128,7 @@ window.FictioneerApp.Controllers = window.FictioneerApp.Controllers || {};
 
 application.register('fictioneer', class extends Stimulus.Controller {
   static get targets() {
-    return ['avatarWrapper', 'modal', 'mobileMenuToggle']
+    return ['avatarWrapper', 'modal', 'mobileMenuToggle', 'dcjProtected']
   }
 
   static values = {
@@ -145,6 +145,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
   userReady = false;
   lastModalToggle = null;
   currentModal = null;
+  dcjProtection = true;
 
   /**
    * Stimulus Controller initialize lifecycle callback.
@@ -171,6 +172,19 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
       // Fire event
       document.dispatchEvent(event);
+    }
+
+    if (this.hasDcjProtectedTarget) {
+      ['mousemove', 'touchstart', 'keydown'].forEach(event => {
+        window.addEventListener(event, this.liftProtection.bind(this), { once: true });
+      });
+    }
+  }
+
+  liftProtection() {
+    if (this.dcjProtection && this.hasDcjProtectedTarget) {
+      this.dcjProtectedTargets.forEach(element => element.disabled = false);
+      this.dcjProtection = false;
     }
   }
 

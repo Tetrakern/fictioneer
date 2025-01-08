@@ -2786,7 +2786,7 @@ function fictioneer_render_skin_interface() {
 
     <template data-css-skin-target="template">
       <div class="custom-skin" data-css-skin-finder="skin-item">
-        <button type="button" class="custom-skin__toggle" data-action="click->css-skin#toggle">
+        <button type="button" class="custom-skin__toggle" data-action="click->css-skin#toggle" data-fictioneer-target="dcjProtected" disabled>
           <i class="fa-regular fa-circle off"></i>
           <i class="fa-solid fa-circle-dot on"></i>
         </button>
@@ -2797,7 +2797,7 @@ function fictioneer_render_skin_interface() {
           <span class="custom-skin__spacer"></span>
           <span class="custom-skin__author" data-css-skin-finder="author">&mdash;</span>
         </div>
-        <button type="button" class="custom-skin__delete" data-action="click->css-skin#delete"><i class="fa-solid fa-trash-can"></i></button>
+        <button type="button" class="custom-skin__delete" data-action="click->css-skin#delete" data-fictioneer-target="dcjProtected" disabled><i class="fa-solid fa-trash-can"></i></button>
       </div>
     </template>
 
@@ -2824,8 +2824,8 @@ function fictioneer_render_skin_interface() {
     </div>
 
     <div class="profile__actions custom-skin-actions">
-      <button type="button" class="button" data-action="click->css-skin#upload" data-disable-with="<?php esc_attr_e( 'Uploading…', 'fictioneer' ); ?>"><?php _e( 'Sync Up', 'fictioneer' ); ?></button>
-      <button type="button" class="button" data-action="click->css-skin#download" data-disable-with="<?php esc_attr_e( 'Downloading…', 'fictioneer' ); ?>"><?php _e( 'Sync Down', 'fictioneer' ); ?></button>
+      <button type="button" class="button" data-action="click->css-skin#upload" data-disable-with="<?php esc_attr_e( 'Uploading…', 'fictioneer' ); ?>" data-fictioneer-target="dcjProtected" disabled><?php _e( 'Sync Up', 'fictioneer' ); ?></button>
+      <button type="button" class="button" data-action="click->css-skin#download" data-disable-with="<?php esc_attr_e( 'Downloading…', 'fictioneer' ); ?>" data-fictioneer-target="dcjProtected" disabled><?php _e( 'Sync Down', 'fictioneer' ); ?></button>
       <div class="invisible custom-skin-action-status" data-css-skin-target="action-status-message"><span class="dashicons dashicons-saved"></span></div>
     </div>
 

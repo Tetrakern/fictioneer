@@ -111,6 +111,8 @@ $unset_oauth_prompt = sprintf(
                 data-channel="<?php echo $provider[0]; ?>"
                 data-confirm="<?php echo $confirmation; ?>"
                 data-warning="<?php echo esc_attr( $unset_oauth_prompt ); ?>"
+                data-fictioneer-target="dcjProtected"
+                disabled
               ><?php fictioneer_icon( 'fa-xmark' ); ?></button>
             </div>
           <?php

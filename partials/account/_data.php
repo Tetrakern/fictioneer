@@ -130,7 +130,7 @@ $delete_bookmarks_prompt = sprintf(
               ?>
             </div>
           </div>
-          <button class="card__delete button-clear-comments" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comments' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_comments_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="card__delete button-clear-comments" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comments' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_comments_prompt ); ?>" data-fictioneer-target="dcjProtected" disabled><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>
@@ -152,7 +152,7 @@ $delete_bookmarks_prompt = sprintf(
               ?>
             </div>
           </div>
-          <button class="card__delete button-clear-comment-subscriptions" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comment_subscriptions' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_comment_subscriptions_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="card__delete button-clear-comment-subscriptions" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comment_subscriptions' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_comment_subscriptions_prompt ); ?>" data-fictioneer-target="dcjProtected" disabled><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>
@@ -183,7 +183,7 @@ $delete_bookmarks_prompt = sprintf(
             </div>
           </div>
           <?php if ( $follows_count > 0 ) : ?>
-            <button class="card__delete button-clear-follows" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_follows' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_follows_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="card__delete button-clear-follows" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_follows' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_follows_prompt ); ?>" data-fictioneer-target="dcjProtected" disabled><i class="fa-solid fa-trash-can"></i></button>
           <?php endif; ?>
         </div>
       </li>
@@ -215,7 +215,7 @@ $delete_bookmarks_prompt = sprintf(
             </div>
           </div>
           <?php if ( $reminders_count > 0 ) : ?>
-            <button class="card__delete button-clear-reminders" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_reminders' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_reminders_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="card__delete button-clear-reminders" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_reminders' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_reminders_prompt ); ?>" data-fictioneer-target="dcjProtected" disabled><i class="fa-solid fa-trash-can"></i></button>
           <?php endif; ?>
         </div>
       </li>
@@ -252,7 +252,7 @@ $delete_bookmarks_prompt = sprintf(
             </div>
           </div>
           <?php if ( $stories_count > 0 || $chapters_count > 0 ) : ?>
-            <button class="card__delete button-clear-checkmarks" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_checkmarks' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_checkmarks_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="card__delete button-clear-checkmarks" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_checkmarks' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_checkmarks_prompt ); ?>" data-fictioneer-target="dcjProtected" disabled><i class="fa-solid fa-trash-can"></i></button>
           <?php endif; ?>
         </div>
       </li>
@@ -275,7 +275,7 @@ $delete_bookmarks_prompt = sprintf(
               <?php _e( 'You have currently <strong>%s bookmark(s)</strong> set. Bookmarks are only processed in your browser.', 'fictioneer' ); ?>
             </div>
           </div>
-          <button class="card__delete button-clear-bookmarks" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_bookmarks_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="card__delete button-clear-bookmarks" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_bookmarks_prompt ); ?>" data-fictioneer-target="dcjProtected" disabled><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>

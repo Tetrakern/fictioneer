@@ -209,7 +209,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
   <input name="user_id" type="hidden" value="<?php echo $current_user->ID; ?>">
 
   <div class="profile__actions">
-    <input name="submit" type="submit" value="<?php esc_attr_e( 'Update Profile', 'fictioneer' ); ?>" class="button">
+    <input name="submit" type="submit" value="<?php esc_attr_e( 'Update Profile', 'fictioneer' ); ?>" class="button" data-fictioneer-target="dcjProtected" disabled>
   </div>
 
 </form>
