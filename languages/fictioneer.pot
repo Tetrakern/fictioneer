@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-07 08:52+0000\n"
+"POT-Creation-Date: 2025-01-08 00:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -78,7 +78,7 @@ msgstr ""
 msgid "%s disconnected"
 msgstr ""
 
-#: rss-rss-main.php:56
+#: rss-rss-main.php:59
 #, php-format
 msgid "%s Feed"
 msgstr ""
@@ -8224,6 +8224,7 @@ msgstr ""
 #: partials/_latest-recommendations-compact.php:265
 #: partials/_latest-stories-compact.php:330
 #: partials/_latest-recommendations.php:278 partials/_latest-updates.php:438
+#: includes/functions/_setup-shortcodes.php:2506
 msgid "No taxonomies specified yet."
 msgstr ""
 
@@ -9210,7 +9211,7 @@ msgstr ""
 msgid "Reading"
 msgstr ""
 
-#: rss-rss-main.php:59
+#: rss-rss-main.php:62
 #, php-format
 msgid "Recent updates on %s."
 msgstr ""
@@ -10824,14 +10825,14 @@ msgctxt "Story ePUB preface meta field label."
 msgid "ePUB Preface"
 msgstr ""
 
-#: rss-rss-story.php:32 includes/functions/_setup-wordpress.php:466
+#: rss-rss-story.php:33 includes/functions/_setup-wordpress.php:466
 #: includes/functions/_setup-wordpress.php:480
 #, php-format
 msgctxt "Story Feed: [Site] - [Story] Chapters."
 msgid "%1$s - %2$s Chapters"
 msgstr ""
 
-#: rss-rss-story.php:39
+#: rss-rss-story.php:40
 #, php-format
 msgctxt "Story Feed: Recent chapters of [Story]."
 msgid "Recent chapters of %s."
@@ -11235,6 +11236,12 @@ msgstr ""
 #: includes/functions/_setup-types-and-terms.php:468
 msgctxt "Taxonomy singular name."
 msgid "Genre"
+msgstr ""
+
+#: includes/functions/_setup-shortcodes.php:2569
+#, php-format
+msgctxt "Terms shortcode with count."
+msgid "%1$s (%2$s)"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:424
