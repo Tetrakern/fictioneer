@@ -2993,6 +2993,7 @@ function fcn_loadConsentBanner() {
 
 function fcn_showLightbox(target) {
   const lightbox = _$$$('fictioneer-lightbox');
+  const loader = lightbox.querySelector('.loader');
   const lightboxContent = _$('.lightbox__content');
 
   let valid = false;
@@ -3000,6 +3001,7 @@ function fcn_showLightbox(target) {
 
   // Cleanup previous content (if any)
   lightboxContent.innerHTML = '';
+  loader.style.opacity = 1;
 
   // Bookmark source element for later use
   target.classList.add('lightbox-last-trigger');
@@ -3019,6 +3021,10 @@ function fcn_showLightbox(target) {
     ['class', 'style', 'height', 'width'].forEach(attr => img.removeAttribute(attr));
     lightboxContent.appendChild(img);
     lightbox.classList.add('show');
+
+    setTimeout(() => {
+      loader.style.opacity = 0;
+    }, 1000);
 
     const close = lightbox.querySelector('.lightbox__close');
 
