@@ -1736,9 +1736,9 @@ function fictioneer_redirect_scheduled_chapter_404() {
        $story_id = fictioneer_get_chapter_story_id( $post_id );
 
       if ( $story_id ) {
-        wp_safe_redirect( get_permalink( $story_id ) );
+        wp_safe_redirect( get_permalink( $story_id ), 307 );
       } else {
-        wp_safe_redirect( home_url() );
+        wp_safe_redirect( home_url(), 307 );
       }
 
       exit;
