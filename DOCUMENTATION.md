@@ -840,6 +840,7 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 
 * **post_type:** Comma-separated list of post types to query. Default `post`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **per_page:** Number of posts per page. Defaults to theme settings.
 * **count:** Limit articles to any positive number, disabling the pagination.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
@@ -900,6 +901,7 @@ Renders paginated blog posts akin to the main blog page, but with options. Only 
 * **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **author:** Only show posts of a specific author. Make sure to use the url-safe nice_name.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.
@@ -951,6 +953,7 @@ Renders a multi-column grid of small bookmark cards, ordered by date of creation
 Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story_id** or **chapter_ids** parameter, but not both.
 
 * **story_id:** ID of a single story. You need either this or **chapters**.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **chapter_ids:** Comma-separated list of chapter IDs. You need either this or **story**.
 * **count:** Limit chapters to any positive number. Default `-1` (all).
 * **offset:** Skip a number of chapters, which can make sense if you query all.
@@ -1023,6 +1026,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
 * **source:** Whether to show the author and story nodes. Default `true`.
 * **post_ids:** Comma-separated list of chapter post IDs, if you want to pick from a curated pool.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
@@ -1089,6 +1093,7 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `1`.
 * **author:** Only show posts of a specific author. Make sure to use the url-safe nice_name.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
@@ -1125,6 +1130,7 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
@@ -1178,6 +1184,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of story post IDs, if you want to pick from a curated pool.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
@@ -1256,6 +1263,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **author:** Only show updates of a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
@@ -1370,6 +1378,7 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `rand` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_status:** Either `publish` or `future`, albeit others are possible (but why?). Default `publish`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.

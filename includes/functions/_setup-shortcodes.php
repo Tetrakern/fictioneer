@@ -167,6 +167,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'orderby' => $attr['orderby'] ?? '',
     'page' => max( 1, get_query_var( 'page' ) ?: get_query_var( 'paged' ) ),
     'posts_per_page' => absint( $attr['per_page'] ?? 0 ) ?: get_option( 'posts_per_page' ),
+    'post_status' => sanitize_key( $attr['post_status'] ?? 'publish' ),
     'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'author' => sanitize_title( $attr['author'] ?? '' ),
     'author_ids' => fictioneer_explode_list( $attr['author_ids'] ?? '' ),
@@ -411,6 +412,7 @@ function fictioneer_get_splide_inline_init() {
  *                                                 collections, recommendations, and stories.
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 8.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['order']               Optional. Order direction. Default 'DESC'.
  * @param string|null $attr['orderby']             Optional. Order argument. Default 'date'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
@@ -528,6 +530,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['type']                Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
  * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['spoiler']             Optional. Whether to show spoiler content.
@@ -635,6 +638,7 @@ add_shortcode( 'fictioneer_latest_chapters', 'fictioneer_shortcode_latest_chapte
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['type']                Optional. Choose between 'default' and 'compact'.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
  * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
@@ -746,6 +750,7 @@ add_shortcode( 'fictioneer_latest_stories', 'fictioneer_shortcode_latest_stories
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['type']                Optional. Choose between 'default', 'simple', 'single', and 'compact'.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['single']              Optional. Whether to show only one chapter item. Default false.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
@@ -860,6 +865,7 @@ add_shortcode( 'fictioneer_latest_updates', 'fictioneer_shortcode_latest_story_u
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['type']                Optional. Choose between 'default' and 'compact'.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
  * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
@@ -952,6 +958,7 @@ add_shortcode( 'fictioneer_latest_recommendations', 'fictioneer_shortcode_latest
  *
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 1.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
@@ -1108,6 +1115,7 @@ function fictioneer_shortcode_chapter_list_empty( $attr ) {
  * @since 5.0.0
  *
  * @param string      $attr['story_id']     Either/Or. The ID of the story the chapters belong to.
+ * @param string|null $attr['post_status']  Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['chapter_ids']  Either/Or. Comma-separated list of chapter IDs.
  * @param string|null $attr['count']        Optional. Maximum number of items. Default -1 (all).
  * @param string|null $attr['offset']       Optional. Skip a number of posts.
@@ -1133,6 +1141,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $offset = max( 0, intval( $attr['offset'] ?? 0 ) );
   $group = empty( $attr['group'] ) ? false : strtolower( trim( $attr['group'] ) );
   $heading = empty( $attr['heading'] ) ? false : $attr['heading'];
+  $post_status = sanitize_key( $attr['post_status'] ?? 'publish' );
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
   $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
   $hide_icons = get_option( 'fictioneer_hide_chapter_icons' );
@@ -1181,7 +1190,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $query_args = array(
     'fictioneer_query_name' => 'fictioneer_shortcode_chapter_list',
     'post_type' => 'fcn_chapter',
-    'post_status' => 'publish',
+    'post_status' => $post_status,
     'post__in' => $chapters, // Cannot be empty!
     'ignore_sticky_posts' => true,
     'orderby' => 'post__in', // Preserve order from meta box
@@ -1571,6 +1580,7 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['only_protected']      Optional. Whether to query only protected posts. Default false.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -1591,7 +1601,7 @@ function fictioneer_shortcode_blog( $attr ) {
   $query_args = array(
     'fictioneer_query_name' => 'blog_shortcode',
     'post_type' => 'post',
-    'post_status' => 'publish',
+    'post_status' => $args['post_status'],
     'paged' => $args['page'],
     'posts_per_page' => $args['posts_per_page'],
     'ignore_sticky_posts' => $args['ignore_sticky']
@@ -1715,6 +1725,7 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
  * @since 5.7.3
  *
  * @param string|null $attr['post_type']           Optional. The post types to query. Default 'post'.
+ * @param string|null $attr['post_status']         Optional. Choose a valid post status. Default 'publish'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['per_page']            Optional. Number of posts per page.
  * @param string|null $attr['count']               Optional. Maximum number of posts. Default -1.

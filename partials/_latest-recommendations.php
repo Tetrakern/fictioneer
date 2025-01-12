@@ -15,6 +15,7 @@
  * @internal $args['order']             Order of posts. Default 'DESC'.
  * @internal $args['orderby']           Sorting of posts. Default 'date'.
  * @internal $args['post_ids']          Array of post IDs. Default empty.
+ * @internal $args['post_status']       Queried post status. Default 'publish'.
  * @internal $args['author_ids']        Array of author IDs. Default empty.
  * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.s
  * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
@@ -46,7 +47,7 @@ $show_terms = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards'
 $query_args = array (
   'fictioneer_query_name' => 'latest_recommendations',
   'post_type' => 'fcn_recommendation',
-  'post_status' => 'publish',
+  'post_status' => $args['post_status'] ?? 'publish',
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],

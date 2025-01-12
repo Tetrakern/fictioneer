@@ -13,6 +13,7 @@
  * @internal $args['author']            The author provided by the shortcode. Default false.
  * @internal $args['count']             The number of posts provided by the shortcode. Default 1.
  * @internal $args['post_ids']          Array of post IDs. Default empty.
+ * @internal $args['post_status']       Queried post status. Default 'publish'.
  * @internal $args['author_ids']        Array of author IDs. Default empty.
  * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
@@ -32,7 +33,7 @@ defined( 'ABSPATH' ) OR exit;
 $query_args = array(
   'fictioneer_query_name' => 'latest_posts',
   'post_type' => 'post',
-  'post_status' => 'publish',
+  'post_status' => $args['post_status'] ?? 'publish',
   'post__in' => $args['post_ids'], // May be empty!
   'order' => 'DESC',
   'orderby' => 'date',

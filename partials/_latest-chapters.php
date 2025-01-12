@@ -16,6 +16,7 @@
  * @internal $args['orderby']             Sorting of posts. Default 'date'.
  * @internal $args['spoiler']             Whether to obscure or show chapter excerpt.
  * @internal $args['post_ids']            Array of post IDs. Default empty.
+ * @internal $args['post_status']         Queried post status. Default 'publish'.
  * @internal $args['author_ids']          Array of author IDs. Default empty.
  * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
@@ -56,7 +57,7 @@ $card_counter = 0;
 $query_args = array(
   'fictioneer_query_name' => 'latest_chapters',
   'post_type' => 'fcn_chapter',
-  'post_status' => 'publish',
+  'post_status' => $args['post_status'] ?? 'publish',
   'post__in' => $args['post_ids'], // May be empty!
   'orderby' => $args['orderby'],
   'order' => $args['order'],

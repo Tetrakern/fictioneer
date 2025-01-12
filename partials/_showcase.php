@@ -18,6 +18,7 @@
  * @internal $args['orderby']           Order argument. Default 'date'.
  * @internal $args['author']            Author provided by the shortcode.
  * @internal $args['post_ids']          Array of post IDs. Default empty.
+ * @internal $args['post_status']       Queried post status. Default 'publish'.
  * @internal $args['author_ids']        Array of author IDs. Default empty.
  * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
@@ -46,7 +47,7 @@ $splide = $args['splide'] ?? 0;
 $query_args = array (
   'fictioneer_query_name' => 'showcase',
   'post_type' => $args['post_type'],
-  'post_status' => 'publish',
+  'post_status' => $args['post_status'] ?? 'publish',
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
