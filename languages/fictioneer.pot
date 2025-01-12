@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-08 00:50+0000\n"
+"POT-Creation-Date: 2025-01-12 15:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -869,7 +869,7 @@ msgstr ""
 msgid "Add Role"
 msgstr ""
 
-#: includes/functions/hooks/_chapter_hooks.php:779
+#: includes/functions/hooks/_chapter_hooks.php:782
 msgid "Add Suggestion"
 msgstr ""
 
@@ -1436,11 +1436,6 @@ msgstr ""
 #, php-format
 msgctxt "Advanced search summary."
 msgid "<b>Type:</b> <span>%s</span>"
-msgstr ""
-
-#: searchform.php:139
-msgctxt "Advanced search toggle."
-msgid "Advanced"
 msgstr ""
 
 #: includes/functions/_module-epub.php:810
