@@ -151,6 +151,10 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
       display.classList.remove('_new');
     });
 
+    _$$('.follow-item').forEach(element => {
+      element.classList.remove('_new');
+    });
+
     if (this.hasMobileMarkReadTarget) {
       this.mobileMarkReadTarget.classList.add('hidden');
     }
