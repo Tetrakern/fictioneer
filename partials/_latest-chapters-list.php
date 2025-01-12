@@ -161,9 +161,8 @@ if ( $splide ) {
             // Setup
             $post_id = $post->ID;
             $story_id = fictioneer_get_chapter_story_id( $post_id );
-            $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
 
-            if ( get_post_status( $story_id ) !== 'publish' || ! $story ) {
+            if ( $story_id && get_post_status( $story_id ) !== 'publish' ) {
               continue;
             }
 
@@ -174,11 +173,12 @@ if ( $splide ) {
 
             // Continue setup
             $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters-list' );
+            $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
             $permalink = get_permalink( $post_id );
             $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
             $words = fictioneer_get_word_count( $post_id );
 
-            if ( ! $chapter_rating && $story_id ) {
+            if ( ! $chapter_rating && $story ) {
               $chapter_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
             }
 
@@ -250,7 +250,7 @@ if ( $splide ) {
             // Meta
             $meta = [];
 
-            if ( $args['source'] ) {
+            if ( $story && $args['source'] ) {
               $meta['story'] = sprintf(
                 _x(
                   '<span class="post-list-item__meta-in-story"><span>in </span><a href="%1$s">%2$s</a></span>',
@@ -269,7 +269,7 @@ if ( $splide ) {
               ) . '</span>';
             }
 
-            if ( $args['footer_status'] ) {
+            if ( $story && $args['footer_status'] ) {
               $meta['status'] = '<span class="post-item-item__meta-status _' . strtolower( $story['status'] ) . '">' . fcntr( $story['status'] ) . '</span>';
             }
 

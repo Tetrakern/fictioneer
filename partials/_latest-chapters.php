@@ -162,18 +162,19 @@ if ( $splide ) {
             $post_id = $post->ID;
             $story_id = fictioneer_get_chapter_story_id( $post_id );
 
-            if ( get_post_status( $story_id ) !== 'publish' ) {
+            if ( $story_id && get_post_status( $story_id ) !== 'publish' ) {
               continue;
             }
 
             $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters' );
+            $permalink = get_permalink();
             $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
             $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
             $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
             $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
             $card_classes = [];
 
-            if ( ! $chapter_rating && $story_id ) {
+            if ( ! $chapter_rating && $story ) {
               $chapter_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
             }
 
@@ -262,7 +263,7 @@ if ( $splide ) {
                         'post_id' => $post_id,
                         'title' => $title,
                         'classes' => 'card__image cell-img',
-                        'permalink' => get_permalink(),
+                        'permalink' => $permalink,
                         'lightbox' => $args['lightbox'],
                         'vertical' => $args['vertical'],
                         'seamless' => $args['seamless'],
@@ -273,7 +274,7 @@ if ( $splide ) {
                   }
                 ?>
 
-                <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+                <h3 class="card__title _small cell-title"><a href="<?php echo $permalink; ?>" class="truncate _1-1"><?php
                   $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
                   $list_title = trim( wp_strip_all_tags( $list_title ) );
 
