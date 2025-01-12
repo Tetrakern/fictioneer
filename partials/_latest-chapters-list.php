@@ -57,7 +57,7 @@ $content_list_style = get_theme_mod( 'content_list_style', 'default' );
 $query_args = array(
   'fictioneer_query_name' => 'latest_chapters_list',
   'post_type' => 'fcn_chapter',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'orderby' => $args['orderby'],
   'order' => $args['order'],
@@ -201,7 +201,7 @@ if ( $splide ) {
             }
 
             // Extra classes
-            $classes = [];
+            $classes = [ '_' . $args['post_status'] ];
 
             if ( ! empty( $post->post_password ) ) {
               $classes[] = '_password';

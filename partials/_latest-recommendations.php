@@ -47,7 +47,7 @@ $show_terms = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards'
 $query_args = array (
   'fictioneer_query_name' => 'latest_recommendations',
   'post_type' => 'fcn_recommendation',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
@@ -141,7 +141,9 @@ if ( $splide ) {
             $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
             $card_classes = [];
 
-            // Extra classes
+            // Extra card classes
+            $card_classes[] = '_' . $args['post_status'];
+
             if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
               $card_classes[] = '_' . get_theme_mod( 'card_style' );
             }

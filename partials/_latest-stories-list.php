@@ -58,7 +58,7 @@ $content_list_style = get_theme_mod( 'content_list_style', 'default' );
 $query_args = array(
   'fictioneer_query_name' => 'latest_stories_list',
   'post_type' => 'fcn_story',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
@@ -185,7 +185,7 @@ if ( $splide ) {
             }
 
             // Extra classes
-            $classes = [];
+            $classes = [ '_' . $args['post_status'] ];
 
             if ( $is_sticky ) {
               $classes[] = '_sticky';

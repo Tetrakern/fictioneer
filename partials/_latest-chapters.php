@@ -57,7 +57,7 @@ $card_counter = 0;
 $query_args = array(
   'fictioneer_query_name' => 'latest_chapters',
   'post_type' => 'fcn_chapter',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'orderby' => $args['orderby'],
   'order' => $args['order'],
@@ -178,6 +178,8 @@ if ( $splide ) {
             }
 
             // Extra card classes
+            $card_classes[] = '_' . $args['post_status'];
+
             if ( ! empty( $post->post_password ) ) {
               $card_classes[] = '_password';
             }

@@ -57,7 +57,7 @@ $show_terms = ! in_array( $args['terms'], ['none', 'false'] ) &&
 $query_args = array(
   'fictioneer_query_name' => 'latest_stories_compact',
   'post_type' => 'fcn_story',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
@@ -172,7 +172,9 @@ if ( $splide ) {
             );
             $short_description = mb_strlen( $short_description, 'UTF-8' ) < 30 ? get_the_excerpt() : $short_description;
 
-            // Extra classes
+            // Extra card classes
+            $card_classes[] = '_' . $args['post_status'];
+
             if ( $show_terms ) {
               $card_classes[] = '_info';
             }

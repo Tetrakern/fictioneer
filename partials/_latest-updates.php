@@ -66,7 +66,7 @@ $show_terms = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) &&
 $query_args = array(
   'fictioneer_query_name' => 'latest_updates',
   'post_type' => 'fcn_story',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => 'meta_value',
@@ -187,7 +187,9 @@ if ( $splide ) {
               continue;
             }
 
-            // Extra classes
+            // Extra card classes
+            $card_classes[] = '_' . $args['post_status'];
+
             if ( ! empty( $post->post_password ) ) {
               $card_classes[] = '_password';
             }

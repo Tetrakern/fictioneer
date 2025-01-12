@@ -47,7 +47,7 @@ $splide = $args['splide'] ?? 0;
 $query_args = array (
   'fictioneer_query_name' => 'showcase',
   'post_type' => $args['post_type'],
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
@@ -130,7 +130,7 @@ if ( $args['min_width'] ) {
       }
 
       // Classes
-      $classes = '';
+      $classes = '_' . $args['post_status'];
 
       if ( $args['aspect_ratio'] ) {
         $classes .= ' _aspect-ratio';

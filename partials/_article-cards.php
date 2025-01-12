@@ -51,7 +51,7 @@ $show_terms = ! in_array( $args['terms'], ['none', 'false'] );
 $query_args = array(
   'fictioneer_query_name' => 'article_cards',
   'post_type' => $args['post_type'],
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
@@ -176,6 +176,8 @@ if ( $splide ) {
             }
 
             // Extra classes
+            $card_classes[] = '_' . $args['post_status'];
+
             if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
               $card_classes[] = '_' . get_theme_mod( 'card_style' );
             }

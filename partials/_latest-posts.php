@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) OR exit;
 $query_args = array(
   'fictioneer_query_name' => 'latest_posts',
   'post_type' => 'post',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => 'DESC',
   'orderby' => 'date',
@@ -88,6 +88,9 @@ $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_posts_query_arg
 
 // Query post
 $latest_entries = fictioneer_shortcode_query( $query_args );
+
+// Classes
+$args['classes'] .= ' _' . $args['post_status'];
 
 ?>
 

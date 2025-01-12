@@ -58,7 +58,7 @@ $show_terms = ! in_array( $args['terms'], ['none', 'false'] ) &&
 $query_args = array(
   'fictioneer_query_name' => 'latest_stories',
   'post_type' => 'fcn_story',
-  'post_status' => $args['post_status'] ?? 'publish',
+  'post_status' => $args['post_status'],
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
@@ -167,6 +167,9 @@ if ( $splide ) {
             $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS && get_post_meta( $post_id, 'fictioneer_story_sticky', true );
             $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
             $card_classes = [];
+
+            // Extra card classes
+            $card_classes[] = '_' . $args['post_status'];
 
             if ( $is_sticky ) {
               $card_classes[] = '_sticky';
