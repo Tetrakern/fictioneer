@@ -772,8 +772,11 @@ function fictioneer_chapter_suggestion_tools() {
     return;
   }
 
+  // Setup
+  $hide_if_logged_out = get_option( 'comment_registration' ) ? 'hide-if-logged-out' : ''; // Safer for cached site
+
   // Start HTML ---> ?>
-  <div id="selection-tools" class="invisible suggestion-tools" data-nosnippet>
+  <div id="selection-tools" class="invisible suggestion-tools <?php echo $hide_if_logged_out; ?>" data-nosnippet>
     <button id="button-add-suggestion" type="button" class="button button--suggestion">
       <i class="fa-solid fa-highlighter"></i>
       <span><?php _e( 'Add Suggestion', 'fictioneer' ); ?></span>
