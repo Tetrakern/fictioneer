@@ -316,6 +316,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_redirect_scheduled_chapter_404',
+                    __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
+                    __( 'Without user permission, they show a 404 error page.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_limit_chapter_stories_by_author',
                     __( 'Restrict chapter stories by author', 'fictioneer' ),
                     __( 'Also disables cross-posting as guest author.', 'fictioneer' )

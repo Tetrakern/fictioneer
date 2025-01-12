@@ -1684,7 +1684,7 @@ function fictioneer_replace_br_with_whitespace( $text ) {
 // =============================================================================
 
 /**
- * Add noindex and nofollow headers to certain requests
+ * Adds noindex and nofollow headers to certain requests
  *
  * @since 5.23.1
  */
@@ -1700,3 +1700,52 @@ function fictioneer_block_pages_from_indexing() {
   }
 }
 add_action( 'send_headers', 'fictioneer_block_pages_from_indexing' );
+
+// =============================================================================
+// REDIRECT SCHEDULED CHAPTER 404
+// =============================================================================
+
+/**
+ * Redirects scheduled chapter 404 to story or home
+ *
+ * @since 5.27.2
+ */
+
+function fictioneer_redirect_scheduled_chapter_404() {
+  if ( current_user_can( 'manage_options' ) || current_user_can( 'edit_others_fcn_chapters' ) ) {
+    return; // Default behavior
+  }
+
+  global $wp_query, $post;
+
+  if ( isset( $wp_query->query_vars['p'] ) && ( $wp_query->query_vars['post_type'] ?? 0 ) === 'fcn_chapter' ) {
+    $post_id = absint( $wp_query->query_vars['p'] );
+    $user_id = get_current_user_id();
+
+    if ( $user_id && $user_id === get_post_field( 'post_author', $post_id ) ) {
+      return; // Default behavior
+    }
+
+    if ( ! $post ) {
+      $post_status = get_post_status( $post_id );
+    } else {
+      $post_status = $post->post_status;
+    }
+
+    if ( $post_status === 'future' ) {
+       $story_id = fictioneer_get_chapter_story_id( $post_id );
+
+      if ( $story_id ) {
+        wp_safe_redirect( get_permalink( $story_id ) );
+      } else {
+        wp_safe_redirect( home_url() );
+      }
+
+      exit;
+    }
+  }
+}
+
+if ( get_option( 'fictioneer_redirect_scheduled_chapter_404' ) ) {
+  add_action( 'template_redirect', 'fictioneer_redirect_scheduled_chapter_404' );
+}
