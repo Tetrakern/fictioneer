@@ -310,7 +310,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `show_user_profile` | `fictioneer_custom_profile_fields` (20)
 | `shutdown` | `fictioneer_save_story_card_cache` (10)
 | `switch_theme` | `fictioneer_theme_deactivation` (10)
-| `template_redirect` | `fictioneer_generate_epub` (10), `fictioneer_oauth2_process` (10), `fictioneer_logout` (10), `fictioneer_disable_attachment_pages` (10), `fictioneer_gate_unpublished_content` (10), `fictioneer_serve_sitemap` (10), `fictioneer_redirect_story` (10)
+| `template_redirect` | `fictioneer_generate_epub` (10), `fictioneer_oauth2_process` (10), `fictioneer_logout` (10), `fictioneer_disable_attachment_pages` (10), `fictioneer_gate_unpublished_content` (10), `fictioneer_serve_sitemap` (10), `fictioneer_redirect_story` (10), `fictioneer_redirect_scheduled_chapter_404` (10)
 | `transition_post_status` | `fictioneer_log_story_chapter_status_changes` (10), `fictioneer_chapter_future_to_publish` (10), `fictioneer_post_story_to_discord` (99)
 | `trashed_post` | `fictioneer_refresh_post_caches` (20), `fictioneer_track_chapter_and_story_updates` (10), `fictioneer_update_modified_date_on_story_for_chapter` (10), `fictioneer_purge_transients_after_update` (10), `fictioneer_remove_chapter_from_story` (10)
 | `untrash_post` | `fictioneer_refresh_post_caches` (20), `fictioneer_track_chapter_and_story_updates` (10), `fictioneer_update_modified_date_on_story_for_chapter` (10), `fictioneer_purge_transients_after_update` (10)
