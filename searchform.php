@@ -136,7 +136,7 @@ if ( $show_advanced ) {
           type="button"
           class="search-form__advanced-toggle"
           tabindex="0"
-        ><?php _ex( 'Advanced', 'Advanced search toggle.', 'fictioneer' ); ?></button>
+        ><i class="fa-solid fa-sliders"></i></button>
       <?php endif; ?>
       <button type="submit" class="search-form__submit" aria-label="<?php echo esc_attr__( 'Submit search request', 'fictioneer' ); ?>"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
