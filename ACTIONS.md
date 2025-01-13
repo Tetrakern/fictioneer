@@ -399,6 +399,23 @@ Fires right after the content section in the `single-fcn_chapter.php` template, 
 * `fictioneer_chapter_support_links( $args )` – Support links set for the chapter/story/author. Priority 20.
 * `fictioneer_chapter_footer( $args )` – Chapter footer. Priority 99.
 
+**Example:**
+```php
+function child_display_pw_expiration_date_in_chapter( $args ) {
+  $password_expiration_date_utc = get_post_meta( $args['chapter_id'], 'fictioneer_post_password_expiration_date', true );
+
+  if ( empty( $password_expiration_date_utc ) ) {
+    return;
+  }
+
+  $local_time = get_date_from_gmt( $password_expiration_date_utc );
+  $formatted_datetime = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $local_time ) );
+
+  echo $formatted_datetime;
+}
+add_action( 'fictioneer_chapter_after_content', 'child_display_pw_expiration_date_in_chapter', 5 );
+```
+
 ---
 
 ### `do_action( 'fictioneer_chapter_after_main', $args )`
