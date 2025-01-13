@@ -1721,8 +1721,9 @@ function fictioneer_redirect_scheduled_chapter_404() {
   if ( isset( $wp_query->query_vars['p'] ) && ( $wp_query->query_vars['post_type'] ?? 0 ) === 'fcn_chapter' ) {
     $post_id = absint( $wp_query->query_vars['p'] );
     $user_id = get_current_user_id();
+    $author_id = (int) get_post_field( 'post_author', $post_id );
 
-    if ( $user_id && $user_id === get_post_field( 'post_author', $post_id ) ) {
+    if ( $user_id && $user_id === $author_id ) {
       return; // Default behavior
     }
 
