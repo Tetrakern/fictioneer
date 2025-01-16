@@ -1814,7 +1814,7 @@ function fictioneer_output_head_anti_flicker() {
   <?php // <--- End HTML
 
   wp_print_inline_script_tag(
-    'document.addEventListener("readystatechange", () => {if (document.readyState === "interactive") document.body.style.visibility = "visible";});console.log("foo");',
+    'document.addEventListener("readystatechange", () => {if (document.readyState === "interactive") document.body.style.visibility = "visible";});',
     array(
       'id' => 'fictioneer-anti-flicker',
       'type' => 'text/javascript',
