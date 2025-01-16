@@ -65,10 +65,14 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
       return;
     }
 
+    let storyChecked = false;
+
     Object.entries(checkmarks).forEach(([storyId, chapterArray]) => {
       storyId = parseInt(storyId);
 
-      const storyChecked = chapterArray?.includes(storyId);
+      if (this.hasStoryCheckTarget && storyId == this.storyCheckTarget.dataset.fictioneerCheckmarksStoryParam) {
+        storyChecked = chapterArray?.includes(storyId);
+      }
 
       if (this.hasChapterCheckTarget) {
         if (storyChecked) {
