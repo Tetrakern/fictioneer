@@ -2631,8 +2631,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
 
   static values = {
     postId: Number,
-    storyId: Number,
-    chapterId: Number
+    storyId: Number
   }
 
   initialize() {
@@ -2694,7 +2693,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
     const checkmarks = this.#data()?.checkmarks?.data?.[this.storyIdValue];
 
     return !!checkmarks &&
-      (checkmarks.includes(this.chapterIdValue) || checkmarks.includes(this.storyIdValue));
+      (checkmarks.includes(this.postIdValue) || checkmarks.includes(this.storyIdValue));
   }
 
   cardClick(event) {
@@ -2731,7 +2730,7 @@ application.register('fictioneer-large-card', class extends Stimulus.Controller 
 
   toggleCheckmarks() {
     if (this.#loggedIn()) {
-      fcn_toggleCheckmark(this.storyIdValue, this.chapterIdValue);
+      fcn_toggleCheckmark(this.storyIdValue, this.postIdValue);
       this.#refreshCheckmarkState();
     } else {
       _$('[data-fictioneer-id-param="login-modal"]')?.click();

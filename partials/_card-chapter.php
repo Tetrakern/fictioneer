@@ -97,7 +97,6 @@ $thumbnail_args = array(
   data-controller="fictioneer-large-card"
   data-fictioneer-large-card-post-id-value="<?php echo $post_id; ?>"
   data-fictioneer-large-card-story-id-value="<?php echo $story_id; ?>"
-  data-fictioneer-large-card-chapter-id-value="<?php echo $post_id; ?>"
   data-action="click->fictioneer-large-card#cardClick"
   <?php echo $card_attributes; ?>
 >
