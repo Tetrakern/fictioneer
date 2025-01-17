@@ -5,7 +5,7 @@ The following [action hooks](https://developer.wordpress.org/reference/functions
 This is an example of how to add a Discord invite link to the chapter top actions via the the `fictioneer_chapter_actions_top_center` hook. The link will feature a [Font Awesome Discord icon](https://fontawesome.com/icons/discord?f=brands) and be located between the formatting modal toggle (priority: 10) and fullscreen buttons (priority: 20). Note that no arguments of the hook are used because we do not need any of them here.
 
 ```php
-// Add this to your child theme's functions.php
+// Add this to your child theme’s functions.php
 function child_theme_discord_invite_link() {
   // Start HTML ---> ?>
   <a href="http://www.your-discord-invite-link.com" target="_blank" rel="noopener" class="button _secondary">
@@ -126,15 +126,15 @@ Fires after an user has been successfully created or logged-in via the OAuth 2.0
 * 'email' (string) – The external email address. Unsanitized.
 * 'avatar_url' (string) – The external avatar URL. Unsanitized.
 * 'patreon_tiers' (array) – Associative array (Tier ID => Array) with the relevant Patreon tiers or an empty array. Unsanitized.
-  * 'tier' (string) – Tier title.
-  * 'title' (string) – Tier title (again, yes).
-  * 'description' (string) – Tier description or empty.
-  * 'published' (boolean) – Whether the tier is published.
-  * 'amount_cents' (int) – Tier cent amount.
+  * 'tier' (string) – Tier display title.
+  * 'title' (string) – Tier display title.
+  * 'description' (string) – Tier display description or empty.
+  * 'published' (boolean) – Whether the tier is currently published.
+  * 'amount_cents' (int) – Monetary amount associated with this tier (in U.S. cents).
   * 'timestamp' (int) – Unix timestamp (GMT) of the authentication in seconds.
   * 'id' (int) – Tier ID (also used as array key).
 * 'patreon_membership' (array) – Array with the Patreon membership data or an empty array. Unsanitized.
-  * 'lifetime_support_cents' (int) – The total amount that the member has ever paid to the campaign in the campaign's currency. `0` if never paid.
+  * 'lifetime_support_cents' (int) – The total amount that the member has ever paid to the campaign in the campaign’s currency. `0` if never paid.
   * 'last_charge_date' (string|null) – Datetime (UTC ISO) of last attempted charge. `null` if never charged.
   * 'last_charge_status' (string|null) – The result of the last attempted charge. The only successful status is `'Paid'`. `null` if never charged. One of `'Paid'`, `'Declined'`, `'Deleted'`, `'Pending'`, `'Refunded'`, `'Fraud'`, `'Refunded by Patreon'`, `'Other'`, `'Partially Refunded'`, `'Free Trial'`.
   * 'next_charge_date' (string|null) – Datetime (UTC ISO) of next charge. `null` if annual pledge downgrade.
