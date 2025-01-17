@@ -328,10 +328,10 @@ function fictioneer_patreon_tiers_valid( $user = null ) {
   // Setup
   $patreon_tiers = get_user_meta( $user_id, 'fictioneer_patreon_tiers', true );
   $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
-  $last_updated = empty( $patreon_tiers ) ? 0 : ( $patreon_tiers[0]['timestamp'] ?? 0 );
+  $last_updated = empty( $patreon_tiers ) ? 0 : ( reset( $patreon_tiers )['timestamp'] ?? 0 );
 
   // Check
-  $valid = time() <= $last_updated + FICTIONEER_PATREON_EXPIRATION_TIME;
+  $valid = current_time( 'U', true ) <= ( $last_updated + FICTIONEER_PATREON_EXPIRATION_TIME );
 
   // Filter and return
   return apply_filters( 'fictioneer_filter_user_patreon_validation', $valid, $user_id, $patreon_tiers );
