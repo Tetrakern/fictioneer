@@ -345,7 +345,7 @@ function fictioneer_patreon_tiers_valid( $user = null ) {
  * @param int|WP_User|null $user  The user object or user ID. Defaults to current user.
  *
  * @return array Empty array if not a patron, associative array otherwise. Includes the
- *               keys 'valid', 'is_follower', 'lifetime_support_cents', 'last_charge_date',
+ *               keys 'valid', 'lifetime_support_cents', 'last_charge_date',
  *               'last_charge_status', 'next_charge_date', 'patron_status', and 'tiers'.
  *               Tiers is an array of tiers with the keys 'id', 'title', 'description',
  *               'published', 'amount_cents', and 'timestamp'.

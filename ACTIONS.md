@@ -119,15 +119,28 @@ Fires after an user has been successfully created or logged-in via the OAuth 2.0
 * $user (WP_User) – The user object.
 
 **$args:**
-* $channel (string) – Either `discord`, `patreon`, `twitch`, or `google`.
-* $uid (string) – External unique user ID from the linked account. Unsanitized.
-* $username (string) – The external username. Unsanitized.
-* $nickname (string) – The external nickname (or same as username). Unsanitized.
-* $email (string) – The external email address. Unsanitized.
-* $avatar_url (string) – The external avatar URL. Unsanitized.
-* $patreon_tiers (array) – The relevant Patreon tiers or an empty array. Unsanitized.
-* $new (boolean) – Whether this is a newly created user.
-* $merged (boolean) – Whether the account has been newly linked to an existing user.
+* 'channel' (string) – Either `discord`, `patreon`, `twitch`, or `google`.
+* 'uid' (string) – External unique user ID from the linked account. Unsanitized.
+* 'username' (string) – The external username. Unsanitized.
+* 'nickname' (string) – The external nickname (or same as username). Unsanitized.
+* 'email' (string) – The external email address. Unsanitized.
+* 'avatar_url' (string) – The external avatar URL. Unsanitized.
+* 'patreon_tiers' (array) – Associative array (Tier ID => Array) with the relevant Patreon tiers or an empty array. Unsanitized.
+  * 'tier' (string) – Tier title.
+  * 'title' (string) – Tier title (again, yes).
+  * 'description' (string) – Tier description or empty.
+  * 'published' (boolean) – Whether the tier is published.
+  * 'amount_cents' (int) – Tier cent amount.
+  * 'timestamp' (int) – Unix timestamp (GMT) of the authentication in seconds.
+  * 'id' (int) – Tier ID (also used as array key).
+* 'patreon_membership' (array) – Array with the Patreon membership data or an empty array. Unsanitized.
+  * 'lifetime_support_cents' (int) – The total amount that the member has ever paid to the campaign in the campaign's currency. `0` if never paid.
+  * 'last_charge_date' (string|null) – Datetime (UTC ISO) of last attempted charge. `null` if never charged.
+  * 'last_charge_status' (string|null) – The result of the last attempted charge. The only successful status is `'Paid'`. `null` if never charged. One of `'Paid'`, `'Declined'`, `'Deleted'`, `'Pending'`, `'Refunded'`, `'Fraud'`, `'Refunded by Patreon'`, `'Other'`, `'Partially Refunded'`, `'Free Trial'`.
+  * 'next_charge_date' (string|null) – Datetime (UTC ISO) of next charge. `null` if annual pledge downgrade.
+  * 'patron_status' (string|null) – One of `'active_patron'`, `'declined_patron'`, `'former_patron'`. A `null` value indicates the member has never pledged.
+* 'new' (boolean) – Whether this is a newly created user.
+* 'merged' (boolean) – Whether the account has been newly linked to an existing user.
 
 ---
 

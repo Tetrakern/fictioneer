@@ -491,6 +491,7 @@ function fictioneer_oauth2_make_user( $user_data, $cookie ) {
         'email' => $user_data['email'],
         'avatar_url' => $user_data['avatar'],
         'patreon_tiers' => $user_data['tiers'] ?? [],
+        'patreon_membership' => $user_data['membership'] ?? [],
         'new' => $new,
         'merged' => $merged
       )
@@ -790,7 +791,7 @@ function fictioneer_oauth2_patreon( $token_response, $cookie ) {
   // Build params
   $params = '?fields' . urlencode( '[user]' ) . '=email,first_name,image_url,is_email_verified';
   $params .= '&fields' . urlencode( '[tier]' ) . '=title,amount_cents,published,description';
-  $params .= '&fields' . urlencode( '[member]' ) . '=lifetime_support_cents,is_follower,last_charge_date,last_charge_status,next_charge_date,patron_status';
+  $params .= '&fields' . urlencode( '[member]' ) . '=lifetime_support_cents,campaign_lifetime_support_cents,last_charge_date,last_charge_status,next_charge_date,patron_status';
   $params .= '&include=memberships.currently_entitled_tiers';
 
   // Retrieve user data from Patreon
@@ -827,13 +828,13 @@ function fictioneer_oauth2_patreon( $token_response, $cookie ) {
     // Tiers data
     foreach ( $user->included as $node ) {
       if ( isset( $node->type ) && $node->type === 'tier' ) {
-        $tiers[] = array(
+        $tiers[ $node->id ] = array(
           'tier' => sanitize_text_field( $node->attributes->title ),
           'title' => sanitize_text_field( $node->attributes->title ),
           'description' => wp_kses_post( $node->attributes->description ?? '' ),
           'published' => filter_var( $node->attributes->published ?? 0, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE ),
           'amount_cents' => absint( $node->attributes->amount_cents ?? 0 ),
-          'timestamp' => time(),
+          'timestamp' => current_time( 'U', true ),
           'id' => $node->id
         );
         $tier_ids[] = $node->id;
@@ -846,12 +847,10 @@ function fictioneer_oauth2_patreon( $token_response, $cookie ) {
         isset( $node->type ) &&
         $node->type === 'member' &&
         isset( $node->attributes ) &&
-        isset( $node->attributes->lifetime_support_cents ) &&
         isset( $node->relationships->currently_entitled_tiers->data ) &&
         in_array( $node->relationships->currently_entitled_tiers->data[0]->id, $tier_ids )
       ) {
-        $membership['is_follower'] = $node->attributes->is_follower ?? 0;
-        $membership['lifetime_support_cents'] = $node->attributes->lifetime_support_cents ?? 0;
+        $membership['lifetime_support_cents'] = $node->attributes->lifetime_support_cents ?? $node->attributes->campaign_lifetime_support_cents ?? 0;
         $membership['last_charge_date'] = $node->attributes->last_charge_date ?? null;
         $membership['last_charge_status'] = $node->attributes->last_charge_status ?? null;
         $membership['next_charge_date'] = $node->attributes->next_charge_date ?? null;
