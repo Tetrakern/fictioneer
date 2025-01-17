@@ -490,7 +490,7 @@ function fictioneer_oauth2_make_user( $user_data, $cookie ) {
         'nickname' => $user_data['nickname'],
         'email' => $user_data['email'],
         'avatar_url' => $user_data['avatar'],
-        'patreon_tiers' => $user_data['patreon_tiers'] ?? [],
+        'patreon_tiers' => $user_data['tiers'] ?? [],
         'new' => $new,
         'merged' => $merged
       )
