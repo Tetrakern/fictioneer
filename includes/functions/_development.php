@@ -101,8 +101,8 @@ function fictioneer_generate_test_content() {
 
   // Disable Discord
   remove_action( 'comment_post', 'fictioneer_post_comment_to_discord', 99 );
-  remove_action( 'transition_post_status', 'fictioneer_post_story_to_discord', 99 );
-  remove_action( 'transition_post_status', 'fictioneer_post_chapter_to_discord', 99 );
+  remove_action( 'save_post', 'fictioneer_post_story_to_discord', 99 );
+  remove_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );
 
   // Setup
   $user_count = absint( $_GET['users'] ?? 1 );
