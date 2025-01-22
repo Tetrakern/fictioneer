@@ -2342,9 +2342,10 @@ add_shortcode( 'fictioneer_fa', 'fictioneer_shortcode_font_awesome' );
 // =============================================================================
 
 /**
- * Shortcode to show sidebar
+ * Shortcode to show sidebar.
  *
  * @since 5.20.0
+ * @since 5.27.3 - Added guard clause to prevent recursive loops.
  *
  * @param string|null $attr['name']  Optional. Name of the sidebar. Default 'fictioneer_sidebar'.
  *
@@ -2352,6 +2353,11 @@ add_shortcode( 'fictioneer_fa', 'fictioneer_shortcode_font_awesome' );
  */
 
 function fictioneer_shortcode_sidebar( $attr ) {
+  // Prevent recursive loops
+  if ( did_action( 'dynamic_sidebar' ) > 0 ) {
+    return 'Error: Don’t use [fictioneer_sidebar] inside sidebars!';
+  }
+
   // Setup
   $name = sanitize_text_field( $attr['name'] ?? '' ) ?: 'fictioneer-sidebar';
 
