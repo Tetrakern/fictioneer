@@ -181,13 +181,6 @@ application.register('fictioneer', class extends Stimulus.Controller {
     }
   }
 
-  liftProtection() {
-    if (this.dcjProtection && this.hasDcjProtectedTarget) {
-      this.dcjProtectedTargets.forEach(element => element.disabled = false);
-      this.dcjProtection = false;
-    }
-  }
-
   /**
    * Stimulus Controller connect lifecycle callback.
    *
@@ -196,6 +189,19 @@ application.register('fictioneer', class extends Stimulus.Controller {
 
   connect() {
     window.FictioneerApp.Controllers.fictioneer = this;
+  }
+
+  /**
+   * Lift DoubleclickJack protection measures.
+   *
+   * @since 5.27.2
+   */
+
+  liftProtection() {
+    if (this.dcjProtection && this.hasDcjProtectedTarget) {
+      this.dcjProtectedTargets.forEach(element => element.disabled = false);
+      this.dcjProtection = false;
+    }
   }
 
   /**
