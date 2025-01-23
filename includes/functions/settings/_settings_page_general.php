@@ -246,6 +246,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_exclude_protected_from_rss',
+                    __( 'Exclude password-protected posts from RSS', 'fictioneer' ),
+                    __( 'Only works if the theme RSS feeds are enabled.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_hide_chapter_icons',
                     __( 'Hide chapter icons', 'fictioneer' ),
                     __( 'Hides the icons on story pages and in the mobile menu.', 'fictioneer' )

@@ -755,6 +755,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_exclude_protected_from_rss' => array(
+      'name' => 'fictioneer_exclude_protected_from_rss',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1232,6 +1238,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_exclude_non_stories_from_cloud_counts' => __( 'Only count stories in taxonomy clouds', 'fictioneer' ),
       'fictioneer_enable_ffcnr_auth' => __( 'Enable FFCNR user authentication', 'fictioneer' ),
       'fictioneer_redirect_scheduled_chapter_404' => __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
+      'fictioneer_exclude_protected_from_rss' => __( 'Exclude password-protected posts from RSS', 'fictioneer' ),
     );
   }
 

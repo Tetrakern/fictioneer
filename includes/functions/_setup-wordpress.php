@@ -441,6 +441,27 @@ function fictioneer_filter_rss_excerpt( $excerpt ) {
 }
 add_filter( 'the_excerpt_rss', 'fictioneer_filter_rss_excerpt' );
 
+/**
+ * Removes protected posts from RSS feeds.
+ *
+ * @since 5.27.3
+ *
+ * @param string[] $query_args  Query arguments.
+ *
+ * @return string[] Updated query arguments.
+ */
+
+function fictioneer_exclude_protected_from_rss( $query_args ) {
+  $query_args['has_password'] = false;
+
+  return $query_args;
+}
+
+if ( get_option( 'fictioneer_exclude_protected_from_rss' ) ) {
+  add_filter( 'fictioneer_filter_rss_main_query_args', 'fictioneer_exclude_protected_from_rss' );
+  add_filter( 'fictioneer_filter_rss_story_query_args', 'fictioneer_exclude_protected_from_rss' );
+}
+
 // =============================================================================
 // OUTPUT RSS
 // =============================================================================
