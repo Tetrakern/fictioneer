@@ -519,10 +519,10 @@ List page template hook. Fires right after the content section in the `chapters.
 List page template hook. Fires right after the last list item in the `'fictioneer_chapters_list'` action.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $chapters (WP_Query) – Paginated query of all published chapters.
-* $queried_type (string) – `fcn_chapter`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'chapters' (WP_Query) – Paginated query of all published chapters.
+* 'queried_type' (string) – `fcn_chapter`
 
 ---
 
@@ -530,10 +530,10 @@ List page template hook. Fires right after the last list item in the `'fictionee
 List page template hook. Fires right at the top of an empty result list in the `'fictioneer_chapters_list'` action, before the no-result message is rendered.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $chapters (WP_Query) – Paginated query of all published chapters.
-* $queried_type (string) – `fcn_chapter`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'chapters' (WP_Query) – Paginated query of all published chapters.
+* 'queried_type' (string) – `fcn_chapter`
 
 ---
 
@@ -541,13 +541,13 @@ List page template hook. Fires right at the top of an empty result list in the `
 Fires right after the collection content section in the `single-fcn_collection.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, content warnings, statistics, and items featured in the collection.
 
 **$args:**
-* $collection (WP_Post) – Post object of the collection.
-* $collection_id (int) – Post ID of the collection.
-* $title (string) – Safe title of the collection.
-* $current_page (int) – Number of the current page or 1.
-* $max_pages (int) – Total number of pages or 1.
-* $featured_list (array) – IDs of featured items in the collection.
-* $featured_query (WP_Query) – Paginated query of featured items.
+* 'collection' (WP_Post) – Post object of the collection.
+* 'collection_id' (int) – Post ID of the collection.
+* 'title' (string) – Safe title of the collection.
+* 'current_page' (int) – Number of the current page or 1.
+* 'max_pages' (int) – Total number of pages or 1.
+* 'featured_list' (array) – IDs of featured items in the collection.
+* 'featured_query' (WP_Query) – Paginated query of featured items.
 
 **Hooked Actions:**
 * `fictioneer_collection_tags_and_warnings( $args )` – Tags and content warnings. Priority 10.
@@ -560,13 +560,13 @@ Fires right after the collection content section in the `single-fcn_collection.p
 Fires right after the article header (title, fandom, genres, and characters) in the `single-fcn_collection.php` template, inside the `<article>` container and just before the content section (or password form if the post is protected).
 
 **$args:**
-* $collection (WP_Post) – Post object of the collection.
-* $collection_id (int) – Post ID of the collection.
-* $title (string) – Safe title of the collection.
-* $current_page (int) – Number of the current page or 1.
-* $max_pages (int) – Total number of pages or 1.
-* $featured_list (array) – IDs of featured items in the collection.
-* $featured_query (WP_Query) – Paginated query of featured items.
+* 'collection' (WP_Post) – Post object of the collection.
+* 'collection_id' (int) – Post ID of the collection.
+* 'title' (string) – Safe title of the collection.
+* 'current_page' (int) – Number of the current page or 1.
+* 'max_pages' (int) – Total number of pages or 1.
+* 'featured_list' (array) – IDs of featured items in the collection.
+* 'featured_query' (WP_Query) – Paginated query of featured items.
 
 ---
 
@@ -574,14 +574,14 @@ Fires right after the article header (title, fandom, genres, and characters) in 
 List page template hook. Fires right after the content section in the `collections.php` template. Includes the paginated card list of all visible collections on the site.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $collections (WP_Query) – Paginated query of all published collections.
-* $queried_type (string) – `fcn_collection`
-* $query_args (array) – The final query arguments used.
-* $order (string) – Current order query argument. Default 'desc'.
-* $orderby (string) – Current orderby query argument. Default 'modified'.
-* $ago (int|string) – Current value for the date query. Default 0.
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'collections' (WP_Query) – Paginated query of all published collections.
+* 'queried_type' (string) – `fcn_collection`
+* 'query_args' (array) – The final query arguments used.
+* 'order' (string) – Current order query argument. Default 'desc'.
+* 'orderby' (string) – Current orderby query argument. Default 'modified'.
+* 'ago' (int|string) – Current value for the date query. Default 0.
 
 **Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
@@ -593,10 +593,10 @@ List page template hook. Fires right after the content section in the `collectio
 List page template hook. Fires right after the last list item in the `'fictioneer_collections_list'` action.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $collections (WP_Query) – Paginated query of all published collections.
-* $queried_type (string) – `fcn_collection`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'collections' (WP_Query) – Paginated query of all published collections.
+* 'queried_type' (string) – `fcn_collection`
 
 ---
 
@@ -604,13 +604,13 @@ List page template hook. Fires right after the last list item in the `'fictionee
 Fires right after opening the article’s `<footer>` container in the `single-fcn_collection.php` template.
 
 **$args:**
-* $collection (WP_Post) – Post object of the collection.
-* $collection_id (int) – Post ID of the collection.
-* $title (string) – Safe title of the collection.
-* $current_page (int) – Number of the current page or 1.
-* $max_pages (int) – Total number of pages or 1.
-* $featured_list (array) – IDs of featured items in the collection.
-* $featured_query (WP_Query) – Paginated query of featured items.
+* 'collection' (WP_Post) – Post object of the collection.
+* 'collection_id' (int) – Post ID of the collection.
+* 'title' (string) – Safe title of the collection.
+* 'current_page' (int) – Number of the current page or 1.
+* 'max_pages' (int) – Total number of pages or 1.
+* 'featured_list' (array) – IDs of featured items in the collection.
+* 'featured_query' (WP_Query) – Paginated query of featured items.
 
 ---
 
@@ -618,8 +618,8 @@ Fires right after opening the article’s `<footer>` container in the `single-fc
 Fires immediately after the HTML output of the tooltip is created to collect tooltip content for footnotes in the `_setup-shortcodes.php` file.
 
 **$args:**
-* `footnote_id` (int) – Unique identifier for the footnote.
-* `content` (string) – Content of the footnote.
+* 'footnote_id' (int) – Unique identifier for the footnote.
+* 'content' (string) – Content of the footnote.
 
 **Hooked Actions:**
 * `fictioneer_collect_footnote( $footnote_id, $content )` – Collect a footnote to be stored in a global array for later rendering. Priority 10.
@@ -630,17 +630,17 @@ Fires immediately after the HTML output of the tooltip is created to collect too
 List page template hook. Fires right at the top of an empty result list in the `'fictioneer_collections_list'` action, before the no-result message is rendered.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $collections (WP_Query) – Paginated query of all published collections.
-* $queried_type (string) – `fcn_collection`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'collections' (WP_Query) – Paginated query of all published collections.
+* 'queried_type' (string) – `fcn_collection`
 
 ---
 
 ### `do_action( 'fictioneer_expired_post_password', $post )`
 Fires after a post password has been expired, which happens when a visitor tries to access the post.
 
-**$args:**
+**Parameters:**
 * $post (WP_Post) – The post that had its password expired.
 
 ---
@@ -649,9 +649,9 @@ Fires after a post password has been expired, which happens when a visitor tries
 Fires outside the `#site` container and before the `wp_footer` hook, near the end of the document. Not to be confused with the `fictioneer_site_footer` hook.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $post_type (string|null) – Current post type. Unsafe.
-* $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'post_type' (string|null) – Current post type. Unsafe.
+* 'breadcrumbs' (array) – Array of breadcrumb tuples with label (0) and link (1).
 
 **Hooked Actions:**
 * `fictioneer_output_modals( $args )` – Renders modal HTML based on login status and page type. Priority 10.
@@ -664,10 +664,10 @@ Fires outside the `#site` container and before the `wp_footer` hook, near the en
 Fires right after opening the inner `<header>` container. Normally includes a background image.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID. Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID. Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
 
 **Hooked Actions:**
 * `fictioneer_header_inner_background( $args )` – Header background image. Priority 10.
