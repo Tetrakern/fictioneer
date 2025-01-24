@@ -377,17 +377,17 @@ Fires in the third column of the bottom action section in the `single-fcn_chapte
 Fires right after the article header (with story, title, and authors) in the `single-fcn_chapter.php` template, inside the `<article>` container and just before the content section (or password form if the post is protected). The chapter header is unaffected by most chapter formatting options.
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 ---
 
@@ -395,17 +395,17 @@ Fires right after the article header (with story, title, and authors) in the `si
 Fires right after the content section in the `single-fcn_chapter.php` template, inside the `<article>` container and just before the bottom action section. Normally includes the afterword and support links.
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Hooked Actions:**
 * `fictioneer_chapter_afterword( $args )` – Chapter afterword. Priority 10.
@@ -417,7 +417,7 @@ Fires right after the content section in the `single-fcn_chapter.php` template, 
 function child_display_pw_expiration_date_in_chapter( $args ) {
   $password_expiration_date_utc = get_post_meta( $args['chapter_id'], 'fictioneer_post_password_expiration_date', true );
 
-  if ( empty( $password_expiration_date_utc ) ) {
+  if ( empty( $password_expiration_date_utc ) || empty( $args['chapter_password'] ) ) {
     return;
   }
 
@@ -435,17 +435,17 @@ add_action( 'fictioneer_chapter_after_content', 'child_display_pw_expiration_dat
 Fires right after the `<main>` container is closed in the `single-fcn_chapter.php` template. Normally includes the micro menu, paragraph tools, and suggestion tools. Not executed if the post is locked behind a password.
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Hooked Actions:**
 * `fictioneer_chapter_paragraph_tools()` – Add the HTML for the chapter paragraph tools. Priority 10.
@@ -457,17 +457,17 @@ Fires right after the `<main>` container is closed in the `single-fcn_chapter.ph
 Fires between the top actions sections and chapter header (title and authors) in the `single-fcn_chapter.php` template. Normally includes the foreword and chapter warnings.
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Hooked Actions:**
 * `fictioneer_chapter_top_actions( $args )` – Chapter top action row. Priority 1.
@@ -481,17 +481,17 @@ Fires between the top actions sections and chapter header (title and authors) in
 Fires just before the comments section in the `single-fcn_chapter.php` template and before the `fictioneer_before_comments` hook. The only difference is the provided argument array with chapter data.
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 ---
 
@@ -499,14 +499,14 @@ Fires just before the comments section in the `single-fcn_chapter.php` template 
 List page template hook. Fires right after the content section in the `chapters.php` template. Includes the paginated card list of all visible chapters on the site.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $chapters (WP_Query) – Paginated query of all published chapters.
-* $queried_type (string) – `fcn_chapter`
-* $query_args (array) – The final query arguments used.
-* $order (string) – Current order query argument. Default 'desc'.
-* $orderby (string) – Current orderby query argument. Default 'modified'.
-* $ago (int|string) – Current value for the date query. Default 0.
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'chapters' (WP_Query) – Paginated query of all published chapters.
+* 'queried_type' (string) – `fcn_chapter`
+* 'query_args' (array) – The final query arguments used.
+* 'order' (string) – Current order query argument. Default 'desc'.
+* 'orderby' (string) – Current orderby query argument. Default 'modified'.
+* 'ago' (int|string) – Current value for the date query. Default 0.
 
 **Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
