@@ -397,6 +397,25 @@ function fictioneer_expire_post_password( $required, $post ) {
 }
 add_filter( 'post_password_required', 'fictioneer_expire_post_password', 5, 2 );
 
+/**
+ * Deletes obsolete post password expiration meta data.
+ *
+ * @since 5.27.3
+ *
+ * @param int    $post_id  Post ID.
+ * @param WP_Pos $post     Post object.
+ */
+
+function fictioneer_clean_up_post_password_expiration( $post_id, $post ) {
+  if (
+    empty( $post->post_password ) &&
+    get_post_meta( $post_id, 'fictioneer_post_password_expiration_date', true )
+  ) {
+    delete_post_meta( $post_id, 'fictioneer_post_password_expiration_date' );
+  }
+}
+add_action( 'save_post', 'fictioneer_clean_up_post_password_expiration', 99, 2 );
+
 // =============================================================================
 // STORY COMMENT COUNT
 // =============================================================================
