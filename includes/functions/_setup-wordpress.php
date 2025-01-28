@@ -804,10 +804,12 @@ function fictioneer_add_lightbox_to_post_images( $content ) {
     $parent = $img->parentNode;
     $parent_classes = $parent->getAttribute( 'class' );
     $parent_href = strtolower( $parent->getAttribute( 'href' ) );
+    $all_classes = $classes . ' ' . $parent_classes;
 
     // Abort if...
     if (
-      str_contains( $classes . $parent_classes, 'no-auto-lightbox' ) ||
+      str_contains( $all_classes, 'no-auto-lightbox' ) ||
+      str_contains( $all_classes, 'avatar' ) ||
       $parent->hasAttribute( 'target' )
     ) {
       continue;
