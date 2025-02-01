@@ -104,6 +104,8 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
         this.ribbonTarget.classList.toggle('hidden', !storyChecked);
       }
     });
+
+    localStorage.removeItem('fcnBookshelfContent');
   }
 
   uncheckAll() {

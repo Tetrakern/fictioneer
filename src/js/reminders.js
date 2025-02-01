@@ -67,6 +67,8 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
 
       button.classList.toggle('_remembered', this.isRemembered(storyId));
     });
+
+    localStorage.removeItem('fcnBookshelfContent');
   }
 
   // =====================

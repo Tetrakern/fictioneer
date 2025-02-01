@@ -86,6 +86,8 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
         }
       }
     });
+
+    localStorage.removeItem('fcnBookshelfContent');
   }
 
   loadFollowsHtml() {
