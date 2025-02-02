@@ -3,23 +3,21 @@
 // RESTRICT EDITOR ELEMENTS (ENGLISH ONLY)
 // =============================================================================
 
-// https://github.com/WordPress/gutenberg/tree/trunk/packages/edit-post/src/components/sidebar
-
 wp.domReady(() => {
 
   // Page attributes
   if (!fictioneerData.userCapabilities?.manage_options) {
-    wp.data.dispatch('core/edit-post').removeEditorPanel('page-attributes');
+    wp.data.dispatch('core/editor').removeEditorPanel('page-attributes');
   }
 
   // Permalink
   if (!fictioneerData.userCapabilities?.fcn_edit_permalink) {
-    wp.data.dispatch('core/edit-post').removeEditorPanel('post-link');
+    wp.data.dispatch('core/editor').removeEditorPanel('post-link');
   }
 
   // Template
   if (!fictioneerData.userCapabilities?.fcn_select_page_template) {
-    wp.data.dispatch('core/edit-post').removeEditorPanel('template');
+    wp.data.dispatch('core/editor').removeEditorPanel('template');
   }
 
   // Sticky checkbox and pink-/trackbacks
