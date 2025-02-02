@@ -1638,7 +1638,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   /**
-   * Inject javascript for the classic editor
+   * Inject JavaScript for the classic editor
    *
    * @since 5.6.2
    * @since 5.26.1 - Use wp_print_inline_script_tag().
@@ -1650,8 +1650,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' ) {
       return;
     }
-
-    error_log($pagenow);
 
     wp_print_inline_script_tag(
       'document.querySelectorAll(".selectit[for=ping_status], #add-new-comment").forEach(element => {element.remove();});',
