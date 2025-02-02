@@ -12,11 +12,6 @@ const unsubscribe = wp.data.subscribe(() => {
       document.querySelector('.editor-post-url__panel-dropdown')?.closest('.editor-post-panel__row')?.remove();
     }
 
-    // Template (not working)
-    // if (!fictioneerData?.userCapabilities?.fcn_select_page_template) {
-    //   wp.data.dispatch('core/editor').removeEditorPanel('template');
-    // }
-
     // Only do this once
     unsubscribe();
   }
