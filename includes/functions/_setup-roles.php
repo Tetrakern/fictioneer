@@ -1124,7 +1124,24 @@ if ( ! current_user_can( 'manage_options' ) ) {
     }
   }
 
+  /**
+   * Hide lock inserter media tab.
+   *
+   * @since 5.27.3
+   */
+
+  function fictioneer_hide_inserter_media_tab_with_css() {
+    global $pagenow;
+
+    if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' ) {
+      return;
+    }
+
+    echo '<style type="text/css">.block-editor-tabbed-sidebar #tabs-1-media {display: none !important;}</style>';
+  }
+
   if ( ! current_user_can( 'fcn_read_others_files' ) && is_admin() ) {
+    add_action( 'admin_head', 'fictioneer_hide_inserter_media_tab_with_css' );
     add_action( 'pre_get_posts', 'fictioneer_read_others_files' );
     add_action( 'pre_get_posts', 'fictioneer_read_others_files_list_view' );
   }
@@ -1284,10 +1301,16 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Hide subscriber profile blocks in admin panel
    *
    * @since 5.6.0
- * @since 5.26.1 - Use wp_print_inline_script_tag().
+   * @since 5.26.1 - Use wp_print_inline_script_tag().
    */
 
   function fictioneer_remove_profile_blocks() {
+    global $pagenow;
+
+    if ( $pagenow !== 'profile.php' ) {
+      return;
+    }
+
     // Add CSS to hide blocks...
     echo '<style type="text/css">.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
 
@@ -1310,7 +1333,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( current_user_can( 'fcn_reduced_profile' ) ) {
     add_filter( 'wp_is_application_passwords_available', '__return_false' );
     add_filter( 'user_contactmethods', '__return_empty_array' );
-    add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks' );
+    add_action( 'admin_head', 'fictioneer_remove_profile_blocks' );
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
   }
 
@@ -1515,7 +1538,13 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_hide_permalink_with_css() {
-    echo '<style type="text/css">.edit-post-post-url,  #edit-slug-buttons{display: none !important;}</style>';
+    global $pagenow;
+
+    if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' ) {
+      return;
+    }
+
+    echo '<style type="text/css" id="foobar">.edit-post-post-url, #edit-slug-buttons {display: none !important;}</style>';
   }
 
   /**
@@ -1527,6 +1556,12 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_hide_permalink_with_js() {
+    global $pagenow;
+
+    if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' ) {
+      return;
+    }
+
     wp_print_inline_script_tag(
       'document.querySelectorAll("#edit-slug-buttons").forEach(element => {element.remove();});',
       array(
@@ -1541,8 +1576,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_edit_permalink' ) ) {
-    add_action( 'admin_head-post.php', 'fictioneer_hide_permalink_with_css' );
-    add_action( 'admin_footer-post.php', 'fictioneer_hide_permalink_with_js' );
+    add_action( 'admin_head', 'fictioneer_hide_permalink_with_css' );
+    add_action( 'admin_footer', 'fictioneer_hide_permalink_with_js' );
     add_filter( 'wp_insert_post_data', 'fictioneer_prevent_permalink_edit', 99, 2 );
   }
 
@@ -1593,6 +1628,12 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_classic_editor_css_restrictions() {
+    global $pagenow;
+
+    if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' ) {
+      return;
+    }
+
     echo '<style type="text/css">.selectit[for="ping_status"], #add-new-comment {display: none !important;}</style>';
   }
 
@@ -1604,6 +1645,14 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_classic_editor_js_restrictions() {
+    global $pagenow;
+
+    if ( $pagenow !== 'post.php' && $pagenow !== 'post-new.php' ) {
+      return;
+    }
+
+    error_log($pagenow);
+
     wp_print_inline_script_tag(
       'document.querySelectorAll(".selectit[for=ping_status], #add-new-comment").forEach(element => {element.remove();});',
       array(
@@ -1673,9 +1722,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( current_user_can( 'fcn_classic_editor' ) ) {
     add_filter( 'use_block_editor_for_post_type', '__return_false' );
     add_action( 'add_meta_boxes', 'fictioneer_restrict_classic_metaboxes' );
-    add_action( 'admin_head-post.php', 'fictioneer_classic_editor_css_restrictions' );
-    add_action( 'admin_head-post-new.php', 'fictioneer_classic_editor_css_restrictions' );
-    add_action( 'admin_footer-post.php', 'fictioneer_classic_editor_js_restrictions' );
-    add_action( 'admin_footer-post-new.php', 'fictioneer_classic_editor_js_restrictions' );
+    add_action( 'admin_head', 'fictioneer_classic_editor_css_restrictions' );
+    add_action( 'admin_footer', 'fictioneer_classic_editor_js_restrictions' );
   }
 }
