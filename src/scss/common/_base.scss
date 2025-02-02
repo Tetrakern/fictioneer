@@ -873,6 +873,7 @@ html:not(.logged-in) body:not(.logged-in) {
 }
 
 .footnotes {
+  clear: both;
   font-size: max(8px, 0.8em); // Relative to content font size
   line-height: 1.7;
   margin-top: 4rem;
