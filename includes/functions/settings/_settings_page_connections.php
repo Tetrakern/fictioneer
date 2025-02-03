@@ -90,6 +90,15 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_exclude_protected_from_discord',
+                    __( 'Exclude password-protected posts from Discord notifications', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
             </div>
           </div>
         </div>

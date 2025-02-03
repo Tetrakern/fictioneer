@@ -209,6 +209,11 @@ function fictioneer_post_story_to_discord( $post_id, $post, $update ) {
     return;
   }
 
+  // Exclude protected?
+  if ( ! empty( $post->post_password ) && get_option( 'fictioneer_exclude_protected_from_discord' ) ) {
+    return;
+  }
+
   // Only if published less than 10 minutes ago
   $post_timestamp = get_post_time( 'U', true, $post_id );
   $current_timestamp = current_time( 'U', true );
@@ -302,6 +307,11 @@ function fictioneer_post_chapter_to_discord( $post_id, $post, $update ) {
 
   // Only if published chapter
   if ( $post->post_type !== 'fcn_chapter' || $post->post_status !== 'publish' ) {
+    return;
+  }
+
+  // Exclude protected?
+  if ( ! empty( $post->post_password ) && get_option( 'fictioneer_exclude_protected_from_discord' ) ) {
     return;
   }
 
