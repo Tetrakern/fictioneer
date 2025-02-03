@@ -442,74 +442,6 @@ function fictioneer_tools_duplicate_story_tags_to_genres() {
 }
 add_action( 'admin_post_fictioneer_duplicate_story_tags_to_genres', 'fictioneer_tools_duplicate_story_tags_to_genres' );
 
-/**
- * Purge theme caches
- *
- * @since 5.19.0
- */
-
-function fictioneer_purge_theme_caches() {
-  global $wpdb;
-
-  // SQL to delete story meta caches
-  $sql = "
-    DELETE FROM {$wpdb->postmeta}
-    WHERE meta_key IN (%s, %s)
-  ";
-
-  $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection', 'fictioneer_story_chapter_index_html' ) );
-
-  // Delete cached files
-  $files = glob( trailingslashit( fictioneer_get_theme_cache_dir( 'purge_theme_caches' ) ) . '*' );
-
-  foreach ( $files as $file ) {
-    if ( is_file( $file ) ) {
-      unlink( $file );
-    }
-  }
-
-  fictioneer_clear_all_cached_partials();
-
-  // Cached story cards
-  fictioneer_purge_story_card_cache();
-
-  // Cache busting string
-  fictioneer_regenerate_cache_bust();
-
-  // Query result cache registry
-  delete_option( 'fictioneer_query_cache_registry' );
-
-  // Transients (fast)
-  fictioneer_delete_layout_transients();
-  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
-  fictioneer_delete_transients_like( 'fictioneer_', true ); // Fast, but not safe for external object caches
-
-  // Object cache
-  wp_cache_flush();
-
-  // Log
-  fictioneer_log( __( 'Purged theme caches.', 'fictioneer' ) );
-}
-
-/**
- * Action wrapper to purge theme caches
- *
- * @since 5.2.5
- * @since 5.19.0 - Split up into two functions.
- */
-
-function fictioneer_tools_purge_theme_caches() {
-  // Verify request
-  fictioneer_verify_admin_action( 'fictioneer_tools_purge_theme_caches' );
-
-  // Purge and log
-  fictioneer_purge_theme_caches();
-
-  // Finish
-  fictioneer_finish_admin_action( 'fictioneer-purge-theme-caches' );
-}
-add_action( 'admin_post_fictioneer_tools_purge_theme_caches', 'fictioneer_tools_purge_theme_caches' );
-
 // =============================================================================
 // CHAPTER TOOLS ACTIONS
 // =============================================================================
@@ -1387,6 +1319,74 @@ function fictioneer_tools_add_chapter_hidden_fields() {
   exit();
 }
 add_action( 'admin_post_fictioneer_tools_add_chapter_hidden_fields', 'fictioneer_tools_add_chapter_hidden_fields' );
+
+/**
+ * Purge theme caches
+ *
+ * @since 5.19.0
+ */
+
+function fictioneer_purge_theme_caches() {
+  global $wpdb;
+
+  // SQL to delete story meta caches
+  $sql = "
+    DELETE FROM {$wpdb->postmeta}
+    WHERE meta_key IN (%s, %s)
+  ";
+
+  $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection', 'fictioneer_story_chapter_index_html' ) );
+
+  // Delete cached files
+  $files = glob( trailingslashit( fictioneer_get_theme_cache_dir( 'purge_theme_caches' ) ) . '*' );
+
+  foreach ( $files as $file ) {
+    if ( is_file( $file ) ) {
+      unlink( $file );
+    }
+  }
+
+  fictioneer_clear_all_cached_partials();
+
+  // Cached story cards
+  fictioneer_purge_story_card_cache();
+
+  // Cache busting string
+  fictioneer_regenerate_cache_bust();
+
+  // Query result cache registry
+  delete_option( 'fictioneer_query_cache_registry' );
+
+  // Transients (fast)
+  fictioneer_delete_layout_transients();
+  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
+  fictioneer_delete_transients_like( 'fictioneer_', true ); // Fast, but not safe for external object caches
+
+  // Object cache
+  wp_cache_flush();
+
+  // Log
+  fictioneer_log( __( 'Purged theme caches.', 'fictioneer' ) );
+}
+
+/**
+ * Action wrapper to purge theme caches
+ *
+ * @since 5.2.5
+ * @since 5.19.0 - Split up into two functions.
+ */
+
+function fictioneer_tools_purge_theme_caches() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_tools_purge_theme_caches' );
+
+  // Purge and log
+  fictioneer_purge_theme_caches();
+
+  // Finish
+  fictioneer_finish_admin_action( 'fictioneer-purge-theme-caches' );
+}
+add_action( 'admin_post_fictioneer_tools_purge_theme_caches', 'fictioneer_tools_purge_theme_caches' );
 
 // =============================================================================
 // MIGRATION TOOLS ACTIONS
