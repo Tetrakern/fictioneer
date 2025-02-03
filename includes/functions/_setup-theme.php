@@ -217,6 +217,8 @@ function fictioneer_theme_setup() {
   $theme_info = fictioneer_get_theme_info();
 
   if ( ( $theme_info['version'] ?? 0 ) !== FICTIONEER_VERSION ) {
+    require_once( 'settings/_settings.php' );
+
     $previous_version = $theme_info['version'];
     $theme_info['version'] = FICTIONEER_VERSION;
 
@@ -235,28 +237,13 @@ add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
  * Purges selected caches and Transients after update
  *
  * @since 5.12.2
+ * @since 5.27.3 - Use fictioneer_purge_theme_caches();
  */
 
 function fictioneer_purge_caches_after_update() {
-  // Transients (fast, assuming this also causes a purge of external object caches)
-  fictioneer_delete_transients_like( 'fictioneer_', true );
-
-  // Object cache
-  wp_cache_flush();
-
-  // Cache busting string
-  fictioneer_regenerate_cache_bust();
-
-  // Delete cached files
-  $files = glob( trailingslashit( fictioneer_get_theme_cache_dir( 'purge_caches_after_update' ) ) . '*' );
-
-  foreach ( $files as $file ) {
-    if ( is_file( $file ) ) {
-      unlink( $file );
-    }
+  if ( function_exists( 'fictioneer_purge_theme_caches' ) ) {
+    fictioneer_purge_theme_caches();
   }
-
-  fictioneer_clear_all_cached_partials();
 }
 add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 
