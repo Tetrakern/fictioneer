@@ -490,6 +490,158 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Page Assignments', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( 'The theme expects certain pages to exist. Just create a normal page, assign the specified page template, and select it here. Clear caches afterwards.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_user_profile_page',
+                    __( 'Account page (Template: User Profile) &bull; Do not cache!', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_bookmarks_page',
+                    __( 'Bookmarks page (Template: Bookmarks)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_stories_page',
+                    __( 'Stories page (Template: Stories)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_chapters_page',
+                    __( 'Chapters page (Template: Chapters)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_recommendations_page',
+                    __( 'Recommendations page (Template: Recommendations)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_collections_page',
+                    __( 'Collections page (Template: Collections)', 'fictioneer' ),
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_bookshelf_page',
+                    __( 'Bookshelf page (Template: Bookshelf) &bull; Do not cache!', 'fictioneer' ),
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_404_page',
+                  __( '404 page &bull; Add content to your 404 page, make it useful!', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( '<strong>Note:</strong> Some of these pages are highly dynamic, such as the account and bookshelf templates. The former must never be cached. The latter can be cached if you apply the AJAX template. Private caching (e.g. one per user) would work for both if you have the disk space.', 'fictioneer' ); ?></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_facebook_share',
+                    __( 'Disable Facebook share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_bluesky_share',
+                    __( 'Disable Bluesky share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_twitter_share',
+                    __( 'Disable Twitter share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_tumblr_share',
+                    __( 'Disable Tumblr share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_reddit_share',
+                    __( 'Disable Reddit share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_mastodon_share',
+                    __( 'Disable Mastodon share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
             <h3 class="fictioneer-card__header"><?php _e( 'Chapters & Stories', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
@@ -803,95 +955,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Hide content warnings on pages', 'fictioneer' )
                   );
                 ?>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="fictioneer-card">
-          <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Page Assignments', 'fictioneer' ); ?></h3>
-            <div class="fictioneer-card__content">
-
-              <div class="fictioneer-card__row">
-                <p><?php _e( 'The theme expects certain pages to exist. Just create a normal page, assign the specified page template, and select it here. Clear caches afterwards.', 'fictioneer' ); ?></p>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_user_profile_page',
-                    __( 'Account page (Template: User Profile) &bull; Do not cache!', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_bookmarks_page',
-                    __( 'Bookmarks page (Template: Bookmarks)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_stories_page',
-                    __( 'Stories page (Template: Stories)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_chapters_page',
-                    __( 'Chapters page (Template: Chapters)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_recommendations_page',
-                    __( 'Recommendations page (Template: Recommendations)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_collections_page',
-                    __( 'Collections page (Template: Collections)', 'fictioneer' ),
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_bookshelf_page',
-                    __( 'Bookshelf page (Template: Bookshelf) &bull; Do not cache!', 'fictioneer' ),
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_404_page',
-                  __( '404 page &bull; Add content to your 404 page, make it useful!', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <p><?php _e( '<strong>Note:</strong> Some of these pages are highly dynamic, such as the account and bookshelf templates. The former must never be cached. The latter can be cached if you apply the AJAX template. Private caching (e.g. one per user) would work for both if you have the disk space.', 'fictioneer' ); ?></p>
               </div>
 
             </div>
@@ -1685,69 +1748,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_disable_comment_pagination',
                     __( 'Disable theme comment pagination', 'fictioneer' ),
                     __( 'Return to the default WordPress pagination (no-AJAX).', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="fictioneer-card">
-          <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
-            <div class="fictioneer-card__content">
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_facebook_share',
-                    __( 'Disable Facebook share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_bluesky_share',
-                    __( 'Disable Bluesky share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_twitter_share',
-                    __( 'Disable Twitter share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_tumblr_share',
-                    __( 'Disable Tumblr share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_reddit_share',
-                    __( 'Disable Reddit share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_mastodon_share',
-                    __( 'Disable Mastodon share button', 'fictioneer' )
                   );
                 ?>
               </div>
