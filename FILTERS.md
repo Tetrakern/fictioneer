@@ -1024,6 +1024,14 @@ Filters the preload link tag of the header image in the `header.php` template.
 * $post_id (int|null) – Current post ID. Unsafe since this may be an archive, author, etc.
 * $source (string) – Either `'default'`, `'post'`, or `'story'`.
 
+**Example:**
+```php
+function child_append_webp_to_header_image_preload( $tag, $header_image_url ) {
+  return "<link rel='preload' href='{$header_image_url}.webp' as='image' fetchPriority='high'>";
+}
+add_filter( 'fictioneer_filter_header_image_preload', 'child_append_webp_to_header_image_preload', 10, 2 );
+```
+
 ---
 
 ### `apply_filters( 'fictioneer_filter_icon_menu_items', $items, $args )`
