@@ -1157,14 +1157,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ffcnr_auth',
                     __( 'Enable FFCNR user authentication', 'fictioneer' ),
-                    __( 'Recommended. Significantly faster frontend user setup, but might not work in rare cases. Not safe for multi-sites.', 'fictioneer' ),
+                    sprintf(
+                      __( 'Significantly faster frontend user setup, but might not work in some cases — <a href="%s" target="_blank" rel="noopener">test it here</a>. Not safe for multi-sites.', 'fictioneer' ),
+                      fictioneer_get_ffcnr_url() . '?action=test'
+                    ),
                     sprintf(
                       __( 'FFCNR stands for <em>Fast Fictioneer Requests</em>, an alternative entry point to WordPress with minimal environment. In this mode, almost nothing is loaded: no themes, no plugins, and only a tiny subset of WordPress itself. This reduced environment significantly improves performance for certain tasks, such as fetching user data for the frontend. Refer to the <a href="%s" target="_blank" rel="noopener noreferrer">installation guide</a> for details on interacting with FFCNR.', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#ffcnr-fast-fictioneer-requests'
                     )
                   );
                 ?>
-                <p class="inset-paragraph"><a href="<?php echo fictioneer_get_ffcnr_url(); ?>?action=test" target="_blank" rel="noopener"><?php _e( 'Test FFCNR authentication', 'fictioneer' ); ?></a></p>
               </div>
 
               <div class="fictioneer-card__row">
