@@ -1202,26 +1202,6 @@ function fictioneer_add_menu_link_attributes( $attributes, $item ) {
 add_filter( 'nav_menu_link_attributes', 'fictioneer_add_menu_link_attributes', 10, 2 );
 
 // =============================================================================
-// DISABLE WIDGETS
-// =============================================================================
-
-/**
- * Disable all widgets and boost performance slightly
- *
- * @since 5.5.3
- */
-
-function fictioneer_disable_widgets() {
-  global $wp_widget_factory;
-
-  $wp_widget_factory->widgets = array();
-}
-
-if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
-  add_action( 'widgets_init', 'fictioneer_disable_widgets', 99 );
-}
-
-// =============================================================================
 // EXTEND ALLOWED FILE TYPES
 // =============================================================================
 

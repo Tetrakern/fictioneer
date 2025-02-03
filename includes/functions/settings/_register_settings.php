@@ -504,12 +504,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 1
     ),
-    'fictioneer_disable_all_widgets' => array(
-      'name' => 'fictioneer_disable_all_widgets',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
-      'default' => 0
-    ),
     'fictioneer_see_some_evil' => array(
       'name' => 'fictioneer_see_some_evil',
       'group' => 'fictioneer-settings-general-group',
@@ -1148,7 +1142,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_restrict_rest_api' => __( 'Restrict default REST API', 'fictioneer' ),
       'fictioneer_enable_chapter_appending' => __( 'Append new chapters to story', 'fictioneer' ),
       'fictioneer_limit_chapter_stories_by_author' => __( 'Restrict chapter stories by author', 'fictioneer' ),
-      'fictioneer_disable_all_widgets' => __( 'Disable all widgets', 'fictioneer' ),
       'fictioneer_see_some_evil' => __( 'Monitor posts for suspicious content', 'fictioneer' ),
       'fictioneer_enable_fast_ajax_comments' => __( 'Enable fast AJAX for comments', 'fictioneer' ),
       'fictioneer_enable_rate_limits' => __( 'Enable rate limiting for AJAX requests', 'fictioneer' ),
@@ -1422,37 +1415,6 @@ function fictioneer_sanitize_phrase_cookie_consent_banner( $input ) {
 
   // Return
   return strlen( $input ) < 32 ? $default : $output;
-}
-
-/**
- * Sanitizes a the checkbox and toggles "autoload" for all widgets
- *
- * @since 5.5.3
- * @link https://www.php.net/manual/en/function.filter-var.php
- *
- * @param mixed $value  The checkbox value to be sanitized.
- *
- * @return boolean True or false.
- */
-
-function fictioneer_sanitize_disable_widget_checkbox( $value ) {
-  global $wpdb;
-
-  // Setup
-  $value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
-  $autoload = $value ? 'no' : 'yes';
-
-  // Toggle autoload for widget options
-  $wpdb->query(
-    $wpdb->prepare(
-      "UPDATE {$wpdb->prefix}options SET autoload=%s WHERE option_name LIKE %s",
-      $autoload,
-      $wpdb->esc_like( 'widget_' ) . '%'
-    )
-  );
-
-  // Return sanitized value for database update
-  return filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 }
 
 /**

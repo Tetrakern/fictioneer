@@ -2388,10 +2388,7 @@ function fictioneer_shortcode_sidebar( $attr ) {
   // Capture and return buffer
   return ob_get_clean();
 }
-
-if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
-  add_shortcode( 'fictioneer_sidebar', 'fictioneer_shortcode_sidebar' );
-}
+add_shortcode( 'fictioneer_sidebar', 'fictioneer_shortcode_sidebar' );
 
 // =============================================================================
 // TOOLTIP AND FOOTNOTE SHORTCODE

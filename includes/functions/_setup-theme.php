@@ -61,10 +61,10 @@ function fictioneer_get_theme_cache_dir( $context = null ) {
 function fictioneer_bring_out_legacy_trash() {
   // Setup
   $options = wp_cache_get( 'alloptions', 'options' );
-  $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log', 'fictioneer_enable_ajax_nonce', 'fictioneer_flush_object_cache', 'fictioneer_enable_all_block_styles', 'fictioneer_light_mode_as_default', 'fictioneer_remove_wp_svg_filters', 'fictioneer_update_check_timestamp', 'fictioneer_latest_version', 'fictioneer_update_notice_timestamp', 'fictioneer_theme_status', 'fictioneer_disable_anti_flicker', 'fictioneer_query_cache_registry', 'fictioneer_disable_whatsapp_share', 'fictioneer_disable_telegram_share', 'fictioneer_enable_query_result_caching'];
+  $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log', 'fictioneer_enable_ajax_nonce', 'fictioneer_flush_object_cache', 'fictioneer_enable_all_block_styles', 'fictioneer_light_mode_as_default', 'fictioneer_remove_wp_svg_filters', 'fictioneer_update_check_timestamp', 'fictioneer_latest_version', 'fictioneer_update_notice_timestamp', 'fictioneer_theme_status', 'fictioneer_disable_anti_flicker', 'fictioneer_query_cache_registry', 'fictioneer_disable_whatsapp_share', 'fictioneer_disable_telegram_share', 'fictioneer_enable_query_result_caching', 'fictioneer_disable_all_widgets'];
 
   // Check for most recent obsolete option...
-  if ( isset( $options['fictioneer_enable_query_result_caching'] ) ) {
+  if ( isset( $options['fictioneer_disable_all_widgets'] ) ) {
     // Looping everything is not great but it only happens once!
     foreach ( $obsolete as $trash ) {
       delete_option( $trash );
@@ -200,12 +200,6 @@ function fictioneer_theme_setup() {
 
   // Disable template editor (automatically added due to theme.json!)
   remove_theme_support( 'block-templates' );
-
-  // Remove widget support...
-  if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
-    remove_theme_support( 'widgets' );
-    remove_theme_support( 'widgets-block-editor' );
-  }
 
   // Add new size for cover images used on story pages
   add_image_size( 'cover', 400 );
@@ -355,6 +349,29 @@ function fictioneer_purge_front_page_seo_cache() {
 }
 add_action( 'fictioneer_after_update', 'fictioneer_purge_front_page_seo_cache' );
 
+/**
+ * Restore disabled autoload for widgets.
+ *
+ * @since 5.27.3
+ *
+ * @param string $version  The version string after the update.
+ */
+
+function fictioneer_restore_disabled_widgets_autoload( $version ) {
+  if ( version_compare( $version, '5.27.3', '<=' ) ) {
+    global $wpdb;
+
+    $wpdb->query(
+      $wpdb->prepare(
+        "UPDATE {$wpdb->prefix}options SET autoload=%s WHERE option_name LIKE %s",
+        'yes',
+        $wpdb->esc_like( 'widget_' ) . '%'
+      )
+    );
+  }
+}
+add_action( 'fictioneer_after_update', 'fictioneer_restore_disabled_widgets_autoload' );
+
 // =============================================================================
 // SIDEBAR
 // =============================================================================
@@ -378,10 +395,7 @@ function fictioneer_register_sidebar() {
     )
   );
 }
-
-if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
-  add_action( 'widgets_init', 'fictioneer_register_sidebar' );
-}
+add_action( 'widgets_init', 'fictioneer_register_sidebar' );
 
 /**
  * Renders sidebar
@@ -439,12 +453,10 @@ function fictioneer_sidebar( $context ) {
   add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
 }
 
-if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
-  if ( get_theme_mod( 'sidebar_style' ) === 'right' ) {
-    add_action( 'fictioneer_main_end', 'fictioneer_sidebar' );
-  } else {
-    add_action( 'fictioneer_main', 'fictioneer_sidebar' );
-  }
+if ( get_theme_mod( 'sidebar_style' ) === 'right' ) {
+  add_action( 'fictioneer_main_end', 'fictioneer_sidebar' );
+} else {
+  add_action( 'fictioneer_main', 'fictioneer_sidebar' );
 }
 
 // =============================================================================
@@ -814,8 +826,7 @@ function fictioneer_add_classes_to_body( $classes ) {
 
   if (
     $sidebar_style !== 'none' &&
-    is_active_sidebar( 'fictioneer-sidebar' ) &&
-    ! get_option( 'fictioneer_disable_all_widgets' )
+    is_active_sidebar( 'fictioneer-sidebar' )
   ) {
     $sidebar_disabled = array(
       'fcn_story' => get_theme_mod( 'sidebar_disable_in_stories' ),
