@@ -963,6 +963,14 @@ Filters the array of meta keys allowed to be saved as "falsy" ("", 0, null, fals
 
 ---
 
+### `apply_filters( 'fictioneer_filter_ffcnr_url', $url )`
+Filters the URL to the FFCNR entry script.
+
+**Parameters:**
+* $url (string) – URL to the FFCNR entry script.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_fonts', $fonts )`
 Filters the return array of the `fictioneer_get_fonts()` function, used to set up the chapter font options.
 
