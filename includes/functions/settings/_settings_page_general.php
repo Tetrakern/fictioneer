@@ -94,36 +94,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_show_authors',
-                    __( 'Display authors on cards and posts', 'fictioneer' ),
-                    __( 'When you have multiple publishing authors.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_categories',
-                    __( 'Hide categories on posts', 'fictioneer' ),
-                    __( 'If you do not need them anyway.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_full_post_content',
-                    __( 'Display full posts instead of excerpts', 'fictioneer' ),
-                    __( 'You can still use the [More] block for shortened previews.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_site_age_confirmation',
                     __( 'Enable age confirmation modal for site', 'fictioneer' ),
                     __( 'Require age confirmation for the whole site.', 'fictioneer' )
@@ -205,19 +175,15 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Chapters & Stories', 'fictioneer' ); ?></h3>
+            <h3 class="fictioneer-card__header"><?php _e( 'Tweaks', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
-
-              <div class="fictioneer-card__row">
-                <p><?php _e( 'Updating these settings may require the theme caches to be purged. You can do that under Tools.', 'fictioneer' ); ?></p>
-              </div>
 
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_post_age_confirmation',
-                    __( 'Enable age confirmation modal for posts', 'fictioneer' ),
-                    __( 'Require age confirmation for <b>adult-rated</b> content.', 'fictioneer' )
+                    'fictioneer_show_full_post_content',
+                    __( 'Display full posts instead of excerpts', 'fictioneer' ),
+                    __( 'You can still use the [More] block for shortened previews.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -225,10 +191,19 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_line_break_fix',
-                    __( 'Enable fixing of chapter paragraphs', 'fictioneer' ),
-                    __( 'If you messed up copy/paste and all paragraphs are one.', 'fictioneer' ),
-                    __( 'If you copy and paste chapters into the editor, particularly the classic editor, paragraphs may be lost. This occurs because WordPress uses double new lines to separate content into paragraphs. If your content only has single new lines, you will get a single line break instead of a paragraph. While it is better to fix this in the content, this option can smooth things out. However, keep in mind that single line breaks will no longer be possible.', 'fictioneer' )
+                    'fictioneer_show_authors',
+                    __( 'Display authors on cards and posts', 'fictioneer' ),
+                    __( 'When you have multiple publishing authors.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_categories',
+                    __( 'Hide categories on posts', 'fictioneer' ),
+                    __( 'If you do not need them anyway.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -256,182 +231,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_chapter_icons',
-                    __( 'Hide chapter icons', 'fictioneer' ),
-                    __( 'Hides the icons on story pages and in the mobile menu.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_override_chapter_status_icons',
-                    __( 'Override chapter status icons', 'fictioneer' ),
-                    __( 'Always renders the chapter icons instead of locks/etc.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_chapter_groups',
-                    __( 'Enable chapter groups', 'fictioneer' ),
-                    __( 'Renders chapters in groups on story pages (if set).', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_collapse_groups_by_default',
-                    __( 'Collapse chapter groups by default', 'fictioneer' ),
-                    __( 'Chapter groups (if used) are collapsed on page load.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_chapter_collapsing',
-                    __( 'Disable collapsing of chapters', 'fictioneer' ),
-                    __( 'Do not collapse long chapter lists.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_default_formatting_indent',
-                    __( 'Disable default indentation of chapter paragraphs', 'fictioneer' ),
-                    __( 'This can still be overwritten by the user.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_chapter_appending',
-                    __( 'Append new chapters to story', 'fictioneer' ),
-                    __( 'Whenever you change the chapter story and save.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_redirect_scheduled_chapter_404',
-                    __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
-                    __( 'Without user permission, they show a 404 error page.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_limit_chapter_stories_by_author',
-                    __( 'Restrict chapter stories by author', 'fictioneer' ),
-                    __( 'Also disables cross-posting as guest author.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <?php
-                $changelog_classes = '';
-
-                if ( ! FICTIONEER_ENABLE_STORY_CHANGELOG ) {
-                  $changelog_classes = 'fictioneer-card__row--disabled';
-                }
-              ?>
-
-              <div class="fictioneer-card__row <?php echo $changelog_classes; ?>">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_story_changelog',
-                    __( 'Show story changelog button', 'fictioneer' ),
-                    __( 'Opens modal with timestamped chapter changes.', 'fictioneer' ),
-                    __( 'Adds a small clock button at the bottom-left of the story chapter list, which opens a modal with a changelog. This is primarily intended for sites with user-contributed content to help expose any manipulation of update listings, such as removing and re-adding chapters. The author cannot to edit this log.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_story_modified_date',
-                    __( 'Show the modified date on story pages', 'fictioneer' ),
-                    __( 'Below the chapter list and instead of the publish date.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_large_card_chapter_list',
-                    __( 'Hide chapter list on large story cards', 'fictioneer' ),
-                    __( 'Less informative but also less cluttered.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_story_cards_latest_chapters',
-                    __( 'Show latest chapters on large story cards', 'fictioneer' ),
-                    __( 'Instead of the earliest ones to avoid spoilers.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_count_characters_as_words',
-                    __( 'Count characters instead of words', 'fictioneer' ),
-                    __( 'For logographic writing systems. Use the word count multiplier to better approximate the number.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row fictioneer-card__row--inline-input">
-                <p class="fictioneer-inline-text-input"><?php
-                  printf(
-                    __( '<span>Multiply the displayed word counts with</span> %s<span>.</span>', 'fictioneer' ),
-                    '<input name="fictioneer_word_count_multiplier" type="text" id="fictioneer_word_count_multiplier" value="' . esc_attr( get_option( 'fictioneer_word_count_multiplier', 1.0 ) ) . '" style="text-align: center;" size="4" placeholder="1.0">'
-                  );
-                ?></p>
-              </div>
-
-              <div class="fictioneer-card__row fictioneer-card__row--inline-input">
-                <p class="fictioneer-inline-text-input"><?php
-                  printf(
-                    __( '<span>Calculate reading time with</span> %s <span>words per minute.</span>', 'fictioneer' ),
-                    '<input name="fictioneer_words_per_minute" type="text" id="fictioneer_words_per_minute" value="' . esc_attr( get_option( 'fictioneer_words_per_minute', 200 ) ) . '" style="text-align: center;" size="4" placeholder="200">'
-                  );
-                ?></p>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="fictioneer-card">
-          <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Tags & Taxonomies', 'fictioneer' ); ?></h3>
-            <div class="fictioneer-card__content">
-
-            <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_exclude_non_stories_from_cloud_counts',
                     __( 'Only count stories in taxonomy clouds', 'fictioneer' ),
                     __( 'Taxonomy pages still list all posts in the results.', 'fictioneer' )
@@ -440,14 +239,11 @@ $images = get_template_directory_uri() . '/img/documentation/';
               </div>
 
               <div class="fictioneer-card__row">
-                <p><?php _e( 'Taxonomies on cards include fandoms, genres, tags (if shown), and characters in that order.', 'fictioneer' ); ?></p>
-              </div>
-
-              <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_taxonomies_on_story_cards',
-                    __( 'Hide taxonomies on story cards', 'fictioneer' )
+                    'fictioneer_enable_custom_fields',
+                    __( 'Enable custom fields', 'fictioneer' ),
+                    __( 'Show custom fields form on post edit screen.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -455,8 +251,10 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_taxonomies_on_chapter_cards',
-                    __( 'Hide taxonomies on chapter cards', 'fictioneer' )
+                    'fictioneer_enable_all_blocks',
+                    __( 'Enable all Gutenberg blocks', 'fictioneer' ),
+                    __( 'No guarantee these blocks work with the theme.', 'fictioneer' ),
+                    __( 'Many blocks in the editor are hidden by default due to compatibility concerns. The theme is not built for full-site editing, and blocks like Row, Stack, Group, along with widgets and content items, may lack styling or not work as expected.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -464,179 +262,11 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_taxonomies_on_recommendation_cards',
-                    __( 'Hide taxonomies on recommendation cards', 'fictioneer' )
+                    'fictioneer_enable_advanced_meta_fields',
+                    __( 'Enable advanced meta fields', 'fictioneer' ),
+                    __( 'Additional options you most likely do not need.', 'fictioneer' )
                   );
                 ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_taxonomies_on_collection_cards',
-                    __( 'Hide taxonomies on collection cards', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <p><?php _e( 'Tags are normally not shown on cards since they tend to be numerous, making the cards unsightly. But this is up to you.', 'fictioneer' ); ?></p>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_tags_on_story_cards',
-                    __( 'Show tags on story cards', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_tags_on_chapter_cards',
-                    __( 'Show tags on chapter cards', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_tags_on_recommendation_cards',
-                    __( 'Show tags on recommendation cards', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_tags_on_collection_cards',
-                    __( 'Show tags on collection cards', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <p><?php _e( 'Taxonomies on pages are displayed above the title, tags and content warnings get their own rows below the description.', 'fictioneer' ); ?></p>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_taxonomies_on_pages',
-                    __( 'Hide taxonomies on pages', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_tags_on_pages',
-                    __( 'Hide tags on pages', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_hide_content_warnings_on_pages',
-                    __( 'Hide content warnings on pages', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="fictioneer-card">
-          <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Page Assignments', 'fictioneer' ); ?></h3>
-            <div class="fictioneer-card__content">
-
-              <div class="fictioneer-card__row">
-                <p><?php _e( 'The theme expects certain pages to exist. Just create a normal page, assign the specified page template, and select it here. Clear caches afterwards.', 'fictioneer' ); ?></p>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_user_profile_page',
-                    __( 'Account page (Template: User Profile) &bull; Do not cache!', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_bookmarks_page',
-                    __( 'Bookmarks page (Template: Bookmarks)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_stories_page',
-                    __( 'Stories page (Template: Stories)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_chapters_page',
-                    __( 'Chapters page (Template: Chapters)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_recommendations_page',
-                    __( 'Recommendations page (Template: Recommendations)', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_collections_page',
-                    __( 'Collections page (Template: Collections)', 'fictioneer' ),
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_bookshelf_page',
-                    __( 'Bookshelf page (Template: Bookshelf) &bull; Do not cache!', 'fictioneer' ),
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_page_assignment(
-                    'fictioneer_404_page',
-                  __( '404 page &bull; Add content to your 404 page, make it useful!', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <p><?php _e( '<strong>Note:</strong> Some of these pages are highly dynamic, such as the account and bookshelf templates. The former must never be cached. The latter can be cached if you apply the AJAX template. Private caching (e.g. one per user) would work for both if you have the disk space.', 'fictioneer' ); ?></p>
               </div>
 
             </div>
@@ -860,6 +490,416 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Chapters & Stories', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( 'Updating these settings may require the theme caches to be purged. You can do that under Tools.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_post_age_confirmation',
+                    __( 'Enable age confirmation modal for posts', 'fictioneer' ),
+                    __( 'Require age confirmation for <b>adult-rated</b> content.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_line_break_fix',
+                    __( 'Enable fixing of chapter paragraphs', 'fictioneer' ),
+                    __( 'If you messed up copy/paste and all paragraphs are one.', 'fictioneer' ),
+                    __( 'If you copy and paste chapters into the editor, particularly the classic editor, paragraphs may be lost. This occurs because WordPress uses double new lines to separate content into paragraphs. If your content only has single new lines, you will get a single line break instead of a paragraph. While it is better to fix this in the content, this option can smooth things out. However, keep in mind that single line breaks will no longer be possible.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_chapter_icons',
+                    __( 'Hide chapter icons', 'fictioneer' ),
+                    __( 'Hides the icons on story pages and in the mobile menu.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_override_chapter_status_icons',
+                    __( 'Override chapter status icons', 'fictioneer' ),
+                    __( 'Always renders the chapter icons instead of locks/etc.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_chapter_groups',
+                    __( 'Enable chapter groups', 'fictioneer' ),
+                    __( 'Renders chapters in groups on story pages (if set).', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_collapse_groups_by_default',
+                    __( 'Collapse chapter groups by default', 'fictioneer' ),
+                    __( 'Chapter groups (if used) are collapsed on page load.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_chapter_collapsing',
+                    __( 'Disable collapsing of chapters', 'fictioneer' ),
+                    __( 'Do not collapse long chapter lists.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_default_formatting_indent',
+                    __( 'Disable default indentation of chapter paragraphs', 'fictioneer' ),
+                    __( 'This can still be overwritten by the user.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_chapter_appending',
+                    __( 'Append new chapters to story', 'fictioneer' ),
+                    __( 'Whenever you change the chapter story and save.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_redirect_scheduled_chapter_404',
+                    __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
+                    __( 'Without user permission, they show a 404 error page.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_limit_chapter_stories_by_author',
+                    __( 'Restrict chapter stories by author', 'fictioneer' ),
+                    __( 'Also disables cross-posting as guest author.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <?php
+                $changelog_classes = '';
+
+                if ( ! FICTIONEER_ENABLE_STORY_CHANGELOG ) {
+                  $changelog_classes = 'fictioneer-card__row--disabled';
+                }
+              ?>
+
+              <div class="fictioneer-card__row <?php echo $changelog_classes; ?>">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_story_changelog',
+                    __( 'Show story changelog button', 'fictioneer' ),
+                    __( 'Opens modal with timestamped chapter changes.', 'fictioneer' ),
+                    __( 'Adds a small clock button at the bottom-left of the story chapter list, which opens a modal with a changelog. This is primarily intended for sites with user-contributed content to help expose any manipulation of update listings, such as removing and re-adding chapters. The author cannot to edit this log.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_story_modified_date',
+                    __( 'Show the modified date on story pages', 'fictioneer' ),
+                    __( 'Below the chapter list and instead of the publish date.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_large_card_chapter_list',
+                    __( 'Hide chapter list on large story cards', 'fictioneer' ),
+                    __( 'Less informative but also less cluttered.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_story_cards_latest_chapters',
+                    __( 'Show latest chapters on large story cards', 'fictioneer' ),
+                    __( 'Instead of the earliest ones to avoid spoilers.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_count_characters_as_words',
+                    __( 'Count characters instead of words', 'fictioneer' ),
+                    __( 'For logographic writing systems. Use the word count multiplier to better approximate the number.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row fictioneer-card__row--inline-input">
+                <p class="fictioneer-inline-text-input"><?php
+                  printf(
+                    __( '<span>Multiply the displayed word counts with</span> %s<span>.</span>', 'fictioneer' ),
+                    '<input name="fictioneer_word_count_multiplier" type="text" id="fictioneer_word_count_multiplier" value="' . esc_attr( get_option( 'fictioneer_word_count_multiplier', 1.0 ) ) . '" style="text-align: center;" size="4" placeholder="1.0">'
+                  );
+                ?></p>
+              </div>
+
+              <div class="fictioneer-card__row fictioneer-card__row--inline-input">
+                <p class="fictioneer-inline-text-input"><?php
+                  printf(
+                    __( '<span>Calculate reading time with</span> %s <span>words per minute.</span>', 'fictioneer' ),
+                    '<input name="fictioneer_words_per_minute" type="text" id="fictioneer_words_per_minute" value="' . esc_attr( get_option( 'fictioneer_words_per_minute', 200 ) ) . '" style="text-align: center;" size="4" placeholder="200">'
+                  );
+                ?></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Tags & Taxonomies', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( 'Taxonomies on cards include fandoms, genres, tags (if shown), and characters in that order.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_taxonomies_on_story_cards',
+                    __( 'Hide taxonomies on story cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_taxonomies_on_chapter_cards',
+                    __( 'Hide taxonomies on chapter cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_taxonomies_on_recommendation_cards',
+                    __( 'Hide taxonomies on recommendation cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_taxonomies_on_collection_cards',
+                    __( 'Hide taxonomies on collection cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( 'Tags are normally not shown on cards since they tend to be numerous, making the cards unsightly. But this is up to you.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_tags_on_story_cards',
+                    __( 'Show tags on story cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_tags_on_chapter_cards',
+                    __( 'Show tags on chapter cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_tags_on_recommendation_cards',
+                    __( 'Show tags on recommendation cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_tags_on_collection_cards',
+                    __( 'Show tags on collection cards', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( 'Taxonomies on pages are displayed above the title, tags and content warnings get their own rows below the description.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_taxonomies_on_pages',
+                    __( 'Hide taxonomies on pages', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_tags_on_pages',
+                    __( 'Hide tags on pages', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_content_warnings_on_pages',
+                    __( 'Hide content warnings on pages', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Page Assignments', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( 'The theme expects certain pages to exist. Just create a normal page, assign the specified page template, and select it here. Clear caches afterwards.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_user_profile_page',
+                    __( 'Account page (Template: User Profile) &bull; Do not cache!', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_bookmarks_page',
+                    __( 'Bookmarks page (Template: Bookmarks)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_stories_page',
+                    __( 'Stories page (Template: Stories)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_chapters_page',
+                    __( 'Chapters page (Template: Chapters)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_recommendations_page',
+                    __( 'Recommendations page (Template: Recommendations)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_collections_page',
+                    __( 'Collections page (Template: Collections)', 'fictioneer' ),
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_bookshelf_page',
+                    __( 'Bookshelf page (Template: Bookshelf) &bull; Do not cache!', 'fictioneer' ),
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
+                    'fictioneer_404_page',
+                  __( '404 page &bull; Add content to your 404 page, make it useful!', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <p><?php _e( '<strong>Note:</strong> Some of these pages are highly dynamic, such as the account and bookshelf templates. The former must never be cached. The latter can be cached if you apply the AJAX template. Private caching (e.g. one per user) would work for both if you have the disk space.', 'fictioneer' ); ?></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
             <h3 class="fictioneer-card__header"><?php _e( 'Comments', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
@@ -1036,69 +1076,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_comments_notice',
                     __( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ),
                     '152px'
-                  );
-                ?>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="fictioneer-card">
-          <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
-            <div class="fictioneer-card__content">
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_facebook_share',
-                    __( 'Disable Facebook share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_bluesky_share',
-                    __( 'Disable Bluesky share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_twitter_share',
-                    __( 'Disable Twitter share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_tumblr_share',
-                    __( 'Disable Tumblr share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_reddit_share',
-                    __( 'Disable Reddit share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_mastodon_share',
-                    __( 'Disable Mastodon share button', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -1645,37 +1622,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_custom_fields',
-                    __( 'Enable custom fields', 'fictioneer' ),
-                    __( 'Show custom fields form on post edit screen.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_all_blocks',
-                    __( 'Enable all Gutenberg blocks', 'fictioneer' ),
-                    __( 'No guarantee these blocks work with the theme.', 'fictioneer' ),
-                    __( 'Many blocks in the editor are hidden by default due to compatibility concerns. The theme is not built for full-site editing, and blocks like Row, Stack, Group, along with widgets and content items, may lack styling or not work as expected.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_advanced_meta_fields',
-                    __( 'Enable advanced meta fields', 'fictioneer' ),
-                    __( 'Additional options you most likely do not need.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_theme_logout',
                     __( 'Disable theme logout without nonce', 'fictioneer' ),
                     __( 'Return to the default WordPress logout with nonce.', 'fictioneer' )
@@ -1739,6 +1685,69 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_disable_comment_pagination',
                     __( 'Disable theme comment pagination', 'fictioneer' ),
                     __( 'Return to the default WordPress pagination (no-AJAX).', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_facebook_share',
+                    __( 'Disable Facebook share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_bluesky_share',
+                    __( 'Disable Bluesky share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_twitter_share',
+                    __( 'Disable Twitter share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_tumblr_share',
+                    __( 'Disable Tumblr share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_reddit_share',
+                    __( 'Disable Reddit share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_mastodon_share',
+                    __( 'Disable Mastodon share button', 'fictioneer' )
                   );
                 ?>
               </div>
