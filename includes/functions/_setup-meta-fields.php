@@ -2278,6 +2278,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $fields['fictioneer_story_topwebfiction_link'] = $twf_url;
   }
 
+  // Redirect
   if ( current_user_can( 'manage_options' ) && isset( $_POST['fictioneer_story_redirect_link'] ) ) {
     $redirect_url = fictioneer_sanitize_url( $_POST['fictioneer_story_redirect_link'] );
     $fields['fictioneer_story_redirect_link'] = $redirect_url;
