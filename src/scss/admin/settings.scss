@@ -636,6 +636,10 @@ body[class*="fictioneer_page_"] {
     &__row {
       padding: 0 12px;
 
+      p.inset-paragraph {
+        margin: 4px 0 0 24px;
+      }
+
       &:not(:last-child) {
         margin-bottom: 12px;
       }

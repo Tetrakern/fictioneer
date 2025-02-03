@@ -1164,6 +1164,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     )
                   );
                 ?>
+                <p class="inset-paragraph"><a href="<?php echo fictioneer_get_ffcnr_url(); ?>?action=test" target="_blank" rel="noopener"><?php _e( 'Test FFCNR authentication', 'fictioneer' ); ?></a></p>
               </div>
 
               <div class="fictioneer-card__row">

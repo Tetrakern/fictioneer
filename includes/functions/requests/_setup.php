@@ -579,3 +579,7 @@ $action = apply_filters( 'ffcnr_request_action', $_REQUEST['action'] ?? 0 );
 if ( $action === 'auth' ) {
   require_once __DIR__ . '/_auth.php';
 }
+
+if ( $action === 'test' ) {
+  require_once __DIR__ . '/_test.php';
+}
