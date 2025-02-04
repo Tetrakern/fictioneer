@@ -14,3 +14,4 @@
 // @codekit-append 'comments.js';
 // @codekit-append 'ajax-comments.js';
 // @codekit-append 'ajax-bookshelf.js';
+// @codekit-append 'css-skins.js';
