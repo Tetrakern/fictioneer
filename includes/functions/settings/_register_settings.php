@@ -761,6 +761,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox'
     ),
+    'fictioneer_disable_header_image_preload' => array(
+      'name' => 'fictioneer_disable_header_image_preload',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    ),
   ),
   'integers' => array(
     'fictioneer_user_profile_page' => array(
@@ -1238,6 +1243,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_redirect_scheduled_chapter_404' => __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
       'fictioneer_exclude_protected_from_rss' => __( 'Exclude password-protected posts from RSS', 'fictioneer' ),
       'fictioneer_exclude_protected_from_discord' => __( 'Exclude password-protected posts from Discord notifications', 'fictioneer' ),
+      'fictioneer_disable_header_image_preload' => __( 'Disable preloading of header image', 'fictioneer' ),
     );
   }
 

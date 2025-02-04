@@ -1589,6 +1589,17 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_header_image_preload',
+                    __( 'Disable preloading of header image', 'fictioneer' ),
+                    __( 'Not by default compatible with all image CDNs.', 'fictioneer' ),
+                    __( 'Preloading the header image can speed up your LCP time (Largest Contentful Paint), resulting in a better user experience and search rank. However, this typically clashes with image CDNs because the preload URL can differ from the CDN-provided URL, resulting in an incorrect preload, making your site actually slower.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_allow_rest_save_actions',
                     __( 'Allow REST requests to trigger save actions', 'fictioneer' ),
                     __( 'They are blocked because they are redundant.', 'fictioneer' ),

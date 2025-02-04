@@ -80,7 +80,7 @@ $header_image_preload = '';
 if ( $header_image_url ) {
   $header_image_url = apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id, $header_image_source );
 
-  if ( $header_image_url ) {
+  if ( $header_image_url && ! get_option( 'fictioneer_disable_header_image_preload' ) ) {
     $header_image_preload = apply_filters(
       'fictioneer_filter_header_image_preload',
       "<link rel='preload' href='{$header_image_url}' as='image' fetchPriority='high'>",
