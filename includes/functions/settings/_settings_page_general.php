@@ -181,16 +181,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_show_full_post_content',
-                    __( 'Display full posts instead of excerpts', 'fictioneer' ),
-                    __( 'You can still use the [More] block for shortened previews.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_show_authors',
                     __( 'Display authors on cards and posts', 'fictioneer' ),
                     __( 'When you have multiple publishing authors.', 'fictioneer' )
@@ -204,6 +194,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_hide_categories',
                     __( 'Hide categories on posts', 'fictioneer' ),
                     __( 'If you do not need them anyway.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_full_post_content',
+                    __( 'Display full posts instead of excerpts', 'fictioneer' ),
+                    __( 'You can still use the [More] block for shortened previews.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -241,16 +241,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_custom_fields',
-                    __( 'Enable custom fields', 'fictioneer' ),
-                    __( 'Show custom fields form on post edit screen.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_all_blocks',
                     __( 'Enable all Gutenberg blocks', 'fictioneer' ),
                     __( 'No guarantee these blocks work with the theme.', 'fictioneer' ),
@@ -265,6 +255,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_enable_advanced_meta_fields',
                     __( 'Enable advanced meta fields', 'fictioneer' ),
                     __( 'Additional options you most likely do not need.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_custom_fields',
+                    __( 'Enable custom fields', 'fictioneer' ),
+                    __( 'Show custom fields form on post edit screen.', 'fictioneer' )
                   );
                 ?>
               </div>
