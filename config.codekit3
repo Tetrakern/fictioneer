@@ -2347,7 +2347,7 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 1,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/js\/css-skins.min.js",
       "oF" : 2,
       "sC" : 3,
