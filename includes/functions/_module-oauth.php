@@ -235,19 +235,45 @@ function fictioneer_oauth2_process() {
   }
 
   // Cookie?
-  if ( ! $cookie || ! ( $cookie['state'] ?? 0 ) || ! ( $cookie['channel'] ?? 0 ) || ! ( $cookie['return_url'] ?? 0 ) ) {
+  if ( ! $cookie ) {
     fictioneer_oauth2_terminate(
-      $cookie['return_url'],
+      home_url(),
       array( 'failure' => 'oauth_invalid_cookie' ),
       $anchor
     );
   }
 
+  // Return URL?
+  if ( ! ( $cookie['return_url'] ?? 0 ) ) {
+    fictioneer_oauth2_terminate(
+      home_url(),
+      array( 'failure' => 'oauth_return_url_missing' ),
+      $anchor
+    );
+  }
+
   // State?
+  if ( ! ( $cookie['state'] ?? 0 ) ) {
+    fictioneer_oauth2_terminate(
+      $cookie['return_url'],
+      array( 'failure' => 'oauth_state_missing' ),
+      $anchor
+    );
+  }
+
   if ( $cookie['state'] !== $state ) {
     fictioneer_oauth2_terminate(
       $cookie['return_url'],
       array( 'failure' => 'oauth_invalid_state' ),
+      $anchor
+    );
+  }
+
+  // Channel?
+  if ( ! ( $cookie['channel'] ?? 0 ) ) {
+    fictioneer_oauth2_terminate(
+      $cookie['return_url'],
+      array( 'failure' => 'oauth_channel_missing' ),
       $anchor
     );
   }
