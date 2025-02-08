@@ -111,15 +111,12 @@ define(
 
 function fictioneer_fcn_story_post_type() {
   $labels = array(
-    'name'                  => _x( 'Stories', 'Post type general name', 'fictioneer' ),
-    'singular_name'         => _x( 'Story', 'Post type singular name', 'fictioneer' ),
-    'menu_name'             => __( 'Stories', 'fictioneer' ),
-    'name_admin_bar'        => __( 'Story', 'fictioneer' ),
+    'name'                  => __( 'Stories', 'fictioneer' ),
+    'singular_name'         => __( 'Story', 'fictioneer' ),
     'archives'              => __( 'Story Archives', 'fictioneer' ),
     'attributes'            => __( 'Story Attributes', 'fictioneer' ),
     'all_items'             => __( 'All Stories', 'fictioneer' ),
     'add_new_item'          => __( 'Add New Story', 'fictioneer' ),
-    'add_new'               => __( 'Add New', 'fictioneer' ),
     'new_item'              => __( 'New Story', 'fictioneer' ),
     'edit_item'             => __( 'Edit Story', 'fictioneer' ),
     'update_item'           => __( 'Update Story', 'fictioneer' ),
@@ -141,7 +138,6 @@ function fictioneer_fcn_story_post_type() {
 
   $args = array(
     'label'               => __( 'Story', 'fictioneer' ),
-    'description'         => __( 'Holds stories and details about them.', 'fictioneer' ),
     'labels'              => $labels,
     'menu_icon'           => 'dashicons-book',
     'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'revisions', 'custom-fields'],
@@ -180,15 +176,12 @@ add_action( 'init', 'fictioneer_fcn_story_post_type', 0 );
 
 function fictioneer_fcn_chapter_post_type() {
   $labels = array(
-    'name'                  => _x( 'Chapters', 'Post type general name', 'fictioneer' ),
-    'singular_name'         => _x( 'Chapter', 'Post type singular name', 'fictioneer' ),
-    'menu_name'             => __( 'Chapters', 'fictioneer' ),
-    'name_admin_bar'        => __( 'Chapter', 'fictioneer' ),
+    'name'                  => __( 'Chapters', 'fictioneer' ),
+    'singular_name'         => __( 'Chapter', 'fictioneer' ),
     'archives'              => __( 'Chapter Archives', 'fictioneer' ),
     'attributes'            => __( 'Chapter Attributes', 'fictioneer' ),
     'all_items'             => __( 'All Chapters', 'fictioneer' ),
     'add_new_item'          => __( 'Add New Chapter', 'fictioneer' ),
-    'add_new'               => __( 'Add New', 'fictioneer' ),
     'new_item'              => __( 'New Chapter', 'fictioneer' ),
     'edit_item'             => __( 'Edit Chapter', 'fictioneer' ),
     'update_item'           => __( 'Update Chapter', 'fictioneer' ),
@@ -210,7 +203,6 @@ function fictioneer_fcn_chapter_post_type() {
 
   $args = array(
     'label'               => __( 'Chapter', 'fictioneer' ),
-    'description'         => __( 'Holds chapters and details about them.', 'fictioneer' ),
     'labels'              => $labels,
     'menu_icon'           => 'dashicons-text-page',
     'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions', 'custom-fields'],
@@ -326,15 +318,12 @@ if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
 
 function fictioneer_fcn_collection_post_type() {
   $labels = array(
-    'name'                  => _x( 'Collections', 'Post type general name', 'fictioneer' ),
-    'singular_name'         => _x( 'Collection', 'Post type singular name', 'fictioneer' ),
-    'menu_name'             => __( 'Collections', 'fictioneer' ),
-    'name_admin_bar'        => __( 'Collection', 'fictioneer' ),
+    'name'                  => __( 'Collections', 'fictioneer' ),
+    'singular_name'         => __( 'Collection', 'fictioneer' ),
     'archives'              => __( 'Collection Archives', 'fictioneer' ),
     'attributes'            => __( 'Collection Attributes', 'fictioneer' ),
     'all_items'             => __( 'All Collections', 'fictioneer' ),
     'add_new_item'          => __( 'Add New Collection', 'fictioneer' ),
-    'add_new'               => __( 'Add New', 'fictioneer' ),
     'new_item'              => __( 'New Collection', 'fictioneer' ),
     'edit_item'             => __( 'Edit Collection', 'fictioneer' ),
     'update_item'           => __( 'Update Collection', 'fictioneer' ),
@@ -356,7 +345,6 @@ function fictioneer_fcn_collection_post_type() {
 
   $args = array(
     'label'               => __( 'Collection', 'fictioneer' ),
-    'description'         => __( 'Collections of stories, chapters, and recommendations.', 'fictioneer' ),
     'labels'              => $labels,
     'menu_icon'           => 'dashicons-category',
     'supports'            => ['title', 'author', 'editor', 'thumbnail', 'custom-fields'],
@@ -395,15 +383,13 @@ add_action( 'init', 'fictioneer_fcn_collection_post_type', 0 );
 
 function fictioneer_fcn_recommendation_post_type() {
   $labels = array(
-    'name'                  => _x( 'Recommendations', 'Post type general name', 'fictioneer' ),
-    'singular_name'         => _x( 'Recommendation', 'Post type singular name', 'fictioneer' ),
+    'name'                  => __( 'Recommendations', 'fictioneer' ),
+    'singular_name'         => __( 'Recommendation', 'fictioneer' ),
     'menu_name'             => __( 'Recommend.', 'fictioneer' ),
-    'name_admin_bar'        => __( 'Recommendation', 'fictioneer' ),
     'archives'              => __( 'Recommendation Archives', 'fictioneer' ),
     'attributes'            => __( 'Recommendation Attributes', 'fictioneer' ),
     'all_items'             => __( 'All Recommend.', 'fictioneer' ),
     'add_new_item'          => __( 'Add New Recommendation', 'fictioneer' ),
-    'add_new'               => __( 'Add New', 'fictioneer' ),
     'new_item'              => __( 'New Recommendation', 'fictioneer' ),
     'edit_item'             => __( 'Edit Recommendation', 'fictioneer' ),
     'update_item'           => __( 'Update Recommendation', 'fictioneer' ),
@@ -425,7 +411,6 @@ function fictioneer_fcn_recommendation_post_type() {
 
   $args = array(
     'label'               => __( 'Recommendation', 'fictioneer' ),
-    'description'         => __( 'Recommendations for external stories.', 'fictioneer' ),
     'labels'              => $labels,
     'menu_icon'           => 'dashicons-star-filled',
     'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'custom-fields'],
@@ -466,7 +451,6 @@ function fictioneer_add_genre_taxonomy() {
   $labels = array(
     'name'              => _x( 'Genres', 'Taxonomy general name.', 'fictioneer' ),
     'singular_name'     => _x( 'Genre', 'Taxonomy singular name.', 'fictioneer' ),
-    'menu_name'         => __( 'Genres', 'fictioneer' ),
     'search_items'      => __( 'Search Genres', 'fictioneer' ),
     'all_items'         => __( 'All Genres', 'fictioneer' ),
     'parent_item'       => __( 'Parent Genre', 'fictioneer' ),
@@ -511,7 +495,6 @@ function fictioneer_add_fandom_taxonomy() {
   $labels = array(
     'name'              => _x( 'Fandoms', 'Taxonomy general name.', 'fictioneer' ),
     'singular_name'     => _x( 'Fandom', 'Taxonomy singular name.', 'fictioneer' ),
-    'menu_name'         => __( 'Fandoms', 'fictioneer' ),
     'search_items'      => __( 'Search Fandoms', 'fictioneer' ),
     'all_items'         => __( 'All Fandoms', 'fictioneer' ),
     'parent_item'       => __( 'Parent Fandom', 'fictioneer' ),
@@ -556,7 +539,6 @@ function fictioneer_add_character_taxonomy() {
   $labels = array(
     'name'              => _x( 'Characters', 'Taxonomy general name.', 'fictioneer' ),
     'singular_name'     => _x( 'Character', 'Taxonomy singular name.', 'fictioneer' ),
-    'menu_name'         => __( 'Characters', 'fictioneer' ),
     'search_items'      => __( 'Search Characters', 'fictioneer' ),
     'all_items'         => __( 'All Characters', 'fictioneer' ),
     'parent_item'       => __( 'Parent Character', 'fictioneer' ),
@@ -601,7 +583,6 @@ function fictioneer_add_content_warning_taxonomy() {
   $labels = array(
     'name'              => _x( 'Content Warnings', 'Taxonomy general name.', 'fictioneer' ),
     'singular_name'     => _x( 'Content Warning', 'Taxonomy singular name.', 'fictioneer' ),
-    'menu_name'         => __( 'Content Warnings', 'fictioneer' ),
     'search_items'      => __( 'Search Content Warnings', 'fictioneer' ),
     'all_items'         => __( 'All Content Warnings', 'fictioneer' ),
     'parent_item'       => __( 'Parent Content Warning', 'fictioneer' ),
