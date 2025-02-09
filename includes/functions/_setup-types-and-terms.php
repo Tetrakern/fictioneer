@@ -104,7 +104,7 @@ define(
 // =============================================================================
 
 /**
- * Register custom post type fcn_story
+ * Register custom post type fcn_story.
  *
  * @since 1.0
  */
@@ -169,7 +169,7 @@ add_action( 'init', 'fictioneer_fcn_story_post_type', 0 );
 // =============================================================================
 
 /**
- * Register custom post type fcn_chapter
+ * Register custom post type fcn_chapter.
  *
  * @since 1.0
  */
@@ -234,7 +234,7 @@ function fictioneer_fcn_chapter_post_type() {
 add_action( 'init', 'fictioneer_fcn_chapter_post_type', 0 );
 
 /**
- * Adds chapter rewrite tags
+ * Add chapter rewrite tags.
  *
  * @since 5.19.1
  */
@@ -248,7 +248,7 @@ if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
 }
 
 /**
- * Adds chapter rewrite rules
+ * Add chapter rewrite rules.
  *
  * @since 5.19.1
  */
@@ -274,7 +274,7 @@ if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
 }
 
 /**
- * Adds chapter rewrite rules
+ * Rewrite the chapter permalink.
  *
  * @since 5.19.1
  *
@@ -376,7 +376,7 @@ add_action( 'init', 'fictioneer_fcn_collection_post_type', 0 );
 // =============================================================================
 
 /**
- * Register custom post type fcn_recommendation
+ * Register custom post type fcn_recommendation.
  *
  * @since 3.0
  */
@@ -442,7 +442,7 @@ add_action( 'init', 'fictioneer_fcn_recommendation_post_type', 0 );
 // =============================================================================
 
 /**
- * Register custom taxonomy fcn_genre
+ * Register custom taxonomy fcn_genre.
  *
  * @since 4.3.0
  */
@@ -486,7 +486,7 @@ add_action( 'init', 'fictioneer_add_genre_taxonomy', 0 );
 // =============================================================================
 
 /**
- * Register custom taxonomy fcn_fandom
+ * Register custom taxonomy fcn_fandom.
  *
  * @since 4.0.0
  */
@@ -530,7 +530,7 @@ add_action( 'init', 'fictioneer_add_fandom_taxonomy', 0 );
 // =============================================================================
 
 /**
- * Register custom taxonomy fcn_character
+ * Register custom taxonomy fcn_character.
  *
  * @since 4.3.0
  */
@@ -574,7 +574,7 @@ add_action( 'init', 'fictioneer_add_character_taxonomy', 0 );
 // =============================================================================
 
 /**
- * Register custom taxonomy fcn_content_warning
+ * Register custom taxonomy fcn_content_warning.
  *
  * @since 4.7.0
  */
@@ -618,7 +618,7 @@ add_action( 'init', 'fictioneer_add_content_warning_taxonomy', 0 );
 // =============================================================================
 
 /**
- * Overrides the default taxonomy capability check for categories and post tags
+ * Override the default taxonomy capability check for categories and post tags.
  *
  * @since 5.6.0
  *
@@ -649,7 +649,7 @@ function fictioneer_override_default_taxonomy_capability_check( $caps, $cap ) {
 add_filter( 'map_meta_cap', 'fictioneer_override_default_taxonomy_capability_check', 9999, 2 );
 
 /**
- * Restricts tag creation for the 'post_tag' taxonomy
+ * Restrict tag creation for the 'post_tag' taxonomy.
  *
  * @since 5.6.0
  *
@@ -676,7 +676,7 @@ if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_optio
 // =============================================================================
 
 /**
- * Removes undesired sub-menu items for taxonomies
+ * Remove undesired sub-menu items for taxonomies.
  *
  * @since 5.6.0
  */
@@ -711,7 +711,7 @@ add_action( 'admin_menu', 'fictioneer_remove_sub_menus' );
 // =============================================================================
 
 /**
- * Adds a filter dropdown to the chapters list table
+ * Add filter dropdown to the chapters list table.
  *
  * @since 5.6.0
  *
@@ -789,7 +789,7 @@ function fictioneer_add_chapter_story_filter_dropdown( $post_type ) {
 add_action( 'restrict_manage_posts', 'fictioneer_add_chapter_story_filter_dropdown' );
 
 /**
- * Filters chapters in the chapter list table by story
+ * Filter chapters in the chapter list table by story.
  *
  * @param WP_Query $query  The WP_Query instance.
  */
