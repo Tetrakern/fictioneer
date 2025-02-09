@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-08 10:49+0000\n"
+"POT-Creation-Date: 2025-02-09 22:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1939,6 +1939,13 @@ msgid ""
 "</blockquote>"
 msgstr ""
 
+#: includes/functions/_utility.php:2114
+msgctxt "BBCode example."
+msgid ""
+"<code>[b]</code><strong>Bold</strong><code>[/b]</code> of you to assume I "
+"have a plan."
+msgstr ""
+
 #: includes/functions/_utility.php:2124
 msgctxt "BBCode example."
 msgid ""
@@ -1975,6 +1982,26 @@ msgctxt "BBCode example."
 msgid ""
 "<code>[spoiler]</code><span class=\"spoiler\">Spanish Inquisition!</span>"
 "<code>[/spoiler]</code>"
+msgstr ""
+
+#: includes/functions/_utility.php:2117
+msgctxt "BBCode example."
+msgid ""
+"<ul><li class=\"comment-list-item\">Listless I’m counting my <code>[li]"
+"</code>bullets<code>[/li]</code>.</li></ul>"
+msgstr ""
+
+#: includes/functions/_utility.php:2115
+msgctxt "BBCode example."
+msgid ""
+"Deathbringer, emphasis on <code>[i]</code><em>death</em><code>[/i]</code>."
+msgstr ""
+
+#: includes/functions/_utility.php:2116
+msgctxt "BBCode example."
+msgid ""
+"I’m totally <code>[s]</code><strike>crossed out</strike><code>[/s]</code> by "
+"this."
 msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:1616
@@ -8056,6 +8083,10 @@ msgstr ""
 msgid "New Recommendation"
 msgstr ""
 
+#: includes/functions/settings/_settings_page_roles.php:349
+msgid "New Role Name"
+msgstr ""
+
 #: includes/functions/_setup-types-and-terms.php:120
 msgid "New Story"
 msgstr ""
@@ -9585,6 +9616,10 @@ msgstr ""
 msgid "Role capabilities have been updated."
 msgstr ""
 
+#: includes/functions/settings/_settings_page_roles.php:326
+msgid "Role Name"
+msgstr ""
+
 #: includes/functions/settings/_settings_actions.php:122
 msgid "Role removed."
 msgstr ""
@@ -10594,7 +10629,7 @@ msgstr ""
 
 #. Name of the template
 #: single-fcn_story.php:128 single-fcn_collection.php:141 stories.php:2
-#: stories.php:114 author.php:41 author.php:140 single-fcn_chapter.php:217
+#: stories.php:114 author.php:41 author.php:140 single-fcn_chapter.php:185
 #: partials/_card-collection.php:207 partials/_collection-statistics.php:35
 #: includes/functions/_setup-types-and-terms.php:114
 #: includes/functions/hooks/_general_hooks.php:615

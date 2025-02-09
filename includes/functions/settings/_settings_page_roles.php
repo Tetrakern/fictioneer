@@ -323,7 +323,7 @@ $current_role = $roles[ $current_role_slug ];
         <?php echo $add_role_nonce; ?>
         <div class="fictioneer-dialog__row">
           <label class="fictioneer-label-textfield" for="new_role">
-            <input id="new_role" name="new_role" placeholder="<?php _ex( 'Role Name', 'fictioneer' ); ?>" type="text" required>
+            <input id="new_role" name="new_role" placeholder="<?php _e( 'Role Name', 'fictioneer' ); ?>" type="text" required>
             <p class="fictioneer-sub-label"><?php _e( 'Enter the name of the new role.', 'fictioneer' ); ?></p>
           </label>
         </div>
@@ -346,7 +346,7 @@ $current_role = $roles[ $current_role_slug ];
         <?php echo $rename_role_nonce; ?>
         <div class="fictioneer-dialog__row">
           <label class="fictioneer-label-textfield" for="new_name">
-            <input id="new_name" name="new_name" placeholder="<?php _ex( 'New Name', 'fictioneer' ); ?>" type="text" required>
+            <input id="new_name" name="new_name" placeholder="<?php _e( 'New Role Name', 'fictioneer' ); ?>" type="text" required>
             <p class="fictioneer-sub-label"><?php _e( 'Enter the new name for the role.', 'fictioneer' ); ?></p>
           </label>
         </div>
