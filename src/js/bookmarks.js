@@ -60,7 +60,7 @@ application.register('fictioneer-bookmarks', class extends Stimulus.Controller {
       }
 
       const p = _$(`[data-paragraph-id="${paragraphId}"]`);
-      const chapterBookmarkData = _$$$('chapter-bookmark-data').dataset;
+      const chapterBookmarkData = JSON.parse(_$$$('fictioneer-bookmark-data').textContent.trim());
 
       bookmarksData[this.chapterId] = {
         'paragraph-id': paragraphId,
@@ -69,8 +69,8 @@ application.register('fictioneer-bookmarks', class extends Stimulus.Controller {
         'color': color,
         'chapter': chapterBookmarkData.title.trim(),
         'link': chapterBookmarkData.link,
-        'thumb': chapterBookmarkData.thumb,
-        'image': chapterBookmarkData.image,
+        'thumb': chapterBookmarkData.thumbnail,
+        'image': chapterBookmarkData.cover,
         'story': chapterBookmarkData.storyTitle.trim(),
         'content': FcnUtils.extractTextNodes(p).substring(0, 128) + '…'
       };

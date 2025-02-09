@@ -411,6 +411,8 @@ Fires right after the content section in the `single-fcn_chapter.php` template, 
 * `fictioneer_chapter_afterword( $args )` – Chapter afterword. Priority 10.
 * `fictioneer_chapter_support_links( $args )` – Support links set for the chapter/story/author. Priority 20.
 * `fictioneer_chapter_footer( $args )` – Chapter footer. Priority 99.
+* `fictioneer_chapter_micro_menu( $args )` – HTML for the micro menu. Priority 99.
+* `fictioneer_output_bookmark_data( $args )` – Data JSON for the bookmark. Priority 99.
 
 **Example:**
 ```php

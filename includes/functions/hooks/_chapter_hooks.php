@@ -788,3 +788,61 @@ function fictioneer_chapter_suggestion_tools() {
 if ( get_option( 'fictioneer_enable_suggestions' ) ) {
   add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_suggestion_tools', 10 );
 }
+
+// =============================================================================
+// BOOKMARK DATA
+// =============================================================================
+
+/**
+ * Outputs the JSON for the chapter bookmark data.
+ *
+ * @since 5.27.3
+ *
+ * @param int   $args['chapter_id']  The chapter ID.
+ * @param array $args['story_data']  Optional. Post object of the story.
+ */
+
+function fictioneer_output_bookmark_data( $args ) {
+  // Setup
+  $title = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_list_title', true );
+  $title = trim( wp_strip_all_tags( $title ) );
+  $title = $title ?: fictioneer_get_safe_title( $args['chapter_id'], 'chapter-bookmark' );
+  $story_title = '';
+  $snippet_thumbnail_url = get_the_post_thumbnail_url( $args['chapter_id'], 'snippet' );
+  $full_thumbnail_url = get_the_post_thumbnail_url( $args['chapter_id'], 'full' );
+
+  if ( $args['story_data'] ) {
+    $story_title = $args['story_data']['title'];
+
+    if ( ! $snippet_thumbnail_url ) {
+      $snippet_thumbnail_url = get_the_post_thumbnail_url( $args['story_data']['id'], 'snippet' );
+      $full_thumbnail_url = get_the_post_thumbnail_url( $args['story_data']['id'], 'full' );
+    }
+  }
+
+  // Data
+  $data = array(
+    'thumbnail' => esc_url( $snippet_thumbnail_url ),
+    'cover' => esc_url( $full_thumbnail_url ),
+    'link' => get_the_permalink( $args['chapter_id'] ),
+    'title' => $title,
+    'storyTitle' => $story_title,
+  );
+
+  // Echo
+  wp_print_inline_script_tag(
+    wp_json_encode( $data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ),
+    array(
+      'id' => 'fictioneer-bookmark-data',
+      'type' => 'application/json',
+      'data-jetpack-boost' => 'ignore',
+      'data-no-optimize' => '1',
+      'data-no-defer' => '1',
+      'data-no-minify' => '1'
+    )
+  );
+}
+
+if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
+  add_action( 'fictioneer_chapter_after_content', 'fictioneer_output_bookmark_data', 99 );
+}

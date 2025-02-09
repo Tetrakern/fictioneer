@@ -92,39 +92,7 @@ get_header(
         if ( $story_post && $indexed_chapters ) {
           echo fictioneer_render_chapter_index_modal_html( $story_id );
         }
-
-        if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
-          // Bookmark data
-          $bookmark_story_title = '';
-          $bookmark_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
-          $bookmark_title = trim( wp_strip_all_tags( $bookmark_title ) );
-          $bookmark_title = $bookmark_title ?: $title;
-          $bookmark_thumbnail = get_the_post_thumbnail_url( null, 'snippet' );
-          $bookmark_image = get_the_post_thumbnail_url( null, 'full' );
-
-          // If story is set...
-          if ( $story_post ) {
-            $bookmark_story_title = $story_data['title'];
-
-            // If chapter has no featured image, look in story...
-            if ( ! $bookmark_thumbnail ) {
-              $bookmark_thumbnail = get_the_post_thumbnail_url( $story_id, 'snippet' );
-              $bookmark_image = get_the_post_thumbnail_url( $story_id, 'full' );
-            }
-          }
-        }
       ?>
-
-      <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
-        <div id="chapter-bookmark-data"
-          data-thumb="<?php echo esc_url( $bookmark_thumbnail ); ?>"
-          data-image="<?php echo esc_url( $bookmark_image ); ?>"
-          data-link="<?php the_permalink(); ?>"
-          data-title="<?php echo esc_attr( $bookmark_title ); ?>"
-          data-story-title="<?php echo esc_attr( $bookmark_story_title ); ?>"
-          hidden data-nosnippet>
-        </div>
-      <?php endif; ?>
 
       <article id="ch-<?php echo $post_id; ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article <?php echo $password_required ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
 
