@@ -1125,7 +1125,7 @@ function fictioneer_restrict_rest_api( $errors ) {
   if ( preg_match( '/^\/wp-json\/wp\/v2\//', $_SERVER['REQUEST_URI'] ) && ! $can_edit ) {
     return new WP_Error(
       'rest_insufficient_permission',
-      __( 'You are not authorized to use the API.' ),
+      'You are not authorized to use the API.',
       array( 'status' => 401 )
     );
   }

@@ -661,7 +661,7 @@ add_filter( 'map_meta_cap', 'fictioneer_override_default_taxonomy_capability_che
 
 function fictioneer_restrict_tag_creation( $term, $taxonomy ) {
   if ( $taxonomy == 'post_tag' ) {
-    return new WP_Error( 'term_addition_blocked', __( 'You are unauthorized to add new terms.' ) );
+    return new WP_Error( 'term_addition_blocked', 'You are unauthorized to add new terms.', array( 'status' => 401 ) );
   }
 
   return $term;
