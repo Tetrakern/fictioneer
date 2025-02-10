@@ -391,17 +391,20 @@ if ( ! function_exists( 'fictioneer_purge_template_caches' ) ) {
    */
 
   function fictioneer_purge_template_caches( $template ) {
+    global $wpdb;
+
     // Setup (this should normally only yield one page or none)
-    $pages = get_posts(
-      array(
-        'post_type' => 'page',
-        'numberposts' => -1,
-        'fields' => 'ids',
-        'meta_key' => '_wp_page_template',
-        'meta_value' => "{$template}.php",
-        'update_post_meta_cache' => false, // Improve performance
-        'update_post_term_cache' => false, // Improve performance
-        'no_found_rows' => true // Improve performance
+    $pages = $wpdb->get_col(
+      $wpdb->prepare(
+        "SELECT p.ID
+        FROM {$wpdb->posts} p
+        INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+        WHERE p.post_type = %s
+          AND p.post_status IN ( 'publish', 'private' )
+          AND pm.meta_key = '_wp_page_template'
+          AND pm.meta_value = %s",
+        'page',
+        "{$template}.php"
       )
     );
 
@@ -470,15 +473,15 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       fictioneer_purge_template_caches( 'stories' );
     }
 
-    if ( $post_type == 'fcn_recommendation' ) {
+    if ( $post_type === 'fcn_recommendation' ) {
       fictioneer_purge_template_caches( 'recommendations' );
     }
 
     // Purge parent story (if any)...
-    if ( $post_type == 'fcn_chapter' ) {
+    if ( $post_type === 'fcn_chapter' ) {
       $story_id = fictioneer_get_chapter_story_id( $post_id );
 
-      if ( ! empty( $story_id ) ) {
+      if ( $story_id ) {
         $chapters = fictioneer_get_story_chapter_ids( $story_id );
 
         delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
@@ -495,7 +498,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Purge associated chapters
-    if ( $post_type == 'fcn_story' ) {
+    if ( $post_type === 'fcn_story' ) {
       $chapters = fictioneer_get_story_chapter_ids( $post_id );
 
       if ( ! empty( $chapters ) ) {
@@ -506,17 +509,15 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Purge all collections (cheapest option)
-    if ( $post_type != 'page' ) {
+    if ( $post_type !== 'page' ) {
       fictioneer_purge_template_caches( 'collections' );
 
-      $collections = get_posts(
-        array(
-          'post_type' => 'fcn_collection',
-          'numberposts' => -1,
-          'fields' => 'ids',
-          'update_post_meta_cache' => false, // Improve performance
-          'update_post_term_cache' => false, // Improve performance
-          'no_found_rows' => true // Improve performance
+      global $wpdb;
+
+      $collections = $wpdb->get_col(
+        $wpdb->prepare(
+          "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status IN ( 'publish', 'private' )",
+          'fcn_collection'
         )
       );
 
