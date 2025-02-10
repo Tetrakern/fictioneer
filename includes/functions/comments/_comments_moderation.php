@@ -522,11 +522,11 @@ function fictioneer_ajax_moderate_comment() {
       break;
     case 'sticky':
       if ( $comment->comment_parent ) {
-        wp_send_json_error( ['error' => __( 'Child comments cannot be sticky.', 'fictioneer' )] );
+        wp_send_json_error( array( 'error' => __( 'Child comments cannot be sticky.', 'fictioneer' ) ) );
         break;
       }
       if ( $comment->comment_type === 'user_deleted' ) {
-        wp_send_json_error( ['error' => __( 'Deleted comments cannot be sticky.', 'fictioneer' )] );
+        wp_send_json_error( array( 'error' => __( 'Deleted comments cannot be sticky.', 'fictioneer' ) ) );
         break;
       }
       $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_sticky', true );
