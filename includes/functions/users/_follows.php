@@ -329,7 +329,7 @@ function fictioneer_ajax_get_follows_notifications() {
   if ( ! $user ) {
     wp_send_json_error(
       array(
-        'error' => __( 'Not logged in.', 'fictioneer' ),
+        'error' => 'You must be logged in.',
         'html' => '<div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">' . __( 'Not logged in.', 'fictioneer' ) . '</div></div></div>'
       )
     );
