@@ -15,7 +15,7 @@
 function fictioneer_verify_admin_profile_action( $action ) {
   // Verify request
   if ( ! check_admin_referer( $action, 'fictioneer_nonce' ) ) {
-    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
+    wp_die( 'Nonce verification failed. Please try again.' );
   }
 }
 
@@ -52,7 +52,7 @@ function fictioneer_finish_admin_profile_action( $notice = '', $type = 'success'
 function fictioneer_update_frontend_profile() {
   // Verify request
   if ( ! check_admin_referer( 'fictioneer_update_frontend_profile', 'fictioneer_nonce' ) ) {
-    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
+    wp_die( 'Nonce verification failed. Please try again.' );
   }
 
   // Setup
@@ -63,7 +63,7 @@ function fictioneer_update_frontend_profile() {
 
   // Guard
   if ( $user->ID !== $user_id ) {
-    wp_die( __( 'Access denied.', 'fictioneer' ) );
+    wp_die( 'Access denied.' );
   }
 
   // Email?
@@ -143,7 +143,7 @@ add_action( 'admin_post_fictioneer_update_frontend_profile', 'fictioneer_update_
 function fictioneer_cancel_frontend_email_change() {
   // Verify request
   if ( ! check_admin_referer( 'fictioneer_cancel_frontend_email_change', 'fictioneer_nonce' ) ) {
-    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
+    wp_die( 'Nonce verification failed. Please try again.' );
   }
 
   // Cancel change
@@ -600,12 +600,12 @@ function fictioneer_admin_profile_unset_oauth() {
 
   // Guard admins
   if ( $target_is_admin && $current_user_id !== $profile_user_id ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Guard users
   if ( $current_user_id !== $profile_user_id ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Unset connection
@@ -643,12 +643,12 @@ function fictioneer_admin_profile_clear_data_node() {
 
   // Guard admins
   if ( $target_is_admin && ( $current_user_id !== $profile_user_id ) ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Guard users
   if ( $current_user_id !== $profile_user_id ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Clear data
@@ -701,7 +701,7 @@ function fictioneer_admin_profile_self_delete() {
 
   // Guard
   if ( $sender != get_current_user_id() ) {
-    wp_die( __( 'Access Denied', 'fictioneer' ) );
+    wp_die( 'Access Denied.' );
   }
 
   // Delete

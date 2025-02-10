@@ -13,7 +13,7 @@ Add the following script to your `functions.php` file, for example via the **The
 function fictioneer_migrate_chapters( $query_args = [], $story_args = [], $preview = true ) {
   // Security check (only allow admins to execute script)
   if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( 'Insufficient permission.' );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Story data

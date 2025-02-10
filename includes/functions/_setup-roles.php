@@ -811,7 +811,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     $screen = get_current_screen();
 
     if ( $screen->id === 'edit-comments' ) {
-      wp_die( __( 'Access denied.', 'fictioneer' ) );
+      wp_die( 'Access denied.' );
     }
   }
 
@@ -941,7 +941,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
         ['tools', 'export', 'import', 'site-health', 'export-personal-data', 'erase-personal-data', 'themes', 'customize', 'nav-menus', 'theme-editor', 'options-general']
       )
     ) {
-      wp_die( __( 'Access denied.', 'fictioneer' ) );
+      wp_die( 'Access denied.' );
     }
   }
 

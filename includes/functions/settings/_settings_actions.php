@@ -29,12 +29,12 @@ function fictioneer_admin_action( $action ) {
 function fictioneer_verify_admin_action( $action ) {
   // Verify request
   if ( ! check_admin_referer( $action, 'fictioneer_nonce' ) ) {
-    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
+    wp_die( 'Nonce verification failed. Please try again.' );
   }
 
   // Guard
   if ( ! current_user_can( 'manage_options' ) || ! is_admin() ) {
-    wp_die( __( 'You do not have permission to access this page.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 }
 
@@ -629,7 +629,7 @@ function fictioneer_update_role() {
 
   // Permissions?
   if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Setup
@@ -639,7 +639,7 @@ function fictioneer_update_role() {
 
   // Guard administrators
   if ( $role_name == 'administrator' ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Role not found?
@@ -701,7 +701,7 @@ function fictioneer_add_role() {
 
   // Permissions?
   if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Setup
@@ -782,7 +782,7 @@ function fictioneer_remove_role() {
 
   // Permissions?
   if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Setup
@@ -841,7 +841,7 @@ function fictioneer_rename_role() {
 
   // Permissions?
   if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+    wp_die( 'Insufficient permissions.' );
   }
 
   // Setup
@@ -1685,12 +1685,12 @@ function fictioneer_enable_mu_plugin() {
 
   // Source?
   if ( ! is_dir( $source ) ) {
-    wp_die( __( 'The mu-plugins subdirectory is missing in the theme directory.', 'fictioneer' ) );
+    wp_die( 'The mu-plugins subdirectory is missing in the theme directory.' );
   }
 
   // File?
   if ( ! $plugin || ! file_exists( $source_path ) ) {
-    wp_die( __( 'File not found.', 'fictioneer' ) );
+    wp_die( 'File not found.' );
   }
 
   // Copy file
@@ -1734,7 +1734,7 @@ function fictioneer_disable_mu_plugin() {
 
   // File?
   if ( ! $plugin || ! file_exists( $plugin_path ) ) {
-    wp_die( __( 'File not found.', 'fictioneer' ) );
+    wp_die( 'File not found.' );
   }
 
   // Delete file
