@@ -311,7 +311,7 @@ function fictioneer_ajax_submit_comment() {
     // someone his name or email address is blocked, etc.
     if ( FICTIONEER_DISALLOWED_KEY_NOTICE && $offenders[0] && $offenders[1] ) {
       wp_send_json_error(
-        array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
+        array( 'error' => sprintf( 'Disallowed key found: %s.', implode( ', ', $offenders[1] ) ) )
       );
     } elseif ( $offenders[0] ) {
       wp_send_json_error( array( 'failure' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
@@ -500,7 +500,7 @@ function fictioneer_ajax_edit_comment() {
     // someone his name or email address is blocked, etc.
     if ( FICTIONEER_DISALLOWED_KEY_NOTICE && $offenders[0] && $offenders[1] ) {
       wp_send_json_error(
-        array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
+        array( 'error' => sprintf( 'Disallowed key found: %s.', implode( ', ', $offenders[1] ) ) )
       );
     } elseif ( $offenders[0] ) {
       wp_send_json_error( array( 'failure' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
