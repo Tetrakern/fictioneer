@@ -4,46 +4,39 @@
 // ANY CACHE ACTIVE?
 // =============================================================================
 
-// List of known cache plugins
 if ( ! defined( 'FICTIONEER_KNOWN_CACHE_PLUGINS' ) ) {
   define(
     'FICTIONEER_KNOWN_CACHE_PLUGINS',
     array(
-      'w3-total-cache/w3-total-cache.php', // W3 Total Cache
-      'wp-super-cache/wp-cache.php', // WP Super Cache
-      'wp-rocket/wp-rocket.php', // WP Rocket
-      'litespeed-cache/litespeed-cache.php', // LiteSpeed Cache
-      'wp-fastest-cache/wpFastestCache.php', // WP Fastest Cache
-      'cache-enabler/cache-enabler.php', // Cache Enabler
-      'hummingbird-performance/wp-hummingbird.php', // Hummingbird – Optimize Speed, Enable Cache
-      'wp-optimize/wp-optimize.php', // WP-Optimize - Clean, Compress, Cache
-      'sg-cachepress/sg-cachepress.php', // SG Optimizer (SiteGround)
-      'breeze/breeze.php', // Breeze (by Cloudways)
-      'nitropack/nitropack.php' // NitroPack
+      'w3-total-cache/w3-total-cache.php' => 'W3 Total Cache',
+      'wp-super-cache/wp-cache.php' => 'WP Super Cache',
+      'wp-rocket/wp-rocket.php' => 'WP Rocket',
+      'litespeed-cache/litespeed-cache.php' => 'LiteSpeed Cache',
+      'wp-fastest-cache/wpFastestCache.php' => 'WP Fastest Cache',
+      'cache-enabler/cache-enabler.php' => 'Cache Enabler',
+      'hummingbird-performance/wp-hummingbird.php' => 'Hummingbird',
+      'wp-optimize/wp-optimize.php' => 'WP-Optimize',
+      'sg-cachepress/sg-cachepress.php' => 'SG Optimizer',
+      'breeze/breeze.php' => 'Breeze',
+      'nitropack/nitropack.php' => 'NitroPack'
     )
   );
 }
 
-function fictioneer_get_active_cache_plugins() {
-  static $plugin_names = array(
-    'w3-total-cache/w3-total-cache.php' => 'W3 Total Cache',
-    'wp-super-cache/wp-cache.php' => 'WP Super Cache',
-    'wp-rocket/wp-rocket.php' => 'WP Rocket',
-    'litespeed-cache/litespeed-cache.php' => 'LiteSpeed Cache',
-    'wp-fastest-cache/wpFastestCache.php' => 'WP Fastest Cache',
-    'cache-enabler/cache-enabler.php' => 'Cache Enabler',
-    'hummingbird-performance/wp-hummingbird.php' => 'Hummingbird',
-    'wp-optimize/wp-optimize.php' => 'WP-Optimize',
-    'sg-cachepress/sg-cachepress.php' => 'SG Optimizer',
-    'breeze/breeze.php' => 'Breeze',
-    'nitropack/nitropack.php' => 'NitroPack'
-  );
+/**
+ * Return array with names of active cache plugins.
+ *
+ * @since 5.25.0
+ *
+ * @return string[] Names of active plugins.
+ */
 
+function fictioneer_get_active_cache_plugins() {
   $result = [];
 
-  foreach ( FICTIONEER_KNOWN_CACHE_PLUGINS as $plugin_slug ) {
-    if ( is_plugin_active( $plugin_slug ) && isset( $plugin_names[ $plugin_slug ] ) ) {
-      $result[] = $plugin_names[ $plugin_slug ];
+  foreach ( array_keys( FICTIONEER_KNOWN_CACHE_PLUGINS ) as $plugin_slug ) {
+    if ( is_plugin_active( $plugin_slug ) && isset( FICTIONEER_KNOWN_CACHE_PLUGINS[ $plugin_slug ] ) ) {
+      $result[] = FICTIONEER_KNOWN_CACHE_PLUGINS[ $plugin_slug ];
     }
   }
 
@@ -52,7 +45,7 @@ function fictioneer_get_active_cache_plugins() {
 
 if ( ! function_exists( 'fictioneer_caching_active' ) ) {
   /**
-   * Checks whether caching is active
+   * Check whether caching is active.
    *
    * Checks for a number of known caching plugins or the cache
    * compatibility option for anything not covered.
@@ -72,7 +65,7 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
 
     // Check active plugins
     $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-    $active_cache_plugins = array_intersect( $active_plugins, FICTIONEER_KNOWN_CACHE_PLUGINS );
+    $active_cache_plugins = array_intersect( $active_plugins, array_keys( FICTIONEER_KNOWN_CACHE_PLUGINS ) );
 
     // Any cache plugins active?
     return ! empty( $active_cache_plugins );
@@ -81,7 +74,7 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
 
 if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
   /**
-   * Checks whether private caching is active
+   * Check whether private caching is active.
    *
    * Checks whether the user is logged in and the private cache
    * compatibility mode is enabled. Public and private caching
@@ -122,7 +115,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_CARD_CACHING' ) ) {
 // =============================================================================
 
 /**
- * Whether to enable Transients for shortcodes
+ * Whether to enable Transients for shortcodes.
  *
  * @since 5.6.3
  * @since 5.23.1 - Do not turn off with cache plugin.
@@ -147,7 +140,7 @@ function fictioneer_enable_shortcode_transients( $shortcode = null ) {
 }
 
 /**
- * Whether to enable Transients for story chapter lists
+ * Whether to enable Transients for story chapter lists.
  *
  * Note: By default true unless there is a known cache plugin
  * active or the Transients are turned off by option. They are
@@ -172,7 +165,7 @@ function fictioneer_enable_chapter_list_transients( $post_id ) {
 }
 
 /**
- * Whether to enable Transients for menus
+ * Whether to enable Transients for menus.
  *
  * @since 5.25.0
  *
@@ -200,7 +193,7 @@ function fictioneer_enable_menu_transients( $location ) {
 
 if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
   /**
-   * Trigger the "purge all" functions of known cache plugins
+   * Trigger the "purge all" functions of known cache plugins.
    *
    * @since 4.0.0
    * @link https://docs.litespeedtech.com/lscache/lscwp/api/#purge
@@ -216,9 +209,7 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     do_action( 'fictioneer_cache_purge_all' );
 
     // LiteSpeed Cache
-    if ( class_exists( '\LiteSpeed\Purge' ) ) {
-      do_action( 'litespeed_purge_all' );
-    }
+    do_action( 'litespeed_purge_all' );
 
     // WP Rocket Cache
     if ( function_exists( 'rocket_clean_domain' ) ) {
@@ -237,23 +228,17 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     }
 
     // Cache Enabler
-    if ( has_action( 'cache_enabler_clear_complete_cache' ) ) {
-      do_action( 'cache_enabler_clear_complete_cache' );
-    }
+    do_action( 'cache_enabler_clear_complete_cache' );
 
     // Hummingbird
-    if ( has_action( 'wphb_clear_page_cache' ) ) {
-      do_action( 'wphb_clear_page_cache' );
-    }
+    do_action( 'wphb_clear_page_cache' );
 
     // SG Optimizer
     // Insufficient or hard-to-find documentation and if the
     // developer cannot be bothered, neither can I.
 
     // Breeze
-    if ( has_action( 'breeze_clear_all_cache' ) ) {
-      do_action( 'breeze_clear_all_cache' );
-    }
+    do_action( 'breeze_clear_all_cache' );
 
     // WP Optimize
     if ( class_exists( 'WP_Optimize' ) ) {
@@ -285,7 +270,7 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
 
 if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
   /**
-   * Trigger the "purge post" functions of known cache plugins
+   * Trigger the "purge post" functions of known cache plugins.
    *
    * @since 4.7.0
    * @link https://docs.litespeedtech.com/lscache/lscwp/api/#purge
@@ -311,9 +296,7 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     clean_post_cache( $post_id );
 
     // LiteSpeed Cache
-    if ( class_exists( '\LiteSpeed\Purge' ) ) {
-      do_action( 'litespeed_purge_post', $post_id );
-    }
+    do_action( 'litespeed_purge_post', $post_id );
 
     // WP Rocket Cache
     if ( function_exists( 'rocket_clean_post' ) ) {
@@ -331,14 +314,10 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     }
 
     // Cache Enabler
-    if ( has_action( 'cache_enabler_clear_page_cache_by_post' ) ) {
-      do_action( 'cache_enabler_clear_page_cache_by_post', $post_id );
-    }
+    do_action( 'cache_enabler_clear_page_cache_by_post', $post_id );
 
     // Hummingbird
-    if ( has_action( 'wphb_clear_page_cache' ) ) {
-      do_action( 'wphb_clear_page_cache', $post_id );
-    }
+    do_action( 'wphb_clear_page_cache', $post_id );
 
     // SG Optimizer
     // Insufficient or hard-to-find documentation and if the
@@ -383,11 +362,11 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
 
 if ( ! function_exists( 'fictioneer_litespeed_running' ) ) {
   /**
-   * Checks whether LiteSpeed Cache plugin is active
+   * Check whether the LiteSpeed Cache plugin is active.
    *
    * @since 4.0.0
    *
-   * @return boolean Either true (active) or false (inactive or not installed)
+   * @return boolean Either true (active) or false (inactive or not installed).
    */
 
   function fictioneer_litespeed_running() {
@@ -404,11 +383,11 @@ if ( ! function_exists( 'fictioneer_litespeed_running' ) ) {
 
 if ( ! function_exists( 'fictioneer_purge_template_caches' ) ) {
   /**
-   * Purges all posts with the given template template
+   * Purge all posts with the given template template.
    *
    * @since 5.5.2
    *
-   * @param string $template  The page template (without `.php`)
+   * @param string $template  Page template name (without `.php`).
    */
 
   function fictioneer_purge_template_caches( $template ) {
@@ -437,7 +416,7 @@ if ( ! function_exists( 'fictioneer_purge_template_caches' ) ) {
 
 if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
   /**
-   * Purges relevant caches when a post is updated
+   * Purge relevant caches when a post is updated.
    *
    * "There are only two hard things in Computer Science: cache invalidation and
    * naming things" -- Phil Karlton.
@@ -601,7 +580,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 }
 
 /**
- * Add or remove actions for `fictioneer_refresh_post_caches`
+ * Add or remove actions for `fictioneer_refresh_post_caches()`.
  *
  * @since 5.5.2
  *
@@ -639,7 +618,7 @@ if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active( 'purge_assist' 
 // =============================================================================
 
 /**
- * Returns relationship registry from options table
+ * Return relationship registry from options table.
  *
  * @since 5.0.0
  *
@@ -669,7 +648,7 @@ function fictioneer_get_relationship_registry() {
 }
 
 /**
- * Saves relationship registry to options table
+ * Save relationship registry to options table.
  *
  * @since 5.0.0
  *
@@ -683,7 +662,7 @@ function fictioneer_save_relationship_registry( $registry ) {
 }
 
 /**
- * Remove relationships on delete
+ * Remove relationships on delete.
  *
  * @since 5.0.0
  *
@@ -722,7 +701,7 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
 
 if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
   /**
-   * Updates Transients and storage options when a story or chapter is updated
+   * Update Transients and storage options when a story or chapter is updated.
    *
    * Whenever a story or chapter is saved, trashed, restored, or permanently
    * deleted, this function will update or purge respective Transients and
@@ -768,7 +747,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 }
 
 /**
- * Add or remove actions for `fictioneer_toggle_update_tracker_hooks`
+ * Add or remove actions for `fictioneer_toggle_update_tracker_hooks()`.
  *
  * @since 5.5.2
  *
@@ -792,7 +771,7 @@ function fictioneer_toggle_update_tracker_hooks( $add = true ) {
 fictioneer_toggle_update_tracker_hooks();
 
 /**
- * Rebuild story data collection after purge
+ * Rebuild story data collection after purge.
  *
  * Note: This is only triggered for one story to avoid rebuilding the
  * collections of ALL stories at once in case of a complete purge.
