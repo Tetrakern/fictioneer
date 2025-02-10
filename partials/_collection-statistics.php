@@ -45,9 +45,7 @@ $statistics = fictioneer_get_collection_statistics( $args['collection_id'] );
     </div>
     <div class="statistics__inline-stat">
       <strong><?php _e( 'Comments', 'fictioneer' ); ?></strong>
-      <span><?php
-        echo number_format_i18n( $statistics['comment_count'] );
-      ?></span>
+      <span><?php echo number_format_i18n( $statistics['comment_count'] ); ?></span>
     </div>
     <div class="statistics__inline-stat">
       <strong><?php _e( 'Reading', 'fictioneer' ); ?></strong>
