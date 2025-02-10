@@ -40,7 +40,8 @@ function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
   // Update database
   $wpdb->query( "UPDATE $wpdb->posts SET post_modified = '{$post_modified}', post_modified_gmt = '{$post_modified_gmt}' WHERE ID = {$story_id}" );
 }
-fictioneer_add_stud_post_actions( 'fictioneer_update_modified_date_on_story_for_chapter' );
+
+fictioneer_toggle_stud_actions( 'fictioneer_update_modified_date_on_story_for_chapter' );
 
 // =============================================================================
 // STORE WORD COUNT AS CUSTOM FIELD

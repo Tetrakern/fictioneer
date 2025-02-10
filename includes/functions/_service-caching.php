@@ -450,9 +450,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     wp_set_current_user( 0 );
 
     // Remove actions to prevent infinite loops and multi-fire
-    fictioneer_toggle_refresh_hooks( false );
-    fictioneer_toggle_transient_purge_hooks( false );
-    fictioneer_toggle_update_tracker_hooks( false );
+    fictioneer_toggle_stud_actions( 'fictioneer_refresh_post_caches', false, 20 );
+    fictioneer_toggle_stud_actions( 'fictioneer_purge_transients_after_update', false, 10 );
+    fictioneer_toggle_stud_actions( 'fictioneer_track_chapter_and_story_updates', false, 10 );
 
     // Purge updated post
     fictioneer_purge_post_cache( $post_id );
@@ -570,39 +570,17 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Restore actions
-    fictioneer_toggle_refresh_hooks();
-    fictioneer_toggle_transient_purge_hooks();
-    fictioneer_toggle_update_tracker_hooks();
+    fictioneer_toggle_stud_actions( 'fictioneer_refresh_post_caches', true, 20 );
+    fictioneer_toggle_stud_actions( 'fictioneer_purge_transients_after_update', true, 10 );
+    fictioneer_toggle_stud_actions( 'fictioneer_track_chapter_and_story_updates', true, 10 );
 
     // End system action: restore user
     wp_set_current_user( $current_user_id );
   }
 }
 
-/**
- * Add or remove actions for `fictioneer_refresh_post_caches()`.
- *
- * @since 5.5.2
- *
- * @param boolean $add  Optional. Whether to add or remove the action. Default true.
- */
-
-function fictioneer_toggle_refresh_hooks( $add = true ) {
-  $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
-
-  if ( $add ) {
-    foreach ( $hooks as $hook ) {
-      add_action( $hook, 'fictioneer_refresh_post_caches', 20 );
-    }
-  } else {
-    foreach ( $hooks as $hook ) {
-      remove_action( $hook, 'fictioneer_refresh_post_caches', 20 );
-    }
-  }
-}
-
 if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active( 'purge_assist' ) ) {
-  fictioneer_toggle_refresh_hooks();
+  fictioneer_toggle_stud_actions( 'fictioneer_refresh_post_caches', true, 20 );
 }
 
 // =============================================================================
@@ -746,29 +724,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
   }
 }
 
-/**
- * Add or remove actions for `fictioneer_toggle_update_tracker_hooks()`.
- *
- * @since 5.5.2
- *
- * @param boolean $add  Optional. Whether to add or remove the action. Default true.
- */
-
-function fictioneer_toggle_update_tracker_hooks( $add = true ) {
-  $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
-
-  if ( $add ) {
-    foreach ( $hooks as $hook ) {
-      add_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
-    }
-  } else {
-    foreach ( $hooks as $hook ) {
-      remove_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
-    }
-  }
-}
-
-fictioneer_toggle_update_tracker_hooks();
+fictioneer_toggle_stud_actions( 'fictioneer_track_chapter_and_story_updates', true, 10 );
 
 // =============================================================================
 // PURGE CACHE TRANSIENTS
@@ -810,29 +766,7 @@ function fictioneer_purge_transients_after_update( $post_id ) {
   fictioneer_delete_transients_like( 'fictioneer_shortcode' );
 }
 
-/**
- * Add or remove actions for `fictioneer_purge_transients_after_update()`.
- *
- * @since 5.5.2
- *
- * @param boolean $add  Optional. Whether to add or remove the action. Default true.
- */
-
-function fictioneer_toggle_transient_purge_hooks( $add = true ) {
-  $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
-
-  if ( $add ) {
-    foreach ( $hooks as $hook ) {
-      add_action( $hook, 'fictioneer_purge_transients_after_update' );
-    }
-  } else {
-    foreach ( $hooks as $hook ) {
-      remove_action( $hook, 'fictioneer_purge_transients_after_update' );
-    }
-  }
-}
-
-fictioneer_toggle_transient_purge_hooks();
+fictioneer_toggle_stud_actions( 'fictioneer_purge_transients_after_update', true, 10 );
 
 /**
  * Purge nav menu Transients.
@@ -1138,9 +1072,7 @@ function fictioneer_clear_cached_content( $post_id ) {
 }
 
 if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
-  foreach ( ['save_post', 'untrash_post', 'trashed_post', 'delete_post'] as $hook ) {
-    add_action( $hook, 'fictioneer_clear_cached_content' );
-  }
+  fictioneer_toggle_stud_actions( 'fictioneer_clear_cached_content', true, 10 );
 }
 
 // =============================================================================
