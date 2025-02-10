@@ -770,52 +770,12 @@ function fictioneer_toggle_update_tracker_hooks( $add = true ) {
 
 fictioneer_toggle_update_tracker_hooks();
 
-/**
- * Rebuild story data collection after purge.
- *
- * Note: This is only triggered for one story to avoid rebuilding the
- * collections of ALL stories at once in case of a complete purge.
- *
- * @since 5.23.1
- *
- * @param int     $post_id  Updated post ID.
- * @param WP_Post $post     The post object.
- */
-
-function fictioneer_rebuild_story_data_collection( $post_id, $post ) {
-  // Prevent multi-fire and check type
-  if (
-    fictioneer_multi_save_guard( $post_id ) ||
-    ! in_array( $post->post_type, ['fcn_story', 'fcn_chapter'] )
-  ) {
-    return;
-  }
-
-  // Story or chapter?
-  if ( $post->post_type === 'fcn_chapter' ) {
-    $story_id = fictioneer_get_chapter_story_id( $post_id );
-
-    if ( $story_id ) {
-      fictioneer_get_story_data( $story_id );
-    }
-  } else {
-    fictioneer_get_story_data( $post_id );
-  }
-
-  // Prevent chain reaction
-  remove_action( 'save_post', 'fictioneer_rebuild_story_data_collection', 999 );
-}
-
-if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
-  add_action( 'save_post', 'fictioneer_rebuild_story_data_collection', 999, 2 );
-}
-
 // =============================================================================
 // PURGE CACHE TRANSIENTS
 // =============================================================================
 
 /**
- * Purge layout-related Transients
+ * Purge layout-related Transients.
  *
  * @since 5.25.0
  */
@@ -829,7 +789,7 @@ function fictioneer_delete_layout_transients() {
 }
 
 /**
- * Purge Transients used for caching when posts are updated
+ * Purge Transients used for caching when posts are updated.
  *
  * @since 5.4.9
  * @since 5.23.0 - Refactored to purge all shortcode Transients.
@@ -851,7 +811,7 @@ function fictioneer_purge_transients_after_update( $post_id ) {
 }
 
 /**
- * Add or remove actions for `fictioneer_purge_transients_after_update`
+ * Add or remove actions for `fictioneer_purge_transients_after_update()`.
  *
  * @since 5.5.2
  *
@@ -875,7 +835,7 @@ function fictioneer_toggle_transient_purge_hooks( $add = true ) {
 fictioneer_toggle_transient_purge_hooks();
 
 /**
- * Purge nav menu Transients
+ * Purge nav menu Transients.
  *
  * @since 5.6.0
  */
@@ -893,7 +853,7 @@ add_action( 'wp_update_nav_menu', 'fictioneer_purge_nav_menu_transients' );
 // =============================================================================
 
 /**
- * Generate random salt for cache-related hashes
+ * Generate random salt for cache-related hashes.
  *
  * Note: Saves the salt to the option 'fictioneer_cache_salt'.
  *
@@ -911,7 +871,7 @@ function fictioneer_generate_cache_salt() {
 }
 
 /**
- * Get salt for cache-related hashes
+ * Get salt for cache-related hashes.
  *
  * Note: Regenerated if no salt exists.
  *
@@ -925,7 +885,7 @@ function fictioneer_get_cache_salt() {
 }
 
 /**
- * Get static HTML of cached template partial
+ * Get static HTML of cached template partial.
  *
  * @since 5.18.3
  *
@@ -974,7 +934,7 @@ function fictioneer_create_html_cache_directory( $dir = null ) {
 }
 
 /**
- * Get static HTML of cached template partial
+ * Get static HTML of cached template partial.
  *
  * @since 5.18.1
  *
@@ -1027,7 +987,7 @@ function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = n
 }
 
 /**
- * Clears static HTML of all cached partials
+ * Clear static HTML of all cached partials.
  *
  * Note: Only executed once per request to reduce overhead.
  * Can therefore be used with impunity.
@@ -1072,7 +1032,7 @@ function fictioneer_clear_all_cached_partials() {
 }
 
 /**
- * Returns post content from cached HTML file
+ * Return post content from cached HTML file.
  *
  * @since 5.19.0
  * @link https://developer.wordpress.org/reference/functions/the_content/
@@ -1138,7 +1098,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
 }
 
 /**
- * Renders post content from cached HTML file
+ * Render post content from cached HTML file.
  *
  * @since 5.19.0
  *
@@ -1151,7 +1111,7 @@ function fictioneer_the_static_content( $more_link_text = \null, $strip_teaser =
 }
 
 /**
- * Clears static content HTML of post
+ * Clear static content HTML of post.
  *
  * @since 5.19.0
  *
@@ -1188,7 +1148,7 @@ if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
 // =============================================================================
 
 /**
- * Checks whether the story card cache is locked by another process
+ * Check whether the story card cache is locked by another process.
  *
  * Note: Locks the Transient for 30 seconds if currently unlocked,
  * which needs to be cleared afterwards. The lock state for this
@@ -1217,7 +1177,7 @@ function fictioneer_story_card_cache_lock() {
 }
 
 /**
- * Returns the Transient array with all cached story cards
+ * Return the Transient array with all cached story cards.
  *
  * @since 5.22.2
  *
@@ -1244,7 +1204,7 @@ function fictioneer_get_story_card_cache() {
 }
 
 /**
- * Adds a story card to the cache
+ * Add a story card to the cache.
  *
  * @since 5.22.2
  *
@@ -1274,7 +1234,7 @@ function fictioneer_cache_story_card( $key, $card ) {
 }
 
 /**
- * Returns the cached HTML for a specific story card
+ * Return the cached HTML for a specific story card.
  *
  * @since 5.22.2
  *
@@ -1313,7 +1273,7 @@ function fictioneer_get_cached_story_card( $key ) {
 }
 
 /**
- * Purges the entire story card cache
+ * Purge the entire story card cache.
  *
  * @since 5.22.2
  */
@@ -1332,7 +1292,7 @@ function fictioneer_purge_story_card_cache() {
 }
 
 /**
- * Deletes a specific card from the story card cache
+ * Delete a specific card from the story card cache.
  *
  * @since 5.22.2
  *
@@ -1362,7 +1322,7 @@ function fictioneer_delete_cached_story_card( $post_id ) {
 }
 
 /**
- * Deletes a specific card from the story card cache after update
+ * Delete a specific card from the story card cache after update.
  *
  * @since 5.22.3
  *
@@ -1388,7 +1348,7 @@ function fictioneer_delete_cached_story_card_after_update( $post_id ) {
 add_action( 'save_post', 'fictioneer_delete_cached_story_card_after_update' );
 
 /**
- * Deletes a specific card from the story card cache by comment ID
+ * Delete a specific card from the story card cache by comment ID.
  *
  * @since 5.22.2
  *
@@ -1416,7 +1376,7 @@ add_action( 'wp_insert_comment', 'fictioneer_delete_cached_story_card_by_comment
 add_action( 'delete_comment', 'fictioneer_delete_cached_story_card_by_comment' );
 
 /**
- * Saves the story card cache array as Transient
+ * Save the story card cache array as Transient.
  *
  * @since 5.22.2
  */
