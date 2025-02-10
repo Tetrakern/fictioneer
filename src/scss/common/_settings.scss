@@ -26,7 +26,7 @@
 }
 
 :root.no-covers .site {
-  :is(.card__image, .card__text-icon, .post-list-item__image) {
+  :is(.card__image, .card__text-icon, .post-list-item__image, .story__thumbnail, .cover-hidable) {
     display: none !important;
     content-visibility: hidden !important;
   }

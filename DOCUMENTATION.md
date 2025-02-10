@@ -609,6 +609,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `max-site-width` | Applies the theme’s max site width (mainly useful for page builders).
 | `header-polygon` | Applies the header clip-path chosen in the Customizer (if any). Does not work for masks.
 | `page-polygon` | Applies the page clip-path chosen in the Customizer (if any). Does not work for masks.
+| `cover-hidable` | Hides element if the user disables covers in the site settings modal.
 
 ## HTML Block
 
