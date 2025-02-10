@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 17:44+0000\n"
+"POT-Creation-Date: 2025-02-10 18:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -26,8 +26,6 @@ msgid " Google Fonts links"
 msgstr ""
 
 #: includes/functions/_module-forms.php:186
-#: includes/functions/comments/_comments_ajax.php:314
-#: includes/functions/comments/_comments_ajax.php:503
 msgid "\"."
 msgstr ""
 
@@ -280,6 +278,24 @@ msgid ""
 "document has been parsed, which means the site technically appears a split "
 "second later. However, if the script is blocked, the site will remain "
 "invisible. This is extremely unlikely, though.</p>"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_setup.php:22
+#, php-format
+msgid ""
+"<p>Welcome and thank you for using Fictioneer!</p><p>Please make sure to "
+"read the <a href=\"%1$s\" target=\"_blank\" rel=\"noopener\">installation "
+"guide</a> thoroughly. If any issues arise, refer to the <a href=\"%2$s\" "
+"target=\"_blank\" rel=\"noopener\">documentation</a> and <a href=\"%3$s\" "
+"target=\"_blank\" rel=\"noopener\">FAQ</a> first. If you are new to "
+"WordPress, consider looking up some guides, as this theme is not the most "
+"beginner-friendly. For further questions or commissions, feel free to join "
+"the <a href=\"%4$s\" target=\"_blank\" rel=\"noopener\">Discord</a>.</p><p>"
+"The following steps will help you select some basic options for an easier "
+"start, but you can skip this screen if you want. You can find all these "
+"options and much more in the <a href=\"%5$s\" target=\"_blank\" "
+"rel=\"noopener\">theme settings</a> and the <a href=\"%6$s\" "
+"target=\"_blank\" rel=\"noopener\">Customizer</a>.</p>"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:1606
@@ -8230,7 +8246,6 @@ msgstr ""
 msgid "Not by default compatible with all image CDNs."
 msgstr ""
 
-#: includes/functions/users/_follows.php:332
 #: includes/functions/users/_follows.php:333
 msgid "Not logged in."
 msgstr ""
