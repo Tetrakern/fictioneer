@@ -1354,9 +1354,6 @@ function fictioneer_purge_theme_caches() {
   // Cache busting string
   fictioneer_regenerate_cache_bust();
 
-  // Query result cache registry
-  delete_option( 'fictioneer_query_cache_registry' );
-
   // Transients (fast)
   fictioneer_delete_layout_transients();
   fictioneer_delete_transients_like( 'fictioneer_shortcode' );
