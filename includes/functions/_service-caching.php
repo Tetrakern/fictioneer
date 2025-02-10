@@ -357,27 +357,6 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
 }
 
 // =============================================================================
-// LITESPEED CACHE
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_litespeed_running' ) ) {
-  /**
-   * Check whether the LiteSpeed Cache plugin is active.
-   *
-   * @since 4.0.0
-   *
-   * @return boolean Either true (active) or false (inactive or not installed).
-   */
-
-  function fictioneer_litespeed_running() {
-    return in_array(
-      'litespeed-cache/litespeed-cache.php',
-      apply_filters( 'active_plugins', get_option( 'active_plugins' ) )
-    );
-  }
-}
-
-// =============================================================================
 // PURGE RELEVANT CACHE(S) ON POST SAVE
 // =============================================================================
 
@@ -700,14 +679,14 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
     // Get story ID from post or parent story (if any)
     $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
-    $story_id = $post_type == 'fcn_story' ? $post_id : fictioneer_get_chapter_story_id( $post_id );
+    $story_id = $post_type === 'fcn_story' ? $post_id : fictioneer_get_chapter_story_id( $post_id );
 
     // Delete cached statistics for stories
     delete_transient( 'fictioneer_stories_statistics' );
     delete_transient( 'fictioneer_stories_total_word_count' );
 
     // If there is a story...
-    if ( ! empty( $story_id ) ) {
+    if ( $story_id ) {
       // Decides when cached story/chapter data need to be refreshed (only used for Follows)
       // Beware: This is an option, not a Transient!
       update_option( 'fictioneer_story_or_chapter_updated_timestamp', time() * 1000 );
