@@ -317,8 +317,7 @@ p.has-drop-cap::first-letter {
   --paragraph-spacing-offset: .75rem;
   position: relative;
   font-style: italic;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 24px auto;
   max-width: max(85%, 260px);
   width: fit-content;
 
