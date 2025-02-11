@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 18:13+0000\n"
+"POT-Creation-Date: 2025-02-11 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -402,6 +402,72 @@ msgid ""
 "Permalinks</strong> when you toggle this setting to avoid 404s.</p>"
 msgstr ""
 
+#: category.php:21
+#, php-format
+msgid ""
+"<span class=\"archive__heading-number\">%1$s</span> Result in the <em>"
+"\"%2$s\"</em> category"
+msgid_plural ""
+"<span class=\"archive__heading-number\">%1$s</span> Results in the <em>"
+"\"%2$s\"</em> category"
+msgstr[0] ""
+msgstr[1] ""
+
+#: taxonomy-fcn_fandom.php:22
+#, php-format
+msgid ""
+"<span class=\"archive__heading-number\">%1$s</span> Result in the <em>"
+"\"%2$s\"</em> fandom %3$s"
+msgid_plural ""
+"<span class=\"archive__heading-number\">%1$s</span> Results in the <em>"
+"\"%2$s\"</em> fandom %3$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: taxonomy-fcn_character.php:22
+#, php-format
+msgid ""
+"<span class=\"archive__heading-number\">%1$s</span> Result with character "
+"<em>\"%2$s\"</em> %3$s"
+msgid_plural ""
+"<span class=\"archive__heading-number\">%1$s</span> Results with character "
+"<em>\"%2$s\"</em> %3$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: taxonomy-fcn_genre.php:22
+#, php-format
+msgid ""
+"<span class=\"archive__heading-number\">%1$s</span> Result with the <em>"
+"\"%2$s\"</em> genre %3$s"
+msgid_plural ""
+"<span class=\"archive__heading-number\">%1$s</span> Results with the <em>"
+"\"%2$s\"</em> genre %3$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: tag.php:22
+#, php-format
+msgid ""
+"<span class=\"archive__heading-number\">%1$s</span> Result with the <em>"
+"\"%2$s\"</em> tag"
+msgid_plural ""
+"<span class=\"archive__heading-number\">%1$s</span> Results with the <em>"
+"\"%2$s\"</em> tag"
+msgstr[0] ""
+msgstr[1] ""
+
+#: taxonomy-fcn_content_warning.php:22
+#, php-format
+msgid ""
+"<span class=\"archive__heading-number\">%1$s</span> Result with the <em>"
+"\"%2$s\"</em> warning %3$s"
+msgid_plural ""
+"<span class=\"archive__heading-number\">%1$s</span> Results with the <em>"
+"\"%2$s\"</em> warning %3$s"
+msgstr[0] ""
+msgstr[1] ""
+
 #: includes/functions/_utility.php:2091
 msgid ""
 "<span class=\"off\"><i class=\"fa-solid fa-caret-left\"></i></span><span "
@@ -418,72 +484,6 @@ msgstr ""
 #, php-format
 msgid "<span class=\"search-results__number\">%s</span> Search Result"
 msgid_plural "<span class=\"search-results__number\">%s</span> Search Results"
-msgstr[0] ""
-msgstr[1] ""
-
-#: category.php:39
-#, php-format
-msgid ""
-"<span class=\"tax-cloud__number\">%1$s</span> Result in the <em>\"%2$s\"</em>"
-" category"
-msgid_plural ""
-"<span class=\"tax-cloud__number\">%1$s</span> Results in the <em>"
-"\"%2$s\"</em> category"
-msgstr[0] ""
-msgstr[1] ""
-
-#: taxonomy-fcn_fandom.php:40
-#, php-format
-msgid ""
-"<span class=\"tax-cloud__number\">%1$s</span> Result in the <em>\"%2$s\"</em>"
-" fandom %3$s"
-msgid_plural ""
-"<span class=\"tax-cloud__number\">%1$s</span> Results in the <em>"
-"\"%2$s\"</em> fandom %3$s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: taxonomy-fcn_character.php:40
-#, php-format
-msgid ""
-"<span class=\"tax-cloud__number\">%1$s</span> Result with character <em>"
-"\"%2$s\"</em> %3$s"
-msgid_plural ""
-"<span class=\"tax-cloud__number\">%1$s</span> Results with character <em>"
-"\"%2$s\"</em> %3$s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: taxonomy-fcn_genre.php:40
-#, php-format
-msgid ""
-"<span class=\"tax-cloud__number\">%1$s</span> Result with the <em>"
-"\"%2$s\"</em> genre %3$s"
-msgid_plural ""
-"<span class=\"tax-cloud__number\">%1$s</span> Results with the <em>"
-"\"%2$s\"</em> genre %3$s"
-msgstr[0] ""
-msgstr[1] ""
-
-#: tag.php:40
-#, php-format
-msgid ""
-"<span class=\"tax-cloud__number\">%1$s</span> Result with the <em>"
-"\"%2$s\"</em> tag"
-msgid_plural ""
-"<span class=\"tax-cloud__number\">%1$s</span> Results with the <em>"
-"\"%2$s\"</em> tag"
-msgstr[0] ""
-msgstr[1] ""
-
-#: taxonomy-fcn_content_warning.php:40
-#, php-format
-msgid ""
-"<span class=\"tax-cloud__number\">%1$s</span> Result with the <em>"
-"\"%2$s\"</em> warning %3$s"
-msgid_plural ""
-"<span class=\"tax-cloud__number\">%1$s</span> Results with the <em>"
-"\"%2$s\"</em> warning %3$s"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -625,8 +625,9 @@ msgid ""
 "genres but also keep the originals."
 msgstr ""
 
-#: taxonomy-fcn_character.php:56 taxonomy-fcn_content_warning.php:56 tag.php:55
-#: taxonomy-fcn_genre.php:56 taxonomy-fcn_fandom.php:56
+#: category.php:34 taxonomy-fcn_character.php:36
+#: taxonomy-fcn_content_warning.php:36 tag.php:35 taxonomy-fcn_genre.php:36
+#: taxonomy-fcn_fandom.php:36
 #, php-format
 msgid "<strong>Definition:</strong> %s"
 msgstr ""
@@ -4935,10 +4936,6 @@ msgid ""
 "js)."
 msgstr ""
 
-#: category.php:51
-msgid "Definition:"
-msgstr ""
-
 #: includes/functions/settings/_settings_page_roles.php:24
 msgid "DELETE"
 msgstr ""
@@ -9170,7 +9167,7 @@ msgstr ""
 msgid "Read on"
 msgstr ""
 
-#: author.php:156 partials/_collection-statistics.php:53
+#: author.php:156 partials/_collection-statistics.php:51
 #: includes/functions/hooks/_story_hooks.php:54
 msgid "Reading"
 msgstr ""
@@ -9523,32 +9520,32 @@ msgstr ""
 msgid "Restricted Capabilities"
 msgstr ""
 
-#: category.php:91
+#: category.php:100
 #, php-format
 msgid "Results for Category \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_character.php:100
+#: taxonomy-fcn_character.php:102
 #, php-format
 msgid "Results for Character \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_content_warning.php:100
+#: taxonomy-fcn_content_warning.php:102
 #, php-format
 msgid "Results for Content Warning \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_fandom.php:100
+#: taxonomy-fcn_fandom.php:102
 #, php-format
 msgid "Results for Fandom \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_genre.php:100
+#: taxonomy-fcn_genre.php:102
 #, php-format
 msgid "Results for Genre \"%s\""
 msgstr ""
 
-#: tag.php:99
+#: tag.php:101
 #, php-format
 msgid "Results for Tag \"%s\""
 msgstr ""
@@ -11173,8 +11170,8 @@ msgid_plural "%s Entries"
 msgstr[0] ""
 msgstr[1] ""
 
-#: taxonomy-fcn_character.php:48 taxonomy-fcn_content_warning.php:48
-#: taxonomy-fcn_genre.php:48 taxonomy-fcn_fandom.php:48
+#: taxonomy-fcn_character.php:30 taxonomy-fcn_content_warning.php:30
+#: taxonomy-fcn_genre.php:30 taxonomy-fcn_fandom.php:30
 #, php-format
 msgctxt "Taxonomy page parent suffix."
 msgid "(%s)"
@@ -12301,7 +12298,7 @@ msgstr ""
 msgid "Warning shown in chapter lists."
 msgstr ""
 
-#: partials/_consent-banner.php:24
+#: partials/_consent-banner.php:20
 #: includes/functions/settings/_register_settings.php:1412
 #: includes/functions/settings/_settings_page_phrases.php:94
 msgid ""
