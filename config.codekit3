@@ -2496,6 +2496,19 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/src\/scss\/_archive.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/scss\/css\/_archive.css",
+      "oF" : 0,
+      "oS" : 3,
+      "pg" : 0
+    },
     "\/src\/scss\/_breadcrumbs.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -2934,19 +2947,6 @@
       "ma" : 0,
       "oA" : 1,
       "oAP" : "\/src\/scss\/css\/_suggestions.css",
-      "oF" : 0,
-      "oS" : 3,
-      "pg" : 0
-    },
-    "\/src\/scss\/_tax-cloud.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/src\/scss\/css\/_tax-cloud.css",
       "oF" : 0,
       "oS" : 3,
       "pg" : 0

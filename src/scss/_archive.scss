@@ -1,0 +1,52 @@
+@use 'common/_functions' as *;
+@use 'common/_mixins' as *;
+@use 'common/_variables' as *;
+
+.archive {
+  &__header {
+    margin-bottom: 3rem;
+  }
+
+  &__heading {
+    font-size: var(--fs-ml);
+    text-transform: uppercase;
+    margin-bottom: .75rem;
+
+    em {
+      font-style: normal;
+      color: var(--tax-cloud-current);
+    }
+  }
+
+  &__description:is(p) {
+    color: var(--fg-700);
+    font-size: var(--fs-xxs);
+    font-style: italic;
+    line-height: 1.5;
+    margin-top: -0.25rem;
+    margin-bottom: .75rem;
+  }
+
+  &__divider {
+    border-bottom: var(--layout-hr-border-dashed);
+    margin: .75rem 0;
+  }
+
+  &__tax-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem .75rem;
+    line-height: 1;
+
+    > a {
+      display: inline-flex;
+      align-items: flex-end;
+      letter-spacing: get_relative_clamp(-0.02, 0, 320, 480);
+      height: 20px;
+
+      span {
+        margin-left: .25rem;
+      }
+    }
+  }
+}
