@@ -2,7 +2,8 @@
 @use 'common/_mixins' as *;
 @use 'common/_variables' as *;
 
-body:not(.hasProgressBar) {
+body:not(.hasProgressBar),
+body:not(.is-inside-main) {
   .progress {
     opacity: 0;
   }
