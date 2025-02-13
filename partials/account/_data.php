@@ -26,7 +26,7 @@ $comments_count = get_comments(
 );
 $last_comment = $comments_count > 0 ? get_comments( ['user_id' => $current_user->ID, 'number' => 1] )[0] : false;
 $timezone = get_user_meta( $current_user->ID, 'fictioneer_user_timezone_string', true );
-$timezone = empty( $timezone ) ? get_option( 'timezone_string' ) : $timezone;
+$timezone = empty( $timezone ) ? wp_timezone_string() : $timezone;
 $notification_validator = get_user_meta( $current_user->ID, 'fictioneer_comment_reply_validator', true );
 
 if ( empty( $notification_validator ) ) {

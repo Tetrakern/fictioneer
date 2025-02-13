@@ -1776,13 +1776,13 @@ function fictioneer_admin_profile_patreon( $profile_user ) {
 
   if ( $data['last_charge_date'] ?? 0 ) {
     $last_charge = new DateTime( $data['last_charge_date'], new DateTimeZone( 'UTC' ) );
-    $last_charge->setTimezone( new DateTimeZone( get_option( 'timezone_string' ) ) );
+    $last_charge->setTimezone( new DateTimeZone( wp_timezone_string() ) );
     $last_charge = $last_charge->format( 'Y-m-d H:i:s' );
   }
 
   if ( $data['next_charge_date'] ?? 0 ) {
     $next_charge = new DateTime( $data['next_charge_date'], new DateTimeZone( 'UTC' ) );
-    $next_charge->setTimezone( new DateTimeZone( get_option( 'timezone_string' ) ) );
+    $next_charge->setTimezone( new DateTimeZone( wp_timezone_string() ) );
     $next_charge = $next_charge->format( 'Y-m-d H:i:s' );
   }
 
