@@ -264,10 +264,10 @@ if ( $card_cache_active ) {
           }
 
           if ( ! $hide_author ) {
-            $footer_items['author'] = '<span class="card__footer-author"><i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' . fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' ) . '</span>';
+            $footer_items['author'] = '<span class="card__footer-author cq-hide-below-640"><i class="card-footer-icon fa-solid fa-circle-user"></i> ' . fictioneer_get_author_node( get_the_author_meta( 'ID' ) ) . '</span>';
           }
 
-          $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message cq-hide-below-460" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span class="cq-hide-below-460" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '">' . $story['comment_count'] . '</span></span>';
+          $footer_items['comments'] = '<span class="card__footer-comments cq-hide-below-460"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span title="' . esc_attr__( 'Comments', 'fictioneer' ) . '">' . $story['comment_count'] . '</span></span>';
 
           $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
 
