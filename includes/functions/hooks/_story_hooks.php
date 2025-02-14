@@ -553,7 +553,7 @@ function fictioneer_story_chapters( $args ) {
           $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
 
           // Start HTML ---> ?>
-          <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', $group_classes ); ?>" data-folded="true">
+          <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', array_merge( $group_classes, $group['classes'] ?? [] ) ); ?>" data-folded="true">
 
             <?php if ( $has_groups ) : ?>
               <button
