@@ -540,7 +540,7 @@ function fictioneer_story_chapters( $args ) {
         $has_groups = count( $chapter_groups ) > 1 && get_option( 'fictioneer_enable_chapter_groups' );
 
         // Loop over groups (or one group for all if disabled)...
-        foreach ( $chapter_groups as $group ) {
+        foreach ( $chapter_groups as $key => $group ) {
           $group_index++;
 
           $group = apply_filters( 'fictioneer_filter_chapter_group', $group, $group_index, $story_id );
@@ -553,7 +553,7 @@ function fictioneer_story_chapters( $args ) {
           $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
 
           // Start HTML ---> ?>
-          <div class="chapter-group <?php echo implode( ' ', $group_classes ); ?>" data-folded="true">
+          <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', $group_classes ); ?>" data-folded="true">
 
             <?php if ( $has_groups ) : ?>
               <button
