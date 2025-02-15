@@ -167,6 +167,7 @@ if ( $card_cache_active ) {
           <?php
             // Prepare
             $chapter_query_args = array(
+              'fictioneer_query_name' => 'card_story_chapters',
               'post_type' => 'fcn_chapter',
               'post_status' => 'publish',
               'post__in' => $chapter_ids ?: [0], // Must not be empty!
