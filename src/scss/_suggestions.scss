@@ -18,10 +18,10 @@
     line-height: 1.5;
   }
 
-  &__original,
-  &__diff,
-  &__edit {
+  &__box {
     position: relative;
+    border-radius: 2px;
+    overflow: hidden;
 
     &::after,
     &::before {
@@ -39,8 +39,6 @@
   &__diff {
     user-select: none;
     background: var(--disabled-pattern);
-    border-radius: 2px;
-    overflow: hidden;
 
     &::before {
       z-index: 1;
@@ -49,13 +47,11 @@
   }
 
   &__input {
-    padding: 0 12px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   &__edit {
-    border-radius: 2px;
-    overflow: hidden;
-
     ::-webkit-scrollbar-track,
     ::-webkit-scrollbar-thumb {
       border-width: 1px 1px 1px 0 !important;

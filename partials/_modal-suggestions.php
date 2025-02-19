@@ -21,19 +21,19 @@ defined( 'ABSPATH' ) OR exit;
     <div class="modal__header drag-anchor"><?php _ex( 'Suggestion', 'Suggestion modal heading.', 'fictioneer' ); ?></div>
 
     <div class="modal__row suggestions__display _small-top">
-      <div class="suggestions__original">
+      <div class="suggestions__box suggestions__original">
         <div id="suggestions-modal-original" class="suggestions__text"></div>
       </div>
     </div>
 
     <div class="modal__row suggestions__input">
-      <div id="suggestions-modal-edit" class="suggestions__edit">
+      <div id="suggestions-modal-edit" class="suggestions__box suggestions__edit">
         <textarea id="suggestions-modal-input" rows="1"></textarea>
       </div>
     </div>
 
     <div class="modal__row suggestions__display">
-      <div class="suggestions__diff">
+      <div class="suggestions__box suggestions__diff">
         <div id="suggestions-modal-diff" class="suggestions__text"></div>
       </div>
     </div>
