@@ -7,7 +7,7 @@
  * @since 4.0.0
  * @since 5.14.0 - Account for redirect link in story.
  * @since 5.25.0 - Added Bluesky, removed WhatsApp and Telegram, reordered buttons.
- * @since 5.27.4 - Refactored output of links.
+ * @since 5.27.4 - Refactored output of links and added filter.
  */
 
 
@@ -56,7 +56,9 @@ if ( ! get_option( 'fictioneer_disable_facebook_share' ) ) {
 
     <?php
       if ( ! empty( $output ) ) {
-        echo '<div class="modal__row media-buttons _modal">' . implode( '', $output ) . '</div>';
+        echo '<div class="modal__row media-buttons _modal">'
+          . implode( '', apply_filters( 'fictioneer_filter_sharing_modal_links', $output, $post_id, $story_link, urlencode( $title ) ) )
+          . '</div>';
       }
     ?>
 

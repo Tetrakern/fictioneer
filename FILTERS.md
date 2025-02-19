@@ -135,6 +135,34 @@ add_filter( 'fictioneer_filter_archive_header', 'child_remove_tax_cloud_from_gen
 
 ---
 
+### `apply_filters( 'fictioneer_filter_sharing_modal_links', $output, $post_id, $link, $title )`
+Filters the intermediate output array in the `_modal-sharing.php` partial before it is imploded and rendered. Contains icon links to various social media platforms (unless disabled).
+
+**$output:**
+* 'bluesky' (string|null) – HTML for Bluesky.
+* 'twitter' (string|null) – HTML for Twitter/X.
+* 'tumblr' (string|null) – HTML for tumblr.
+* 'reddit' (string|null) – HTML for Reddit.
+* 'mastodon' (string|null) – HTML for Mastodon.
+* 'facebook' (string|null) – HTML for Facebook.
+
+**Parameters**
+* $post_id (int) – Post ID.
+* $link (int) – URL of the story.
+* $title (int) – Title of the story (URL encoded).
+
+**Example:**
+```php
+function child_add_sharing_button( $output, $post_id, $link, $title ) {
+  $output['terminally_online'] = '<a href="http://www.terminally-online.com/touchgrass?url=' . $link . '&title=' . $title . '" target="_blank" rel="noopener nofollow" class="media-buttons__item terminally-online"><i class="fa-solid fa-truck-medical"></i></a>';
+
+  return $output;
+}
+add_filter( 'fictioneer_filter_sharing_modal_links', 'child_add_sharing_button', 10, 4 );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_shortcode_article_card_footer', $footer_items, $posts )`
 Filters the intermediate output array in the `_article-cards.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing or modified date, and comments.
 
@@ -145,7 +173,7 @@ Filters the intermediate output array in the `_article-cards.php` partial before
 * 'comments' (string) – HTML for the number of comments.
 
 **Parameters**
-* $post (WP_Post) – The post object.
+* $post (WP_Post) – Post object.
 
 ---
 
