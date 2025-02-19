@@ -3,40 +3,30 @@
 @use 'common/_variables' as *;
 
 .media-buttons {
+  --i: #{get_clamp(22, 24, 320, 480)};
+  --o: .3;
   display: flex;
-  gap: 16px get_clamp(12, 16, 320, 480);
+  gap: 16px;
 
   &__item {
     cursor: pointer;
-    display: block;
-    color: (--media-button-color, var(--fg-600));
-    font-size: get_clamp(22, 24, 320, 480);
+    color: var(--media-button-color, var(--fg-600));
+    font-size: var(--i);
     line-height: 1;
-    opacity: .3;
     transition: opacity var(--transition-duration), color var(--transition-duration);
-    height: get_clamp(22, 24, 320, 480);
+    height: var(--i);
 
-    &:hover,
-    &:focus-visible {
-      opacity: 1;
-    }
-
-    :is(.icon, .icon-wrapper) {
-      vertical-align: baseline;
+    &:not(:is(:hover, :focus-visible)) {
+      opacity: var(--o);
     }
   }
 
   &._modal {
+    --o: 1;
     justify-content: center;
-    gap: 16px;
-    padding-top: get_clamp(16, 22, 320, 480);
+  }
 
-    &:empty {
-      display: none;
-    }
-
-    .media-buttons__item {
-      opacity: 1;
-    }
+  :is(.icon, .icon-wrapper) {
+    vertical-align: baseline;
   }
 }
