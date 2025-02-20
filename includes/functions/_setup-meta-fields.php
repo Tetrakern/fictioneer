@@ -2443,20 +2443,6 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     }
   }
 
-  // --- Cleanup -----------------------------------------------------------------
-
-  global $wpdb;
-
-  // Orphaned values
-  $wpdb->query(
-    $wpdb->prepare("
-      DELETE FROM $wpdb->postmeta
-      WHERE meta_key = %s
-      AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')",
-      'fictioneer_story_ebook_upload_one'
-    )
-  );
-
   // --- Filters ---------------------------------------------------------------
 
   $fields = apply_filters( 'fictioneer_filter_metabox_updates_story', $fields, $post_id );
