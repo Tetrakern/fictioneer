@@ -4472,6 +4472,7 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
   $group = sanitize_text_field( $shared_post_data['bulk_edit_fictioneer_chapter_group'] ?? '' );
   $user_id = get_current_user_id();
   $user_is_editor = current_user_can( 'edit_others_fcn_chapters' ) || current_user_can( 'manage_options' );
+  $update_fields = [];
 
   // Nothing to do?
   if ( $story_id === '' && $icon === '' && $text_icon === '' && $prefix === '' && $group === '' ) {
@@ -4494,7 +4495,7 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
     $post_author_map[ (int) $post['ID'] ] = (int) $post['post_author'];
   }
 
-  // Update icon
+  // Icon
   if ( $icon ) {
     foreach ( $updated_post_ids as $post_id ) {
       if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
@@ -4502,14 +4503,14 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
       }
 
       if ( strpos( $icon, 'fa-' ) === 0 && $icon !== FICTIONEER_DEFAULT_CHAPTER_ICON ) {
-        update_post_meta( $post_id, 'fictioneer_chapter_icon', $icon );
+        $update_fields['fictioneer_chapter_icon'] = $icon;
       } elseif ( $icon === '_remove' ) {
-        delete_post_meta( $post_id, 'fictioneer_chapter_icon' );
+        $update_fields['fictioneer_chapter_icon'] = 0;
       }
     }
   }
 
-  // Update text icon
+  // Text icon
   if ( $text_icon && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
     foreach ( $updated_post_ids as $post_id ) {
       if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
@@ -4517,14 +4518,14 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
       }
 
       if ( $text_icon === '_remove' ) {
-        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', 0 );
+        $update_fields['fictioneer_chapter_text_icon'] = 0;
       } else {
-        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_text_icon', mb_substr( $text_icon, 0, 10, 'UTF-8' ) );
+        $update_fields['fictioneer_chapter_text_icon'] = mb_substr( $text_icon, 0, 10, 'UTF-8' );
       }
     }
   }
 
-  // Update prefix
+  // Prefix
   if ( $prefix && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
     foreach ( $updated_post_ids as $post_id ) {
       if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
@@ -4532,14 +4533,14 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
       }
 
       if ( $prefix === '_remove' ) {
-        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', 0 );
+        $update_fields['fictioneer_chapter_prefix'] = 0;
       } else {
-        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_prefix', $prefix );
+        $update_fields['fictioneer_chapter_prefix'] = $prefix;
       }
     }
   }
 
-  // Update chapter group
+  // Chapter group
   if ( $group ) {
     foreach ( $updated_post_ids as $post_id ) {
       if ( ! $user_is_editor && $user_id !== $post_author_map[ (int) $post_id ] ) {
@@ -4547,9 +4548,24 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
       }
 
       if ( $group === '_remove' ) {
-        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', 0 );
+        $update_fields['fictioneer_chapter_group'] = 0;
       } else {
-        fictioneer_update_post_meta( $post_id, 'fictioneer_chapter_group', $group );
+        $update_fields['fictioneer_chapter_group'] = $group;
+      }
+    }
+  }
+
+  // Perform meta updates
+  if ( ! empty( $update_fields ) ) {
+    if ( count( $update_fields ) < 2 ) {
+      foreach ( $updated_post_ids as $post_id ) {
+        reset( $update_fields );
+
+        fictioneer_update_post_meta( $post_id, key( $update_fields ), current( $update_fields ) );
+      }
+    } else {
+      foreach ( $updated_post_ids as $post_id ) {
+        fictioneer_bulk_update_post_meta( $post_id, $update_fields );
       }
     }
   }
