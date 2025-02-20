@@ -816,6 +816,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'default' => -1
     ),
+    'fictioneer_authors_page' => array(
+      'name' => 'fictioneer_authors_page',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
+      'default' => -1
+    ),
     'fictioneer_comment_report_threshold' => array(
       'name' => 'fictioneer_comment_report_threshold',
       'group' => 'fictioneer-settings-general-group',
@@ -1177,6 +1183,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_collections_page' => __( 'Collections page assignment', 'fictioneer' ),
       'fictioneer_bookshelf_page' => __( 'Bookshelf page assignment', 'fictioneer' ),
       'fictioneer_404_page' => __( '404 page assignment', 'fictioneer' ),
+      'fictioneer_authors_page' => __( 'Author index page assignment', 'fictioneer' ),
       'fictioneer_comment_report_threshold' => __( 'Automatic moderation report threshold', 'fictioneer' ),
       'fictioneer_comment_link_limit_threshold' => __( 'Allowed number of links in comment', 'fictioneer' ),
       'fictioneer_words_per_minute' => __( 'Words per minute', 'fictioneer' ),
@@ -1550,6 +1557,13 @@ add_filter( 'sanitize_option_fictioneer_bookshelf_page', function( $new_value ) 
 add_filter( 'sanitize_option_fictioneer_404_page', function( $new_value ) {
   $link = get_permalink( $new_value );
   update_option( 'fictioneer_404_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_authors_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_authors_page_link', $link, true );
 
   return $new_value;
 }, 99);

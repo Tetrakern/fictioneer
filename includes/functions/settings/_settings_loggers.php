@@ -156,7 +156,8 @@ define(
     'fictioneer_recommendations_page',
     'fictioneer_collections_page',
     'fictioneer_bookshelf_page',
-    'fictioneer_404_page'
+    'fictioneer_404_page',
+    'fictioneer_authors_page'
   )
 );
 

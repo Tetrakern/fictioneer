@@ -554,6 +554,15 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_page_assignment(
+                    'fictioneer_authors_page',
+                    __( 'Author index page (Template: Author Index)', 'fictioneer' ),
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_page_assignment(
                     'fictioneer_bookshelf_page',
                     __( 'Bookshelf page (Template: Bookshelf) &bull; Do not cache!', 'fictioneer' ),
                   );

@@ -224,16 +224,41 @@ get_header();
 </main>
 
 <?php
+  $author_index_url = intval( get_option( 'fictioneer_404_page', -1 ) ?: -1 );
+  $author_slug = sprintf(
+    _x( 'Author: %s', 'Author page no-index breadcrumb.', 'fictioneer' ),
+    $author->display_name
+  );
+
   // Footer arguments
   $footer_args = array(
     'post_type' => null,
     'post_id' => null,
     'template' => 'author.php',
     'breadcrumbs' => array(
-      [fcntr( 'frontpage' ), get_home_url()],
-      [__( 'Author', 'fictioneer' ), $current_url],
-      [$author->display_name, null]
+      [fcntr( 'frontpage' ), get_home_url()]
     )
+  );
+
+  // Add author index breadcrumb (if set)
+  $author_index_page_id = intval( get_option( 'fictioneer_authors_page', -1 ) ?: -1 );
+
+  if ( $author_index_page_id > 0 ) {
+    $index_page_title = trim( get_the_title( $author_index_page_id ) );
+    $index_page_title = empty( $index_page_title ) ? __( 'Authors', 'fictioneer' ) : $index_page_title;
+
+    $footer_args['breadcrumbs'][] = array(
+      $index_page_title,
+      fictioneer_get_assigned_page_link( 'fictioneer_authors_page' )
+    );
+
+    $author_slug = $author->display_name;
+  }
+
+  // Add current breadcrumb
+  $footer_args['breadcrumbs'][] = array(
+    $author_slug,
+    null
   );
 
   // Get footer with breadcrumbs
