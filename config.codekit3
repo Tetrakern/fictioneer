@@ -2652,19 +2652,6 @@
       "oS" : 3,
       "pg" : 0
     },
-    "\/src\/scss\/_login.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/src\/scss\/css\/_login.css",
-      "oF" : 0,
-      "oS" : 3,
-      "pg" : 0
-    },
     "\/src\/scss\/_micro-menu.scss" : {
       "aP" : 0,
       "bl" : 0,

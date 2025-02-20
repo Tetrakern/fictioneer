@@ -296,3 +296,20 @@
 .chapter-changelog {
   --modal-width: 450px;
 }
+
+.login {
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+
+    .button {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 14px;
+      height: 40px;
+      width: 100%;
+    }
+  }
+}
