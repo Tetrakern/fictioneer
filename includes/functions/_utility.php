@@ -1538,11 +1538,15 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
    *
    * If the meta value is truthy, the meta field is updated as normal.
    * If not, the meta field is deleted instead to keep the database tidy.
+   * Fires default WP hooks where possible.
    *
    * @since 5.27.4
+   * @link https://developer.wordpress.org/reference/functions/update_metadata/
+   * @link https://developer.wordpress.org/reference/functions/add_metadata/
+   * @link https://developer.wordpress.org/reference/functions/delete_metadata/
    *
    * @param int   $post_id  Post ID.
-   * @param array $fields   Associative array of field keys and values.
+   * @param array $fields   Associative array of field keys and sanitized (!) values.
    */
 
   function fictioneer_bulk_update_post_meta( $post_id, $fields ) {
@@ -1553,43 +1557,68 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
     global $wpdb;
 
     // Setup
+    $existing_meta = [];
     $update_parts = [];
     $update_keys = [];
     $update_values = [];
     $insert_parts = [];
     $insert_values = [];
     $delete_keys = [];
+    $deleted_meta_ids = [];
 
-    // Fetch existing keys
-    $existing_meta_keys = $wpdb->get_col(
+    // Fetch existing meta keys and values
+    $meta_results = $wpdb->get_results(
       $wpdb->prepare(
-        "SELECT meta_key FROM {$wpdb->postmeta} WHERE post_id = %d",
+        "SELECT meta_id, meta_key, meta_value FROM {$wpdb->postmeta} WHERE post_id = %d",
         $post_id
       )
     );
 
-    $existing_meta_keys = array_flip( $existing_meta_keys );
+    foreach ( $meta_results as $meta ) {
+      $existing_meta[ $meta->meta_key ] = array(
+        'meta_id' => $meta->meta_id,
+        'meta_value' => $meta->meta_value
+      );
+    }
 
     // Prepare
     foreach ( $fields as $key => $value ) {
+      // Mark for deletion...
       if ( empty( $value ) && ! in_array( $key, fictioneer_get_falsy_meta_allow_list() ) ) {
         $delete_keys[] = $key;
+
+        if ( isset( $existing_meta[ $key ] ) ) {
+          $deleted_meta_ids[ $existing_meta[ $key ]['meta_id'] ] = [ $key, $value ];
+
+          do_action( 'delete_post_meta', [ $existing_meta[ $key ]['meta_id'] ], $post_id, $key, $value );
+          do_action( 'delete_postmeta', [ $existing_meta[ $key ]['meta_id'] ] );
+        }
 
         continue;
       }
 
+      // Serialize if necessary
       $prepared_value = is_array( $value ) ? maybe_serialize( $value ) : $value;
 
-      if ( isset( $existing_meta_keys[ $key ] ) ) {
-        $update_parts[] = "WHEN meta_key = %s THEN %s";
-        $update_keys[] = $key;
-        $update_values[] = $key;
-        $update_values[] = $prepared_value;
+      if ( isset( $existing_meta[ $key ] ) ) {
+        // Mark for updating...
+        if ( $existing_meta[ $key ]['meta_value'] !== $prepared_value ) {
+          $update_parts[] = "WHEN meta_key = %s THEN %s";
+          $update_keys[] = $key;
+          $update_values[] = $key;
+          $update_values[] = $prepared_value;
+
+          do_action( 'update_post_meta', $existing_meta[ $key ]['meta_id'], $post_id, $key, $value );
+          do_action( 'update_postmeta', $existing_meta[ $key ]['meta_id'], $post_id, $key, $prepared_value );
+        }
       } else {
+        // Mark for insertion...
         $insert_parts[] = "(%d, %s, %s)";
         $insert_values[] = $post_id;
         $insert_values[] = $key;
         $insert_values[] = $prepared_value;
+
+        do_action( 'add_post_meta', $post_id, $key, $value );
       }
     }
 
@@ -1600,6 +1629,13 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
         implode( ', ', array_fill( 0, count( $delete_keys ), '%s' ) ) . ")";
 
       $wpdb->query( $wpdb->prepare( $delete_query, $post_id, ...$delete_keys ) );
+
+      if ( ! empty( $deleted_meta_ids ) ) {
+        foreach ( $deleted_meta_ids as $key => $tuple ) {
+          do_action( 'deleted_post_meta', [ $key ], $post_id, $tuple[0], $tuple[1] );
+          do_action( 'deleted_postmeta', [ $key ] );
+        }
+      }
     }
 
     // UPDATE
@@ -1613,6 +1649,15 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
       $update_values = array_merge( $update_values, $update_keys );
 
       $wpdb->query( $wpdb->prepare( $update_query, ...$update_values ) );
+
+      foreach ( $fields as $key => $value ) {
+        if ( in_array( $key, $update_keys ) && isset( $existing_meta[ $key ] ) ) {
+          $prepared_value = is_array( $value ) ? maybe_serialize( $value ) : $value;
+
+          do_action( 'updated_post_meta', $existing_meta[ $key ]['meta_id'], $post_id, $key, $value );
+          do_action( 'updated_postmeta', $existing_meta[ $key ]['meta_id'], $post_id, $key, $prepared_value );
+        }
+      }
     }
 
     // INSERT
@@ -1622,7 +1667,12 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
         VALUES " . implode( ', ', $insert_parts );
 
       $wpdb->query( $wpdb->prepare( $insert_query, ...$insert_values ) );
+
+      // Does not return the meta IDs, added_post_meta cannot be fired.
     }
+
+    // Cache cleanup
+    wp_cache_delete( $post_id, 'post_meta' );
   }
 }
 
