@@ -367,15 +367,10 @@
     left: 50%;
     z-index: -1;
     display: block;
+    background: var(--tts-current-reading-background);
     width: 200%;
     max-width: min(100vw, var(--site-width));
     transform: translate(-50%);
-  }
-}
-
-.current-reading {
-  &::after {
-    background: var(--tts-current-reading-background);
   }
 }
 

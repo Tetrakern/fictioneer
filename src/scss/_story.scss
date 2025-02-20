@@ -274,7 +274,6 @@ $header_breakpoint: 640px;
   }
 
   &__tabs {
-    clear: both;
     margin: 3rem 0 1.5rem;
 
     &:not([data-current="chapters"]) .story__toggle {

@@ -153,7 +153,7 @@
   min-width: get_clamp(26, 32, 320, 375);
   box-shadow: var(--button-box-shadow);
   outline-offset: 3px;
-  transition: color, background-color, border-color, opacity;
+  transition: color, background, border-color, opacity;
   transition-duration: var(--transition-duration);
 
   &:not(.current, .ajax-in-progress, [disabled]):hover {

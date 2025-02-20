@@ -474,6 +474,7 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
     left: 50%;
     z-index: -1;
     background: no-repeat center/contain;
+    background-image: var(--bg);
     width: 400px;
     max-width: 90%;
     opacity: .15;
@@ -482,27 +483,27 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 
   &-soundcloud {
     .embed-logo {
+      --bg: url('../img/soundcloud_logo.svg');
       filter: brightness(0);
       top: 200px;
-      background-image: url('../img/soundcloud_logo.svg');
       height: 300px;
     }
   }
 
   &-youtube {
     .embed-logo {
+      --bg: url('../img/youtube_logo_monochrome.webp');
       filter: brightness(15%);
       top: 140px;
-      background-image: url('../img/youtube_logo_monochrome.webp');
       height: 150px;
     }
   }
 
   &-spotify {
     .embed-logo {
+      --bg: url('../img/spotify_logo_dark.webp');
       filter: brightness(15%);
       top: 190px;
-      background-image: url('../img/spotify_logo_dark.webp');
       height: 200px;
       width: 200px;
     }
@@ -510,9 +511,9 @@ figure.wp-block-pullquote:where(:not(.no-theme-style)) {
 
   &-amazon {
     .embed-logo {
+      --bg: url('../img/amazon_kindle_logo.svg');
       filter: grayscale(100%) brightness(0%);
       top: 270px;
-      background-image: url('../img/amazon_kindle_logo.svg');
       height: 100px;
     }
   }

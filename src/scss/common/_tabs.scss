@@ -21,7 +21,7 @@
     white-space: nowrap;
     text-shadow: var(--tab-text-shadow);
     padding: 6px 8px;
-    transition: color, background-color, border-color, opacity;
+    transition: color, background, border-color, opacity;
     transition-duration: var(--transition-duration);
 
     &:hover:not(._current) {

@@ -107,7 +107,6 @@
   color: var(--navigation-color);
   font-size: var(--navigation-font-size);
   font-weight: var(--font-weight-navigation);
-  padding: 0;
   margin: 12px 0;
   width: 100%;
   transform: translateZ(0); // Improve performance
@@ -118,7 +117,6 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    display: block;
     background: var(--navigation-background);
     box-shadow: 0 0 1px transparent; // Safari fix to show drop-shadow
     opacity: var(--navigation-background-start-opacity);
