@@ -131,9 +131,6 @@
   }
 
   &__body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     background-color: var(--card-bg-color);
     font-family: var(--ff-card-body);
     border-radius: var(--layout-border-radius-small);
@@ -205,8 +202,7 @@
     opacity: .3;
     transition: opacity var(--transition-duration);
 
-    &:hover,
-    &:focus-visible {
+    &:is(:hover, :focus-visible) {
       opacity: 1;
     }
   }
@@ -304,7 +300,7 @@
   }
 
   &__main {
-    flex: 1 1 auto;
+    height: 100%;
 
     :where(.cell-title, .cell-meta, .cell-desc, .cell-list, .cell-tax, .cell-footer, .cell-data) {
       margin-left: var(--this-spacing);
