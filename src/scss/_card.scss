@@ -922,13 +922,13 @@
   }
 
   .cq-hide-below-460 {
-    @container (max-width: 459.98px) {
+    @container (width < 460px) {
       display: none !important;
       content-visibility: hidden;
     }
 
     @supports not (width: 1cqw) {
-      @media only screen and (max-width: 479.98px) {
+      @media only screen and (width < 480px) {
         display: none !important;
         content-visibility: hidden;
       }
@@ -936,13 +936,13 @@
   }
 
   .cq-hide-below-640 {
-    @container (max-width: 639.98px) {
+    @container (width < 640px) {
       display: none !important;
       content-visibility: hidden;
     }
 
     @supports not (width: 1cqw) {
-      @media only screen and (max-width: 767.98px) {
+      @media only screen and (width < 768px) {
         display: none !important;
         content-visibility: hidden;
       }

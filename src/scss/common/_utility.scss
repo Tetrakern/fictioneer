@@ -162,42 +162,42 @@ body:not(.is-editor):not(.is-admin) {
 }
 
 .hide-below-desktop {
-  @media only screen and (max-width: 1023.98px) {
+  @media only screen and (width < 1024px) {
     display: none !important;
     content-visibility: hidden;
   }
 }
 
 .hide-below-tablet {
-  @media only screen and (max-width: 767.98px) {
+  @media only screen and (width < 768px) {
     display: none !important;
     content-visibility: hidden;
   }
 }
 
 .hide-below-640 {
-  @media only screen and (max-width: 639.98px) {
+  @media only screen and (width < 640px) {
     display: none !important;
     content-visibility: hidden;
   }
 }
 
 .hide-below-480 {
-  @media only screen and (max-width: 479.98px) {
+  @media only screen and (width < 480px) {
     display: none !important;
     content-visibility: hidden;
   }
 }
 
 .hide-below-400 {
-  @media only screen and (max-width: 399.98px) {
+  @media only screen and (width < 400px) {
     display: none !important;
     content-visibility: hidden;
   }
 }
 
 .hide-below-375 {
-  @media only screen and (max-width: 374.98px) {
+  @media only screen and (width < 375px) {
     display: none !important;
     content-visibility: hidden;
   }
