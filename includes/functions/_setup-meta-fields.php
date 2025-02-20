@@ -2449,9 +2449,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
   // --- Save ------------------------------------------------------------------
 
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
+  fictioneer_bulk_update_post_meta( $post_id, $fields );
 }
 add_action( 'save_post', 'fictioneer_save_story_metaboxes' );
 
@@ -3001,9 +2999,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
   // --- Save ------------------------------------------------------------------
 
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
+  fictioneer_bulk_update_post_meta( $post_id, $fields );
 }
 add_action( 'save_post', 'fictioneer_save_chapter_metaboxes' );
 
@@ -3437,9 +3433,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
 
   // --- Save --------------------------------------------------------------------
 
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
+  fictioneer_bulk_update_post_meta( $post_id, $fields );
 }
 add_action( 'save_post', 'fictioneer_save_extra_metabox' );
 
@@ -3601,9 +3595,7 @@ function fictioneer_save_support_links_metabox( $post_id ) {
 
   // --- Save --------------------------------------------------------------------
 
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
+  fictioneer_bulk_update_post_meta( $post_id, $fields );
 }
 add_action( 'save_post', 'fictioneer_save_support_links_metabox' );
 
@@ -3728,9 +3720,7 @@ function fictioneer_save_post_metaboxes( $post_id ) {
 
   // --- Save --------------------------------------------------------------------
 
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
+  fictioneer_bulk_update_post_meta( $post_id, $fields );
 
   // --- After update ------------------------------------------------------------
 
@@ -3950,9 +3940,7 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
 
   // --- Save --------------------------------------------------------------------
 
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
+  fictioneer_bulk_update_post_meta( $post_id, $fields );
 }
 add_action( 'save_post', 'fictioneer_save_collection_metaboxes' );
 
@@ -4132,9 +4120,7 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
 
   // --- Save --------------------------------------------------------------------
 
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
+  fictioneer_bulk_update_post_meta( $post_id, $fields );
 }
 add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
 
