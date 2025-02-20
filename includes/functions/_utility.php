@@ -1532,6 +1532,100 @@ function fictioneer_get_falsy_meta_allow_list() {
   return apply_filters( 'fictioneer_filter_falsy_meta_allow_list', [] );
 }
 
+if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
+  /**
+   * Update post meta fields in bulk for a post.
+   *
+   * If the meta value is truthy, the meta field is updated as normal.
+   * If not, the meta field is deleted instead to keep the database tidy.
+   *
+   * @since 5.27.4
+   *
+   * @param int   $post_id  Post ID.
+   * @param array $fields   Associative array of field keys and values.
+   */
+
+  function fictioneer_bulk_update_post_meta( $post_id, $fields ) {
+    if ( empty( $fields ) ) {
+      return;
+    }
+
+    global $wpdb;
+
+    // Setup
+    $update_parts = [];
+    $update_keys = [];
+    $update_values = [];
+    $insert_parts = [];
+    $insert_values = [];
+    $delete_keys = [];
+
+    // Fetch existing keys
+    $existing_meta_keys = $wpdb->get_col(
+      $wpdb->prepare(
+        "SELECT meta_key FROM {$wpdb->postmeta} WHERE post_id = %d",
+        $post_id
+      )
+    );
+
+    $existing_meta_keys = array_flip( $existing_meta_keys );
+
+    // Prepare
+    foreach ( $fields as $key => $value ) {
+      if ( empty( $value ) && ! in_array( $key, fictioneer_get_falsy_meta_allow_list() ) ) {
+        $delete_keys[] = $key;
+
+        continue;
+      }
+
+      $prepared_value = is_array( $value ) ? maybe_serialize( $value ) : $value;
+
+      if ( isset( $existing_meta_keys[ $key ] ) ) {
+        $update_parts[] = "WHEN meta_key = %s THEN %s";
+        $update_keys[] = $key;
+        $update_values[] = $key;
+        $update_values[] = $prepared_value;
+      } else {
+        $insert_parts[] = "(%d, %s, %s)";
+        $insert_values[] = $post_id;
+        $insert_values[] = $key;
+        $insert_values[] = $prepared_value;
+      }
+    }
+
+    // DELETE
+    if ( ! empty( $delete_keys ) ) {
+      $delete_query =
+        "DELETE FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key IN (" .
+        implode( ', ', array_fill( 0, count( $delete_keys ), '%s' ) ) . ")";
+
+      $wpdb->query( $wpdb->prepare( $delete_query, $post_id, ...$delete_keys ) );
+    }
+
+    // UPDATE
+    if ( ! empty( $update_parts ) ) {
+      $update_query =
+        "UPDATE {$wpdb->postmeta}
+        SET meta_value = CASE " . implode( ' ', $update_parts ) . " END
+        WHERE post_id = %d AND meta_key IN (" . implode( ', ', array_fill( 0, count( $update_keys ), '%s' ) ) . ")";
+
+      $update_values[] = $post_id;
+      $update_values = array_merge( $update_values, $update_keys );
+
+      $wpdb->query( $wpdb->prepare( $update_query, ...$update_values ) );
+    }
+
+    // INSERT
+    if ( ! empty( $insert_parts ) ) {
+      $insert_query =
+        "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
+        VALUES " . implode( ', ', $insert_parts );
+
+      $wpdb->query( $wpdb->prepare( $insert_query, ...$insert_values ) );
+    }
+  }
+}
+
 // =============================================================================
 // APPEND CHAPTER
 // =============================================================================
