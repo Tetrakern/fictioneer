@@ -1564,7 +1564,7 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
     $insert_parts = [];
     $insert_values = [];
     $delete_keys = [];
-    $deleted_meta_ids = [];
+    $deleted_meta_fields = [];
 
     // Fetch existing meta keys and values
     $meta_results = $wpdb->get_results(
@@ -1588,7 +1588,7 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
         $delete_keys[] = $key;
 
         if ( isset( $existing_meta[ $key ] ) ) {
-          $deleted_meta_ids[ $existing_meta[ $key ]['meta_id'] ] = [ $key, $value ];
+          $deleted_meta_fields[ $existing_meta[ $key ]['meta_id'] ] = [ $key, $value ];
 
           do_action( 'delete_post_meta', [ $existing_meta[ $key ]['meta_id'] ], $post_id, $key, $value );
           do_action( 'delete_postmeta', [ $existing_meta[ $key ]['meta_id'] ] );
@@ -1630,8 +1630,8 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
 
       $wpdb->query( $wpdb->prepare( $delete_query, $post_id, ...$delete_keys ) );
 
-      if ( ! empty( $deleted_meta_ids ) ) {
-        foreach ( $deleted_meta_ids as $key => $tuple ) {
+      if ( ! empty( $deleted_meta_fields ) ) {
+        foreach ( $deleted_meta_fields as $key => $tuple ) {
           do_action( 'deleted_post_meta', [ $key ], $post_id, $tuple[0], $tuple[1] );
           do_action( 'deleted_postmeta', [ $key ] );
         }
