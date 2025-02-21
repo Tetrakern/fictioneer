@@ -303,6 +303,8 @@ function fictioneer_get_user_fingerprint( $user ) {
 // =============================================================================
 
 function ffcnr_get_user_data() {
+  global $wpdb;
+
   // Load options
   $options = ffcnr_load_options([
     'fictioneer_enable_reminders', 'fictioneer_enable_checkmarks',
@@ -389,6 +391,8 @@ function ffcnr_get_user_data() {
   $data = apply_filters( 'ffcnr_get_user_data', $data, $user );
 
   // ---------------------------------------------------------------------------
+
+  $wpdb->db_connect();
 
   // Response
   header( 'Content-Type: application/json; charset=utf-8' );
