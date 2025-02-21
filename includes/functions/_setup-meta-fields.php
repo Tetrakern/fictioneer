@@ -4407,8 +4407,6 @@ function fictioneer_save_patreon_bulk_edit( $updated_post_ids, $shared_post_data
           fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', $tiers );
         }
       }
-
-      fictioneer_stagger_script();
     }
   }
 
@@ -4420,8 +4418,6 @@ function fictioneer_save_patreon_bulk_edit( $updated_post_ids, $shared_post_data
       }
 
       fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_amount', absint( $amount ) );
-
-      fictioneer_stagger_script();
     }
   }
 }
@@ -4602,8 +4598,6 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
 
         $updated_stories[] = $current_story_id;
       }
-
-      fictioneer_stagger_script();
     }
   }
 }
@@ -4652,8 +4646,6 @@ function fictioneer_bulk_edit_chapter_story( $chapter_ids, $story_id, $author_ma
 
       $updated_stories[] = $current_story_id;
     }
-
-    fictioneer_stagger_script();
   }
 
   // Assign new story
@@ -4670,8 +4662,6 @@ function fictioneer_bulk_edit_chapter_story( $chapter_ids, $story_id, $author_ma
           $new_story_chapter_ids[] = $chapter_id;
         }
       }
-
-      fictioneer_stagger_script();
     }
 
     $new_story_chapter_ids = array_unique( $new_story_chapter_ids );

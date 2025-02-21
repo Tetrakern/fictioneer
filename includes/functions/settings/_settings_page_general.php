@@ -1631,17 +1631,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_stagger_update_queries',
-                    __( 'Stagger database update queries', 'fictioneer' ),
-                    __( 'Spread the load of concurrent database queries.', 'fictioneer' ),
-                    __( '<p>Enable this option only if you run into the database user connection limit. It introduces a tiny, random delay to database update queries to reduce the likelihood of too many running simultaneously. This is not a solution but a mitigation for a larger issue related to the number of concurrent queries and your database limits.</p><p>Common causes include heavy plugins, high traffic, slow queries in custom functions, insufficient caching, and many authors updating posts simultaneously.</p>', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_anti_flicker',
                     __( 'Enable anti-flicker script', 'fictioneer' ),
                     __( 'Hides the page until the document is fully parsed.', 'fictioneer' ),

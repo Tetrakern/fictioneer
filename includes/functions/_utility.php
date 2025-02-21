@@ -1673,9 +1673,6 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
 
     // Cache cleanup
     wp_cache_delete( $post_id, 'post_meta' );
-
-    // Stagger to spread concurrent queries (if enabled)
-    fictioneer_stagger_script();
   }
 }
 
