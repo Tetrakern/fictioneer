@@ -960,3 +960,42 @@ function fictioneer_sql_update_comment_count( $post_id, $count ) {
     ['%d']
   );
 }
+
+// =============================================================================
+// RANDOM MICRO SLEEP
+// =============================================================================
+
+/**
+ * Sleep for a random duration in microseconds.
+ *
+ * Note: The delay is determined once per script execution.
+ *
+ * @since 5.27.4
+ *
+ * @param int $min  Minimum sleep duration. Default 100.
+ * @param int $max  Maximum sleep duration. Default 1000.
+ */
+
+function fictioneer_random_usleep( $min = 100, $max = 1000 ) {
+  static $random_delay = null;
+
+  if ( $random_delay === null ) {
+    $random_delay = random_int( $min, $max );
+  }
+
+  usleep( $random_delay );
+}
+
+/**
+ * Sleep for a random duration between 0.1 ms and 1 ms.
+ *
+ * Note: The delay is determined once per script execution.
+ *
+ * @since 5.27.4
+ */
+
+function fictioneer_stagger_script() {
+  if ( get_option( 'fictioneer_stagger_update_queries' ) ) {
+    fictioneer_random_usleep();
+  }
+}
