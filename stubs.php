@@ -14,6 +14,22 @@
 function rand( int $min = null, int $max = null ) {}
 
 /**
+ * PHP random_int()
+ *
+ * Generates a uniformly selected integer between the given minimum and maximum.
+ *
+ * @link https://www.php.net/manual/en/function.random-int.php
+ *
+ * @param int $min  Minimum.
+ * @param int $max  Maximum.
+ *
+ * @return int A cryptographically secure, uniformly selected integer from the
+ *             closed interval [min, max]. Both min and max are possible return values.
+ */
+
+function random_int( int $min, int $max ) {}
+
+/**
  * Updates post author user caches for a list of post objects.
  *
  * @since WP 6.1.0
