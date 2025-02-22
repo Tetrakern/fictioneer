@@ -7,6 +7,8 @@
 /**
  * Outputs the HTML for the post tags
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  * @since 5.25.0 - Added $args.
  *
@@ -42,6 +44,8 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_tags', 10, 2 );
 
 /**
  * Outputs the HTML for featured items in the post
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  * @since 5.25.0 - Added $args.
@@ -129,6 +133,8 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_featured_list', 20
 /**
  * Outputs the HTML for the post media buttons
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  * @since 5.25.0 - Added parameters.
  *
@@ -153,6 +159,8 @@ add_action( 'fictioneer_post_footer_left', 'fictioneer_post_media_buttons', 10, 
 
 /**
  * Outputs the HTML for the post subscribe button with popup menu
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  * @since 5.25.0 - Added parameters.

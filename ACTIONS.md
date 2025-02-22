@@ -1,6 +1,8 @@
 # Actions
 The following [action hooks](https://developer.wordpress.org/reference/functions/do_action/) can be used to customize templates without the need to duplicate template files, greatly reducing the risk of them becoming outdated due to updates in the future. Actions can be easily added or overwritten in child themes or plugins. This list is probably incomplete. See `includes/functions/hooks/`.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10), depending on the current page template. These conditional checks are not possible earlier. If you want to remove these actions, you need to do it in the `wp` action hook with priority 11 or later. This affects most actions for stories, chapters, collections, recommendations, posts, and the user profile.
+
 ### Example: Add Discord invite link to chapter top actions
 This is an example of how to add a Discord invite link to the chapter top actions via the the `fictioneer_chapter_actions_top_center` hook. The link will feature a [Font Awesome Discord icon](https://fontawesome.com/icons/discord?f=brands) and be located between the formatting modal toggle (priority: 10) and fullscreen buttons (priority: 20). Note that no arguments of the hook are used because we do not need any of them here.
 
@@ -20,6 +22,8 @@ add_action( 'fictioneer_chapter_actions_top_center', 'child_theme_discord_invite
 
 ### `do_action( 'fictioneer_account_content', $args )`
 Fires within `<article>` content section in the `user-profile.php` template. Normal page content is not rendered in the template, only what is hooked into this action. This is the frontend user profile, after all.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $user (WP_User) – The current user object.
@@ -228,6 +232,8 @@ Fires after the shortcode [contact form](DOCUMENTATION.md#contact-form) has been
 ### `do_action( 'fictioneer_chapter_actions_top_center', $args, $location )`
 Fires in the second column of top action section in the `single-fcn_chapter.php` template, the first child in the chapter `<article>` container. Normally includes the formatting modal toggle, open/close fullscreen and bookmark jump buttons.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $author (WP_User) – Author of the post.
 * $story_post (WP_Post|null) – Post object of the story. Unsafe.
@@ -254,6 +260,8 @@ Fires in the second column of top action section in the `single-fcn_chapter.php`
 ### `do_action( 'fictioneer_chapter_actions_top_left', $args, $location )`
 Fires in the first column of the top action section in the `single-fcn_chapter.php` template, the first child in the chapter `<article>` container. Normally includes the font resize buttons.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $author (WP_User) – Author of the post.
 * $story_post (WP_Post|null) – Post object of the story. Unsafe.
@@ -278,6 +286,8 @@ Fires in the first column of the top action section in the `single-fcn_chapter.p
 ### `do_action( 'fictioneer_chapter_actions_top_right', $args, $location )`
 Fires in the third column of the top action section in the `single-fcn_chapter.php` template, the first child in the chapter `<article>` container. Normally includes the chapter navigation links and bottom anchor button.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $author (WP_User) – Author of the post.
 * $story_post (WP_Post|null) – Post object of the story. Unsafe.
@@ -301,6 +311,8 @@ Fires in the third column of the top action section in the `single-fcn_chapter.p
 
 ### `do_action( 'fictioneer_chapter_actions_bottom_center', $args, $location )`
 Fires in the second column of the bottom action section in the `single-fcn_chapter.php` template, the last child in the chapter `<article>` container. Normally includes the subscribe, story link, and bookmark jump buttons.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $author (WP_User) – Author of the post.
@@ -328,6 +340,8 @@ Fires in the second column of the bottom action section in the `single-fcn_chapt
 ### `do_action( 'fictioneer_chapter_actions_bottom_left', $args, $location )`
 Fires in the first column of the bottom action section in the `single-fcn_chapter.php` template, the last child in the chapter `<article>` container. Normally includes the social media sharing and feed buttons.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $author (WP_User) – Author of the post.
 * $story_post (WP_Post|null) – Post object of the story. Unsafe.
@@ -351,6 +365,8 @@ Fires in the first column of the bottom action section in the `single-fcn_chapte
 
 ### `do_action( 'fictioneer_chapter_actions_bottom_right', $args, $location )`
 Fires in the third column of the bottom action section in the `single-fcn_chapter.php` template, the last child in the chapter `<article>` container. Normally includes the chapter navigation links and top anchor button.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $author (WP_User) – Author of the post.
@@ -394,6 +410,8 @@ Fires right after the article header (with story, title, and authors) in the `si
 ### `do_action( 'fictioneer_chapter_after_content', $args )`
 Fires right after the content section in the `single-fcn_chapter.php` template, inside the `<article>` container and just before the bottom action section. Normally includes the afterword and support links.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * 'author' (WP_User) – Author of the post.
 * 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
@@ -436,6 +454,8 @@ add_action( 'fictioneer_chapter_after_content', 'child_display_pw_expiration_dat
 ### `do_action( 'fictioneer_chapter_after_main', $args )`
 Fires right after the `<main>` container is closed in the `single-fcn_chapter.php` template. Normally includes the micro menu, paragraph tools, and suggestion tools. Not executed if the post is locked behind a password.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * 'author' (WP_User) – Author of the post.
 * 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
@@ -457,6 +477,8 @@ Fires right after the `<main>` container is closed in the `single-fcn_chapter.ph
 
 ### `do_action( 'fictioneer_chapter_before_header', $args )`
 Fires between the top actions sections and chapter header (title and authors) in the `single-fcn_chapter.php` template. Normally includes the foreword and chapter warnings.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * 'author' (WP_User) – Author of the post.
@@ -500,6 +522,8 @@ Fires just before the comments section in the `single-fcn_chapter.php` template 
 ### `do_action( 'fictioneer_chapters_after_content', $args )`
 List page template hook. Fires right after the content section in the `chapters.php` template. Includes the paginated card list of all visible chapters on the site.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * 'current_page' (int) – Current page number of pagination or 1.
 * 'post_id' (int) – Current post ID.
@@ -542,6 +566,8 @@ List page template hook. Fires right at the top of an empty result list in the `
 ### `do_action( 'fictioneer_collection_after_content', $args )`
 Fires right after the collection content section in the `single-fcn_collection.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, content warnings, statistics, and items featured in the collection.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * 'collection' (WP_Post) – Post object of the collection.
 * 'collection_id' (int) – Post ID of the collection.
@@ -574,6 +600,8 @@ Fires right after the article header (title, fandom, genres, and characters) in 
 
 ### `do_action( 'fictioneer_collections_after_content', $args )`
 List page template hook. Fires right after the content section in the `collections.php` template. Includes the paginated card list of all visible collections on the site.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * 'current_page' (int) – Current page number of pagination or 1.
@@ -871,6 +899,8 @@ Fires after opening the `.main-navigation__wrapper` container in the `_navigatio
 ### `do_action( 'fictioneer_post_after_content', $post_id, $args )`
 Fires right after the article content in the `_post.php` partial and `single-post.php` template. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **Parameters:**
 * $post_id (int) – Current post ID.
 
@@ -886,6 +916,8 @@ Fires right after the article content in the `_post.php` partial and `single-pos
 
 ### `do_action( 'fictioneer_post_article_open', $post_id, $args )`
 Fires right after the post article is opened in the `_post.php` partial and `single-post.php` template, before anything else is rendered. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **Parameter:**
 * $post_id (int) – The ID of the post.
@@ -919,6 +951,8 @@ add_action( 'fictioneer_post_article_open', 'child_add_landscape_post_image', 10
 ### `do_action( 'fictioneer_post_footer_left', $post_id, $args )`
 Fires inside the `.post__footer-left` container within the article footer in the `_post.php` partial and `single-post.php` template. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **Parameters:**
 * $post_id (int) – Current post ID.
 
@@ -933,6 +967,8 @@ Fires inside the `.post__footer-left` container within the article footer in the
 
 ### `do_action( 'fictioneer_post_footer_right', $post_id, $args )`
 Fires inside the `.post__footer-right` container within the article footer in the `_post.php` partial and `single-post.php` template. Mind the render context, which can be `'loop'`, `'shortcode_fictioneer_blog'`, or `'single-post'`.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **Parameters:**
 * $post_id (int) – Current post ID.
@@ -949,6 +985,8 @@ Fires inside the `.post__footer-right` container within the article footer in th
 ### `do_action( 'fictioneer_recommendation_after_header', $args )`
 Fires right after the article header (title, fandom, genres, and characters) in the `single-fcn_recommendation.php` template, inside the `<article>` container and just before the content section.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $recommendation (WP_Post) – Post object of the recommendation.
 * $recommendation_id (int) – Post ID of the recommendation.
@@ -958,6 +996,8 @@ Fires right after the article header (title, fandom, genres, and characters) in 
 
 ### `do_action( 'fictioneer_recommendation_after_content', $args )`
 Fires right after the content section in the `single-fcn_recommendation.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, external sources to read the recommendation, and support links for the recommendation author.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $recommendation (WP_Post) – Post object of the recommendation.
@@ -974,6 +1014,8 @@ Fires right after the content section in the `single-fcn_recommendation.php` tem
 ### `do_action( 'fictioneer_recommendation_footer', $args )`
 Fires right after opening the article’s `<footer>` container in the `single-fcn_recommendation.php` template.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $recommendation (WP_Post) – Post object of the recommendation.
 * $recommendation_id (int) – Post ID of the recommendation.
@@ -983,6 +1025,8 @@ Fires right after opening the article’s `<footer>` container in the `single-fc
 
 ### `do_action( 'fictioneer_recommendations_after_content', $args )`
 List page template hook. Fires right after the content section in the `recommendations.php` template. Includes the paginated card list of all visible recommendations on the site.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $current_page (int) – Current page number of pagination or 1.
@@ -1003,6 +1047,8 @@ List page template hook. Fires right after the content section in the `recommend
 ### `do_action( 'fictioneer_recommendations_end_of_results', $args )`
 List page template hook. Fires right after the last list item in the `'fictioneer_recommendations_list'` action.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $current_page (int) – Current page number of pagination or 1.
 * $post_id (int) – Current post ID.
@@ -1013,6 +1059,8 @@ List page template hook. Fires right after the last list item in the `'fictionee
 
 ### `do_action( 'fictioneer_recommendations_no_results', $args )`
 List page template hook. Fires right at the top of an empty result list in the `'fictioneer_recommendations_list'` action, before the no-result message is rendered.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $current_page (int) – Current page number of pagination or 1.
@@ -1142,6 +1190,8 @@ Fires first inside the site’s `<footer>` container. Normally includes the brea
 ### `do_action( 'fictioneer_stories_after_content', $args )`
 List page template hook. Fires right after the content section in the `stories.php` template. Includes the statistics and paginated card list of all visible stories on the site.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $current_page (int) – Current page number of pagination or 1.
 * $post_id (int) – Current post ID.
@@ -1162,6 +1212,8 @@ List page template hook. Fires right after the content section in the `stories.p
 ### `do_action( 'fictioneer_stories_end_of_results', $args )`
 List page template hook. Fires right after the last list item in the `'fictioneer_stories_list'` action.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $current_page (int) – Current page number of pagination or 1.
 * $post_id (int) – Current post ID.
@@ -1173,6 +1225,8 @@ List page template hook. Fires right after the last list item in the `'fictionee
 ### `do_action( 'fictioneer_stories_no_results', $args )`
 List page template hook. Fires right at the top of an empty result list in the `'fictioneer_stories_list'` action, before the no-result message is rendered.
 
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
+
 **$args:**
 * $current_page (int) – Current page number of pagination or 1.
 * $post_id (int) – Current post ID.
@@ -1183,6 +1237,8 @@ List page template hook. Fires right at the top of an empty result list in the `
 
 ### `do_action( 'fictioneer_story_after_article', $args )`
 Fires right after the `<article>` container in the `single-fcn_story.php` template, after the content and story footer has been rendered. Normally includes the story comment list.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $story_data (array) – Collection of story data.
@@ -1196,6 +1252,8 @@ Fires right after the `<article>` container in the `single-fcn_story.php` templa
 
 ### `do_action( 'fictioneer_story_after_content', $args )`
 Fires right after the content section in the `single-fcn_story.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, content warnings, row with social media and action buttons, and finally a tabbed section with the chapters, related blog posts (by category), and custom pages.
+
+**Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
 * $story_data (array) – Collection of story data.

@@ -7,6 +7,8 @@
 /**
  * Outputs the paginated card list for all recommendations
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  * @see recommendations.php
  *
@@ -85,6 +87,8 @@ add_action( 'fictioneer_recommendations_after_content', 'fictioneer_recommendati
 /**
  * Outputs the HTML for the recommendation page tags
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_Post $args['recommendation']     The recommendation object.
@@ -134,6 +138,8 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 /**
  * Outputs the HTML for the recommendation page links
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_Post $args['recommendation']     The recommendation object.
@@ -173,6 +179,8 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 
 /**
  * Outputs the HTML for the recommendation page author links
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  *

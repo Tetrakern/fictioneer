@@ -7,6 +7,8 @@
 /**
  * Outputs the paginated card list for all chapters
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  * @see chapters.php
  *
@@ -90,6 +92,8 @@ add_action( 'fictioneer_chapters_after_content', 'fictioneer_chapters_list', 30 
 /**
  * Outputs the HTML for the chapter top actions
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.21.2
  *
  * @param array $args  Hook args passed-through.
@@ -114,6 +118,8 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_top_actions'
 
 /**
  * Outputs the HTML for the chapter footer
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.21.2
  *
@@ -143,6 +149,8 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_footer', 99 
 
 /**
  * Outputs the HTML for the chapter foreword section
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.11.1
  *
@@ -185,6 +193,8 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_global_note'
 /**
  * Outputs the HTML for the chapter foreword section
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  * @since 5.11.1 - Show if started with "[!show]".
  *
@@ -221,6 +231,8 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 1
 
 /**
  * Outputs the HTML for the chapter warnings section
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  *
@@ -270,6 +282,8 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_warnings', 2
 /**
  * Outputs the HTML for the chapter resize buttons
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  */
 
@@ -298,6 +312,8 @@ add_action( 'fictioneer_chapter_actions_top_left', 'fictioneer_chapter_resize_bu
 
 /**
  * Outputs the HTML for the chapter navigation buttons
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  * @since 5.14.0 - Added indexed chapter IDs.
@@ -354,6 +370,8 @@ add_action( 'fictioneer_chapter_actions_bottom_right', 'fictioneer_chapter_nav_b
 /**
  * Outputs the HTML for the chapter formatting button
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  */
 
@@ -373,6 +391,8 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_formatt
 
 /**
  * Outputs the HTML for the chapter subscribe button with popup menu
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  */
@@ -406,6 +426,8 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_subs
 /**
  * Outputs the HTML for the chapter fullscreen button
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  */
 
@@ -431,6 +453,8 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscr
 
 /**
  * Outputs the HTML for the chapter index dialog modal toggle
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  *
@@ -458,6 +482,8 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_inde
 /**
  * Outputs the HTML for the chapter index dialog modal
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.25.0
  *
  * @param int $story_id  ID of the story.
@@ -483,6 +509,8 @@ function fictioneer_render_chapter_index_modal_html( $story_id ) {
 
 /**
  * Outputs the HTML for the chapter bookmark jump button
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  */
@@ -510,6 +538,8 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_book
 /**
  * Outputs the HTML for the chapter media buttons
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  */
 
@@ -534,6 +564,8 @@ add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_
 
 /**
  * Outputs the HTML for the chapter afterword
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  * @since 5.11.1 - Show if started with "[!show]".
@@ -571,6 +603,8 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 
 
 /**
  * Outputs the HTML for the chapter support links
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  * @since 5.11.1
@@ -680,6 +714,8 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
 /**
  * Outputs the HTML for the chapter micro menu
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_Post|null $args['story_post']           Optional. Post object of the story.
@@ -701,6 +737,8 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_micro_menu',
 
 /**
  * Outputs the HTML for the chapter paragraph tools
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  */
@@ -763,6 +801,8 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_paragraph_tools
 /**
  * Outputs the HTML for the chapter suggestion tools
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  */
 
@@ -795,6 +835,8 @@ if ( get_option( 'fictioneer_enable_suggestions' ) ) {
 
 /**
  * Outputs the JSON for the chapter bookmark data.
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.27.3
  *

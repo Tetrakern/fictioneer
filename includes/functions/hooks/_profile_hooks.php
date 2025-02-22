@@ -7,6 +7,8 @@
 /**
  * Outputs the HTML for the account moderation message section
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
@@ -42,6 +44,8 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_moderation_message
 /**
  * Outputs the HTML for the account profile section
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
@@ -62,6 +66,8 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_profile', 10 );
 
 /**
  * Outputs the HTML password section
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.18.0
  *
@@ -95,6 +101,8 @@ if ( current_user_can( 'fcn_admin_panel_access' ) && get_option( 'fictioneer_sho
 /**
  * Outputs the HTML for the OAuth section
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
@@ -115,6 +123,8 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_oauth', 20 );
 
 /**
  * Outputs the HTML for the site skins section
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.26.0
  *
@@ -140,6 +150,8 @@ if ( get_option( 'fictioneer_enable_css_skins' ) ) {
 /**
  * Outputs the HTML for the data section
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
@@ -161,6 +173,8 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_data', 30 );
 /**
  * Outputs the HTML for the discussions section
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
@@ -181,6 +195,8 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_discussions', 40 )
 
 /**
  * Outputs the HTML for the danger zone section
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  *

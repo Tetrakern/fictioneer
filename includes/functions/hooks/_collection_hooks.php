@@ -7,6 +7,8 @@
 /**
  * Outputs the paginated card list for all collections
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  * @see collections.php
  *
@@ -87,6 +89,8 @@ add_action( 'fictioneer_collections_after_content', 'fictioneer_collections_list
 /**
  * Outputs the HTML for the collection page tags and warnings
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_Post  $args['collection']      Collection post object.
@@ -138,6 +142,8 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_tags_a
 /**
  * Outputs the HTML for the collection page statistics
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param WP_Post  $args['collection']      Collection post object.
@@ -166,6 +172,8 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_statis
 
 /**
  * Outputs the HTML for the collection page featured list
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  *

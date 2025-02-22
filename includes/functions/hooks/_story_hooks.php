@@ -11,6 +11,8 @@
  * word count, comments, and the estimated reading time for all stories. The
  * reading time divisor can be changed under Fictioneer > General (default: 200).
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  * @see stories.php
  *
@@ -82,6 +84,8 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_statistics',
 
 /**
  * Outputs the paginated card list for all stories
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  * @see stories.php
@@ -166,6 +170,8 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_list', 30 );
 /**
  * Outputs the HTML for the story page copyright notice
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param array $args['story_data']  Collection of story data.
@@ -195,6 +201,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_copyright_notice
 
 /**
  * Outputs the HTML for the story page tags and warnings
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  *
@@ -239,6 +247,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tags_and_warning
 /**
  * Outputs the HTML for the story page actions row
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.0.0
  *
  * @param array      $args['story_data']         Collection of story data.
@@ -267,6 +277,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
 
 /**
  * Outputs the HTML for the story tabs
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.9.0
  *
@@ -362,6 +374,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tabs', 40 );
 /**
  * Outputs the HTML for the scheduled chapter
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.9.0
  *
  * @param array      $args['story_data']         Collection of story data.
@@ -422,6 +436,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_scheduled_chapte
 /**
  * Outputs the HTML for the story custom pages
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.9.0
  *
  * @param array      $args['story_data']         Collection of story data.
@@ -479,6 +495,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
 
 /**
  * Outputs the HTML for the story chapters
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.9.0
  *
@@ -739,6 +757,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_chapters', 43 );
 /**
  * Outputs the HTML for the story blog
  *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
  * @since 5.9.0
  *
  * @param array      $args['story_data']         Collection of story data.
@@ -789,6 +809,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_blog', 44 );
 
 /**
  * Outputs the HTML for the story page comments
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
  * @since 5.14.0 - Merged partial into function.
