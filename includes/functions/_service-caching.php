@@ -52,7 +52,7 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
    *
    * @since 4.0.0
    *
-   * @param string|null $context  Context of the check. Currently unused.
+   * @param string|null $context  Optional. Context of the check.
    *
    * @return boolean Either true (active) or false (inactive or not installed).
    */
@@ -60,7 +60,7 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
   function fictioneer_caching_active( $context = null ) {
     // Check early
     if ( get_option( 'fictioneer_enable_cache_compatibility' ) ) {
-      return true;
+      return apply_filters( 'fictioneer_filter_caching_active', true, $context, true );
     }
 
     // Check active plugins
@@ -68,7 +68,7 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
     $active_cache_plugins = array_intersect( $active_plugins, array_keys( FICTIONEER_KNOWN_CACHE_PLUGINS ) );
 
     // Any cache plugins active?
-    return ! empty( $active_cache_plugins );
+    return apply_filters( 'fictioneer_filter_caching_active', ! empty( $active_cache_plugins ), $context, false );
   }
 }
 

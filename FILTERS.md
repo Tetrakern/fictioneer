@@ -2446,6 +2446,16 @@ Filters the Transient HTML of the taxonomy submenu before it is rendered. The di
 
 ---
 
+### `apply_filters( 'fictioneer_filter_caching_active', $bool, $context, $compatibility_mode )`
+Filters the boolean return value of the check for active known cache plugins (not necessarily that the cache is enabled in the plugin).
+
+**Parameters:**
+* $bool (boolean) – Whether a know cache plugin is active.
+* $context (string|null) – Optional. The context in which the check is used.
+* $compatibility_mode (boolean) – Whether the cache compatibility mode option is enabled.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_taxonomy_submenu_note', $note, $taxonomy )`
 Filters the string of the note rendered above the links in the taxonomy submenu. By default, that is "Choose a {taxonomy} to browse", with the dynamic part taken from the singular name of the taxonomy object.
 
