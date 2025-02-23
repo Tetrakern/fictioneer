@@ -1295,7 +1295,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
  */
 
 function fictioneer_get_chapter_index_html( $story_id ) {
-  // Meta cache?
+  // Meta cache (purged on update)?
   if ( FICTIONEER_ENABLE_CHAPTER_INDEX_META_CACHE ) {
     $last_story_update = get_post_modified_time( 'U', true, $story_id );
     $meta_cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );

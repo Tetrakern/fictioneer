@@ -142,11 +142,8 @@ function fictioneer_enable_shortcode_transients( $shortcode = null ) {
 /**
  * Whether to enable Transients for story chapter lists.
  *
- * Note: By default true unless there is a known cache plugin
- * active or the Transients are turned off by option. They are
- * always disabled in the Customizer preview.
- *
  * @since 5.25.0
+ * @since 5.27.4 - Does no longer consider cache plugins.
  *
  * @param int $post_id  Post ID of the story.
  *
@@ -158,10 +155,11 @@ function fictioneer_enable_chapter_list_transients( $post_id ) {
     return false;
   }
 
-  $bool = ! fictioneer_caching_active( 'story_chapter_list' ) &&
-    ! get_option( 'fictioneer_disable_chapter_list_transients' );
-
-  return apply_filters( 'fictioneer_filter_enable_chapter_list_transients', $bool, $post_id );
+  return apply_filters(
+    'fictioneer_filter_enable_chapter_list_transients',
+    ! get_option( 'fictioneer_disable_chapter_list_transients' ),
+    $post_id
+  );
 }
 
 /**
