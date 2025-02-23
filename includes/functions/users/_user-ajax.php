@@ -106,7 +106,7 @@ add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get
 // =============================================================================
 
 /**
- * Delete an user's account via AJAX
+ * Delete a user's account via AJAX
  *
  * @since 4.5.0
  */

@@ -64,7 +64,7 @@ function ffcnr_get_avatar_url( $user, $size = 96 ) {
 }
 
 /**
- * Checks if an user is an administrator.
+ * Checks if a user is an administrator.
  *
  * @since 5.27.0
  *
@@ -78,7 +78,7 @@ function ffcnr_is_admin( $user ) {
 }
 
 /**
- * Checks if an user is an author.
+ * Checks if a user is an author.
  *
  * @since 5.27.0
  *
@@ -95,7 +95,7 @@ function ffcnr_is_author( $user ) {
 }
 
 /**
- * Checks if an user is a moderator.
+ * Checks if a user is a moderator.
  *
  * @since 5.27.0
  *
@@ -109,7 +109,7 @@ function ffcnr_is_moderator( $user ) {
 }
 
 /**
- * Checks if an user is an editor.
+ * Checks if a user is an editor.
  *
  * @since 5.27.0
  *
@@ -123,7 +123,7 @@ function ffcnr_is_editor( $user ) {
 }
 
 /**
- * Returns an user's Follows
+ * Returns a user's Follows
  *
  * @since 5.27.0
  * @see includes/functions/users/_follows.php
@@ -205,9 +205,9 @@ function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date =
 }
 
 /**
- * Returns an user's Reminders
+ * Returns a user's Reminders
  *
- * Get an user's Reminders array from the database or creates a new one if it
+ * Get a user's Reminders array from the database or creates a new one if it
  * does not yet exist.
  *
  * @since 5.27.0
@@ -239,9 +239,9 @@ function fictioneer_load_reminders( $user ) {
 }
 
 /**
- * Returns an user's Checkmarks
+ * Returns a user's Checkmarks
  *
- * Get an user's Checkmarks array from the database or creates a new one if it
+ * Get a user's Checkmarks array from the database or creates a new one if it
  * does not yet exist.
  *
  * @since 5.27.0

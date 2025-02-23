@@ -467,7 +467,7 @@ Pages work the same as always in WordPress, just with some additional fields and
 * **Collections:** Shows a list of all visible collections ordered by publishing date, descending.
 * **Recommendations:** Shows a list of all visible recommendations ordered by publishing date, descending.
 * **Bookmarks:** Shows bookmarks without the need for a shortcode. Cache compatible.
-* **Bookshelf:** Shows paginated lists of an user’s Follows, Reminders, and finished stories.
+* **Bookshelf:** Shows paginated lists of a user’s Follows, Reminders, and finished stories.
 * **Bookshelf AJAX:** Cache compatible version of the Bookshelf, fetching the content after the page has loaded.
 * **No Title Page:** Default page template but without the heading. Good for a frontpage.
 * **Story Mirror:** Renders the page exactly like a story (set via meta field).

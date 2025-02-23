@@ -62,7 +62,7 @@ _$$('.button-unset-oauth').forEach(element => {
 // =============================================================================
 
 /**
- * Delete an user's account on request.
+ * Delete a user's account on request.
  *
  * @description Requests the deletion of an account via AJAX, which must be
  * confirmed in a prompt with a localized confirmation string (DELETE per

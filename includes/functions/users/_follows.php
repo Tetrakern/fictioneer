@@ -6,9 +6,9 @@
 
 if ( ! function_exists( 'fictioneer_load_follows' ) ) {
   /**
-   * Returns an user's Follows
+   * Returns a user's Follows
    *
-   * Get an user's Follows array from the database or creates a new one if it
+   * Get a user's Follows array from the database or creates a new one if it
    * does not yet exist.
    *
    * @since 5.0.0
@@ -230,7 +230,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 // =============================================================================
 
 /**
- * Clears an user's Follows via AJAX
+ * Clears a user's Follows via AJAX
  *
  * @since 5.0.0
  */

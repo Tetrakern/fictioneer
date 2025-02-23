@@ -6,9 +6,9 @@
 
 if ( ! function_exists( 'fictioneer_load_checkmarks' ) ) {
   /**
-   * Returns an user's Checkmarks
+   * Returns a user's Checkmarks
    *
-   * Get an user's Checkmarks array from the database or creates a new one if it
+   * Get a user's Checkmarks array from the database or creates a new one if it
    * does not yet exist.
    *
    * @since 5.0.0

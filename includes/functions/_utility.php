@@ -1118,7 +1118,7 @@ if ( ! function_exists( 'fictioneer_replace_key_value' ) ) {
 
 if ( ! function_exists( 'fictioneer_is_admin' ) ) {
   /**
-   * Checks if an user is an administrator
+   * Checks if a user is an administrator
    *
    * @since 5.0.0
    *
@@ -1146,7 +1146,7 @@ if ( ! function_exists( 'fictioneer_is_admin' ) ) {
 
 if ( ! function_exists( 'fictioneer_is_author' ) ) {
   /**
-   * Checks if an user is an author
+   * Checks if a user is an author
    *
    * @since 5.0.0
    *
@@ -1177,7 +1177,7 @@ if ( ! function_exists( 'fictioneer_is_author' ) ) {
 
 if ( ! function_exists( 'fictioneer_is_moderator' ) ) {
   /**
-   * Checks if an user is a moderator
+   * Checks if a user is a moderator
    *
    * @since 5.0.0
    *
@@ -1205,7 +1205,7 @@ if ( ! function_exists( 'fictioneer_is_moderator' ) ) {
 
 if ( ! function_exists( 'fictioneer_is_editor' ) ) {
   /**
-   * Checks if an user is an editor
+   * Checks if a user is an editor
    *
    * @since 5.0.0
    *

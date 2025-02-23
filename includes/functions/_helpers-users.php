@@ -237,7 +237,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_override_badge' ) ) {
   /**
-   * Get an user's custom badge (if any)
+   * Get a user's custom badge (if any)
    *
    * @since 4.0.0
    *
@@ -275,7 +275,7 @@ if ( ! function_exists( 'fictioneer_get_override_badge' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
   /**
-   * Get an user's Patreon badge (if any)
+   * Get a user's Patreon badge (if any)
    *
    * @since 5.0.0
    *

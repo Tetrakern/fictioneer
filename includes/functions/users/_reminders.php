@@ -6,9 +6,9 @@
 
 if ( ! function_exists( 'fictioneer_load_reminders' ) ) {
   /**
-   * Returns an user's Reminders
+   * Returns a user's Reminders
    *
-   * Get an user's Reminders array from the database or creates a new one if it
+   * Get a user's Reminders array from the database or creates a new one if it
    * does not yet exist.
    *
    * @since 5.0.0
@@ -119,7 +119,7 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 // =============================================================================
 
 /**
- * Clears an user's Reminders via AJAX
+ * Clears a user's Reminders via AJAX
  *
  * @since 5.0.0
  */

@@ -585,7 +585,7 @@ add_action( 'wp_ajax_fictioneer_ajax_get_fingerprint', 'fictioneer_ajax_get_fing
 // =============================================================================
 
 /**
- * Get an user's bookmarks via AJAX
+ * Get a user's bookmarks via AJAX
  *
  * @since 4.0.0
  * @see fictioneer_get_validated_ajax_user()
@@ -624,7 +624,7 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
 
 if ( ! function_exists( 'fictioneer_has_role' ) ) {
   /**
-   * Checks if an user has a specific role
+   * Checks if a user has a specific role
    *
    * @since 5.0.0
    *

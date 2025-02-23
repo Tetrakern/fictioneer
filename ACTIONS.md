@@ -117,7 +117,7 @@ Fires between the site’s `<main>` and `<footer>` blocks. This is the empty spa
 ---
 
 ### `do_action( 'fictioneer_after_oauth_user', $user, $args )`
-Fires after an user has been successfully created or logged-in via the OAuth 2.0 protocol.
+Fires after a user has been successfully created or logged-in via the OAuth 2.0 protocol.
 
 **Parameters:**
 * $user (WP_User) – The user object.

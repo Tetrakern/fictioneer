@@ -5,7 +5,7 @@
 // =============================================================================
 
 /**
- * Checks whether an user can moderate a comment
+ * Checks whether a user can moderate a comment
  *
  * @since 5.7.3
  *
