@@ -414,8 +414,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
       // Time to refresh comment count?
       $comment_count_delay = ( $meta_cache['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
-      $refresh_comments = $comment_count_delay < time() ||
-        ( $args['refresh_comment_count'] ?? 0 ) || fictioneer_caching_active( 'story_data_refresh_comment_count' );
+      $refresh_comments = $comment_count_delay < time() || ( $args['refresh_comment_count'] ?? 0 );
 
       // Refresh comment count
       if ( $refresh_comments ) {
