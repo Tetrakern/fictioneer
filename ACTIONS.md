@@ -905,8 +905,8 @@ Fires right after the article content in the `_post.php` partial and `single-pos
 * $post_id (int) – Current post ID.
 
 **$args:**
-* `context` (string) – Render context of the partial.
-* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+* 'context' (string) – Render context of the partial.
+* 'nested' (boolean|null) – Optional. Whether the post is nested inside another query.
 
 **Hooked Actions:**
 * `fictioneer_post_tags( $post_id, $args )` – Tags of the post. Priority 10.
@@ -923,8 +923,8 @@ Fires right after the post article is opened in the `_post.php` partial and `sin
 * $post_id (int) – The ID of the post.
 
 **$args:**
-* `context` (string) – Render context of the partial.
-* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+* 'context' (string) – Render context of the partial.
+* 'nested' (boolean|null) – Optional. Whether the post is nested inside another query.
 
 **Example:**
 ```php
@@ -957,8 +957,8 @@ Fires inside the `.post__footer-left` container within the article footer in the
 * $post_id (int) – Current post ID.
 
 **$args:**
-* `context` (string) – Render context of the partial.
-* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+* 'context' (string) – Render context of the partial.
+* 'nested' (boolean|null) – Optional. Whether the post is nested inside another query.
 
 **Hooked Actions:**
 * `fictioneer_post_media_buttons( $post_id, $args )` – Buttons for sharing and webfeeds. Priority 10.
@@ -1301,10 +1301,10 @@ Fires right between the comments list and heading in the `fictioneer_story_comme
 Fires right after opening the `<header>` container for the "Text (Centered)" header style.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID. Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID. Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
 
 **Hooked Actions:**
 * `function( $args )` – Anonymous function to output the header content. Priority 10.
@@ -1315,8 +1315,8 @@ Fires right after opening the `<header>` container for the "Text (Centered)" hea
 Fires after a Follow has been successfully toggled and right before the JSON response is sent.
 
 **$args:**
-* $story_id (int) – ID of the story.
-* $force (bool) – Whether the Follow was toggled on (true) or off (false).
+* 'story_id' (int) – ID of the story.
+* 'force' (bool) – Whether the Follow was toggled on (true) or off (false).
 
 ---
 
@@ -1324,8 +1324,8 @@ Fires after a Follow has been successfully toggled and right before the JSON res
 Fires after a Reminder has been successfully toggled and right before the JSON response is sent.
 
 **$args:**
-* $story_id (int) – ID of the story.
-* $force (bool) – Whether the Reminder was toggled on (true) or off (false).
+* 'story_id' (int) – ID of the story.
+* 'force' (bool) – Whether the Follow was toggled on (true) or off (false).
 
 ---
 
@@ -1333,7 +1333,7 @@ Fires after a Reminder has been successfully toggled and right before the JSON r
 Fires right after opening the top-aligned `<header>` container.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID. Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID. Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
