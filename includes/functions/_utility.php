@@ -669,10 +669,8 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       return false;
     }
 
-    $cache_plugin_active = fictioneer_caching_active( 'author_statistics' );
-
     // Meta cache?
-    if ( ! $cache_plugin_active ) {
+    if ( FICTIONEER_ENABLE_AUTHOR_STATS_META_CACHE ) {
       $meta_cache = $author->fictioneer_author_statistics;
 
       if ( $meta_cache && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
@@ -752,7 +750,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     );
 
     // Update meta cache
-    if ( ! $cache_plugin_active ) {
+    if ( FICTIONEER_ENABLE_AUTHOR_STATS_META_CACHE ) {
       fictioneer_update_user_meta( $author_id, 'fictioneer_author_statistics', $result );
     }
 

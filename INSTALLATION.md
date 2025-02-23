@@ -1574,6 +1574,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
 | FICTIONEER_ENABLE_CHAPTER_INDEX_META_CACHE | boolean | Whether to "cache" the chapter index HTML (modal) in a meta field. Default `true`.
+| FICTIONEER_ENABLE_AUTHOR_STATS_META_CACHE | boolean | Whether to "cache" the author statistics in a meta field. Default `true`.
 | FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.
 | FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.
 | FICTIONEER_DEFER_SCRIPTS | boolean | Whether to defer scripts or load them in the footer. Default `true`.
