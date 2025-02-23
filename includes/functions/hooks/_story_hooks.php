@@ -819,16 +819,16 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_blog', 44 );
  * @param int         $args['story_id']    The story post ID.
  * @param string|null $args['classes']     Optional. Additional CSS classes, separated by whitespace.
  * @param bool|null   $args['header']      Optional. Whether to show the heading with count. Default true.
- * @param string|null $attr['style']       Optional. Inline style applied to wrapper element.
+ * @param string|null $attr['style']       Optional. Inline style applied to the wrapper element.
  * @param bool|null   $args['shortcode']   Optional. Whether the render context is a shortcode. Default false.
  */
 
 function fictioneer_story_comments( $args ) {
   // Setup
   $story = $args['story_data'];
-  $header = filter_var( $args['header'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $classes = $args['classes'] ?? '';
   $style = $args['style'] ?? '';
+  $args['header'] = filter_var( $args['header'] ?? 1, FILTER_VALIDATE_BOOLEAN );
 
   // Abort conditions...
   if ( post_password_required() || $story['comment_count'] < 1 ) {
@@ -837,7 +837,7 @@ function fictioneer_story_comments( $args ) {
 
   // Start HTML ---> ?>
   <section class="comment-section fictioneer-comments <?php echo esc_attr( $classes ); ?>" style="<?php echo esc_attr( $style ); ?>">
-    <?php if ( $header ) : ?>
+    <?php if ( $args['header'] ) : ?>
       <h2 class="fictioneer-comments__title"><?php
         printf(
           _n(
