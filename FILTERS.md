@@ -751,16 +751,16 @@ Filters the intermediate output array in the `_card-collection.php` partial befo
 Filters the arguments passed to the `partials/_card-collection` template part in the `fictioneer_collections_list( $args )` function, normally added via the `fictioneer_collections_after_content` hook.
 
 **$card_args:**
-* $cache (boolean) – Return of `fictioneer_caching_active()`.
-* $order (string) – Current query order argument. Default 'desc'.
-* $orderby (string) – Current query orderby argument. Default 'modified'.
-* $ago (int|string) – Current date query argument part. Default 0.
+* 'cache' (boolean) – Return of `fictioneer_caching_active()`.
+* 'order' (string) – Current query order argument. Default 'desc'.
+* 'orderby' (string) – Current query orderby argument. Default 'modified'.
+* 'ago' (int|string) – Current date query argument part. Default 0.
 
 **$args:**
-* $current_page (int) – Current page if paginated or `1`.
-* $post_id (int) – Current post ID.
-* $collections (WP_Query) – Paginated query of all visible collections.
-* $queried_type (string) – `'fcn_collection'`
+* 'current_page' (int) – Current page if paginated or `1`.
+* 'post_id' (int) – Current post ID.
+* 'collections' (WP_Query) – Paginated query of all visible collections.
+* 'queried_type' (string) – `'fcn_collection'`
 
 ---
 
