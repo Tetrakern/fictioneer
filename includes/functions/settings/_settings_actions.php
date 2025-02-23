@@ -986,7 +986,7 @@ function fictioneer_tools_legacy_cleanup() {
 
       // Query all posts
       $args = array(
-        'post_type' => 'any',
+        'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
         'post_status' => ['publish', 'private', 'future'],
         'posts_per_page' => -1,
         'update_post_meta_cache' => true,

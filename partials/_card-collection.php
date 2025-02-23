@@ -56,7 +56,7 @@ if ( ! empty( $items ) ) {
   $items = new WP_Query(
     array(
       'fictioneer_query_name' => 'card_collection_featured',
-      'post_type' => 'any',
+      'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
       'post_status' => 'publish',
       'post__in' => $items ?: [0], // Must not be empty!
       'ignore_sticky_posts' => true,

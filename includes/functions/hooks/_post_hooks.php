@@ -77,7 +77,7 @@ function fictioneer_post_featured_list( $post_id, $args ) {
 
   // Query
   $query_args = array(
-    'post_type' => 'any',
+    'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
     'post_status' => 'publish',
     'post__in' => $featured ?: [0], // Must not be empty!
     'ignore_sticky_posts' => 1,
