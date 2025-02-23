@@ -13,13 +13,22 @@
 $author_id = get_queried_object_id();
 $author = get_userdata( $author_id );
 
+$has_valid_post = (bool) $wpdb->get_var(
+  $wpdb->prepare(
+    "SELECT 1
+     FROM {$wpdb->posts}
+     WHERE post_status = 'publish'
+       AND post_author = %d
+       AND post_type IN ('fcn_story', 'fcn_chapter')
+     LIMIT 1",
+    $author_id
+  )
+);
+
 // Return home if not a valid author
 if (
   ! FICTIONEER_ENABLE_ALL_AUTHOR_PROFILES &&
-  (
-    ! fictioneer_is_author( $author_id ) ||
-    count_user_posts( $author_id, ['fcn_story', 'fcn_chapter'] ) < 1
-  )
+  ( ! fictioneer_is_author( $author_id ) || ! $has_valid_post )
 ) {
   wp_redirect( home_url() );
   exit();

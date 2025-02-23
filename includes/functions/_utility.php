@@ -644,117 +644,98 @@ function fictioneer_get_story_comment_count( $story_id, $chapter_ids = null ) {
 
 if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
   /**
-   * Returns an author's statistics
-   *
-   * Note: Cached as meta field for an hour.
+   * Returns an author's statistics.
    *
    * @since 4.6.0
+   * @since 5.27.4 - Optimized.
    *
    * @param int $author_id  User ID of the author.
    *
-   * @return array|boolean Array of statistics or false if user does not exist.
+   * @return array|false Array of statistics or false if user does not exist.
    */
-
   function fictioneer_get_author_statistics( $author_id ) {
-    // Setup
+    global $wpdb;
+
+    // Validate
     $author_id = fictioneer_validate_id( $author_id );
 
-    if ( ! $author_id ) {
-      return false;
-    }
-
-    $author = get_user_by( 'id', $author_id );
-
-    if ( ! $author ) {
+    if ( ! $author_id || ! get_user_by( 'id', $author_id ) ) {
       return false;
     }
 
     // Meta cache?
     if ( FICTIONEER_ENABLE_AUTHOR_STATS_META_CACHE ) {
-      $meta_cache = $author->fictioneer_author_statistics;
-
+      $meta_cache = get_user_meta( $author_id, 'fictioneer_author_statistics', true );
       if ( $meta_cache && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
         return $meta_cache;
       }
     }
 
-    // Get stories
-    $stories = get_posts(
-      array(
-        'post_type' => 'fcn_story',
-        'post_status' => 'publish',
-        'author' => $author_id,
-        'numberposts' => -1,
-        'update_post_meta_cache' => true,
-        'update_post_term_cache' => false,
-        'no_found_rows' => true
-      )
+    // SQL: Fetch all required data
+    $posts = $wpdb->get_results(
+      $wpdb->prepare(
+        "SELECT p.ID, p.post_type, p.comment_count,
+          wc.meta_value AS word_count,
+          sh.meta_value AS story_hidden,
+          ch.meta_value AS chapter_hidden,
+          nch.meta_value AS chapter_no_chapter
+        FROM {$wpdb->posts} p
+        LEFT JOIN {$wpdb->postmeta} wc  ON p.ID = wc.post_id  AND wc.meta_key = '_word_count'
+        LEFT JOIN {$wpdb->postmeta} sh  ON p.ID = sh.post_id  AND sh.meta_key = 'fictioneer_story_hidden'
+        LEFT JOIN {$wpdb->postmeta} ch  ON p.ID = ch.post_id  AND ch.meta_key = 'fictioneer_chapter_hidden'
+        LEFT JOIN {$wpdb->postmeta} nch ON p.ID = nch.post_id AND nch.meta_key = 'fictioneer_chapter_no_chapter'
+        WHERE p.post_status = 'publish'
+          AND p.post_author = %d
+          AND p.post_type IN ('fcn_story', 'fcn_chapter')",
+        $author_id
+      ),
+      ARRAY_A
     );
 
-    // Filter out unwanted stories (faster than meta query)
-    $stories = array_filter( $stories, function ( $post ) {
-      // Story hidden?
-      $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
-
-      return empty( $story_hidden ) || $story_hidden === '0';
-    });
-
-    // Get chapters
-    $chapters = get_posts(
-      array(
-        'post_type' => 'fcn_chapter',
-        'post_status' => 'publish',
-        'author' => $author_id,
-        'numberposts' => -1,
-        'update_post_meta_cache' => true,
-        'update_post_term_cache' => false,
-        'no_found_rows' => true
-      )
-    );
-
-    // Filter out unwanted chapters (faster than meta query)
-    $chapters = array_filter( $chapters, function ( $post ) {
-      // Chapter hidden?
-      $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
-      $not_hidden = empty( $chapter_hidden ) || $chapter_hidden === '0';
-
-      // Not a chapter?
-      $no_chapter = get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true );
-      $is_chapter = empty( $no_chapter ) || $no_chapter === '0';
-
-      // Only keep if both conditions are met
-      return $not_hidden && $is_chapter;
-    });
-
-    // Count words and comments
+    // Process
+    $story_count = 0;
+    $chapter_count = 0;
     $word_count = 0;
     $comment_count = 0;
 
-    foreach ( $stories as $story ) {
-      $word_count += fictioneer_get_word_count( $story->ID );
-    }
+    // Loop through posts...
+    foreach ( $posts as $post ) {
+      $post_id = (int) $post['ID'];
 
-    foreach ( $chapters as $chapter ) {
-      $word_count += fictioneer_get_word_count( $chapter->ID );
-      $comment_count += $chapter->comment_count;
+      // Check if hidden
+      $is_hidden = ! empty( $post['story_hidden'] ) && $post['story_hidden'] !== '0';
+      $is_chapter_hidden = ! empty( $post['chapter_hidden'] ) && $post['chapter_hidden'] !== '0';
+      $is_non_chapter = ! empty( $post['chapter_no_chapter'] ) && $post['chapter_no_chapter'] !== '0';
+
+      // Count valid items
+      if ( $post['post_type'] === 'fcn_story' && ! $is_hidden ) {
+        $story_count++;
+      } elseif ( $post['post_type'] === 'fcn_chapter' && ! $is_chapter_hidden && ! $is_non_chapter ) {
+        $chapter_count++;
+        $comment_count += (int) $post['comment_count'];
+      }
+
+      // Apply filters and sum word count
+      if ( ! $is_hidden && ! $is_chapter_hidden && ! $is_non_chapter ) {
+        $word_count += fictioneer_get_word_count( $post_id, max( 0, intval( $post['word_count'] ) ) );
+      }
     }
 
     // Prepare results
     $result = array(
-      'story_count' => count( $stories ),
-      'chapter_count' => count( $chapters ),
+      'story_count' => $story_count,
+      'chapter_count' => $chapter_count,
       'word_count' => $word_count,
       'word_count_short' => fictioneer_shorten_number( $word_count ),
       'valid_until' => time() + HOUR_IN_SECONDS,
       'comment_count' => $comment_count
     );
 
-    // Update meta cache
+    // Update meta cache and return
     if ( FICTIONEER_ENABLE_AUTHOR_STATS_META_CACHE ) {
-      fictioneer_update_user_meta( $author_id, 'fictioneer_author_statistics', $result );
+      update_user_meta( $author_id, 'fictioneer_author_statistics', $result );
     }
 
-    // Done
     return $result;
   }
 }
