@@ -403,6 +403,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE' ) ) {
   define( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE', true );
 }
 
+// Boolean: Enable chapter index meta cache
+if ( ! defined( 'FICTIONEER_ENABLE_CHAPTER_INDEX_META_CACHE' ) ) {
+  define( 'FICTIONEER_ENABLE_CHAPTER_INDEX_META_CACHE', true );
+}
+
 // Boolean: Order stories by last updated chapter timestamp
 if ( ! defined( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER' ) ) {
   define( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER', false );

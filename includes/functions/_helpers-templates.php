@@ -1296,9 +1296,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
 function fictioneer_get_chapter_index_html( $story_id ) {
   // Meta cache?
-  $cache_plugin_active = fictioneer_caching_active( 'chapter_get_index_array' );
-
-  if ( ! $cache_plugin_active ) {
+  if ( FICTIONEER_ENABLE_CHAPTER_INDEX_META_CACHE ) {
     $last_story_update = get_post_modified_time( 'U', true, $story_id );
     $meta_cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );
 
@@ -1406,7 +1404,7 @@ function fictioneer_get_chapter_index_html( $story_id ) {
   $html = apply_filters( 'fictioneer_filter_chapter_index_html', $html, $items, $story_id, $story_link );
 
   // Update meta cache
-  if ( ! $cache_plugin_active ) {
+  if ( FICTIONEER_ENABLE_CHAPTER_INDEX_META_CACHE ) {
     update_post_meta(
       $story_id,
       'fictioneer_story_chapter_index_html',
