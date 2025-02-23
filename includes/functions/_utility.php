@@ -3854,7 +3854,7 @@ function fictioneer_get_log_hash() {
 }
 
 /**
- * Logs a message to the theme log file
+ * Log a message to the theme log file.
  *
  * @since 5.0.0
  *
@@ -3918,7 +3918,9 @@ function fictioneer_log( $message, $current_user = null ) {
 }
 
 /**
- * Retrieves the log entries and returns an HTML representation
+ * Retrieve the log entries and returns an HTML representation.
+ *
+ * @since 5.0.0
  *
  * @return string The HTML representation of the log entries.
  */
@@ -3956,7 +3958,9 @@ function fictioneer_get_log() {
 }
 
 /**
- * Retrieves the debug log entries and returns an HTML representation
+ * Retrieve the debug log entries and returns an HTML representation.
+ *
+ * @since 5.0.0
  *
  * @return string The HTML representation of the log entries.
  */
