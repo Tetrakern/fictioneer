@@ -1285,16 +1285,18 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
    * @since 5.9.4 - Add logic for optional multiplier.
    * @since 5.22.3 - Moved multiplier to fictioneer_multiply_word_count()
    * @since 5.23.1 - Added filter and additional sanitization.
+   * @since 5.27.4 - Added $word_count parameter.
    *
-   * @param int $post_id  Optional. The ID of the post the field belongs to.
-   *                      Defaults to current post ID.
+   * @param int|null $post_id     Optional. The ID of the post the field belongs to.
+   *                              Defaults to current post ID.
+   * @param int|null $word_count  Optional. Prepared word count for custom SQL solutions.
    *
    * @return int The word count or 0.
    */
 
-  function fictioneer_get_word_count( $post_id = null ) {
+  function fictioneer_get_word_count( $post_id = null, $word_count = null ) {
     // Get word count
-    $words = get_post_meta( $post_id ?? get_the_ID(), '_word_count', true ) ?: 0;
+    $words = $word_count ?? get_post_meta( $post_id ?? get_the_ID(), '_word_count', true ) ?: 0;
     $words = max( 0, intval( $words ) );
 
     // Filter
@@ -1311,15 +1313,17 @@ if ( ! function_exists( 'fictioneer_get_story_word_count' ) ) {
    *
    * @since 5.22.3
    * @since 5.23.1 - Added filter and additional sanitization.
+   * @since 5.27.4 - Added $word_count parameter.
    *
-   * @param int $post_id  Post ID of the story.
+   * @param int|null $post_id     Optional. Post ID of the story.
+   * @param int|null $word_count  Optional. Prepared word count for custom SQL solutions.
    *
    * @return int The word count or 0.
    */
 
-  function fictioneer_get_story_word_count( $post_id = null ) {
+  function fictioneer_get_story_word_count( $post_id = null, $word_count = null ) {
     // Get word count
-    $words = get_post_meta( $post_id, 'fictioneer_story_total_word_count', true ) ?: 0;
+    $words = $word_count ?? get_post_meta( $post_id, 'fictioneer_story_total_word_count', true ) ?: 0;
     $words = max( 0, intval( $words ) );
 
     // Filter
