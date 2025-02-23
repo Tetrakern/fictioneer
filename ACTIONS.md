@@ -164,11 +164,11 @@ Fires after the theme has been updated, once per version change.
 Archive template hook. Fires right after the result loop section in any archive template.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $order (string) – Current order query argument. Default 'desc'.
-* $orderby (string) – Current orderby query argument. Default 'date'.
-* $ago (int|string) – Current value for the date query. Default 0.
-* $taxonomy (string) – Current taxonomy.
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'order' (string) – Current order query argument. Default 'desc'.
+* 'orderby' (string) – Current orderby query argument. Default 'date'.
+* 'ago' (int|string) – Current value for the date query. Default 0.
+* 'taxonomy' (string) – Current taxonomy.
 
 ---
 
@@ -176,11 +176,11 @@ Archive template hook. Fires right after the result loop section in any archive 
 Archive template hook. Fires right before the result loop section in any archive template.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $order (string) – Current order query argument. Default 'desc'.
-* $orderby (string) – Current orderby query argument. Default 'date'.
-* $ago (int|string) – Current value for the date query. Default 0.
-* $taxonomy (string) – Current taxonomy.
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'order' (string) – Current order query argument. Default 'desc'.
+* 'orderby' (string) – Current orderby query argument. Default 'date'.
+* 'ago' (int|string) – Current value for the date query. Default 0.
+* 'taxonomy' (string) – Current taxonomy.
 
 **Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 10.
@@ -196,12 +196,12 @@ Fires right before the comment section outside the `<article>` but still within 
 Fires after `wp_body_open()` in the `<body>` right before the notifications container element, outside the layout. Normally includes the mobile menu.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $post_type (string|null) – Current post type. Unsafe.
-* $story_id (int|null) – Current story ID (if chapter). Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_image_source (string) – Source of the header image. Either `default`, `post`, or `story`.
-* $header_args (array) – Arguments passed to the header.php partial.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'post_type' (string|null) – Current post type. Unsafe.
+* 'story_id' (int|null) – Current story ID (if chapter). Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_image_source' (string) – Source of the header image. Either `default`, `post`, or `story`.
+* 'header_args' (array) – Arguments passed to the header.php partial.
 
 **Hooked Actions:**
 * `fictioneer_output_mobile_menu()` – HTML for the mobile menu. Priority 20.
@@ -235,17 +235,17 @@ Fires in the second column of top action section in the `single-fcn_chapter.php`
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'top'`.
@@ -263,17 +263,17 @@ Fires in the first column of the top action section in the `single-fcn_chapter.p
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'top'`.
@@ -289,17 +289,17 @@ Fires in the third column of the top action section in the `single-fcn_chapter.p
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'top'`.
@@ -315,17 +315,17 @@ Fires in the second column of the bottom action section in the `single-fcn_chapt
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'bottom'`.
@@ -343,17 +343,17 @@ Fires in the first column of the bottom action section in the `single-fcn_chapte
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'bottom'`.
@@ -369,17 +369,17 @@ Fires in the third column of the bottom action section in the `single-fcn_chapte
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $author (WP_User) – Author of the post.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – The chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapters_id array.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the post.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – The chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapters_id array.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'bottom'`.
@@ -829,10 +829,10 @@ Fires right after opening the `.mobile-menu__top` container in the `partials/_mo
 Fires right after the default modals have been included in the `fictioneer_output_modals` action.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID. Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID. Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
 
 ---
 
@@ -849,11 +849,11 @@ Fires inside the login modal, in the `login__options` row.
 Fires within the `#full-navigation` container in the `_navigation.php` partial, right after the main navigation wrapper is rendered.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID (if chapter). Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
-* $tag (string|null) – Override wrapping tag of the navigation row. Unsafe.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID (if chapter). Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
+* 'tag' (string|null) – Override wrapping tag of the navigation row. Unsafe.
 
 ---
 
@@ -861,11 +861,11 @@ Fires within the `#full-navigation` container in the `_navigation.php` partial, 
 Fires within the `#full-navigation` container in the `_navigation.php` partial, right after the navigation background and before the main navigation wrapper is rendered.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID (if chapter). Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
-* $tag (string|null) – Override wrapping tag of the navigation row. Unsafe.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID (if chapter). Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
+* 'tag' (string|null) – Override wrapping tag of the navigation row. Unsafe.
 
 ---
 
@@ -873,11 +873,11 @@ Fires within the `#full-navigation` container in the `_navigation.php` partial, 
 Fires before closing the `.main-navigation__wrapper` container in the `_navigation.php` partial, right after the navigation items (menu, icons, etc.) have been rendered.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID (if chapter). Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
-* $tag (string|null) – Override wrapping tag of the navigation row. Unsafe.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID (if chapter). Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
+* 'tag' (string|null) – Override wrapping tag of the navigation row. Unsafe.
 
 ---
 
@@ -885,11 +885,11 @@ Fires before closing the `.main-navigation__wrapper` container in the `_navigati
 Fires after opening the `.main-navigation__wrapper` container in the `_navigation.php` partial, right before the navigation items (menu, icons, etc.) are rendered.
 
 **$args:**
-* $post_id (int|null) – Current post ID. Unsafe.
-* $story_id (int|null) – Current story ID (if chapter). Unsafe.
-* $header_image_url (string|boolean) – URL of the filtered header image or false.
-* $header_args (array) – Arguments passed to the header.php partial.
-* $tag (string|null) – Override wrapping tag of the navigation row. Unsafe.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'story_id' (int|null) – Current story ID (if chapter). Unsafe.
+* 'header_image_url' (string|boolean) – URL of the filtered header image or false.
+* 'header_args' (array) – Arguments passed to the header.php partial.
+* 'tag' (string|null) – Override wrapping tag of the navigation row. Unsafe.
 
 **Hooked Actions:**
 * `fictioneer_wide_header_identity( $args )` – HTML for logo, site title, and tagline. Priority 10.
@@ -974,8 +974,8 @@ Fires inside the `.post__footer-right` container within the article footer in th
 * $post_id (int) – Current post ID.
 
 **$args:**
-* `context` (string) – Render context of the partial.
-* `nested` (boolean|null) – Optional. Whether the post is nested inside another query.
+* 'context' (string) – Render context of the partial.
+* 'nested' (boolean|null) – Optional. Whether the post is nested inside another query.
 
 **Hooked Actions:**
 * `fictioneer_post_subscribe_button( $post_id, $args )` – Subscription popup menu. Priority 10.
@@ -988,9 +988,9 @@ Fires right after the article header (title, fandom, genres, and characters) in 
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $recommendation (WP_Post) – Post object of the recommendation.
-* $recommendation_id (int) – Post ID of the recommendation.
-* $title (string) – Safe title of the recommendation.
+* 'recommendation' (WP_Post) – Post object of the recommendation.
+* 'recommendation_id' (int) – Post ID of the recommendation.
+* 'title' (string) – Safe title of the recommendation.
 
 ---
 
@@ -1000,9 +1000,9 @@ Fires right after the content section in the `single-fcn_recommendation.php` tem
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $recommendation (WP_Post) – Post object of the recommendation.
-* $recommendation_id (int) – Post ID of the recommendation.
-* $title (string) – Safe title of the recommendation.
+* 'recommendation' (WP_Post) – Post object of the recommendation.
+* 'recommendation_id' (int) – Post ID of the recommendation.
+* 'title' (string) – Safe title of the recommendation.
 
 **Hooked Actions:**
 * `fictioneer_recommendation_tags( $args )` – Tags of the recommendation. Priority 10.
@@ -1017,9 +1017,9 @@ Fires right after opening the article’s `<footer>` container in the `single-fc
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $recommendation (WP_Post) – Post object of the recommendation.
-* $recommendation_id (int) – Post ID of the recommendation.
-* $title (string) – Safe title of the recommendation.
+* 'recommendation' (WP_Post) – Post object of the recommendation.
+* 'recommendation_id' (int) – Post ID of the recommendation.
+* 'title' (string) – Safe title of the recommendation.
 
 ---
 
@@ -1029,14 +1029,14 @@ List page template hook. Fires right after the content section in the `recommend
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $recommendations (WP_Query) – Paginated query of all published recommendations.
-* $queried_type (string) – `fcn_recommendation`
-* $query_args (array) – The final query arguments used.
-* $order (string) – Current order query argument. Default 'desc'.
-* $orderby (string) – Current orderby query argument. Default 'modified'.
-* $ago (int|string) – Current value for the date query. Default 0.
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'recommendations' (WP_Query) – Paginated query of all published recommendations.
+* 'queried_type' (string) – `fcn_recommendation`
+* 'query_args' (array) – The final query arguments used.
+* 'order' (string) – Current order query argument. Default 'desc'.
+* 'orderby' (string) – Current orderby query argument. Default 'modified'.
+* 'ago' (int|string) – Current value for the date query. Default 0.
 
 **Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
@@ -1050,10 +1050,10 @@ List page template hook. Fires right after the last list item in the `'fictionee
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $recommendations (WP_Query) – Paginated query of all published recommendations.
-* $queried_type (string) – `fcn_recommendation`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'recommendations' (WP_Query) – Paginated query of all published recommendations.
+* 'queried_type' (string) – `fcn_recommendation`
 
 ---
 
@@ -1063,10 +1063,10 @@ List page template hook. Fires right at the top of an empty result list in the `
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $recommendations (WP_Query) – Paginated query of all published recommendations.
-* $queried_type (string) – `fcn_recommendation`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'recommendations' (WP_Query) – Paginated query of all published recommendations.
+* 'queried_type' (string) – `fcn_recommendation`
 
 ---
 
@@ -1177,9 +1177,9 @@ Fires right after opening the `#site` container in the `header.php` template. In
 Fires first inside the site’s `<footer>` container. Normally includes the breadcrumb navigation (if any), the footer menu, and the theme copyright notice.
 
 **$args:**
-* $post_type (string|null) – Current post type. Unsafe.
-* $post_id (int|null) – Current post ID. Unsafe.
-* $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
+* 'post_type' (string|null) – Current post type. Unsafe.
+* 'post_id' (int|null) – Current post ID. Unsafe.
+* 'breadcrumbs' (array) – Array of breadcrumb tuples with label (0) and link (1).
 
 **Hooked Actions:**
 * `fictioneer_breadcrumbs( $args )` – Breadcrumbs. Priority 10.
@@ -1193,14 +1193,14 @@ List page template hook. Fires right after the content section in the `stories.p
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $stories (WP_Query) – Paginated query of all published stories.
-* $queried_type (string) – `fcn_story`
-* $query_args (array) – The final query arguments used.
-* $order (string) – Current order query argument. Default 'desc'.
-* $orderby (string) – Current orderby query argument. Default 'modified'.
-* $ago (int|string) – Current value for the date query. Default 0.
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'stories' (WP_Query) – Paginated query of all published stories.
+* 'queried_type' (string) – `fcn_story`
+* 'query_args' (array) – The final query arguments used.
+* 'order' (string) – Current order query argument. Default 'desc'.
+* 'orderby' (string) – Current orderby query argument. Default 'modified'.
+* 'ago' (int|string) – Current value for the date query. Default 0.
 
 **Hooked Actions:**
 * `fictioneer_stories_statistics( $args )` – Compiled statistics of all stories. Priority 10.
@@ -1215,10 +1215,10 @@ List page template hook. Fires right after the last list item in the `'fictionee
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $stories (WP_Query) – Paginated query of all published stories.
-* $queried_type (string) – `fcn_story`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'stories' (WP_Query) – Paginated query of all published stories.
+* 'queried_type' (string) – `fcn_story`
 
 ---
 
@@ -1228,10 +1228,10 @@ List page template hook. Fires right at the top of an empty result list in the `
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $current_page (int) – Current page number of pagination or 1.
-* $post_id (int) – Current post ID.
-* $stories (WP_Query) – Paginated query of all published stories.
-* $queried_type (string) – `fcn_story`
+* 'current_page' (int) – Current page number of pagination or 1.
+* 'post_id' (int) – Current post ID.
+* 'stories' (WP_Query) – Paginated query of all published stories.
+* 'queried_type' (string) – `fcn_story`
 
 ---
 
@@ -1241,9 +1241,9 @@ Fires right after the `<article>` container in the `single-fcn_story.php` templa
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $story_data (array) – Collection of story data.
-* $story_id (int) – Current story (post) ID.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'story_data' (array) – Collection of story data.
+* 'story_id' (int) – Current story (post) ID.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
 
 **Hooked Actions:**
 * `fictioneer_story_comments( $args )` – AJAX-loaded list of all comments for story chapters. Priority 10.
@@ -1256,9 +1256,9 @@ Fires right after the content section in the `single-fcn_story.php` template, in
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
 **$args:**
-* $story_data (array) – Collection of story data.
-* $story_id (int) – Current story (post) ID.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'story_data' (array) – Collection of story data.
+* 'story_id' (int) – Current story (post) ID.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
 
 **Hooked Actions:**
 * `fictioneer_story_copyright_notice( $args )` – Copyright notice. Priority 10.
@@ -1278,9 +1278,9 @@ Fires right after the article header in the `single-fcn_story.php` template.
 Fires right after the article header (cover, title, fandom, genres, and characters) in the `single-fcn_story.php` template, inside the `<article>` container and just before the content section.
 
 **$args:**
-* $story_data (array) – Collection of story data.
-* $story_id (int) – Current story (post) ID.
-* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
+* 'story_data' (array) – Collection of story data.
+* 'story_id' (int) – Current story (post) ID.
+* 'password_required' (boolean|null) – Whether the post is unlocked or not. Unsafe.
 
 ---
 
@@ -1288,8 +1288,12 @@ Fires right after the article header (cover, title, fandom, genres, and characte
 Fires right between the comments list and heading in the `fictioneer_story_comments()` function.
 
 **$args:**
-* $story_data (array) – Collection of story data.
-* $story_id (int) – Current story (post) ID.
+* 'story_data' (array) – Collection of story data.
+* 'story_id' (int) – Current story (post) ID.
+* 'header' (boolean|null) – Optional. Whether to show the heading with count. Default true.
+* 'classes' (string|null) – Optional. Additional CSS classes, separated by whitespace.
+* 'style' (string|null) – Optional. Inline style applied to the wrapper element.
+* 'shortcode' (boolean|null) – Optional. Whether the render context is a shortcode.
 
 ---
 
