@@ -798,6 +798,23 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =============================================================================
+// STORY SELECT
+// =============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  _$('select[id="fictioneer_chapter_story"]')?.addEventListener('change', event => {
+    const addChapterLink = _$('#wp-admin-bar-fictioneer-add-chapter a');
+
+    if (addChapterLink) {
+      const url = new URL(addChapterLink.href);
+      url.searchParams.set('story_id', event.currentTarget.value);
+      addChapterLink.href = url.toString();
+      addChapterLink.closest('li').classList.toggle('hidden', event.currentTarget.value < 1);
+    }
+  });
+});
+
+// =============================================================================
 // RELATIONSHIP FIELDS
 // =============================================================================
 
