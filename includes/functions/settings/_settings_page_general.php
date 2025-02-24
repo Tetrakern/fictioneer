@@ -1487,7 +1487,7 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Cache last post modified date as Transient', 'fictioneer' ),
                     __( 'The responsible query can be extremely slow.', 'fictioneer' ),
                     sprintf(
-                      __( 'The query responsible for <a href="%s" target="_blank">finding the last modified post date</a> can be extremely slow if you have a large database, potentially causing your site to crash under heavy traffic. While object caching, if available, should prevent this, there have been instances where it failed. This solution caches the date in a simple Transient for 5 minutes, which is a tried and proven approach.', 'fictioneer' ),
+                      __( '<p>The query responsible for <a href="%s" target="_blank">finding the last modified post date</a> can be extremely slow if you have a large database, potentially causing your site to crash under heavy traffic.</p><p>While persistent object caching, if available, should prevent this, that has proven unreliable. This solution caches the date string in a simple database row for 5 minutes, which is a fast and safe approach.</p>', 'fictioneer' ),
                       'https://developer.wordpress.org/reference/functions/_get_last_post_time/'
                     )
                   );
