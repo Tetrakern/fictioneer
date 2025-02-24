@@ -1483,6 +1483,20 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_lastpostmodified_caching',
+                    __( 'Cache last post modified date as Transient', 'fictioneer' ),
+                    __( 'The responsible query can be extremely slow.', 'fictioneer' ),
+                    sprintf(
+                      __( 'The query responsible for <a href="%s" target="_blank">finding the last modified post date</a> can be extremely slow if you have a large database, potentially causing your site to crash under heavy traffic. While object caching, if available, should prevent this, there have been instances where it failed. This solution caches the date in a simple Transient for 5 minutes, which is a tried and proven approach.', 'fictioneer' ),
+                      'https://developer.wordpress.org/reference/functions/_get_last_post_time/'
+                    )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_purge_all_caches',
                     __( 'Purge all caches on content updates', 'fictioneer' ),
                     __( 'Inefficient but makes sure everything is up-to-date.', 'fictioneer' )

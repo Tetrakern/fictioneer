@@ -368,6 +368,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `post_stuck` | `fictioneer_prevent_post_sticky` (10)
 | `postbox_classes_{$screen_id}_{$box_id}` | `fictioneer_append_metabox_classes` (10)
 | `pre_comment_user_ip` | `__return_empty_string` (10)
+| `pre_get_lastpostmodified` | `fictioneer_cache_lastpostmodified` (10)
 | `pre_insert_term` | `fictioneer_restrict_tag_creation` (9999)
 | `preprocess_comment` | `fictioneer_preprocess_comment` (30), `fictioneer_validate_comment_form` (20)
 | `protected_title_format` | `fictioneer_remove_protected_text` (10)

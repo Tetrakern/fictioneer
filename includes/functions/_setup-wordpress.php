@@ -1753,3 +1753,47 @@ function fictioneer_redirect_scheduled_chapter_404() {
 if ( get_option( 'fictioneer_redirect_scheduled_chapter_404' ) ) {
   add_action( 'template_redirect', 'fictioneer_redirect_scheduled_chapter_404' );
 }
+
+// =============================================================================
+// CACHE LAST POST MODIFIED DATE
+// =============================================================================
+
+/**
+ * Cache the last post modified date for a given timezone and post type.
+ *
+ * Hooks into `pre_get_lastpostmodified()` to cache the last modified date
+ * of posts in a Transient for 5 minutes.
+ *
+ * @since 5.27.4
+ *
+ * @param string|false $lastpostmodified  The last modified date, or false if unknown.
+ * @param string       $timezone          The timezone to retrieve the modified date in.
+ *                                        Accepts 'gmt' or 'blog' (default WordPress timezone).
+ * @param string       $post_type         The post type to check for the last modified post.
+ *
+ * @return string|false The last modified date as a MySQL datetime string, or false if none found.
+ */
+
+function fictioneer_cache_lastpostmodified( $lastpostmodified, $timezone, $post_type ) {
+  $transient_key = 'lastpostmodified_' . sanitize_key( $timezone ) . '_' . sanitize_key( $post_type );
+
+  $cached_value = get_transient( $transient_key );
+
+  if ( $cached_value !== false ) {
+    return $cached_value;
+  }
+
+  remove_filter( 'pre_get_lastpostmodified', 'fictioneer_cache_lastpostmodified' );
+
+  $lastpostmodified = get_lastpostmodified( $timezone, $post_type );
+
+  add_filter( 'pre_get_lastpostmodified', 'fictioneer_cache_lastpostmodified', 10, 3 );
+
+  set_transient( $transient_key, $lastpostmodified, 5 * MINUTE_IN_SECONDS );
+
+  return $lastpostmodified;
+}
+
+if ( get_option( 'fictioneer_enable_lastpostmodified_caching' ) ) {
+  add_filter( 'pre_get_lastpostmodified', 'fictioneer_cache_lastpostmodified', 10, 3 );
+}
