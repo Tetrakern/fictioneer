@@ -653,6 +653,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
    *
    * @return array|false Array of statistics or false if user does not exist.
    */
+
   function fictioneer_get_author_statistics( $author_id ) {
     global $wpdb;
 

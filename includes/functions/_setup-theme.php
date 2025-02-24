@@ -1961,16 +1961,44 @@ function fictioneer_paginate_links( $args = [] ) {
  * Adds 'Add Chapter' link to adminbar with pre-assigned chapter story
  *
  * @since 5.9.3
+ * @since 5.27.4 - Added guard clauses and link on chapter edit screen.
  *
  * @param WP_Admin_Bar $wp_admin_bar  The WP_Admin_Bar instance, passed by reference.
  */
 
 function fictioneer_adminbar_add_chapter_link( $wp_admin_bar ) {
-  if ( ( is_single() && get_post_type() === 'fcn_story' ) || ( is_admin() && get_current_screen()->id === 'fcn_story' ) ) {
-    $story_id = get_the_ID();
-    $story_post = get_post( $story_id );
+  $post_id = get_the_ID();
 
-    if ( $story_id && $story_post->post_author == get_current_user_id() ) {
+  if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
+    return;
+  }
+
+  // Story edit screen
+  if ( ( is_single() && get_post_type() === 'fcn_story' ) || ( is_admin() && get_current_screen()->id === 'fcn_story' ) ) {
+    $story_post = get_post( $post_id );
+
+    if (
+      $story_post &&
+      ! in_array( $story_post->post_status, ['draft', 'auto-draft', 'trash'] ) &&
+      $story_post->post_author == get_current_user_id()
+    ) {
+      $wp_admin_bar->add_node(
+        array(
+          'id' => 'fictioneer-add-chapter',
+          'title' => '<span class="ab-icon dashicons dashicons-text-page" style="top: 4px; font-size: 16px;"></span> ' . __( 'Add Chapter', 'fictioneer' ),
+          'href' => admin_url( 'post-new.php?post_type=fcn_chapter&story_id=' . $post_id ),
+          'meta' => array( 'class' => 'adminbar-add-chapter' )
+        )
+      );
+    }
+  }
+
+  // Chapter edit screen
+  if ( is_admin() && get_current_screen()->id === 'fcn_chapter' ) {
+    $story_id = fictioneer_get_chapter_story_id( $post_id );
+    $story_post = $story_id ? get_post( $story_id ) : null;
+
+    if ( $story_post && $story_post->post_author == get_current_user_id() ) {
       $wp_admin_bar->add_node(
         array(
           'id' => 'fictioneer-add-chapter',
