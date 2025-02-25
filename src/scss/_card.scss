@@ -300,6 +300,7 @@
   }
 
   &__main {
+    flex: 1 1 auto;
     height: 100%;
 
     :where(.cell-title, .cell-meta, .cell-desc, .cell-list, .cell-tax, .cell-footer, .cell-data) {
@@ -981,13 +982,19 @@
 
     .card {
       &__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         background: var(--skeleton-shape-color);
         background-image: none !important;
         transition: none;
       }
 
       &__title {
+        user-select: none;
+        flex: 1 1 auto;
         background: var(--skeleton-cutout-color);
+        color: transparent;
         max-width: 250px;
       }
 

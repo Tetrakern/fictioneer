@@ -147,13 +147,14 @@ get_header( null, array( 'no_index' => 1 ) );
             <?php for ( $i = 0; $i < 3; $i++ ) : ?>
               <li class="card _skeleton">
                 <div class="card__body polygon">
-                  <div class="card__header _large"><h3 class="card__title"></h3></div>
                   <div class="card__main _grid _large">
+                    <div class="card__header _large"><h3 class="card__title">Title</h3></div>
                     <div class="card__image cell-img"></div>
                     <div class="card__content cell-desc truncate _3-4"></div>
+                    <div class="card__link-list cell-list"></div>
                     <div class="card__tag-list cell-tax"><span></span><span></span><span></span></div>
+                    <div class="card__footer cell-footer"><div class="card__footer-box _left"></div></div>
                   </div>
-                  <div class="card__footer"><div class="card__left text-overflow-ellipsis"></div></div>
                 </div>
               </li>
             <?php endfor; ?>
