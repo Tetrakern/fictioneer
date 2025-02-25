@@ -59,7 +59,7 @@ function fictioneer_ajax_get_user_data() {
     if ( count( $follows['data'] ) > 0 ) {
       $latest_count = fictioneer_query_new_followed_chapters_count(
         array_keys( $follows['data'] ),
-        wp_date( 'Y-m-d H:i:s', $follows['seen'] / 1000 )
+        wp_date( 'Y-m-d H:i:s', $follows['seen'] / 1000, new DateTimeZone( 'UTC' ) )
       );
 
       if ( $latest_count > 0 ) {

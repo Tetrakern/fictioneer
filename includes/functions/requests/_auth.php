@@ -166,7 +166,7 @@ function fictioneer_load_follows( $user ) {
  *
  * @param array       $story_ids   IDs of the followed stories.
  * @param string|null $after_date  Optional. Only return chapters after this date,
- *                                 e.g. wp_date( 'Y-m-d H:i:s', $timestamp ).
+ *                                 e.g. wp_date( 'Y-m-d H:i:s', $timestamp, 'gmt' ).
  * @param int         $count       Optional. Maximum number of chapters. Default 99.
  *
  * @return array Number of new chapters found.
@@ -196,7 +196,7 @@ function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date =
   ";
 
   if ( $after_date ) {
-    $sql .= " AND p.post_date > %s";
+    $sql .= " AND p.post_date_gmt > %s";
   }
 
   $query_args = array_merge( $story_ids, $after_date ? [ $after_date ] : [] );
@@ -356,7 +356,7 @@ function ffcnr_get_user_data() {
     if ( count( $follows['data'] ) > 0 ) {
       $latest_count = fictioneer_query_new_followed_chapters_count(
         array_keys( $follows['data'] ),
-        wp_date( 'Y-m-d H:i:s', $follows['seen'] / 1000 )
+        wp_date( 'Y-m-d H:i:s', $follows['seen'] / 1000, new DateTimeZone( 'UTC' ) )
       );
 
       if ( $latest_count > 0 ) {

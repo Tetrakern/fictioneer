@@ -55,7 +55,8 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
    * @since 4.3.0
    *
    * @param array       $story_ids   IDs of the followed stories.
-   * @param string|null $after_date  Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
+   * @param string|null $after_date  Optional. Only return chapters after this date,
+   *                                 e.g. wp_date( 'Y-m-d H:i:s', $timestamp, 'gmt' ).
    * @param int         $count       Optional. Maximum number of chapters to be returned. Default 20.
    *
    * @return array Collection of chapters.
@@ -82,7 +83,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
     );
 
     if ( $after_date ) {
-      $query_args['date_query'] = array( 'after' => $after_date );
+      $query_args['date_query'] = array( 'column' => 'post_date_gmt', 'after' => $after_date );
     }
 
     // Query
@@ -140,7 +141,7 @@ if ( ! function_exists( 'fictioneer_query_new_followed_chapters_count' ) ) {
     ";
 
     if ( $after_date ) {
-      $sql .= " AND p.post_date > %s";
+      $sql .= " AND p.post_date_gmt > %s";
     }
 
     $query_args = array_merge( $story_ids, $after_date ? [ $after_date ] : [] );
