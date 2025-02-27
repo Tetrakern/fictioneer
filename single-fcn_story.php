@@ -51,6 +51,7 @@ get_header(
       $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
       $this_breadcrumb = [ $story['title'], get_the_permalink() ];
       $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post_id );
+      $password_note = $password_note ? str_replace( '[!global]', '', $password_note ) : '';
       $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 
       // Arguments for hooks and templates/etc.
