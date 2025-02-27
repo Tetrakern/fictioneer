@@ -181,3 +181,9 @@ code {
   padding: .375em .25em;
   border-radius: 2px;
 }
+
+mark {
+  &:where([class]) {
+    background: none;
+  }
+}
