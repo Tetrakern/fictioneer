@@ -3502,12 +3502,29 @@ function fictioneer_get_post_patreon_data( $post = null ) {
   $global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
   $global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
   $global_lifetime_amount_cents = get_option( 'fictioneer_patreon_global_lock_lifetime_amount', 0 ) ?: 0;
+
   $post_tiers = get_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', true );
   $post_tiers = is_array( $post_tiers ) ? $post_tiers : [];
   $post_amount_cents = absint( get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true ) );
-  $check_tiers = array_merge( $global_tiers, $post_tiers );
+
+  $parent_tiers = [];
+  $parent_amount_cents = 0;
+
+  if ( $post->post_type === 'fcn_chapter' && get_option( 'enable_patreon_data_inheritance' ) ) {
+    $parent_id = fictioneer_get_chapter_story_id( $post_id );
+
+    if ( $parent_id ) {
+      $parent_tiers = get_post_meta( $parent_id, 'fictioneer_patreon_lock_tiers', true );
+      $parent_tiers = is_array( $parent_tiers ) ? $parent_tiers : [];
+      $parent_amount_cents = absint( get_post_meta( $parent_id, 'fictioneer_patreon_lock_amount', true ) );
+    }
+  }
+
+  $check_tiers = array_merge( $global_tiers, $parent_tiers, $post_tiers );
   $check_tiers = array_unique( $check_tiers );
-  $check_amount_cents = $post_amount_cents > 0 ? $post_amount_cents : $global_amount_cents;
+
+  $check_amount_cents = $post_amount_cents > 0 ? $post_amount_cents : $parent_amount_cents;
+  $check_amount_cents = $check_amount_cents > 0 ? $check_amount_cents : $global_amount_cents;
   $check_amount_cents = $post_amount_cents > 0 && $global_amount_cents > 0
     ? min( $post_amount_cents, $global_amount_cents ) : $check_amount_cents;
   $check_amount_cents = max( $check_amount_cents, 0 );
