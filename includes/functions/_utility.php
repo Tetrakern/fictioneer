@@ -1939,14 +1939,15 @@ function fictioneer_sanitize_selection( $value, $allowed_options, $default = nul
  * Sanitizes a CSS string
  *
  * @since 5.7.4
+ * @since 5.27.4 - Unslash string.
  *
- * @param string $css  The CSS string to be sanitized.
+ * @param string $css  The CSS string to be sanitized. Expects slashed string.
  *
  * @return string The sanitized string.
  */
 
 function fictioneer_sanitize_css( $css ) {
-  $css = sanitize_textarea_field( $css );
+  $css = sanitize_textarea_field( wp_unslash( $css ) );
   $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
 
   $opening_braces = substr_count( $css, '{' );

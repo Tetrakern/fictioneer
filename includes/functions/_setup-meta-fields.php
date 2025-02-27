@@ -505,7 +505,7 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__textarea <?php echo $input_classes; ?>" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $attributes; ?> <?php echo $required; ?>><?php echo $meta_value; ?></textarea>
+      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__textarea <?php echo $input_classes; ?>" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $attributes; ?> <?php echo $required; ?>><?php echo esc_textarea( $meta_value ); ?></textarea>
     </div>
 
     <?php if ( $description ) : ?>
