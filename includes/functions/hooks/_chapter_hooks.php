@@ -317,6 +317,7 @@ add_action( 'fictioneer_chapter_actions_top_left', 'fictioneer_chapter_resize_bu
  *
  * @since 5.0.0
  * @since 5.14.0 - Added indexed chapter IDs.
+ * @since 5.27.4 - Refactored with filtered output array.
  *
  * @param array       $args['chapter_ids']          IDs of visible chapters in the same story or empty array.
  * @param array       $args['indexed_chapter_ids']  IDs of accessible chapters in the same story or empty array.
@@ -330,6 +331,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   $post_id = get_the_ID();
   $post_status = get_post_status( $post_id );
   $unlisted = get_post_meta( $post_id, 'fictioneer_chapter_hidden', true );
+  $output = [];
 
   // Filter allowed status
   $allowed_statuses = apply_filters(
@@ -342,23 +344,42 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
 
   $show_nav = in_array( $post_status, $allowed_statuses );
 
-  // Start HTML ---> ?>
+  // Previous
+  if ( $show_nav && ! $unlisted && $args['prev_index'] !== false ) {
+    $output['previous'] = sprintf(
+      '<a href="%s#start" title="%s" class="button _secondary _navigation _prev">%s</a>',
+      get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ),
+      get_the_title( $args['indexed_chapter_ids'][ $args['prev_index'] ] ),
+      fcntr( 'previous' )
+    );
+  }
 
-  <?php if ( $show_nav && ! $unlisted && $args['prev_index'] !== false ) : ?>
-    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ) . '#start'; ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ); ?></a>
-  <?php endif; ?>
+  // Scroll top/bottom
+  if ( $location === 'top' ) {
+    $output['scroll'] = sprintf(
+      '<a href="#bottom" data-block="center" aria-label="%s" name="top" class="anchor button _secondary tooltipped" data-tooltip="%s"><i class="fa-solid fa-caret-down"></i></a>',
+      __( 'Scroll to bottom of the chapter', 'fictioneer' ),
+      esc_attr__( 'Scroll to bottom', 'fictioneer' )
+    );
+  } else {
+    $output['scroll'] = sprintf(
+      '<a href="#top" data-block="center" aria-label="%s" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="%s"><i class="fa-solid fa-caret-up"></i></a>',
+      __( 'Scroll to top of the chapter', 'fictioneer' ),
+      esc_attr__( 'Scroll to top', 'fictioneer' )
+    );
+  }
 
-  <?php if ( $location === 'top' ) : ?>
-    <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-down"></i></a>
-  <?php else : ?>
-    <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-up"></i></a>
-  <?php endif; ?>
+  // Next
+  if ( $show_nav && ! $unlisted && $args['next_index'] ) {
+    $output['next'] = sprintf(
+      '<a href="%s#start" title="%s" class="button _secondary _navigation _next">%s</a>',
+      get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ),
+      get_the_title( $args['indexed_chapter_ids'][ $args['next_index'] ] ),
+      fcntr( 'next' )
+    );
+  }
 
-  <?php if ( $show_nav && ! $unlisted && $args['next_index'] ) : ?>
-    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ) . '#start'; ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
-  <?php endif; ?>
-
-  <?php // <--- End HTML
+  echo implode( '', apply_filters( 'fictioneer_filter_chapter_nav_buttons', $output, $post_id, $args, $location ) );
 }
 add_action( 'fictioneer_chapter_actions_top_right', 'fictioneer_chapter_nav_buttons', 10, 2 );
 add_action( 'fictioneer_chapter_actions_bottom_right', 'fictioneer_chapter_nav_buttons', 10, 2 );
