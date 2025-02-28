@@ -682,16 +682,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'enable_patreon_data_inheritance',
-                    __( 'Enable Patreon gate inheritance', 'fictioneer' ),
-                    __( 'Chapters inherit the Patreon settings of their story.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_hide_chapter_icons',
                     __( 'Hide chapter icons', 'fictioneer' ),
                     __( 'Hides the icons on story pages and in the mobile menu.', 'fictioneer' )

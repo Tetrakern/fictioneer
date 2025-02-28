@@ -3220,11 +3220,24 @@ function fictioneer_render_extra_metabox( $post ) {
     );
   }
 
-  // Checkbox: Disable new comments
+  // Flags...
   $flag_count = 0;
+
   $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
     _x( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
+  // Checkbox: Patreon inheritance
+  if ( $can_patreon && get_option( 'fictioneer_enable_patreon_locks' ) ) {
+    $output['fictioneer_patreon_inheritance'] = fictioneer_get_metabox_checkbox(
+      $post,
+      'fictioneer_patreon_inheritance',
+      __( 'Chapters inherit Patreon settings', 'fictioneer' )
+    );
+
+    $flag_count++;
+  }
+
+  // Checkbox: Disable new comments
   if ( in_array( $post->post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
     $output['fictioneer_disable_commenting'] = fictioneer_get_metabox_checkbox(
       $post,
@@ -3389,6 +3402,11 @@ function fictioneer_save_extra_metabox( $post_id ) {
       // Threshold
       if ( isset( $_POST['fictioneer_patreon_lock_amount'] ) ) {
         $fields['fictioneer_patreon_lock_amount'] = absint( $_POST['fictioneer_patreon_lock_amount'] );
+      }
+
+      // Inheritance
+      if ( isset( $_POST['fictioneer_patreon_inheritance'] ) ) {
+        $fields['fictioneer_patreon_inheritance'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_patreon_inheritance'] );
       }
     }
   }

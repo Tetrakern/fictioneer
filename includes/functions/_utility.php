@@ -3510,10 +3510,10 @@ function fictioneer_get_post_patreon_data( $post = null ) {
   $parent_tiers = [];
   $parent_amount_cents = 0;
 
-  if ( $post->post_type === 'fcn_chapter' && get_option( 'enable_patreon_data_inheritance' ) ) {
+  if ( $post->post_type === 'fcn_chapter' ) {
     $parent_id = fictioneer_get_chapter_story_id( $post_id );
 
-    if ( $parent_id ) {
+    if ( $parent_id && get_post_meta( $parent_id, 'fictioneer_patreon_inheritance', true ) ) {
       $parent_tiers = get_post_meta( $parent_id, 'fictioneer_patreon_lock_tiers', true );
       $parent_tiers = is_array( $parent_tiers ) ? $parent_tiers : [];
       $parent_amount_cents = absint( get_post_meta( $parent_id, 'fictioneer_patreon_lock_amount', true ) );
