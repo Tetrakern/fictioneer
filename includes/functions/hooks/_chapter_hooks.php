@@ -345,7 +345,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   // Start HTML ---> ?>
 
   <?php if ( $show_nav && ! $unlisted && $args['prev_index'] !== false ) : ?>
-    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ); ?></a>
+    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ) . '#start'; ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ); ?></a>
   <?php endif; ?>
 
   <?php if ( $location === 'top' ) : ?>
@@ -355,7 +355,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   <?php endif; ?>
 
   <?php if ( $show_nav && ! $unlisted && $args['next_index'] ) : ?>
-    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
+    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ) . '#start'; ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
   <?php endif; ?>
 
   <?php // <--- End HTML
