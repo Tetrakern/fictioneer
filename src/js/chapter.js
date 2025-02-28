@@ -326,8 +326,8 @@ const fcn_chapterKeyboardNavigation = event => {
 
   const link = _$(keyMap[event.code]);
 
-  if (link?.href && !window.location.hash.includes("#start")) {
-    window.location.href = `${link.href}#start`;
+  if (link?.href) {
+    window.location.href = link.href.includes("#start") ? link.href : `${link.href}#start`;
   }
 }
 
