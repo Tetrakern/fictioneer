@@ -901,11 +901,11 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
     if ( $number < 1000 ) {
       return strval( $number );
     } else if ( $number < 1000000 ) {
-      return number_format( $number / 1000, $precision ) . ' K';
+      return number_format_i18n( $number / 1000, $precision ) . ' K';
     } else if ( $number < 1000000000 ) {
-      return number_format( $number / 1000000, $precision ) . ' M';
+      return number_format_i18n( $number / 1000000, $precision ) . ' M';
     } else {
-      return number_format( $number / 1000000000, $precision ) . ' B';
+      return number_format_i18n( $number / 1000000000, $precision ) . ' B';
     }
   }
 }
