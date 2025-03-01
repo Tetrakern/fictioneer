@@ -902,11 +902,20 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
     if ( $number < 1000 ) {
       return strval( $number );
     } else if ( $number < 1000000 ) {
-      return number_format_i18n( $number / 1000, $precision ) . ' ' . _x( 'K', 'Abbreviation for thousand.', 'fictioneer' );
+      return sprintf(
+        _x( '%s K', 'Abbreviation for thousand, separated by HAIR SPACE (&hairsp;).', 'fictioneer' ),
+        number_format_i18n( $number / 1000, $precision )
+      );
     } else if ( $number < 1000000000 ) {
-      return number_format_i18n( $number / 1000000, $precision ) . ' ' . _x( 'M', 'Abbreviation for million.', 'fictioneer' );
+      return sprintf(
+        _x( '%s M', 'Abbreviation for million, separated by HAIR SPACE (&hairsp;).', 'fictioneer' ),
+        number_format_i18n( $number / 1000000, $precision )
+      );
     } else {
-      return number_format_i18n( $number / 1000000000, $precision ) . ' ' . _x( 'B', 'Abbreviation for billion.', 'fictioneer' );
+      return sprintf(
+        _x( '%s B', 'Abbreviation for billion, separated by HAIR SPACE (&hairsp;).', 'fictioneer' ),
+        number_format_i18n( $number / 1000000000, $precision )
+      );
     }
   }
 }
