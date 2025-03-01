@@ -884,9 +884,10 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
 
 if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
   /**
-   * Shortens a number to a fractional with a letter
+   * Shorten a number to a fractional with a letter.
    *
    * @since 4.5.0
+   * @since 5.27.4 - Localize numbers and made letters translatable.
    *
    * @param int $number     The number to be shortened.
    * @param int $precision  Precision of the fraction. Default 1.
@@ -901,11 +902,11 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
     if ( $number < 1000 ) {
       return strval( $number );
     } else if ( $number < 1000000 ) {
-      return number_format_i18n( $number / 1000, $precision ) . ' K';
+      return number_format_i18n( $number / 1000, $precision ) . ' ' . _x( 'K', 'Abbreviation for thousand.', 'fictioneer' );
     } else if ( $number < 1000000000 ) {
-      return number_format_i18n( $number / 1000000, $precision ) . ' M';
+      return number_format_i18n( $number / 1000000, $precision ) . ' ' . _x( 'M', 'Abbreviation for million.', 'fictioneer' );
     } else {
-      return number_format_i18n( $number / 1000000000, $precision ) . ' B';
+      return number_format_i18n( $number / 1000000000, $precision ) . ' ' . _x( 'B', 'Abbreviation for billion.', 'fictioneer' );
     }
   }
 }
