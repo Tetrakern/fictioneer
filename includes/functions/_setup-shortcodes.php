@@ -506,7 +506,7 @@ function fictioneer_shortcode_showcase( $attr ) {
   $html = fictioneer_minify_html( ob_get_clean() );
 
   if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
-    $html .= fictioneer_get_splide_inline_init();
+    $html = str_replace( '</section>', fictioneer_get_splide_inline_init() . '</section>', $html );
   }
 
   if ( $transient_enabled && $args['cache'] ) {
@@ -614,7 +614,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   $html = fictioneer_minify_html( ob_get_clean() );
 
   if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
-    $html .= fictioneer_get_splide_inline_init();
+    $html = str_replace( '</section>', fictioneer_get_splide_inline_init() . '</section>', $html );
   }
 
   if ( $transient_enabled && $args['cache'] ) {
@@ -726,7 +726,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $html = fictioneer_minify_html( ob_get_clean() );
 
   if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
-    $html .= fictioneer_get_splide_inline_init();
+    $html = str_replace( '</section>', fictioneer_get_splide_inline_init() . '</section>', $html );
   }
 
   if ( $transient_enabled && $args['cache'] ) {
@@ -841,7 +841,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   $html = fictioneer_minify_html( ob_get_clean() );
 
   if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
-    $html .= fictioneer_get_splide_inline_init();
+    $html = str_replace( '</section>', fictioneer_get_splide_inline_init() . '</section>', $html );
   }
 
   if ( $transient_enabled && $args['cache'] ) {
@@ -935,7 +935,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   $html = fictioneer_minify_html( ob_get_clean() );
 
   if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
-    $html .= fictioneer_get_splide_inline_init();
+    $html = str_replace( '</section>', fictioneer_get_splide_inline_init() . '</section>', $html );
   }
 
   if ( $transient_enabled && $args['cache'] ) {
@@ -1831,7 +1831,7 @@ function fictioneer_shortcode_article_cards( $attr ) {
   $html = fictioneer_minify_html( ob_get_clean() );
 
   if ( ( $args['splide'] ?? 0 ) && strpos( $args['classes'], 'no-auto-splide' ) === false ) {
-    $html .= fictioneer_get_splide_inline_init();
+    $html = str_replace( '</section>', fictioneer_get_splide_inline_init() . '</section>', $html );
   }
 
   if ( $transient_enabled && $args['cache'] ) {
