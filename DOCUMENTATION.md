@@ -540,7 +540,9 @@ These fields and options are available in most post types, which does not mean t
 | Patreon Tiers | List | Patreon tiers that ignore the password protection (if set up).
 | Patreon Amount Cents | Number | Patreon pledge threshold to ignore the password protection (if set up).
 | Expire Post Password | Date | Choose a date and time to automatically remove the post password (set your time zone).
+| Chapters inherit Patreon settings | Check | Chapters inherit any tiers/cents set for the story.
 | Disable new comments | Check | Disable new comments but keep the current ones visible.
+| Disable page padding | Check | Removes the page padding, which may be useful for page builders.
 | Disable sidebar | Check | Disable the sidebar on this post or page (if any).
 
 ### SEO & Meta Tags
