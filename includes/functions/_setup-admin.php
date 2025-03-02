@@ -1215,11 +1215,12 @@ function fictioneer_ajax_get_chapter_group_options() {
   }
 
   // Prepare HTML
-  $html = '';
+  $html = '<option value="0">' . __( '— Select Group —', 'fictioneer' ) . '</option>';
+  $html .= '<option value="-1">' . __( '— New Group —', 'fictioneer' ) . '</option>';
 
   if ( ! empty( $groups ) ) {
     foreach ( $groups as $group ) {
-      $html .= "<option value='{$group}'></option>";
+      $html .= "<option value='{$group}'>{$group}</option>";
     }
   }
 

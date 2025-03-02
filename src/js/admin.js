@@ -750,18 +750,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // =============================================================================
 
 /**
- * Get datalist for story chapter groups
+ * Get options for story chapter groups.
  *
  * @since 5.7.4
+ * @since 5.27.4 - Switch to select options instead of datalist.
  * @param {HTMLElement} source - Element that triggered the request.
  */
 
-function fcn_setGroupDataList(source) {
+function fcn_setGroupSelect(source) {
   // Setup
   const storyId = source.value;
-  const listID = source.dataset.target;
-
-  _$$$(listID)?.remove();
 
   if (storyId == 0) {
     return;
@@ -775,8 +773,9 @@ function fcn_setGroupDataList(source) {
   })
   .then(response => {
     if (response.success) {
-      const list = FcnUtils.html`<datalist id="${listID}">${response.data.html}</datalist>>`;
-      document.body.appendChild(list);
+      _$$('[name="combo-select-fictioneer_chapter_group"]').forEach(select => {
+        select.innerHTML = response.data.html;
+      });
     } else if (response.data.error) {
       console.error('Error:', response.data.error);
     }
@@ -788,11 +787,43 @@ function fcn_setGroupDataList(source) {
 document.addEventListener('DOMContentLoaded', () => {
   _$$('[data-action="select-story"]').forEach(element => {
     // Initialize
-    fcn_setGroupDataList(element);
+    fcn_setGroupSelect(element);
 
     // Listen for changes
     element.addEventListener('change', event => {
-      fcn_setGroupDataList(event.currentTarget);
+      fcn_setGroupSelect(event.currentTarget);
+    });
+  });
+});
+
+// =============================================================================
+// COMBO SELECT
+// =============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  _$$('[data-meta-field-controller-target="combo"]').forEach(select => {
+    select.addEventListener('change', ({ currentTarget }) => {
+      const newValue = currentTarget.value;
+      const input = currentTarget.closest('div').querySelector('input');
+
+      if (input) {
+        if (newValue == '0' || newValue == '-1') {
+          input.value = newValue == '-1' ? '' : input.value;
+          input.focus();
+        } else {
+          input.value = newValue;
+        }
+      }
+    });
+
+    select.closest('div').querySelector('input')?.addEventListener('blur', ({ currentTarget }) => {
+      const select = currentTarget.closest('div').querySelector('select');
+
+      select.value = currentTarget.value;
+
+      if (!select.value) {
+        select.value = -1;
+      }
     });
   });
 });

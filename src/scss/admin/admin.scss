@@ -388,6 +388,31 @@ td.fictioneer_patreon_lock_amount {
       align-items: center;
       gap: 8px;
     }
+
+    &--combo {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      @include bp(800px) {
+        flex-wrap: nowrap;
+      }
+
+      select.fictioneer-meta-field__select {
+        flex: 1 1 200px;
+        width: auto;
+
+        @include bp(800px) {
+          max-width: 300px;
+        }
+      }
+
+      input.fictioneer-meta-field__input {
+        flex: 8 1 375px;
+        width: auto;
+      }
+    }
   }
 
   &__label,
