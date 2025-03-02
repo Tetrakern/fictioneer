@@ -235,8 +235,8 @@ function fictioneer_get_metabox_combo( $post, $meta_key, $args = [] ) {
     <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--combo">
 
       <select name="combo-select-<?php echo $meta_key ?>" class="fictioneer-meta-field__select fictioneer-meta-field__select--combo" data-meta-field-controller-target="combo">
-        <option value="0"><?php _ex( '— Select Group —', 'fictioneer' ); ?></option>
-        <option value="-1"><?php _ex( '— New Group —', 'fictioneer' ); ?></option>
+        <option value="0"><?php _e( '— Select Group —', 'fictioneer' ); ?></option>
+        <option value="-1"><?php _e( '— New Group —', 'fictioneer' ); ?></option>
       </select>
 
       <input type="<?php echo $type; ?>" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input fictioneer-meta-field__input--combo" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $maxlength; ?> <?php echo $attributes; ?> <?php echo $required; ?>>
