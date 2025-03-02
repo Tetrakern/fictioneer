@@ -757,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * @param {HTMLElement} source - Element that triggered the request.
  */
 
-function fcn_setGroupSelect(source) {
+function fcn_setGroupSelectOptions(source) {
   // Setup
   const storyId = source.value;
 
@@ -775,6 +775,14 @@ function fcn_setGroupSelect(source) {
     if (response.success) {
       _$$('[name="combo-select-fictioneer_chapter_group"]').forEach(select => {
         select.innerHTML = response.data.html;
+
+        const input = select.closest('div').querySelector('input');
+
+        select.value = input.value;
+
+        if (!select.value) {
+          select.value = 0;
+        }
       });
     } else if (response.data.error) {
       console.error('Error:', response.data.error);
@@ -787,11 +795,11 @@ function fcn_setGroupSelect(source) {
 document.addEventListener('DOMContentLoaded', () => {
   _$$('[data-action="select-story"]').forEach(element => {
     // Initialize
-    fcn_setGroupSelect(element);
+    fcn_setGroupSelectOptions(element);
 
     // Listen for changes
     element.addEventListener('change', event => {
-      fcn_setGroupSelect(event.currentTarget);
+      fcn_setGroupSelectOptions(event.currentTarget);
     });
   });
 });
@@ -822,7 +830,7 @@ document.addEventListener('DOMContentLoaded', () => {
       select.value = currentTarget.value;
 
       if (!select.value) {
-        select.value = -1;
+        select.value = currentTarget.value != '' ? -1 : 0;
       }
     });
   });
