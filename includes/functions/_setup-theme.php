@@ -940,7 +940,7 @@ function fictioneer_get_cache_bust() {
 function fictioneer_regenerate_cache_bust() {
   $cache_bust = time();
 
-  update_option( 'fictioneer_cache_bust', $cache_bust, '', true );
+  update_option( 'fictioneer_cache_bust', $cache_bust, true );
 
   return $cache_bust;
 }
