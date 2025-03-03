@@ -223,6 +223,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
 
     $filter_args['class'] = $badge_class;
     $filter_args['badge'] = $badge;
+    $filter_args['body'] = $badge_body;
 
     $output = apply_filters( 'fictioneer_filter_comment_badge', $output, $user, $filter_args );
 
