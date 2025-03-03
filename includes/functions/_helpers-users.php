@@ -153,6 +153,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
   function fictioneer_get_comment_badge( $user, $comment = null, $post_author_id = 0 ) {
     // Pre-setup
     $user_id = $user ? $user->ID : 0;
+    $badge_body = '<div class="fictioneer-comment__badge %1$s">%2$s</div>';
     $filter_args = array(
       'comment' => $comment,
       'post_author_id' => $post_author_id
@@ -162,6 +163,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
     if ( empty( $user_id ) || get_the_author_meta( 'fictioneer_hide_badge', $user_id ) ) {
       $filter_args['class'] = 'is-guest';
       $filter_args['badge'] = '';
+      $filter_args['body'] = $badge_body;
 
       return apply_filters( 'fictioneer_filter_comment_badge', '', $user, $filter_args );
     }
@@ -170,7 +172,6 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
     $is_post_author = empty( $comment ) ? false : $comment->user_id == $post_author_id;
     $is_moderator = fictioneer_is_moderator( $user_id );
     $is_admin = fictioneer_is_admin( $user_id );
-    $badge_body = '<div class="fictioneer-comment__badge %1$s">%2$s</div>';
     $badge_class = '';
     $badge = '';
     $role_has_badge = user_can( $user_id, 'fcn_show_badge' );
