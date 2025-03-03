@@ -838,43 +838,70 @@ Filters the HTML of the `fictioneer_get_comment_badge( $user, $comment, $post_au
 **Parameters:**
 * $output (string) – Complete HTML of the comment badge or empty string.
 * $user (WP_User|null) – The user object. Unsafe.
+* $args (array) – Additional arguments.
+  * 'badge' (string) – Label of the badge or empty string.
+  * 'body' (string) – The HTML body of the badge with placeholders for `sprintf()`.
+  * 'class' (string) – Class of the badge or empty string.
+  * 'comment' (WP_Comment|null) – Comment object or null if called outside a comment.
+  * 'post_author_id' (int) – ID of the author of the post the comment is for or `0`.
 
-**$args:**
-* $badge (string) – Label of the badge or empty string.
-* $class (string) – Class of the badge or empty string.
-* $comment (WP_Comment|null) – Comment object or null if called outside a comment.
-* $post_author_id (int) – ID of the author of the post the comment is for or `0`.
+**Example:**
+```php
+function child_get_patreon_tier_badge( $badge_html, $user, $args ) {
+  // Skip guests
+  if ( ! $user ) {
+    return $badge_html;
+  }
+
+  // Prioritize override badge
+  if ( $args['class'] === 'badge-override' ) {
+    return $badge_html;
+  }
+
+  // Patreon data
+  $membership = fictioneer_get_user_patreon_data( $user );
+  $tier_id = array_key_first( $membership['tiers'] ?? [] );
+
+  if ( empty( $membership ) || empty( $tier_id ) ) {
+    return $badge_html;
+  }
+
+  // Rebuild and return badge
+  return sprintf( '<div class="fictioneer-comment__badge %1$s">%2$s</div>', "patreon-tier-{$tier_id}", $membership['tiers'][ $tier_id ]['title'] );
+}
+add_action( 'fictioneer_filter_comment_badge', 'child_get_patreon_tier_badge', 10, 3 );
+```
 
 ---
 
 ### `apply_filters( 'fictioneer_filter_comment_list_args', $list_args )`
 Filters the modified arguments used in retrieving the comment list, both for static rendering and AJAX. This is an additional filter hooked into `'wp_list_comments_args'` before the arguments are applied to the `wp_list_comments( $args, $comments )` core function. Note that comment list arguments are somewhat peculiar and may not behave as you expect.
 
-**$list_args:**
-* $avatar_size (int) – `32`
-* $style (string) – `'ol'`
-* $type (string) – `'all'`
-* $per_page (string) – `get_option( 'comments_per_page' )`
-* $max_depth (string) – `get_option( 'thread_comments_depth' )`
-* $commentcode (string|boolean) – Commentcode or `false` (only used with AJAX).
-* $post_author_id (int) – The post author ID or `0` (only used with AJAX).
-* $page (int|null) – Current comment page or `1` if theme comment query is enabled.
-* $reverse_top_level (boolean|null) – `false` if theme comment query is enabled.
-* $reverse_children (boolean|null) – `true` if theme comment query is enabled.
-* $callback (string|null) – `'fictioneer_theme_comment'` if theme comment callback is enabled.
+**Parameters:**
+* $args (array) – Comment list query arguments.
+  * 'avatar_size' (int) – `32`
+  * 'style' (string) – `'ol'`
+  * 'type' (string) – `'all'`
+  * 'per_page' (string) – `get_option( 'comments_per_page' )`
+  * 'max_depth' (string) – `get_option( 'thread_comments_depth' )`
+  * 'commentcode' (string|boolean) – Commentcode or `false` (only used with AJAX).
+  * 'post_author_id' (int) – The post author ID or `0` (only used with AJAX).
+  * 'page' (int|null) – Current comment page or `1` if theme comment query is enabled.
+  * 'reverse_top_level' (boolean|null) – `false` if theme comment query is enabled.
+  * 'reverse_children' (boolean|null) – `true` if theme comment query is enabled.
+  * 'callback' (string|null) – `'fictioneer_theme_comment'` if theme comment callback is enabled.
 
 ---
 
 ### `apply_filters( 'fictioneer_filter_comments_query', $args, $post_id )`
 Filters the arguments passed to `WP_Comment_Query()` in the `comments.php` template and `fictioneer_ajax_get_comment_section()` function. The default arguments depend on the `'fictioneer_disable_comment_query'` option.
 
-**$args:**
-* $post_id (int) – Current post ID.
-* $type (array|string) – `['comment', 'private']` or WP default.
-* $order (string) – `get_option( 'comment_order' )` or WP default.
-* $type__not_in (string|null) - `null` or `'private'` (theme query disabled).
-
 **Parameters:**
+* $args (array) – Comment query arguments.
+  * 'post_id' (int) – Current post ID.
+  * 'type' (array|string) – `['comment', 'private']` or WP default.
+  * 'order' (string) – `get_option( 'comment_order' )` or WP default.
+  * 'type__not_in' (string|null) - `null` or `'private'` (theme query disabled).
 * $post_id (int) – Current post ID.
 
 ---
