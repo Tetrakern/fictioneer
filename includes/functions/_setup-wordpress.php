@@ -635,6 +635,10 @@ function fictioneer_unlock_with_patreon( $form ) {
   $patreon_post_data = fictioneer_get_post_patreon_data( $post );
   $patreon_user_data = fictioneer_get_user_patreon_data();
 
+  if ( empty( $patreon_post_data ) || empty( $patreon_user_data ) ) {
+    return $form;
+  }
+
   // Any tiers or amounts set up?
   if ( $patreon_post_data['gated'] ) {
     $options = [];

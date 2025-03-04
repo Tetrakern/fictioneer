@@ -3497,11 +3497,12 @@ function fictioneer_get_post_patreon_data( $post = null ) {
 
   // Post?
   $post = $post ?? get_post();
-  $post_id = $post->ID;
 
   if ( ! $post ) {
     return null;
   }
+
+  $post_id = $post->ID;
 
   // Check cache
   if ( isset( $cache[ $post_id ] ) ) {
