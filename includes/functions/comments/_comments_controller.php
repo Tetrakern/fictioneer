@@ -494,6 +494,9 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
   function fictioneer_unsubscribe_from_comment( WP_REST_Request $data ) {
     header( "Content-Type: text/html" );
 
+    // Cache plugins
+    do_action( 'litespeed_control_set_nocache', 'no-cache for unsubscribe api endpoint' );
+
     // Setup
     $comment_id = absint( $data['id'] );
     $code = $data->get_param( 'code' );
@@ -501,7 +504,7 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
     // Abort if no code given
     if ( ! $code ) {
       _e( 'Invalid request!', 'fictioneer' );
-      exit();
+      exit;
     }
 
     // Find comment
@@ -510,13 +513,13 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
     // Abort if no comment found
     if ( ! $comment ) {
       _e( 'Invalid request!', 'fictioneer' );
-      exit();
+      exit;
     }
 
     // Abort if already unsubscribed
     if ( ! get_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', true ) ) {
       _e( 'Already unsubscribed!', 'fictioneer' );
-      exit();
+      exit;
     }
 
     // Unsubscribe if code matches
