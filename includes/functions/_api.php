@@ -301,14 +301,14 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
    * @since 5.1.0
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
-   * @param WP_REST_Request $WP_REST_Request  Request object.
+   * @param WP_REST_Request $request  Request object.
    *
    * @return WP_REST_Response|WP_Error Response or error.
    */
 
-  function fictioneer_api_request_story( WP_REST_Request $data ) {
+  function fictioneer_api_request_story( WP_REST_Request $request ) {
     // Setup
-    $story_id = absint( $data['id'] );
+    $story_id = absint( $request['id'] );
 
     // Graph from story node
     $graph = fictioneer_api_get_story_node( $story_id );
@@ -366,12 +366,12 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
    * @since 5.1.0
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
-   * @param WP_REST_Request $WP_REST_Request  Request object.
+   * @param WP_REST_Request $request  Request object.
    */
 
-  function fictioneer_api_request_stories( WP_REST_Request $data ) {
+  function fictioneer_api_request_stories( WP_REST_Request $request ) {
     // Setup
-    $page = max( absint( $data['page'] ) ?? 1, 1 );
+    $page = max( absint( $request['page'] ) ?? 1, 1 );
     $graph = [];
 
     // Prepare query

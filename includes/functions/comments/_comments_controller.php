@@ -488,18 +488,18 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
    * @since 5.0.0
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
-   * @param WP_REST_Request $WP_REST_Request  Request object.
+   * @param WP_REST_Request $request  Request object.
    */
 
-  function fictioneer_unsubscribe_from_comment( WP_REST_Request $data ) {
+  function fictioneer_unsubscribe_from_comment( WP_REST_Request $request ) {
     header( "Content-Type: text/html" );
 
     // Cache plugins
     do_action( 'litespeed_control_set_nocache', 'no-cache for unsubscribe api endpoint' );
 
     // Setup
-    $comment_id = absint( $data['id'] );
-    $code = $data->get_param( 'code' );
+    $comment_id = absint( $request['id'] );
+    $code = $request->get_param( 'code' );
 
     // Abort if no code given
     if ( ! $code ) {

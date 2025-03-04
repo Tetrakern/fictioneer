@@ -143,7 +143,7 @@ add_action( 'rest_api_init', 'fictioneer_register_endpoint_get_story_comments' )
  * @since 4.0.0
  * @since 5.6.3 Refactored for REST API.
  *
- * @param WP_REST_Request $WP_REST_Request  Request object.
+ * @param WP_REST_Request $request  Request object.
  *
  * @return WP_REST_Response|WP_Error Response or error.
  */
