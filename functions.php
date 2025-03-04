@@ -303,21 +303,6 @@ if ( ! defined( 'FICTIONEER_STORY_CARD_CHAPTER_LIMIT' ) ) {
   define( 'FICTIONEER_STORY_CARD_CHAPTER_LIMIT', 3 );
 }
 
-// Integer: Count of the query results required to be eligible for caching
-if ( ! defined( 'FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD' ) ) {
-  define( 'FICTIONEER_QUERY_RESULT_CACHE_THRESHOLD', 50 );
-}
-
-// Integer: Maximum query results cached as Transients
-if ( ! defined( 'FICTIONEER_QUERY_RESULT_CACHE_LIMIT' ) ) {
-  define( 'FICTIONEER_QUERY_RESULT_CACHE_LIMIT', 50 );
-}
-
-// Integer: Limit the number of large query result cache uploads per request
-if ( ! defined( 'FICTIONEER_QUERY_RESULT_CACHE_BREAK' ) ) {
-  define( 'FICTIONEER_QUERY_RESULT_CACHE_BREAK', 3 );
-}
-
 // Integer: OAuth login cookie lifetime
 if ( ! defined( 'FICTIONEER_OAUTH_COOKIE_EXPIRATION' ) ) {
   define( 'FICTIONEER_OAUTH_COOKIE_EXPIRATION', 3 * DAY_IN_SECONDS );
