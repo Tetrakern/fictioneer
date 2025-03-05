@@ -366,7 +366,6 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/download-epub</code><br>
       &numsp;<code>/account</code><br>
       &numsp;<code>/bookshelf</code><br>
-      &numsp;<code>/wp-json/storygraph</code><br>
       &numsp;<code>/wp-json/fictioneer</code>
     </blockquote>
   </details>
@@ -413,7 +412,6 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/download-epub*</code><br>
       &numsp;<code>/account*</code><br>
       &numsp;<code>/bookshelf*</code><br>
-      &numsp;<code>/wp-json/storygraph</code><br>
       &numsp;<code>/wp-json/fictioneer</code>
     </blockquote>
   </details>
@@ -456,7 +454,6 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/download-epub</code><br>
       &numsp;<code>/account</code><br>
       &numsp;<code>/bookshelf</code><br>
-      &numsp;<code>/wp-json/storygraph</code><br>
       &numsp;<code>/wp-json/fictioneer</code><br><br>
       <strong>[4 - Excludes] Do Not Cache Query Strings:</strong><br>
       &numsp;<code>commentcode</code><br><br>
@@ -1543,7 +1540,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT | integer | Maximum number of authors in the advanced search suggestions. Default `100`.
 | FICTIONEER_UPDATE_CHECK_TIMEOUT | integer | Timeout between checks for theme updates in _seconds_. Default `43200`.
 | FICTIONEER_API_STORYGRAPH_CACHE_TTL | integer | How long Storygraph responses are cached in _seconds_. Default `3600`.
-| FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE | integer | How many items the Storygraph `/stories` endpoint returns. Default 10.
+| FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE | integer | How many items the Storygraph `/stories` endpoint returns. Default 25.
 | FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY | integer | Maximum number of story custom pages. Default `4`.
 | FICTIONEER_CHAPTER_FOLDING_THRESHOLD | integer | Threshold before and after folding in chapter lists. Default `5`.
 | FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION | integer | Expiration duration for shortcode Transients in seconds. Default `300`.
@@ -1567,7 +1564,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_COLLAPSE_COMMENT_FORM | boolean | Whether hide comment form inputs until the textarea is clicked. Default `true`.
 | FICTIONEER_API_STORYGRAPH_IMAGES | boolean | Whether to add image links to the Storygraph. Default `true`.
 | FICTIONEER_API_STORYGRAPH_HOTLINK | boolean | Whether hotlinking images from the Storygraph is allowed. Default `false`.
-| FICTIONEER_API_STORYGRAPH_CHAPTERS | boolean | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
 | FICTIONEER_ENABLE_CHAPTER_INDEX_META_CACHE | boolean | Whether to "cache" the chapter index HTML (modal) in a meta field. Default `true`.

@@ -9,14 +9,15 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
    * Returns array with story data
    *
    * @since 5.1.0
+   * @since 5.27.5 - Refactored.
    *
-   * @param int     $story_id       ID of the story.
-   * @param boolean $with_chapters  Whether to include chapters. Default true.
+   * @param int  $story_id               ID of the story.
+   * @param bool $args['list_chapters']  Whether to include the full chapter list.
    *
    * @return array|boolean Either array with story data or false if not valid.
    */
 
-  function fictioneer_api_get_story_node( $story_id, $with_chapters = true ) {
+  function fictioneer_api_get_story_node( $story_id, $args = [] ) {
     // Validation
     $data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
 
@@ -32,6 +33,15 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $co_author_ids = get_post_meta( $story_id, 'fictioneer_story_co_authors', true );
     $language = get_post_meta( $story_id, 'fictioneer_story_language', true );
     $node = [];
+
+    $tax_node_names = array(
+      'category' => 'categories',
+      'post_tag' => 'tags',
+      'fcn_fandom' => 'fandoms',
+      'fcn_character' => 'characters',
+      'fcn_content_warning' => 'warnings',
+      'fcn_genre' => 'genres'
+    );
 
     // Identity
     $node['id'] = $story_id;
@@ -104,6 +114,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       $node['images'] = array(
         'hotlinkAllowed' => FICTIONEER_API_STORYGRAPH_HOTLINK,
       );
+
       $cover = get_the_post_thumbnail_url( $story_id, 'full' );
       $header = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
       $header = wp_get_attachment_image_url( $header, 'full' );
@@ -128,131 +139,198 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       $node['taxonomies'] = $taxonomies;
     }
 
-    // Chapters
-    if ( $with_chapters && ! empty( $data['chapter_ids'] ) ) {
-      // Query chapters
-      $chapter_query = new WP_Query(
-        array(
-          'post_type' => 'fcn_chapter',
-          'post_status' => 'publish',
-          'post__in' => $data['chapter_ids'] ?: [0], // Must not be empty!
-          'ignore_sticky_posts' => true,
-          'orderby' => 'post__in',
-          'posts_per_page' => -1,
-          'no_found_rows' => true // Improve performance
-        )
+    // Chapter IDs
+    if ( ! empty( $data['chapter_ids'] ) ) {
+      $node['chapter_ids'] = array_map( 'intval', $data['chapter_ids'] ); // Already sanitized
+    }
+
+    // Chapter list (with meta)
+    if ( ( $args['list_chapters'] ?? 0 ) && ! empty( $data['chapter_ids'] ) ) {
+      global $wpdb;
+
+      // Fast and more memory-efficient custom SQL
+      $allowed_meta_keys = array(
+        'fictioneer_chapter_language',
+        'fictioneer_chapter_prefix',
+        'fictioneer_chapter_group',
+        'fictioneer_chapter_rating',
+        'fictioneer_chapter_warning',
+        'fictioneer_chapter_no_chapter',
+        '_word_count',
+        'fictioneer_chapter_co_authors',
+        'fictioneer_chapter_hidden'
       );
 
-      // Prime author cache
-      if ( ! empty( $chapter_query->posts ) && function_exists( 'update_post_author_caches' ) ) {
-        update_post_author_caches( $chapter_query->posts );
-      }
+      $placeholders = implode( ',', array_fill( 0, count( $data['chapter_ids'] ), '%d' ) );
+      $meta_placeholders = implode( ',', array_fill( 0, count( $allowed_meta_keys ), '%s' ) );
 
-      if ( $chapter_query->have_posts() ) {
-        $node['chapters'] = [];
+      $query = $wpdb->prepare(
+        "SELECT p.ID, p.post_title, p.post_date_gmt, p.post_modified_gmt, p.post_password, p.guid,
+                u.ID AS author_id, u.display_name AS author_name, u.user_url AS author_url,
+                pm.meta_key, pm.meta_value
+        FROM {$wpdb->posts} p
+        INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+        LEFT JOIN {$wpdb->users} u ON p.post_author = u.ID
+        WHERE p.post_type = 'fcn_chapter'
+        AND p.post_status = 'publish'
+        AND p.ID IN ({$placeholders})
+        AND pm.meta_key IN ({$meta_placeholders})",
+        array_merge( $data['chapter_ids'], $allowed_meta_keys )
+      );
 
-        while( $chapter_query->have_posts() ) {
-          // Setup
-          $chapter_query->the_post();
-          $chapter_id = get_the_ID();
+      $raw_results = $wpdb->get_results( $query );
 
-          // Skip not visible chapters
-          if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
-            continue;
-          }
+      // Process...
+      $chapters = [];
+      $hidden_chapters = [];
 
-          // Data
-          $author_id = get_the_author_meta( 'id' );
-          $author_url = get_the_author_meta( 'user_url' );
-          $co_author_ids = get_post_meta( $chapter_id, 'fictioneer_chapter_co_authors', true );
-          $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
-          $rating = get_post_meta( $chapter_id, 'fictioneer_chapter_rating', true );
-          $language = get_post_meta( $chapter_id, 'fictioneer_chapter_language', true );
-          $prefix = get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true );
-          $no_chapter = get_post_meta( $chapter_id, 'fictioneer_chapter_no_chapter', true );
-          $warning = get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true );
+      // ... loop rows
+      foreach ( $raw_results as $row ) {
+        // ... each row contains the post data
+        if ( ! isset( $chapters[ $row->ID ] ) ) {
+          $chapters[ $row->ID ] = array(
+            'id' => intval( $row->ID ),
+            'guid' => $row->guid,
+            'url' => get_permalink( $row->ID ),
+            'title' => $row->post_title,
+            'published' => strtotime( $row->post_date_gmt ),
+            'modified' => strtotime( $row->post_modified_gmt ),
+            'protected' => ! empty( $row->post_password ),
+            'nonChapter' => false, // Default
+            'language' => get_bloginfo( 'language' ), // Default
+            'taxonomies' => [], // Default
+            'author' => array(
+              'name' => $row->author_name,
+              'url'  => $row->author_url
+            )
+          );
+        }
 
-          // Chapter identity
-          $chapter = [];
-          $chapter['id'] = $chapter_id;
-          $chapter['guid'] = get_the_guid( $chapter_id );
-          $chapter['url'] = get_permalink();
-          $chapter['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
+        if ( ! empty( $row->taxonomies ) ) {
+          $taxonomy_pairs = explode( '||', $row->taxonomies );
 
-          if ( ! empty( $prefix ) ) {
-            $chapter['prefix'] = $prefix;
-          }
+          foreach ( $taxonomy_pairs as $pair ) {
+            list( $taxonomy, $term ) = explode( '::', $pair, 2 );
 
-          $chapter['title'] = fictioneer_get_safe_title( $chapter_id, 'api-chapter' );
+            if ( ! isset( $chapters[ $row->ID ]['taxonomies'][ $taxonomy ] ) ) {
+              $chapters[ $row->ID ]['taxonomies'][ $taxonomy ] = [];
+            }
 
-          if ( ! empty( $group ) ) {
-            $chapter['group'] = $group;
-          }
-
-          // Chapter author
-          if ( ! empty( $author_id ) ) {
-            $chapter['author'] = [];
-            $chapter['author']['name'] = get_the_author_meta( 'display_name', $author_id );
-
-            if ( ! empty( $author_url ) ) {
-              $chapter['author']['url'] = $author_url;
+            if ( ! in_array( $term, $chapters[ $row->ID ]['taxonomies'][ $taxonomy ], true ) ) {
+              $chapters[ $row->ID ]['taxonomies'][ $taxonomy ][] = $term;
             }
           }
+        }
 
-          // Chapter co-authors
-          if ( is_array( $co_author_ids ) && ! empty( $co_author_ids ) ) {
-            $chapter['coAuthors'] = [];
+        // ... get meta value
+        $meta_value = maybe_unserialize( $row->meta_value );
 
-            foreach ( $co_author_ids as $co_id ) {
-              $co_author_name = get_the_author_meta( 'display_name', $co_id );
+        // ... remember hidden chapters
+        if (
+          $row->meta_key === 'fictioneer_chapter_hidden' &&
+          ! empty( $meta_value ) &&
+          $meta_value !== '0' &&
+          $meta_value !== 'false'
+        ) {
+          $hidden_chapters[ $row->ID ] = true;
+        }
 
-              if ( $co_id != $author_id && ! empty( $co_author_name ) ) {
-                $co_author_url = get_the_author_meta( 'user_url', $co_id );
-                $co_author_node = array(
-                  'name' => $co_author_name
-                );
+        // ... add meta data to node
+        switch ( $row->meta_key ) {
+          case 'fictioneer_chapter_language':
+            $chapters[ $row->ID ]['language'] = ! empty( $meta_value ) ? $meta_value : get_bloginfo( 'language' );
+            break;
+          case 'fictioneer_chapter_prefix':
+            $chapters[ $row->ID ]['prefix'] = $meta_value;
+            break;
+          case 'fictioneer_chapter_group':
+            $chapters[ $row->ID ]['group'] = $meta_value;
+            break;
+          case 'fictioneer_chapter_rating':
+            $chapters[ $row->ID ]['ageRating'] = $meta_value;
+            break;
+          case 'fictioneer_chapter_warning':
+            $chapters[ $row->ID ]['warning'] = $meta_value;
+            break;
+          case 'fictioneer_chapter_no_chapter':
+            $chapters[ $row->ID ]['nonChapter'] = ! empty( $meta_value );
+            break;
+          case '_word_count':
+            $chapters[ $row->ID ]['words'] = fictioneer_get_word_count( $row->ID, intval( $meta_value ) );
+            break;
+          case 'fictioneer_chapter_co_authors':
+            $co_author_ids = maybe_unserialize( $meta_value );
 
-                if ( ! empty( $co_author_url ) ) {
-                  $co_author_node['url'] = $co_author_url;
+            if ( is_array( $co_author_ids ) && ! empty( $co_author_ids ) ) {
+              $chapters[ $row->ID ]['coAuthors'] = [];
+
+              foreach ( $co_author_ids as $co_id ) {
+                if ( $co_id != $row->author_id ) {
+                  $co_author_name = get_the_author_meta( 'display_name', $co_id );
+
+                  if ( ! empty( $co_author_name ) ) {
+                    $co_author_url = get_the_author_meta( 'user_url', $co_id );
+                    $co_author_node = array( 'name' => $co_author_name );
+
+                    if ( ! empty( $co_author_url ) ) {
+                      $co_author_node['url'] = $co_author_url;
+                    }
+
+                    $chapters[ $row->ID ]['coAuthors'][] = $co_author_node;
+                  }
                 }
-
-                $chapter['coAuthors'][] = $co_author_node;
               }
             }
-
-            if ( empty( $chapter['coAuthors'] ) ) {
-              unset( $chapter['coAuthors'] );
-            }
-          }
-
-          // Chapter meta
-          $chapter['published'] = get_post_time( 'U', true );
-          $chapter['modified'] = get_post_modified_time( 'U', true );
-          $chapter['protected'] = post_password_required();
-          $chapter['words'] = fictioneer_get_word_count( $chapter_id );
-          $chapter['nonChapter'] = ! empty( $no_chapter );
-
-          if ( ! empty( $rating ) ) {
-            $chapter['ageRating'] = $rating;
-          }
-
-          if ( ! empty( $warning ) ) {
-            $chapter['warning'] = $warning;
-          }
-
-          // Chapter taxonomies
-          $taxonomies = fictioneer_get_taxonomy_names( $chapter_id );
-
-          if ( ! empty( $taxonomies ) ) {
-            $chapter['taxonomies'] = $taxonomies;
-          }
-
-          // Add to story node
-          $node['chapters'][] = $chapter;
+            break;
+          // No default case
         }
       }
 
-      wp_reset_postdata();
+      // ... taxonomies
+      $taxonomy_query = $wpdb->prepare(
+        "SELECT tr.object_id, tt.taxonomy, t.name
+        FROM {$wpdb->term_relationships} tr
+        INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+        INNER JOIN {$wpdb->terms} t ON tt.term_id = t.term_id
+        WHERE tr.object_id IN ({$placeholders})",
+        $data['chapter_ids']
+      );
+
+      $taxonomy_results = $wpdb->get_results( $taxonomy_query );
+
+      foreach ( $taxonomy_results as $row ) {
+        if ( isset( $chapters[ $row->object_id ] ) ) {
+          $key = $tax_node_names[ $row->taxonomy ] ?? $row->taxonomy;
+
+          if ( ! isset( $chapters[ $row->object_id ]['taxonomies'][ $key ] ) ) {
+            $chapters[ $row->object_id ]['taxonomies'][ $key ] = [];
+          }
+
+          if ( ! in_array( $row->name, $chapters[ $row->object_id ]['taxonomies'][ $key ], true ) ) {
+            $chapters[ $row->object_id ]['taxonomies'][ $key ][] = $row->name;
+          }
+        }
+      }
+
+      // ... remove hidden chapters
+      $chapters = array_diff_key( $chapters, $hidden_chapters );
+
+      // ... restore original order
+      $order_map = array_flip( $data['chapter_ids'] );
+
+      usort( $chapters, function ( $a, $b ) use ( $order_map ) {
+        return $order_map[ $a['id'] ] - $order_map[ $b['id'] ];
+      });
+
+      // ... cleanup
+      foreach ( $chapters as $key => $chapter ) {
+        if ( empty( $chapter['taxonomies'] ) ) {
+          unset( $chapters[ $key ]['taxonomies'] );
+        }
+      }
+
+      // ... add to story node
+      $node['chapters'] = array_values( $chapters );
     }
 
     // Support
@@ -272,7 +350,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 }
 
 /**
- * Add GET route for single story by ID
+ * Add GET route for single story by ID.
  *
  * @since 5.1.0
  */
@@ -311,7 +389,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
     $story_id = absint( $request['id'] );
 
     // Graph from story node
-    $graph = fictioneer_api_get_story_node( $story_id );
+    $graph = fictioneer_api_get_story_node( $story_id, array( 'list_chapters' => true ) );
 
     // Return error if...
     if ( empty( $graph ) ) {
@@ -337,7 +415,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
 // =============================================================================
 
 /**
- * Add GET route for all stories
+ * Add GET route for all stories.
  *
  * @since 5.1.0
  */
@@ -361,9 +439,10 @@ if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
 
 if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
   /**
-   * Returns JSON with all stories plus meta data
+   * Return JSON with all stories plus meta data.
    *
    * @since 5.1.0
+   * @since 5.27.5 - Added short Transient caching for last modified date.
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
    * @param WP_REST_Request $request  Request object.
@@ -399,7 +478,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
         new WP_Error(
           'invalid_story_id',
           'Requested page number exceeds maximum pages.',
-          ['status' => '400']
+          array( 'status' => '400' )
         )
       );
     }
@@ -416,9 +495,21 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
       $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
       $graph['stories'] = [];
 
+      if ( get_option( 'fictioneer_enable_lastpostmodified_caching' ) ) {
+        $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
+      } else {
+        $graph['lastModified'] = get_transient( 'fictioneer_api_lastpostmodified_story_gmt' );
+
+        if ( ! $graph['lastModified'] ) {
+          $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
+
+          set_transient( 'fictioneer_api_lastpostmodified_story_gmt', $graph['lastModified'], 30 );
+        }
+      }
+
       foreach ( $stories as $story ) {
         // Get node
-        $node = fictioneer_api_get_story_node( $story->ID, FICTIONEER_API_STORYGRAPH_CHAPTERS );
+        $node = fictioneer_api_get_story_node( $story->ID );
 
         // Add to graph
         $graph['stories'][ $story->ID ] = $node;
@@ -428,12 +519,6 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
           $graph['lastModifiedStory'] = $story->ID;
         }
       }
-    }
-
-    if ( FICTIONEER_API_STORYGRAPH_CHAPTERS ) {
-      $graph['separateChapters'] = false;
-    } else {
-      $graph['separateChapters'] = true;
     }
 
     // Request meta

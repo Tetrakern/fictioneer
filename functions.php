@@ -243,7 +243,7 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_CACHE_TTL' ) ) {
 
 // Integer: Storygraph API number of stories per page
 if ( ! defined( 'FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE' ) ) {
-  define( 'FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE', 10 );
+  define( 'FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE', 25 );
 }
 
 // Integer: Maximum number of displayed custom pages
@@ -371,11 +371,6 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_IMAGES' ) ) {
 // Boolean: Storygraph API hotlink permission
 if ( ! defined( 'FICTIONEER_API_STORYGRAPH_HOTLINK' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_HOTLINK', false );
-}
-
-// Boolean: Storygraph API with chapters in /stories
-if ( ! defined( 'FICTIONEER_API_STORYGRAPH_CHAPTERS' ) ) {
-  define( 'FICTIONEER_API_STORYGRAPH_CHAPTERS', true );
 }
 
 // Boolean: Enable sticky cards
