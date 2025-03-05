@@ -508,17 +508,27 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
       $graph['stories'] = [];
 
       foreach ( $stories as $story ) {
-        // Get node
-        $node = fictioneer_api_get_story_node( $story->ID );
-
-        // Add to graph
-        $graph['stories'][ $story->ID ] = $node;
-
-        // Last modified story?
-        if ( $node['modified'] == $graph['lastModified'] ) {
-          $graph['lastModifiedStory'] = $story->ID;
-        }
+        $graph['stories'][ $story->ID ] = fictioneer_api_get_story_node( $story->ID );
       }
+    }
+
+    // ID of last modified story
+    $latest_modified_story = new WP_Query(
+      array(
+        'post_type' => 'fcn_story',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'orderby' => 'modified',
+        'order' => 'DESC',
+        'fields' => 'ids', // Improve performance (and we don't need more)
+        'update_post_term_cache' => false, // Improve performance
+        'update_post_meta_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
+      )
+    );
+
+    if ( $latest_modified_story->have_posts() ) {
+      $graph['lastModifiedStory'] = $latest_modified_story->posts[0];
     }
 
     // Request meta
