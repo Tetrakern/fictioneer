@@ -156,9 +156,9 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         'fictioneer_chapter_rating',
         'fictioneer_chapter_warning',
         'fictioneer_chapter_no_chapter',
-        '_word_count',
         'fictioneer_chapter_co_authors',
-        'fictioneer_chapter_hidden'
+        'fictioneer_chapter_hidden',
+        '_word_count'
       );
 
       $placeholders = implode( ',', array_fill( 0, count( $data['chapter_ids'] ), '%d' ) );
@@ -449,6 +449,8 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
    */
 
   function fictioneer_api_request_stories( WP_REST_Request $request ) {
+    global $wpdb;
+
     // Setup
     $page = max( absint( $request['page'] ) ?? 1, 1 );
     $graph = [];
@@ -512,24 +514,11 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
       }
     }
 
-    // ID of last modified story
-    $latest_modified_story = new WP_Query(
-      array(
-        'post_type' => 'fcn_story',
-        'post_status' => 'publish',
-        'posts_per_page' => 1,
-        'orderby' => 'modified',
-        'order' => 'DESC',
-        'fields' => 'ids', // Improve performance (and we don't need more)
-        'update_post_term_cache' => false, // Improve performance
-        'update_post_meta_cache' => false, // Improve performance
-        'no_found_rows' => true // Improve performance
+    $graph['lastModifiedStory'] = intval(
+      $wpdb->get_var(
+        "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' ORDER BY post_modified DESC LIMIT 1"
       )
     );
-
-    if ( $latest_modified_story->have_posts() ) {
-      $graph['lastModifiedStory'] = $latest_modified_story->posts[0];
-    }
 
     // Request meta
     $graph['page'] = $page;
