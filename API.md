@@ -648,7 +648,8 @@ The following schema defines all fields that can exist within the response, excl
 | id `integer` | ID of the story (on the site).
 | guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
 | url `string` | Current URL of the story.
-| language `string` | Language code of the story, not necessarily chapters.
+| language `string` | Language code of the _story_, not necessarily chapters.
+| searchable `string\|null` | Custom string for search purposes. Not used by default.
 | title `string` | Title of the story.
 | author `object\|null` | Author node.
 | &emsp;➞ name `string` | Author name.
@@ -691,6 +692,7 @@ The following schema defines all fields that can exist within the response, excl
 | guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
 | url `string` | Current URL of the chapter.
 | language `string` | Language code of the chapter.
+| searchable `string\|null` | Custom string for search purposes. Not used by default.
 | prefix `string\|null` | Title prefix, such as "Act 1".
 | title `string` | Title of the chapter.
 | group `string\|null` | Group of the chapter.

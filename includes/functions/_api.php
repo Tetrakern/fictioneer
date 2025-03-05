@@ -32,6 +32,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $author_url = get_the_author_meta( 'user_url', $author_id );
     $co_author_ids = get_post_meta( $story_id, 'fictioneer_story_co_authors', true );
     $language = get_post_meta( $story_id, 'fictioneer_story_language', true );
+    $searchable = get_post_meta( $story_id, 'fictioneer_story_searchable', true );
     $node = [];
 
     $tax_node_names = array(
@@ -49,6 +50,10 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
     $node['title'] = $data['title'];
     $node['url'] = get_post_meta( $story_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story_id );
+
+    if ( $searchable ) {
+      $node['searchable'] = $searchable;
+    }
 
     // Author
     if ( ! empty( $author_id ) ) {
@@ -151,6 +156,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       // Fast and more memory-efficient custom SQL
       $allowed_meta_keys = array(
         'fictioneer_chapter_language',
+        'fictioneer_chapter_searchable',
         'fictioneer_chapter_prefix',
         'fictioneer_chapter_group',
         'fictioneer_chapter_rating',
@@ -239,6 +245,9 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         switch ( $row->meta_key ) {
           case 'fictioneer_chapter_language':
             $chapters[ $row->ID ]['language'] = ! empty( $meta_value ) ? $meta_value : get_bloginfo( 'language' );
+            break;
+          case 'fictioneer_chapter_searchable':
+            $chapters[ $row->ID ]['searchable'] = $meta_value;
             break;
           case 'fictioneer_chapter_prefix':
             $chapters[ $row->ID ]['prefix'] = $meta_value;
