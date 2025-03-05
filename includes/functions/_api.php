@@ -492,8 +492,6 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     // Stories
     if ( ! empty( $stories ) ) {
       $graph['lastPublished'] = get_post_time( 'U', true, $stories[0] );
-      $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
-      $graph['stories'] = [];
 
       if ( get_option( 'fictioneer_enable_lastpostmodified_caching' ) ) {
         $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
@@ -506,6 +504,8 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
           set_transient( 'fictioneer_api_lastpostmodified_story_gmt', $graph['lastModified'], 30 );
         }
       }
+
+      $graph['stories'] = [];
 
       foreach ( $stories as $story ) {
         // Get node
