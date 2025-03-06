@@ -431,7 +431,10 @@ if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
 
 // Boolean: Whether to show scheduled chapters in lists
 if ( ! defined( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS' ) ) {
-  define( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS', false );
+  define(
+    'FICTIONEER_LIST_SCHEDULED_CHAPTERS',
+    get_option( 'fictioneer_show_scheduled_posts' ) ? true : false
+  );
 }
 
 // Boolean: Whether to enable all author profile pages

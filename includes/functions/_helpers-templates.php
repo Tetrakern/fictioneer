@@ -2699,52 +2699,95 @@ function fictioneer_get_splide_placeholders( $uid = null, $ttb = false ) {
 }
 
 // =============================================================================
-// LIST SCHEDULED CHAPTERS
+// DISPLAY SCHEDULED CHAPTERS
 // =============================================================================
 
 /**
- * Shows scheduled (future) chapter in story chapter list
+ * Query scheduled (future) chapter in the story chapter list.
  *
  * @since 5.25.0
+ * @since 5.xx.x - Refactored and renamed from `fictioneer_show_scheduled_chapters()`.
  *
  * @param array $query_args  Chapter list query arguments.
  *
  * @return array The updated chapter list query arguments.
  */
 
-function fictioneer_show_scheduled_chapters( $query_args ) {
-  $query_args['post_status'] = ['publish', 'future'];
+function fictioneer_add_scheduled_to_story_chapters_query( $query_args ) {
+  if ( ! is_array( $query_args['post_status'] ) ) {
+    $query_args['post_status'] = $query_args['post_status'] ? [ $query_args['post_status'] ] : ['publish'];
+  }
+
+  if ( ! in_array( 'future', $query_args['post_status'] ) ) {
+    $query_args['post_status'] = ['publish', 'future'];
+  }
 
   return $query_args;
 }
 
 if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
-  add_filter( 'fictioneer_filter_story_chapter_posts_query', 'fictioneer_show_scheduled_chapters' );
+  add_filter( 'fictioneer_filter_story_chapter_posts_query', 'fictioneer_add_scheduled_to_story_chapters_query' );
 }
 
 /**
- * Adds the 'future' post status to an allowed statuses array
+ * Add the 'future' post status to an allowed statuses array.
  *
  * @since 5.25.0
+ * @since 5.xx.x - Renamed from `fictioneer_treat_scheduled_chapters_as_published()`.
  *
- * @param string[] $statuses  Statuses that are queried. Default ['publish].
+ * @param string[] $statuses  Statuses that are queried. Default ['publish'].
  *
  * @return array The updated array of statuses.
  */
 
-function fictioneer_treat_scheduled_chapters_as_published( $statuses ) {
+function fictioneer_allow_scheduled_chapter_status( $statuses ) {
   $statuses[] = 'future';
 
   return $statuses;
 }
 
 if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
-  add_filter( 'fictioneer_filter_chapter_index_list_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
-  add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
-  add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
-  add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
-  add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'fictioneer_treat_scheduled_chapters_as_published' );
-  add_filter( 'fictioneer_filter_chapters_added_statuses', 'fictioneer_treat_scheduled_chapters_as_published' );
+  add_filter( 'fictioneer_filter_chapter_index_list_statuses', 'fictioneer_allow_scheduled_chapter_status' );
+  add_filter( 'fictioneer_filter_chapter_nav_buttons_allowed_statuses', 'fictioneer_allow_scheduled_chapter_status' );
+  add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'fictioneer_allow_scheduled_chapter_status' );
+  add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'fictioneer_allow_scheduled_chapter_status' );
+  add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'fictioneer_allow_scheduled_chapter_status' );
+  add_filter( 'fictioneer_filter_chapters_added_statuses', 'fictioneer_allow_scheduled_chapter_status' );
+}
+
+/**
+ * Allow future posts to be queried in the main query.
+ *
+ * @since 5.28.0
+ *
+ * @param WP_Query $query  The WP_Query instance (passed by reference).
+ *
+ * @return WP_Query The updated WP_Query.
+ */
+
+function fictioneer_display_scheduled_chapters( $query ) {
+  if ( ! is_admin() && $query->is_main_query() ) {
+    $post_type = $query->get( 'post_type' );
+
+    if ( $post_type === 'fcn_chapter' || ( is_array( $post_type ) && in_array( 'fcn_chapter', $post_type ) ) ) {
+      $post_status = $query->get( 'post_status' );
+
+      if ( ! is_array( $post_status ) ) {
+        $post_status = $post_status ? [ $post_status ] : ['publish'];
+      }
+
+      if ( ! in_array( 'future', $post_status ) ) {
+        $post_status[] = 'future';
+        $query->set( 'post_status', $post_status );
+      }
+
+      fictioneer_disable_caching( 'scheduled_chapter' ); // Required for WP-Cron to work
+    }
+  }
+}
+
+if ( get_option( 'fictioneer_show_scheduled_posts' ) ) {
+  add_action( 'pre_get_posts', 'fictioneer_display_scheduled_chapters' );
 }
 
 // =============================================================================

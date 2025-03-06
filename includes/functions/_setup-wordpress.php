@@ -1716,10 +1716,15 @@ add_action( 'send_headers', 'fictioneer_block_pages_from_indexing' );
  * Redirects scheduled chapter 404 to story or home
  *
  * @since 5.27.2
+ * @since 5.28.0 - Account for displaying of scheduled posts.
  */
 
 function fictioneer_redirect_scheduled_chapter_404() {
-  if ( current_user_can( 'manage_options' ) || current_user_can( 'edit_others_fcn_chapters' ) ) {
+  if (
+    current_user_can( 'manage_options' ) ||
+    current_user_can( 'edit_others_fcn_chapters' ) ||
+    get_option( 'fictioneer_show_scheduled_posts' )
+  ) {
     return; // Default behavior
   }
 

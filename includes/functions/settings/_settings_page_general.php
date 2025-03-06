@@ -762,6 +762,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_show_scheduled_posts',
+                    __( 'Make scheduled posts publicly accessible', 'fictioneer' ),
+                    __( 'This only makes sense in tandem with other plugins.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_limit_chapter_stories_by_author',
                     __( 'Restrict chapter stories by author', 'fictioneer' ),
                     __( 'Also disables cross-posting as guest author.', 'fictioneer' )
