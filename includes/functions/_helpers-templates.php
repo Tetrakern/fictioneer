@@ -2706,7 +2706,7 @@ function fictioneer_get_splide_placeholders( $uid = null, $ttb = false ) {
  * Query scheduled (future) chapter in the story chapter list.
  *
  * @since 5.25.0
- * @since 5.xx.x - Refactored and renamed from `fictioneer_show_scheduled_chapters()`.
+ * @since 5.28.0 - Refactored and renamed from `fictioneer_show_scheduled_chapters()`.
  *
  * @param array $query_args  Chapter list query arguments.
  *
@@ -2733,7 +2733,7 @@ if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
  * Add the 'future' post status to an allowed statuses array.
  *
  * @since 5.25.0
- * @since 5.xx.x - Renamed from `fictioneer_treat_scheduled_chapters_as_published()`.
+ * @since 5.28.0 - Renamed from `fictioneer_treat_scheduled_chapters_as_published()`.
  *
  * @param string[] $statuses  Statuses that are queried. Default ['publish'].
  *
