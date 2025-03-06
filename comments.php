@@ -26,6 +26,12 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
 $order_link = add_query_arg( 'corder', $order === 'desc' ? 'asc' : 'desc', home_url( $wp->request ) ) . '#comments';
 $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
 
+// Abort if on scheduled post and not logged in, because there
+// should be no scenario where a guest can comment here.
+if ( ! is_user_logged_in() && get_post_status() === 'future' ) {
+  return;
+}
+
 // Edit template
 if (
   get_option( 'fictioneer_enable_user_comment_editing' ) &&

@@ -5,7 +5,7 @@
 // =============================================================================
 
 /**
- * Fixes redirect after posting a comment
+ * Fix redirect after posting a comment.
  *
  * Due to the modified query, after posting a comment, the commenter may be
  * redirected to the wrong comment page. This resolves the issue and also adds
@@ -569,4 +569,32 @@ function fictioneer_comment_edit( $comment_ID, $data ) {
 
 if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
   add_action( 'edit_comment', 'fictioneer_comment_edit', 20, 2 );
+}
+
+// =============================================================================
+// COMMENTING ON SCHEDULED (FUTURE) POSTS
+// =============================================================================
+
+/**
+ * Allow commenting on scheduled posts for logged-in users.
+ *
+ * @since 4.28.0
+ */
+
+if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS && is_user_logged_in() ) {
+  if ( $_SERVER['REQUEST_METHOD'] === 'POST' && ! empty( $_POST['comment_post_ID'] ) ) {
+    $comment_post = get_post( (int) $_POST['comment_post_ID'] );
+
+    if ( $comment_post && $comment_post->post_status === 'future' ) {
+      add_filter( 'get_post_status', 'fictioneer__return_publish_status' );
+    }
+  }
+
+  $remove_filter_function = function() {
+    remove_filter( 'get_post_status', 'fictioneer__return_publish_status' );
+  };
+
+  foreach ( [ 'wp_insert_comment', 'wp', 'pre_get_posts' ] as $hook ) {
+    add_action( $hook, $remove_filter_function, 1 );
+  }
 }

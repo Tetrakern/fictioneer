@@ -3314,6 +3314,22 @@ function fictioneer__return_no_format() {
 }
 
 // =============================================================================
+// RETURN PUBLISH STRING
+// =============================================================================
+
+/**
+ * Helper to just return 'publish'.
+ *
+ * @since 4.28.0
+ *
+ * @return string Just a simple 'publish'.
+ */
+
+function fictioneer__return_publish_status( $param = null ) {
+  return 'publish';
+}
+
+// =============================================================================
 // TRUNCATE STRING
 // =============================================================================
 
