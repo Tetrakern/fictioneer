@@ -384,7 +384,13 @@ add_filter( 'fictioneer_filter_get_story_data_queried_chapter_statuses', 'child_
  */
 
 function child_show_scheduled_chapters( $query_args ) {
-  $query_args['post_status'] = ['publish', 'future'];
+  if ( ! is_array( $query_args['post_status'] ) ) {
+    $query_args['post_status'] = $query_args['post_status'] ? [ $query_args['post_status'] ] : ['publish'];
+  }
+
+  if ( ! in_array( 'future', $query_args['post_status'] ) ) {
+    $query_args['post_status'] = ['publish', 'future'];
+  }
 
   return $query_args;
 }
@@ -450,7 +456,7 @@ add_filter( 'fictioneer_filter_get_story_data_indexed_chapter_statuses', 'child_
 add_filter( 'fictioneer_filter_allowed_chapter_permalinks', 'child_treat_scheduled_chapters_as_published' );
 ```
 
-**Alternative:** Set the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant to `true` to automatically apply all the aforementioned filters, except for the removal of the next chapter note. This assumes you want scheduled chapters to be accessible; otherwise, you should selectively apply the filters you need.
+**Alternative:** Set the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant to `true` to automatically apply all the aforementioned filters, except for the removal of the next chapter note. If you want to make scheduled chapters as accessible as published ones, for example to put them behind a paywall, just enable the **\[Make scheduled chapters publicly accessible\]** theme setting under **Fictioneer > General**.
 
 ```php
 if ( ! defined( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS' ) ) {
