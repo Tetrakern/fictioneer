@@ -738,6 +738,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
  * Note: Added conditionally in the `wp` action hook (priority 10).
  *
  * @since 5.0.0
+ * @since 5.28.0 - Check whether password is required.
  *
  * @param WP_Post|null $args['story_post']           Optional. Post object of the story.
  * @param int          $args['chapter_id']           The chapter ID.
@@ -748,6 +749,10 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
  */
 
 function fictioneer_chapter_micro_menu( $args ) {
+  if ( post_password_required() ) {
+    return;
+  }
+
   echo fictioneer_get_chapter_micro_menu( $args );
 }
 add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_micro_menu', 99 );
