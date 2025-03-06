@@ -80,9 +80,10 @@ get_header(
       <?php do_action( 'fictioneer_before_comments' ); ?>
 
       <?php if ( comments_open() && ! post_password_required() ) : ?>
-        <section class="singular__comments comment-section">
-          <?php comments_template(); ?>
-        </section>
+        <section class="singular__comments comment-section"><?php
+          // Allows :empty CSS selector
+          comments_template();
+        ?></section>
       <?php endif; ?>
 
     <?php endwhile; ?>

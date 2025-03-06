@@ -9,6 +9,10 @@
   blockquote a[href^="#paragraph-"] {
     border-bottom: none;
   }
+
+  &:empty {
+    display: none;
+  }
 }
 
 .comment-respond-option-toggle {

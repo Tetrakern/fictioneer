@@ -149,9 +149,10 @@ get_header(
       ?>
 
       <?php if ( comments_open() && ! $password_required ) : ?>
-        <section class="chapter__comments comment-section chapter-comments-hideable">
-          <?php comments_template(); ?>
-        </section>
+        <section class="chapter__comments comment-section chapter-comments-hideable"><?php
+          // Allows :empty CSS selector
+          comments_template();
+        ?></section>
       <?php endif; ?>
 
     <?php endwhile; ?>
