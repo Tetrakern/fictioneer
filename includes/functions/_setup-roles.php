@@ -482,7 +482,7 @@ function fictioneer_bypass_password( $required, $post ) {
 
   // Notify cache plugins to NOT cache the page regardless of access
   if ( $required ) {
-    fictioneer_disable_caching();
+    fictioneer_disable_caching( 'protected_post' );
   }
 
   // Always allow admins

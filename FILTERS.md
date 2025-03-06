@@ -107,6 +107,15 @@ Filters the array of chapter statuses that can be auto-appended to a story’s `
 
 ---
 
+### `apply_filters( 'fictioneer_filter_disable_caching', $bool, $context )`
+Filters whether the `fictioneer_disable_caching()` should be executed or not, attempting to stop cache plugins from caching certain pages. Can also be used to add additional measures to stop plugins not accounted for. If the filter returns anything else but `true`, the function is stopped.
+
+**Parameters:**
+* $bool (boolean) – Whether the function should run. Default `true`.
+* $context (string|null) – Optional. The context in which the function is called.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_archive_header', $output, $type, $term, $parent )`
 Filters the intermediate output array for the article header in the category, tag, and taxonomy templates before it is imploded and rendered.
 

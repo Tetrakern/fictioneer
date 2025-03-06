@@ -10,9 +10,18 @@
  * Note: Whether a cache plugin honors this request is up to that plugin.
  *
  * @since 5.28.0
+ *
+ * @param string|null $context  Optional. Context that can be filtered and
+ *                              short-circuit the function execution if
+ *                              false is returned. Default null.
  */
 
-function fictioneer_disable_caching() {
+function fictioneer_disable_caching( $context = null ) {
+  // Short-circuit
+  if ( apply_filters( 'fictioneer_filter_disable_caching', true, $context ) !== true ) {
+    return;
+  }
+
   // LiteSpeed Cache
   do_action( 'litespeed_control_set_nocache', 'nocache due to password protection bypass.' );
 
