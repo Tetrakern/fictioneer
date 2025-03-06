@@ -34,6 +34,11 @@ if ( ! function_exists( 'fictioneer_load_checkmarks' ) ) {
       update_user_meta( $user->ID, 'fictioneer_user_checkmarks', $checkmarks );
     }
 
+    // Make sure checkmark arrays are sequential
+    foreach ( $checkmarks['data'] as $key => $array ) {
+      $checkmarks['data'][ $key ] = array_values( $array );
+    }
+
     // Return
     return $checkmarks;
   }
@@ -165,6 +170,9 @@ function fictioneer_ajax_set_checkmark() {
 
   // Update checkmarks
   $checkmarks['data'][ $story_id ] = empty( $_POST['update'] ) ? [] : $update_ids;
+
+  // Make sure checkmark array is sequential
+  $checkmarks['data'][ $story_id ] = array_values( $checkmarks['data'][ $story_id ] );
 
   // Update user
   if ( update_user_meta( $user->ID, 'fictioneer_user_checkmarks', $checkmarks ) ) {
