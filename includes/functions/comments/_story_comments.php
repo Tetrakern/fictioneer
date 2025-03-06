@@ -251,6 +251,8 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
             </div>
           </li>
           <?php // <--- End HTML
+
+          continue;
         }
       }
 
