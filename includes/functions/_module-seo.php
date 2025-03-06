@@ -723,13 +723,13 @@ function fictioneer_output_head_seo() {
   }
 
   // Start HTML ---> ?>
-  <link rel="canonical" href="<?php echo $canonical_url; ?>">
+  <link rel="canonical" href="<?php echo $canonical_url ? $canonical_url : get_permalink(); ?>">
   <meta name="description" content="<?php echo $og_description; ?>">
   <meta property="og:locale" content="<?php echo get_locale(); ?>">
   <meta property="og:type" content="<?php echo $og_type; ?>">
   <meta property="og:title" content="<?php echo $og_title; ?>">
   <meta property="og:description" content="<?php echo $og_description; ?>">
-  <meta property="og:url" content="<?php echo $canonical_url; ?>">
+  <meta property="og:url" content="<?php echo $canonical_url ? $canonical_url : get_permalink(); ?>">
   <meta property="og:site_name" content="<?php echo get_bloginfo( 'name' ); ?>">
 
   <?php if ( ! $is_aggregated && $is_article ) : ?>
