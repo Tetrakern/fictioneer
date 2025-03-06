@@ -661,6 +661,26 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_redirect_scheduled_chapter_404',
+                    __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
+                    __( 'Without user permission, they show a 404 error page.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_show_scheduled_chapters',
+                    __( 'Make scheduled chapters publicly accessible', 'fictioneer' ),
+                    __( 'This only makes sense in tandem with other plugins.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_post_age_confirmation',
                     __( 'Enable age confirmation modal for posts', 'fictioneer' ),
                     __( 'Require age confirmation for <b>adult-rated</b> content.', 'fictioneer' )
@@ -745,26 +765,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_enable_chapter_appending',
                     __( 'Append new chapters to story', 'fictioneer' ),
                     __( 'Whenever you change the chapter story and save.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_redirect_scheduled_chapter_404',
-                    __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
-                    __( 'Without user permission, they show a 404 error page.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_show_scheduled_posts',
-                    __( 'Make scheduled posts publicly accessible', 'fictioneer' ),
-                    __( 'This only makes sense in tandem with other plugins.', 'fictioneer' )
                   );
                 ?>
               </div>

@@ -433,7 +433,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
 if ( ! defined( 'FICTIONEER_LIST_SCHEDULED_CHAPTERS' ) ) {
   define(
     'FICTIONEER_LIST_SCHEDULED_CHAPTERS',
-    get_option( 'fictioneer_show_scheduled_posts' ) ? true : false
+    get_option( 'fictioneer_show_scheduled_chapters' ) ? true : false
   );
 }
 

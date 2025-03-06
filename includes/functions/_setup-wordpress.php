@@ -1723,7 +1723,7 @@ function fictioneer_redirect_scheduled_chapter_404() {
   if (
     current_user_can( 'manage_options' ) ||
     current_user_can( 'edit_others_fcn_chapters' ) ||
-    get_option( 'fictioneer_show_scheduled_posts' )
+    get_option( 'fictioneer_show_scheduled_chapters' )
   ) {
     return; // Default behavior
   }

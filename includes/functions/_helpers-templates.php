@@ -2786,7 +2786,7 @@ function fictioneer_display_scheduled_chapters( $query ) {
   }
 }
 
-if ( get_option( 'fictioneer_show_scheduled_posts' ) ) {
+if ( get_option( 'fictioneer_show_scheduled_chapters' ) ) {
   add_action( 'pre_get_posts', 'fictioneer_display_scheduled_chapters' );
 }
 
