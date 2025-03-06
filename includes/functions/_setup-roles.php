@@ -482,19 +482,7 @@ function fictioneer_bypass_password( $required, $post ) {
 
   // Notify cache plugins to NOT cache the page regardless of access
   if ( $required ) {
-    // LiteSpeed Cache
-    do_action( 'litespeed_control_set_nocache', 'nocache due to password protection bypass.' );
-
-    // WP Super Cache, W3 Total Cache, Hummingbird, and probably more
-    if ( ! defined( 'DONOTCACHEPAGE' ) ) {
-      define( 'DONOTCACHEPAGE', true );
-    }
-
-    // Cache Enabler
-    add_filter( 'cache_enabler_bypass_cache', '__return_true' );
-
-    // WP Rocket
-    add_filter( 'do_rocket_generate_caching_files', '__return_false' );
+    fictioneer_disable_caching();
   }
 
   // Always allow admins
