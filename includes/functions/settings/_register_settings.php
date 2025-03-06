@@ -776,6 +776,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox'
     ),
+    'fictioneer_enable_scheduled_chapter_commenting' => array(
+      'name' => 'fictioneer_enable_scheduled_chapter_commenting',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    ),
   ),
   'integers' => array(
     'fictioneer_user_profile_page' => array(
@@ -1263,6 +1268,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_header_image_preload' => __( 'Disable preloading of header image', 'fictioneer' ),
       'fictioneer_enable_lastpostmodified_caching' => __( 'Cache last post modified date as Transient', 'fictioneer' ),
       'fictioneer_show_scheduled_chapters' => __( 'Make scheduled chapters publicly accessible', 'fictioneer' ),
+      'fictioneer_enable_scheduled_chapter_commenting' => __( 'Allow commenting on scheduled posts', 'fictioneer' )
     );
   }
 

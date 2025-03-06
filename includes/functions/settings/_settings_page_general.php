@@ -681,6 +681,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_scheduled_chapter_commenting',
+                    __( 'Allow commenting on scheduled posts', 'fictioneer' ),
+                    __( 'Only if the user can access these posts.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_post_age_confirmation',
                     __( 'Enable age confirmation modal for posts', 'fictioneer' ),
                     __( 'Require age confirmation for <b>adult-rated</b> content.', 'fictioneer' )

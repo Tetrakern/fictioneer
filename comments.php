@@ -19,6 +19,7 @@ global $wp;
 
 // Setup
 $post_id = get_the_ID();
+$post_status = get_post_status();
 $user = wp_get_current_user();
 $comments_count = get_comments_number();
 $order = fictioneer_sanitize_query_var( $_GET['corder'] ?? 0, ['desc', 'asc'], get_option( 'comment_order' ) );
@@ -28,7 +29,16 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
 
 // Abort if on scheduled post and not logged in, because there
 // should be no scenario where a guest can comment here.
-if ( ! is_user_logged_in() && get_post_status() === 'future' ) {
+if ( $post_status === 'future' && ! is_user_logged_in() ) {
+  return;
+}
+
+// Commenting on scheduled?
+if (
+  $post_status === 'future' &&
+  get_post_type() === 'fcn_chapter' &&
+  ! get_option( 'fictioneer_enable_scheduled_chapter_commenting' )
+) {
   return;
 }
 
