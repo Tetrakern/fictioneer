@@ -316,7 +316,7 @@ if ( $show_advanced ) {
 
       <div class="search-form__select-group">
 
-        <div class="search-form__select-wrapper select-wrapper">
+        <div class="search-form__select-wrapper select-wrapper _type">
           <div class="search-form__select-title"><?php _ex( 'Type', 'Advanced search heading.', 'fictioneer' ); ?></div>
           <select name="post_type" class="search-form__select" autocomplete="off" data-default="any">
             <option value="any" <?php echo $post_type == 'any' ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -332,7 +332,7 @@ if ( $show_advanced ) {
           </select>
         </div>
 
-        <div class="search-form__select-wrapper select-wrapper">
+        <div class="search-form__select-wrapper select-wrapper _match">
           <div class="search-form__select-title"><?php _ex( 'Match', 'Advanced search heading.', 'fictioneer' ); ?></div>
           <select name="sentence" class="search-form__select" autocomplete="off" data-default="0">
             <option value="0" <?php echo $sentence == '0' ? 'selected' : ''; ?>><?php _ex( 'Keywords', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -340,7 +340,7 @@ if ( $show_advanced ) {
           </select>
         </div>
 
-        <div class="search-form__select-wrapper select-wrapper">
+        <div class="search-form__select-wrapper select-wrapper _sort">
           <div class="search-form__select-title"><?php _ex( 'Sort', 'Advanced search heading.', 'fictioneer' ); ?></div>
           <select name="orderby" class="search-form__select" autocomplete="off" data-default="modified">
             <option value="relevance" <?php echo $orderby == 'relevance' ? 'selected' : ''; ?>><?php _ex( 'Relevance', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -351,7 +351,7 @@ if ( $show_advanced ) {
           </select>
         </div>
 
-        <div class="search-form__select-wrapper select-wrapper">
+        <div class="search-form__select-wrapper select-wrapper _order">
           <div class="search-form__select-title"><?php _ex( 'Order', 'Advanced search heading.', 'fictioneer' ); ?></div>
           <select name="order" class="search-form__select" autocomplete="off" data-default="desc">
             <option value="desc" <?php echo $order == 'desc' ? 'selected' : ''; ?>><?php _ex( 'Descending', 'Advanced search option.', 'fictioneer' ); ?></option>

@@ -804,7 +804,7 @@ function fictioneer_add_search_for_age_rating( $args ) {
   );
 
   // Start HTML ---> ?>
-  <div class="search-form__select-wrapper select-wrapper">
+  <div class="search-form__select-wrapper select-wrapper _age-rating">
     <div class="search-form__select-title"><?php _ex( 'Age Rating', 'Advanced search heading.', 'fictioneer' ); ?></div>
     <select name="age_rating" class="search-form__select" autocomplete="off" data-default="Any">
       <option value="Any" <?php echo ! $age_rating ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -836,7 +836,7 @@ function fictioneer_add_search_for_status( $args ) {
   );
 
   // Start HTML ---> ?>
-  <div class="search-form__select-wrapper select-wrapper">
+  <div class="search-form__select-wrapper select-wrapper _status">
     <div class="search-form__select-title"><?php _ex( 'Status', 'Advanced search heading.', 'fictioneer' ); ?></div>
     <select name="story_status" class="search-form__select" autocomplete="off" data-default="Any">
       <option value="Any" <?php echo ! $story_status ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -863,7 +863,7 @@ function fictioneer_add_search_for_min_words( $args ) {
   $words = absint( $_GET['miw'] ?? 0 );
 
   // Start HTML ---> ?>
-  <div class="search-form__select-wrapper select-wrapper">
+  <div class="search-form__select-wrapper select-wrapper _min-words">
     <div class="search-form__select-title"><?php _ex( 'Min Words', 'Advanced search heading.', 'fictioneer' ); ?></div>
     <select name="miw" class="search-form__select" autocomplete="off" data-default="0">
       <option value="0" <?php echo ! $words ? 'selected' : ''; ?>><?php _ex( 'Minimum', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -894,7 +894,7 @@ function fictioneer_add_search_for_max_words( $args ) {
   $words = absint( $_GET['maw'] ?? 0 );
 
   // Start HTML ---> ?>
-  <div class="search-form__select-wrapper select-wrapper">
+  <div class="search-form__select-wrapper select-wrapper _max-words">
     <div class="search-form__select-title"><?php _ex( 'Max Words', 'Advanced search heading.', 'fictioneer' ); ?></div>
     <select name="maw" class="search-form__select" autocomplete="off" data-default="0">
       <option value="0" <?php echo ! $words ? 'selected' : ''; ?>><?php _ex( 'Maximum', 'Advanced search option.', 'fictioneer' ); ?></option>
