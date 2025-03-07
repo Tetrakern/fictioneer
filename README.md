@@ -40,6 +40,8 @@ Migrating an existing WordPress database can be a downright nightmare. Depending
 
 * [Base child theme](https://github.com/Tetrakern/fictioneer-child-theme)
 * [Minimalist child theme](https://github.com/Tetrakern/fictioneer-minimalist)
+* [Action reference](ACTIONS.md)
+* [Filter reference](FILTERS.md)
 * [CSS snippets](INSTALLATION.md#css-snippets)
 * [PHP action & filter snippets](CUSTOMIZE.md)
 
