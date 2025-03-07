@@ -581,7 +581,6 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
  * @since 4.28.0
  */
 
-
 if ( get_option( 'fictioneer_enable_scheduled_chapter_commenting' ) && is_user_logged_in() ) {
   if ( $_SERVER['REQUEST_METHOD'] === 'POST' && ! empty( $_POST['comment_post_ID'] ) ) {
     $comment_post = get_post( (int) $_POST['comment_post_ID'] );
