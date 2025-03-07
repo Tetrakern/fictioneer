@@ -2766,7 +2766,7 @@ if ( FICTIONEER_LIST_SCHEDULED_CHAPTERS ) {
  */
 
 function fictioneer_display_scheduled_chapters( $query ) {
-  if ( ! is_admin() && $query->is_main_query() ) {
+  if ( ! is_admin() && is_singular() && $query->is_main_query() ) {
     $post_type = $query->get( 'post_type' );
 
     if ( $post_type === 'fcn_chapter' || ( is_array( $post_type ) && in_array( 'fcn_chapter', $post_type ) ) ) {
