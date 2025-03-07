@@ -71,7 +71,7 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
     <div class="fictioneer-comment__body clearfix">
       <?php if ( $parent ) : ?>
         <?php $parent_name = empty( $parent->comment_author ) ? fcntr( 'anonymous_guest' ) : $parent->comment_author;  ?>
-        <div class="fictioneer-comment__replied-to">
+        <div class="fictioneer-comment__encapsulated">
           <?php if ( $depth > 3 ) : ?>
             <i class="fas fa-reply"></i>&nbsp;<?php printf( __( 'In reply to %s', 'fictioneer' ), $parent_name ); ?>
           <?php else : ?>
@@ -86,7 +86,20 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
           <?php endif; ?>
         </div>
       <?php endif; ?>
-      <?php comment_text( $comment ); ?>
+      <?php
+        if ( $post->post_status !== 'publish' ) {
+          printf(
+            '<div class="fictioneer-comment__encapsulated"><details><summary><i class="fa-solid fa-calendar-days icon"></i> %s</summary>',
+            __( 'Chapter is not yet published. Click to show comment.', 'fictioneer' )
+          );
+        }
+
+        comment_text( $comment );
+
+        if ( $post->post_status !== 'publish' ) {
+          echo '</details></div>';
+        }
+      ?>
     </div>
     <?php // <--- End HTML
   }
@@ -213,7 +226,8 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
             'compare' => 'NOT EXISTS'
           )
         )
-      )
+      ),
+      'no_found_rows' => true
     )
   );
 

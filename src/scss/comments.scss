@@ -317,7 +317,7 @@
   }
 
   // Make sure to not hit reply comment form as direct child!
-  &:is(.private, ._has-private-ancestor) > .fictioneer-comment__container {
+  &:is(.private, ._has-private-ancestor, ._unpublished) > .fictioneer-comment__container {
     background: var(--comment-background-private);
   }
 
@@ -590,8 +590,10 @@
     }
   }
 
-  &__replied-to {
-    margin-bottom: .5rem;
+  &__encapsulated {
+    &:not(:last-child) {
+      margin-bottom: .5rem;
+    }
 
     summary {
       font-style: italic;
@@ -600,6 +602,13 @@
       &::-webkit-details-marker {
         display: none;
         content: '';
+      }
+
+      .icon {
+        font-size: 87.5%;
+        vertical-align: baseline;
+        opacity: .75;
+        transform: translateY(-0.1em);
       }
     }
 

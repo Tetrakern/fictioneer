@@ -661,6 +661,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_post_age_confirmation',
+                    __( 'Enable age confirmation modal for posts', 'fictioneer' ),
+                    __( 'Require age confirmation for <b>adult-rated</b> content.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_redirect_scheduled_chapter_404',
                     __( 'Redirect scheduled chapters to story or home', 'fictioneer' ),
                     __( 'Without user permission, they show a 404 error page.', 'fictioneer' )
@@ -674,26 +684,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_show_scheduled_chapters',
                     __( 'Make scheduled chapters publicly accessible', 'fictioneer' ),
                     __( 'This only makes sense in tandem with other plugins.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_scheduled_chapter_commenting',
-                    __( 'Allow commenting on scheduled posts', 'fictioneer' ),
-                    __( 'Only if the user can access these posts.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_post_age_confirmation',
-                    __( 'Enable age confirmation modal for posts', 'fictioneer' ),
-                    __( 'Require age confirmation for <b>adult-rated</b> content.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -1124,6 +1114,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_enable_private_commenting',
                     __( 'Enable private commenting', 'fictioneer' ),
                     __( 'Private comments are invisible to the public.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_scheduled_chapter_commenting',
+                    __( 'Allow commenting on scheduled posts', 'fictioneer' ),
+                    __( 'Only if the user can access these posts.', 'fictioneer' )
                   );
                 ?>
               </div>
