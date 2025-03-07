@@ -77,6 +77,18 @@ const FcnUtils = {
   },
 
   /**
+   * Returns an array or converts object values into an array.
+   *
+   * @since 5.28.0
+   * @param {Array|Object} data - Array or object.
+   * @return {Array} The array.
+   */
+
+  ensureArray(data) {
+    return Array.isArray(data) ? data : Object.values(data);
+  },
+
+  /**
    * Reset local user data.
    *
    * @since 5.27.0

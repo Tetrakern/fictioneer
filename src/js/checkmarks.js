@@ -14,9 +14,11 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
       this.#ready = true;
     } else {
       document.addEventListener('fcnUserDataReady', () => {
-        this.refreshView();
-        this.#ready = true;
-        this.#watch();
+        if (FcnUtils.userData().checkmarks) {
+          this.refreshView();
+          this.#ready = true;
+          this.#watch();
+        }
       });
     }
   }
@@ -24,7 +26,7 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
   connect() {
     window.FictioneerApp.Controllers.fictioneerCheckmarks = this;
 
-    if (this.#ready) {
+    if (this.#ready && FcnUtils.userData().checkmarks) {
       this.refreshView();
       this.#watch();
     }
@@ -205,6 +207,10 @@ function fcn_toggleCheckmark(storyId, chapterId = null, set = null) {
   }
 
   const userData = FcnUtils.userData();
+
+  if (!userData.checkmarks) {
+    return;
+  }
 
   let type = 'story';
 

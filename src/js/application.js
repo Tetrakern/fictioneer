@@ -309,6 +309,13 @@ application.register('fictioneer', class extends Stimulus.Controller {
         // Update local user data
         updatedUserData = response.data;
         updatedUserData['lastLoaded'] = Date.now();
+
+        if (updatedUserData.checkmarks && updatedUserData.checkmarks.data) {
+          for (let key in updatedUserData.checkmarks.data) {
+            updatedUserData.checkmarks.data[key] = FcnUtils.ensureArray(updatedUserData.checkmarks.data[key]);
+          }
+        }
+
         this.setUserData(updatedUserData);
 
         // Set avatar
