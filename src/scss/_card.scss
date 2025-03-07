@@ -207,6 +207,10 @@
     }
   }
 
+  &__delete {
+    opacity: .15;
+  }
+
   &__label {
     cursor: default;
     background: var(--card-label-background);
