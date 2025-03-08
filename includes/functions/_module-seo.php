@@ -194,12 +194,12 @@ function fictioneer_save_seo_metabox( $post_id ) {
 
   // Get title
   if ( isset( $_POST['fictioneer_seo_title'] ) ) {
-    $seo_data['title'] = sanitize_text_field( $_POST['fictioneer_seo_title'] );
+    $seo_data['title'] = sanitize_text_field( wp_unslash( $_POST['fictioneer_seo_title'] ) );
   }
 
   // Get description
   if ( isset( $_POST['fictioneer_seo_description'] ) ) {
-    $seo_data['description'] = sanitize_text_field( $_POST['fictioneer_seo_description'] );
+    $seo_data['description'] = sanitize_text_field( wp_unslash( $_POST['fictioneer_seo_description'] ) );
   }
 
   // Let empty fields get deleted

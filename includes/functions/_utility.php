@@ -1426,6 +1426,44 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
 // UPDATE META FIELDS
 // =============================================================================
 
+/**
+ * Check for magic quotes indicator field.
+ *
+ * Looks in `$_POST['fictioneer_magic_quotes_test']` (or a different key) for
+ * an indicator string that may have magic quotes applied. This requires to have
+ * a hidden input with a telling string in the submission, such as `O'Reilly`,
+ * which would become `O\'Reilly`.
+ *
+ * @since 5.28.0
+ *
+ * @param string $key  Key for the super global. Default 'fictioneer_magic_quotes_test'.
+ *
+ * @return null|bool Null if the indicator field is missing, otherwise true if
+ *                   magic quotes were found and false if not.
+ */
+
+function fictioneer_has_magic_quotes( $key = 'fictioneer_magic_quotes_test' ) {
+  static $result = null;
+
+  if ( $result !== null ) {
+    return $result;
+  }
+
+  if ( ! isset( $_POST[ $key ] ) ) {
+    return null; // Unknown
+  }
+
+  if ( preg_match( '/\\\\[\'"\\\\]/', $_POST[ $key ] ?? '' ) === 1 ) {
+    $result = true;
+
+    return true;
+  }
+
+  $result = false;
+
+  return false;
+}
+
 if ( ! function_exists( 'fictioneer_update_user_meta' ) ) {
   /**
    * Wrapper to update user meta
@@ -1534,7 +1572,6 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
    * Fires default WP hooks where possible.
    *
    * @since 5.27.4
-   * @since 5.28.0 - Added wp_unslash();
    * @link https://developer.wordpress.org/reference/functions/update_metadata/
    * @link https://developer.wordpress.org/reference/functions/add_metadata/
    * @link https://developer.wordpress.org/reference/functions/delete_metadata/
@@ -1549,6 +1586,11 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
     }
 
     global $wpdb;
+
+    // Deal with magic quotes
+    if ( fictioneer_has_magic_quotes() ) {
+      $fields = array_map( 'wp_unslash', $fields );
+    }
 
     // Setup
     $existing_meta = [];
@@ -1574,9 +1616,6 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
         'meta_value' => $meta->meta_value
       );
     }
-
-    // Unslash magic quotes added to superglobals by WP
-    $fields = array_map( 'wp_unslash', $fields );
 
     // Prepare
     foreach ( $fields as $key => $value ) {
@@ -1838,7 +1877,7 @@ function fictioneer_sanitize_integer( $value, $default = 0, $min = null, $max = 
 // =============================================================================
 
 /**
- * Sanitizes a float as positive number
+ * Sanitizes a float as positive number.
  *
  * @since 5.9.4
  *
@@ -1862,7 +1901,7 @@ function fictioneer_sanitize_positive_float( $value, $default = 0.0 ) {
 }
 
 /**
- * Sanitize callback with positive float or default 1.0
+ * Sanitize callback with positive float or default 1.0.
  *
  * @since 5.10.1
  *
@@ -1882,7 +1921,7 @@ function fictioneer_sanitize_positive_float_def1( $value ) {
 }
 
 /**
- * Sanitize callback with float or default 0
+ * Sanitize callback with float or default 0.
  *
  * @since 5.19.0
  *
@@ -1906,7 +1945,7 @@ function fictioneer_sanitize_float( $value ) {
 // =============================================================================
 
 /**
- * Sanitizes a checkbox value into true or false
+ * Sanitize a checkbox value into true or false.
  *
  * @since 4.7.0
  * @link https://www.php.net/manual/en/function.filter-var.php
@@ -1927,7 +1966,7 @@ function fictioneer_sanitize_checkbox( $value ) {
 // =============================================================================
 
 /**
- * Sanitizes a selected option
+ * Sanitize a selected option.
  *
  * @since 5.7.4
  *
@@ -1950,7 +1989,7 @@ function fictioneer_sanitize_selection( $value, $allowed_options, $default = nul
 // =============================================================================
 
 /**
- * Sanitizes a CSS string
+ * Sanitize a CSS string.
  *
  * @since 5.7.4
  * @since 5.27.4 - Unslash string.
@@ -2048,7 +2087,6 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
  * Sanitizes an URL
  *
  * @since 5.19.1
- * @since 5.28.0 - Added wp_unslash();
  *
  * @param string      $url         The URL entered.
  * @param string|null $match       Optional. URL must start with this string.
@@ -2058,7 +2096,6 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
  */
 
 function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
-  $url = wp_unslash( $url );
   $url = sanitize_url( $url );
   $url = filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
 
@@ -2711,7 +2748,7 @@ if ( ! function_exists( 'fictioneer_get_font_colors' ) ) {
 // =============================================================================
 
 /**
- * Explodes string into an array
+ * Explode string into an array.
  *
  * Strips lines breaks, trims whitespaces, and removes empty elements.
  * Values might not be unique.
@@ -2729,7 +2766,6 @@ function fictioneer_explode_list( $string ) {
   }
 
   $string = str_replace( ["\n", "\r"], '', $string ); // Remove line breaks
-  $array = wp_unslash( $string );
   $array = explode( ',', $string );
   $array = array_map( 'trim', $array ); // Remove extra whitespaces
   $array = array_filter( $array, 'strlen' ); // Remove empty elements
