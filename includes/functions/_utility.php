@@ -1426,44 +1426,6 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
 // UPDATE META FIELDS
 // =============================================================================
 
-/**
- * Check for magic quotes indicator field.
- *
- * Looks in `$_POST['fictioneer_magic_quotes_test']` (or a different key) for
- * an indicator string that may have magic quotes applied. This requires to have
- * a hidden input with a telling string in the submission, such as `O'Reilly`,
- * which would become `O\'Reilly`.
- *
- * @since 5.28.0
- *
- * @param string $key  Key for the super global. Default 'fictioneer_magic_quotes_test'.
- *
- * @return null|bool Null if the indicator field is missing, otherwise true if
- *                   magic quotes were found and false if not.
- */
-
-function fictioneer_has_magic_quotes( $key = 'fictioneer_magic_quotes_test' ) {
-  static $result = null;
-
-  if ( $result !== null ) {
-    return $result;
-  }
-
-  if ( ! isset( $_POST[ $key ] ) ) {
-    return null; // Unknown
-  }
-
-  if ( preg_match( '/\\\\[\'"\\\\]/', $_POST[ $key ] ?? '' ) === 1 ) {
-    $result = true;
-
-    return true;
-  }
-
-  $result = false;
-
-  return false;
-}
-
 if ( ! function_exists( 'fictioneer_update_user_meta' ) ) {
   /**
    * Wrapper to update user meta
@@ -4066,4 +4028,67 @@ function fictioneer_get_wp_debug_log() {
 
   // Return HTML
   return '<ul class="fictioneer-log _wp-debug-log">' . $output . '</ul>';
+}
+
+// =============================================================================
+// MAGIC QUOTES & UNSLASH
+// =============================================================================
+
+/**
+ * Check for magic quotes indicator field.
+ *
+ * Looks in `$_POST['fictioneer_magic_quotes_test']` (or a different key) for
+ * an indicator string that may have magic quotes applied. This requires to have
+ * a hidden input with a telling string in the submission, such as `O'Reilly`,
+ * which would become `O\'Reilly`.
+ *
+ * @since 5.28.0
+ *
+ * @param string $key  Key for the super global. Default 'fictioneer_magic_quotes_test'.
+ *
+ * @return null|bool Null if the indicator field is missing, otherwise true if
+ *                   magic quotes were found and false if not.
+ */
+
+function fictioneer_has_magic_quotes( $key = 'fictioneer_magic_quotes_test' ) {
+  static $result = null;
+
+  if ( $result !== null ) {
+    return $result;
+  }
+
+  if ( ! isset( $_POST[ $key ] ) ) {
+    return null; // Unknown
+  }
+
+  if ( preg_match( '/\\\\[\'"\\\\]/', $_POST[ $key ] ?? '' ) === 1 ) {
+    $result = true;
+
+    return true;
+  }
+
+  $result = false;
+
+  return false;
+}
+
+/**
+ * Unslash data if there are magic quotes
+ *
+ * Note: Relies on the presence of an indicator string in `$_POST`,
+ * otherwise wp_unslash() will not be applied.
+ *
+ * @since 5.28.0
+ *
+ * @param string|array $data  The data to maybe unslash.
+ *
+ * @return string|array Unslashed or unchanged data.
+ */
+
+function fictioneer_maybe_unslash( $data ) {
+  if ( fictioneer_has_magic_quotes() ) {
+    return wp_unslash( $data );
+  }
+
+  return $data;
 }
