@@ -1534,6 +1534,7 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
    * Fires default WP hooks where possible.
    *
    * @since 5.27.4
+   * @since 5.28.0 - Added wp_unslash();
    * @link https://developer.wordpress.org/reference/functions/update_metadata/
    * @link https://developer.wordpress.org/reference/functions/add_metadata/
    * @link https://developer.wordpress.org/reference/functions/delete_metadata/
@@ -1573,6 +1574,9 @@ if ( ! function_exists( 'fictioneer_bulk_update_post_meta' ) ) {
         'meta_value' => $meta->meta_value
       );
     }
+
+    // Unslash magic quotes added to superglobals by WP
+    $fields = array_map( 'wp_unslash', $fields );
 
     // Prepare
     foreach ( $fields as $key => $value ) {
@@ -2044,6 +2048,7 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
  * Sanitizes an URL
  *
  * @since 5.19.1
+ * @since 5.28.0 - Added wp_unslash();
  *
  * @param string      $url         The URL entered.
  * @param string|null $match       Optional. URL must start with this string.
@@ -2053,6 +2058,7 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
  */
 
 function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
+  $url = wp_unslash( $url );
   $url = sanitize_url( $url );
   $url = filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
 
@@ -2723,6 +2729,7 @@ function fictioneer_explode_list( $string ) {
   }
 
   $string = str_replace( ["\n", "\r"], '', $string ); // Remove line breaks
+  $array = wp_unslash( $string );
   $array = explode( ',', $string );
   $array = array_map( 'trim', $array ); // Remove extra whitespaces
   $array = array_filter( $array, 'strlen' ); // Remove empty elements

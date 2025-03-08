@@ -62,18 +62,20 @@ function fictioneer_validate_save_action_user( $post_id, $post_type ) {
 // =============================================================================
 
 /**
- * Sanitizes editor content
+ * Sanitize editor content.
  *
- * Removes malicious HTML, shortcodes, and blocks.
+ * Removes malicious HTML, magic quote slashes, shortcodes, and blocks.
  *
  * @since 5.7.4
+ * @since 5.28.0 - Added wp_unslash();
  *
- * @param string $content  The content to be sanitized
+ * @param string $content  The content to be sanitized.
  *
  * @return string The sanitized content.
  */
 
 function fictioneer_sanitize_editor( $content ) {
+  $content = wp_unslash( $content );
   $content = wp_kses_post( $content );
   $content = strip_shortcodes( $content );
   $content = preg_replace( '/<!--\s*wp:(.*?)-->(.*?)<!--\s*\/wp:\1\s*-->/s', '', $content );
