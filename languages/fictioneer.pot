@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-09 18:28+0000\n"
+"POT-Creation-Date: 2025-03-09 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -2152,13 +2152,13 @@ msgctxt "Bookshelf tab name pattern: {Tab} ({Count})"
 msgid "%s (%s)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2307
+#: includes/functions/_customizer-settings.php:2334
 msgid ""
 "Border radius of large containers in pixels, such as the main content "
 "section. Default 4."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2338
+#: includes/functions/_customizer-settings.php:2365
 msgid ""
 "Border radius of small containers in pixels, such as story cards and inputs. "
 "Default 2."
@@ -2933,63 +2933,63 @@ msgctxt "Caption of the _read_ ribbon."
 msgid "Read"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3040
+#: includes/functions/_customizer-settings.php:3067
 msgid "Card Body Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2656
+#: includes/functions/_customizer-settings.php:2683
 msgid "Card Column Gap Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2596
+#: includes/functions/_customizer-settings.php:2623
 msgid "Card Cover Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2716
+#: includes/functions/_customizer-settings.php:2743
 msgid "Card Font Size Grow Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2746
+#: includes/functions/_customizer-settings.php:2773
 msgid "Card Font Size Maximum Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2686
+#: includes/functions/_customizer-settings.php:2713
 msgid "Card Font Size Minimum Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2512
+#: includes/functions/_customizer-settings.php:2539
 msgid "Card Footer Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2456
+#: includes/functions/_customizer-settings.php:2483
 msgid "Card Frame"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2484
+#: includes/functions/_customizer-settings.php:2511
 msgid "Card Image Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3062
+#: includes/functions/_customizer-settings.php:3089
 msgid "Card List Link Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2626
+#: includes/functions/_customizer-settings.php:2653
 msgid "Card Row Gap Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2545
+#: includes/functions/_customizer-settings.php:2572
 msgid "Card Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3018
+#: includes/functions/_customizer-settings.php:3045
 msgid "Card Title Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2567
+#: includes/functions/_customizer-settings.php:2594
 msgid "Card Width"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2424
+#: includes/functions/_customizer-settings.php:2451
 msgid "Cards"
 msgstr ""
 
@@ -2997,7 +2997,7 @@ msgstr ""
 msgid "Change Default Cover"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3159
+#: includes/functions/_customizer-settings.php:3186
 msgid "Change Open Graph image"
 msgstr ""
 
@@ -3097,7 +3097,7 @@ msgstr ""
 msgid "Chapter Attributes"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2996
+#: includes/functions/_customizer-settings.php:3023
 msgid "Chapter Body Font"
 msgstr ""
 
@@ -3243,7 +3243,7 @@ msgctxt "Chapter list status prefix."
 msgid "Trashed:"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2974
+#: includes/functions/_customizer-settings.php:3001
 msgid "Chapter List Title Font"
 msgstr ""
 
@@ -3324,7 +3324,7 @@ msgctxt "Chapter text icon meta field label."
 msgid "Text Icon"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2952
+#: includes/functions/_customizer-settings.php:2979
 msgid "Chapter Title Font"
 msgstr ""
 
@@ -3429,21 +3429,27 @@ msgstr ""
 msgid "Choose a %s to browse"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2513
+#: includes/functions/_customizer-settings.php:2106
+msgid ""
+"Choose the collapsed style for your content lists. This also depends on your "
+"list style."
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2540
 msgid "Choose the footer style for your cards."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2457
+#: includes/functions/_customizer-settings.php:2484
 msgid ""
 "Choose the frame for your cards. Turn off the card shadow if borders get "
 "blurry."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2485
+#: includes/functions/_customizer-settings.php:2512
 msgid "Choose the image style for your cards. Can be overridden in shortcodes."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2546
+#: includes/functions/_customizer-settings.php:2573
 msgid "Choose the shadow for your cards."
 msgstr ""
 
@@ -3455,7 +3461,7 @@ msgstr ""
 msgid "Choose the style for your content lists."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2106
+#: includes/functions/_customizer-settings.php:2133
 msgid "Choose the style for your footer."
 msgstr ""
 
@@ -4074,7 +4080,11 @@ msgctxt "Contact form."
 msgid "You need to accept the privacy policy."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2396
+#: includes/functions/_customizer-settings.php:2105
+msgid "Content List Collapse Style"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2423
 msgid "Content List Gap"
 msgstr ""
 
@@ -4235,114 +4245,124 @@ msgid ""
 "custom post types. Can be slow."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2447
+#: includes/functions/_customizer-settings.php:2474
 msgctxt "Customizer card frame option."
 msgid "Battered"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2444
+#: includes/functions/_customizer-settings.php:2471
 msgctxt "Customizer card frame option."
 msgid "Border (2px)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2445
+#: includes/functions/_customizer-settings.php:2472
 msgctxt "Customizer card frame option."
 msgid "Border (3px)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2446
+#: includes/functions/_customizer-settings.php:2473
 msgctxt "Customizer card frame option."
 msgid "Chamfered"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2440
+#: includes/functions/_customizer-settings.php:2467
 msgctxt "Customizer card frame option."
 msgid "None (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2442
+#: includes/functions/_customizer-settings.php:2469
 msgctxt "Customizer card frame option."
 msgid "Stacked (Left)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2443
+#: includes/functions/_customizer-settings.php:2470
 msgctxt "Customizer card frame option."
 msgid "Stacked (Random)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2441
+#: includes/functions/_customizer-settings.php:2468
 msgctxt "Customizer card frame option."
 msgid "Stacked (Right)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2473
+#: includes/functions/_customizer-settings.php:2500
 msgctxt "Customizer card image option."
-msgid "Embedded (Default)"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2475
-msgctxt "Customizer card image option."
-msgid "None"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2474
-msgctxt "Customizer card image option."
-msgid "Seamless"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2530
-msgctxt "Customizer card shadow option."
-msgid "Border Shadow"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2529
-msgctxt "Customizer card shadow option."
-msgid "No Shadow"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2536
-msgctxt "Customizer card shadow option."
-msgid "Shadow Huge"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2535
-msgctxt "Customizer card shadow option."
-msgid "Shadow Large"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2534
-msgctxt "Customizer card shadow option."
-msgid "Shadow Medium (Default)"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2533
-msgctxt "Customizer card shadow option."
-msgid "Shadow Normal"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2532
-msgctxt "Customizer card shadow option."
-msgid "Shadow Small"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2531
-msgctxt "Customizer card shadow option."
-msgid "Shadow Thin"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2503
-msgctxt "Customizer card style option."
-msgid "Combined"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2501
-msgctxt "Customizer card style option."
 msgid "Embedded (Default)"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2502
+msgctxt "Customizer card image option."
+msgid "None"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2501
+msgctxt "Customizer card image option."
+msgid "Seamless"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2557
+msgctxt "Customizer card shadow option."
+msgid "Border Shadow"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2556
+msgctxt "Customizer card shadow option."
+msgid "No Shadow"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2563
+msgctxt "Customizer card shadow option."
+msgid "Shadow Huge"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2562
+msgctxt "Customizer card shadow option."
+msgid "Shadow Large"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2561
+msgctxt "Customizer card shadow option."
+msgid "Shadow Medium (Default)"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2560
+msgctxt "Customizer card shadow option."
+msgid "Shadow Normal"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2559
+msgctxt "Customizer card shadow option."
+msgid "Shadow Small"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2558
+msgctxt "Customizer card shadow option."
+msgid "Shadow Thin"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2530
+msgctxt "Customizer card style option."
+msgid "Combined"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2528
+msgctxt "Customizer card style option."
+msgid "Embedded (Default)"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2529
 msgctxt "Customizer card style option."
 msgid "Unfolded"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2095
+msgctxt "Customizer content group style option."
+msgid "Boxed (Default)"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2096
+msgctxt "Customizer content list group option."
+msgid "Edge"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2069
@@ -4365,22 +4385,22 @@ msgctxt "Customizer content list style option."
 msgid "Lines"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3087
+#: includes/functions/_customizer-settings.php:3114
 msgctxt "Customizer dark mode font weight option."
 msgid "Adjusted"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3088
+#: includes/functions/_customizer-settings.php:3115
 msgctxt "Customizer dark mode font weight option."
 msgid "Normal"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2095
+#: includes/functions/_customizer-settings.php:2122
 msgctxt "Customizer footer style option."
 msgid "Floating (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2096
+#: includes/functions/_customizer-settings.php:2123
 msgctxt "Customizer footer style option."
 msgid "Isolated"
 msgstr ""
@@ -4789,7 +4809,7 @@ msgstr ""
 msgid "Dark Mode Colors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3084
+#: includes/functions/_customizer-settings.php:3111
 msgid "Dark Mode Font Weight"
 msgstr ""
 
@@ -4942,7 +4962,7 @@ msgstr ""
 msgid "Decrease font size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2791
+#: includes/functions/_customizer-settings.php:2818
 msgid "Default"
 msgstr ""
 
@@ -5314,7 +5334,7 @@ msgstr ""
 msgid "Disabled \"%s\" font key. Currently disabled keys: %s."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2782
+#: includes/functions/_customizer-settings.php:2809
 #, php-format
 msgctxt "Disabled Customizer font option."
 msgid "%s — Disabled"
@@ -6452,14 +6472,14 @@ msgctxt "Font size name"
 msgid "Small"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2799
+#: includes/functions/_customizer-settings.php:2826
 #: includes/functions/settings/_settings.php:83
 #: includes/functions/settings/_settings.php:84
 #: includes/functions/settings/_settings.php:235
 msgid "Fonts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3085
+#: includes/functions/_customizer-settings.php:3112
 msgid ""
 "Fonts are rendered thinner in dark mode to offset text bleeding; you can "
 "turn that off."
@@ -6469,7 +6489,7 @@ msgstr ""
 msgid "Footer Menu"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2105
+#: includes/functions/_customizer-settings.php:2132
 msgid "Footer Style"
 msgstr ""
 
@@ -6681,7 +6701,7 @@ msgstr ""
 msgid "Header Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2864
+#: includes/functions/_customizer-settings.php:2891
 msgid "Heading Font"
 msgstr ""
 
@@ -6855,11 +6875,11 @@ msgid ""
 "Highest text color for contrast and hovers. Default contrast ~11:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2225
+#: includes/functions/_customizer-settings.php:2252
 msgid "Horizontal Spacing - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2199
+#: includes/functions/_customizer-settings.php:2226
 msgid "Horizontal Spacing - Minimum"
 msgstr ""
 
@@ -7170,7 +7190,7 @@ msgstr ""
 msgid "Landscape Image"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2306
+#: includes/functions/_customizer-settings.php:2333
 msgid "Large Border Radius"
 msgstr ""
 
@@ -7748,19 +7768,19 @@ msgid ""
 "header types limit further. Default 210."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2226
+#: includes/functions/_customizer-settings.php:2253
 msgid ""
 "Maximum of the horizontal spacing in pixels on [site-width] viewport. "
 "Default 80."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2278
+#: includes/functions/_customizer-settings.php:2305
 msgid ""
 "Maximum of the small horizontal spacing in pixels below 375px viewports. "
 "Default 20."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2174
+#: includes/functions/_customizer-settings.php:2201
 msgid ""
 "Maximum of the vertical spacing in pixels on [site-width] viewports. Default "
 "48."
@@ -7853,7 +7873,7 @@ msgstr ""
 msgid "Minimalist mode"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2568
+#: includes/functions/_customizer-settings.php:2595
 msgid ""
 "Minimum card width in pixels (still limited by space); affects card scale. "
 "Default 308."
@@ -7885,18 +7905,18 @@ msgid ""
 "types limit further. Default 210."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2200
+#: includes/functions/_customizer-settings.php:2227
 msgid ""
 "Minimum of the horizontal spacing in pixels on 480px viewports. Default 20."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2252
+#: includes/functions/_customizer-settings.php:2279
 msgid ""
 "Minimum of the small horizontal spacing in pixels on 320px viewports. "
 "Default 10."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2148
+#: includes/functions/_customizer-settings.php:2175
 msgid ""
 "Minimum of the vertical spacing in pixels on the smallest viewport. Default "
 "24."
@@ -7979,19 +7999,19 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2717
+#: includes/functions/_customizer-settings.php:2744
 msgid ""
 "Modifies the calculation of the dynamic card font sizes in fractions of "
 "pixels. Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2687
+#: includes/functions/_customizer-settings.php:2714
 msgid ""
 "Modifies the lower end of the dynamic card font sizes in fractions of pixels."
 " Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2747
+#: includes/functions/_customizer-settings.php:2774
 msgid ""
 "Modifies the upper end of the dynamic card font sizes in fractions of pixels."
 " Default 0."
@@ -8044,15 +8064,15 @@ msgstr ""
 msgid "Multiplier for displayed word counts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2597
+#: includes/functions/_customizer-settings.php:2624
 msgid "Multiplier for the card cover width. Default 1."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2657
+#: includes/functions/_customizer-settings.php:2684
 msgid "Multiplier for the grid column gap. Default 1."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2627
+#: includes/functions/_customizer-settings.php:2654
 msgid "Multiplier for the grid row gap. Default 1."
 msgstr ""
 
@@ -8086,7 +8106,7 @@ msgstr ""
 msgid "Navigation Bar"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2908
+#: includes/functions/_customizer-settings.php:2935
 msgid "Navigation Item Font"
 msgstr ""
 
@@ -8094,11 +8114,11 @@ msgstr ""
 msgid "Navigation Menu"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2368
+#: includes/functions/_customizer-settings.php:2395
 msgid "Nested Border Radius Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2369
+#: includes/functions/_customizer-settings.php:2396
 msgid ""
 "Nested border-radii can look bad if too large, which you can offset here. "
 "Default 1."
@@ -8435,7 +8455,7 @@ msgstr ""
 msgid "Open chapter formatting modal"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3147
+#: includes/functions/_customizer-settings.php:3174
 msgid "Open Graph Default Image"
 msgstr ""
 
@@ -9000,7 +9020,7 @@ msgstr ""
 msgid "Potential Issues"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2997
+#: includes/functions/_customizer-settings.php:3024
 msgid "Pre-selected font used in chapters. Defaults to primary font."
 msgstr ""
 
@@ -9071,7 +9091,7 @@ msgid ""
 "Primary faded text color for page content. Default contrast ~6:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2820
+#: includes/functions/_customizer-settings.php:2847
 msgid "Primary Font"
 msgstr ""
 
@@ -9395,7 +9415,7 @@ msgstr ""
 
 #: includes/functions/_customizer-settings.php:1434
 #: includes/functions/_customizer-settings.php:1464
-#: includes/functions/_customizer-settings.php:3158
+#: includes/functions/_customizer-settings.php:3185
 #: includes/functions/_module-seo.php:139
 msgid "Remove"
 msgstr ""
@@ -9869,7 +9889,7 @@ msgstr ""
 msgid "Search Stories"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2842
+#: includes/functions/_customizer-settings.php:2869
 msgid "Secondary Font"
 msgstr ""
 
@@ -9923,7 +9943,7 @@ msgstr ""
 msgid "Select Default Cover"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3157
+#: includes/functions/_customizer-settings.php:3184
 msgid "Select Open Graph image"
 msgstr ""
 
@@ -10455,7 +10475,7 @@ msgstr ""
 msgid "Site Title - Minimum Size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2886
+#: includes/functions/_customizer-settings.php:2913
 msgid "Site Title Font"
 msgstr ""
 
@@ -10492,7 +10512,7 @@ msgstr ""
 msgid "Slug of the role. Must not be changed."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2337
+#: includes/functions/_customizer-settings.php:2364
 msgid "Small Border Radius"
 msgstr ""
 
@@ -10535,11 +10555,11 @@ msgctxt "Small card: {n} Words."
 msgid "%1$s Words"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2277
+#: includes/functions/_customizer-settings.php:2304
 msgid "Small Horizontal Spacing - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2251
+#: includes/functions/_customizer-settings.php:2278
 msgid "Small Horizontal Spacing - Minimum"
 msgstr ""
 
@@ -11006,7 +11026,7 @@ msgstr ""
 msgid "Story tags duplicated as genres."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2930
+#: includes/functions/_customizer-settings.php:2957
 msgid "Story Title Font"
 msgstr ""
 
@@ -11145,7 +11165,7 @@ msgstr ""
 msgid "System email name"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2773
+#: includes/functions/_customizer-settings.php:2800
 msgid "System Font"
 msgstr ""
 
@@ -11398,7 +11418,7 @@ msgid ""
 "be aware that this is irreversible."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2397
+#: includes/functions/_customizer-settings.php:2424
 msgid ""
 "The gap between content list items in pixels (not grid view). Default 4."
 msgstr ""
@@ -12030,7 +12050,7 @@ msgstr ""
 msgid "Use custom dark mode colors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2127
+#: includes/functions/_customizer-settings.php:2154
 msgid "Use custom layout properties"
 msgstr ""
 
@@ -12094,7 +12114,7 @@ msgid ""
 "tag hovers, and secondary tag borders."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2821
+#: includes/functions/_customizer-settings.php:2848
 msgid ""
 "Used for most of the content and as default chapter font. Default \"Open "
 "Sans\"."
@@ -12131,7 +12151,7 @@ msgid ""
 "elements, and scroll bars."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2843
+#: includes/functions/_customizer-settings.php:2870
 msgid ""
 "Used for small cards, tags, alongside icons, and in meta rows. Default "
 "\"Lato\"."
@@ -12182,11 +12202,11 @@ msgid ""
 "and the default mobile menu."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3041
+#: includes/functions/_customizer-settings.php:3068
 msgid "Used for the card content. Defaults to secondary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3019
+#: includes/functions/_customizer-settings.php:3046
 msgid "Used for the card titles. Defaults to heading font."
 msgstr ""
 
@@ -12202,11 +12222,11 @@ msgid ""
 "banner."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2909
+#: includes/functions/_customizer-settings.php:2936
 msgid "Used for the items in the navigation bar. Defaults to primary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3063
+#: includes/functions/_customizer-settings.php:3090
 msgid "Used for the links in card lists. Defaults to secondary font."
 msgstr ""
 
@@ -12222,11 +12242,11 @@ msgid ""
 "subitem dividers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2887
+#: includes/functions/_customizer-settings.php:2914
 msgid "Used for the site title and tagline. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2865
+#: includes/functions/_customizer-settings.php:2892
 msgid ""
 "Used for the site title plus articles, chapters, and cards. Default \"Open "
 "Sans\"."
@@ -12240,15 +12260,15 @@ msgstr ""
 msgid "Used for the site."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2953
+#: includes/functions/_customizer-settings.php:2980
 msgid "Used for the title on chapter pages. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2931
+#: includes/functions/_customizer-settings.php:2958
 msgid "Used for the title on story pages. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2975
+#: includes/functions/_customizer-settings.php:3002
 msgid "Used for the title row in chapter lists. Defaults to primary font."
 msgstr ""
 
@@ -12260,7 +12280,7 @@ msgstr ""
 msgid "Used in light mode if no header image has been selected. Default none."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3148
+#: includes/functions/_customizer-settings.php:3175
 msgid ""
 "Used in rich snippets. Don’t forget to purge all SEO schemas after updating."
 msgstr ""
@@ -12327,11 +12347,11 @@ msgstr ""
 msgid "Version (Total)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2173
+#: includes/functions/_customizer-settings.php:2200
 msgid "Vertical Spacing - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2147
+#: includes/functions/_customizer-settings.php:2174
 msgid "Vertical Spacing - Minimum"
 msgstr ""
 

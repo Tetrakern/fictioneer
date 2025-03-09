@@ -2081,6 +2081,33 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Content list collapse style
+  $manager->add_setting(
+    'content_list_collapse_style',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => apply_filters( 'fictioneer_filter_customizer_content_list_collapse_default', 'default' )
+    )
+  );
+
+  $collapse_styles = array(
+    'default' => _x( 'Boxed (Default)', 'Customizer content group style option.', 'fictioneer' ),
+    'edge' => _x( 'Edge', 'Customizer content list group option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'content_list_collapse_style',
+    array(
+      'type' => 'select',
+      'priority' => 41,
+      'section' => 'layout',
+      'label' => __( 'Content List Collapse Style', 'fictioneer' ),
+      'description' => __( 'Choose the collapsed style for your content lists. This also depends on your list style.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_content_list_collapse_style', $collapse_styles )
+    )
+  );
+
   // Footer style
   $manager->add_setting(
     'footer_style',

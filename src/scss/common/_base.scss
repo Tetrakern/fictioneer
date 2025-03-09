@@ -631,13 +631,22 @@ html:not(.logged-in) body:not(.logged-in) {
       transform: translateY(4px) rotate(-90deg);
     }
 
+    .chapter-group__name {
+      &::after {
+        opacity: 1;
+      }
+    }
+
     .chapter-group__list {
       pointer-events: none;
-      height: 8px !important; // Override element style set by JS
+      height: 0 !important; // Override element style set by JS
+      opacity: 0;
     }
   }
 
   &__name {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: flex-start;
     gap: 12px;
@@ -646,9 +655,23 @@ html:not(.logged-in) body:not(.logged-in) {
     font-size: var(--fs-dxs);
     font-weight: var(--font-weight-semi-strong);
     letter-spacing: calc(0.02em + var(--font-letter-spacing-base));
-    padding: 0 6px;
-    margin-bottom: 12px;
-    width: fit-content;
+    padding: 16px 6px;
+    width: 100%;
+
+    &::after {
+      pointer-events: none;
+      content: var(--chapter-group-background-after, '');
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: block;
+      background: var(--chapter-group-background, var(--content-li-background));
+      border-radius: var(--layout-border-radius-small);
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: transform var(--transition-duration), opacity var(--transition-duration);
+    }
 
     :is(i, .icon) {
       transition-duration: var(--transition-duration);
@@ -664,7 +687,8 @@ html:not(.logged-in) body:not(.logged-in) {
     font-size: var(--fs-xs);
     padding: 4px; // Space for small shadows due to overflow: hidden
     margin: -4px; // Space for small shadows due to overflow: hidden
-    transition: height var(--transition-duration);
+    // transition-duration: var(--transition-duration);
+    transition: height var(--transition-duration), opacity var(--transition-duration);
     overflow: hidden;
 
     &-item {

@@ -555,6 +555,7 @@ function fictioneer_build_customize_css( $context = null ) {
   $header_image_style = get_theme_mod( 'header_image_style', 'default' );
   $header_style = get_theme_mod( 'header_style', 'default' );
   $content_list_style = get_theme_mod( 'content_list_style', 'default' );
+  $content_list_collapse = get_theme_mod( 'content_list_collapse_style', 'default' );
   $page_style = get_theme_mod( 'page_style', 'default' );
   $card_style = get_theme_mod( 'card_style', 'default' );
   $card_frame = get_theme_mod( 'card_frame', 'default' );
@@ -725,6 +726,7 @@ function fictioneer_build_customize_css( $context = null ) {
     --recommendation-cover-box-shadow: {$story_cover_box_shadow};
     --floating-cover-image-width: " . fictioneer_get_css_clamp( 56, 200 + $story_cover_width_offset, 320, 768 ) . ";
     --in-content-cover-image-width: " . fictioneer_get_css_clamp( 100, 200 + $story_cover_width_offset, 375, 768 ) . ";
+    --chapter-group-background-after: " . ( $content_list_collapse === 'edge' ? 'none' : "''" ) . ";
   }";
 
   if ( $card_box_shadow === 'none' ) {
@@ -1029,6 +1031,12 @@ function fictioneer_build_customize_css( $context = null ) {
 
   if ( $content_list_style === 'lines' ) {
     $css .= fictioneer_get_customizer_css_snippet( 'content-list-style-lines' );
+  }
+
+  // --- Content list collapse style -------------------------------------------
+
+  if ( $content_list_collapse === 'edge' ) {
+    $css .= ".chapter-group._closed .chapter-group__list{opacity:1;}.chapter-group__name{padding:12px 6px;}";
   }
 
   // --- Footer style ----------------------------------------------------------
