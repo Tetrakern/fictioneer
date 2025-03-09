@@ -106,7 +106,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
           <p class="profile__input-note">
             <?php
               printf(
-                __( 'Update to <strong>%1$s</strong> pending. Please check your previous email address to confirm. <a href="%2$s">Cancel.</a>', 'fictioneer' ),
+                __( 'Update to <strong>%1$s</strong> pending. Please check your new email address to confirm. <a href="%2$s">Cancel.</a>', 'fictioneer' ),
                 $new_email['newemail'],
                 esc_url( $email_change_cancel_url )
               );
