@@ -2092,8 +2092,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   );
 
   $collapse_styles = array(
-    'default' => _x( 'Boxed (Default)', 'Customizer content group style option.', 'fictioneer' ),
-    'edge' => _x( 'Edge', 'Customizer content list group option.', 'fictioneer' )
+    'default' => _x( 'Boxed/Large (Default)', 'Customizer content group style option.', 'fictioneer' ),
+    'edge' => _x( 'Edge/Narrow', 'Customizer content list group option.', 'fictioneer' )
   );
 
   $manager->add_control(

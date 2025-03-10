@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-09 21:32+0000\n"
+"POT-Creation-Date: 2025-03-10 08:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -4357,12 +4357,12 @@ msgstr ""
 
 #: includes/functions/_customizer-settings.php:2095
 msgctxt "Customizer content group style option."
-msgid "Boxed (Default)"
+msgid "Boxed/Large (Default)"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2096
 msgctxt "Customizer content list group option."
-msgid "Edge"
+msgid "Edge/Narrow"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2069
