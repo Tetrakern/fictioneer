@@ -664,6 +664,7 @@ html:not(.logged-in) body:not(.logged-in) {
       position: absolute;
       bottom: 0;
       left: 0;
+      z-index: -1;
       display: block;
       background: var(--chapter-group-background, var(--content-li-background));
       border-radius: var(--layout-border-radius-small);
