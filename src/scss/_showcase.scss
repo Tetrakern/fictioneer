@@ -88,7 +88,7 @@
     display: block;
     background: var(--caption-overlay-background);
     color: var(--caption-overlay-color);
-    font: 400 var(--fs-dxs)/1.2 var(--ff-heading);
+    font: 400 var(--fs-dxs)/1.2 var(--caption-overlay-font, var(--ff-heading));
     letter-spacing: 0;
     text-align: center;
     white-space: nowrap;
