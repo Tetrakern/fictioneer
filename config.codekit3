@@ -7,7 +7,7 @@
       "uuidString" : "8FBBED4B-FAF6-4EE5-AC20-B162062715B3"
     }
   ],
-  "creatorBuild" : "34680",
+  "creatorBuild" : "34689",
   "files" : {
     "\/.gitattributes" : {
       "cB" : 0,
@@ -4229,8 +4229,6 @@
     "buildFolderActive" : 0,
     "buildFolderName" : "build",
     "cleanBuild" : 1,
-    "cssoForceMediaMerge" : 0,
-    "cssoRestructure" : 1,
     "environmentVariableEntries" : [
       "NODE_ENV:::production"
     ],
