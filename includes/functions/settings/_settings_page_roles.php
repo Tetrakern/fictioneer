@@ -48,7 +48,8 @@ $restrictions = array(
   'fcn_only_moderate_comments',
   'fcn_upload_limit',
   'fcn_upload_restrictions',
-  'fcn_classic_editor'
+  'fcn_classic_editor',
+  'fcn_no_filters'
 );
 
 $advanced_caps = array(

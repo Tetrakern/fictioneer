@@ -667,11 +667,12 @@ List page template hook. Fires right at the top of an empty result list in the `
 
 ---
 
-### `do_action( 'fictioneer_expired_post_password', $post )`
+### `do_action( 'fictioneer_expired_post_password', $post, $expiration_datetime )`
 Fires after a post password has been expired, which happens when a visitor tries to access the post.
 
 **Parameters:**
 * $post (WP_Post) – The post that had its password expired.
+* $expiration_datetime (string) – The datetime of the expiration (GMT).
 
 ---
 
@@ -1251,7 +1252,7 @@ Fires right after the `<article>` container in the `single-fcn_story.php` templa
 ---
 
 ### `do_action( 'fictioneer_story_after_content', $args )`
-Fires right after the content section in the `single-fcn_story.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, content warnings, row with social media and action buttons, and finally a tabbed section with the chapters, related blog posts (by category), and custom pages.
+Fires right after the content section in the `single-fcn_story.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, content warnings, row with social media and action buttons, and finally a tabbed section with the chapters, filters, related blog posts (by category), and custom pages.
 
 **Note:** Some actions are added conditionally in the `wp` action hook (priority 10).
 
@@ -1265,6 +1266,7 @@ Fires right after the content section in the `single-fcn_story.php` template, in
 * `fictioneer_story_tags_and_warnings( $args )` – Tags and content warnings. Priority 20.
 * `fictioneer_story_actions( $args )` – Row with story actions. Priority 30.
 * `fictioneer_story_tabs( $args )` – Tabs for the chapters, blog, and custom pages. Priority 40.
+* `fictioneer_story_filter_reel( $args )` – Filter items. Priority 41.
 * `fictioneer_story_scheduled_chapter( $args )` – Scheduled chapter note. Priority 41.
 * `fictioneer_story_pages( $args )` – Custom story pages. Priority 42.
 * `fictioneer_story_chapters( $args )` – Chapter list. Priority 43.

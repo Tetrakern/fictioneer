@@ -276,7 +276,7 @@ The layout will adjust itself if certain fields are left empty, such as the cove
 
 ![Story Chapter List](repo/assets/story_explanation_2.jpg?raw=true)
 
-The share, feed, and action buttons are displayed depending on your theme settings. The Blog tab lists 160 characters long excerpts of the latest posts associated with the story via category. Up to four custom pages can be added as extra tabs, with any content, which requires them to have the short name field. Chapters assigned to the story can be added and sorted in the editor, but chapter groups and icons are assigned in the chapters.
+The share, feed, and action buttons are displayed depending on your theme settings. The Blog tab lists 160 characters long excerpts of the latest posts associated with the story (via category or assignment). Up to four custom pages can be added as extra tabs, with any content, which requires them to have the short name field. Chapters assigned to the story can be added and sorted in the editor, but chapter groups and icons are assigned in the chapters.
 
 **Subscribe:** Opens a popup menu with links to any support campaigns (Patreon, Ko-fi, and SubscribeStar) as well as the RSS aggregator services [Feedly](https://feedly.com/) and [Inoreader](https://www.inoreader.com/). There is no default email subscription system.
 
@@ -337,6 +337,12 @@ A manually uploaded eBook will always supersede an automatically generated ePUB 
 > This is a work of fan fiction and not written for profit. Names, characters, businesses, events and incidents are the products of the author’s imagination. Any resemblance to actual persons, living or dead, or actual events is purely coincidental. Any trademarked characters and elements used belong to their respective copyright holders, who bear no responsibility for this work.
 >
 > Original Content Copyright &#169; `AUTHOR`. All rights reserved.
+
+### Chapter List Filters
+
+If the feature is enabled, you can add filters as a image reel above the chapter list. These filters have an image, label, and multiple criteria, separated by commas (use a backslash `\` to escape commas if needed). Criteria can be verbatim chapter group names (will be converted to group keys) or post IDs prefixed with `#` (like `#123`). Use this feature to showcase covers for individual volumes, highlight story arcs, or filter specific chapters, such as interludes or points of view.
+
+![Filters](repo/assets/filter_reel_interface.png?raw=true)
 
 ## Chapters
 
@@ -542,6 +548,7 @@ These fields and options are available in most post types, which does not mean t
 | Expire Post Password | Date | Choose a date and time to automatically remove the post password (set your time zone).
 | Chapters inherit Patreon settings | Check | Chapters inherit any tiers/cents set for the story.
 | Disable new comments | Check | Disable new comments but keep the current ones visible.
+| Chapters inherit Patreon settings | Check | Chapters inherit the amount/tier settings from their story.
 | Disable page padding | Check | Removes the page padding, which may be useful for page builders.
 | Disable sidebar | Check | Disable the sidebar on this post or page (if any).
 

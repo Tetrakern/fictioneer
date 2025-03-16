@@ -1089,6 +1089,42 @@ Filters the URL to the FFCNR entry script.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_filter_reel_splide', $splide, $filters, $args )`
+Filters the configuration array for the story chapter list filter reel Splide slider.
+
+**Parameters:**
+* $splide (array) – Slider configuration.
+  * 'type' (string) – `'splide'`
+  * 'gap' (string) – `'1rem'`
+  * 'arrows' (boolean) – `false`
+  * 'fixedWidth' (int|string) – `'7.25rem'`
+  * 'clones' (int) – `0`
+  * 'autoplay' (boolean) – `false`
+  * 'pagination' (boolean) – `true`
+  * 'perPage' (int) – `2`
+  * 'mediaQuery' (string) – `'min'`
+  * 'breakpoints' (array) – Breakpoint options.
+    * '400' (array) – Breakpoint.
+      * 'perPage' (int) – `3`
+    * '550' (array) – Breakpoint.
+      * 'perPage' (int) – `4`
+    * '768' (array) – Breakpoint.
+      * 'perPage' (int) – `5`
+    * '1024' (array) – Breakpoint.
+      * 'perPage' (int) – `6`
+* $filters (array) – Numerical array of associative arrays with filter data.
+  * \[n\] (array) – Filter item in order of appearance.
+    * 'label' (string|null) – Filter label.
+    * 'image_id' (int|null) – Filter image ID.
+    * 'groups' (string[]|null) – Chapter group keys to filter for.
+    * 'ids' (int[]|null) – Chapter post IDs to filter for.
+* $args (array) – Additional arguments
+  * 'story_data' (array) – Collection of story data.
+  * 'story_id' (int) – Story post ID.
+  * 'password_required' (boolean|null) – Optional. Whether the story has a password.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_fonts', $fonts )`
 Filters the return array of the `fictioneer_get_fonts()` function, used to set up the chapter font options.
 

@@ -40,6 +40,12 @@ defined( 'ABSPATH' ) OR exit;
         <input type="checkbox" id="site-setting-chapter-progress-bar" checked>
         <label for="site-setting-chapter-progress-bar" class="modal__setting-toggle"><?php _e( 'Chapter progress bar', 'fictioneer' ); ?></label>
       </div>
+      <?php if ( get_option( 'fictioneer_enable_story_filter_reel' ) ) : ?>
+        <div class="site-settings__filters modal__horizontal-input-group _with-checkbox">
+          <input type="checkbox" id="site-setting-filters" checked>
+          <label for="site-setting-filters" class="modal__setting-toggle"><?php _e( 'Chapter list filters', 'fictioneer' ); ?></label>
+        </div>
+      <?php endif; ?>
       <div class="site-settings__covers modal__horizontal-input-group _with-checkbox">
         <input type="checkbox" id="site-setting-covers" checked>
         <label for="site-setting-covers" class="modal__setting-toggle"><?php _e( 'Cover images (chapters and stories)', 'fictioneer' ); ?></label>

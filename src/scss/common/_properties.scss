@@ -319,6 +319,15 @@
   --tab-color-active: var(--fg-inverted);
   --tab-text-shadow: 0 0 1px rgb(0 0 0 / 70%);
 
+  // === COVER CAROUSEL ========================================================
+
+  --filter-reel-background: hsl(var(--bg-950-free) / 16%);
+  --filter-reel-background-active: var(--bg-100);
+  --filter-reel-color: var(--fg-600);
+  --filter-reel-color-hover: var(--fg-500);
+  --filter-reel-color-active: var(--fg-inverted);
+  --filter-reel-text-shadow: 0 0 1px rgb(0 0 0 / 70%);
+
   // === PAGINATION ============================================================
 
   --pagination-background: var(--bg-500);

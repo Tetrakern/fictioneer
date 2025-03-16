@@ -384,7 +384,7 @@ function fictioneer_expire_post_password( $required, $post ) {
       fictioneer_refresh_post_caches( $post->ID );
       wp_update_post( array( 'ID' => $post->ID, 'post_password' => '' ) );
 
-      do_action( 'fictioneer_expired_post_password', $post );
+      do_action( 'fictioneer_expired_post_password', $post, $password_expiration_date_utc );
 
       $required = false;
     }

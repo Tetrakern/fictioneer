@@ -1283,6 +1283,7 @@ const /** @const {String[]} */ fcn_settingEvents = [
   'background-textures',
   'polygons',
   'covers',
+  'filters',
   'taxonomies',
   'text-shadows',
   'minimal',

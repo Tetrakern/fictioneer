@@ -939,6 +939,210 @@ td.fictioneer_patreon_lock_amount {
   }
 }
 
+.filter-reel {
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+
+    &:not(:empty) {
+      margin-bottom: 12px;
+    }
+  }
+
+  &__add {
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    background: transparent;
+    border: 1px dashed #dcdcde;
+    height: 40px;
+    width: 100%;
+    transition: background .15s;
+
+    .dashicons {
+      font-size: 24px;
+      line-height: 1;
+      height: 20px;
+      width: 24px;
+      opacity: .25;
+      transition: opacity .15s;
+    }
+
+    &:hover {
+      background: #f0f0f0;
+
+      .dashicons {
+        opacity: .35;
+      }
+    }
+  }
+
+  p {
+    margin-bottom: 32px;
+  }
+}
+
+.filter-reel-item {
+  position: relative;
+  display: grid;
+  align-items: stretch;
+  justify-items: stretch;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 64px 1fr;
+  grid-template-areas:
+    'b b'
+    'a c';
+  gap: 10px;
+  background: #f0f0f0;
+  padding: 10px 10px 10px 20px;
+  margin: 0;
+  border: 1px solid #dcdcde;
+
+  @include bp(480px) {
+    grid-template-columns: 80px 1fr;
+    grid-template-areas:
+      'a b'
+      'a c';
+  }
+
+  &::before {
+    content: '\f523';
+    cursor: move;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-content: center;
+    font-family: dashicons;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0 3px;
+    height: 100%;
+    opacity: .25;
+  }
+
+  &:not(._deleted) {
+    :is(.filter-reel-item__restore, .dashicons-trash) {
+      display: none;
+    }
+  }
+
+  &._deleted {
+    opacity: .4;
+
+    .dashicons-no-alt {
+      display: none;
+    }
+
+    :is(input, textarea, .filter-reel-item__image) {
+      pointer-events: none;
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+    position: relative;
+    grid-area: a;
+    background: var(--fcn-bg-primary);
+    border-radius: 2px;
+    overflow: hidden;
+
+    img {
+      display: block;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+    }
+
+    img[src=""] + .filter-reel-item__remove-image {
+      display: none;
+    }
+
+    &:not(:hover) button {
+      opacity: 0;
+    }
+  }
+
+  &__remove-image:is(button) {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    background: #ffffffbf;
+    font-size: 12px;
+    line-height: 1;
+    overflow-wrap: break-word;
+    padding: 8px 0;
+    border: none;
+    backdrop-filter: blur(16px) saturate(180%);
+    transition: opacity 0.15s;
+
+    &:hover {
+      color: var(--wp-admin-theme-color);
+    }
+  }
+
+  &__label {
+    grid-area: b;
+    display: flex;
+    gap: 8px;
+  }
+
+  &__delete:is(button) {
+    &:hover {
+      background: #cc1818;
+      color: white;
+      border-color: #cc1818;
+    }
+  }
+
+  &__restore:is(button) {
+    &:hover {
+      background: #1e1e1e;
+      color: white;
+      border-color: #1e1e1e;
+    }
+  }
+
+  &__filters {
+    grid-area: c;
+
+    textarea {
+      height: 100%;
+      resize: none;
+    }
+  }
+
+  .dashicons {
+    font-size: 18px;
+    height: 1em;
+    width: 1em;
+    transition: none;
+  }
+
+  :where(button) {
+    cursor: pointer;
+    appearance: none;
+    flex: 0 0 auto;
+    display: grid;
+    place-content: center;
+    background: none;
+    padding: 0 6px;
+    border: 1px solid #dcdcde;
+    border-radius: 2px;
+  }
+
+  :is(input, textarea) {
+    font-size: 13px;
+
+    &:not(:focus, :active) {
+      border-color: #dcdcde;
+    }
+  }
+}
+
 // =============================================================================
 // FICTIONEER SEO METABOX
 // =============================================================================

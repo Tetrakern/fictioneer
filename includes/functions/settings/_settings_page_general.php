@@ -338,6 +338,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_story_filter_reel',
+                    __( 'Enable story chapter list filters', 'fictioneer' ),
+                    __( 'Custom filters with image for groups and/or post IDs.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_generate_footnotes_from_tooltips',
                     __( 'Enable footnotes from tooltips', 'fictioneer' ),
                     __( 'Generate and show footnotes at the end of the post content based on the tooltips.', 'fictioneer' ),
@@ -580,69 +590,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
               <div class="fictioneer-card__row">
                 <p><?php _e( '<strong>Note:</strong> Some of these pages are highly dynamic, such as the account and bookshelf templates. The former must never be cached. The latter can be cached if you apply the AJAX template. Private caching (e.g. one per user) would work for both if you have the disk space.', 'fictioneer' ); ?></p>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="fictioneer-card">
-          <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
-            <div class="fictioneer-card__content">
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_facebook_share',
-                    __( 'Disable Facebook share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_bluesky_share',
-                    __( 'Disable Bluesky share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_twitter_share',
-                    __( 'Disable Twitter share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_tumblr_share',
-                    __( 'Disable Tumblr share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_reddit_share',
-                    __( 'Disable Reddit share button', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_mastodon_share',
-                    __( 'Disable Mastodon share button', 'fictioneer' )
-                  );
-                ?>
               </div>
 
             </div>
@@ -1168,6 +1115,69 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     'fictioneer_comments_notice',
                     __( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ),
                     '152px'
+                  );
+                ?>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Social Media' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_facebook_share',
+                    __( 'Disable Facebook share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_bluesky_share',
+                    __( 'Disable Bluesky share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_twitter_share',
+                    __( 'Disable Twitter share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_tumblr_share',
+                    __( 'Disable Tumblr share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_reddit_share',
+                    __( 'Disable Reddit share button', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_mastodon_share',
+                    __( 'Disable Mastodon share button', 'fictioneer' )
                   );
                 ?>
               </div>

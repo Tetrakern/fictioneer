@@ -4,7 +4,7 @@
 
 application.register('fictioneer-story', class extends Stimulus.Controller {
   static get targets() {
-    return ['tab', 'tabContent', 'commentsPlaceholder', 'commentsWrapper', 'commentsList']
+    return ['tabSection', 'tab', 'tabContent', 'commentsPlaceholder', 'commentsWrapper', 'commentsList', 'chapterGroup', 'filterReel', 'filterItem']
   }
 
   static values = {
@@ -13,10 +13,28 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
 
   commentPage = 1;
 
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.27.0
+   */
+
   connect() {
     window.FictioneerApp.Controllers.fictioneerStory = this;
     this.#applySettings();
+
+    if (this.hasFilterReelTarget) {
+      if (typeof Splide !== 'undefined') {
+        new Splide(this.filterReelTarget).mount();
+      }
+    }
   }
+
+  /**
+   * Toggle order of chapter list between desc/asc.
+   *
+   * @since 5.27.0
+   */
 
   toggleChapterOrder() {
     const settings = this.#getSettings();
@@ -27,6 +45,12 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
     this.#applySettings();
   }
 
+  /**
+   * Toggle view style of chapter list between list and grid.
+   *
+   * @since 5.27.0
+   */
+
   toggleChapterView() {
     const settings = this.#getSettings();
 
@@ -36,13 +60,28 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
     this.#applySettings();
   }
 
-  unfoldChapters(event) {
-    const group = event.currentTarget.closest('.chapter-group[data-folded]');
+  /**
+   * Unfold chapter list.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - The trigger element.
+   */
+
+  unfoldChapters({currentTarget}) {
+    const group = currentTarget.closest('.chapter-group[data-folded]');
 
     if (group) {
       group.dataset.folded = group.dataset.folded == 'true' ? 'false' : 'true';
     }
   }
+
+  /**
+   * Toggle between story tabs.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   */
 
   toggleTab(event) {
     const newTab = event.currentTarget;
@@ -59,8 +98,48 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
       }
     });
 
+    this.tabSectionTarget.dataset.current = event.params.tabName;
+
+    this.filterReelTarget.classList.toggle('hidden', event.params.tabName !== 'chapters');
+
     newTab.classList.add('_current');
   }
+
+  /**
+   * Select or unselect a filter item.
+   *
+   * @since 5.29.0
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - The trigger element.
+   * @param {Object} params - Additional parameters.
+   * @param {string} params.groups - Comma-separated string of chapter group keys.
+   * @param {number} params.ids - Comma-separated string of post IDs.
+   */
+
+  selectFilter({currentTarget, params: {groups, ids}}) {
+    const clickedItem = currentTarget.closest('[data-fictioneer-story-target="filterItem"]');
+
+    if (!this.hasFilterItemTarget || !this.hasChapterGroupTarget) {
+      return;
+    }
+
+    this.filterItemTargets.forEach(item => {
+      if (item != clickedItem) {
+        item.classList.remove('selected');
+      }
+    });
+
+    clickedItem.classList.toggle('selected');
+
+    this.#filterChapters(clickedItem, groups ? groups.split(',') : [], ids ? `${ids}`.split(',') : []);
+  }
+
+  /**
+   * Load next batch of story comments.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   */
 
   loadComments(event) {
     if (!this.hasIdValue || !this.hasCommentsListTarget) {
@@ -99,6 +178,13 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
     });
   }
 
+  /**
+   * Start download of ePUB.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   */
+
   startEpubDownload(event) {
     event.preventDefault();
     this.#downloadEpub(event.currentTarget, 0)
@@ -107,6 +193,83 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
   // =====================
   // ====== PRIVATE ======
   // =====================
+
+  /**
+   * Filter chapter lists by groups and post IDs.
+   *
+   * @since 5.29.0
+   * @param {HTMLElement} item - The clicked filter item.
+   * @param {string[]} [groupKeys=[]] - Array of group keys.
+   * @param {number[]} [postIds=[]] - Array of post IDs.
+   */
+
+  #filterChapters(item, groupKeys = [], postIds = []) {
+    const chapterListItems = _$$('.chapter-group__list-item');
+
+    // Reset filters
+    if (!item.classList.contains('selected')) {
+      this.chapterGroupTargets.forEach(element => element.classList.remove('filtered-in', 'filtered-out'));
+      chapterListItems.forEach(element => element.classList.remove('filtered-in', 'filtered-out'));
+      return;
+    }
+
+    // Filter
+    this.chapterGroupTargets.forEach(element => element.classList.add('filtered-out'));
+    this.chapterGroupTargets.forEach(element => element.classList.remove('filtered-in'));
+
+    if (postIds.length < 1) {
+      chapterListItems.forEach(element => element.classList.remove('filtered-in', 'filtered-out'));
+    } else {
+      chapterListItems.forEach(element => element.classList.add('filtered-out'));
+      chapterListItems.forEach(element => element.classList.remove('filtered-in'));
+    }
+
+    groupKeys.forEach(group_key => {
+      const element = _$$$(`chapter-group-${group_key}`);
+
+      if (element) {
+        element.classList.remove('filtered-out');
+        element.classList.add('filtered-in');
+
+        if (postIds.length > 0) {
+          element.querySelectorAll('.filtered-out').forEach(element => element.classList.remove('filtered-out'));
+        }
+
+        if (element.classList.contains('_closed')) {
+          fcn().toggleChapterGroup({currentTarget: element});
+        }
+      }
+    });
+
+    if (postIds.length > 0) {
+      postIds.forEach(id => {
+        const item = _$(`[data-post-id="${id}"]`);
+
+        if (!item) {
+          return;
+        }
+
+        if (groupKeys.includes(item.dataset.group)) {
+          // Whole group is already filtered in
+          return;
+        }
+
+        item.classList.add('filtered-in');
+        item.classList.remove('filtered-out');
+
+        const group = item.closest('.chapter-group');
+
+        if (group && !group.classList.contains('filtered-in')) {
+          group.classList.add('filtered-in');
+          group.classList.remove('filtered-out');
+
+          if (group.classList.contains('_closed')) {
+            fcn().toggleChapterGroup({currentTarget: group});
+          }
+        }
+      });
+    }
+  }
 
   /**
    * Get story settings JSON from local storage or create new one.

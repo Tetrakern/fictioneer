@@ -272,6 +272,117 @@ function fictioneer_story_actions( $args ) {
 add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
 
 // =============================================================================
+// STORY COVER CAROUSEL ROW
+// =============================================================================
+
+/**
+ * Output the HTML for the story filter reel row.
+ *
+ * Note: Added conditionally in the `wp` action hook (priority 10).
+ *
+ * @since 5.29.0
+ *
+ * @param array      $args['story_data']         Collection of story data.
+ * @param int        $args['story_id']           The story post ID.
+ * @param bool|null  $args['password_required']  Whether the post is unlocked or not.
+ */
+
+function fictioneer_story_filter_reel( $args ) {
+  // Abort conditions...
+  if ( $args['password_required'] ?? post_password_required() ) {
+    return;
+  }
+
+  // Setup
+  $filters = get_post_meta( $args['story_id'], 'fictioneer_story_filters', true ) ?: [];
+
+  if ( ! is_array( $filters ) ) {
+    $filters = [];
+  }
+
+  $image_ids = array_filter( array_column( $filters, 'image_id' ) );
+
+  if ( ! empty( $image_ids ) ) {
+    new WP_Query(
+      array(
+        'post_type' => 'attachment', // Query all attachments at once to prepare cache
+        'post_status' => 'inherit',
+        'post__in' => $image_ids, // Must not be empty!
+        'posts_per_page' => -1,
+        'ignore_sticky_posts' => true,
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
+      )
+    );
+  }
+
+  $splide = array(
+    'type' => 'slide',
+    'gap' => '1rem',
+    'arrows' => false,
+    'fixedWidth' => '7.25rem',
+    'clones' => 0,
+    'autoplay' => false,
+    'pagination' => true,
+    'perPage' => 2,
+    'mediaQuery' => 'min',
+    'breakpoints' => array(
+      '400' => array(
+        'perPage' => 3
+      ),
+      '550' => array(
+        'perPage' => 4
+      ),
+      '768' => array(
+        'perPage' => 5
+      ),
+      '1024' => array(
+        'perPage' => 6
+      )
+    )
+  );
+
+  $splide = apply_filters( 'fictioneer_filter_filter_reel_splide', $splide, $filters, $args );
+
+  // HTML
+  echo '<section class="story__filter-reel splide" data-fictioneer-story-target="filterReel" data-splide="' . esc_attr( json_encode( $splide ) ) . '"><button type="button" class="story__filter-reel-toggle" data-fictioneer-story-target="filterToggle"></button><div class="story__filter-reel-wrapper splide__track"><ul class="story__filter-reel-list splide__list">';
+
+  foreach ( $filters as $filter ) {
+    $image_id = ( $filter['image_id'] ?? 0 ) ?: get_theme_mod( 'default_story_cover', 0 );
+    $label = $filter['label'] ?? '';
+
+    if ( $image_id ) {
+      printf(
+        '<div class="story__filter-reel-item %s splide__slide" data-fictioneer-story-target="filterItem">%s%s<a href="%s" class="story__filter-reel-item-button _lightbox" %s>%s</a>%s</div>',
+        $label ? '' : '_no-label',
+        wp_get_attachment_image(
+          $image_id,
+          'snippet',
+          false,
+          array( 'class' => 'story__filter-reel-item-img' )
+        ),
+        $label ? '<div class="story__filter-reel-item-label"><span class="truncate _2-2">' . $label .'</span></div>' : '',
+        wp_get_attachment_image_url( $image_id, 'full' ),
+        get_option( 'fictioneer_enable_lightbox' ) ? 'data-lightbox' : 'target="_blank"',
+        '<i class="fa-solid fa-magnifying-glass-plus icon"></i>',
+        ( empty( $filter['groups'] ) && empty( $filter['ids'] ) ) ? '' :
+          sprintf(
+            '<button type="button" class="story__filter-reel-item-button _filter" data-action="click->fictioneer-story#selectFilter" data-fictioneer-story-groups-param="%s" data-fictioneer-story-ids-param="%s"></button>',
+            implode( ',', $filter['groups'] ),
+            implode( ',', $filter['ids'] )
+          )
+      );
+    }
+  }
+
+  echo '</ul></div></section>';
+}
+
+if ( get_option( 'fictioneer_enable_story_filter_reel' ) ) {
+  add_action( 'fictioneer_story_after_content', 'fictioneer_story_filter_reel', 41 );
+}
+
+// =============================================================================
 // STORY TABS
 // =============================================================================
 
@@ -309,7 +420,7 @@ function fictioneer_story_tabs( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section id="tabs-<?php echo $story_id; ?>" class="story__tabs tabs-wrapper" data-current="chapters" data-order="asc" data-view="list">
+  <section id="tabs-<?php echo $story_id; ?>" class="story__tabs tabs-wrapper" data-fictioneer-story-target="tabSection" data-current="chapters" data-order="asc" data-view="list">
 
     <div class="tabs">
       <button class="tabs__item _current" data-fictioneer-story-target="tab" data-fictioneer-story-tab-name-param="chapters" data-action="click->fictioneer-story#toggleTab" data-target="chapters" tabindex="0"><?php
@@ -571,7 +682,7 @@ function fictioneer_story_chapters( $args ) {
           $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
 
           // Start HTML ---> ?>
-          <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', array_merge( $group_classes, $group['classes'] ?? [] ) ); ?>" data-folded="true">
+          <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', array_merge( $group_classes, $group['classes'] ?? [] ) ); ?>" data-folded="true" data-fictioneer-story-target="chapterGroup">
 
             <?php if ( $has_groups ) : ?>
               <button
@@ -609,7 +720,7 @@ function fictioneer_story_chapters( $args ) {
                 ?>
 
                 <?php if ( $chapter_folding && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
-                  <li class="chapter-group__list-item _folding-toggle" style="order: <?php echo $reverse_order - $index; ?>">
+                  <li class="chapter-group__list-item _folding-toggle" style="order: <?php echo $reverse_order - $index; ?>" data-group="<?php echo $key; ?>">
                     <button class="chapter-group__folding-toggle" data-action="click->fictioneer-story#unfoldChapters" tabindex="0">
                       <?php
                         printf(
@@ -625,6 +736,8 @@ function fictioneer_story_chapters( $args ) {
                 <li
                   class="chapter-group__list-item <?php echo $extra_classes; ?>"
                   style="order: <?php echo $reverse_order - $index; ?>"
+                  data-group="<?php echo $key; ?>"
+                  data-post-id="<?php echo $chapter['id']; ?>"
                 >
 
                   <?php

@@ -1868,6 +1868,7 @@ function fictioneer_append_metabox_classes( $classes ) {
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-data', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-epub', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_fcn_story_fictioneer-story-filters', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-meta', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-data', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_post_fictioneer-featured-content', 'fictioneer_append_metabox_classes' );
@@ -2316,6 +2317,121 @@ function fictioneer_render_story_epub_metabox( $post ) {
 }
 
 /**
+ * Add story filters metabox.
+ *
+ * @since 5.29.0
+ */
+
+function fictioneer_add_story_filters_metabox() {
+  if ( current_user_can( 'fcn_no_filters' ) && ! current_user_can( 'manage_options' ) ) {
+    return;
+  }
+
+  add_meta_box(
+    'fictioneer-story-filters',
+    __( 'Chapter List Filters', 'fictioneer' ),
+    'fictioneer_render_story_filters_metabox',
+    ['fcn_story'],
+    'normal',
+    'default'
+  );
+}
+
+if ( get_option( 'fictioneer_enable_story_filter_reel' ) ) {
+  add_action( 'add_meta_boxes', 'fictioneer_add_story_filters_metabox' );
+}
+
+/**
+ * Render story filter metabox.
+ *
+ * @since 5.28.0
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_story_filters_metabox( $post ) {
+  // --- Setup -----------------------------------------------------------------
+
+  $nonce = wp_create_nonce( "story_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
+  $filters = get_post_meta( $post->ID, 'fictioneer_story_filters', true ) ?: [];
+
+  if ( ! is_array( $filters ) ) {
+    $filters = [];
+  }
+
+  $template = '<li class="filter-reel-item" data-fictioneer-post-meta-target="filterItem"><input type="hidden" name="fictioneer_story_filters[%s][delete]" value="0"><div class="filter-reel-item__image" data-fictioneer-post-meta-target="filterImage"><input type="hidden" name="fictioneer_story_filters[%s][image_id]" value="%s"><img src="%s"><button type="button" class="filter-reel-item__remove-image" data-fictioneer-post-meta-target="filterImageRemove">%s</button></div><div class="filter-reel-item__label"><input type="text" class="fictioneer-meta-field__input" name="fictioneer_story_filters[%s][label]" placeholder="%s" autocomplete="off" value="%s"><button type="button" class="filter-reel-item__delete" data-fictioneer-post-meta-target="filterDelete"><span class="dashicons dashicons-no-alt"></span><span class="dashicons dashicons-trash"></span></button><button type="button" class="filter-reel-item__restore" data-fictioneer-post-meta-target="filterRestore"><span class="dashicons dashicons-undo"></span></button></div><div class="filter-reel-item__filters"><textarea class="fictioneer-meta-field__textarea" name="fictioneer_story_filters[%s][filters]" placeholder="%s">%s</textarea></div></li>';
+
+  // --- Add fields ------------------------------------------------------------
+
+  // Magic quote test
+  echo fictioneer_get_magic_quote_test();
+
+  // Start HTML ---> ?>
+  <div class="filter-reel fictioneer-metabox" data-fictioneer-post-meta-target="filterBox">
+
+    <input type="hidden" name="fictioneer_story_filters" value="0" autocomplete="off">
+
+    <p class="fictioneer-meta-field__description"><?php _e( 'Add chapter list filters with an image and criteria. Each filter can include multiple criteria, separated by commas (use a backslash <code>\</code> to escape commas if needed). Criteria can be verbatim chapter group names (will be converted to group keys) or post IDs prefixed with <code>#</code> (like <code>#123</code>). Use this feature to showcase covers for individual volumes, highlight story arcs, or filter specific chapters, such as interludes or points of view.', 'fictioneer' ); ?></p>
+
+    <ol class="filter-reel__list" data-fictioneer-post-meta-target="filterList"><?php
+
+      $index = 0;
+
+      foreach ( $filters as $filter ) {
+        $image_id = $filter['image_id'] ?? 0;
+
+        printf(
+          $template,
+          $index,
+          $index,
+          $image_id,
+          $image_id ? wp_get_attachment_image_url( $image_id, 'snippet' ) : '',
+          __( 'Remove', 'fictioneer' ),
+          $index,
+          esc_attr_x( 'Label', 'Story chapter filter.', 'fictioneer' ),
+          $filter['label'] ?? '',
+          $index,
+          esc_attr__( 'Chapter Group Name, chapter-group-name, #123', 'fictioneer' ),
+          implode(
+            ', ',
+            array_merge(
+              $filter['groups'] ?? [],
+              array_map( function ( $x ) { return "#{$x}"; }, $filter['ids'] ?? [] )
+            )
+          )
+        );
+
+        $index++;
+      }
+
+    ?></ol>
+
+    <button type="button" class="filter-reel__add" data-fictioneer-post-meta-target="filterAdd"><span class="dashicons dashicons-plus"></span></button>
+
+    <template data-fictioneer-post-meta-target="filterTemplate"><?php
+      printf(
+        $template,
+        'x',
+        'x',
+        '0',
+        '',
+        __( 'Remove', 'fictioneer' ),
+        'x',
+        esc_attr_x( 'Label', 'Story chapter filter.', 'fictioneer' ),
+        '',
+        'x',
+        esc_attr__( 'Chapter Group Name, chapter-group-name, #123', 'fictioneer' ),
+        ''
+      );
+    ?></template>
+
+    <input type="hidden" name="fictioneer_story_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+
+  </div>
+  <?php // <--- End HTML
+}
+
+/**
  * Save story metaboxes
  *
  * @since 5.7.4
@@ -2526,6 +2642,66 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     // Custom ePUB CSS
     if ( isset( $_POST['fictioneer_story_epub_custom_css'] ) && current_user_can( 'fcn_custom_epub_css', $post_id ) ) {
       $fields['fictioneer_story_epub_custom_css'] = fictioneer_sanitize_css( $_POST['fictioneer_story_epub_custom_css'] );
+    }
+  }
+
+  // Filters...
+  if (
+    isset( $_POST['fictioneer_story_filters'] ) &&
+    ( ! current_user_can( 'fcn_no_filters' ) || current_user_can( 'manage_options' ) )
+  ) {
+    if ( $_POST['fictioneer_story_filters'] ) {
+      $filters = [];
+
+      foreach( $_POST['fictioneer_story_filters'] as $item ) {
+        if ( $item['delete'] ) {
+          continue;
+        }
+
+        $criteria = sanitize_textarea_field( $item['filters'] );
+        $criteria = wp_strip_all_tags( $criteria );
+        $criteria = strip_shortcodes( $criteria );
+        $criteria = preg_replace( "/\r\n?/", "\n", $criteria );
+        $criteria = preg_split( '/(?<!\\\\)[,\n]/u', $criteria );
+
+        $criteria = array_map( function ( $c ) {
+          return str_replace( '\,', ',', trim( $c ) );
+        }, $criteria );
+
+        $criteria = array_filter( $criteria, 'strlen' );
+
+        $groups = [];
+        $ids = [];
+
+        foreach ( $criteria as $value ) {
+          if ( preg_match( '/^#(\d+)$/', $value, $matches ) ) {
+            $num = (int) $matches[1];
+
+            if ( $num > 0 ) {
+              $ids[] = $num;
+            }
+          } else {
+            $group_key = sanitize_title( $value );
+
+            if ( $group_key ) {
+              $groups[] = $group_key;
+            }
+          }
+        }
+
+        if ( ! empty( $groups ) || ! empty( $ids ) || $item['image_id'] ) {
+          $filters[] = array(
+            'label' => $item['label'],
+            'image_id' => $item['image_id'],
+            'groups' => array_unique( $groups ),
+            'ids' => array_unique( $ids )
+          );
+        }
+      }
+
+      $fields['fictioneer_story_filters'] = empty( $filters ) ? 0 : $filters;
+    } else {
+      $fields['fictioneer_story_filters'] = 0;
     }
   }
 

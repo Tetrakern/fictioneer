@@ -1409,3 +1409,141 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
   // This is currently a dummy
   return;
 }
+
+// =============================================================================
+// STORY FILTER REEL
+// =============================================================================
+
+// Initialize drag-and-drop sorting
+_$$('.filter-reel__list, #items').forEach(element => {
+  Sortable.create(element, {
+    selectedClass: 'is-dragged',
+    ghostClass: 'is-dragged-ghost',
+    fallbackTolerance: 3,
+    animation: 150,
+    filter: "input, textarea, button, .filter-reel-item._deleted",
+    preventOnFilter: false,
+    onStart: event => {
+      event.target.closest('ol, ul').classList.add('is-sorting');
+    },
+    onEnd: event => {
+      const list = event.target.closest('ol, ul');
+
+      setTimeout(() => { list.classList.remove('is-sorting'); }, 5);
+
+      fnc_reorderFilterGroups();
+    }
+  });
+});
+
+/**
+ * Reorder filter item indexes.
+ *
+ * @since 5.29.0
+ */
+
+function fnc_reorderFilterGroups() {
+  document.querySelectorAll('.filter-reel-item').forEach((item, index) => {
+    item.querySelectorAll('[name*="fictioneer_story_filters"]').forEach(field => {
+      const name = field.getAttribute('name').replace(/^fictioneer_story_filters\[[^\]]+\]/, '');
+
+      field.setAttribute('name', `fictioneer_story_filters[${index}]${name}`);
+    });
+  });
+}
+
+/**
+ * Add filter image ID via WordPress media uploader.
+ *
+ * @since 5.29.0
+ * @link https://codex.wordpress.org/Javascript_Reference/wp.media
+ * @link https://stackoverflow.com/a/28549014/17140970
+ *
+ * @param {Event} event - The event.
+ */
+
+function fcn_changeFilterImage(element) {
+  const uploader = wp.media({
+    multiple: false,
+    library: {
+      type: 'image'
+    }
+  })
+  .open()
+  .on('select', () => {
+    const attachment = uploader.state().get('selection').first().toJSON();
+
+    element.querySelector('input[name*="fictioneer_story_filters"]').value = attachment.id;
+    element.querySelector('img').setAttribute('src', attachment.url);
+  })
+}
+
+// Delegate clicks
+_$('[data-fictioneer-post-meta-target="filterBox"]')?.addEventListener('click', event => {
+  const item = event.target.closest('[data-fictioneer-post-meta-target="filterItem"]');
+
+  // Remove image
+  const removeImageClick = event.target.closest('[data-fictioneer-post-meta-target="filterImageRemove"]');
+
+  if (removeImageClick) {
+    event.preventDefault();
+
+    item.querySelector('input[name*="image_id"]').value = 0;
+    item.querySelector('img').setAttribute('src', '');
+
+    return;
+  }
+
+  // Change image
+  const imageClick = event.target.closest('[data-fictioneer-post-meta-target="filterImage"]');
+
+  if (imageClick) {
+    event.preventDefault();
+    fcn_changeFilterImage(imageClick);
+
+    return;
+  }
+
+  // Delete item
+  const deleteClick = event.target.closest('[data-fictioneer-post-meta-target="filterDelete"]');
+
+  if (deleteClick) {
+    const deleteFlag = item.querySelector('input[name*="delete"]');
+
+    if (deleteFlag.value != 0) {
+      item.remove();
+      fnc_reorderFilterGroups();
+
+      return;
+    }
+
+    item.classList.add('_deleted');
+    deleteFlag.value = 1;
+
+    return;
+  }
+
+  // Restore item
+  const restoreClick = event.target.closest('[data-fictioneer-post-meta-target="filterRestore"]');
+
+  if (restoreClick) {
+    item.classList.remove('_deleted');
+    item.querySelector('input[name*="delete"]').value = 0;
+
+    return;
+  }
+
+  // Add item
+  const addClick = event.target.closest('[data-fictioneer-post-meta-target="filterAdd"]');
+
+  if (addClick) {
+    const template = _$('[data-fictioneer-post-meta-target="filterTemplate"]').content.cloneNode(true);
+    const list = _$('[data-fictioneer-post-meta-target="filterList"]');
+
+    list.appendChild(template);
+
+    fnc_reorderFilterGroups();
+
+    return;
+  }
+});
