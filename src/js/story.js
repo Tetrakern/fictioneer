@@ -100,7 +100,9 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
 
     this.tabSectionTarget.dataset.current = event.params.tabName;
 
-    this.filterReelTarget.classList.toggle('hidden', event.params.tabName !== 'chapters');
+    if (this.hasFilterItemTarget) {
+      this.filterReelTarget.classList.toggle('hidden', event.params.tabName !== 'chapters');
+    }
 
     newTab.classList.add('_current');
   }
