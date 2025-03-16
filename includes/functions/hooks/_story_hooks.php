@@ -296,8 +296,8 @@ function fictioneer_story_filter_reel( $args ) {
   // Setup
   $filters = get_post_meta( $args['story_id'], 'fictioneer_story_filters', true ) ?: [];
 
-  if ( ! is_array( $filters ) ) {
-    $filters = [];
+  if ( ! is_array( $filters ) || empty( $filters ) ) {
+    return;
   }
 
   $image_ids = array_filter( array_column( $filters, 'image_id' ) );
