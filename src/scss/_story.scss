@@ -603,7 +603,7 @@ $header_breakpoint: 640px;
 
       &._lightbox {
         top: 0;
-        background: linear-gradient(to bottom, rgb(0 0 0 / 25%) 0%, transparent 100%);
+        background: var(--filter-reel-lightbox-hover-shadow);
         height: 70%;
       }
 
@@ -612,7 +612,7 @@ $header_breakpoint: 640px;
         height: 30%;
 
         @include bp(1024px) {
-          background: linear-gradient(to top, rgb(0 0 0 / 15%) 0%, transparent 100%);
+          background: var(--filter-reel-filter-hover-shadow);
         }
       }
 

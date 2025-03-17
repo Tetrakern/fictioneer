@@ -327,6 +327,8 @@
   --filter-reel-color-hover: var(--fg-500);
   --filter-reel-color-active: var(--fg-inverted);
   --filter-reel-text-shadow: 0 0 1px rgb(0 0 0 / 70%);
+  --filter-reel-lightbox-hover-shadow: linear-gradient(to bottom, rgb(0 0 0 / 25%) 0%, transparent 100%);
+  --filter-reel-filter-hover-shadow: linear-gradient(to top, rgb(0 0 0 / 15%) 0%, transparent 100%);
 
   // === PAGINATION ============================================================
 
