@@ -157,10 +157,10 @@ if ( $show_advanced ) {
         <span class="search-form__current-type"><?php
           $translations = array(
             'any' => _x( 'Any', 'Advanced search option.', 'fictioneer' ),
-            'fcn_chapter' => _x( 'Chapters', 'Advanced search option.', 'fictioneer' ),
-            'fcn_story' => _x( 'Stories', 'Advanced search option.', 'fictioneer' ),
-            'fcn_recommendation' => _x( 'Recommendations', 'Advanced search option.', 'fictioneer' ),
-            'fcn_collection' => _x( 'Collections', 'Advanced search option.', 'fictioneer' ),
+            'fcn_chapter' => __( 'Chapters', 'fictioneer' ),
+            'fcn_story' => __( 'Stories', 'fictioneer' ),
+            'fcn_recommendation' => __( 'Recommendations', 'fictioneer' ),
+            'fcn_collection' => __( 'Collections', 'fictioneer' ),
             'post' => _x( 'Posts', 'Advanced search option.', 'fictioneer' )
           );
 
@@ -320,13 +320,13 @@ if ( $show_advanced ) {
           <div class="search-form__select-title"><?php _ex( 'Type', 'Advanced search heading.', 'fictioneer' ); ?></div>
           <select name="post_type" class="search-form__select" autocomplete="off" data-default="any">
             <option value="any" <?php echo $post_type == 'any' ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
-            <option value="fcn_chapter" <?php echo $post_type == 'fcn_chapter' ? 'selected' : ''; ?>><?php _ex( 'Chapters', 'Advanced search option.', 'fictioneer' ); ?></option>
-            <option value="fcn_story" <?php echo $post_type == 'fcn_story' ? 'selected' : ''; ?>><?php _ex( 'Stories', 'Advanced search option.', 'fictioneer' ); ?></option>
+            <option value="fcn_chapter" <?php echo $post_type == 'fcn_chapter' ? 'selected' : ''; ?>><?php _e( 'Chapters', 'fictioneer' ); ?></option>
+            <option value="fcn_story" <?php echo $post_type == 'fcn_story' ? 'selected' : ''; ?>><?php _e( 'Stories', 'fictioneer' ); ?></option>
             <?php if ( post_type_exists( 'fcn_recommendation' ) ) : ?>
-              <option value="fcn_recommendation" <?php echo $post_type == 'fcn_recommendation' ? 'selected' : ''; ?>><?php _ex( 'Recommendations', 'Advanced search option.', 'fictioneer' ); ?></option>
+              <option value="fcn_recommendation" <?php echo $post_type == 'fcn_recommendation' ? 'selected' : ''; ?>><?php _e( 'Recommendations', 'fictioneer' ); ?></option>
             <?php endif; ?>
             <?php if ( post_type_exists( 'fcn_collection' ) ) : ?>
-              <option value="fcn_collection" <?php echo $post_type == 'fcn_collection' ? 'selected' : ''; ?>><?php _ex( 'Collections', 'Advanced search option.', 'fictioneer' ); ?></option>
+              <option value="fcn_collection" <?php echo $post_type == 'fcn_collection' ? 'selected' : ''; ?>><?php _e( 'Collections', 'fictioneer' ); ?></option>
             <?php endif; ?>
             <option value="post" <?php echo $post_type == 'post' ? 'selected' : ''; ?>><?php _ex( 'Posts', 'Advanced search option.', 'fictioneer' ); ?></option>
           </select>

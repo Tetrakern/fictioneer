@@ -106,7 +106,7 @@ function fictioneer_ajax_submit_contact_form() {
 
       // Add to email body
       $html .= '<p>' . sprintf(
-        _x( '<strong>%1$s:</strong> %2$s', 'Contact form.', 'fictioneer' ),
+        '<strong>%1$s:</strong> %2$s',
         $field_label,
         $field_value
       ) . '</p>';
@@ -132,7 +132,7 @@ function fictioneer_ajax_submit_contact_form() {
 
     // Build field
     $html .= '<p>' . sprintf(
-      _x( '<strong>%1$s:</strong> %2$s', 'Contact form.', 'fictioneer' ),
+      '<strong>%1$s:</strong> %2$s',
       $field_label,
       $field_value ? __( 'True', 'fictioneer' ) : __( 'False', 'fictioneer' )
     ) . '</p>';
@@ -145,14 +145,14 @@ function fictioneer_ajax_submit_contact_form() {
   if ( filter_var( $_POST['require_privacy_policy'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
     // IP (unreliable)
     $html .= '<p>' . sprintf(
-      _x( '<strong>%1$s:</strong> %2$s', 'Contact form.', 'fictioneer' ),
+      '<strong>%1$s:</strong> %2$s',
       __( 'IP Address', 'fictioneer' ),
       $_SERVER['REMOTE_ADDR'] ?? ''
     ) . '</p>';
 
     // User agent (unreliable)
     $html .= '<p>' . sprintf(
-      _x( '<strong>%1$s:</strong> %2$s', 'Contact form.', 'fictioneer' ),
+      '<strong>%1$s:</strong> %2$s',
       __( 'User Agent', 'fictioneer' ),
       $_SERVER['HTTP_USER_AGENT'] ?? ''
     ) . '</p>';
@@ -163,9 +163,9 @@ function fictioneer_ajax_submit_contact_form() {
     $user_info = get_userdata( $user->ID );
 
     $html .= '<p>' . sprintf(
-      _x( '<strong>%1$s:</strong> %2$s', 'Contact form.', 'fictioneer' ),
+      '<strong>%1$s:</strong> %2$s',
       __( 'User', 'fictioneer' ),
-      sprintf( _x( '%1$s (%2$s)', 'Contact form.', 'fictioneer' ), $user_info->user_login, $user->ID )
+      sprintf( '%1$s (%2$s)', $user_info->user_login, $user->ID )
     ) . '</p>';
   }
 

@@ -3379,7 +3379,7 @@ function fictioneer_render_extra_metabox( $post ) {
         $post,
         'fictioneer_template_story_id',
         array(
-          'label' => _x( 'Story Id', 'Page story ID meta field label.', 'fictioneer' ),
+          'label' => __( 'Story ID', 'fictioneer' ),
           'description' => __( 'Used by the "Story Page/Mirror" templates.', 'fictioneer' )
         )
       );

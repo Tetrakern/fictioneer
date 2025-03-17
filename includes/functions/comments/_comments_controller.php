@@ -503,7 +503,7 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
 
     // Abort if no code given
     if ( ! $code ) {
-      _e( 'Invalid request!', 'fictioneer' );
+      _e( 'Invalid request.', 'fictioneer' );
       exit;
     }
 
@@ -512,7 +512,7 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
 
     // Abort if no comment found
     if ( ! $comment ) {
-      _e( 'Invalid request!', 'fictioneer' );
+      _e( 'Invalid request.', 'fictioneer' );
       exit;
     }
 
@@ -541,7 +541,7 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
       );
     } else {
       // Generic error output
-      _e( 'Invalid request!', 'fictioneer' );
+      _e( 'Invalid request.', 'fictioneer' );
     }
   }
 }

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-17 17:29+0000\n"
+"POT-Creation-Date: 2025-03-17 23:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1248,16 +1248,6 @@ msgctxt "Advanced search option."
 msgid "Ascending"
 msgstr ""
 
-#: searchform.php:160 searchform.php:323
-msgctxt "Advanced search option."
-msgid "Chapters"
-msgstr ""
-
-#: searchform.php:163 searchform.php:329
-msgctxt "Advanced search option."
-msgid "Collections"
-msgstr ""
-
 #: searchform.php:350
 msgctxt "Advanced search option."
 msgid "Comments"
@@ -1298,19 +1288,9 @@ msgctxt "Advanced search option."
 msgid "Published"
 msgstr ""
 
-#: searchform.php:162 searchform.php:326
-msgctxt "Advanced search option."
-msgid "Recommendations"
-msgstr ""
-
 #: searchform.php:187 searchform.php:346
 msgctxt "Advanced search option."
 msgid "Relevance"
-msgstr ""
-
-#: searchform.php:161 searchform.php:324
-msgctxt "Advanced search option."
-msgid "Stories"
 msgstr ""
 
 #: searchform.php:190 searchform.php:349
@@ -3378,9 +3358,10 @@ msgstr ""
 
 #. Name of the template
 #: chapters.php:2 chapters.php:107 author.php:65 author.php:153
-#: partials/_card-story.php:254 partials/_latest-stories.php:338
-#: partials/_latest-stories-compact.php:350 partials/_card-collection.php:210
-#: partials/_latest-updates.php:457 partials/_collection-statistics.php:39
+#: searchform.php:160 searchform.php:323 partials/_card-story.php:254
+#: partials/_latest-stories.php:338 partials/_latest-stories-compact.php:350
+#: partials/_card-collection.php:210 partials/_latest-updates.php:457
+#: partials/_collection-statistics.php:39
 #: includes/functions/_setup-types-and-terms.php:179
 #: includes/functions/settings/_settings_page_epubs.php:82
 #: includes/functions/hooks/_mobile_menu_hooks.php:290
@@ -3638,7 +3619,7 @@ msgid "Short Description"
 msgstr ""
 
 #. Name of the template
-#: collections.php:2 collections.php:67
+#: collections.php:2 collections.php:67 searchform.php:163 searchform.php:329
 #: includes/functions/_setup-types-and-terms.php:321
 #: includes/functions/hooks/_general_hooks.php:623
 msgid "Collections"
@@ -4039,22 +4020,6 @@ msgstr ""
 
 #: includes/functions/settings/_settings_page_general.php:166
 msgid "Contact form receivers (one email address per line)"
-msgstr ""
-
-#: includes/functions/_module-forms.php:168
-#, php-format
-msgctxt "Contact form."
-msgid "%1$s (%2$s)"
-msgstr ""
-
-#: includes/functions/_module-forms.php:109
-#: includes/functions/_module-forms.php:135
-#: includes/functions/_module-forms.php:148
-#: includes/functions/_module-forms.php:155
-#: includes/functions/_module-forms.php:166
-#, php-format
-msgctxt "Contact form."
-msgid "<strong>%1$s:</strong> %2$s"
 msgstr ""
 
 #: includes/functions/_module-forms.php:78
@@ -7168,16 +7133,13 @@ msgid "Invalid or missing story ID in page template."
 msgstr ""
 
 #. Generic error output
-#: includes/functions/comments/_comments_controller.php:506
-#: includes/functions/comments/_comments_controller.php:515
-#: includes/functions/comments/_comments_controller.php:544
-msgid "Invalid request!"
-msgstr ""
-
 #: includes/functions/settings/_settings_ajax.php:87
 #: includes/functions/settings/_settings_ajax.php:152
 #: includes/functions/settings/_settings_ajax.php:170
 #: includes/functions/settings/_settings_ajax.php:260
+#: includes/functions/comments/_comments_controller.php:506
+#: includes/functions/comments/_comments_controller.php:515
+#: includes/functions/comments/_comments_controller.php:544
 msgid "Invalid request."
 msgstr ""
 
@@ -8609,11 +8571,6 @@ msgctxt "Page short name meta field label."
 msgid "Short Name"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3382
-msgctxt "Page story ID meta field label."
-msgid "Story Id"
-msgstr ""
-
 #: includes/functions/_customizer-settings.php:1957
 msgid "Page Style"
 msgstr ""
@@ -9370,7 +9327,7 @@ msgstr ""
 
 #. Name of the template
 #: recommendations.php:2 recommendations.php:67 author.php:80
-#: single-fcn_recommendation.php:97
+#: single-fcn_recommendation.php:97 searchform.php:162 searchform.php:326
 #: includes/functions/_setup-types-and-terms.php:386
 #: includes/functions/hooks/_general_hooks.php:627
 msgid "Recommendations"
@@ -10741,7 +10698,8 @@ msgstr ""
 #. Name of the template
 #: single-fcn_story.php:129 single-fcn_collection.php:142 stories.php:2
 #: stories.php:114 author.php:50 author.php:149 single-fcn_chapter.php:186
-#: partials/_card-collection.php:208 partials/_collection-statistics.php:35
+#: searchform.php:161 searchform.php:324 partials/_card-collection.php:208
+#: partials/_collection-statistics.php:35
 #: includes/functions/_setup-types-and-terms.php:114
 #: includes/functions/hooks/_general_hooks.php:615
 #: includes/functions/hooks/_story_hooks.php:35
@@ -10953,6 +10911,7 @@ msgstr ""
 msgid "Story Hidden"
 msgstr ""
 
+#: includes/functions/_setup-meta-fields.php:3382
 #: includes/functions/settings/_settings_page_tools.php:297
 msgid "Story ID"
 msgstr ""

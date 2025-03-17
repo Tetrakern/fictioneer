@@ -46,7 +46,7 @@ function fictioneer_log_post_update( $post_id, $action ) {
  *
  * @since 5.0.0
  *
- * @param string        $option    Name of the option.
+ * @param string       $option     Name of the option.
  * @param boolean|null $old_value  The previous value or null if not set.
  * @param boolean      $value      The new value.
  */
