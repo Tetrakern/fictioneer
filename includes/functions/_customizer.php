@@ -567,6 +567,12 @@ function fictioneer_build_customize_css( $context = null ) {
     $file_path = fictioneer_get_theme_cache_dir( 'preview' ) . '/customize-preview.css';
   }
 
+  // --- View transition style -------------------------------------------------
+
+  if ( get_theme_mod( 'view_transition', 'none' ) === 'cross_fade' ) {
+    $css .= '@media not (prefers-reduced-motion: reduce){@view-transition{navigation: auto;}}::view-transition-old(root),::view-transition-new(root){animation-duration:0.15s;}';
+  }
+
   // --- Assets ----------------------------------------------------------------
 
   if (

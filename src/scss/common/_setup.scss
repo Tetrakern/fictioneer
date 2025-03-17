@@ -2,15 +2,6 @@
 @use '_mixins' as *;
 @use '_variables' as *;
 
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.15s;
-}
-
 html:is(:root) {
   font-size: get_clamp(15, 16, 400, $full-width);
 }

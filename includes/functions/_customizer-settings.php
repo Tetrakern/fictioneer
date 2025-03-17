@@ -1468,6 +1468,31 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // View transition
+  $manager->add_setting(
+    'view_transition',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'none'
+    )
+  );
+
+  $manager->add_control(
+    'view_transition',
+    array(
+      'type' => 'select',
+      'priority' => 2,
+      'section' => 'layout',
+      'label' => __( 'View Transition', 'fictioneer' ),
+      'description' => __( 'Choose a page transition animation.', 'fictioneer' ),
+      'choices' => array(
+        'none' => _x( 'None (Default)', 'Customizer option.', 'fictioneer' ),
+        'cross_fade' => _x( 'Cross-Fade', 'Customizer view transition option.', 'fictioneer' )
+      )
+    )
+  );
+
   // Site width
   $manager->add_setting(
     'site_width',
@@ -1530,7 +1555,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   );
 
   $sidebar_styles = array(
-    'none' => _x( 'None (Default)', 'Customizer sidebar style option.', 'fictioneer' ),
+    'none' => _x( 'None (Default)', 'Customizer option.', 'fictioneer' ),
     'left' => _x( 'Left', 'Customizer header sidebar option.', 'fictioneer' ),
     'right' => _x( 'Right', 'Customizer header sidebar option.', 'fictioneer' )
   );
@@ -1732,7 +1757,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'post_content' => _x( 'Post Content (ID)', 'Customizer header style option.', 'fictioneer' ),
     'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
     'wide' => _x( 'Wide', 'Customizer header style option.', 'fictioneer' ),
-    'none' => _x( 'None', 'Customizer header style option.', 'fictioneer' )
+    'none' => _x( 'None', 'Customizer option.', 'fictioneer' )
   );
 
   $manager->add_control(
@@ -2464,7 +2489,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   );
 
   $card_frames = array(
-    'default' => _x( 'None (Default)', 'Customizer card frame option.', 'fictioneer' ),
+    'default' => _x( 'None (Default)', 'Customizer option.', 'fictioneer' ),
     'stacked_right' => _x( 'Stacked (Right)', 'Customizer card frame option.', 'fictioneer' ),
     'stacked_left' => _x( 'Stacked (Left)', 'Customizer card frame option.', 'fictioneer' ),
     'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' ),
@@ -2499,7 +2524,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   $card_image_styles = array(
     'default' => _x( 'Embedded (Default)', 'Customizer card image option.', 'fictioneer' ),
     'seamless' => _x( 'Seamless', 'Customizer card image option.', 'fictioneer' ),
-    'none' => _x( 'None', 'Customizer card image option.', 'fictioneer' )
+    'none' => _x( 'None', 'Customizer option.', 'fictioneer' )
   );
 
   $manager->add_control(
