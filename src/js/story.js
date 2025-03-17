@@ -81,27 +81,29 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
    *
    * @since 5.27.0
    * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - The trigger element.
+   * @param {string} event.params.tabName - Name of the clicked tab.
    */
 
-  toggleTab(event) {
-    const newTab = event.currentTarget;
+  toggleTab({currentTarget, params: {tabName}}) {
+    const newTab = currentTarget;
 
     this.tabTargets.forEach(target => {
       target.classList.remove('_current');
     });
 
     this.tabContentTargets.forEach(target => {
-      if (target.dataset.tabName === event.params.tabName) {
+      if (target.dataset.tabName === tabName) {
         target.classList.add('_current');
       } else {
         target.classList.remove('_current');
       }
     });
 
-    this.tabSectionTarget.dataset.current = event.params.tabName;
+    this.tabSectionTarget.dataset.current = tabName;
 
     if (this.hasFilterItemTarget) {
-      this.filterReelTarget.classList.toggle('hidden', event.params.tabName !== 'chapters');
+      this.filterReelTarget.classList.toggle('hidden', tabName !== 'chapters');
     }
 
     newTab.classList.add('_current');
@@ -113,9 +115,8 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
    * @since 5.29.0
    * @param {Event} event - The event.
    * @param {HTMLElement} event.currentTarget - The trigger element.
-   * @param {Object} params - Additional parameters.
-   * @param {string} params.groups - Comma-separated string of chapter group keys.
-   * @param {number} params.ids - Comma-separated string of post IDs.
+   * @param {string} event.params.groups - Comma-separated string of chapter group keys.
+   * @param {number} event.params.ids - Comma-separated string of post IDs.
    */
 
   selectFilter({currentTarget, params: {groups, ids}}) {
@@ -375,9 +376,9 @@ application.register('fictioneer-story', class extends Stimulus.Controller {
     .then(response => {
       if (response.success) {
         window.location.href = link.href;
-        setTimeout(() => { link.classList.remove('ajax-in-progress') }, 2000);
+        setTimeout(() => link.classList.remove('ajax-in-progress'), 2000);
       } else {
-        setTimeout(() => { fcn_startEpubDownload(link, times + 1) }, 2000);
+        setTimeout(() => fcn_startEpubDownload(link, times + 1), 2000);
       }
     })
     .catch(error => {
