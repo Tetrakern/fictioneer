@@ -185,11 +185,11 @@
   // === TABS ==================================================================
 
   --tab-background: var(--bg-300);
-  --tab-background-hover: var(--bg-400);
+  // --tab-background-hover: var(--bg-400);
   --tab-background-active: var(--bg-700);
   --tab-color: var(--fg-700);
   --tab-color-hover: var(--fg-500);
-  --tab-color-active: var(--fg-inverted);
+  // --tab-color-active: var(--fg-inverted);
   --tab-text-shadow: none;
 
   // === COVER CAROUSEL ========================================================
@@ -210,7 +210,7 @@
   --pagination-background-current: var(--bg-700);
   --pagination-color: var(--fg-500);
   --pagination-color-hover: var(--fg-300);
-  --pagination-color-current: var(--fg-inverted);
+  // --pagination-color-current: var(--fg-inverted);
 
   // === FOOTER ================================================================
 
@@ -252,19 +252,19 @@
 
   // === FONT SETTINGS =========================================================
 
-  --font-smoothing-webkit: subpixel-antialiased;
-  --font-smoothing-moz: auto;
+  // --font-smoothing-webkit: subpixel-antialiased;
+  // --font-smoothing-moz: auto;
   --font-weight-normal: 400;
-  --font-weight-semi-strong: 600;
   --font-weight-strong: 600;
+  --font-weight-semi-strong: 600;
   --font-weight-medium: 500;
   --font-weight-heading: 700;
-  --font-weight-badge: 600;
+  // --font-weight-badge: 600;
   --font-weight-post-meta: 400;
   --font-weight-read-ribbon: 700;
   --font-weight-card-label: 600;
-  --font-weight-navigation: 400;
-  --font-line-height-base: 1.7;
+  // --font-weight-navigation: 400;
+  // --font-line-height-base: 1.7;
   --font-letter-spacing-base: 0em;
 
   // === LINKS =================================================================
@@ -289,7 +289,7 @@
   --bookmark-color-gamma: #77BFA3;
   --bookmark-color-delta: #dd5960;
   // --bookmark-line: var(--primary-500);
-  --bookmark-button-color-active-alpha: var(--fg-inverted);
+  // --bookmark-button-color-active-alpha: var(--fg-inverted);
   --bookmark-button-color-active-beta: var(--fg-300);
   --bookmark-button-color-active-gamma: var(--fg-300);
   --bookmark-button-color-active-delta: var(--fg-300);
@@ -300,7 +300,7 @@
 
   // --button-font-weight: 500;
   // --button-box-shadow: none;
-  --button-color-active: var(--fg-inverted);
+  // --button-color-active: var(--fg-inverted);
   --button-background-active: var(--bg-700);
   // --button-border-active: 1px solid transparent;
   --button-barberpole: var(--bg-300);
@@ -313,7 +313,7 @@
   --button-primary-background-disabled: var(--bg-400);
   --button-primary-color: var(--fg-inverted);
   --button-primary-color-hover: var(--fg-inverted);
-  --button-primary-color-disabled: var(--fg-700);
+  // --button-primary-color-disabled: var(--fg-700);
   --button-primary-filter-disabled: opacity(.6);
 
   // === BUTTONS - SECONDARY ===================================================
@@ -351,8 +351,8 @@
 
   // === BUTTONS - FILE BLOCK ==================================================
 
-  --button-file-block-color: var(--fg-inverted);
-  --button-file-block-color-hover: var(--fg-inverted);
+  // --button-file-block-color: var(--fg-inverted);
+  // --button-file-block-color-hover: var(--fg-inverted);
   --button-file-block-background: var(--bg-600);
   --button-file-block-background-hover: var(--bg-700);
 
