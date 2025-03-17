@@ -1479,7 +1479,10 @@ function fictioneer_add_custom_scripts() {
   // Enqueue Splide
   if (
     get_option( 'fictioneer_enable_global_splide' ) ||
-    ( get_option( 'fictioneer_enable_story_filter_reel' ) && $post_type === 'fcn_story' ) ||
+    (
+      get_option( 'fictioneer_enable_story_filter_reel' ) &&
+      ( $post_type === 'fcn_story' || is_page_template( 'singular-story.php' ) )
+    ) ||
     ( $post && preg_match( '/\[fictioneer_[a-zA-Z0-9_]*[^\]]*splide=["\']([^"\']+)["\'][^\]]*\]/', $post->post_content ) ) ||
     strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false // Accounts for page editors like Elementor
   ) {

@@ -272,7 +272,7 @@ function fictioneer_story_actions( $args ) {
 add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
 
 // =============================================================================
-// STORY COVER CAROUSEL ROW
+// STORY FILTERS
 // =============================================================================
 
 /**
@@ -294,7 +294,7 @@ function fictioneer_story_filter_reel( $args ) {
   }
 
   // Setup
-  $filters = get_post_meta( $args['story_id'], 'fictioneer_story_filters', true ) ?: [];
+  $filters = get_post_meta( $args['story_id'] ?? 0, 'fictioneer_story_filters', true ) ?: [];
 
   if ( ! is_array( $filters ) || empty( $filters ) ) {
     return;

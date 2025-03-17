@@ -741,6 +741,7 @@ Renders the chapters, groups, and tabs of the specified story. It will look just
 * **story_id:** The ID of the story.
 * **class:** Additional CSS classes, separated by whitespace.
 * **tabs:** Whether to render the tabs (if any). Default `false`.
+* **filters:** Whether to render the chapter list filters (if any; only works for first list). Default `false`.
 * **blog:** Whether to render the blog tab. Default `false`.
 * **pages:** Whether to render the custom page tabs. Default `false`.
 * **scheduled:** Whether to render the scheduled chapter note. Default `false`.
@@ -748,6 +749,10 @@ Renders the chapters, groups, and tabs of the specified story. It will look just
 
 ```
 [fictioneer_story_section story_id="106"]
+```
+
+```
+[fictioneer_story_section story_id="106" filters="true"]
 ```
 
 ```

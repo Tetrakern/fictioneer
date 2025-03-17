@@ -1855,6 +1855,7 @@ add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' 
  * @param string      $attr['story_id']   The ID of the story.
  * @param string|null $attr['tabs']       Optional. Whether to show the tabs above chapters. Default false.
  * @param string|null $attr['blog']       Optional. Whether to show the blog tab. Default false.
+ * @param string|null $attr['filters']    Optional. Whether to show the chapter list filters. Default false.
  * @param string|null $attr['pages']      Optional. Whether to show the custom page tabs. Default false.
  * @param string|null $attr['scheduled']  Optional. Whether to show the scheduled chapter note. Default false.
  * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
@@ -1883,6 +1884,7 @@ function fictioneer_shortcode_story_section( $attr ) {
   $show_tabs = filter_var( $attr['tabs'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $show_pages = filter_var( $attr['pages'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $show_blog = filter_var( $attr['blog'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $show_filters = filter_var( $attr['filters'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $show_scheduled = filter_var( $attr['scheduled'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $hook_args = array( 'story_id' => $story_id, 'story_data' => $story_data, 'password_required' => post_password_required() );
 
@@ -1930,6 +1932,10 @@ function fictioneer_shortcode_story_section( $attr ) {
 
   if ( $show_tabs ) {
     fictioneer_story_tabs( $hook_args );
+  }
+
+  if ( $show_filters ) {
+    fictioneer_story_filter_reel( $hook_args );
   }
 
   if ( $show_scheduled ) {
