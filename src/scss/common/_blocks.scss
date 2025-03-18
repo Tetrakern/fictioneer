@@ -8,7 +8,9 @@
 // =============================================================================
 
 :where(.wp-block-quote, .wp-block-table, .wp-block-image:not(.alignright, .alignleft), .wp-block-code, .wp-block-details, .wp-block-footnotes, .wp-block-embed, .wp-block-gallery, .wp-block-preformatted, .wp-block-buttons, .wp-block-file-wrapper, .wp-block-pullquote, .wp-block-calendar):not(.no-theme-spacing) {
-  clear: both;
+  &:where(:not(.no-clear)) {
+    clear: both;
+  }
 
   &:not(:first-child) {
     margin-top: max(2.5rem, var(--paragraph-spacing) + var(--paragraph-spacing-offset, 0rem) + 1rem);
@@ -165,7 +167,6 @@ p.has-drop-cap::first-letter {
 // =============================================================================
 
 .wp-block-code:where(:not(.no-theme-style)) {
-  clear: both;
   letter-spacing: 0;
   border-style: solid;
   border-radius: var(--layout-border-radius-small);
@@ -209,7 +210,6 @@ p.has-drop-cap::first-letter {
 // =============================================================================
 
 .wp-block-table:where(:not(.no-theme-style)) {
-  clear: both;
   float: none;
   overflow-x: auto;
 

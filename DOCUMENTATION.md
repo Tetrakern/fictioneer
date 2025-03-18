@@ -582,6 +582,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `skip-tools` | Prevents the paragraph tools from being toggled. Can be used on the paragraph or a span inside.
 | `show-if-bookmarks` | Must be used together with `hidden`, which is removed if bookmark cards are present (via shortcode).
 | `no-indent` | Suppresses text indentation regardless of settings.
+| `no-clear` | Suppresses clearing of floats on *some* block elements.
 | `list` | Applies list styles if missing.
 | `link` | Applies link styles if missing.
 | `esc-link` | Prevents link styles from being applied.
