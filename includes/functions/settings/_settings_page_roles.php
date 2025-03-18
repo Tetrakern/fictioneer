@@ -359,7 +359,7 @@ $current_role = $roles[ $current_role_slug ];
         </div>
         <div class="fictioneer-dialog__actions">
           <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Cancel', 'fictioneer' ); ?></button>
-          <button value="" class="button button-primary"><?php _e( 'Rename', 'fictioneer' ); ?></button>
+          <button value="" class="button button-primary"><?php _ex( 'Rename', 'Rename role', 'fictioneer' ); ?></button>
         </div>
       </form>
     </div>

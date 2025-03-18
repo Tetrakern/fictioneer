@@ -1765,10 +1765,10 @@ function fictioneer_admin_profile_patreon( $profile_user ) {
   }
 
   // Values
-  $yes = _x( 'Yes', 'Admin profile Patreon section.', 'fictioneer' );
+  $yes = __( 'Yes', 'fictioneer' );
   $valid = ( $data['valid'] ?? 0 ) ?
     $yes : _x( 'Expired (reauthenticate with Patreon)', 'Admin profile Patreon section.', 'fictioneer' );
-  $active = ( $data['patron_status'] ?? 0 ) ? $yes : _x( 'No', 'Admin profile Patreon section.', 'fictioneer' );
+  $active = ( $data['patron_status'] ?? 0 ) ? $yes : __( 'No', 'fictioneer' );
   $lifetime_cents = $data['lifetime_support_cents'] ?? 0;
   $last_charge = _x( 'Never', 'Admin profile Patreon section.', 'fictioneer' );
   $last_charge_status = $data['last_charge_status'] ?? __( 'n/a', 'fictioneer' );

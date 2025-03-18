@@ -425,7 +425,7 @@ function fictioneer_story_tabs( $args ) {
     <div class="tabs">
       <button class="tabs__item _current" data-fictioneer-story-target="tab" data-fictioneer-story-tab-name-param="chapters" data-action="click->fictioneer-story#toggleTab" data-target="chapters" tabindex="0"><?php
         if ( $story['status'] === 'Oneshot' ) {
-          _e( 'Oneshot', 'fictioneer' );
+          echo fcntr( 'Oneshot' );
         } else {
           printf(
             _x( '%1$s %2$s', 'Story chapter tab with count.', 'fictioneer' ),

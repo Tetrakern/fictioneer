@@ -620,8 +620,8 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $upload = strval( $args['button'] ?? _x( 'Set image', 'Metabox image upload button.', 'fictioneer' ) );
-  $replace = _x( 'Replace', 'Metabox image upload button.', 'fictioneer' );
-  $remove = _x( 'Remove', 'Metabox image remove button.', 'fictioneer' );
+  $replace = _x( 'Replace', 'Metabox replace button.', 'fictioneer' );
+  $remove = __( 'Remove', 'fictioneer' );
   $image_url = wp_get_attachment_url( $meta_value );
   $image_css = $image_url ? "style='background-image: url(\"{$image_url}\");'" : '';
 
@@ -681,7 +681,7 @@ function fictioneer_get_metabox_ebook( $post, $meta_key, $args = [] ) {
   $description = strval( $args['description'] ?? '' );
   $button_upload = strval( $args['button'] ?? _x( 'Add eBook', 'Metabox ebook upload button.', 'fictioneer' ) );
   $button_replace = _x( 'Replace', 'Metabox replace button.', 'fictioneer' );
-  $button_remove = _x( 'Remove', 'Metabox remove button.', 'fictioneer' );
+  $button_remove = __( 'Remove', 'fictioneer' );
   $title = null;
   $filename = null;
   $filesize = null;
@@ -1089,7 +1089,7 @@ function fictioneer_get_metabox_relationships( $post, $meta_key, $selected, $cal
     <template data-target="spinner-template">
       <li class="fictioneer-meta-field__relationships-source-observer disabled" data-target="fcn-relationships-observer">
         <img src="<?php echo esc_url( admin_url() . 'images/spinner-2x.gif' ); ?>">
-        <span><?php _ex( 'Loading', 'AJAX relationship field loading.', 'fictioneer' ); ?></span>
+        <span><?php _ex( 'Loading', 'AJAX loading.', 'fictioneer' ); ?></span>
       </li>
     </template>
 
@@ -1330,7 +1330,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
     $observer .= "data-key='{$meta_key}' data-post-id='{$post_id}' data-page='{$page}' ";
     $observer .= 'data-ajax-action="fictioneer_ajax_query_relationship_posts">';
     $observer .= '<img src="' . esc_url( admin_url() . 'images/spinner-2x.gif' ) . '">';
-    $observer .= '<span>' . _x( 'Loading', 'AJAX relationship posts loading.', 'fictioneer' ) . '</span></li>';
+    $observer .= '<span>' . _x( 'Loading', 'AJAX loading.', 'fictioneer' ) . '</span></li>';
 
     $output[] = $observer;
   }
@@ -1544,7 +1544,7 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
     $observer .= "data-key='{$meta_key}' data-post-id='{$post_id}' data-page='{$page}' ";
     $observer .= 'data-ajax-action="fictioneer_ajax_query_relationship_posts">';
     $observer .= '<img src="' . esc_url( admin_url() . 'images/spinner-2x.gif' ) . '">';
-    $observer .= '<span>' . _x( 'Loading', 'AJAX relationship posts loading.', 'fictioneer' ) . '</span></li>';
+    $observer .= '<span>' . _x( 'Loading', 'AJAX loading.', 'fictioneer' ) . '</span></li>';
 
     $output[] = $observer;
   }
@@ -1688,7 +1688,7 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
     $observer .= "data-key='{$meta_key}' data-post-id='{$post_id}' data-page='{$page}' ";
     $observer .= 'data-ajax-action="fictioneer_ajax_query_relationship_posts">';
     $observer .= '<img src="' . esc_url( admin_url() . 'images/spinner-2x.gif' ) . '">';
-    $observer .= '<span>' . _x( 'Loading', 'AJAX relationship posts loading.', 'fictioneer' ) . '</span></li>';
+    $observer .= '<span>' . _x( 'Loading', 'AJAX loading.', 'fictioneer' ) . '</span></li>';
 
     $output[] = $observer;
   }
@@ -1816,7 +1816,7 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
     $observer .= "data-key='{$meta_key}' data-post-id='{$post_id}' data-page='{$page}' ";
     $observer .= 'data-ajax-action="fictioneer_ajax_query_relationship_posts">';
     $observer .= '<img src="' . esc_url( admin_url() . 'images/spinner-2x.gif' ) . '">';
-    $observer .= '<span>' . _x( 'Loading', 'AJAX relationship posts loading.', 'fictioneer' ) . '</span></li>';
+    $observer .= '<span>' . _x( 'Loading', 'AJAX loading.', 'fictioneer' ) . '</span></li>';
 
     $output[] = $observer;
   }
@@ -1928,11 +1928,11 @@ function fictioneer_render_story_meta_metabox( $post ) {
     $post,
     'fictioneer_story_status',
     array(
-      'Ongoing' => _x( 'Ongoing', 'Story status select option.', 'fictioneer' ),
-      'Completed' => _x( 'Completed', 'Story status select option.', 'fictioneer' ),
-      'Oneshot' => _x( 'Oneshot', 'Story status select option.', 'fictioneer' ),
-      'Hiatus' => _x( 'Hiatus', 'Story status select option.', 'fictioneer' ),
-      'Canceled' => _x( 'Canceled', 'Story status select option.', 'fictioneer' )
+      'Ongoing' => fcntr( 'Ongoing' ),
+      'Completed' => fcntr( 'Completed' ),
+      'Oneshot' => fcntr( 'Oneshot' ),
+      'Hiatus' => fcntr( 'Hiatus' ),
+      'Canceled' => fcntr( 'Canceled' )
     ),
     array(
       'label' => _x( 'Status', 'Story status meta field label.', 'fictioneer' ),
@@ -2128,7 +2128,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     $post,
     'fictioneer_story_short_description',
     array(
-      'label' => _x( 'Short Description', 'Story short description meta field label.', 'fictioneer' ),
+      'label' => __( 'Short Description', 'fictioneer' ),
       'description' => __( 'The <em>first paragraph</em> is used on cards, so keep it nice and concise. The full short description is passed to the Storygraph API.', 'fictioneer' ),
       'required' => 1
     )
@@ -2199,7 +2199,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     $post,
     'fictioneer_story_password_note',
     array(
-      'label' => _x( 'Password Note', 'Story password note meta field label.', 'fictioneer' ),
+      'label' => __( 'Password Note', 'fictioneer' ),
       'description' => __( 'Displayed for password protected content; start with "[!global]" to show on all protected chapters without note. Limited HTML allowed.', 'fictioneer' )
     )
   );
@@ -3020,7 +3020,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     $post,
     'fictioneer_chapter_afterword',
     array(
-      'label' => _x( 'Afterword', 'Chapter afterword meta field label.', 'fictioneer' ),
+      'label' => __( 'Afterword', 'fictioneer' ),
       'description' => __( 'Displayed in a box below the chapter; start with "[!show]" to show in protected chapters. Limited HTML allowed.', 'fictioneer' )
     )
   );
@@ -3030,7 +3030,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     $post,
     'fictioneer_chapter_password_note',
     array(
-      'label' => _x( 'Password Note', 'Chapter password note meta field label.', 'fictioneer' ),
+      'label' => __( 'Password Note', 'fictioneer' ),
       'description' => __( 'Displayed for password protected content. Limited HTML allowed.', 'fictioneer' )
     )
   );
@@ -4130,7 +4130,7 @@ function fictioneer_render_collection_data_metabox( $post ) {
     $post,
     'fictioneer_collection_description',
     array(
-      'label' => _x( 'Short Description', 'Collection short description meta field label.', 'fictioneer' ),
+      'label' => __( 'Short Description', 'fictioneer' ),
       'description' => __( 'The short description is used on cards, so best keep it under 100 words or 400 characters.', 'fictioneer' ),
       'required' => 1
     )

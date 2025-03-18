@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-17 23:43+0000\n"
+"POT-Creation-Date: 2025-03-18 09:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1045,16 +1045,6 @@ msgctxt "Admin profile Patreon section."
 msgid "Never"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1771
-msgctxt "Admin profile Patreon section."
-msgid "No"
-msgstr ""
-
-#: includes/functions/users/_admin-profile.php:1768
-msgctxt "Admin profile Patreon section."
-msgid "Yes"
-msgstr ""
-
 #: includes/functions/settings/_settings_page_roles.php:203
 msgid "Advanced Capabilities"
 msgstr ""
@@ -1453,6 +1443,7 @@ msgctxt "Advanced search summary."
 msgid "<b>Type:</b> <span>%s</span>"
 msgstr ""
 
+#: includes/functions/_setup-meta-fields.php:3023
 #: includes/functions/_module-epub.php:810
 msgid "Afterword"
 msgstr ""
@@ -1528,20 +1519,12 @@ msgid "Teen"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:1053
-msgctxt "AJAX loading."
-msgid "Loading"
-msgstr ""
-
 #: includes/functions/_setup-meta-fields.php:1092
-msgctxt "AJAX relationship field loading."
-msgid "Loading"
-msgstr ""
-
 #: includes/functions/_setup-meta-fields.php:1333
 #: includes/functions/_setup-meta-fields.php:1547
 #: includes/functions/_setup-meta-fields.php:1691
 #: includes/functions/_setup-meta-fields.php:1819
-msgctxt "AJAX relationship posts loading."
+msgctxt "AJAX loading."
 msgid "Loading"
 msgstr ""
 
@@ -3027,11 +3010,6 @@ msgid_plural "chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_setup-meta-fields.php:3023
-msgctxt "Chapter afterword meta field label."
-msgid "Afterword"
-msgstr ""
-
 #: includes/functions/_setup-meta-fields.php:2828
 msgctxt "Chapter age rating meta field label."
 msgid "Age Rating"
@@ -3264,11 +3242,6 @@ msgstr ""
 #, php-format
 msgctxt "Chapter page: by {Author(s)}"
 msgid "by %s"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:3033
-msgctxt "Chapter password note meta field label."
-msgid "Password Note"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2800
@@ -3611,11 +3584,6 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:4161
 msgctxt "Collection Items meta field label."
 msgid "Collection Items"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:4133
-msgctxt "Collection short description meta field label."
-msgid "Short Description"
 msgstr ""
 
 #. Name of the template
@@ -6349,11 +6317,6 @@ msgstr ""
 msgid "Fix Paragraphs"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_tools.php:244
-msgctxt "Fix post paragraphs preview button."
-msgid "Preview"
-msgstr ""
-
 #: includes/functions/_utility.php:2213
 msgctxt "Follow a story."
 msgid "Follow"
@@ -7816,26 +7779,12 @@ msgctxt "Metabox ebook upload button."
 msgid "Add eBook"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:624
-msgctxt "Metabox image remove button."
-msgid "Remove"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:623
-msgctxt "Metabox image upload button."
-msgid "Replace"
-msgstr ""
-
 #: includes/functions/_setup-meta-fields.php:622
 msgctxt "Metabox image upload button."
 msgid "Set image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:684
-msgctxt "Metabox remove button."
-msgid "Remove"
-msgstr ""
-
+#: includes/functions/_setup-meta-fields.php:623
 #: includes/functions/_setup-meta-fields.php:683
 msgctxt "Metabox replace button."
 msgid "Replace"
@@ -7848,11 +7797,6 @@ msgstr ""
 #: includes/functions/settings/_settings_page_tools.php:299
 msgctxt "Migration tools chapter append button."
 msgid "Append Chapters"
-msgstr ""
-
-#: includes/functions/settings/_settings_page_tools.php:298
-msgctxt "Migration tools chapter preview button."
-msgid "Preview"
 msgstr ""
 
 #: includes/functions/settings/_settings_actions.php:1412
@@ -8175,6 +8119,7 @@ msgid "Nickname"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_connections.php:295
+#: includes/functions/users/_admin-profile.php:1771
 msgid "No"
 msgstr ""
 
@@ -8386,10 +8331,6 @@ msgstr ""
 msgid ""
 "Offset for the maximum width of the story page cover image in pixels. "
 "Default 0. Does not work on the \"Top-Left Overflow\" position."
-msgstr ""
-
-#: includes/functions/hooks/_story_hooks.php:428
-msgid "Oneshot"
 msgstr ""
 
 #: includes/functions/_utility.php:2254
@@ -8666,6 +8607,11 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:3487
 msgctxt "Password expiration meta field label."
 msgid "Expire Post Password"
+msgstr ""
+
+#: includes/functions/_setup-meta-fields.php:2202
+#: includes/functions/_setup-meta-fields.php:3033
+msgid "Password Note"
 msgstr ""
 
 #: includes/functions/comments/_comments_ajax.php:265
@@ -9056,6 +9002,8 @@ msgstr ""
 msgid "Prevents users from ending up on the login page."
 msgstr ""
 
+#: includes/functions/settings/_settings_page_tools.php:244
+#: includes/functions/settings/_settings_page_tools.php:298
 #: includes/functions/settings/_settings_actions.php:1461
 #: includes/functions/settings/_settings_actions.php:1463
 #: includes/functions/settings/_settings_actions.php:1854
@@ -9413,6 +9361,8 @@ msgstr ""
 #: includes/functions/_customizer-settings.php:1434
 #: includes/functions/_customizer-settings.php:1464
 #: includes/functions/_customizer-settings.php:3210
+#: includes/functions/_setup-meta-fields.php:624
+#: includes/functions/_setup-meta-fields.php:684
 #: includes/functions/_setup-meta-fields.php:2389
 #: includes/functions/_setup-meta-fields.php:2418
 #: includes/functions/_module-seo.php:139
@@ -9462,16 +9412,13 @@ msgstr ""
 msgid "Removes the password after the date."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:362
-msgid "Rename"
-msgstr ""
-
 #: includes/functions/settings/_settings_page_roles.php:341
 #, php-format
 msgid "Rename %s Role"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_roles.php:283
+#: includes/functions/settings/_settings_page_roles.php:362
 msgctxt "Rename role"
 msgid "Rename"
 msgstr ""
@@ -10285,6 +10232,11 @@ msgctxt "Share modal heading."
 msgid "Share"
 msgstr ""
 
+#: includes/functions/_setup-meta-fields.php:2131
+#: includes/functions/_setup-meta-fields.php:4133
+msgid "Short Description"
+msgstr ""
+
 #: includes/functions/settings/_settings_page_general.php:1595
 msgid ""
 "Shortcodes rely on complex queries with many optional parameters, which can "
@@ -10972,11 +10924,6 @@ msgctxt "Story pages meta field label."
 msgid "Custom Pages"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2202
-msgctxt "Story password note meta field label."
-msgid "Password Note"
-msgstr ""
-
 #: includes/functions/_setup-meta-fields.php:2069
 msgctxt "Story redirect link meta field label."
 msgid "Redirect Link (Beware!)"
@@ -10986,39 +10933,9 @@ msgstr ""
 msgid "Story RSS Feed"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:2131
-msgctxt "Story short description meta field label."
-msgid "Short Description"
-msgstr ""
-
 #: includes/functions/_setup-meta-fields.php:1938
 msgctxt "Story status meta field label."
 msgid "Status"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1935
-msgctxt "Story status select option."
-msgid "Canceled"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1932
-msgctxt "Story status select option."
-msgid "Completed"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1934
-msgctxt "Story status select option."
-msgid "Hiatus"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1933
-msgctxt "Story status select option."
-msgid "Oneshot"
-msgstr ""
-
-#: includes/functions/_setup-meta-fields.php:1931
-msgctxt "Story status select option."
-msgid "Ongoing"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_tools.php:229
@@ -12552,6 +12469,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/settings/_settings_page_connections.php:295
+#: includes/functions/users/_admin-profile.php:1768
 msgid "Yes"
 msgstr ""
 

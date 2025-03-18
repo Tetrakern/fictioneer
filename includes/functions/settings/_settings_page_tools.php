@@ -241,7 +241,7 @@ global $wpdb;
               <input type="hidden" name="action" value="fictioneer_convert_line_breaks">
               <?php wp_nonce_field( 'fictioneer_convert_line_breaks', 'fictioneer_nonce' ); ?>
               <input name="post_id" placeholder="<?php _e( 'Post IDs', 'fictioneer' ); ?>" type="text" autocomplete="off" required>
-              <input type="submit" name="preview" class="button button--secondary" value="<?php echo esc_attr_x( 'Preview', 'Fix post paragraphs preview button.', 'fictioneer' ); ?>">
+              <input type="submit" name="preview" class="button button--secondary" value="<?php echo esc_attr__( 'Preview', 'fictioneer' ); ?>">
               <input type="submit" name="perform" class="button button--secondary" value="<?php echo esc_attr__( 'Fix Paragraphs', 'fictioneer' ); ?>">
             </form>
 
@@ -295,7 +295,7 @@ global $wpdb;
               <input type="hidden" name="action" value="fictioneer_tools_append_chapters">
               <?php wp_nonce_field( 'fictioneer_tools_append_chapters', 'fictioneer_nonce' ); ?>
               <input name="story_id" placeholder="<?php _e( 'Story ID', 'fictioneer' ); ?>" type="text" autocomplete="off" style="max-width: 150px !important;" required>
-              <input type="submit" name="preview" class="button button--secondary" value="<?php echo esc_attr_x( 'Preview', 'Migration tools chapter preview button.', 'fictioneer' ); ?>">
+              <input type="submit" name="preview" class="button button--secondary" value="<?php echo esc_attr__( 'Preview', 'fictioneer' ); ?>">
               <input type="submit" name="perform" class="button button--secondary" value="<?php echo esc_attr_x( 'Append Chapters', 'Migration tools chapter append button.', 'fictioneer' ); ?>">
             </form>
 
