@@ -1609,6 +1609,36 @@ add_filter( 'fictioneer_filter_rss_story_query_args', 'child_exclude_protected_p
 
 ---
 
+### `apply_filters( 'fictioneer_filter_rss_main_posts', $posts, $query_args )`
+Filters the queried posts after they are filtered for visibility flags. Apparently, some people need additional filtering.
+
+**Parameters:**
+* $posts (WP_Post[]) – Array of post objects for the main RSS feed.
+* $query_args (array) – The arguments previously used to query the posts.
+
+**Example:**
+```php
+function child_modify_rss_main_post_dates( $posts ) {
+  foreach ( $posts as $post ) {
+    $custom_date_gmt = get_post_meta( $post->ID, '_your_custom_rss_date', true );
+
+    if ( ! empty( $custom_date_gmt ) ) {
+      $timestamp = strtotime( $custom_date_gmt );
+
+      if ( $timestamp ) {
+        $post->post_date_gmt = date( 'Y-m-d H:i:s', $timestamp );
+        $post->post_date = get_date_from_gmt( $post->post_date_gmt, 'Y-m-d H:i:s' );
+      }
+    }
+  }
+
+  return $posts;
+}
+add_filter( 'fictioneer_filter_rss_main_posts', 'child_modify_rss_main_post_dates' );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_rss_story_query_args', $query_args, $story_id )`
 Filters the query arguments for the story RSS feed in the `rss-rss-story.php` template.
 

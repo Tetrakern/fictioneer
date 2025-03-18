@@ -47,6 +47,9 @@ $posts = array_filter( $posts, function ( $post ) {
   return true;
 });
 
+// Filter posts for whatever reason
+$posts = apply_filters( 'fictioneer_filter_rss_main_posts', $posts, $query_args );
+
 // Crop number of posts (remove buffer posts)
 $posts = array_slice( $posts, 0, get_option( 'posts_per_rss' ) );
 
