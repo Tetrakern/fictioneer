@@ -359,7 +359,7 @@ function fictioneer_story_filter_reel( $args ) {
           $image_id,
           'snippet',
           false,
-          array( 'class' => 'story__filter-reel-item-img' )
+          array( 'class' => 'story__filter-reel-item-img', 'loading' => 'lazy' )
         ),
         $label ? '<div class="story__filter-reel-item-label"><span class="truncate _2-2">' . $label .'</span></div>' : '',
         wp_get_attachment_image_url( $image_id, 'full' ),
