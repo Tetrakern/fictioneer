@@ -1118,8 +1118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function fcn_dragElement(element) {
   const target = element.querySelector('.drag-anchor') ?? element;
-  let lastX;
-  let lastY;
+
+  let lastX, lastY, offsetX, offsetY;
 
   target.onmousedown = startDrag;
 
@@ -1129,23 +1129,25 @@ function fcn_dragElement(element) {
     lastX = e.clientX;
     lastY = e.clientY;
 
-    target.onmousemove = moveDrag;
-    target.onmouseup = stopDrag;
+    document.onmousemove = moveDrag;
+    document.onmouseup = stopDrag;
   }
 
   function moveDrag(e) {
     e.preventDefault();
 
-    element.style.top = `${(element.offsetTop - (lastY - e.clientY))}px`;
-    element.style.left = `${(element.offsetLeft - (lastX - e.clientX))}px`;
-
+    offsetY = lastY - e.clientY;
+    offsetX = lastX - e.clientX;
     lastX = e.clientX;
     lastY = e.clientY;
+
+    element.style.top = `${(element.offsetTop - offsetY)}px`;
+    element.style.left = `${(element.offsetLeft - offsetX)}px`;
   }
 
   function stopDrag() {
-    target.onmouseup = null;
-    target.onmousemove = null;
+    document.onmouseup = null;
+    document.onmousemove = null;
   }
 }
 
