@@ -591,6 +591,10 @@ The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2
 
 For more details on Patreon, see [Patreon Integration](#patreon-integration) further down.
 
+#### Known OAuth 2.0 Issues
+
+* Removing query strings —s uch as with one of the LiteSpeed Cache options — can interfere with the authentication process and cause it to fail, typically resulting in an `oauth_invalid_cookie` error.
+
 ### Phrases Tab
 
 ![Phrases Settings Preview](repo/assets/settings_phrases_preview.png?raw=true)
