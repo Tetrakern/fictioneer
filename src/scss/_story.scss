@@ -592,7 +592,7 @@ $header_breakpoint: 640px;
       right: 0;
       z-index: 1;
       display: grid;
-      place-content: center;
+      place-content: end center;
       font-size: 24px;
       opacity: 0;
       transition: opacity var(--transition-duration);
@@ -604,22 +604,32 @@ $header_breakpoint: 640px;
       &._lightbox {
         top: 0;
         background: var(--filter-reel-lightbox-hover-shadow);
-        height: 70%;
+        height: 35%;
+
+        @include bp(1024px) {
+          height: 50%;
+        }
       }
 
       &._filter {
         bottom: 0;
-        height: 30%;
+        height: 65%;
 
         @include bp(1024px) {
           background: var(--filter-reel-filter-hover-shadow);
+          height: 40%;
         }
       }
 
       .icon {
         color: #fff;
+        margin-bottom: -1rem;
         opacity: .7;
         text-shadow: 0 0 6px rgb(0 0 0 / 90%);
+
+        @include bp(1024px) {
+          margin-bottom: 1rem;
+        }
       }
     }
   }
