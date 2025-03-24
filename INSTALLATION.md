@@ -416,7 +416,7 @@ Technically just another plugin, but one that will make your site significantly 
     </blockquote>
   </details>
 
-* [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/): The most powerful of the listed cache plugins and also completely free — if you can get it running. As server-side cache, your host must support [LiteSpeed](https://docs.litespeedtech.com/lscache/), which is usually a prominent selling point so you would know.
+* [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/): The most powerful of the listed cache plugins and also completely free — if you can get it running. As server-side cache, your host must support [LiteSpeed](https://docs.litespeedtech.com/lscache/), which is usually a prominent selling point so you would know. Be aware that enabling the "Remove Query Strings" option can break some things, among them the OAuth 2.0 authentication.
 
   <details>
     <summary>Example settings</summary><br>
