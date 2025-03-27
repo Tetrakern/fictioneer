@@ -81,7 +81,7 @@
     }
   }
 
-  &__list-item-figcaption {
+  &__list-item-figcaption:is(figcaption) {
     position: absolute;
     inset: 0;
     top: unset;

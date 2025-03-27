@@ -130,7 +130,7 @@ sup[data-fn] {
 // =============================================================================
 
 [class*="wp-block-"] {
-  figcaption {
+  :where(figcaption):where(:not(.showcase__list-item-figcaption)) {
     color: var(--fg-700);
     font-family: var(--ff-note);
     font-size: 75%; // Scales with custom formatting
