@@ -3164,6 +3164,15 @@ if ( ! function_exists( 'fictioneer_verify_unpublish_access' ) ) {
     $post = get_post( $post_id );
     $authorized = false;
 
+    // Check for allowed future chapters
+    if (
+      get_option( 'fictioneer_show_scheduled_chapters' ) &&
+      $post->post_type === 'fcn_chapter' &&
+      $post->post_status === 'future'
+    ) {
+      $authorized = true;
+    }
+
     // Always let owner to pass
     if ( get_current_user_id() === absint( $post->post_author ) ) {
       $authorized = true;

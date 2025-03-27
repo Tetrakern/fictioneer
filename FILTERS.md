@@ -2639,7 +2639,7 @@ Filters the check result of whether the user’s Patreon data is still valid. Be
 ---
 
 ### `apply_filters( 'fictioneer_filter_verify_unpublish_access', $authorized, $post_id, $post )`
-Filters the boolean return value of the `fictioneer_verify_unpublish_access()` function. By default, this verifies whether the current user has access to unpublished posts (not drafts).
+Filters the boolean return value of the `fictioneer_verify_unpublish_access()` function. By default, this verifies whether the current user has access to unpublished posts (not drafts). This will also let scheduled (future) posts pass if the option to make scheduled posts accessible is enabled in the settings.
 
 **Parameters:**
 * $authorized (boolean) – Whether the current user can access unpublished posts.
