@@ -5071,9 +5071,10 @@ add_action( 'bulk_edit_custom_box', 'fictioneer_add_bulk_edit_chapter_meta', 10,
 
 function fictioneer_add_post_table_pw_expiration( $post_states, $post ) {
   if ( isset( $post_states['protected'] ) ) {
-    $expiration_date = get_post_meta( $post->ID, 'fictioneer_post_password_expiration_date', true );
+    $expiration_date_utc = get_post_meta( $post->ID, 'fictioneer_post_password_expiration_date', true );
 
-    if ( $expiration_date ) {
+    if ( $expiration_date_utc ) {
+      $expiration_date = get_date_from_gmt( $expiration_date_utc );
       $timestamp = strtotime( $expiration_date );
 
       $post_states['protected'] = sprintf(
