@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-18 09:22+0000\n"
+"POT-Creation-Date: 2025-03-29 11:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -76,7 +76,7 @@ msgstr ""
 msgid "%s disconnected"
 msgstr ""
 
-#: rss-rss-main.php:59
+#: rss-rss-main.php:62
 #, php-format
 msgid "%s Feed"
 msgstr ""
@@ -1672,7 +1672,7 @@ msgstr ""
 msgid "Always use gravatar"
 msgstr ""
 
-#: includes/functions/_utility.php:3920
+#: includes/functions/_utility.php:3929
 msgid "Anonymous"
 msgstr ""
 
@@ -3259,7 +3259,7 @@ msgctxt "Chapter short title meta field label."
 msgid "Short Title"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:5135
+#: includes/functions/_setup-meta-fields.php:5136
 msgctxt "Chapter story list table column title."
 msgid "Story"
 msgstr ""
@@ -3319,9 +3319,10 @@ msgstr ""
 msgctxt ""
 "Chapter warning (1) with sensitive content toggle (2) and icons (3-4)."
 msgid ""
-"Warning: %1$s! — You can hide <em>marked</em> sensitive content %2$s or with "
-"the %3$s toggle in the %4$s formatting menu. If provided, <em>"
-"alternative</em> content will be displayed instead."
+"Warning: %1$s! — Some content might be <em>marked</em> as sensitive. You can "
+"hide marked sensitive content %2$s or with the %3$s toggle in the %4$s "
+"formatting menu. If provided, <em>alternative</em> content will be displayed "
+"instead."
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2837
@@ -4955,7 +4956,7 @@ msgstr ""
 msgid "Default genres have been added to the list."
 msgstr ""
 
-#: includes/functions/_utility.php:3902
+#: includes/functions/_utility.php:3911
 msgctxt "Default name in logs."
 msgid "System"
 msgstr ""
@@ -6110,7 +6111,7 @@ msgstr ""
 msgid "Exit fullscreen"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:5080
+#: includes/functions/_setup-meta-fields.php:5081
 #, php-format
 msgctxt "Expiration suffix for protected note in post list tables."
 msgid "%1$s (until %2$s)"
@@ -6888,17 +6889,17 @@ msgstr ""
 msgid "Hue Offset"
 msgstr ""
 
-#: includes/functions/_utility.php:3483
+#: includes/functions/_utility.php:3492
 msgctxt "Human readable list joining the last two of three or more items."
 msgid ", or "
 msgstr ""
 
-#: includes/functions/_utility.php:3481
+#: includes/functions/_utility.php:3490
 msgctxt "Human readable list joining three or more items except the last two."
 msgid ", "
 msgstr ""
 
-#: includes/functions/_utility.php:3482
+#: includes/functions/_utility.php:3491
 msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr ""
@@ -8929,32 +8930,32 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: includes/functions/_utility.php:3855
+#: includes/functions/_utility.php:3864
 msgctxt "Post type label."
 msgid "Chapter"
 msgstr ""
 
-#: includes/functions/_utility.php:3856
+#: includes/functions/_utility.php:3865
 msgctxt "Post type label."
 msgid "Collection"
 msgstr ""
 
-#: includes/functions/_utility.php:3853
+#: includes/functions/_utility.php:3862
 msgctxt "Post type label."
 msgid "Page"
 msgstr ""
 
-#: includes/functions/_utility.php:3852
+#: includes/functions/_utility.php:3861
 msgctxt "Post type label."
 msgid "Post"
 msgstr ""
 
-#: includes/functions/_utility.php:3857
+#: includes/functions/_utility.php:3866
 msgctxt "Post type label."
 msgid "Rec"
 msgstr ""
 
-#: includes/functions/_utility.php:3854
+#: includes/functions/_utility.php:3863
 msgctxt "Post type label."
 msgid "Story"
 msgstr ""
@@ -9208,7 +9209,7 @@ msgstr ""
 msgid "Reading"
 msgstr ""
 
-#: rss-rss-main.php:62
+#: rss-rss-main.php:65
 #, php-format
 msgid "Recent updates on %s."
 msgstr ""

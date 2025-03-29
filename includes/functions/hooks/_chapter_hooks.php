@@ -256,7 +256,7 @@ function fictioneer_chapter_warnings( $args ) {
     <?php if ( $warning ) : ?>
       <p><?php
         printf(
-          _x( 'Warning: %1$s! — You can hide <em>marked</em> sensitive content %2$s or with the %3$s toggle in the %4$s formatting menu. If provided, <em>alternative</em> content will be displayed instead.', 'Chapter warning (1) with sensitive content toggle (2) and icons (3-4).', 'fictioneer' ),
+          _x( 'Warning: %1$s! — Some content might be <em>marked</em> as sensitive. You can hide marked sensitive content %2$s or with the %3$s toggle in the %4$s formatting menu. If provided, <em>alternative</em> content will be displayed instead.', 'Chapter warning (1) with sensitive content toggle (2) and icons (3-4).', 'fictioneer' ),
           $warning,
           '<label id="inline-sensitive-content-toggle" for="reader-settings-sensitive-content-toggle" tabindex="0" role="checkbox" aria-checked="false" aria-label="' . esc_attr__( 'Toggle sensitive content', 'fictioneer' ) . '"><i class="fa-solid off fa-toggle-on"></i><i class="fa-solid on fa-toggle-off"></i> <span>' . _x( 'by clicking here', ' As in hide sensitive content by clicking here.', 'fictioneer' ) . '</span></label>',
           '<i class="fa-solid fa-exclamation-circle"></i>',
