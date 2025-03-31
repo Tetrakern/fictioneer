@@ -162,42 +162,76 @@ if ( $args['min_width'] ) {
 
       <ul class="showcase__list <?php if ( $splide ) { echo 'splide__list'; } ?>">
         <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-          <li class="showcase__list-item <?php echo $classes; ?>" data-post-id="<?php echo $post->ID; ?>" <?php echo $style; ?>>
+
+          <?php
+            // Prepare item
+            $post_id = $post->ID;
+            $list_title = '';
+            $age_rating = '';
+            $story_status = '';
+            $story_id = null;
+            $landscape_image_id = get_post_meta( $post_id, 'fictioneer_landscape_image', true );
+
+            $attributes = array(
+              'data-post-id="' . $post_id . '"',
+              'data-post-type="' . str_replace( 'fcn_', '', $args['post_type'] ) . '"'
+            );
+
+            // Get list title and story ID (if any)
+            switch ( $args['post_type'] ) {
+              case 'fcn_collection':
+                $list_title = get_post_meta( $post_id, 'fictioneer_collection_list_title', true );
+
+                break;
+              case 'fcn_story':
+                $story_status = get_post_meta( $post_id, 'fictioneer_story_status', true );
+                $age_rating = get_post_meta( $post_id, 'fictioneer_story_rating', true );
+
+                break;
+              case 'fcn_chapter':
+                $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
+                $age_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
+                $story_id = fictioneer_get_chapter_story_id( $post_id );
+
+                if ( $story_id ) {
+                  $story_status = get_post_meta( $story_id, 'fictioneer_story_status', true );
+
+                  if ( empty( $landscape_image_id ) ) {
+                    $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );
+                  }
+
+                  if ( empty( $age_rating ) ) {
+                    $age_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
+                  }
+                }
+
+                break;
+            }
+
+            if ( $age_rating ) {
+              $attributes[] = 'data-age-rating="' . strtolower( $age_rating ) . '"';
+            }
+
+            if ( $story_status ) {
+              $attributes[] = 'data-story-status="' . strtolower( $story_status ) . '"';
+            }
+
+            // Prepare titles
+            $list_title = trim( wp_strip_all_tags( $list_title ) );
+            $title = empty( $list_title ) ? fictioneer_get_safe_title( $post_id, 'shortcode-showcase' ) : $list_title;
+
+            // Prepare image arguments
+            $image_args = array(
+              'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
+              'class' => 'no-auto-lightbox showcase__image'
+            );
+
+          ?>
+
+          <li class="showcase__list-item <?php echo $classes; ?>" <?php  echo implode( ' ', $attributes ); echo $style; ?>>
             <a class="showcase__list-item-link polygon" href="<?php the_permalink(); ?>">
               <figure class="showcase__list-item-figure">
                 <?php
-                  // Setup
-                  $post_id = $post->ID;
-                  $list_title = '';
-                  $story_id = null;
-                  $landscape_image_id = get_post_meta( $post_id, 'fictioneer_landscape_image', true );
-
-                  // Get list title and story ID (if any)
-                  switch ( $args['post_type'] ) {
-                    case 'fcn_collection':
-                      $list_title = get_post_meta( $post_id, 'fictioneer_collection_list_title', true );
-                      break;
-                    case 'fcn_chapter':
-                      $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
-                      $story_id = fictioneer_get_chapter_story_id( $post_id );
-
-                      if ( empty( $landscape_image_id ) ) {
-                        $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );
-                      }
-
-                      break;
-                  }
-
-                  // Prepare titles
-                  $list_title = trim( wp_strip_all_tags( $list_title ) );
-                  $title = empty( $list_title ) ? fictioneer_get_safe_title( $post_id, 'shortcode-showcase' ) : $list_title;
-
-                  // Prepare image arguments
-                  $image_args = array(
-                    'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
-                    'class' => 'no-auto-lightbox showcase__image'
-                  );
-
                   // Output image or placeholder
                   $ratio = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] ?: '4/2' );
                   $quality = $args['quality'] ?? 'medium';
