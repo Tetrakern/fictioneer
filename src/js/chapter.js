@@ -109,6 +109,16 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
    */
 
   toggleTools(paragraph) {
+    const formatting = FcnFormatting.get();
+
+    if (!formatting['show-paragraph-tools'] || !this.tools) {
+      if (this.lastToolsParagraph) {
+        this.closeTools();
+      }
+
+      return;
+    }
+
     // Always close last paragraph tools (if open)
     this.lastToolsParagraph?.classList.remove('selected-paragraph');
 

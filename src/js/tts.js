@@ -295,7 +295,7 @@ function fcn_readTextStack() {
 // EVENT LISTENERS
 // =============================================================================
 
-if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
+if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface && _$$$('paragraph-tools')) {
   // Paragraph tools button
   _$$$('button-tts-set').addEventListener('click', event => {
     fcn_ttsStack = [];
