@@ -90,10 +90,22 @@ if ( ! function_exists( 'fictioneer_get_default_tags' ) ) {
 // NOTICES
 // =============================================================================
 
-if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
-  define(
-    'FICTIONEER_ADMIN_SETTINGS_NOTICES',
-    array(
+/**
+ * Output admin settings notices
+ *
+ * @since 5.2.5
+ */
+
+function fictioneer_admin_settings_notices() {
+  // Abort if normal form submit
+  if ( $_GET['settings-updated'] ?? 0 ) {
+    return;
+  }
+
+  static $notices = null;
+
+  if ( ! $notices ) {
+    $notices = array(
       'fictioneer-story-tags-to-genres' => __( 'All story tags have been converted to genres.', 'fictioneer' ),
       'fictioneer-duplicate-tags-to-genres' => __( 'All story tags have been duplicated to genres.', 'fictioneer' ),
       'fictioneer-chapter-tags-to-genres' => __( 'All chapter tags have been converted to genres.', 'fictioneer' ),
@@ -139,20 +151,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-mu-plugin-delete-success' => __( 'MU-Plugin disabled successfully.', 'fictioneer' ),
       'fictioneer-mu-plugin-delete-failure' => __( 'Error. MU-Plugin could not be disabled..', 'fictioneer' ),
       'fictioneer-fix-line-breaks-success' => __( '%s successful post update(s). %s failure(s).', 'fictioneer' )
-    )
-  );
-}
-
-/**
- * Output admin settings notices
- *
- * @since 5.2.5
- */
-
-function fictioneer_admin_settings_notices() {
-  // Abort if normal form submit
-  if ( $_GET['settings-updated'] ?? 0 ) {
-    return;
+    );
   }
 
   // Get query vars
@@ -164,9 +163,9 @@ function fictioneer_admin_settings_notices() {
   $data = array_map( 'esc_html', $data );
 
   // Has success notice?
-  if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ] ) ) {
+  if ( ! empty( $success ) && isset( $notices[ $success ] ) ) {
     wp_admin_notice(
-      vsprintf( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ], $data ),
+      vsprintf( $notices[ $success ], $data ),
       array(
         'type' => 'success',
         'dismissible' => true
@@ -175,9 +174,9 @@ function fictioneer_admin_settings_notices() {
   }
 
   // Has failure notice?
-  if ( ! empty( $failure ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ] ) ) {
+  if ( ! empty( $failure ) && isset( $notices[ $failure ] ) ) {
     wp_admin_notice(
-      vsprintf( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ], $data ),
+      vsprintf( $notices[ $failure ], $data ),
       array(
         'type' => 'error',
         'dismissible' => true
@@ -186,9 +185,9 @@ function fictioneer_admin_settings_notices() {
   }
 
   // Has info notice?
-  if ( ! empty( $info ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ] ) ) {
+  if ( ! empty( $info ) && isset( $notices[ $info ] ) ) {
     wp_admin_notice(
-      vsprintf( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ], $data ),
+      vsprintf( $notices[ $info ], $data ),
       array(
         'type' => 'info',
         'dismissible' => true

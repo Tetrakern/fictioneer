@@ -864,10 +864,17 @@ function fictioneer_delete_my_account() {
 // OUTPUT ADMIN PROFILE NOTICES
 // =============================================================================
 
-if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
-  define(
-    'FICTIONEER_ADMIN_PROFILE_NOTICES',
-    array(
+/**
+ * Output admin settings notices
+ *
+ * @since 5.2.5
+ */
+
+function fictioneer_admin_profile_notices() {
+  static $notices = null;
+
+  if ( ! $notices ) {
+    $notices = array(
       'admin-profile-unset-oauth-patreon' => __( 'Patreon connection successfully removed.', 'fictioneer' ),
       'admin-profile-unset-oauth-google' => __( 'Google connection successfully removed.', 'fictioneer' ),
       'admin-profile-unset-oauth-twitch' => __( 'Twitch connection successfully removed.', 'fictioneer' ),
@@ -890,25 +897,17 @@ if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
       'oauth_merged_twitch' => __( 'Twitch account successfully linked.', 'fictioneer' ),
       'oauth_merged_patreon' => __( 'Patreon account successfully linked.', 'fictioneer' ),
       'admin-profile-not-deleted' => __( 'Database error. Account could not be deleted.', 'fictioneer' )
-    )
-  );
-}
+    );
+  }
 
-/**
- * Output admin settings notices
- *
- * @since 5.2.5
- */
-
-function fictioneer_admin_profile_notices() {
   // Get performed action
   $success = sanitize_text_field( $_GET['success'] ?? '' );
   $failure = sanitize_text_field( $_GET['failure'] ?? '' );
 
   // Has success notice?
-  if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ] ) ) {
+  if ( ! empty( $success ) && isset( $notices[ $success ] ) ) {
     wp_admin_notice(
-      FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ],
+      $notices[ $success ],
       array(
         'type' => 'success',
         'dismissible' => true
@@ -917,9 +916,9 @@ function fictioneer_admin_profile_notices() {
   }
 
   // Has failure notice?
-  if ( ! empty( $failure ) && isset( FICTIONEER_ADMIN_PROFILE_NOTICES[ $failure ] ) ) {
+  if ( ! empty( $failure ) && isset( $notices[ $failure ] ) ) {
     wp_admin_notice(
-      FICTIONEER_ADMIN_PROFILE_NOTICES[ $failure ],
+      $notices[ $failure ],
       array(
         'type' => 'error',
         'dismissible' => true
