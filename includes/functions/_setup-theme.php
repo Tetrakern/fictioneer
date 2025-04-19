@@ -1262,14 +1262,17 @@ function fictioneer_build_dynamic_scripts() {
 
   // --- AJAX Settings ---------------------------------------------------------
 
-  $scripts .= "var fictioneer_ajax = " . json_encode( array(
-    'ajax_url' => admin_url( 'admin-ajax.php' ),
-    'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
-    'ffcnr_url' => fictioneer_get_ffcnr_url(),
-    'ttl' => FICTIONEER_AJAX_TTL,
-    'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE,
-    'ffcnr_auth' => get_option( 'fictioneer_enable_ffcnr_auth', 0 ) ? 1 : 0
-  )) . ";";
+  $scripts .= "var fictioneer_ajax = " . json_encode(
+    array(
+      'ajax_url' => admin_url( 'admin-ajax.php' ),
+      'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
+      'ffcnr_url' => fictioneer_get_ffcnr_url(),
+      'ttl' => FICTIONEER_AJAX_TTL,
+      'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE,
+      'ffcnr_auth' => 0
+      // 'ffcnr_auth' => get_option( 'fictioneer_enable_ffcnr_auth', 0 ) ? 1 : 0 // TODO: Fix for new password encryption
+    )
+  ) . ";";
 
   // --- Removable query args --------------------------------------------------
 
