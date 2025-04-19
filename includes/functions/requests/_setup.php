@@ -263,6 +263,7 @@ function ffcnr_create_nonce( $action, $uid ) {
  * Returns current user.
  *
  * @since 5.27.0
+ * @since 5.29.1 - Removed obsolete/broken password hash check for WP 6.8+.
  *
  * @param array    $options           Optional. Pre-queried theme options.
  * @param int|null $blog_id_override  Optional. Override current blog ID.
