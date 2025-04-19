@@ -298,15 +298,6 @@ function ffcnr_get_current_user( $options = null, $blog_id_override = null ) {
     return 0;
   }
 
-  $pass_frag = substr( $user->user_pass, 8, 4 );
-  $key = ffcnr_hash( $username . '|' . $pass_frag . '|' . $expiration . '|' . $token );
-  $algo = function_exists( 'hash' ) ? 'sha256' : 'sha1';
-  $hash = hash_hmac( $algo, $username . '|' . $expiration . '|' . $token, $key );
-
-  if ( ! hash_equals( $hash, $hmac ) ) {
-    return 0;
-  }
-
   $user_options = $wpdb->get_results(
     $wpdb->prepare(
       "SELECT `meta_key`, `meta_value` FROM {$wpdb->usermeta}

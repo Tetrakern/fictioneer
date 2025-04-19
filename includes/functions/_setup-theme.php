@@ -1269,8 +1269,7 @@ function fictioneer_build_dynamic_scripts() {
       'ffcnr_url' => fictioneer_get_ffcnr_url(),
       'ttl' => FICTIONEER_AJAX_TTL,
       'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE,
-      'ffcnr_auth' => 0
-      // 'ffcnr_auth' => get_option( 'fictioneer_enable_ffcnr_auth', 0 ) ? 1 : 0 // TODO: Fix for new password encryption
+      'ffcnr_auth' => get_option( 'fictioneer_enable_ffcnr_auth', 0 ) ? 1 : 0
     )
   ) . ";";
 
