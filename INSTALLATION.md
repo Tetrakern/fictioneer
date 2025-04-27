@@ -593,7 +593,7 @@ For more details on Patreon, see [Patreon Integration](#patreon-integration) fur
 
 #### Known OAuth 2.0 Issues
 
-* Removing query strings —s uch as with one of the LiteSpeed Cache options — can interfere with the authentication process and cause it to fail, typically resulting in an `oauth_invalid_cookie` error.
+* Removing query strings — such as with one of the LiteSpeed Cache options — can interfere with the authentication process and cause it to fail, typically resulting in an `oauth_invalid_cookie` error.
 
 ### Phrases Tab
 
