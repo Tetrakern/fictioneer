@@ -423,7 +423,7 @@ Technically just another plugin, but one that will make your site significantly 
     <p>LiteSpeed Cache offers you far more than what is covered here, so please refer to more comprehensive guides if you want to take advantage of that. However, combined with the other recommended plugins, you can do without.</p>
     <blockquote>
       Assume missing options are off, empty, or left to default.<br><br>
-      <strong>[1 - Cache] Cache Control Settings:</strong>
+      <strong>[Cache: 1 - Cache] Cache Control Settings:</strong>
       <ul>
         <li>- [x] Enable Cache</li>
         <li>- [ ] Cache Logged-in Users (OFF)</li>
@@ -434,7 +434,7 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Cache PHP Resources</li>
         <li>- [ ] Cache Mobile (OFF)</li>
       </ul><br>
-      <strong>[2 - TTL] TTL:</strong>
+      <strong>[Cache: 2 - TTL] TTL:</strong>
       <ul>
         <li>- [x] Default Public Cache TTL: 28800</li>
         <li>- [x] Default Private Cache TTL: 1800</li>
@@ -442,39 +442,39 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Default Feed TTL: 604800</li>
         <li>- [x] Default REST TTL: 28800</li>
       </ul><br>
-      <strong>[3 - Purge] Purge Settings:</strong>
+      <strong>[Cache: 3 - Purge] Purge Settings:</strong>
       <ul>
         <li>- [x] Purge All On Upgrade</li>
         <li>- [x] Auto Purge Rules For Publish/Update: All pages</li>
         <li>- [ ] Serve Stale (OFF)</li>
       </ul><br>
-      <strong>[4 - Excludes] Do Not Cache URIs:</strong><br>
+      <strong>[Cache: 4 - Excludes] Do Not Cache URIs:</strong><br>
       &numsp;The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).<br>
       &numsp;<code>/oauth2</code><br>
       &numsp;<code>/download-epub</code><br>
       &numsp;<code>/account</code><br>
       &numsp;<code>/bookshelf</code><br>
       &numsp;<code>/wp-json/fictioneer</code><br><br>
-      <strong>[4 - Excludes] Do Not Cache Query Strings:</strong><br>
+      <strong>[Cache: 4 - Excludes] Do Not Cache Query Strings:</strong><br>
       &numsp;<code>commentcode</code><br><br>
-      <strong>[4 - Excludes] Do Not Cache Roles:</strong>
+      <strong>[Cache: 4 - Excludes] Do Not Cache Roles:</strong>
       <ul>
         <li>- [x] Administrator</li>
         <li>- [x] Moderator</li>
         <li>- [x] Editor</li>
         <li>- [x] Author</li>
       </ul><br>
-      <strong>[5 - ESI] ESI Settings:</strong>
+      <strong>[Cache: 5 - ESI] ESI Settings:</strong>
       <ul>
         <li>- [x] Enable ESI</li>
         <li>- [x] Cache Admin Bar</li>
         <li>- [x] Cache Comment Form</li>
       </ul><br>
-      <strong>[5 - ESI] ESI Nonces:</strong><br>
+      <strong>[Cache: 5 - ESI] ESI Nonces:</strong><br>
       &numsp;<code>oauth_nonce</code><br>
       &numsp;<code>fictioneer_nonce</code><br>
       &numsp;<code>fictioneer-ajax-nonce</code><br><br>
-      <strong>[5 - ESI] Vary Group:</strong>
+      <strong>[Cache: 5 - ESI] Vary Group:</strong>
       <ul>
         <li>- [x] Administrator: 99</li>
         <li>- [x] Moderator: 50</li>
@@ -483,10 +483,14 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Contributor: 20</li>
         <li>- [x] Subscriber: 0</li>
       </ul><br>
-      <strong>[7 - Browser] Browser Cache Settings:</strong>
+      <strong>[Cache: 7 - Browser] Browser Cache Settings:</strong>
       <ul>
         <li>- [x] Browser Cache</li>
         <li>- [x] Browser Cache TTL: 31557600</li>
+      </ul>
+      <strong>[Page Optimization: 3 - HTML Settings] HTML Settings:</strong>
+      <ul>
+        <li>- [ ] Remove Query Strings</li>
       </ul>
     </blockquote>
   </details>
