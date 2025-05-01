@@ -18,7 +18,7 @@ if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['fcn_fast_ajax'] 
 $request_uri = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 
 // Check REST Request
-if ( strpos( $request_uri, 'wp-json/fictioneer/' ) !== false ) {
+if ( strpos( $request_uri ?? '', 'wp-json/fictioneer/' ) !== false ) {
   add_filter( 'option_active_plugins', 'fictioneer_exclude_plugins' );
 }
 
