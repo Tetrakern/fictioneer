@@ -220,3 +220,113 @@ function fictioneer_generate_test_content() {
   wp_die( 'Done' );
 }
 add_action( 'admin_post_fictioneer_generate_test_content', 'fictioneer_generate_test_content' );
+
+// =============================================================================
+// SHOW HOOKS IN HTML
+// =============================================================================
+
+add_action(
+  'all',
+  function ( $tag ) {
+    static $actions = [
+      'wp_head',
+      'wp_body_open',
+      'wp_footer',
+      'loop_start',
+      'loop_end',
+      'fictioneer_account_content',
+      'fictioneer_account_data_nodes',
+      'fictioneer_admin_settings_connections',
+      'fictioneer_admin_settings_general',
+      'fictioneer_admin_settings_phrases',
+      'fictioneer_admin_settings_tools',
+      'fictioneer_admin_user_sections',
+      'fictioneer_after_main',
+      'fictioneer_after_update',
+      'fictioneer_archive_loop_after',
+      'fictioneer_archive_loop_before',
+      'fictioneer_before_comments',
+      'fictioneer_body',
+      'fictioneer_chapter_actions_bottom_center',
+      'fictioneer_chapter_actions_bottom_left',
+      'fictioneer_chapter_actions_bottom_right',
+      'fictioneer_chapter_actions_top_center',
+      'fictioneer_chapter_actions_top_left',
+      'fictioneer_chapter_actions_top_right',
+      'fictioneer_chapter_after_content',
+      'fictioneer_chapter_after_header',
+      'fictioneer_chapter_after_main',
+      'fictioneer_chapter_before_comments',
+      'fictioneer_chapter_before_header',
+      'fictioneer_chapters_after_content',
+      'fictioneer_chapters_end_of_results',
+      'fictioneer_chapters_no_results',
+      'fictioneer_collection_after_content',
+      'fictioneer_collection_after_header',
+      'fictioneer_collection_footer',
+      'fictioneer_collections_after_content',
+      'fictioneer_collections_end_of_results',
+      'fictioneer_collections_no_results',
+      'fictioneer_footer',
+      'fictioneer_inner_header',
+      'fictioneer_large_card_body_chapter',
+      'fictioneer_large_card_body_collection',
+      'fictioneer_large_card_body_page',
+      'fictioneer_large_card_body_post',
+      'fictioneer_large_card_body_recommendation',
+      'fictioneer_large_card_body_story',
+      'fictioneer_main',
+      'fictioneer_main_end',
+      'fictioneer_main_wrapper',
+      'fictioneer_mobile_menu_bottom',
+      'fictioneer_mobile_menu_center',
+      'fictioneer_mobile_menu_main_frame_panels',
+      'fictioneer_mobile_menu_top',
+      'fictioneer_modals',
+      'fictioneer_modal_login_option',
+      'fictioneer_navigation_bottom',
+      'fictioneer_navigation_top',
+      'fictioneer_navigation_wrapper_end',
+      'fictioneer_navigation_wrapper_start',
+      'fictioneer_post_after_content',
+      'fictioneer_post_article_open',
+      'fictioneer_post_footer_left',
+      'fictioneer_post_footer_right',
+      'fictioneer_recommendation_after_content',
+      'fictioneer_recommendation_after_header',
+      'fictioneer_recommendation_footer',
+      'fictioneer_recommendations_after_content',
+      'fictioneer_recommendations_end_of_results',
+      'fictioneer_recommendations_no_results',
+      'fictioneer_search_footer',
+      'fictioneer_search_form_after',
+      'fictioneer_search_form_filters',
+      'fictioneer_search_no_params',
+      'fictioneer_search_no_results',
+      'fictioneer_shortcode_latest_chapters_card_body',
+      'fictioneer_shortcode_latest_recommendations_card_body',
+      'fictioneer_shortcode_latest_stories_card_body',
+      'fictioneer_shortcode_latest_updates_card_body',
+      'fictioneer_site',
+      'fictioneer_site_footer',
+      'fictioneer_stories_after_content',
+      'fictioneer_stories_end_of_results',
+      'fictioneer_stories_no_results',
+      'fictioneer_story_after_article',
+      'fictioneer_story_after_content',
+      'fictioneer_story_after_header',
+      'fictioneer_story_before_comments_list',
+      'fictioneer_text_center_header',
+      'fictioneer_top_header',
+    ];
+
+    if ( ! in_array( $tag, $actions, true ) ) {
+      return;
+    }
+
+    if ( ! is_admin() && ! doing_action( 'wp_ajax' ) && ! headers_sent() ) {
+      echo "\n<!-- action: $tag -->\n";
+    }
+  },
+  0
+);
