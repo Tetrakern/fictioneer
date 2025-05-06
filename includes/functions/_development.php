@@ -228,7 +228,7 @@ add_action( 'admin_post_fictioneer_generate_test_content', 'fictioneer_generate_
 add_action(
   'all',
   function ( $tag ) {
-    static $actions = [
+    static $actions = array(
       'wp_head',
       'wp_body_open',
       'wp_footer',
@@ -318,14 +318,48 @@ add_action(
       'fictioneer_story_before_comments_list',
       'fictioneer_text_center_header',
       'fictioneer_top_header',
-    ];
+    );
 
-    if ( ! in_array( $tag, $actions, true ) ) {
+    static $filters = array(
+      'fictioneer_filter_archive_header',
+      'fictioneer_filter_sharing_modal_links',
+      'fictioneer_filter_shortcode_article_card_footer',
+      'fictioneer_filter_card_control_icons',
+      'fictioneer_filter_card_control_menu',
+      'fictioneer_filter_chapter_card_footer',
+      'fictioneer_filter_chapter_identity',
+      'fictioneer_filter_chapter_micro_menu',
+      'fictioneer_filter_chapter_nav_buttons',
+      'fictioneer_filter_chapter_support_links',
+      'fictioneer_filter_collection_card_footer',
+      'fictioneer_filter_list_chapter_meta_row',
+      'fictioneer_filter_mobile_quick_buttons',
+      'fictioneer_filter_mobile_user_menu_items',
+      'fictioneer_filter_page_card_footer',
+      'fictioneer_filter_post_card_footer',
+      'fictioneer_filter_post_header_items',
+      'fictioneer_filter_post_meta_items',
+      'fictioneer_filter_shortcode_latest_chapters_card_footer',
+      'fictioneer_filter_shortcode_latest_stories_card_footer',
+      'fictioneer_filter_shortcode_latest_updates_card_footer',
+      'fictioneer_filter_shortcode_list_title',
+      'fictioneer_filter_story_buttons',
+      'fictioneer_filter_media_buttons',
+      'fictioneer_filter_story_card_footer',
+      'fictioneer_filter_story_footer_meta',
+      'fictioneer_filter_story_identity',
+      'fictioneer_filter_subscribe_buttons',
+      'fictioneer_filter_user_menu_items'
+    );
+
+    if ( ! in_array( $tag, $actions ) && ! in_array( $tag, $filters ) ) {
       return;
     }
 
     if ( ! is_admin() && ! doing_action( 'wp_ajax' ) && ! headers_sent() ) {
-      echo "\n<!-- action: $tag -->\n";
+      $type = in_array( $tag, $actions ) ? 'action' : 'output array filter';
+
+      echo "\n<!-- {$type}: {$tag} -->\n";
     }
   },
   0
