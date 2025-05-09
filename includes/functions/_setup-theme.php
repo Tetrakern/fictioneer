@@ -1317,7 +1317,7 @@ function fictioneer_add_custom_scripts() {
   $cache_bust = fictioneer_get_cache_bust();
   $password_required = post_password_required();
   $strategy = fictioneer_compare_wp_version( '6.3' ) && FICTIONEER_DEFER_SCRIPTS
-    ? array( 'strategy'  => 'defer' ) : true; // Defer or load in footer
+    ? array( 'strategy' => 'defer' ) : true; // Defer or load in footer
 
   // Dynamic scripts
   fictioneer_build_dynamic_scripts();
