@@ -695,11 +695,41 @@ function fictioneer_unlock_with_patreon( $form ) {
 add_filter( 'the_password_form', 'fictioneer_unlock_with_patreon', 20 );
 
 // =============================================================================
-// ADD ID TO CONTENT PARAGRAPHS IN CHAPTERS
+// PREPARE CHAPTER CONTENT
 // =============================================================================
 
 /**
- * Adds incrementing ID to chapter paragraphs
+ * Add wrapper to content required for scripts.
+ *
+ * Note: This needs to be done early, before other plugins add more
+ * wrappers, because the paragraph tools require this as the direct
+ * parent of the chapter paragraphs.
+ *
+ * @since 5.29.2
+ *
+ * @param string $content  The content.
+ *
+ * @return string The modified content.
+ */
+
+function fictioneer_add_chapter_formatting_wrapper( $content ) {
+  // Return early if...
+  if (
+    get_post_type() !== 'fcn_chapter' ||
+    ! is_singular( 'fcn_chapter' ) ||
+    ! in_the_loop() ||
+    ! is_main_query() ||
+    post_password_required()
+  ) {
+    return $content;
+  }
+
+  return '<div class="tools-wrapper">' . $content . '</div>';
+}
+add_filter( 'the_content', 'fictioneer_add_chapter_formatting_wrapper', 1 );
+
+/**
+ * Add incrementing ID to chapter paragraphs.
  *
  * @since 3.0
  * @license CC BY-SA 3.0
@@ -714,6 +744,7 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
   // Return early if...
   if (
     get_post_type() !== 'fcn_chapter' ||
+    ! is_singular( 'fcn_chapter' ) ||
     ! in_the_loop() ||
     ! is_main_query() ||
     post_password_required()
@@ -741,7 +772,7 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
 add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id' );
 
 /**
- * Fixes line breaks before paragraphs are added
+ * Fix line breaks before paragraphs are added.
  *
  * @since 5.25.0
  *
