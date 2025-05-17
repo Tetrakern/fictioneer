@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fictioneer Fast Requests
  * Description: Skips plugins for faster requests.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Tetrakern
  * Author URI: https://github.com/Tetrakern
  * Donate link: https://ko-fi.com/tetrakern
