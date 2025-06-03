@@ -177,6 +177,10 @@ if ( $card_cache_active ) {
               'update_post_term_cache' => false // Improve performance
             );
 
+            if ( get_option( 'fictioneer_show_scheduled_chapters' ) ) {
+              $chapter_query_args['post_status'] = ['publish', 'future'];
+            }
+
             $chapters = new WP_Query( $chapter_query_args );
           ?>
           <?php foreach ( $chapters->posts as $chapter ) : ?>
