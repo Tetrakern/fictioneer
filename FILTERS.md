@@ -2408,6 +2408,16 @@ Filters the last guard clause for returning the cached content, default `true`. 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_story_card_chapter_query_args', $query_args, $post, $story )`
+Filters the query arguments for the story card chapter list.
+
+**Parameters**
+* $query_args (array) – The post object.
+* $post (WP_Post) – The post object.
+* $story (array) – Story data.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output array in the `_card-story.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of chapters, publishing date, comments, and so forth.
 

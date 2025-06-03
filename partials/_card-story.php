@@ -181,6 +181,13 @@ if ( $card_cache_active ) {
               $chapter_query_args['post_status'] = ['publish', 'future'];
             }
 
+            $chapter_query_args = apply_filters(
+              'fictioneer_filter_story_card_chapter_query_args',
+              $chapter_query_args,
+              $post,
+              $story
+            );
+
             $chapters = new WP_Query( $chapter_query_args );
           ?>
           <?php foreach ( $chapters->posts as $chapter ) : ?>
