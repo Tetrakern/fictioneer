@@ -124,6 +124,10 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
   $body_attributes['data-controller'] .= ' fictioneer-checkmarks';
 }
 
+if ( $post_type === 'fcn_chapter' ) {
+  $body_attributes['data-controller'] .= ' fictioneer-chapter-formatting';
+}
+
 if ( $story_id ) {
   $body_attributes['data-story-id'] = $story_id;
 }

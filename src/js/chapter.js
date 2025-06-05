@@ -21,12 +21,24 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
   checkboxProgressBar = _$$$('site-setting-chapter-progress-bar');
   checkboxMinimalist = _$$$('site-setting-minimal');
 
+  /**
+   * Stimulus Controller initialize lifecycle callback.
+   *
+   * @since 5.27.0
+   */
+
   initialize() {
     if (this.progressBar && this.hasContentTarget && !this.hasPassword) {
       this.trackProgress();
       window.addEventListener('scroll.rAF', FcnUtils.throttle(this.trackProgress.bind(this), 1000 / 48));
     }
   }
+
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.27.0
+   */
 
   connect() {
     window.FictioneerApp.Controllers.fictioneerChapter = this;
@@ -45,7 +57,8 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
    * Note: Event action dispatched by 'fictioneer' Stimulus Controller.
    *
    * @since 5.27.0
-   * @param {HTMLElement} target -  The event target.
+   * @param {Event} detail - Event param.
+   * @param {HTMLElement} detail.target -  The event target.
    */
 
   clickOutside({ detail: { target } }) {
@@ -313,6 +326,107 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 });
 
 // =============================================================================
+// STIMULUS: FICTIONEER FORMATTING MODAL
+// =============================================================================
+
+application.register('fictioneer-chapter-formatting', class extends Stimulus.Controller {
+  static get targets() {
+    return ['fontSizeReset', 'fontSizeRange', 'fontSizeText', 'siteWidthReset', 'siteWidthRange', 'siteWidthText'];
+  }
+
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.27.0
+   */
+
+  connect() {
+    this.#updateSiteWidthControls();
+    this.#updateFontSizeControls();
+  }
+
+  /**
+   * Action to change the site width.
+   *
+   * @since 5.29.3
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
+   * @param {Object} params - Additional parameters.
+   * @param {String} params.type - Action type.
+   */
+
+  siteWidth({ currentTarget, params: { type } }) {
+    let value = type === 'reset' ? FcnFormatting.defaults()['site-width'] : currentTarget.value;
+
+    FcnFormatting.updateSiteWidth(value);
+    this.#updateSiteWidthControls(value);
+  }
+
+  /**
+   * Action to change the font size.
+   *
+   * @since 5.29.3
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
+   * @param {Object} params - Additional parameters.
+   * @param {String} params.type - Action type.
+   */
+
+  fontSize({ currentTarget, params: { type } }) {
+    const formatting = FcnFormatting.get();
+    let value = null;
+
+    switch (type) {
+      case 'adjust':
+        value = parseFloat(formatting['font-size']) + parseFloat(currentTarget.dataset.modifier);
+        break;
+      case 'range':
+      case 'text':
+        value = currentTarget.value;
+        break;
+    }
+
+    FcnFormatting.updateFontSize(value);
+    this.#updateFontSizeControls(value);
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  /**
+   * Update font size view controls.
+   *
+   * @since 5.29.3
+   * @param {Any|null} [value=null] - The new value. Falls back to default if null.
+   */
+
+  #updateFontSizeControls(value = null) {
+    value = value ?? FcnFormatting.get()['font-size'];
+
+    if (this.hasFontSizeRangeTarget) this.fontSizeRangeTargets.forEach(e => e.value = value);
+    if (this.hasFontSizeTextTarget) this.fontSizeTextTargets.forEach(e => e.value = value);
+    if (this.hasFontSizeResetTarget) this.fontSizeResetTargets.forEach(e => e.classList.toggle('_modified', value != 100));
+  }
+
+  /**
+   * Update site width view controls.
+   *
+   * @since 5.29.3
+   * @param {Any|null} [value=null] - The new value. Falls back to default if null.
+   */
+
+  #updateSiteWidthControls(value = null) {
+    value = value ?? FcnFormatting.get()['site-width'];
+
+    if (this.hasSiteWidthRangeTarget) this.siteWidthRangeTargets.forEach(e => e.value = value);
+    if (this.hasSiteWidthTextTarget) this.siteWidthTextTargets.forEach(e => e.value = value);
+    if (this.hasSiteWidthResetTarget) this.siteWidthResetTargets
+      .forEach(e => e.classList.toggle('_modified', value != FcnFormatting.defaults()['site-width']));
+  }
+});
+
+// =============================================================================
 // KEYBOARD NAVIGATION
 // =============================================================================
 
@@ -439,43 +553,22 @@ const FcnFormatting = {
     if (typeof value === 'object') {
       localStorage.setItem('fcnChapterFormatting', JSON.stringify(value));
     }
-  }
-};
-
-// =============================================================================
-// CHAPTER FORMATTING: FONT SIZE
-// =============================================================================
-
-(() => {
-  'use strict';
-
-  const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-font-size-text');
-  const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-font-size-range');
-  const /** @const {HTMLElement} */ reset = _$$$('reader-settings-font-size-reset');
-
-  // Abort if nothing to do
-  if (!reset) {
-    return;
-  }
+  },
 
   /**
    * Update font size formatting on chapters.
    *
    * @since 4.0.0
+   * @since 5.29.3 - Moved function into FcnFormatting.
    * @param {Number} value - Integer between 50 and 200.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
 
-  function fcn_updateFontSize(value, save = true) {
-    const formatting = FcnFormatting.get();
+  updateFontSize(value, save = true) {
+    const formatting = this.get();
 
     // Evaluate
     value = FcnUtils.clamp(50, 200, value ?? 100);
-
-    // Update associated elements
-    text.value = value;
-    range.value = value;
-    reset.classList.toggle('_modified', value != 100);
 
     // Update inline style
     _$$('.resize-font').forEach(element => {
@@ -486,53 +579,55 @@ const FcnFormatting = {
     formatting['font-size'] = value;
 
     if (save) {
+      this.set(formatting);
+    }
+  },
+
+  /**
+   * Update site width formatting on chapters.
+   *
+   * @description Only affects the width of the main container since 5.0.10
+   * to avoid potential layout issues.
+   *
+   * @since 4.0.0
+   * @since 5.29.3 - Moved function into FcnFormatting.
+   * @param {Number} value - Float between 640 and 1920.
+   * @param {Boolean} [save=true] - Optional. Whether to save the change.
+   */
+
+  updateSiteWidth(value, save = true) {
+    const formatting = FcnFormatting.get();
+    const main = _$('main');
+
+    // Evaluate
+    value = FcnUtils.clamp(640, 1920, value ?? FcnFormatting.defaults()['site-width']);
+
+    // Update site-width property
+    main.style.setProperty('--site-width', `${value}px`);
+
+    // Toggle utility classes
+    main.classList.toggle('_default-width', value == document.documentElement.dataset.siteWidthDefault);
+    main.classList.toggle('_below-1024', value < 1024 && value >= 768);
+    main.classList.toggle('_below-768', value < 768 && value > 640);
+    main.classList.toggle('_640-and-below', value <= 640);
+
+    // Update local storage
+    formatting['site-width'] = value;
+
+    console.log(formatting['site-width']);
+
+    if (save) {
       FcnFormatting.set(formatting);
     }
   }
+};
 
-  /**
-   * Helper to call fcn_setFontSize() with input value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_setFontSize() {
-    fcn_updateFontSize(this.value);
-  }
-
-  /**
-   * Helper to call fcn_setFontSize() with incremental/decremental value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_modifyFontSize() {
-    const formatting = FcnFormatting.get();
-
-    fcn_updateFontSize(
-      parseFloat(formatting['font-size']) + parseFloat(this.dataset.modifier)
-    );
-  }
-
-  // Listen for clicks on font size reset buttons
-  _$$$('reset-font')?.addEventListener('click', () => { fcn_updateFontSize(100) });
-  reset?.addEventListener('click', () => { fcn_updateFontSize(100) });
-
-  // Listen for font size range input
-  range?.addEventListener('input', FcnUtils.throttle(fcn_setFontSize, 1000 / 24));
-
-  // Listen for font size text input
-  text?.addEventListener('input', fcn_setFontSize);
-
-  // Listen for font size increment
-  _$$$('increase-font')?.addEventListener('click', fcn_modifyFontSize);
-
-  // Listen for font size decrement
-  _$$$('decrease-font')?.addEventListener('click', fcn_modifyFontSize);
-
-  // Initialize
+// Initialize on load
+(() => {
   const formatting = FcnFormatting.get();
-  fcn_updateFontSize(formatting['font-size'], false);
+
+  FcnFormatting.updateSiteWidth(formatting['site-width'], false);
+  FcnFormatting.updateFontSize(formatting['font-size'], false);
 })();
 
 // =============================================================================
@@ -995,89 +1090,6 @@ const FcnFormatting = {
   // Initialize
   const formatting = FcnFormatting.get();
   fcn_updateLineHeight(formatting['line-height'], false);
-})();
-
-// =============================================================================
-// CHAPTER FORMATTING: SITE WIDTH
-// =============================================================================
-
-(() => {
-  'use strict';
-
-  const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-site-width-text');
-  const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-site-width-range');
-  const /** @const {HTMLElement} */ reset = _$$$('reader-settings-site-width-reset');
-  const /** @const {Number} */ _default = FcnFormatting.defaults()['site-width'];
-
-  // Abort if nothing to do
-  if (!reset) {
-    return;
-  }
-
-  /**
-   * Update site width formatting on chapters.
-   *
-   * @description Only affects the width of the main container since 5.0.10
-   * to avoid potential layout issues.
-   *
-   * @since 4.0.0
-   * @param {Number} value - Float between 640 and 1920.
-   * @param {Boolean} [save=true] - Optional. Whether to save the change.
-   */
-
-  function fcn_updateSiteWidth(value, save = true) {
-    const formatting = FcnFormatting.get();
-
-    // Target
-    const main = _$('main');
-
-    // Evaluate
-    value = FcnUtils.clamp(640, 1920, value ?? _default);
-
-    // Update associated elements
-    text.value = value;
-    range.value = value;
-    reset.classList.toggle('_modified', value != _default);
-
-    // Update site-width property
-    main.style.setProperty('--site-width', `${value}px`);
-
-    // Toggle utility classes
-    main.classList.toggle('_default-width', value == document.documentElement.dataset.siteWidthDefault);
-    main.classList.toggle('_below-1024', value < 1024 && value >= 768);
-    main.classList.toggle('_below-768', value < 768 && value > 640);
-    main.classList.toggle('_640-and-below', value <= 640);
-
-    // Update local storage
-    formatting['site-width'] = value;
-
-    if (save) {
-      FcnFormatting.set(formatting);
-    }
-  }
-
-  /**
-   * Helper to call fcn_updateSiteWidth() with input value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_setSiteWidth() {
-    fcn_updateSiteWidth(this.value);
-  }
-
-  // Listen for click on site width reset button
-  reset?.addEventListener('click', () => { fcn_updateSiteWidth(_default) });
-
-  // Listen for site width range input
-  range?.addEventListener('input', FcnUtils.throttle(fcn_setSiteWidth, 1000 / 24));
-
-  // Listen for site width text input
-  text?.addEventListener('input', fcn_setSiteWidth);
-
-  // Initialize
-  const formatting = FcnFormatting.get();
-  fcn_updateSiteWidth(formatting['site-width'], false);
 })();
 
 // =============================================================================

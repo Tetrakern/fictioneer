@@ -293,13 +293,13 @@ function fictioneer_chapter_resize_buttons() {
   $increase_label = esc_attr__( 'Increase font size', 'fictioneer' );
 
   // Start HTML ---> ?>
-  <button type="button" id="decrease-font" data-tooltip="<?php echo $decrease_label; ?>" data-modifier="-5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
+  <button type="button" id="decrease-font" data-tooltip="<?php echo $decrease_label; ?>" data-modifier="-5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>" data-action="click->fictioneer-chapter-formatting#fontSize" data-fictioneer-chapter-formatting-type-param="adjust">
     <?php fictioneer_icon( 'fa-minus' ); ?>
   </button>
-  <button type="reset" id="reset-font" data-tooltip="<?php echo $reset_label; ?>" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
+  <button type="reset" id="reset-font" data-tooltip="<?php echo $reset_label; ?>" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>" data-action="click->fictioneer-chapter-formatting#fontSize" data-fictioneer-chapter-formatting-type-param="reset">
     <?php fictioneer_icon( 'fa-square' ); ?>
   </button>
-  <button type="button" id="increase-font" data-tooltip="<?php echo $increase_label; ?>" data-modifier="5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
+  <button type="button" id="increase-font" data-tooltip="<?php echo $increase_label; ?>" data-modifier="5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>" data-action="click->fictioneer-chapter-formatting#fontSize" data-fictioneer-chapter-formatting-type-param="adjust">
     <?php fictioneer_icon( 'fa-plus' ); ?>
   </button>
   <?php // <--- End HTML

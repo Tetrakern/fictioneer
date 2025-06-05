@@ -9,6 +9,12 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
 
   timeout = 0;
 
+  /**
+   * Stimulus Controller initialize lifecycle callback.
+   *
+   * @since 5.27.0
+   */
+
   initialize() {
     if (fcn()?.userReady) {
       this.#ready = true;
@@ -22,6 +28,12 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
       });
     }
   }
+
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.27.0
+   */
 
   connect() {
     window.FictioneerApp.Controllers.fictioneerCheckmarks = this;

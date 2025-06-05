@@ -33,15 +33,15 @@ defined( 'ABSPATH' ) OR exit;
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing hide-below-640 _width">
-      <i class="fa-solid fa-arrows-alt-h reset" title="<?php esc_attr_e( 'Content Width', 'fictioneer' ); ?>" id="reader-settings-site-width-reset"></i>
-      <input type="range" value="960" min="640" max="1920" step="1" id="reader-settings-site-width-range">
-      <input type="number" value="960" min="640" max="1920" step="1" id="reader-settings-site-width-text">
+      <i class="fa-solid fa-arrows-alt-h reset" title="<?php esc_attr_e( 'Content Width', 'fictioneer' ); ?>" id="reader-settings-site-width-reset" data-action="click->fictioneer-chapter-formatting#siteWidth" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="siteWidthReset"></i>
+      <input type="range" value="960" min="640" max="1920" step="1" id="reader-settings-site-width-range" data-action="input->fictioneer-chapter-formatting#siteWidth" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="siteWidthRange">
+      <input type="number" value="960" min="640" max="1920" step="1" id="reader-settings-site-width-text" data-action="input->fictioneer-chapter-formatting#siteWidth" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="siteWidthText">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _font-size">
-      <i class="fa-solid fa-text-height reset" title="<?php esc_attr_e( 'Font Size (Percentage)', 'fictioneer' ); ?>" id="reader-settings-font-size-reset"></i>
-      <input type="range" value="100" min="50" max="200" step="1" id="reader-settings-font-size-range">
-      <input type="number" value="100" min="50" max="200" step="1" id="reader-settings-font-size-text">
+      <i class="fa-solid fa-text-height reset" title="<?php esc_attr_e( 'Font Size (Percentage)', 'fictioneer' ); ?>" id="reader-settings-font-size-reset" data-action="click->fictioneer-chapter-formatting#fontSize" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="fontSizeReset"></i>
+      <input type="range" value="100" min="50" max="200" step="1" id="reader-settings-font-size-range" data-action="input->fictioneer-chapter-formatting#fontSize" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="fontSizeRange">
+      <input type="number" value="100" min="50" max="200" step="1" id="reader-settings-font-size-text"  data-action="input->fictioneer-chapter-formatting#fontSize" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="fontSizeText">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _letter-spacing">
