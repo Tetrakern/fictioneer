@@ -191,6 +191,8 @@ Filters the intermediate output array of additional body attributes (except `cla
 
 **$attributes:**
 * 'data-post-id' (int) – Current post ID (or -1 if null).
+* 'data-controller' (string) – Current Stimulus controllers on the body.
+* 'data-action' (string) – Current Stimulus actions on the body.
 * 'data-story-id' (int|null) – Current story ID (if any). Unsafe.
 
 **$args:**
