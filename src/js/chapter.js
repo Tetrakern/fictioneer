@@ -315,7 +315,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
     if (
       target.classList.contains('spoiler') ||
       !target.closest('p[data-paragraph-id]')?.textContent.trim().length ||
-      !target.closest('p')?.parentElement?.classList.contains('chapter-formatting') ||
+      !target.closest('p')?.parentElement?.classList.contains('tools-wrapper') ||
       target.closest(interactiveSelector)
     ) {
       return false;
@@ -613,8 +613,6 @@ const FcnFormatting = {
 
     // Update local storage
     formatting['site-width'] = value;
-
-    console.log(formatting['site-width']);
 
     if (save) {
       FcnFormatting.set(formatting);

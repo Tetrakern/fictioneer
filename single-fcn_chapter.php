@@ -125,7 +125,7 @@ get_header(
             echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
           }
 
-          echo '<div class="resize-font chapter-formatting chapter-font-color chapter-font-family" data-fictioneer-chapter-target="contentWrapper" data-action="mousedown->fictioneer-chapter#fastClick">';
+          echo '<div class="resize-font chapter-formatting tools-wrapper chapter-font-color chapter-font-family" data-fictioneer-chapter-target="contentWrapper" data-action="mousedown->fictioneer-chapter#fastClick">';
 
           if ( $password_required && get_option( 'fictioneer_show_protected_excerpt' ) ) {
             echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post_id, 512 ) . '</p>';
