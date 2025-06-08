@@ -2040,6 +2040,10 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
     $category = implode( ', ', wp_get_post_categories( $story_id ) );
     $blog_posts = new WP_Query();
 
+    $blog_posts->query_vars['update_post_meta_cache'] = false;
+    $blog_posts->query_vars['update_post_term_cache'] = false;
+    $blog_posts->query_vars['fields'] = null;
+
     // Query by category
     $blog_category_query_args = array(
       'ignore_sticky_posts' => 1,
