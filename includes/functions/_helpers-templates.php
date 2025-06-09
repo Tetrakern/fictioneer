@@ -1989,12 +1989,21 @@ function fictioneer_get_support_links( $post_id = null, $parent_id = null, $auth
   // Setup
   $post_id = $post_id ?? $post->ID;
   $author_id = $author_id ?? get_post_field( 'post_author', $post_id );
-  $meta_keys = ['topwebfiction', 'patreon', 'kofi', 'subscribestar', 'paypal', 'donation'];
+  $meta_keys = ['patreon', 'kofi', 'subscribestar', 'paypal', 'donation'];
   $links = [];
 
   // Get story ID if chapter and parent ID not given
   if ( $parent_id === null && get_post_type( $post_id ) == 'fcn_chapter' ) {
     $parent_id = fictioneer_get_chapter_story_id( $post_id );
+  }
+
+  // Top Web Fiction
+  if ( $parent_id ) {
+    $top_web_fiction_link = get_post_meta( $parent_id, "fictioneer_story_topwebfiction_link", true );
+
+    if ( ! empty( $top_web_fiction_link ) ) {
+      $links['topwebfiction'] = $top_web_fiction_link;
+    }
   }
 
   // Iterate over keys of interest
