@@ -331,7 +331,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
 application.register('fictioneer-chapter-formatting', class extends Stimulus.Controller {
   static get targets() {
-    return ['fontSizeReset', 'fontSizeRange', 'fontSizeText', 'siteWidthReset', 'siteWidthRange', 'siteWidthText'];
+    return ['fontSizeReset', 'fontSizeRange', 'fontSizeText', 'siteWidthReset', 'siteWidthRange', 'siteWidthText', 'fontSaturationReset', 'fontSaturationRange', 'fontSaturationText', 'letterSpacingReset', 'letterSpacingRange', 'letterSpacingText'];
   }
 
   /**
@@ -343,6 +343,8 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   connect() {
     this.#updateSiteWidthControls();
     this.#updateFontSizeControls();
+    this.#updateFontSaturationControls();
+    this.#updateLetterSpacingControls();
   }
 
   /**
@@ -356,10 +358,36 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    */
 
   siteWidth({ currentTarget, params: { type } }) {
-    let value = type === 'reset' ? FcnFormatting.defaults()['site-width'] : currentTarget.value;
+    const value = type === 'reset' ? null : parseInt(currentTarget.value);
 
     FcnFormatting.updateSiteWidth(value);
     this.#updateSiteWidthControls(value);
+  }
+
+  /**
+   * Action to change the font saturation.
+   *
+   * @since 5.29.5
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
+   * @param {Object} params - Additional parameters.
+   * @param {String} params.type - Action type.
+   */
+
+  fontSaturation({ currentTarget, params: { type } }) {
+    let value = null;
+
+    switch (type) {
+      case 'range':
+        value = parseFloat(currentTarget.value);
+        break;
+      case 'text':
+        value = parseInt(currentTarget.value) / 100;
+        break;
+    }
+
+    FcnFormatting.updateFontSaturation(value);
+    this.#updateFontSaturationControls(value);
   }
 
   /**
@@ -390,6 +418,23 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
     this.#updateFontSizeControls(value);
   }
 
+  /**
+   * Action to change the letter spacing.
+   *
+   * @since 5.29.5
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
+   * @param {Object} params - Additional parameters.
+   * @param {String} params.type - Action type.
+   */
+
+  letterSpacing({ currentTarget, params: { type } }) {
+    let value = type === 'reset' ? null : parseFloat(currentTarget.value);
+
+    FcnFormatting.updateLetterSpacing(value);
+    this.#updateLetterSpacingControls(value);
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================
@@ -410,9 +455,25 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   }
 
   /**
+   * Update font font saturation controls.
+   *
+   * @since 5.29.5
+   * @param {Any|null} [value=null] - The new value. Falls back to default if null.
+   */
+
+  #updateFontSaturationControls(value = null) {
+    value = value ?? FcnFormatting.get()['font-saturation'];
+
+    if (this.hasFontSaturationRangeTarget) this.fontSaturationRangeTargets.forEach(e => e.value = value);
+    if (this.hasFontSaturationTextTarget) this.fontSaturationTextTargets.forEach(e => e.value = parseInt(value * 100));
+    if (this.hasFontSaturationResetTarget) this.fontSaturationResetTargets
+      .forEach(e => e.classList.toggle('_modified', value != 0));
+  }
+
+  /**
    * Update site width view controls.
    *
-   * @since 5.29.3
+   * @since 5.29.5
    * @param {Any|null} [value=null] - The new value. Falls back to default if null.
    */
 
@@ -423,6 +484,22 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
     if (this.hasSiteWidthTextTarget) this.siteWidthTextTargets.forEach(e => e.value = value);
     if (this.hasSiteWidthResetTarget) this.siteWidthResetTargets
       .forEach(e => e.classList.toggle('_modified', value != FcnFormatting.defaults()['site-width']));
+  }
+
+  /**
+   * Update letter spacing view controls.
+   *
+   * @since 5.29.5
+   * @param {Any|null} [value=null] - The new value. Falls back to default if null.
+   */
+
+  #updateLetterSpacingControls(value = null) {
+    value = value ?? FcnFormatting.get()['letter-spacing'];
+
+    if (this.hasLetterSpacingRangeTarget) this.letterSpacingRangeTargets.forEach(e => e.value = value);
+    if (this.hasLetterSpacingTextTarget) this.letterSpacingTextTargets.forEach(e => e.value = value);
+    if (this.hasLetterSpacingResetTarget) this.letterSpacingResetTargets
+      .forEach(e => e.classList.toggle('_modified', value != FcnFormatting.defaults()['letter-spacing']));
   }
 });
 
@@ -617,6 +694,61 @@ const FcnFormatting = {
     if (save) {
       FcnFormatting.set(formatting);
     }
+  },
+
+  /**
+   * Update font saturation formatting on chapters.
+   *
+   * @since 4.0.0
+   * @since 5.29.4 - Moved function into FcnFormatting.
+   * @param {Number} value - Float between -1 and 1.
+   * @param {Boolean} [save=true] - Optional. Whether to save the change.
+   */
+
+  updateFontSaturation(value, save = true) {
+    const formatting = FcnFormatting.get();
+
+    // Evaluate
+    value = FcnUtils.clamp(-1, 1, value ?? 0);
+
+    // Update font saturation property (squared for smooth progression)
+    this.eFormattingTarget.style.setProperty(
+      '--font-saturation',
+      `(${value >= 0 ? 1 + value ** 2 : 1 - value ** 2} + var(--font-saturation-offset))`
+    );
+
+    // Update local storage
+    formatting['font-saturation'] = value;
+
+    if (save) {
+      FcnFormatting.set(formatting);
+    }
+  },
+
+  /**
+   * Update letter-spacing formatting on chapters.
+   *
+   * @since 4.0.0
+   * @since 5.29.4 - Moved function into FcnFormatting.
+   * @param {Number} value - Float between -0.1 and 0.2.
+   * @param {Boolean} [save=true] - Optional. Whether to save the change.
+   */
+
+  updateLetterSpacing(value, save = true) {
+    const formatting = FcnFormatting.get();
+
+    // Evaluate
+    value = FcnUtils.clamp(-0.1, 0.2, value ?? FcnFormatting.defaults()['letter-spacing']);
+
+    // Update inline style
+    this.eFormattingTarget.style.letterSpacing = `calc(${value}em + var(--font-letter-spacing-base))`;
+
+    // Update local storage
+    formatting['letter-spacing'] = value;
+
+    if (save) {
+      FcnFormatting.set(formatting);
+    }
   }
 };
 
@@ -626,6 +758,8 @@ const FcnFormatting = {
 
   FcnFormatting.updateSiteWidth(formatting['site-width'], false);
   FcnFormatting.updateFontSize(formatting['font-size'], false);
+  FcnFormatting.updateFontSaturation(formatting['font-saturation'], false);
+  FcnFormatting.updateLetterSpacing(formatting['letter-spacing'], false);
 })();
 
 // =============================================================================
@@ -792,160 +926,6 @@ const FcnFormatting = {
   // Initialize (using the CSS name makes it independent from the array position)
   const formatting = FcnFormatting.get();
   fcn_updateFontFamily(FcnGlobals.fonts.findIndex((item) => { return item.css == formatting['font-name'] }), false);
-})();
-
-// =============================================================================
-// CHAPTER FORMATTING: FONT SATURATION
-// =============================================================================
-
-(() => {
-  'use strict';
-
-  const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-font-saturation-text');
-  const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-font-saturation-range');
-  const /** @const {HTMLElement} */ reset = _$$$('reader-settings-font-saturation-reset');
-
-  // Abort if nothing to do
-  if (!reset) {
-    return;
-  }
-
-  /**
-   * Update font saturation formatting on chapters.
-   *
-   * @since 4.0.0
-   * @param {Number} value - Float between -1 and 1.
-   * @param {Boolean} [save=true] - Optional. Whether to save the change.
-   */
-
-  function fcn_updateFontSaturation(value, save = true) {
-    const formatting = FcnFormatting.get();
-
-    // Evaluate
-    value = FcnUtils.clamp(-1, 1, value ?? 0);
-
-    // Update associated elements
-    text.value = parseInt(value * 100);
-    range.value = value;
-    reset.classList.toggle('_modified', value != 0);
-
-    // Update font saturation property (squared for smooth progression)
-    FcnFormatting.eFormattingTarget.style.setProperty(
-      '--font-saturation',
-      `(${value >= 0 ? 1 + value ** 2 : 1 - value ** 2} + var(--font-saturation-offset))`
-    );
-
-    // Update local storage
-    formatting['font-saturation'] = value;
-
-    if (save) {
-      FcnFormatting.set(formatting);
-    }
-  }
-
-  /**
-   * Helper to call fcn_updateFontSaturation() with range input value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_setFontSaturationFromRange() {
-    fcn_updateFontSaturation(this.value);
-  }
-
-  /**
-   * Helper to call fcn_updateFontSaturation() with text input value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_setFontSaturationFromText() {
-    fcn_updateFontSaturation(parseInt(this.value) / 100);
-  }
-
-  // Listen for click on text saturation reset
-  reset?.addEventListener('click', () => { fcn_updateFontSaturation(0) });
-
-  // Listen for text saturation range input
-  range?.addEventListener('input', FcnUtils.throttle(fcn_setFontSaturationFromRange, 1000 / 24));
-
-  // Listen for text saturation text input
-  text?.addEventListener('input', fcn_setFontSaturationFromText);
-
-  // Initialize
-  const formatting = FcnFormatting.get();
-  fcn_updateFontSaturation(formatting['font-saturation'], false);
-})();
-
-// =============================================================================
-// CHAPTER FORMATTING: LETTER SPACING
-// =============================================================================
-
-(() => {
-  'use strict';
-
-  const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-letter-spacing-text');
-  const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-letter-spacing-range');
-  const /** @const {HTMLElement} */ reset = _$$$('reader-settings-letter-spacing-reset');
-  const /** @const {Number} */ _default = FcnFormatting.defaults()['letter-spacing'];
-
-  // Abort if nothing to do
-  if (!reset) {
-    return;
-  }
-
-  /**
-   * Update letter-spacing formatting on chapters.
-   *
-   * @since 4.0.0
-   * @param {Number} value - Float between -0.1 and 0.2.
-   * @param {Boolean} [save=true] - Optional. Whether to save the change.
-   */
-
-  function fcn_updateLetterSpacing(value, save = true) {
-    const formatting = FcnFormatting.get();
-
-    // Evaluate
-    value = FcnUtils.clamp(-0.1, 0.2, value ?? _default);
-
-    // Update associated elements
-    text.value = value;
-    range.value = value;
-    reset.classList.toggle('_modified', value != _default);
-
-    // Update inline style
-    FcnFormatting.eFormattingTarget.style.letterSpacing = `calc(${value}em + var(--font-letter-spacing-base))`;
-
-    // Update local storage
-    formatting['letter-spacing'] = value;
-
-    if (save) {
-      FcnFormatting.set(formatting);
-    }
-  }
-
-  /**
-   * Helper to call fcn_updateLetterSpacing() with input value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_setLetterSpacing() {
-    fcn_updateLetterSpacing(this.value);
-  }
-
-  // Listen for click on letter-spacing reset button
-  reset?.addEventListener('click', () => { fcn_updateLetterSpacing(_default) });
-
-  // Listen for letter-spacing range input
-  range?.addEventListener('input', FcnUtils.throttle(fcn_setLetterSpacing, 1000 / 24));
-
-  // Listen for letter-spacing text input
-  text?.addEventListener('input', fcn_setLetterSpacing);
-
-  // Initialize
-  const formatting = FcnFormatting.get();
-  fcn_updateLetterSpacing(formatting['letter-spacing'], false);
 })();
 
 // =============================================================================

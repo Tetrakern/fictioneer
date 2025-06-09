@@ -27,9 +27,9 @@ defined( 'ABSPATH' ) OR exit;
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _saturation">
-      <i class="fa-solid fa-droplet reset setting-saturation-reset" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="reader-settings-saturation-range">
-      <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="reader-settings-saturation-text">
+      <i class="fa-solid fa-droplet reset setting-saturation-reset" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>" data-action="click->fictioneer-chapter-formatting#saturation" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="saturationReset"></i>
+      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="reader-settings-saturation-range" data-action="input->fictioneer-chapter-formatting#saturation" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="saturationRange">
+      <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="reader-settings-saturation-text" data-action="input->fictioneer-chapter-formatting#saturation" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="saturationText">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing hide-below-640 _width">
@@ -45,9 +45,9 @@ defined( 'ABSPATH' ) OR exit;
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _letter-spacing">
-      <i class="fa-solid fa-text-width reset" title="<?php esc_attr_e( 'Letter Spacing', 'fictioneer' ); ?>" id="reader-settings-letter-spacing-reset"></i>
-      <input type="range" value="0.0" min="-0.1" max="0.2" step=".001" id="reader-settings-letter-spacing-range">
-      <input type="number" value="0.0" min="-0.1" max="0.2" step=".001" id="reader-settings-letter-spacing-text">
+      <i class="fa-solid fa-text-width reset" title="<?php esc_attr_e( 'Letter Spacing', 'fictioneer' ); ?>" id="reader-settings-letter-spacing-reset" data-action="click->fictioneer-chapter-formatting#letterSpacing" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="letterSpacingReset"></i>
+      <input type="range" value="0.0" min="-0.1" max="0.2" step=".001" id="reader-settings-letter-spacing-range" data-action="input->fictioneer-chapter-formatting#letterSpacing" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="letterSpacingRange">
+      <input type="number" value="0.0" min="-0.1" max="0.2" step=".001" id="reader-settings-letter-spacing-text"  data-action="input->fictioneer-chapter-formatting#letterSpacing" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="letterSpacingText">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _line-height">
@@ -63,9 +63,9 @@ defined( 'ABSPATH' ) OR exit;
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _font-saturation">
-      <i class="fa-solid fa-pen-nib reset" title="<?php esc_attr_e( 'Font Saturation', 'fictioneer' ); ?>" id="reader-settings-font-saturation-reset"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-range">
-      <input type="number" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-text">
+      <i class="fa-solid fa-pen-nib reset" title="<?php esc_attr_e( 'Font Saturation', 'fictioneer' ); ?>" id="reader-settings-font-saturation-reset" data-action="click->fictioneer-chapter-formatting#fontSaturation" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="fontSaturationReset"></i>
+      <input type="range" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-range" data-action="input->fictioneer-chapter-formatting#fontSaturation" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="fontSaturationRange">
+      <input type="number" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-text" data-action="input->fictioneer-chapter-formatting#fontSaturation" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="fontSaturationText">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _font-lightness">
