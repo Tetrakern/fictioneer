@@ -7,7 +7,7 @@ Contributors: tetrakern
 Requires at least: 6.5.0
 Tested up to: 6.8.1
 Requires PHP: 7.4
-Stable tag: 5.29.3
+Stable tag: 5.29.4
 License: GNU General Public License v3.0 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
