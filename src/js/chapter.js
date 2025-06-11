@@ -331,7 +331,7 @@ application.register('fictioneer-chapter', class extends Stimulus.Controller {
 
 application.register('fictioneer-chapter-formatting', class extends Stimulus.Controller {
   static get targets() {
-    return ['fontSizeReset', 'fontSizeRange', 'fontSizeText', 'siteWidthReset', 'siteWidthRange', 'siteWidthText', 'fontSaturationReset', 'fontSaturationRange', 'fontSaturationText', 'letterSpacingReset', 'letterSpacingRange', 'letterSpacingText'];
+    return ['fontSizeReset', 'fontSizeRange', 'fontSizeText', 'siteWidthReset', 'siteWidthRange', 'siteWidthText', 'fontSaturationReset', 'fontSaturationRange', 'fontSaturationText', 'letterSpacingReset', 'letterSpacingRange', 'letterSpacingText', 'lineHeightReset', 'lineHeightRange', 'lineHeightText', 'paragraphSpacingReset', 'paragraphSpacingRange', 'paragraphSpacingText'];
   }
 
   /**
@@ -345,6 +345,8 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
     this.#updateFontSizeControls();
     this.#updateFontSaturationControls();
     this.#updateLetterSpacingControls();
+    this.#updateLineHeightControls();
+    this.#updateParagraphSpacingControls();
   }
 
   /**
@@ -435,6 +437,40 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
     this.#updateLetterSpacingControls(value);
   }
 
+  /**
+   * Action to change the line height.
+   *
+   * @since 5.29.5
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
+   * @param {Object} params - Additional parameters.
+   * @param {String} params.type - Action type.
+   */
+
+  lineHeight({ currentTarget, params: { type } }) {
+    let value = type === 'reset' ? null : parseFloat(currentTarget.value);
+
+    FcnFormatting.updateLineHeight(value);
+    this.#updateLineHeightControls(value);
+  }
+
+  /**
+   * Action to change the paragraph spacing.
+   *
+   * @since 5.29.5
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
+   * @param {Object} params - Additional parameters.
+   * @param {String} params.type - Action type.
+   */
+
+  paragraphSpacing({ currentTarget, params: { type } }) {
+    let value = type === 'reset' ? null : parseFloat(currentTarget.value);
+
+    FcnFormatting.updateParagraphSpacing(value);
+    this.#updateParagraphSpacingControls(value);
+  }
+
   // =====================
   // ====== PRIVATE ======
   // =====================
@@ -447,11 +483,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    */
 
   #updateFontSizeControls(value = null) {
-    value = value ?? FcnFormatting.get()['font-size'];
-
-    if (this.hasFontSizeRangeTarget) this.fontSizeRangeTargets.forEach(e => e.value = value);
-    if (this.hasFontSizeTextTarget) this.fontSizeTextTargets.forEach(e => e.value = value);
-    if (this.hasFontSizeResetTarget) this.fontSizeResetTargets.forEach(e => e.classList.toggle('_modified', value != 100));
+    this.#updateFormattingControls('font-size', value);
   }
 
   /**
@@ -462,12 +494,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    */
 
   #updateFontSaturationControls(value = null) {
-    value = value ?? FcnFormatting.get()['font-saturation'];
-
-    if (this.hasFontSaturationRangeTarget) this.fontSaturationRangeTargets.forEach(e => e.value = value);
-    if (this.hasFontSaturationTextTarget) this.fontSaturationTextTargets.forEach(e => e.value = parseInt(value * 100));
-    if (this.hasFontSaturationResetTarget) this.fontSaturationResetTargets
-      .forEach(e => e.classList.toggle('_modified', value != 0));
+    this.#updateFormattingControls('font-saturation', value, v => parseInt(v * 100));
   }
 
   /**
@@ -478,12 +505,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    */
 
   #updateSiteWidthControls(value = null) {
-    value = value ?? FcnFormatting.get()['site-width'];
-
-    if (this.hasSiteWidthRangeTarget) this.siteWidthRangeTargets.forEach(e => e.value = value);
-    if (this.hasSiteWidthTextTarget) this.siteWidthTextTargets.forEach(e => e.value = value);
-    if (this.hasSiteWidthResetTarget) this.siteWidthResetTargets
-      .forEach(e => e.classList.toggle('_modified', value != FcnFormatting.defaults()['site-width']));
+    this.#updateFormattingControls('site-width', value);
   }
 
   /**
@@ -494,12 +516,54 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    */
 
   #updateLetterSpacingControls(value = null) {
-    value = value ?? FcnFormatting.get()['letter-spacing'];
+    this.#updateFormattingControls('letter-spacing', value);
+  }
 
-    if (this.hasLetterSpacingRangeTarget) this.letterSpacingRangeTargets.forEach(e => e.value = value);
-    if (this.hasLetterSpacingTextTarget) this.letterSpacingTextTargets.forEach(e => e.value = value);
-    if (this.hasLetterSpacingResetTarget) this.letterSpacingResetTargets
-      .forEach(e => e.classList.toggle('_modified', value != FcnFormatting.defaults()['letter-spacing']));
+  /**
+   * Update line height view controls.
+   *
+   * @since 5.29.5
+   * @param {Any|null} [value=null] - The new value. Falls back to default if null.
+   */
+
+  #updateLineHeightControls(value = null) {
+    this.#updateFormattingControls('line-height', value);
+  }
+
+  /**
+   * Update paragraph spacing view controls.
+   *
+   * @since 5.29.5
+   * @param {Any|null} [value=null] - The new value. Falls back to default if null.
+   */
+
+  #updateParagraphSpacingControls(value = null) {
+    this.#updateFormattingControls('paragraph-spacing', value);
+  }
+
+  /**
+   * Generic updater for formatting controls.
+   *
+   * @since 5.29.5
+   * @param {String} key - The formatting key.
+   * @param {Any|null} value - The new value. Falls back to default if null.
+   * @param {Function|null} transform - Optional function to transform value for text targets.
+   */
+  #updateFormattingControls(key, value = null, transform = null) {
+    value = value ?? FcnFormatting.get()[key];
+
+    const camelKey = key.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+
+    if (this[`has${camelKey.charAt(0).toUpperCase() + camelKey.slice(1)}RangeTarget`])
+      this[`${camelKey}RangeTargets`].forEach(e => e.value = value);
+
+    if (this[`has${camelKey.charAt(0).toUpperCase() + camelKey.slice(1)}TextTarget`])
+      this[`${camelKey}TextTargets`].forEach(e => e.value = transform ? transform(value) : value);
+
+    if (this[`has${camelKey.charAt(0).toUpperCase() + camelKey.slice(1)}ResetTarget`])
+      this[`${camelKey}ResetTargets`].forEach(e =>
+        e.classList.toggle('_modified', value != FcnFormatting.defaults()[key])
+      );
   }
 });
 
@@ -645,7 +709,7 @@ const FcnFormatting = {
     const formatting = this.get();
 
     // Evaluate
-    value = FcnUtils.clamp(50, 200, value ?? 100);
+    value = FcnUtils.clamp(50, 200, value ?? FcnFormatting.defaults()['font-size']);
 
     // Update inline style
     _$$('.resize-font').forEach(element => {
@@ -709,7 +773,7 @@ const FcnFormatting = {
     const formatting = FcnFormatting.get();
 
     // Evaluate
-    value = FcnUtils.clamp(-1, 1, value ?? 0);
+    value = FcnUtils.clamp(-1, 1, value ?? FcnFormatting.defaults()['font-saturation']);
 
     // Update font saturation property (squared for smooth progression)
     this.eFormattingTarget.style.setProperty(
@@ -729,7 +793,7 @@ const FcnFormatting = {
    * Update letter-spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @since 5.29.4 - Moved function into FcnFormatting.
+   * @since 5.29.5 - Moved function into FcnFormatting.
    * @param {Number} value - Float between -0.1 and 0.2.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
@@ -749,6 +813,58 @@ const FcnFormatting = {
     if (save) {
       FcnFormatting.set(formatting);
     }
+  },
+
+  /**
+   * Update line height formatting on chapters.
+   *
+   * @since 4.0.0
+   * @since 5.29.5 - Moved function into FcnFormatting.
+   * @param {Number} value - Float between 0.8 and 3.
+   * @param {Boolean} [save=true] - Optional. Whether to save the change.
+   */
+
+  updateLineHeight(value, save = true) {
+    const formatting = FcnFormatting.get();
+
+    // Evaluate
+    value = FcnUtils.clamp(0.8, 3.0, value ?? FcnFormatting.defaults()['line-height']);
+
+    // Update inline style
+    this.eFormattingTarget.style.lineHeight = `${value}`;
+
+    // Update local storage
+    formatting['line-height'] = value;
+
+    if (save) {
+      FcnFormatting.set(formatting);
+    }
+  },
+
+  /**
+   * Update paragraph spacing formatting on chapters.
+   *
+   * @since 4.0.0
+   * @since 5.29.5 - Moved function into FcnFormatting.
+   * @param {Number} value - Float between 0 and 3.
+   * @param {Boolean} [save=true] - Optional. Whether to save the change.
+   */
+
+  updateParagraphSpacing(value, save = true) {
+    const formatting = FcnFormatting.get();
+
+    // Evaluate
+    value = FcnUtils.clamp(0, 3, value ?? FcnFormatting.defaults()['paragraph-spacing']);
+
+    // Update paragraph-spacing property
+    this.eFormattingTarget.style.setProperty('--paragraph-spacing', `${value}em`);
+
+    // Update local storage
+    formatting['paragraph-spacing'] = value;
+
+    if (save) {
+      FcnFormatting.set(formatting);
+    }
   }
 };
 
@@ -760,6 +876,8 @@ const FcnFormatting = {
   FcnFormatting.updateFontSize(formatting['font-size'], false);
   FcnFormatting.updateFontSaturation(formatting['font-saturation'], false);
   FcnFormatting.updateLetterSpacing(formatting['letter-spacing'], false);
+  FcnFormatting.updateLineHeight(formatting['line-height'], false);
+  FcnFormatting.updateParagraphSpacing(formatting['paragraph-spacing'], false);
 })();
 
 // =============================================================================
@@ -926,148 +1044,6 @@ const FcnFormatting = {
   // Initialize (using the CSS name makes it independent from the array position)
   const formatting = FcnFormatting.get();
   fcn_updateFontFamily(FcnGlobals.fonts.findIndex((item) => { return item.css == formatting['font-name'] }), false);
-})();
-
-// =============================================================================
-// CHAPTER FORMATTING: PARAGRAPH SPACING
-// =============================================================================
-
-(() => {
-  'use strict';
-
-  const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-paragraph-spacing-text');
-  const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-paragraph-spacing-range');
-  const /** @const {HTMLElement} */ reset = _$$$('reader-settings-paragraph-spacing-reset');
-  const /** @const {Number} */ _default = FcnFormatting.defaults()['paragraph-spacing'];
-
-  // Abort if nothing to do
-  if (!reset) {
-    return;
-  }
-
-  /**
-   * Update paragraph spacing formatting on chapters.
-   *
-   * @since 4.0.0
-   * @param {Number} value - Float between 0 and 3.
-   * @param {Boolean} [save=true] - Optional. Whether to save the change.
-   */
-
-  function fcn_updateParagraphSpacing(value, save = true) {
-    const formatting = FcnFormatting.get();
-
-    // Evaluate
-    value = FcnUtils.clamp(0, 3, value ?? _default);
-
-    // Update associated elements
-    text.value = value;
-    range.value = value;
-    reset.classList.toggle('_modified', value != _default);
-
-    // Update paragraph-spacing property
-    FcnFormatting.eFormattingTarget.style.setProperty('--paragraph-spacing', `${value}em`);
-
-    // Update local storage
-    formatting['paragraph-spacing'] = value;
-
-    if (save) {
-      FcnFormatting.set(formatting);
-    }
-  }
-
-  /**
-   * Helper to call fcn_setParagraphSpacing() with input value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_setParagraphSpacing() {
-    fcn_updateParagraphSpacing(this.value);
-  }
-
-  // Listen for click on paragraph spacing reset button
-  reset?.addEventListener('click', () => { fcn_updateParagraphSpacing(_default) });
-
-  // Listen for paragraph spacing range input
-  range?.addEventListener('input', FcnUtils.throttle(fcn_setParagraphSpacing, 1000 / 24));
-
-  // Listen for paragraph spacing text input
-  text?.addEventListener('input', fcn_setParagraphSpacing);
-
-  // Initialize
-  const formatting = FcnFormatting.get();
-  fcn_updateParagraphSpacing(formatting['paragraph-spacing'], false);
-})();
-
-// =============================================================================
-// CHAPTER FORMATTING: LINE HEIGHT
-// =============================================================================
-
-(() => {
-  'use strict';
-
-  const /** @const {HTMLInputElement} */ text = _$$$('reader-settings-line-height-text');
-  const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-line-height-range');
-  const /** @const {HTMLElement} */ reset = _$$$('reader-settings-line-height-reset');
-  const /** @const {Number} */ _default = FcnFormatting.defaults()['line-height'];
-
-  // Abort if nothing to do
-  if (!reset) {
-    return;
-  }
-
-  /**
-   * Update line height formatting on chapters.
-   *
-   * @since 4.0.0
-   * @param {Number} value - Float between 0.8 and 3.
-   * @param {Boolean} [save=true] - Optional. Whether to save the change.
-   */
-
-  function fcn_updateLineHeight(value, save = true) {
-    const formatting = FcnFormatting.get();
-
-    // Evaluate
-    value = FcnUtils.clamp(0.8, 3.0, value ?? _default);
-
-    // Update associated elements
-    text.value = value;
-    range.value = value;
-    reset.classList.toggle('_modified', value != _default);
-
-    // Update inline style
-    FcnFormatting.eFormattingTarget.style.lineHeight = `${value}`;
-
-    // Update local storage
-    formatting['line-height'] = value;
-
-    if (save) {
-      FcnFormatting.set(formatting);
-    }
-  }
-
-  /**
-   * Helper to call fcn_setLineHeight() with input value.
-   *
-   * @since 4.0.0
-   */
-
-  function fcn_setLineHeight() {
-    fcn_updateLineHeight(this.value);
-  }
-
-  // Listen for click on line height reset button
-  reset?.addEventListener('click', () => { fcn_updateLineHeight(_default) });
-
-  // Listen for line height range input
-  range?.addEventListener('input', FcnUtils.throttle(fcn_setLineHeight, 1000 / 24));
-
-  // Listen for line height text input
-  text?.addEventListener('input', fcn_setLineHeight);
-
-  // Initialize
-  const formatting = FcnFormatting.get();
-  fcn_updateLineHeight(formatting['line-height'], false);
 })();
 
 // =============================================================================

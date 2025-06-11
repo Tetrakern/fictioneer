@@ -27,9 +27,9 @@ defined( 'ABSPATH' ) OR exit;
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _saturation">
-      <i class="fa-solid fa-droplet reset setting-saturation-reset" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>" data-action="click->fictioneer-chapter-formatting#saturation" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="saturationReset"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="reader-settings-saturation-range" data-action="input->fictioneer-chapter-formatting#saturation" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="saturationRange">
-      <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="reader-settings-saturation-text" data-action="input->fictioneer-chapter-formatting#saturation" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="saturationText">
+      <i class="fa-solid fa-droplet reset setting-saturation-reset" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>"></i>
+      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="reader-settings-saturation-range">
+      <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="reader-settings-saturation-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing hide-below-640 _width">
@@ -51,15 +51,15 @@ defined( 'ABSPATH' ) OR exit;
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _line-height">
-      <?php fictioneer_icon( 'line-height', 'reset', 'reader-settings-line-height-reset' ); ?>
-      <input type="range" value="1.7" min="0.8" max="3.0" step=".1" id="reader-settings-line-height-range">
-      <input type="number" value="1.7" min="0.8" max="3.0" step=".1" id="reader-settings-line-height-text">
+      <?php fictioneer_icon( 'line-height', 'reset', 'reader-settings-line-height-reset', 'data-action="click->fictioneer-chapter-formatting#lineHeight" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="lineHeightReset"' ); ?>
+      <input type="range" value="1.7" min="0.8" max="3.0" step=".1" id="reader-settings-line-height-range" data-action="input->fictioneer-chapter-formatting#lineHeight" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="lineHeightRange">
+      <input type="number" value="1.7" min="0.8" max="3.0" step=".1" id="reader-settings-line-height-text"  data-action="input->fictioneer-chapter-formatting#lineHeight" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="lineHeightText">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _paragraph-spacing">
-      <i class="fa-solid fa-paragraph reset" title="<?php esc_attr_e( 'Paragraph Spacing', 'fictioneer' ); ?>" id="reader-settings-paragraph-spacing-reset"></i>
-      <input type="range" value="1.5" min="0" max="3.0" step=".05" id="reader-settings-paragraph-spacing-range">
-      <input type="number" value="1.5" min="0" max="3.0" step=".05" id="reader-settings-paragraph-spacing-text">
+      <i class="fa-solid fa-paragraph reset" title="<?php esc_attr_e( 'Paragraph Spacing', 'fictioneer' ); ?>" id="reader-settings-paragraph-spacing-reset" data-action="click->fictioneer-chapter-formatting#paragraphSpacing" data-fictioneer-chapter-formatting-type-param="reset" data-fictioneer-chapter-formatting-target="paragraphSpacingReset"></i>
+      <input type="range" value="1.5" min="0" max="3.0" step=".05" id="reader-settings-paragraph-spacing-range" data-action="input->fictioneer-chapter-formatting#paragraphSpacing" data-fictioneer-chapter-formatting-type-param="range" data-fictioneer-chapter-formatting-target="paragraphSpacingRange">
+      <input type="number" value="1.5" min="0" max="3.0" step=".05" id="reader-settings-paragraph-spacing-text"  data-action="input->fictioneer-chapter-formatting#paragraphSpacing" data-fictioneer-chapter-formatting-type-param="text" data-fictioneer-chapter-formatting-target="paragraphSpacingText">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing _font-saturation">
