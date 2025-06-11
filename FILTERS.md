@@ -566,24 +566,46 @@ Filters the array of allowed post statuses for the chapter media buttons in the 
 Filters the intermediate output array of the chapter support links in the `fictioneer_chapter_support_links( $args )` function before it is looped and rendered. Each item is another array with `'label'`, `'icon'` markup, and `'link'`.
 
 **$support_links:**
-* $topwebfiction (array|null) – Data for www.topwebfiction.com. Unsafe.
-* $patreon (array|null) – Data for the author’s Patreon page. Unsafe.
-* $kofi (array|null) – Data for the author’s Ko-fi page. Unsafe.
-* $subscribestar (array|null) – Data for the author’s SubscribeStar page. Unsafe.
-* $paypal (array|null) – Data for the author’s PayPal. Unsafe.
-* $donation (array|null) – Data for a generic donation link. Unsafe.
+* 'topwebfiction' (array|null) – Data for www.topwebfiction.com. Unsafe.
+* 'patreon' (array|null) – Data for the author’s Patreon page. Unsafe.
+* 'kofi' (array|null) – Data for the author’s Ko-fi page. Unsafe.
+* 'subscribestar' (array|null) – Data for the author’s SubscribeStar page. Unsafe.
+* 'paypal' (array|null) – Data for the author’s PayPal. Unsafe.
+* 'donation' (array|null) – Data for a generic donation link. Unsafe.
 
 **$args:**
-* $author (WP_User) – Author of the chapter.
-* $story_post (WP_Post|null) – Post object of the story. Unsafe.
-* $story_data (array|null) – Collection of story data. Unsafe.
-* $chapter_id (int) – Chapter ID.
-* $chapter_title (string) – Safe chapter title.
-* $chapter_password (string) – Chapter password or empty string.
-* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
-* $current_index (int) – Current index in the chapter list.
-* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
-* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+* 'author' (WP_User) – Author of the chapter.
+* 'story_post' (WP_Post|null) – Post object of the story. Unsafe.
+* 'story_data' (array|null) – Collection of story data. Unsafe.
+* 'chapter_id' (int) – Chapter ID.
+* 'chapter_title' (string) – Safe chapter title.
+* 'chapter_password' (string) – Chapter password or empty string.
+* 'chapter_ids' (array) – IDs of visible chapters in the same story or empty array.
+* 'current_index' (int) – Current index in the chapter list.
+* 'prev_index' (int|boolean) – Index of previous chapter or false if outside bounds.
+* 'next_index' (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Example:**
+```php
+function child_render_custom_support_link( $support_links, $args ) {
+  $link = get_post_meta( $args['chapter_id'], 'your_custom_link_meta_field', true );
+
+  if ( ! $link && ( $args['story_post'] ?? 0 ) ) {
+    $link = get_post_meta( $args['story_post']->ID, 'your_custom_link_meta_field', true );
+  }
+
+  if ( $link ) {
+    $support_links['your_custom_link_meta_field'] = array(
+      'label' => 'Custom Link',
+      'icon' => '<i class="fa-solid fa-link"></i>',
+      'link' => $link
+    );
+  }
+
+  return $support_links;
+}
+add_filter( 'fictioneer_filter_chapter_support_links', 'child_render_custom_support_link', 10, 2 );
+```
 
 ---
 
@@ -632,17 +654,17 @@ add_filter( 'fictioneer_filter_enable_shortcode_transients', 'child_enable_short
 Filters the array of support links returned for the current post (or post ID if provided). First it checks the post meta, then the parent post meta (if any), and finally the author meta if still empty. The first non-empty value is added to the array.
 
 **$links:**
-* $topwebfiction (string|null) – Link to www.topwebfiction.com. Unsafe.
-* $patreon (string|null) – Link to the author’s Patreon page. Unsafe.
-* $kofi (string|null) – Link to the author’s Ko-fi page. Unsafe.
-* $subscribestar (string|null) – Link to the author’s SubscribeStar page. Unsafe.
-* $paypal (string|null) – Donation link to the author’s PayPal. Unsafe.
-* $donation (string|null) – Generic donation link. Unsafe.
+* 'topwebfiction' (string|null) – Link to www.topwebfiction.com. Unsafe.
+* 'patreon' (string|null) – Link to the author’s Patreon page. Unsafe.
+* 'kofi' (string|null) – Link to the author’s Ko-fi page. Unsafe.
+* 'subscribestar' (string|null) – Link to the author’s SubscribeStar page. Unsafe.
+* 'paypal' (string|null) – Donation link to the author’s PayPal. Unsafe.
+* 'donation' (string|null) – Generic donation link. Unsafe.
 
 **Parameters:**
-* $post_id (int|null) – Post ID. Unsafe.
-* $parent_id (int|null) – Parent (story) post ID. Unsafe.
-* $author_id (int|null) – Author ID. Unsafe.
+* 'post_id' (int|null) – Post ID. Unsafe.
+* 'parent_id' (int|null) – Parent (story) post ID. Unsafe.
+* 'author_id' (int|null) – Author ID. Unsafe.
 
 ---
 
@@ -726,16 +748,16 @@ add_filter( 'fictioneer_filter_chapters_added_statuses', 'child_consider_schedul
 Filters the arguments passed to the `partials/_card-chapter` template part in the `fictioneer_chapters_list( $args )` function, normally added via the `fictioneer_chapters_after_content` hook.
 
 **$card_args:**
-* $cache (boolean) – Return of `fictioneer_caching_active()`.
-* $order (string) – Current query order argument. Default 'desc'.
-* $orderby (string) – Current query orderby argument. Default 'modified'.
-* $ago (int|string) – Current date query argument part. Default 0.
+* 'cache' (boolean) – Return of `fictioneer_caching_active()`.
+* 'order' (string) – Current query order argument. Default 'desc'.
+* 'orderby' (string) – Current query orderby argument. Default 'modified'.
+* 'ago' (int|string) – Current date query argument part. Default 0.
 
 **$args:**
-* $current_page (int) – Current page if paginated or `1`.
-* $post_id (int) – Current post ID.
-* $chapters (WP_Query) – Paginated query of all visible chapters.
-* $queried_type (string) – `'fcn_chapter'`
+* 'current_page' (int) – Current page if paginated or `1`.
+* 'post_id' (int) – Current post ID.
+* 'chapters' (WP_Query) – Paginated query of all visible chapters.
+* 'queried_type' (string) – `'fcn_chapter'`
 
 ---
 
@@ -743,23 +765,23 @@ Filters the arguments passed to the `partials/_card-chapter` template part in th
 Filters the arguments to query the chapters in the `chapters.php` template.
 
 **$query_args:**
-* $fictioneer_query_name (string) – `'chapters_list'`
-* $post_type (string) – `'fcn_chapter'`
-* $post_status (string) – `'publish'`
-* $order (string) – `'DESC'` or `'ASC'`
-* $orderby (string) – `'modified'`, `'date'`, `'title'`, or `'rand'`
-* $paged (int) – Current page number or `1`.
-* $posts_per_page (int) – `get_option( 'posts_per_page' )`
-* $update_post_term_cache – `! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )`
-* $meta_query (array)
-  * $relation (string) – `'OR'`
+* 'fictioneer_query_name' (string) – `'chapters_list'`
+* 'post_type' (string) – `'fcn_chapter'`
+* 'post_status' (string) – `'publish'`
+* 'order' (string) – `'DESC'` or `'ASC'`
+* 'orderby' (string) – `'modified'`, `'date'`, `'title'`, or `'rand'`
+* 'paged' (int) – Current page number or `1`.
+* 'posts_per_page' (int) – `get_option( 'posts_per_page' )`
+* 'update_post_term_cache' – `! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )`
+* 'meta_query' (array)
+  * 'relation' (string) – `'OR'`
   * (array)
-    * $key – `'fictioneer_chapter_hidden'`
-    * $value – `'0'`
+    * 'key' – `'fictioneer_chapter_hidden'`
+    * 'value' – `'0'`
   * (array)
-    * $key – `'fictioneer_chapter_hidden'`
-    * $compare – `'NOT EXISTS'`
-* $date_query – `fictioneer_append_date_query()`
+    * 'key' – `'fictioneer_chapter_hidden'`
+    * 'compare' – `'NOT EXISTS'`
+* 'date_query' – `fictioneer_append_date_query()`
 
 **Parameters:**
 * $post_id (int) – Current post ID.
@@ -770,12 +792,12 @@ Filters the arguments to query the chapters in the `chapters.php` template.
 Filters the intermediate output array in the `_card-collection.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of stories and chapters, publishing date, comments, and so forth.
 
 **$footer_items:**
-* $stories (string) – HTML for the number of stories.
-* $chapters (string) – HTML for the number of chapters.
-* $words (string) – HTML for the collective word count.
-* $publish_date (string) – Conditional. HTML for the publish date.
-* $modified_date (string) – Conditional. HTML for the modified date.
-* $comments (string) – HTML for the number of comments.
+* 'stories' (string) – HTML for the number of stories.
+* 'chapters' (string) – HTML for the number of chapters.
+* 'words' (string) – HTML for the collective word count.
+* 'publish_date' (string) – Conditional. HTML for the publish date.
+* 'modified_date' (string) – Conditional. HTML for the modified date.
+* 'comments' (string) – HTML for the number of comments.
 
 **Parameters**
 * $post (WP_Post) – The collection post object.
