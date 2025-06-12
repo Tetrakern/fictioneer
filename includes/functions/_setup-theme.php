@@ -283,7 +283,7 @@ function fictioneer_remove_first_publish_date_from_meta() {
 add_action( 'fictioneer_after_update', 'fictioneer_remove_first_publish_date_from_meta' );
 
 /**
- * Converts user deleted comments to user_deleted type and delete meta fields
+ * Convert user deleted comments to user_deleted type and delete meta fields.
  *
  * @since 5.24.1
  */
@@ -313,7 +313,7 @@ function fictioneer_migrate_deleted_comments() {
 add_action( 'fictioneer_after_update', 'fictioneer_migrate_deleted_comments' );
 
 /**
- * Deletes obsolete comment meta fields
+ * Delete obsolete comment meta fields.
  *
  * @since 5.24.4
  */
@@ -464,7 +464,7 @@ if ( get_theme_mod( 'sidebar_style' ) === 'right' ) {
 // =============================================================================
 
 /**
- * Removes default custom fields meta box
+ * Remove default custom fields meta box.
  *
  * @since 5.8.0
  *
@@ -483,15 +483,20 @@ if ( ! get_option( 'fictioneer_enable_custom_fields' ) ) {
 }
 
 /**
- * Removes 'custom-fields' support for all posts
+ * Remove 'custom-fields' support for all posts.
  *
  * Note: Disable this if you need the feature support.
  *
  * @since 5.8.0
  * @since 5.21.1 - Added all post types.
+ * @since 5.29.5 - Exclude administrator for the REST API.
  */
 
 function fictioneer_remove_custom_fields_supports() {
+  if ( current_user_can( 'manage_options' ) ) {
+    return;
+  }
+
   remove_post_type_support( 'post', 'custom-fields' );
   remove_post_type_support( 'page', 'custom-fields' );
   remove_post_type_support( 'fcn_story', 'custom-fields' );
@@ -505,7 +510,7 @@ if ( ! get_option( 'fictioneer_enable_custom_fields' ) ) {
 }
 
 /**
- * Makes theme meta fields protected
+ * Make theme meta fields protected.
  *
  * @since 5.8.0
  *
