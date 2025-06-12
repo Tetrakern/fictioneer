@@ -2495,7 +2495,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     });
     $co_authors = array_unique( $co_authors );
 
-    $fields['fictioneer_story_co_authors'] = array_map( 'strval', $co_authors );
+    $fields['fictioneer_story_co_authors'] = array_values( array_map( 'strval', $co_authors ) );
   }
 
   // Sticky flag
@@ -2572,6 +2572,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
       $fields['fictioneer_story_chapters'] = []; // Ensure empty meta is removed
     } else {
       $chapter_ids = array_map( 'strval', $chapter_ids );
+      $chapter_ids = array_values( $chapter_ids );
       $fields['fictioneer_story_chapters'] = $chapter_ids;
     }
 
@@ -2600,7 +2601,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     if ( empty( $page_ids ) ) {
       $fields['fictioneer_story_custom_pages'] = []; // Ensure empty meta is removed
     } else {
-      $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $page_ids );
+      $fields['fictioneer_story_custom_pages'] = array_values( array_map( 'strval', $page_ids ) );
     }
   }
 
@@ -3160,7 +3161,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
     });
     $co_authors = array_unique( $co_authors );
 
-    $fields['fictioneer_chapter_co_authors'] = array_map( 'strval', $co_authors );
+    $fields['fictioneer_chapter_co_authors'] = array_values( array_map( 'strval', $co_authors ) );
   }
 
   // Warning
@@ -3642,7 +3643,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
     $story_blogs = fictioneer_explode_list( $_POST['fictioneer_post_story_blogs'] );
     $story_blogs = fictioneer_sql_filter_valid_blog_story_ids( $post_author_id, $story_blogs );
 
-    $fields['fictioneer_post_story_blogs'] = array_map( 'strval', $story_blogs ); // Safer to match with LIKE in SQL
+    $fields['fictioneer_post_story_blogs'] = array_values( array_map( 'strval', $story_blogs ) );
   }
 
   // Patreon
@@ -3663,7 +3664,8 @@ function fictioneer_save_extra_metabox( $post_id ) {
           $selected_patreon_tiers = array_intersect( $selected_patreon_tiers, array_keys( $patreon_tiers ) );
           $selected_patreon_tiers = array_map( 'absint', $selected_patreon_tiers );
           $selected_patreon_tiers = array_unique( $selected_patreon_tiers );
-          $selected_patreon_tiers = array_map( 'strval', $selected_patreon_tiers ); // Safer to match with LIKE in SQL
+          $selected_patreon_tiers = array_map( 'strval', $selected_patreon_tiers );
+          $selected_patreon_tiers = array_values( $selected_patreon_tiers );
         }
 
         $fields['fictioneer_patreon_lock_tiers'] = $selected_patreon_tiers;
@@ -4003,7 +4005,7 @@ function fictioneer_save_post_metaboxes( $post_id ) {
     if ( empty( $item_ids ) ) {
       $fields['fictioneer_post_featured'] = []; // Ensure empty meta is removed
     } else {
-      $fields['fictioneer_post_featured'] = array_map( 'strval', $item_ids );
+      $fields['fictioneer_post_featured'] = array_values( array_map( 'strval', $item_ids ) );
     }
   }
 
@@ -4226,7 +4228,7 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
     if ( empty( $item_ids ) ) {
       $fields['fictioneer_collection_items'] = []; // Ensure empty meta is removed
     } else {
-      $fields['fictioneer_collection_items'] = array_map( 'strval', $item_ids );
+      $fields['fictioneer_collection_items'] = array_values( array_map( 'strval', $item_ids ) );
     }
   }
 
@@ -4700,8 +4702,9 @@ function fictioneer_save_patreon_bulk_edit( $updated_post_ids, $shared_post_data
 
         if ( ! empty( $allowed_tiers ) ) {
           $tiers = array_intersect( $tiers, array_keys( $allowed_tiers ) );
-          $tiers = array_map( 'strval', $tiers ); // Safer to match with LIKE in SQL
+          $tiers = array_map( 'strval', $tiers );
           $tiers = array_unique( $tiers );
+          $tiers = array_values( $tiers );
 
           fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', $tiers );
         }
