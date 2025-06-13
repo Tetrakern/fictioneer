@@ -764,11 +764,14 @@ if ( ! get_option( 'fictioneer_enable_custom_fields' ) ) {
  *
  * @since 5.8.0
  * @since 5.21.1 - Added all post types.
- * @since 5.29.5 - Exclude administrator for the REST API.
+ * @since 5.29.5 - Exclude administrator and the REST API.
  */
 
 function fictioneer_remove_custom_fields_supports() {
-  if ( current_user_can( 'manage_options' ) ) {
+  if (
+    current_user_can( 'manage_options' ) ||
+    ( defined( 'REST_REQUEST' ) && REST_REQUEST )
+  ) {
     return;
   }
 
