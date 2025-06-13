@@ -1101,11 +1101,68 @@ function fictioneer_extend_allowed_protocols( $protocols ){
 add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
 
 // =============================================================================
-// RESTRICT REST API
+// REST API
 // =============================================================================
 
 /**
- * Restrict default REST API endpoints
+ * Set up theme REST functions after REST API init.
+ *
+ * @since 5.29.5
+ */
+
+function fictioneer_rest_setup() {
+  add_action( 'rest_request_before_callbacks', 'fictioneer_rest_capture_post_id', 5, 3 );
+
+  if ( get_option( 'fictioneer_restrict_rest_api' ) ) {
+    add_filter( 'rest_authentication_errors', 'fictioneer_restrict_rest_api' );
+  }
+}
+add_action( 'rest_api_init', 'fictioneer_rest_setup' );
+
+/**
+ * Capture current post ID from REST request.
+ *
+ * Note: The post ID is added to $GLOBALS['fictioneer_current_rest_post_id'].
+ *
+ * @since 5.29.5
+ *
+ * @param WP_REST_Response|WP_HTTP_Response|WP_Error|mixed $response  Result to send to the client.
+ * @param array                                            $handler   Route handler used for the request.
+ * @param WP_REST_Request                                  $request   Request used to generate the response.
+ *
+ * @return WP_REST_Response|WP_HTTP_Response|WP_Error|mixed Result to send to the client.
+ */
+
+function fictioneer_rest_capture_post_id( $response, $handler, $request ) {
+  $post_id = $request->get_param( 'id' ) ?? $request->get_param( 'post' ) ?? 0;
+
+  if ( $post_id && is_numeric( $post_id ) ) {
+    $GLOBALS['fictioneer_current_rest_post_id'] = intval( $post_id );
+  } else {
+    $GLOBALS['fictioneer_current_rest_post_id'] = 0;
+  }
+
+  return $response;
+}
+
+/**
+ * Return current REST post ID.
+ *
+ * @since 5.29.5
+ *
+ * @return int The post ID or 0.
+ */
+
+function fictioneer_rest_get_current_post_id() {
+  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+    return $GLOBALS['fictioneer_current_rest_post_id'] ?? 0;
+  }
+
+  return 0;
+}
+
+/**
+ * Restrict default REST API endpoints.
  *
  * @since 5.2.4
  * @link https://developer.wordpress.org/reference/hooks/rest_authentication_errors/
@@ -1136,10 +1193,6 @@ function fictioneer_restrict_rest_api( $errors ) {
   }
 
   return $errors;
-}
-
-if ( get_option( 'fictioneer_restrict_rest_api' ) ) {
-  add_filter( 'rest_authentication_errors', 'fictioneer_restrict_rest_api' );
 }
 
 // =============================================================================
