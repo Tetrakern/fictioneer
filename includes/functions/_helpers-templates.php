@@ -1475,7 +1475,7 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
       $short_words = fictioneer_shorten_number( $data['words'] );
 
       $output['words'] = sprintf(
-        '<span class="chapter-group__list-item-words" data-number-switch="%s">%s</span>',
+        '<span class="chapter-group__list-item-words" data-word-count="%s">%s</span>',
         esc_attr( $short_words ),
         sprintf(
           _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ),
