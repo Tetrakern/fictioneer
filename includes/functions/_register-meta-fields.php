@@ -88,9 +88,7 @@ function fictioneer_rest_get_auth_callback_for_type( $type ) {
  */
 
 function fictioneer_register_general_meta_fields() {
-  $all_post_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'];
-
-  foreach ( $all_post_types as $type ) {
+  foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
     register_post_meta(
       $type,
       'fictioneer_landscape_image',
@@ -177,6 +175,108 @@ function fictioneer_register_general_meta_fields() {
             'description' => $description,
             'og_image' => $og_image
           );
+        }
+      )
+    );
+  }
+
+  foreach ( ['post', 'fcn_story', 'fcn_chapter'] as $type ) {
+    register_post_meta(
+      $type,
+      'fictioneer_patreon_link',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'show_in_rest' => array(
+          'schema' => array(
+            'type' => 'string'
+          )
+        ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return fictioneer_rest_auth_callback( $object_id, $user_id, $type );
+        },
+        'sanitize_callback' => function( $meta_value ) {
+          return fictioneer_sanitize_url( $meta_value, null, '#^https://(www\.)?patreon\.#' );
+        }
+      )
+    );
+
+    register_post_meta(
+      $type,
+      'fictioneer_kofi_link',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'show_in_rest' => array(
+          'schema' => array(
+            'type' => 'string'
+          )
+        ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return fictioneer_rest_auth_callback( $object_id, $user_id, $type );
+        },
+        'sanitize_callback' => function( $meta_value ) {
+          return fictioneer_sanitize_url( $meta_value, null, '#^https://(www\.)?ko-fi\.#' );
+        }
+      )
+    );
+
+    register_post_meta(
+      $type,
+      'fictioneer_subscribestar_link',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'show_in_rest' => array(
+          'schema' => array(
+            'type' => 'string'
+          )
+        ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return fictioneer_rest_auth_callback( $object_id, $user_id, $type );
+        },
+        'sanitize_callback' => function( $meta_value ) {
+          return fictioneer_sanitize_url( $meta_value, null, '#^https://(www\.)?subscribestar\.#' );
+        }
+      )
+    );
+
+    register_post_meta(
+      $type,
+      'fictioneer_paypal_link',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'show_in_rest' => array(
+          'schema' => array(
+            'type' => 'string'
+          )
+        ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return fictioneer_rest_auth_callback( $object_id, $user_id, $type );
+        },
+        'sanitize_callback' => function( $meta_value ) {
+          return fictioneer_sanitize_url( $meta_value, null, '#^https://(www\.)?paypal\.#' );
+        }
+      )
+    );
+
+    register_post_meta(
+      $type,
+      'fictioneer_donation_link',
+      array(
+        'type' => 'string',
+        'single' => true,
+        'show_in_rest' => array(
+          'schema' => array(
+            'type' => 'string'
+          )
+        ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return fictioneer_rest_auth_callback( $object_id, $user_id, $type );
+        },
+        'sanitize_callback' => function( $meta_value ) {
+          return fictioneer_sanitize_url( $meta_value, 'https://' );
         }
       )
     );
@@ -387,7 +487,7 @@ function fictioneer_register_story_meta_fields() {
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
         return (
           fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' ) &&
-          ( current_user_can( 'manage_options' ) || ! current_user_can( 'fcn_no_filters' ) )
+          ( user_can( $user_id, 'manage_options' ) || ! user_can( $user_id, 'fcn_no_filters' ) )
         );
       },
       'sanitize_callback' => function( $meta_value ) {
@@ -500,6 +600,153 @@ function fictioneer_register_story_meta_fields() {
       'sanitize_callback' => function( $meta_value ) {
         return fictioneer_sanitize_url( $meta_value, 'https://topwebfiction.com/' );
       }
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_sticky',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return (
+          fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' ) &&
+          ( user_can( $user_id, 'manage_options' ) || user_can( $user_id, 'fcn_make_sticky' ) )
+        );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_hidden',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_no_thumbnail',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_no_tags',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_hide_chapter_icons',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_disable_collapse',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_disable_groups',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_no_epub',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
     )
   );
 }
