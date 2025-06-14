@@ -3588,12 +3588,12 @@ function fictioneer_save_extra_metabox( $post_id ) {
 
   // Landscape image
   if ( isset( $_POST['fictioneer_landscape_image'] ) ) {
-    $fields['fictioneer_landscape_image'] = absint( $_POST['fictioneer_landscape_image'] );
+    $fields['fictioneer_landscape_image'] = fictioneer_sanitize_image_id( $_POST['fictioneer_landscape_image'] );
   }
 
   // Custom page header
   if ( isset( $_POST['fictioneer_custom_header_image'] ) && current_user_can( 'fcn_custom_page_header', $post_id ) ) {
-    $fields['fictioneer_custom_header_image'] = absint( $_POST['fictioneer_custom_header_image'] );
+    $fields['fictioneer_custom_header_image'] = fictioneer_sanitize_image_id( $_POST['fictioneer_custom_header_image'] );
   }
 
   // Custom page CSS

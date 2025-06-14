@@ -103,7 +103,7 @@ function fictioneer_register_general_meta_fields() {
           )
         ),
         'auth_callback' => fictioneer_rest_get_auth_callback_for_type( $type ),
-        'sanitize_callback' => 'absint'
+        'sanitize_callback' => 'fictioneer_sanitize_image_id'
       )
     );
 
@@ -124,7 +124,7 @@ function fictioneer_register_general_meta_fields() {
             ( user_can( $user_id, 'fcn_custom_page_header' ) || user_can( $user_id, 'manage_options' ) )
           );
         },
-        'sanitize_callback' => 'absint'
+        'sanitize_callback' => 'fictioneer_sanitize_image_id'
       )
     );
 

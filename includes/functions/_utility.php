@@ -1980,7 +1980,7 @@ function fictioneer_sanitize_css( $css ) {
 // =============================================================================
 
 /**
- * Sanitizes (and transforms) a comma-separated list into array
+ * Sanitize (and transforms) a comma-separated list into array.
  *
  * @since 5.15.0
  *
@@ -2014,7 +2014,7 @@ function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
 // =============================================================================
 
 /**
- * Sanitizes a query variable
+ * Sanitize a query variable.
  *
  * @since 5.14.0
  *
@@ -2046,7 +2046,7 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
 // =============================================================================
 
 /**
- * Sanitizes an URL
+ * Sanitize an URL.
  *
  * @since 5.19.1
  *
@@ -2077,7 +2077,7 @@ function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
 // =============================================================================
 
 /**
- * Sanitizes a CSS aspect ratio value
+ * Sanitize a CSS aspect ratio value.
  *
  * @since 5.14.0
  * @since 5.23.0 - Refactored to accept fractional values.
@@ -2115,7 +2115,7 @@ function sanitize_css_aspect_ratio( $css, $default = false ) {
 }
 
 /**
- * Returns aspect ratio values as tuple
+ * Return aspect ratio values as tuple.
  *
  * @since 5.14.0
  *
@@ -2130,6 +2130,26 @@ function fictioneer_get_split_aspect_ratio( $css ) {
 
   // Return tuple
   return array( (int) ( $numerator ?? 1 ), (int) ( $denominator ?? 1 ) );
+}
+
+// =============================================================================
+// SANITIZE IMAGE ID
+// =============================================================================
+
+/**
+ * Return sanitized image ID that must exist.
+ *
+ * @since 5.29.5
+ *
+ * @param int|string $id  Image ID.
+ *
+ * @return int Image ID or 0 if not found.
+ */
+
+function fictioneer_sanitize_image_id( $id ) {
+  $id = max( 0, intval( $id ) );
+
+  return wp_get_attachment_url( $id ) ? $id : 0;
 }
 
 // =============================================================================
