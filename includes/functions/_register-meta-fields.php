@@ -25,23 +25,31 @@ function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
     return true;
   }
 
-  static $plurals = array(
-    'fcn_story' => 'fcn_stories',
-    'fcn_chapter' => 'fcn_chapters',
-    'fcn_collection' => 'fcn_collections',
-    'fcn_recommendation' => 'fcn_recommendations',
-    'post' => 'posts',
-    'page' => 'pages'
-  );
+  $cap_base = $type === 'fcn_story' ? 'fcn_stories' : "{$type}s";
 
-  $post = get_post( $post_id );
-  $type = $plurals[ $type ] ?? $type;
-
-  if ( $post ) {
-    return ( (int) $post->post_author === $user_id || user_can( $user_id, "edit_others_{$type}" ) );
+  if ( ! user_can( $user_id, "edit_{$cap_base}" ) ) {
+    return false;
   }
 
-  return user_can( $user_id, "edit_{$type}" );
+  $post = get_post( $post_id );
+
+  if ( ! $post ) {
+    return true;
+  }
+
+  if ( (int) $post->post_author !== $user_id && ! user_can( $user_id, "edit_others_{$cap_base}" ) ) {
+    return false;
+  }
+
+  if ( $post->post_status === 'publish' && ! user_can( $user_id, "edit_published_{$cap_base}" ) ) {
+    return false;
+  }
+
+  if ( $post->post_status === 'private' && ! user_can( $user_id, "edit_private_{$cap_base}" ) ) {
+    return false;
+  }
+
+  return true;
 }
 
 /**
@@ -453,6 +461,44 @@ function fictioneer_register_story_meta_fields() {
         $meta_value = array_values( $meta_value );
 
         return $meta_value;
+      }
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_copyright_notice',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
+    'fictioneer_story_topwebfiction_link',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        return fictioneer_sanitize_url( $meta_value, 'https://topwebfiction.com/' );
       }
     )
   );
