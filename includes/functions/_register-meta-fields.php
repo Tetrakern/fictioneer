@@ -21,28 +21,17 @@ function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
     return false;
   }
 
-  static $string_parts = array(
-    'fcn_story' => 'fcn_stories',
-    'fcn_chapter' => 'fcn_chapters',
-    'fcn_collection' => 'fcn_collections',
-    'fcn_recommendation' => 'fcn_recommendations',
-    'post' => 'posts',
-    'page' => 'pages',
-  );
-
-  $part = $string_parts[ $type ] ?? $type;
-
   $post = get_post( $post_id );
 
   if ( $post ) {
     return (
       (int) $post->post_author === $user_id ||
-      user_can( $user_id, "edit_others_{$part}" ) ||
+      user_can( $user_id, "edit_others_{$type}" ) ||
       user_can( $user_id, 'manage_options' )
     );
   }
 
-  return user_can( $user_id, "edit_{$part}" ) || user_can( $user_id, 'manage_options' );
+  return user_can( $user_id, "edit_{$type}" ) || user_can( $user_id, 'manage_options' );
 }
 
 /**
@@ -57,7 +46,7 @@ function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
  */
 
 function fictioneer_rest_story_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_story' );
+  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_stories' );
 }
 
 /**
@@ -72,7 +61,7 @@ function fictioneer_rest_story_auth_callback( $post_id, $user_id ) {
  */
 
 function fictioneer_rest_chapter_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_chapter' );
+  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_chapters' );
 }
 
 /**
@@ -87,7 +76,7 @@ function fictioneer_rest_chapter_auth_callback( $post_id, $user_id ) {
  */
 
 function fictioneer_rest_collection_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_collection' );
+  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_collections' );
 }
 
 /**
@@ -102,7 +91,7 @@ function fictioneer_rest_collection_auth_callback( $post_id, $user_id ) {
  */
 
 function fictioneer_rest_recommendation_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_recommendation' );
+  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_recommendations' );
 }
 
 /**
@@ -117,7 +106,7 @@ function fictioneer_rest_recommendation_auth_callback( $post_id, $user_id ) {
  */
 
 function fictioneer_rest_post_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'post' );
+  return fictioneer_rest_auth_callback( $post_id, $user_id, 'posts' );
 }
 
 /**
@@ -132,7 +121,7 @@ function fictioneer_rest_post_auth_callback( $post_id, $user_id ) {
  */
 
 function fictioneer_rest_page_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'page' );
+  return fictioneer_rest_auth_callback( $post_id, $user_id, 'pages' );
 }
 
 /**
@@ -149,27 +138,27 @@ function fictioneer_get_auth_callback_for_type( $type ) {
   switch ( $type ) {
     case 'fcn_story':
       return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_stories' );
       };
     case 'fcn_chapter':
       return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapters' );
       };
     case 'fcn_collection':
       return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_collection' );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_collections' );
       };
     case 'fcn_recommendation':
       return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendation' );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendations' );
       };
     case 'post':
       return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'post' );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'posts' );
       };
     case 'page':
       return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'page' );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'pages' );
       };
     default:
       return function( $allowed, $meta_key, $object_id, $user_id ) {
