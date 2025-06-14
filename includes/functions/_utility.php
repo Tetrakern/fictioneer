@@ -2171,7 +2171,7 @@ function fictioneer_get_split_aspect_ratio( $css ) {
 /**
  * Return sanitized image ID that must exist.
  *
- * @since 5.29.5
+ * @since 5.30.0
  *
  * @param int|string $id  Image ID.
  *

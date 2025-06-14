@@ -4578,7 +4578,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
  *
  * @since 4.0.0
  * @since 5.9.4 - Refactored meta fields.
- * @since 5.29.5 - Use $post param and extend capability checks.
+ * @since 5.30.0 - Use $post param and extend capability checks.
  *
  * @param int     $post_id  Post ID.
  * @param WP_Post $post     Post object.

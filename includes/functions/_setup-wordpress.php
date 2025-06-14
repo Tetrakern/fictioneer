@@ -1107,7 +1107,7 @@ add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
 /**
  * Set up theme REST functions after REST API init.
  *
- * @since 5.29.5
+ * @since 5.30.0
  */
 
 function fictioneer_rest_setup() {
@@ -1124,7 +1124,7 @@ add_action( 'rest_api_init', 'fictioneer_rest_setup' );
  *
  * Note: The post ID is added to $GLOBALS['fictioneer_current_rest_post_id'].
  *
- * @since 5.29.5
+ * @since 5.30.0
  *
  * @param WP_REST_Response|WP_HTTP_Response|WP_Error|mixed $response  Result to send to the client.
  * @param array                                            $handler   Route handler used for the request.
@@ -1148,7 +1148,7 @@ function fictioneer_rest_capture_post_id( $response, $handler, $request ) {
 /**
  * Return current REST post ID.
  *
- * @since 5.29.5
+ * @since 5.30.0
  *
  * @return int The post ID or 0.
  */

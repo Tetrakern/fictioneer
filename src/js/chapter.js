@@ -369,7 +369,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Action to change the font saturation.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Event} event - The event.
    * @param {HTMLElement} event.currentTarget - Trigger element listened to.
    * @param {Object} params - Additional parameters.
@@ -423,7 +423,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Action to change the letter spacing.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Event} event - The event.
    * @param {HTMLElement} event.currentTarget - Trigger element listened to.
    * @param {Object} params - Additional parameters.
@@ -440,7 +440,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Action to change the line height.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Event} event - The event.
    * @param {HTMLElement} event.currentTarget - Trigger element listened to.
    * @param {Object} params - Additional parameters.
@@ -457,7 +457,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Action to change the paragraph spacing.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Event} event - The event.
    * @param {HTMLElement} event.currentTarget - Trigger element listened to.
    * @param {Object} params - Additional parameters.
@@ -489,7 +489,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Update font font saturation controls.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Any|null} [value=null] - The new value. Falls back to default if null.
    */
 
@@ -500,7 +500,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Update site width view controls.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Any|null} [value=null] - The new value. Falls back to default if null.
    */
 
@@ -511,7 +511,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Update letter spacing view controls.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Any|null} [value=null] - The new value. Falls back to default if null.
    */
 
@@ -522,7 +522,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Update line height view controls.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Any|null} [value=null] - The new value. Falls back to default if null.
    */
 
@@ -533,7 +533,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Update paragraph spacing view controls.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {Any|null} [value=null] - The new value. Falls back to default if null.
    */
 
@@ -544,7 +544,7 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
   /**
    * Generic updater for formatting controls.
    *
-   * @since 5.29.5
+   * @since 5.30.0
    * @param {String} key - The formatting key.
    * @param {Any|null} value - The new value. Falls back to default if null.
    * @param {Function|null} transform - Optional function to transform value for text targets.
@@ -793,7 +793,7 @@ const FcnFormatting = {
    * Update letter-spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @since 5.29.5 - Moved function into FcnFormatting.
+   * @since 5.30.0 - Moved function into FcnFormatting.
    * @param {Number} value - Float between -0.1 and 0.2.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
@@ -819,7 +819,7 @@ const FcnFormatting = {
    * Update line height formatting on chapters.
    *
    * @since 4.0.0
-   * @since 5.29.5 - Moved function into FcnFormatting.
+   * @since 5.30.0 - Moved function into FcnFormatting.
    * @param {Number} value - Float between 0.8 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */
@@ -845,7 +845,7 @@ const FcnFormatting = {
    * Update paragraph spacing formatting on chapters.
    *
    * @since 4.0.0
-   * @since 5.29.5 - Moved function into FcnFormatting.
+   * @since 5.30.0 - Moved function into FcnFormatting.
    * @param {Number} value - Float between 0 and 3.
    * @param {Boolean} [save=true] - Optional. Whether to save the change.
    */

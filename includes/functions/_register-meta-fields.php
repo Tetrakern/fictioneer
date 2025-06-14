@@ -7,7 +7,7 @@
 /**
  * Authenticate REST API request.
  *
- * @since 5.29.5
+ * @since 5.30.0
  *
  * @param int $post_id  Post ID.
  * @param int $user_id  User ID.
@@ -55,7 +55,7 @@ function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
 /**
  * Return REST API request authentication callback for post type.
  *
- * @since 5.29.5
+ * @since 5.30.0
  *
  * @param string $type  Post type.
  *
@@ -84,7 +84,7 @@ function fictioneer_rest_get_auth_callback_for_type( $type ) {
  * Note: This may also require you to enable custom field support
  * for custom post types in the settings.
  *
- * @since 5.29.5
+ * @since 5.30.0
  */
 
 function fictioneer_register_general_meta_fields() {
@@ -497,7 +497,7 @@ add_action( 'init', 'fictioneer_register_general_meta_fields' );
  * Note: This may also require you to enable custom field support
  * for custom post types in the settings.
  *
- * @since 5.29.5
+ * @since 5.30.0
  */
 
 function fictioneer_register_story_meta_fields() {
