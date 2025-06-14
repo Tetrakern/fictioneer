@@ -616,17 +616,8 @@ function fictioneer_register_story_meta_fields() {
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
         return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
       },
-      'sanitize_callback' => function( $meta_value ) {
-        if ( is_null( $meta_value ) ) {
-          return '';
-        }
+      'sanitize_callback' => 'fictioneer_sanitize_editor'
 
-        $meta_value = wp_kses_post( $meta_value );
-        $meta_value = strip_shortcodes( $meta_value );
-        $meta_value = preg_replace( '/<!--\s*wp:(.*?)-->(.*?)<!--\s*\/wp:\1\s*-->/s', '', $meta_value );
-
-        return $meta_value;
-      }
     )
   );
 

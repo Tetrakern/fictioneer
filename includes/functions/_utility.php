@@ -1940,7 +1940,7 @@ function fictioneer_sanitize_checkbox( $value ) {
  */
 
 function fictioneer_sanitize_selection( $value, $allowed_options, $default = null ) {
-  $value = sanitize_text_field( $value );
+  $value = sanitize_text_field( $value ?? '' );
   $value = is_numeric( $value ) ? intval( $value ) : $value;
 
   return in_array( $value, $allowed_options ) ? $value : $default;
@@ -1962,7 +1962,7 @@ function fictioneer_sanitize_selection( $value, $allowed_options, $default = nul
  */
 
 function fictioneer_sanitize_css( $css ) {
-  $css = sanitize_textarea_field( wp_unslash( $css ) );
+  $css = sanitize_textarea_field( wp_unslash( $css ?? '' ) );
   $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
 
   $opening_braces = substr_count( $css, '{' );
@@ -1996,7 +1996,7 @@ function fictioneer_sanitize_css( $css ) {
  */
 
 function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
-  $input = fictioneer_explode_list( sanitize_textarea_field( $input ) );
+  $input = fictioneer_explode_list( sanitize_textarea_field( $input ?? '' ) );
 
   if ( $args['absint'] ?? 0 ) {
     $input = array_map( 'absint', $input );
@@ -2058,6 +2058,10 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
  */
 
 function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
+  if ( is_null( $url ) ) {
+    return '';
+  }
+
   $url = sanitize_url( $url );
   $url = filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
 
@@ -2070,6 +2074,34 @@ function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
   }
 
   return $url;
+}
+
+// =============================================================================
+// SANITIZE EDITOR
+// =============================================================================
+
+/**
+ * Sanitize editor content.
+ *
+ * Removes malicious HTML, magic quote slashes, shortcodes, and blocks.
+ *
+ * @since 5.7.4
+ *
+ * @param string $content  The content to be sanitized.
+ *
+ * @return string The sanitized content.
+ */
+
+function fictioneer_sanitize_editor( $content ) {
+  if ( is_null( $content ) ) {
+    return '';
+  }
+
+  $content = wp_kses_post( $content );
+  $content = strip_shortcodes( $content );
+  $content = preg_replace( '/<!--\s*wp:(.*?)-->(.*?)<!--\s*\/wp:\1\s*-->/s', '', $content );
+
+  return $content;
 }
 
 // =============================================================================
@@ -2090,7 +2122,7 @@ function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
 
 function sanitize_css_aspect_ratio( $css, $default = false ) {
   // Remove unwanted white spaces
-  $css = trim( $css );
+  $css = trim( $css ?? '' );
 
   // Validate
   if ( preg_match( '/^\d+(\.\d+)?\/\d+(\.\d+)?$/', $css ) ) {
