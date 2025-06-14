@@ -1003,3 +1003,159 @@ function fictioneer_register_story_meta_fields() {
   );
 }
 add_action( 'init', 'fictioneer_register_story_meta_fields' );
+
+// =============================================================================
+// REGISTER CHAPTER META FIELDS
+// =============================================================================
+
+/**
+ * Register chapter meta fields with WordPress.
+ *
+ * Note: This may also require you to enable custom field support
+ * for custom post types in the settings.
+ *
+ * @since 5.30.0
+ */
+
+function fictioneer_register_chapter_meta_fields() {
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_story',
+    array(
+      'type' => ['integer', 'string'],
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'integer',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        $meta_value = fictioneer_validate_id( $meta_value, 'fcn_story' );
+
+        if ( ! $meta_value ) {
+          return '0';
+        }
+
+        $story_author_id = get_post_field( 'post_author', $meta_value );
+
+        if ( ! $story_author_id ) {
+          return '0';
+        }
+
+        if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
+          $user_id = get_current_user_id();
+
+          if (
+            $story_author_id != $user_id &&
+            ! ( user_can( $user_id, 'manage_options' ) || user_can( $user_id, 'fcn_crosspost' ) ) &&
+            ! in_array( $meta_value, fictioneer_sql_get_co_authored_story_ids( $user_id ) )
+          ) {
+            return '0';
+          }
+        }
+
+        return strval( $meta_value );
+      }
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_list_title',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_group',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_foreword',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_editor'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_afterword',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_editor'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_password_note',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_editor'
+    )
+  );
+}
+add_action( 'init', 'fictioneer_register_chapter_meta_fields' );
