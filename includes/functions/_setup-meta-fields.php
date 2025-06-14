@@ -3481,7 +3481,7 @@ function fictioneer_render_extra_metabox( $post ) {
     _x( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
   // Checkbox: Patreon inheritance
-  if ( $can_patreon && get_option( 'fictioneer_enable_patreon_locks' ) ) {
+  if ( $post->post_type === 'fcn_story' && $can_patreon && get_option( 'fictioneer_enable_patreon_locks' ) ) {
     $output['fictioneer_patreon_inheritance'] = fictioneer_get_metabox_checkbox(
       $post,
       'fictioneer_patreon_inheritance',
