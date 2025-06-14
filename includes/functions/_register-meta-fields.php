@@ -21,107 +21,27 @@ function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
     return false;
   }
 
-  $post = get_post( $post_id );
-
-  if ( $post ) {
-    return (
-      (int) $post->post_author === $user_id ||
-      user_can( $user_id, "edit_others_{$type}" ) ||
-      user_can( $user_id, 'manage_options' )
-    );
+  if ( user_can( $user_id, 'manage_options' ) ) {
+    return true;
   }
 
-  return user_can( $user_id, "edit_{$type}" ) || user_can( $user_id, 'manage_options' );
-}
+  static $plurals = array(
+    'fcn_story' => 'fcn_stories',
+    'fcn_chapter' => 'fcn_chapters',
+    'fcn_collection' => 'fcn_collections',
+    'fcn_recommendation' => 'fcn_recommendations',
+    'post' => 'posts',
+    'page' => 'pages'
+  );
 
-/**
- * Authenticate REST API request for stories.
- *
- * @since 5.29.5
- *
- * @param int $post_id  Post ID.
- * @param int $user_id  User ID.
- *
- * @return bool True if allowed, false otherwise.
- */
+  $post = get_post( $post_id );
+  $type = $plurals[ $type ] ?? $type;
 
-function fictioneer_rest_story_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_stories' );
-}
+  if ( $post ) {
+    return ( (int) $post->post_author === $user_id || user_can( $user_id, "edit_others_{$type}" ) );
+  }
 
-/**
- * Authenticate REST API request for chapters.
- *
- * @since 5.29.5
- *
- * @param int $post_id  Post ID.
- * @param int $user_id  User ID.
- *
- * @return bool True if allowed, false otherwise.
- */
-
-function fictioneer_rest_chapter_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_chapters' );
-}
-
-/**
- * Authenticate REST API request for collections.
- *
- * @since 5.29.5
- *
- * @param int $post_id  Post ID.
- * @param int $user_id  User ID.
- *
- * @return bool True if allowed, false otherwise.
- */
-
-function fictioneer_rest_collection_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_collections' );
-}
-
-/**
- * Authenticate REST API request for recommendations.
- *
- * @since 5.29.5
- *
- * @param int $post_id  Post ID.
- * @param int $user_id  User ID.
- *
- * @return bool True if allowed, false otherwise.
- */
-
-function fictioneer_rest_recommendation_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'fcn_recommendations' );
-}
-
-/**
- * Authenticate REST API request for posts.
- *
- * @since 5.29.5
- *
- * @param int $post_id  Post ID.
- * @param int $user_id  User ID.
- *
- * @return bool True if allowed, false otherwise.
- */
-
-function fictioneer_rest_post_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'posts' );
-}
-
-/**
- * Authenticate REST API request for pages.
- *
- * @since 5.29.5
- *
- * @param int $post_id  Post ID.
- * @param int $user_id  User ID.
- *
- * @return bool True if allowed, false otherwise.
- */
-
-function fictioneer_rest_page_auth_callback( $post_id, $user_id ) {
-  return fictioneer_rest_auth_callback( $post_id, $user_id, 'pages' );
+  return user_can( $user_id, "edit_{$type}" );
 }
 
 /**
@@ -134,37 +54,16 @@ function fictioneer_rest_page_auth_callback( $post_id, $user_id ) {
  * @return string The authentication callback.
  */
 
-function fictioneer_get_auth_callback_for_type( $type ) {
-  switch ( $type ) {
-    case 'fcn_story':
-      return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_stories' );
-      };
-    case 'fcn_chapter':
-      return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapters' );
-      };
-    case 'fcn_collection':
-      return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_collections' );
-      };
-    case 'fcn_recommendation':
-      return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendations' );
-      };
-    case 'post':
-      return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'posts' );
-      };
-    case 'page':
-      return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'pages' );
-      };
-    default:
-      return function( $allowed, $meta_key, $object_id, $user_id ) {
-        return user_can( $user_id, 'edit_post', $object_id );
-      };
+function fictioneer_rest_get_auth_callback_for_type( $type ) {
+  if ( in_array( $type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] ) ) {
+    return function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+      return fictioneer_rest_auth_callback( $object_id, $user_id, $type );
+    };
   }
+
+  return function( $allowed, $meta_key, $object_id, $user_id ) {
+    return user_can( $user_id, 'manage_options' ) || user_can( $user_id, 'edit_post', $object_id );
+  };
 }
 
 // =============================================================================
@@ -195,7 +94,7 @@ function fictioneer_register_general_meta_fields() {
             'type' => 'integer'
           )
         ),
-        'auth_callback' => fictioneer_get_auth_callback_for_type( $type ),
+        'auth_callback' => fictioneer_rest_get_auth_callback_for_type( $type ),
         'sanitize_callback' => 'absint'
       )
     );
@@ -211,7 +110,12 @@ function fictioneer_register_general_meta_fields() {
             'type' => 'integer'
           )
         ),
-        'auth_callback' => fictioneer_get_auth_callback_for_type( $type ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return (
+            fictioneer_rest_auth_callback( $object_id, $user_id, $type ) &&
+            ( user_can( $user_id, 'fcn_custom_page_header' ) || user_can( $user_id, 'manage_options' ) )
+          );
+        },
         'sanitize_callback' => 'absint'
       )
     );
@@ -241,7 +145,12 @@ function fictioneer_register_general_meta_fields() {
             )
           )
         ),
-        'auth_callback' => fictioneer_get_auth_callback_for_type( $type ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return (
+            fictioneer_rest_auth_callback( $object_id, $user_id, $type ) &&
+            ( user_can( $user_id, 'fcn_seo_meta' ) || user_can( $user_id, 'manage_options' ) )
+          );
+        },
         'sanitize_callback' => function( $meta_value ) {
           if ( ! is_array( $meta_value ) ) {
             return [];
@@ -294,7 +203,7 @@ function fictioneer_register_story_meta_fields() {
         )
       ),
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_story_auth_callback( $object_id, $user_id );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
       },
       'sanitize_callback' => function( $meta_value ) {
         $meta_value = strtolower( trim( $meta_value ) );
@@ -318,7 +227,7 @@ function fictioneer_register_story_meta_fields() {
         )
       ),
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_story_auth_callback( $object_id, $user_id );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
       },
       'sanitize_callback' => function( $meta_value ) {
         $meta_value = strtolower( trim( $meta_value ) );
@@ -345,7 +254,7 @@ function fictioneer_register_story_meta_fields() {
         )
       ),
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_story_auth_callback( $object_id, $user_id );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
       },
       'sanitize_callback' => function( $meta_value ) {
         if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
@@ -379,7 +288,7 @@ function fictioneer_register_story_meta_fields() {
         )
       ),
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_story_auth_callback( $object_id, $user_id );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
       },
       'sanitize_callback' => function( $meta_value ) {
         if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
@@ -415,7 +324,7 @@ function fictioneer_register_story_meta_fields() {
         )
       ),
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_story_auth_callback( $object_id, $user_id );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
       },
       'sanitize_callback' => function( $meta_value ) {
         if ( is_null( $meta_value ) ) {
@@ -468,7 +377,10 @@ function fictioneer_register_story_meta_fields() {
         )
       ),
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_story_auth_callback( $object_id, $user_id );
+        return (
+          fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' ) &&
+          ( current_user_can( 'manage_options' ) || ! current_user_can( 'fcn_no_filters' ) )
+        );
       },
       'sanitize_callback' => function( $meta_value ) {
         if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
@@ -527,7 +439,7 @@ function fictioneer_register_story_meta_fields() {
         )
       ),
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_story_auth_callback( $object_id, $user_id );
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
       },
       'sanitize_callback' => function( $meta_value ) {
         if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
