@@ -53,6 +53,13 @@ function fictioneer_validate_save_action_user( $post_id, $post_type ) {
     return false;
   }
 
+  if (
+    get_post_status( $post_id ) === 'private' &&
+    ! current_user_can( "edit_private_{$substring}", $post_id )
+  ) {
+    return false;
+  }
+
   // Valid
   return true;
 }
