@@ -3697,10 +3697,23 @@ function fictioneer_save_extra_metabox( $post_id ) {
     $expiration_date = $_POST['fictioneer_post_password_expiration_date'];
 
     if ( ! empty( $expiration_date ) ) {
-      $local_datetime = new DateTime( $expiration_date, wp_timezone() );
-      $local_datetime->setTimezone( new DateTimeZone( 'UTC' ) );
+      try {
+        $wp_timezone = wp_timezone();
 
-      $fields['fictioneer_post_password_expiration_date'] = $local_datetime->format( 'Y-m-d H:i:s' );
+        $now = new DateTime( 'now', $wp_timezone );
+        $now->setTimezone( new DateTimeZone( 'UTC' ) );
+
+        $local_datetime = new DateTime( $expiration_date, $wp_timezone );
+        $local_datetime->setTimezone( new DateTimeZone( 'UTC' ) );
+
+        if ( $local_datetime <= $now ) {
+          $fields['fictioneer_post_password_expiration_date'] = 0;
+        } else {
+          $fields['fictioneer_post_password_expiration_date'] = $local_datetime->format( 'Y-m-d H:i:s' );
+        }
+      } catch ( Exception $e ) {
+        $fields['fictioneer_post_password_expiration_date'] = 0;
+      }
     } else {
       $fields['fictioneer_post_password_expiration_date'] = 0;
     }
