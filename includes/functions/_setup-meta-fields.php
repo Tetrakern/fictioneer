@@ -3162,14 +3162,15 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // Story
   if ( isset( $_POST['fictioneer_chapter_story'] ) && ! ( $_POST['fictioneer_chapter_story_override'] ?? 0 ) ) {
     $story_id = fictioneer_validate_id( $_POST['fictioneer_chapter_story'], 'fcn_story' );
-    $current_story_id = absint( fictioneer_get_chapter_story_id( $post_id ) );
+    $current_story_id = (int) fictioneer_get_chapter_story_id( $post_id );
 
     if ( $current_story_id && $story_id !== $current_story_id ) {
       // Make sure the chapter is not in the list of the wrong story
       $other_story_chapters = fictioneer_get_story_chapter_ids( $current_story_id );
-      $other_story_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );
+      $other_story_updated_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );
 
-      update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_chapters );
+      update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_updated_chapters );
+      fictioneer_log_story_chapter_changes( $current_story_id, $other_story_updated_chapters, $other_story_chapters );
     }
 
     if ( $story_id ) {
@@ -3199,14 +3200,16 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   if ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_crosspost' ) ) {
     if ( isset( $_POST['fictioneer_chapter_story_override'] ) ) {
       $story_id = fictioneer_validate_id( $_POST['fictioneer_chapter_story_override'], 'fcn_story' );
-      $current_story_id = absint( fictioneer_get_chapter_story_id( $post_id ) );
+      $current_story_id = (int) fictioneer_get_chapter_story_id( $post_id );
 
       if ( $story_id ) {
         if ( $current_story_id && $story_id !== $current_story_id ) {
+          // Make sure the chapter is not in the list of the wrong story
           $other_story_chapters = fictioneer_get_story_chapter_ids( $current_story_id );
-          $other_story_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );
+          $other_story_updated_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );
 
-          update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_chapters );
+          update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_updated_chapters );
+          fictioneer_log_story_chapter_changes( $current_story_id, $other_story_updated_chapters, $other_story_chapters );
         }
 
         if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
