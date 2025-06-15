@@ -1042,7 +1042,7 @@ add_filter( 'rest_pre_insert_fcn_chapter', 'fictioneer_rest_pre_chapter_story_ch
  * @param WP_REST_Request $request  Request object.
  */
 
-function fictioneer_after_pre_chapter_story_change( $post, $request ) {
+function fictioneer_rest_after_chapter_story_change( $post, $request ) {
   global $fictioneer_rest_previous_chapter_story;
 
   if ( array_key_exists( 'fictioneer_chapter_story', $request['meta'] ?? [] ) ) {
@@ -1071,7 +1071,7 @@ function fictioneer_after_pre_chapter_story_change( $post, $request ) {
     }
   }
 }
-add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_after_pre_chapter_story_change', 10, 2 );
+add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_rest_after_chapter_story_change', 10, 2 );
 
 /**
  * Register chapter meta fields with WordPress.
