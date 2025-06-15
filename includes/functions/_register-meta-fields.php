@@ -788,8 +788,9 @@ function fictioneer_register_story_meta_fields() {
         }
 
         $meta_value = array_map( 'intval', $meta_value );
-        $meta_value = array_filter( $meta_value, fn( $value ) => $value > 0 );
+        $meta_value = array_filter( $meta_value, fn( $user_id ) => $user_id > 0 );
         $meta_value = array_unique( $meta_value );
+        $meta_value = array_filter( $meta_value, fn( $user_id ) => get_userdata( $user_id ) !== false );
         $meta_value = array_map( 'strval', $meta_value );
         $meta_value = array_values( $meta_value );
 
@@ -1074,6 +1075,34 @@ function fictioneer_rest_after_chapter_story_change( $post, $request ) {
 add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_rest_after_chapter_story_change', 10, 2 );
 
 /**
+ * Delete falsy post meta unless allow-listed.
+ *
+ * @since 5.30.0
+ *
+ * @param WP_Post $post             Post object.
+ * @param WP_REST_Request $request  Request object.
+ */
+
+function fictioneer_rest_after_insert_fcn_chapter_cleanup( $post, $request ) {
+  if ( ! isset( $request['meta'] ) || ! $post ) {
+    return;
+  }
+
+  $keys_to_delete = [];
+
+  foreach ( $request['meta'] as $key => $value ) {
+    if ( empty( $value ) && ! in_array( $key, fictioneer_get_falsy_meta_allow_list() ) ) {
+      $keys_to_delete[] = $key;
+    }
+  }
+
+  foreach ( $keys_to_delete as $meta_key ) {
+    delete_post_meta( $post->ID, $meta_key );
+  }
+}
+add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_rest_after_insert_fcn_chapter_cleanup', 99, 2 );
+
+/**
  * Register chapter meta fields with WordPress.
  *
  * Note: This may also require you to enable custom field support
@@ -1220,6 +1249,256 @@ function fictioneer_register_chapter_meta_fields() {
         return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
       },
       'sanitize_callback' => 'fictioneer_sanitize_editor'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_icon',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => FICTIONEER_DEFAULT_CHAPTER_ICON
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_text_icon',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_short_title',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_prefix',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_co_authors',
+    array(
+      'type' => 'array',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'array',
+          'default' => [],
+          'items' => array(
+            'type' => ['integer', 'string']
+          )
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
+          return [];
+        }
+
+        $meta_value = array_map( 'intval', $meta_value );
+        $meta_value = array_filter( $meta_value, fn( $user_id ) => $user_id > 0 );
+        $meta_value = array_unique( $meta_value );
+        $meta_value = array_filter( $meta_value, fn( $user_id ) => get_userdata( $user_id ) !== false );
+        $meta_value = array_map( 'strval', $meta_value );
+        $meta_value = array_values( $meta_value );
+
+        return $meta_value;
+      }
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_rating',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => 'Everyone'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        $meta_value = strtolower( trim( $meta_value ) );
+
+        return in_array( $meta_value, ['everyone', 'teen', 'mature', 'adult'] )
+          ? ucfirst( $meta_value ) : 'Everyone';
+      }
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_warning',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        $meta_value = sanitize_text_field( $meta_value );
+        $meta_value = fictioneer_truncate( $meta_value, 48 );
+
+        return $meta_value;
+      }
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_warning_notes',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'sanitize_textarea_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_hidden',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_no_chapter',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_hide_title',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+
+  register_post_meta(
+    'fcn_chapter',
+    'fictioneer_chapter_hide_support_links',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
     )
   );
 }
