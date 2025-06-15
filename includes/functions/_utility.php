@@ -3108,7 +3108,6 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
       ! get_option( 'fictioneer_allow_rest_save_actions' ) ) &&
       ! ( $fictioneer_rest_auth_triggered ?? 0 )
     ) {
-      error_log( 'REST blocked' );
       return true;
     }
 
