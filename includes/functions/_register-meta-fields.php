@@ -17,8 +17,6 @@
  */
 
 function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
-  $GLOBALS['fictioneer_rest_auth_triggered'] = true;
-
   if ( ! $user_id ) {
     return false;
   }

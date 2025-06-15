@@ -46,8 +46,8 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
  */
 
 function fictioneer_update_shortcode_relationships( $post_id, $post ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 

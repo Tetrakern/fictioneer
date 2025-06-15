@@ -1305,7 +1305,7 @@ add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
 function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
   // Prevent miss-fire
   if (
-    fictioneer_multi_save_guard( $postarr['ID'] ) ||
+    fictioneer_save_guard( $postarr['ID'] ) ||
     empty( $unsanitized_postarr['post_content'] ?? 0 ) ||
     ( $unsanitized_postarr['post_status'] ?? 0 ) === 'auto-draft'
   ) {

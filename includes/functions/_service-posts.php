@@ -15,8 +15,8 @@
 function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
   global $wpdb;
 
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 
@@ -58,8 +58,8 @@ fictioneer_toggle_stud_actions( 'fictioneer_update_modified_date_on_story_for_ch
  */
 
 function fictioneer_save_word_count( $post_id ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 
@@ -83,8 +83,8 @@ if ( ! get_option( 'fictioneer_count_characters_as_words' ) ) {
  */
 
 function fictioneer_characters_as_word_count( $post_id ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 

@@ -199,8 +199,8 @@ if ( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) {
  */
 
 function fictioneer_post_story_to_discord( $post_id, $post, $update ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 
@@ -300,8 +300,8 @@ if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
  */
 
 function fictioneer_post_chapter_to_discord( $post_id, $post, $update ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 

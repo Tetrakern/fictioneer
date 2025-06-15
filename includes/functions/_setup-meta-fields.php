@@ -2427,7 +2427,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_story_nonce'] ?? '' ), "story_meta_data_{$post_id}" ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
+    fictioneer_save_guard( $post_id ) ||
     get_post_type( $post_id ) !== 'fcn_story' ||
     ! fictioneer_validate_save_action_user( $post_id, 'fcn_story' )
   ) {
@@ -3045,7 +3045,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_chapter_nonce'] ?? '' ), "chapter_meta_data_{$post_id}" ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
+    fictioneer_save_guard( $post_id ) ||
     get_post_type( $post_id ) !== 'fcn_chapter' ||
     ! fictioneer_validate_save_action_user( $post_id, 'fcn_chapter' )
   ) {
@@ -3564,7 +3564,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_advanced_meta_nonce'] ?? '' ), "advanced_meta_{$post_id}" ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
+    fictioneer_save_guard( $post_id ) ||
     ! in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] ) ||
     ! fictioneer_validate_save_action_user( $post_id, $post_type )
   ) {
@@ -3843,7 +3843,7 @@ function fictioneer_save_support_links_metabox( $post_id ) {
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_support_links_nonce'] ?? '' ), "support_links_{$post_id}" ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
+    fictioneer_save_guard( $post_id ) ||
     ! in_array( $post_type, ['post', 'fcn_story', 'fcn_chapter'] ) ||
     ! fictioneer_validate_save_action_user( $post_id, $post_type )
   ) {
@@ -3990,7 +3990,7 @@ function fictioneer_save_post_metaboxes( $post_id ) {
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_post_nonce'] ?? '' ), "post_data_{$post_id}" ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
+    fictioneer_save_guard( $post_id ) ||
     get_post_type( $post_id ) !== 'post' ||
     ! fictioneer_validate_save_action_user( $post_id, 'post' )
   ) {
@@ -4199,7 +4199,7 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_collection_nonce'] ?? '' ), "collection_data_{$post_id}" ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
+    fictioneer_save_guard( $post_id ) ||
     get_post_type( $post_id ) !== 'fcn_collection' ||
     ! fictioneer_validate_save_action_user( $post_id, 'fcn_collection' )
   ) {
@@ -4365,7 +4365,7 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_recommendation_nonce'] ?? '' ), "recommendation_data_{$post_id}" ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
+    fictioneer_save_guard( $post_id ) ||
     get_post_type( $post_id ) !== 'fcn_recommendation' ||
     ! fictioneer_validate_save_action_user( $post_id, 'fcn_recommendation' )
   ) {

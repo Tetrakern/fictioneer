@@ -473,8 +473,8 @@ add_action( 'untrashed_post', function( $post_id ) {
  */
 
 function fictioneer_log_published_posts( $post_id ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 
@@ -508,8 +508,8 @@ add_action( 'publish_fcn_recommendation', 'fictioneer_log_published_posts' );
  */
 
 function fictioneer_log_pending_posts( $post_id ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 
@@ -537,11 +537,8 @@ add_action( 'pending_fcn_recommendation', 'fictioneer_log_published_posts' );
  */
 
 function fictioneer_log_deleted_posts( $post_id ) {
-  // Prevent multi-fire
-  if (
-    ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
-    did_action( 'before_delete_post' ) != 1
-  ) {
+  // Prevent miss-fire
+  if ( did_action( 'before_delete_post' ) != 1 ) {
     return;
   }
 

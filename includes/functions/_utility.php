@@ -3064,28 +3064,22 @@ if ( ! function_exists( 'fictioneer_get_assigned_page_link' ) ) {
 }
 
 // =============================================================================
-// MULTI SAVE GUARD
+// SAVE GUARD
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
+if ( ! function_exists( 'fictioneer_save_guard' ) ) {
   /**
-   * Prevents multi-fire in update hooks
-   *
-   * Unfortunately, the block editor always fires twice: once as REST request and
-   * followed by WP_POST. Only the first will have the correct parameters such as
-   * $update set, the second is technically no longer an update. Since blocking
-   * the follow-up WP_POST would block programmatically triggered actions, there
-   * is no other choice but to block the REST request and live with it.
+   * Prevent unnecessary triggers of save hooks.
    *
    * @since 5.5.2
-   * @since 5.30.0 - Allow REST-only requests to pass via global flag.
+   * @since 5.30.0 - Refactored and renamed.
    *
    * @param int $post_id  The ID of the updated post.
    *
    * @return boolean True if NOT allowed, false otherwise.
    */
 
-  function fictioneer_multi_save_guard( $post_id ) {
+  function fictioneer_save_guard( $post_id ) {
     // Always allow trash action to pass
     if ( get_post_status( $post_id ) === 'trash' ) {
       return false;
@@ -3096,17 +3090,6 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
       wp_is_post_autosave( $post_id ) ||
       wp_is_post_revision( $post_id ) ||
       get_post_status( $post_id ) === 'auto-draft'
-    ) {
-      return true;
-    }
-
-    global $fictioneer_rest_auth_triggered;
-
-    // Block post editor REST requests
-    if (
-      ( defined( 'REST_REQUEST' ) && REST_REQUEST &&
-      ! get_option( 'fictioneer_allow_rest_save_actions' ) ) &&
-      ! ( $fictioneer_rest_auth_triggered ?? 0 )
     ) {
       return true;
     }

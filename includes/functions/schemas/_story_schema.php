@@ -17,8 +17,8 @@
  */
 
 function fictioneer_refresh_story_schema( $post_id, $post ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 

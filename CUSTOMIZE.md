@@ -291,7 +291,7 @@ Or any other positive number for that matter. To prevent authors from entering a
 
 function child_limit_tags_per_post( $post_id ) {
   // Ignore auto saves, multi-fire, etc.
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 

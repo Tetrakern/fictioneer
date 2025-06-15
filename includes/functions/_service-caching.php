@@ -444,8 +444,8 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
    */
 
   function fictioneer_refresh_post_caches( $post_id ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
+    // Prevent miss-fire
+    if ( fictioneer_save_guard( $post_id ) ) {
       return;
     }
 
@@ -707,8 +707,8 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
    */
 
   function fictioneer_track_chapter_and_story_updates( $post_id ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
+    // Prevent miss-fire
+    if ( fictioneer_save_guard( $post_id ) ) {
       return;
     }
 
@@ -766,8 +766,8 @@ function fictioneer_delete_layout_transients() {
  */
 
 function fictioneer_purge_transients_after_update( $post_id ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
     return;
   }
 
