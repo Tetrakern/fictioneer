@@ -1009,6 +1009,67 @@ add_action( 'init', 'fictioneer_register_story_meta_fields' );
 // =============================================================================
 
 /**
+ * Remember current story chapter ID.
+ *
+ * @since 5.30.0
+ *
+ * @param stdClass $prepared_post  An object representing a single post prepared for inserting or updating the database.
+ *
+ * @return stdClass The unchanged prepared post.
+ */
+
+function fictioneer_rest_pre_chapter_story_change( $prepared_post ) {
+  if ( isset( $prepared_post->ID ) ) {
+    $current_story_id = get_post_meta( $prepared_post->ID, 'fictioneer_chapter_story', true );
+
+    if ( $current_story_id ) {
+      $GLOBALS['fictioneer_rest_previous_chapter_story'] = (int) $current_story_id;
+    }
+  }
+
+  return $prepared_post;
+}
+add_filter( 'rest_pre_insert_fcn_chapter', 'fictioneer_rest_pre_chapter_story_change' );
+
+/**
+ * Clean up story chapter lists after story chapter update.
+ *
+ * @since 5.30.0
+ *
+ * @param WP_Post $post             Post object.
+ * @param WP_REST_Request $request  Request object.
+ */
+
+function fictioneer_after_pre_chapter_story_change( $post, $request ) {
+  global $fictioneer_rest_previous_chapter_story;
+
+  if ( array_key_exists( 'fictioneer_chapter_story', $request['meta'] ?? [] ) ) {
+    $new_story_id = (int) get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+    $old_story_id = (int) ( $fictioneer_rest_previous_chapter_story ?? null );
+
+    // Remove chapter from old story
+    if ( $old_story_id && $new_story_id && $new_story_id !== $old_story_id ) {
+      $old_story_chapters = fictioneer_get_story_chapter_ids( $old_story_id );
+      $old_story_updated_chapters = array_diff( $old_story_chapters, [ strval( $post->ID ) ] );
+
+      update_post_meta( $old_story_id, 'fictioneer_story_chapters', $old_story_updated_chapters );
+      fictioneer_log_story_chapter_changes( $old_story_id, $old_story_updated_chapters, $old_story_chapters );
+    }
+
+    // Append to new story
+    if ( $new_story_id && get_option( 'fictioneer_enable_chapter_appending' ) ) {
+      fictioneer_append_chapter_to_story( $post->ID, $new_story_id );
+    }
+
+    // Set post parent
+    if ( $new_story_id ) {
+      fictioneer_set_chapter_story_parent( $post->ID, $new_story_id );
+    }
+  }
+}
+add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_after_pre_chapter_story_change', 10, 2 );
+
+/**
  * Register chapter meta fields with WordPress.
  *
  * Note: This may also require you to enable custom field support
