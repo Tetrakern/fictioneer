@@ -3170,7 +3170,9 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
       $other_story_updated_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );
 
       update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_updated_chapters );
+
       fictioneer_log_story_chapter_changes( $current_story_id, $other_story_updated_chapters, $other_story_chapters );
+      fictioneer_track_chapter_and_story_updates( $current_story_id );
     }
 
     if ( $story_id ) {
@@ -3209,7 +3211,9 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
           $other_story_updated_chapters = array_diff( $other_story_chapters, [ strval( $post_id ) ] );
 
           update_post_meta( $current_story_id, 'fictioneer_story_chapters', $other_story_updated_chapters );
+
           fictioneer_log_story_chapter_changes( $current_story_id, $other_story_updated_chapters, $other_story_chapters );
+          fictioneer_track_chapter_and_story_updates( $current_story_id );
         }
 
         if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
