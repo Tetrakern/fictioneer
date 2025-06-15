@@ -3959,6 +3959,7 @@ function fictioneer_log( $message, $current_user = null ) {
   $log_file = WP_CONTENT_DIR . "/fictioneer-{$log_hash}-log.log";
   $log_limit = 5000;
   $date = current_time( 'mysql', true );
+  $rest = '';
 
   if ( is_object( $current_user ) && $current_user->ID > 0 ) {
     $username = $current_user->user_login . ' #' . $current_user->ID;
@@ -3973,6 +3974,10 @@ function fictioneer_log( $message, $current_user = null ) {
   }
 
   $username = empty( $username ) ? __( 'Anonymous', 'fictioneer' ) : $username;
+
+  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+    $rest = '[REST] ';
+  }
 
   // Make sure the log file exists
   if ( ! file_exists( $log_file ) ) {
@@ -3989,7 +3994,7 @@ function fictioneer_log( $message, $current_user = null ) {
   $log_entries = array_slice( $log_entries, -($log_limit + 1) );
 
   // Add new entry
-  $log_entries[] = "[{$date} UTC] [{$username}] $message";
+  $log_entries[] = "[{$date} UTC] [{$username}] {$rest}{$message}";
 
   // Concatenate and save
   file_put_contents( $log_file, implode( "\n", $log_entries ) );

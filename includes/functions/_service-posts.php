@@ -1,6 +1,153 @@
 <?php
 
 // =============================================================================
+// LOG POST UPDATES HELPER
+// =============================================================================
+
+/**
+ * Logs post update
+ *
+ * @since 5.0.0
+ * @since 5.24.1 - Make dependant on option.
+ *
+ * @param int    $post_id  The post ID.
+ * @param string $action   The action performed.
+ */
+
+ function fictioneer_log_post_update( $post_id, $action ) {
+  // Log posts?
+  if ( ! get_option( 'fictioneer_log_posts' ) ) {
+    return;
+  }
+
+  // Setup
+  $type_object = get_post_type_object( get_post_type( $post_id ) );
+  $post_type_name = $type_object->labels->singular_name;
+
+  // Build message
+  $message = sprintf(
+    _x( '%1$s #%2$s %3$s: %4$s', 'Pattern for post/page in logs: {Type} #{ID} {Action}: {Title}.', 'fictioneer' ),
+    $post_type_name,
+    $post_id,
+    $action,
+    fictioneer_get_safe_title( $post_id, 'admin-log-post-update' )
+  );
+
+  // Log
+  fictioneer_log( $message );
+}
+
+// =============================================================================
+// LOG TRASHED/RESTORED POSTS
+// =============================================================================
+
+add_action( 'trashed_post', function( $post_id ) {
+  // Relay
+  fictioneer_log_post_update( $post_id, __( 'trashed', 'fictioneer' ) );
+});
+
+add_action( 'untrashed_post', function( $post_id ) {
+  // Relay
+  fictioneer_log_post_update( $post_id, __( 'restored', 'fictioneer' ) );
+});
+
+// =============================================================================
+// LOG PUBLISHED POSTS
+// =============================================================================
+
+/**
+ * Helper to log published posts
+ *
+ * @since 5.0.0
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_log_published_posts( $post_id ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
+    return;
+  }
+
+  // Updated or first published?
+  if ( strtotime( '-5 seconds' ) < strtotime( get_the_date( 'c', $post_id ) ) ) {
+    $action = __( 'published', 'fictioneer' );
+  } else {
+    $action = __( 'updated', 'fictioneer' );
+  }
+
+  // Relay
+  fictioneer_log_post_update( $post_id, $action );
+}
+add_action( 'publish_post', 'fictioneer_log_published_posts' );
+add_action( 'publish_page', 'fictioneer_log_published_posts' );
+add_action( 'publish_fcn_story', 'fictioneer_log_published_posts' );
+add_action( 'publish_fcn_chapter', 'fictioneer_log_published_posts' );
+add_action( 'publish_fcn_collection', 'fictioneer_log_published_posts' );
+add_action( 'publish_fcn_recommendation', 'fictioneer_log_published_posts' );
+
+// =============================================================================
+// LOG PENDING POSTS
+// =============================================================================
+
+/**
+ * Helper to log pending posts
+ *
+ * @since 5.0.0
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_log_pending_posts( $post_id ) {
+  // Prevent miss-fire
+  if ( fictioneer_save_guard( $post_id ) ) {
+    return;
+  }
+
+  // Relay
+  fictioneer_log_post_update( $post_id, __( 'submitted for review', 'fictioneer' ) );
+}
+
+add_action( 'pending_post', 'fictioneer_log_pending_posts' );
+add_action( 'pending_page', 'fictioneer_log_pending_posts' );
+add_action( 'pending_fcn_story', 'fictioneer_log_published_posts' );
+add_action( 'pending_fcn_chapter', 'fictioneer_log_published_posts' );
+add_action( 'pending_fcn_collection', 'fictioneer_log_published_posts' );
+add_action( 'pending_fcn_recommendation', 'fictioneer_log_published_posts' );
+
+// =============================================================================
+// LOG DELETED POSTS
+// =============================================================================
+
+/**
+ * Helper to log deleted posts
+ *
+ * @since 5.0.0
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_log_deleted_posts( $post_id ) {
+  // Prevent miss-fire
+  if ( did_action( 'before_delete_post' ) != 1 ) {
+    return;
+  }
+
+  // Setup
+  $post_type = get_post_type( $post_id );
+  $allowed_post_types = ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection', 'post', 'page'];
+
+  // Only log certain post types
+  if ( ! in_array( $post_type, $allowed_post_types ) ) {
+    return;
+  }
+
+  // Relay
+  fictioneer_log_post_update( $post_id, __( 'deleted', 'fictioneer' ) );
+}
+add_action( 'before_delete_post', 'fictioneer_log_deleted_posts' );
+
+// =============================================================================
 // UPDATE MODIFIED DATE OF STORY WHEN CHAPTER IS UPDATED
 // =============================================================================
 
