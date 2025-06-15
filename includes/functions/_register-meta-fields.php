@@ -17,6 +17,8 @@
  */
 
 function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
+  $GLOBALS['fictioneer_rest_auth_triggered'] = true;
+
   if ( ! $user_id ) {
     return false;
   }
@@ -1054,6 +1056,8 @@ function fictioneer_after_pre_chapter_story_change( $post, $request ) {
 
       update_post_meta( $old_story_id, 'fictioneer_story_chapters', $old_story_updated_chapters );
       fictioneer_log_story_chapter_changes( $old_story_id, $old_story_updated_chapters, $old_story_chapters );
+
+      wp_update_post( array( 'ID' => $old_story_id ) );
     }
 
     // Append to new story

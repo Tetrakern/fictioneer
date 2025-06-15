@@ -3078,6 +3078,7 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
    * is no other choice but to block the REST request and live with it.
    *
    * @since 5.5.2
+   * @since 5.30.0 - Allow REST-only requests to pass via global flag.
    *
    * @param int $post_id  The ID of the updated post.
    *
@@ -3090,13 +3091,24 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
       return false;
     }
 
-    // Block REST requests and unnecessary triggers
+    // Block unnecessary triggers
     if (
-      ( defined( 'REST_REQUEST' ) && REST_REQUEST && ! get_option( 'fictioneer_allow_rest_save_actions' ) ) ||
       wp_is_post_autosave( $post_id ) ||
       wp_is_post_revision( $post_id ) ||
       get_post_status( $post_id ) === 'auto-draft'
     ) {
+      return true;
+    }
+
+    global $fictioneer_rest_auth_triggered;
+
+    // Block post editor REST requests
+    if (
+      ( defined( 'REST_REQUEST' ) && REST_REQUEST &&
+      ! get_option( 'fictioneer_allow_rest_save_actions' ) ) &&
+      ! ( $fictioneer_rest_auth_triggered ?? 0 )
+    ) {
+      error_log( 'REST blocked' );
       return true;
     }
 
