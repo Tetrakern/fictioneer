@@ -4605,7 +4605,7 @@ function fictioneer_save_seo_metabox( $post_id, $post ) {
 
   // Validations
   if (
-    ! current_user_can( 'fcn_seo_meta' ) ||
+    ! ( current_user_can( 'fcn_seo_meta' ) || current_user_can( 'manage_options' ) ) ||
     ! isset( $_POST['fictioneer_metabox_seo_nonce'] ) ||
     ! wp_verify_nonce( $_POST['fictioneer_metabox_seo_nonce'], 'fictioneer-metabox-seo-save' ) ||
     ! fictioneer_validate_save_action_user( $post_id, $post->post_type ) ||
