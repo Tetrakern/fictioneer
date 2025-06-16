@@ -1616,7 +1616,7 @@ add_action( 'init', 'fictioneer_register_collection_meta_fields' );
  * @since 5.30.0
  */
 
- function fictioneer_register_recommendation_meta_fields() {
+function fictioneer_register_recommendation_meta_fields() {
   register_post_meta(
     'fcn_recommendation',
     'fictioneer_recommendation_one_sentence',
@@ -1713,3 +1713,88 @@ add_action( 'init', 'fictioneer_register_collection_meta_fields' );
   );
 }
 add_action( 'init', 'fictioneer_register_recommendation_meta_fields' );
+
+// =============================================================================
+// REGISTER POST META FIELDS
+// =============================================================================
+
+/**
+ * Register post meta fields with WordPress.
+ *
+ * Note: This may also require you to enable custom field support
+ * for custom post types in the settings.
+ *
+ * @since 5.30.0
+ */
+
+function fictioneer_register_post_meta_fields() {
+  register_post_meta(
+    'post',
+    'fictioneer_post_featured',
+    array(
+      'type' => 'array',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'array',
+          'default' => [],
+          'items' => array(
+            'type' => ['integer', 'string']
+          )
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'post' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
+          return [];
+        }
+
+        $meta_value = fictioneer_sql_filter_valid_featured_ids( $meta_value );
+
+        if ( ! $meta_value ) {
+          return [];
+        }
+
+        return array_values( array_map( 'strval', $meta_value ) );
+      }
+    )
+  );
+
+  register_post_meta(
+    'post',
+    'fictioneer_post_story_blogs',
+    array(
+      'type' => 'array',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'array',
+          'default' => [],
+          'items' => array(
+            'type' => ['integer', 'string']
+          )
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'post' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
+          return [];
+        }
+
+        $meta_value = fictioneer_sql_filter_valid_blog_story_ids( $meta_value );
+
+        if ( ! $meta_value ) {
+          return [];
+        }
+
+        return array_values( array_map( 'strval', $meta_value ) );
+      }
+    )
+  );
+}
+add_action( 'init', 'fictioneer_register_post_meta_fields' );
+
