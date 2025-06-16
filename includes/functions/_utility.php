@@ -1260,7 +1260,7 @@ if ( ! function_exists( 'fictioneer_count_words' ) ) {
 
   function fictioneer_count_words( $post_id, $content = null ) {
     // Prepare
-    $content = $content ?? get_post_field( 'post_content', $post_id );
+    $content = $content ?? get_post_field( 'post_content', $post_id ) ?: '';
     $content = strip_shortcodes( $content );
     $content = strip_tags( $content );
     $content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5 );
