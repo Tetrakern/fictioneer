@@ -1250,6 +1250,7 @@ if ( ! function_exists( 'fictioneer_count_words' ) ) {
    * Returns word count of a post
    *
    * @since 5.25.0
+   * @since 5.30.0 - Fixed for accuracy (hopefully).
    *
    * @param int         $post_id  ID of the post to count the words of.
    * @param string|null $content  Optional. The post content. Queries the field by default.
@@ -1262,10 +1263,16 @@ if ( ! function_exists( 'fictioneer_count_words' ) ) {
     $content = $content ?? get_post_field( 'post_content', $post_id );
     $content = strip_shortcodes( $content );
     $content = strip_tags( $content );
-    $content = preg_replace( ['/--/', "/['’‘-]/"], ['—', ''], $content );
+    $content = html_entity_decode( $content, ENT_QUOTES | ENT_HTML5 );
+    $content = preg_replace( '/[‐–—―‒−⁃]/u', ' - ', $content );
 
-    // Count and return result
-    return count( preg_split( '/\s+/', $content ) ?: [] );
+    preg_match_all(
+      "/\b\p{L}[\p{L}\p{N}'’]*(?:-\p{L}[\p{L}\p{N}'’]*)*\b/u",
+      $content,
+      $matches
+    );
+
+    return count( $matches[0] );
   }
 }
 
