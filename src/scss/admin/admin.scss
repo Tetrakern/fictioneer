@@ -1241,9 +1241,16 @@ td.fictioneer_patreon_lock_amount {
         font-weight: 400;
       }
 
-    label {
+    label:not(.fictioneer-meta-checkbox) {
       display: flex;
       justify-content: space-between;
+    }
+
+    .fictioneer-meta-checkbox {
+      flex: 1 1 100%;
+      font-weight: 400;
+      margin-top: 0;
+      width: 100%;
     }
   }
 }

@@ -243,6 +243,27 @@ function fictioneer_register_general_meta_fields() {
 
     register_post_meta(
       $type,
+      'fictioneer_discourage_search_engines',
+      array(
+        'type' => 'boolean',
+        'single' => true,
+        'show_in_rest' => array(
+          'schema' => array(
+            'type' => 'boolean'
+          )
+        ),
+        'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) use ( $type ) {
+          return (
+            fictioneer_rest_auth_callback( $object_id, $user_id, $type ) &&
+            ( user_can( $user_id, 'fcn_seo_meta' ) || user_can( $user_id, 'manage_options' ) )
+          );
+        },
+        'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+      )
+    );
+
+    register_post_meta(
+      $type,
       'fictioneer_patreon_lock_tiers',
       array(
         'type' => 'array',

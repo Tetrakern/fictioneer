@@ -4575,6 +4575,14 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 
       </div>
 
+      <?php
+        echo fictioneer_get_metabox_checkbox(
+          $post,
+          'fictioneer_discourage_search_engines',
+          __( 'Discourage search engines from indexing this post. It is up to search engines to honor this request.', 'fictioneer' )
+        );
+      ?>
+
     </div>
     <?php // <--- End HTML
   }
@@ -4629,6 +4637,12 @@ function fictioneer_save_seo_metabox( $post_id, $post ) {
   // Let empty fields get deleted
   if ( empty( $seo_data['og_image'] ) && empty( $seo_data['title'] ) && empty( $seo_data['description'] ) ) {
     $seo_data = null;
+  }
+
+  // Discourage
+  if ( isset( $_POST['fictioneer_discourage_search_engines'] ) ) {
+    $discourage = fictioneer_sanitize_checkbox( $_POST['fictioneer_discourage_search_engines'] );
+    fictioneer_update_post_meta( $post_id, 'fictioneer_discourage_search_engines', $discourage );
   }
 
   // Save fields

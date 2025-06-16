@@ -40,7 +40,11 @@ if ( is_archive() || is_search() || is_404() || FICTIONEER_MU_REGISTRATION ) {
 }
 
 // Prevent indexing if required
-if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_MU_REGISTRATION ) {
+if (
+  ( $args['no_index'] ?? 0 ) ||
+  FICTIONEER_MU_REGISTRATION ||
+  ( $post_id && get_post_meta( $post_id, 'fictioneer_discourage_search_engines', true ) )
+) {
   add_filter( 'wp_robots', 'wp_robots_no_robots' );
 }
 
