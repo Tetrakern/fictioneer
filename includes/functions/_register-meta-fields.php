@@ -1708,7 +1708,7 @@ function fictioneer_register_recommendation_meta_fields() {
       'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
         return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendation' );
       },
-      'sanitize_callback' => 'fictioneer_recommendation_support'
+      'sanitize_callback' => 'sanitize_textarea_field'
     )
   );
 }
@@ -1798,3 +1798,102 @@ function fictioneer_register_post_meta_fields() {
 }
 add_action( 'init', 'fictioneer_register_post_meta_fields' );
 
+// =============================================================================
+// REGISTER PAGE META FIELDS
+// =============================================================================
+
+/**
+ * Register page meta fields with WordPress.
+ *
+ * Note: This may also require you to enable custom field support
+ * for custom post types in the settings.
+ *
+ * @since 5.30.0
+ */
+
+function fictioneer_register_page_meta_fields() {
+  register_post_meta(
+    'page',
+    'fictioneer_short_name',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'page' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'page',
+    'fictioneer_filter_and_search_id',
+    array(
+      'type' => 'integer',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'integer'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return user_can( $user_id, 'install_plugins' ) && fictioneer_rest_auth_callback( $object_id, $user_id, 'page' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        if ( ! is_numeric( $meta_value ) ) {
+          return 0;
+        }
+
+        return max( intval( $meta_value ), 0 );
+      }
+    )
+  );
+
+  register_post_meta(
+    'page',
+    'fictioneer_template_story_id',
+    array(
+      'type' => 'integer',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'integer'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return user_can( $user_id, 'manage_options' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        if ( ! is_numeric( $meta_value ) ) {
+          return 0;
+        }
+
+        return max( intval( $meta_value ), 0 );
+      }
+    )
+  );
+
+  register_post_meta(
+    'page',
+    'fictioneer_template_show_story_header',
+    array(
+      'type' => 'boolean',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'boolean'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return user_can( $user_id, 'manage_options' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    )
+  );
+}
+add_action( 'init', 'fictioneer_register_page_meta_fields' );
