@@ -75,6 +75,47 @@ function fictioneer_rest_get_auth_callback_for_type( $type ) {
 }
 
 // =============================================================================
+// CLEANUP
+// =============================================================================
+
+/**
+ * Delete falsy post meta unless allow-listed.
+ *
+ * @since 5.30.0
+ *
+ * @param WP_Post $post             Post object.
+ * @param WP_REST_Request $request  Request object.
+ */
+
+ function fictioneer_rest_after_insert_cleanup( $post, $request ) {
+  if ( ! isset( $request['meta'] ) || ! $post ) {
+    return;
+  }
+
+  $keys_to_delete = [];
+
+  foreach ( $request['meta'] as $key => $value ) {
+    if (
+      empty( $value ) &&
+      strpos( $key, 'fictioneer_' ) === 0 &&
+      ! in_array( $key, fictioneer_get_falsy_meta_allow_list() )
+    ) {
+      $keys_to_delete[] = $key;
+    }
+  }
+
+  foreach ( $keys_to_delete as $meta_key ) {
+    delete_post_meta( $post->ID, $meta_key );
+  }
+}
+add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_rest_after_insert_cleanup', 99, 2 );
+add_action( 'rest_after_insert_fcn_story', 'fictioneer_rest_after_insert_cleanup', 99, 2 );
+add_action( 'rest_after_insert_fcn_collection', 'fictioneer_rest_after_insert_cleanup', 99, 2 );
+add_action( 'rest_after_insert_fcn_recommendation', 'fictioneer_rest_after_insert_cleanup', 99, 2 );
+add_action( 'rest_after_insert_post', 'fictioneer_rest_after_insert_cleanup', 99, 2 );
+add_action( 'rest_after_insert_page', 'fictioneer_rest_after_insert_cleanup', 99, 2 );
+
+// =============================================================================
 // REGISTER GENERAL META FIELDS
 // =============================================================================
 
@@ -1073,34 +1114,6 @@ function fictioneer_rest_after_chapter_story_change( $post, $request ) {
 add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_rest_after_chapter_story_change', 10, 2 );
 
 /**
- * Delete falsy post meta unless allow-listed.
- *
- * @since 5.30.0
- *
- * @param WP_Post $post             Post object.
- * @param WP_REST_Request $request  Request object.
- */
-
-function fictioneer_rest_after_insert_fcn_chapter_cleanup( $post, $request ) {
-  if ( ! isset( $request['meta'] ) || ! $post ) {
-    return;
-  }
-
-  $keys_to_delete = [];
-
-  foreach ( $request['meta'] as $key => $value ) {
-    if ( empty( $value ) && ! in_array( $key, fictioneer_get_falsy_meta_allow_list() ) ) {
-      $keys_to_delete[] = $key;
-    }
-  }
-
-  foreach ( $keys_to_delete as $meta_key ) {
-    delete_post_meta( $post->ID, $meta_key );
-  }
-}
-add_action( 'rest_after_insert_fcn_chapter', 'fictioneer_rest_after_insert_fcn_chapter_cleanup', 99, 2 );
-
-/**
  * Register chapter meta fields with WordPress.
  *
  * Note: This may also require you to enable custom field support
@@ -1501,3 +1514,91 @@ function fictioneer_register_chapter_meta_fields() {
   );
 }
 add_action( 'init', 'fictioneer_register_chapter_meta_fields' );
+
+// =============================================================================
+// REGISTER COLLECTION META FIELDS
+// =============================================================================
+
+/**
+ * Register collection meta fields with WordPress.
+ *
+ * Note: This may also require you to enable custom field support
+ * for custom post types in the settings.
+ *
+ * @since 5.30.0
+ */
+
+ function fictioneer_register_collection_meta_fields() {
+  register_post_meta(
+    'fcn_collection',
+    'fictioneer_collection_list_title',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_collection' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_collection',
+    'fictioneer_collection_description',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_collection' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_editor'
+    )
+  );
+
+  register_post_meta(
+    'fcn_collection',
+    'fictioneer_collection_items',
+    array(
+      'type' => 'array',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'array',
+          'default' => [],
+          'items' => array(
+            'type' => ['integer', 'string']
+          )
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_collection' );
+      },
+      'sanitize_callback' => function( $meta_value ) {
+        if ( is_null( $meta_value ) || ! is_array( $meta_value ) ) {
+          return [];
+        }
+
+        $meta_value = fictioneer_sql_filter_valid_collection_ids( $meta_value );
+
+        if ( ! $meta_value ) {
+          return [];
+        }
+
+        return array_values( array_map( 'strval', $meta_value ) );
+      }
+    )
+  );
+ }
+ add_action( 'init', 'fictioneer_register_collection_meta_fields' );
