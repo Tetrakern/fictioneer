@@ -1528,7 +1528,7 @@ add_action( 'init', 'fictioneer_register_chapter_meta_fields' );
  * @since 5.30.0
  */
 
- function fictioneer_register_collection_meta_fields() {
+function fictioneer_register_collection_meta_fields() {
   register_post_meta(
     'fcn_collection',
     'fictioneer_collection_list_title',
@@ -1600,5 +1600,116 @@ add_action( 'init', 'fictioneer_register_chapter_meta_fields' );
       }
     )
   );
- }
- add_action( 'init', 'fictioneer_register_collection_meta_fields' );
+}
+add_action( 'init', 'fictioneer_register_collection_meta_fields' );
+
+// =============================================================================
+// REGISTER RECOMMENDATION META FIELDS
+// =============================================================================
+
+/**
+ * Register collection meta fields with WordPress.
+ *
+ * Note: This may also require you to enable custom field support
+ * for custom post types in the settings.
+ *
+ * @since 5.30.0
+ */
+
+ function fictioneer_register_recommendation_meta_fields() {
+  register_post_meta(
+    'fcn_recommendation',
+    'fictioneer_recommendation_one_sentence',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => __( 'No description provided yet.', 'fictioneer' )
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendation' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_recommendation',
+    'fictioneer_recommendation_author',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => _x( 'Undefined', 'Undefined recommendation author.', 'fictioneer' )
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendation' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_recommendation',
+    'fictioneer_recommendation_primary_url',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendation' );
+      },
+      'sanitize_callback' => 'fictioneer_sanitize_url'
+    )
+  );
+
+  register_post_meta(
+    'fcn_recommendation',
+    'fictioneer_recommendation_urls',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendation' );
+      },
+      'sanitize_callback' => 'sanitize_textarea_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_recommendation',
+    'fictioneer_recommendation_support',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string',
+          'default' => ''
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_recommendation' );
+      },
+      'sanitize_callback' => 'fictioneer_recommendation_support'
+    )
+  );
+}
+add_action( 'init', 'fictioneer_register_recommendation_meta_fields' );
