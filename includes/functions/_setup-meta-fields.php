@@ -3631,7 +3631,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
   // Story blogs
   if ( isset( $_POST['fictioneer_post_story_blogs'] ) && $post_type === 'post' ) {
     $story_blogs = fictioneer_explode_list( $_POST['fictioneer_post_story_blogs'] );
-    $story_blogs = fictioneer_sql_filter_valid_blog_story_ids( $post_author_id, $story_blogs );
+    $story_blogs = fictioneer_sql_filter_valid_blog_story_ids( $story_blogs, $post_author_id );
 
     $fields['fictioneer_post_story_blogs'] = array_values( array_map( 'strval', $story_blogs ) );
   }
