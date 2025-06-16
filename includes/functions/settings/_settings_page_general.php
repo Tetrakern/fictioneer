@@ -1225,6 +1225,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_rest_save_actions',
+                    __( 'Disable theme save actions for REST requests', 'fictioneer' ),
+                    __( 'Faster saving if you don’t need the WP REST API.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_remove_head_clutter',
                     __( 'Remove clutter from HTML head', 'fictioneer' ),
                     __( 'Less meta tags, scripts, and styles in the &#60;head&#62;.', 'fictioneer' ),
@@ -1646,16 +1656,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
                     __( 'Disable preloading of header image', 'fictioneer' ),
                     __( 'Not by default compatible with all image CDNs.', 'fictioneer' ),
                     __( 'Preloading the header image can speed up your LCP time (Largest Contentful Paint), resulting in a better user experience and search rank. However, this typically clashes with image CDNs because the preload URL can differ from the CDN-provided URL, resulting in an incorrect preload, making your site actually slower.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_disable_rest_save_actions',
-                    __( 'Disable theme save actions for REST requests', 'fictioneer' ),
-                    __( 'Faster saving if you don’t need the WP REST API.', 'fictioneer' )
                   );
                 ?>
               </div>
