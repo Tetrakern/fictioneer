@@ -1653,6 +1653,16 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_rest_save_actions',
+                    __( 'Disable theme save actions for REST requests', 'fictioneer' ),
+                    __( 'Faster saving if you don’t need the WP REST API.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_rewrite_chapter_permalinks',
                     __( 'Rewrite chapter permalinks to include story', 'fictioneer' ),
                     __( 'Becomes <code>/story/story-slug/chapter-slug[-n]</code>. You must flush your permalinks and purge the theme caches.', 'fictioneer' ),

@@ -780,6 +780,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox'
     ),
+    'fictioneer_disable_rest_save_actions' => array(
+      'name' => 'fictioneer_disable_rest_save_actions',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    ),
   ),
   'integers' => array(
     'fictioneer_user_profile_page' => array(
@@ -1268,6 +1273,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_show_scheduled_chapters' => __( 'Make scheduled chapters publicly accessible', 'fictioneer' ),
       'fictioneer_enable_scheduled_chapter_commenting' => __( 'Allow commenting on scheduled posts', 'fictioneer' ),
       'fictioneer_enable_story_filter_reel' => __( 'Enable story chapter list filters', 'fictioneer' ),
+      'fictioneer_disable_rest_save_actions' => __( 'Disable theme save actions for REST requests', 'fictioneer' ),
     );
   }
 

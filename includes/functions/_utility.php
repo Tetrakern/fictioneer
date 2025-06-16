@@ -3101,6 +3101,14 @@ if ( ! function_exists( 'fictioneer_save_guard' ) ) {
       return true;
     }
 
+    // Optional: Block REST requests
+    if (
+      ( defined( 'REST_REQUEST' ) && REST_REQUEST &&
+      get_option( 'fictioneer_disable_rest_save_actions' ) )
+    ) {
+      return true;
+    }
+
     // Pass
     return false;
   }
