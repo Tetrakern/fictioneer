@@ -150,7 +150,7 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 function fictioneer_recommendation_links( $args ) {
   // Setup
   $links = get_post_meta( $args['recommendation_id'], 'fictioneer_recommendation_urls', true );
-  $links = fictioneer_url_list_to_array( $links );
+  $links = fictioneer_url_list_to_array( $links ?: [] );
 
   // Abort conditions...
   if ( empty( $links ) ) {
@@ -192,7 +192,7 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 function fictioneer_recommendation_support_links( $args ) {
   // Setup
   $links = get_post_meta( $args['recommendation_id'], 'fictioneer_recommendation_support', true );
-  $links = fictioneer_url_list_to_array( $links );
+  $links = fictioneer_url_list_to_array( $links ?: [] );
 
   // Abort conditions...
   if ( ! $links ) {
@@ -212,6 +212,7 @@ function fictioneer_recommendation_support_links( $args ) {
       printf(
         _x( 'Support <em>%s</em>', 'Support _author_', 'fictioneer' ),
         get_post_meta( $args['recommendation_id'], 'fictioneer_recommendation_author', true )
+          ?: _x( 'Undefined', 'Undefined recommendation author.', 'fictioneer' )
       )
     ?></h5>
     <ul class="recommendation__list"><?php echo implode( '', $output ); ?></ul>

@@ -60,14 +60,18 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
 
     // Setup
     $post = get_post( $post_id );
-    $schema = fictioneer_get_schema_node_root();
-    $image_data = fictioneer_get_schema_primary_image( $post_id );
-    $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
-    $default_description = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
 
     if ( ! $post ) {
       return '';
     }
+
+    $schema = fictioneer_get_schema_node_root();
+    $image_data = fictioneer_get_schema_primary_image( $post_id );
+    $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
+    $default_description = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
+    $author = get_post_meta( $post_id, 'fictioneer_recommendation_author', true )
+      ?: _x( 'Undefined', 'Undefined recommendation author.', 'fictioneer' );
+    $primary_url = get_post_meta( $post_id, 'fictioneer_recommendation_primary_url', true ) ?: get_permalink( $post_id );
 
     $page_description = fictioneer_get_seo_description(
       $post_id,
@@ -95,8 +99,8 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
     // Override author node
     $article_node['author'] = array(
       '@type' => 'Person',
-      'url' => get_post_meta( $post_id, 'fictioneer_recommendation_primary_url', true ),
-      'name' => addslashes( get_post_meta( $post_id, 'fictioneer_recommendation_author', true ) )
+      'url' => get_post_meta( $post_id, 'fictioneer_recommendation_primary_url', true ) ?: $primary_url,
+      'name' => addslashes( $author )
     );
 
     $schema['@graph'][] = $article_node;
