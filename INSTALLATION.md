@@ -542,6 +542,8 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Custom ePUB CSS:** Inject CSS into the ePUB for an unique style. Dangerous!
   * **Custom ePUB Upload:** Assign custom ePUB file from the media library to the story.
   * **Custom Page Header:** Change the header image for selected pages.
+  * **Custom ePUB Upload:** Allows you to upload your own ePUB files.
+  * **Custom Page Header:** Allows you to set a custom page header image.
   * **SEO Meta:** Show and edit the SEO meta for posts (if enabled in the settings).
   * **Make Sticky:** You can make posts and stories stick to the top in lists.
   * **Edit Permalink:** Customize the permalink slug derived from the title. Dangerous!
@@ -549,10 +551,14 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Story Pages:** Allows you to attach up to four pages to your stories as extra tabs.
   * **Edit Date:** Makes it possible to change the publishing date *after* publishing.
   * **Assign Patreon Tiers:** Allows you to set Patreon tiers and pledge thresholds for posts.
+  * **Expire Passwords:** Allows you to set a password expiration date.
+  * **Crosspost:** Unlocks the story override field to assign stories of other authors.
   * **Reduced Profile:** Removes clutter from the admin profile page, like the color schemes.
   * **Only Moderate Comments:** Limits moderators to only editing comments, not all posts.
   * **Upload Limit:** Enforce the file size limit from the General Settings.
   * **Upload Restrictions:** Enforce the file type restrictions from the General Settings.
+  * **Classic Editor:** Restrict users to the classic editor.
+  * **No Filters:** Disables the capability to set chapter list filters.
   * **Adminbar Access:** Overrides individual settings to show or hide the adminbar.
   * **Admin Panel Access:** Required to access the admin panel, including your admin profile.
   * **Dashboard Access:** Required if you want to see the dashboard admin page.
