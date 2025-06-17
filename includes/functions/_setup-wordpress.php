@@ -33,7 +33,6 @@ add_action( 'get_header', 'fictioneer_maintenance_mode' );
 
 if ( get_option( 'fictioneer_remove_head_clutter' ) ) {
   remove_action( 'wp_head', 'rsd_link' );
-  remove_action( 'wp_head', 'wlwmanifest_link' );
   remove_action( 'wp_head', 'wp_generator' );
 }
 
