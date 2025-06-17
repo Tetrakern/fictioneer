@@ -3420,7 +3420,7 @@ function fictioneer__return_publish_status( $param = null ) {
  * @return string The truncated string without tags.
  */
 
-function fictioneer_truncate( string $string, int $length, string $ellipsis = null ) {
+function fictioneer_truncate( $string, $length, $ellipsis = null ) {
   // Setup
   $string = wp_strip_all_tags( $string ); // Prevent tags from being cut off
   $ellipsis = $ellipsis ?? FICTIONEER_TRUNCATION_ELLIPSIS;
