@@ -772,8 +772,7 @@ function fictioneer_register_story_meta_fields() {
                   'type' => ['integer', 'string']
                 )
               )
-            ),
-            'required' => ['label', 'image_id']
+            )
           )
         )
       ),
@@ -808,6 +807,10 @@ function fictioneer_register_story_meta_fields() {
             $chapter_ids = array_map( 'intval', $chapter_ids );
             $chapter_ids = array_filter( $chapter_ids, fn( $id ) => $id > 0 );
             $chapter_ids = array_values( array_unique( $chapter_ids ) );
+
+            if ( ! $label && ! $image_id )  {
+              return null;
+            }
 
             return array(
               'label' => $label,
