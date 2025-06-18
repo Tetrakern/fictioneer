@@ -143,6 +143,10 @@ if ( ! function_exists( 'fictioneer_hsl_code' ) ) {
    */
 
   function fictioneer_hsl_code( $hex, $output = 'default' ) {
+    if ( ! is_string( $hex ) || ! preg_match( '/^#?(?:[a-fA-F0-9]{3}|[a-fA-F0-9]{6}|[a-fA-F0-9]{8})$/', $hex ) ) {
+      return $hex;
+    }
+
     $hsl_array = fictioneer_rgb_to_hsl( fictioneer_hex_to_rgb( $hex ), 2 );
 
     if ( $output == 'values' ) {
@@ -656,8 +660,8 @@ function fictioneer_build_customize_css( $context = null ) {
   $tagline_max = (int) get_theme_mod( 'site_tagline_font_size_max', 18 );
   $header_image_min = (int) get_theme_mod( 'header_image_height_min', 210 );
   $header_image_max = (int) get_theme_mod( 'header_image_height_max', 480 );
-  $header_bg_color_light = fictioneer_get_theme_color( 'header_color_light', '' );
-  $header_bg_color_dark = fictioneer_get_theme_color( 'header_color_dark', '' );
+  $header_bg_color_light = fictioneer_get_theme_color( 'header_color_light', 'transparent' );
+  $header_bg_color_dark = fictioneer_get_theme_color( 'header_color_dark', 'transparent' );
   $header_min = (int) get_theme_mod( 'header_height_min', 190 );
   $header_max = (int) get_theme_mod( 'header_height_max', 380 );
   $story_cover_width_offset = (int) get_theme_mod( 'story_cover_width_offset', 0 );
