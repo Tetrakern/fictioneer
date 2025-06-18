@@ -150,7 +150,8 @@ function fictioneer_admin_settings_notices() {
       'fictioneer-mu-plugin-copy-failure' => __( 'Error. MU-Plugin could not be enabled.', 'fictioneer' ),
       'fictioneer-mu-plugin-delete-success' => __( 'MU-Plugin disabled successfully.', 'fictioneer' ),
       'fictioneer-mu-plugin-delete-failure' => __( 'Error. MU-Plugin could not be disabled..', 'fictioneer' ),
-      'fictioneer-fix-line-breaks-success' => __( '%s successful post update(s). %s failure(s).', 'fictioneer' )
+      'fictioneer-fix-line-breaks-success' => __( '%s successful post update(s). %s failure(s).', 'fictioneer' ),
+      'fictioneer-assign-default-pages-success' => __( '%s template page(s) successfully created and assigned. %s failure(s).', 'fictioneer' ),
     );
   }
 
@@ -1763,7 +1764,7 @@ add_action( 'admin_post_fictioneer_disable_mu_plugin', 'fictioneer_disable_mu_pl
 // =============================================================================
 
 /**
- * Saves the after-install setup form and redirects to settings page
+ * Save the after-install setup form and redirects to settings page.
  *
  * Note: Might be extended in the future to include more than general options.
  *
@@ -1799,6 +1800,99 @@ function fictioneer_after_install_setup() {
   exit;
 }
 add_action( 'admin_post_fictioneer_after_install_setup', 'fictioneer_after_install_setup' );
+
+/**
+ * Create and set open page assignments with defaults.
+ *
+ * @since 5.30.0
+ */
+
+function fictioneer_setup_default_pages() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_setup_default_pages' );
+
+  $successes = 0;
+  $failures = 0;
+
+  $page_options = array(
+    'fictioneer_user_profile_page' => array(
+      'name' => __( 'Account', 'fictioneer' ),
+      'template' => 'user-profile.php'
+    ),
+    'fictioneer_stories_page' => array(
+      'name' => __( 'Stories', 'fictioneer' ),
+      'template' => 'stories.php'
+    ),
+    'fictioneer_chapters_page' => array(
+      'name' => __( 'Chapters', 'fictioneer' ),
+      'template' => 'chapters.php'
+    ),
+    'fictioneer_recommendations_page' => array(
+      'name' => __( 'Recommendations', 'fictioneer' ),
+      'template' => 'recommendations.php'
+    ),
+    'fictioneer_collections_page' => array(
+      'name' => __( 'Collections', 'fictioneer' ),
+      'template' => 'collections.php'
+    ),
+    'fictioneer_authors_page' => array(
+      'name' => __( 'Authors', 'fictioneer' ),
+      'template' => 'singular-authors-advanced.php'
+    ),
+    'fictioneer_bookmarks_page' => array(
+      'name' => __( 'Bookmarks', 'fictioneer' ),
+      'template' => 'singular-bookmarks.php'
+    ),
+    'fictioneer_bookshelf_page' => array(
+      'name' => __( 'Bookshelf', 'fictioneer' ),
+      'template' => 'singular-bookshelf.php'
+    )
+  );
+
+  foreach ( $page_options as $option => $data ) {
+    $page_id = get_option( $option, 0 );
+
+    if ( $page_id && $page_id > 0 ) {
+      continue;
+    }
+
+    $page_id = wp_insert_post(
+      array(
+        'post_title' => $data['name'],
+        'post_content' => '',
+        'post_status' => 'publish',
+        'post_type' => 'page',
+        'post_author' => 1,
+        'comment_status' => 'closed',
+        'ping_status' => 'closed'
+      )
+    );
+
+    if ( is_wp_error( $page_id ) || ! $page_id ) {
+      $failures++;
+      continue;
+    }
+
+    update_post_meta( $page_id, '_wp_page_template', $data['template'] );
+    update_option( $option, $page_id );
+
+    $successes++;
+  }
+
+  // Redirect to general theme settings
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-assign-default-pages-success',
+        'data' => "{$successes},{$failures}"
+      ),
+      admin_url( 'admin.php?page=fictioneer' )
+    )
+  );
+
+  exit;
+}
+add_action( 'admin_post_fictioneer_setup_default_pages', 'fictioneer_setup_default_pages' );
 
 // =============================================================================
 // FIX LINE BREAKS

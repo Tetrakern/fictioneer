@@ -505,6 +505,8 @@ $images = get_template_directory_uri() . '/img/documentation/';
 
               <div class="fictioneer-card__row">
                 <p><?php _e( 'The theme expects certain pages to exist. Just create a normal page, assign the specified page template, and select it here. Clear caches afterwards.', 'fictioneer' ); ?></p>
+
+                <a class="button button--secondary" id="purge-theme-caches" href="<?php echo fictioneer_admin_action( 'fictioneer_setup_default_pages' ); ?>"><?php _e( 'Create Default Pages', 'fictioneer' ); ?></a>
               </div>
 
               <div class="fictioneer-card__row">
