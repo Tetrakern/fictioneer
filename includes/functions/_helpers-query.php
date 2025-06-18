@@ -533,6 +533,7 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_collection_ids' ) ) {
       get_option( 'fictioneer_recommendations_page', 0 ),
       get_option( 'fictioneer_collections_page', 0 ),
       get_option( 'fictioneer_bookshelf_page', 0 ),
+      get_option( 'fictioneer_authors_page', 0 ),
       get_option( 'fictioneer_404_page', 0 ),
       get_option( 'page_on_front', 0 ),
       get_option( 'page_for_posts', 0 )
