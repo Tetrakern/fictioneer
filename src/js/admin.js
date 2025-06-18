@@ -690,6 +690,13 @@ _$$('.fictioneer-meta-field__fa-icon').forEach(field => {
   });
 });
 
+// Listen for changes of icon input
+_$$$('fictioneer_chapter_icon')?.addEventListener('blur', event => {
+  _$$('.fictioneer-meta-field__fa-icon').forEach(element => {
+    element.setAttribute('class', `fictioneer-meta-field__fa-icon ${event.currentTarget.value}`);
+  });
+});
+
 // =============================================================================
 // DISABLE EDITOR FOR REQUIRED FIELDS
 // =============================================================================
