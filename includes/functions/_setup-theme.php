@@ -1407,12 +1407,13 @@ function fictioneer_add_custom_scripts() {
     wp_enqueue_script( 'fictioneer-mobile-menu-scripts' );
 
     // Enqueue chapter
-    if ( $post_type == 'fcn_chapter' && ! is_archive() && ! is_search() ) {
+    if ( is_singular() && $post_type == 'fcn_chapter' && ! is_archive() && ! is_search() ) {
       wp_enqueue_script( 'fictioneer-chapter-scripts' );
     }
 
     // Enqueue Diff-Match-Patch + suggestions
     if (
+      is_singular() &&
       $post_type == 'fcn_chapter' &&
       get_option( 'fictioneer_enable_suggestions' ) &&
       ! is_archive() &&
@@ -1427,6 +1428,7 @@ function fictioneer_add_custom_scripts() {
 
     // Enqueue TTS
     if (
+      is_singular() &&
       $post_type == 'fcn_chapter' &&
       get_option( 'fictioneer_enable_tts' ) &&
       ! is_archive() &&
@@ -1437,7 +1439,12 @@ function fictioneer_add_custom_scripts() {
     }
 
     // Enqueue story
-    if ( ( $post_type == 'fcn_story' || is_page_template( 'singular-story.php' ) ) && ! is_archive() && ! is_search() ) {
+    if (
+      is_singular() &&
+      ( $post_type == 'fcn_story' || is_page_template( 'singular-story.php' ) ) &&
+      ! is_archive() &&
+      ! is_search()
+    ) {
       wp_enqueue_script( 'fictioneer-story-scripts' );
     }
 
