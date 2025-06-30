@@ -609,8 +609,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
       return;
     }
 
-    // Redirect back to Home
-    if ( is_admin() && ! current_user_can( 'fcn_admin_panel_access' ) ) {
+    // Redirect back to Home (or to login page if not logged-in)
+    if ( is_admin() && ! current_user_can( 'fcn_admin_panel_access' ) && is_user_logged_in() ) {
       wp_redirect( home_url() );
       exit;
     }
