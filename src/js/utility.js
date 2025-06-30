@@ -637,8 +637,7 @@ const FcnUtils = {
   sanitizeHTML(html) {
     const temp = document.createElement('div');
 
-    temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
-    temp.textContent = typeof html === 'string' ? html : html.textContent;
+    temp.textContent = html instanceof HTMLElement ? html.textContent : String(html);
 
     return temp.innerHTML;
   },
@@ -866,7 +865,7 @@ async function fcn_ajaxRequest(method, data = {}, url = null, headers = {}) {
   // Add body or query string based on method
   if (method === 'POST') {
     options.body = new URLSearchParams(data);
-  } else if (method === 'GET') {
+  } else {
     url = FcnUtils.buildUrl(data, url);
   }
 
