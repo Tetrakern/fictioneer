@@ -3074,6 +3074,22 @@ if ( ! function_exists( 'fictioneer_get_assigned_page_link' ) ) {
 // SAVE GUARD
 // =============================================================================
 
+if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
+  /**
+   * Alias for fictioneer_save_guard()
+   *
+   * @since 5.30.0
+   *
+   * @param int $post_id  The ID of the updated post.
+   *
+   * @return boolean True if NOT allowed, false otherwise.
+   */
+
+  function fictioneer_multi_save_guard( $post_id ) {
+    fictioneer_save_guard( $post_id );
+  }
+}
+
 if ( ! function_exists( 'fictioneer_save_guard' ) ) {
   /**
    * Prevent unnecessary triggers of save hooks.
