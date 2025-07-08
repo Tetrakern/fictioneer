@@ -66,6 +66,7 @@ do_action( 'rss_tag_pre', 'rss2' );
   xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
   xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
   xmlns:webfeeds="http://webfeeds.org/rss/1.0"
+  xmlns:media="http://search.yahoo.com/mrss/"
   <?php do_action( 'rss2_ns' ); ?>
 >
 
@@ -92,7 +93,7 @@ do_action( 'rss_tag_pre', 'rss2' );
       <image>
         <url><?php echo esc_url( get_site_icon_url( 32 ) ); ?></url>
         <title><?php echo $title; ?></title>
-        <link><?php bloginfo_rss( 'url' ); ?></link>
+        <link><?php echo esc_url( get_permalink( $story_id ) ); ?></link>
         <width>32</width>
         <height>32</height>
       </image>
@@ -179,6 +180,7 @@ do_action( 'rss_tag_pre', 'rss2' );
             <dc:creator><?php the_author(); ?></dc:creator>
             <guid isPermaLink="false"><?php the_guid(); ?></guid>
             <description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
+            <media:thumbnail url="<?php echo esc_url( $og_image['url'] ); ?>" />
 
             <?php if ( $og_image ) : ?>
               <webfeeds:featuredImage
