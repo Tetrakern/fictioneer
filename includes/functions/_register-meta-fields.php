@@ -34,7 +34,7 @@ function fictioneer_rest_auth_callback( $post_id, $user_id, $type ) {
   $post = get_post( $post_id );
 
   if ( ! $post ) {
-    return true;
+    return false;
   }
 
   if ( (int) $post->post_author !== $user_id && ! user_can( $user_id, "edit_others_{$cap_base}" ) ) {
