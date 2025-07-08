@@ -209,6 +209,7 @@ These are the protected meta fields used specifically for the **fcn_story** post
 | fictioneer_story_epub_afterword | string | Content for the generated ePUB afterword section.
 | fictioneer_story_epub_custom_css | string | Custom CSS injected into the generated ePUB.
 | fictioneer_story_status | string | Either Ongoing, Completed, Oneshot, Hiatus, or Canceled due to legacy reasons.
+| fictioneer_story_status_override | string | Any string; changes the displayed status, not the actual status.
 | fictioneer_story_rating | string | Either Everyone, Teen, Mature, or Adult due to legacy reasons.
 | fictioneer_story_copyright_notice | string | Small copyright notice on the story page.
 | fictioneer_story_topwebfiction_link | string | Link to the story on [www.topwebfiction.com](https://www.topwebfiction.com/).

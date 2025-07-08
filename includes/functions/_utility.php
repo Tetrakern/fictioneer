@@ -3894,7 +3894,7 @@ function fictioneer_get_publishing_authors( $args = [] ) {
 // =============================================================================
 
 /**
- * Returns the translated label of the post status
+ * Return the translated label of the post status.
  *
  * @since 5.24.5
  *
@@ -3921,7 +3921,7 @@ function fictioneer_get_post_status_label( $status ) {
 }
 
 /**
- * Returns the translated label of the post type
+ * Return the translated label of the post type.
  *
  * @since 5.25.0
  *
@@ -3945,6 +3945,33 @@ function fictioneer_get_post_type_label( $type ) {
   }
 
   return $labels[ $type ] ?? $type;
+}
+
+// =============================================================================
+// GET STORY STATUS LABEL
+// =============================================================================
+
+/**
+ * Return the translated label of the story or override string.
+ *
+ * @since 5.30.1
+ *
+ * @param int         $story_id  Post ID.
+ * @param string|null $status    Optional. The internal story status string.
+ *
+ * @return string Translated label of the story status or override string.
+ */
+
+function fictioneer_get_story_status_label( $story_id, $status = null ) {
+  $override = get_post_meta( $story_id, 'fictioneer_story_status_override', true );
+
+  if ( $override ) {
+    return $override;
+  }
+
+  $status = $status ?: get_post_meta( $story_id, 'fictioneer_story_status', true );
+
+  return fcntr( $status );
 }
 
 // =============================================================================

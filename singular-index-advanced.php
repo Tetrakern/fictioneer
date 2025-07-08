@@ -142,7 +142,7 @@ reset( $sorted_stories );
                   </div>
                   <div class="glossary__entry-body">
                     <div class="glossary__entry-description">
-                      <span class="glossary__entry-meta-item _<?php echo strtolower( $story['status'] ); ?>"><?php echo fcntr( $story['status'] ); ?></span>
+                      <span class="glossary__entry-meta-item _<?php echo strtolower( $story['status'] ); ?>"><?php echo fictioneer_get_story_status_label( $story['id'], $story['status'] ); ?></span>
                       <span class="glossary__entry-meta-item"><?php printf( _x( '%s Words', 'Index item.', 'fictioneer' ), number_format_i18n( $story['total_words'] ) ); ?></span>
                       <span class="glossary__entry-meta-item _<?php echo strtolower( $story['rating'] ); ?>"><?php echo fcntr( $story['rating'] ); ?></span>
                     </div>

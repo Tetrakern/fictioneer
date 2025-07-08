@@ -281,7 +281,7 @@ if ( $card_cache_active ) {
 
           $footer_items['comments'] = '<span class="card__footer-comments cq-hide-below-460"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span title="' . esc_attr__( 'Comments', 'fictioneer' ) . '">' . $story['comment_count'] . '</span></span>';
 
-          $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+          $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fictioneer_get_story_status_label( $story['id'], $story['status'] ) . '</span>';
 
           // Filter footer items
           $footer_items = apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args );

@@ -40,7 +40,8 @@ $editor_caps = array(
   'fcn_edit_date',
   'fcn_assign_patreon_tiers',
   'fcn_expire_passwords',
-  'fcn_crosspost'
+  'fcn_crosspost',
+  'fcn_status_override'
 );
 
 $restrictions = array(

@@ -712,6 +712,7 @@ function fcntr_admin( $key, $escape = false ) {
       'fcn_assign_patreon_tiers' => _x( 'Assign Patreon Tiers', 'Capability translation', 'fictioneer' ),
       'fcn_expire_passwords' => _x( 'Expire Passwords', 'Capability translation', 'fictioneer' ),
       'fcn_crosspost' => _x( 'Crosspost', 'Capability translation', 'fictioneer' ),
+      'fcn_status_override' => _x( 'Status Override', 'Capability translation', 'fictioneer' ),
       'fcn_reduced_profile' => _x( 'Reduced Profile', 'Capability translation', 'fictioneer' ),
       'fcn_only_moderate_comments' => _x( 'Only Moderate Comments', 'Capability translation', 'fictioneer' ),
       'fcn_upload_limit' => _x( 'Upload Limit', 'Capability translation', 'fictioneer' ),

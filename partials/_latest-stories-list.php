@@ -269,7 +269,7 @@ if ( $splide ) {
             }
 
             if ( $args['footer_status'] ) {
-              $meta['status'] = '<span class="post-item-item__meta-status _' . strtolower( $story['status'] ) . '">' . fcntr( $story['status'] ) . '</span>';
+              $meta['status'] = '<span class="post-item-item__meta-status _' . strtolower( $story['status'] ) . '">' . fictioneer_get_story_status_label( $story['id'], $story['status'] ) . '</span>';
             }
 
             if ( $story['rating'] && $args['footer_rating'] ) {

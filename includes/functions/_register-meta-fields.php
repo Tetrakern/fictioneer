@@ -589,6 +589,24 @@ function fictioneer_register_story_meta_fields() {
 
   register_post_meta(
     'fcn_story',
+    'fictioneer_story_status_override',
+    array(
+      'type' => 'string',
+      'single' => true,
+      'show_in_rest' => array(
+        'schema' => array(
+          'type' => 'string'
+        )
+      ),
+      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
+        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_story' );
+      },
+      'sanitize_callback' => 'sanitize_text_field'
+    )
+  );
+
+  register_post_meta(
+    'fcn_story',
     'fictioneer_story_rating',
     array(
       'type' => 'string',

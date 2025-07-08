@@ -1924,6 +1924,18 @@ function fictioneer_render_story_meta_metabox( $post ) {
     )
   );
 
+  if ( current_user_can( 'fcn_status_override', $post->ID ) ) {
+    $output['fictioneer_story_status_override'] = fictioneer_get_metabox_text(
+      $post,
+      'fictioneer_story_status_override',
+      array(
+        'label' => _x( 'Status Override', 'Story status override meta field label.', 'fictioneer' ),
+        'description' => __( 'Only changes the displayed status.', 'fictioneer' ),
+        'placeholder' => __( 'Anthology, Vignettes, etc.', 'fictioneer' )
+      )
+    );
+  }
+
   $output['fictioneer_story_rating'] = fictioneer_get_metabox_select(
     $post,
     'fictioneer_story_rating',
@@ -2445,6 +2457,11 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $fields['fictioneer_story_status'] = $status;
   }
 
+  // Status override
+  if ( isset( $_POST['fictioneer_story_status_override'] ) && current_user_can( 'fcn_status_override' ) ) {
+    $fields['fictioneer_story_status_override'] = sanitize_text_field( $_POST['fictioneer_story_status_override'] );
+  }
+
   // Rating
   if ( isset( $_POST['fictioneer_story_rating'] ) ) {
     $allowed_ratings = ['Everyone', 'Teen', 'Mature', 'Adult'];
@@ -2464,7 +2481,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   }
 
   // Redirect
-  if ( current_user_can( 'manage_options' ) && isset( $_POST['fictioneer_story_redirect_link'] ) ) {
+  if ( isset( $_POST['fictioneer_story_redirect_link'] ) && current_user_can( 'manage_options' ) ) {
     $redirect_url = fictioneer_sanitize_url( $_POST['fictioneer_story_redirect_link'] );
     $fields['fictioneer_story_redirect_link'] = $redirect_url;
   }

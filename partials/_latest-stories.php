@@ -357,7 +357,7 @@ if ( $splide ) {
                       }
 
                       if ( $args['footer_status'] ) {
-                        $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
+                        $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fictioneer_get_story_status_label( $story['id'], $story['status'] ) . '</span>';
                       }
 
                       // Filter footer items
