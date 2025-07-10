@@ -5325,16 +5325,15 @@ function fictioneer_add_post_table_pw_expiration( $post_states, $post ) {
     $expiration_date_utc = get_post_meta( $post->ID, 'fictioneer_post_password_expiration_date', true );
 
     if ( $expiration_date_utc ) {
-      $expiration_date = get_date_from_gmt( $expiration_date_utc );
-      $timestamp = strtotime( $expiration_date );
+      $timestamp = strtotime( $expiration_date_utc );
 
       $post_states['protected'] = sprintf(
         _x( '%1$s (until %2$s)', 'Expiration suffix for protected note in post list tables.', 'fictioneer' ),
         $post_states['protected'],
         sprintf(
           __( '%1$s at %2$s' ), // WP post table default
-          date_i18n( __( 'Y/m/d' ), $timestamp ), // WP post table default
-          date_i18n( __( 'g:i a' ), $timestamp ) // WP post table default
+          wp_date( __( 'Y/m/d' ), $timestamp ), // WP post table default
+          wp_date( __( 'g:i a' ), $timestamp ) // WP post table default
         )
       );
     }

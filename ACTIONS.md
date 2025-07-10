@@ -441,10 +441,10 @@ function child_display_pw_expiration_date_in_chapter( $args ) {
     return;
   }
 
-  $local_time = get_date_from_gmt( $password_expiration_date_utc );
-  $formatted_datetime = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $local_time ) );
-
-  echo $formatted_datetime;
+  echo wp_date(
+    get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
+    strtotime( $password_expiration_date_utc )
+  );
 }
 add_action( 'fictioneer_chapter_after_content', 'child_display_pw_expiration_date_in_chapter', 5 );
 ```

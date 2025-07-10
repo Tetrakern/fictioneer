@@ -770,3 +770,14 @@ if ( ! is_admin() ) {
 
   require_once __DIR__ . '/includes/functions/hooks/_mobile_menu_hooks.php';
 }
+
+function child_display_pw_expiration_date_in_chapter( $args ) {
+  $password_expiration_date_utc = get_post_meta( $args['chapter_id'], 'fictioneer_post_password_expiration_date', true );
+
+  if ( empty( $password_expiration_date_utc ) || empty( $args['chapter_password'] ) ) {
+    return;
+  }
+
+  echo wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $password_expiration_date_utc ) );
+}
+add_action( 'fictioneer_chapter_after_content', 'child_display_pw_expiration_date_in_chapter', 5 );

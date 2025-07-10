@@ -17,7 +17,7 @@ $output = '';
 
 // Prepare changelog
 foreach ( $changelog as $entry ) {
-  $output .= '[' . date_i18n( 'Y/m/d H:i:s', $entry[0] ) . '] ' . $entry[1] . "\n";
+  $output .= '[' . wp_date( 'Y/m/d H:i:s', $entry[0] ) . '] ' . $entry[1] . "\n";
 }
 
 ?>

@@ -1301,8 +1301,10 @@ function child_display_pw_expiration_date_in_chapter_lists( $output, $chapter_id
     return $output;
   }
 
-  $local_time = get_date_from_gmt( $password_expiration_date_utc );
-  $formatted_datetime = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $local_time ) );
+  $formatted_datetime = wp_date(
+    get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),
+    strtotime( $password_expiration_date_utc )
+  );
 
   return "[{$formatted_datetime}] {$output}";
 }
