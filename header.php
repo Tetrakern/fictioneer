@@ -41,6 +41,7 @@ if ( is_archive() || is_search() || is_404() || FICTIONEER_MU_REGISTRATION ) {
 
 // Prevent indexing if required
 if (
+  is_search() ||
   ( $args['no_index'] ?? 0 ) ||
   FICTIONEER_MU_REGISTRATION ||
   ( $post_id && get_post_meta( $post_id, 'fictioneer_discourage_search_engines', true ) )
