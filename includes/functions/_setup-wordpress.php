@@ -1859,3 +1859,64 @@ function fictioneer_cache_lastpostmodified( $lastpostmodified, $timezone, $post_
 if ( get_option( 'fictioneer_enable_lastpostmodified_caching' ) ) {
   add_filter( 'pre_get_lastpostmodified', 'fictioneer_cache_lastpostmodified', 10, 3 );
 }
+
+// =============================================================================
+// ROBOTS
+// =============================================================================
+
+/**
+ * Modify the robots meta tag.
+ *
+ * @since 5.31.0
+ *
+ * @param array $robots  Associative array of directives. Every key must be the
+ *                       name of the directive, and the corresponding value must
+ *                       either be a string to provide as value for the directive
+ *                       or a boolean true if it is a boolean directive,
+ *                       i.e. without a value.
+ *
+ * @return array Updated directives.
+ */
+
+function fictioneer_no_index_robots( $robots ) {
+  // Always exclude multi-site registration, search pages, and date archives
+  if (
+    FICTIONEER_MU_REGISTRATION ||
+    is_search() ||
+    is_date()
+  ) {
+    $robots['noindex'] = true;
+    $robots['follow'] = true;
+    return $robots;
+  }
+
+  // Only index first archive page
+  if ( is_archive() && is_paged() ) {
+    $robots['noindex'] = true;
+    $robots['follow'] = true;
+    return $robots;
+  }
+
+  // Do not index pages with filter query params
+  if ( isset( $_GET['order'] ) || isset( $_GET['orderby'] ) || isset( $_GET['post_type'] ) ) {
+    $robots['noindex'] = true;
+    $robots['follow'] = true;
+    return $robots;
+  }
+
+  // Check for post conditions
+  global $post;
+
+  $post_id = $post ? $post->ID : null;
+
+  if ( is_singular() && $post_id && get_post_meta( $post_id, 'fictioneer_discourage_search_engines', true ) ) {
+    $robots['noindex'] = true;
+    $robots['follow'] = true;
+  }
+
+  return $robots;
+}
+
+if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
+  add_filter( 'wp_robots', 'fictioneer_no_index_robots' );
+}
