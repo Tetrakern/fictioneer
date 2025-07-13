@@ -808,7 +808,11 @@ function fcn_setLoggedInState() {
     removeSelectors.push('.only-admins');
 
     if (!userData.isModerator) {
-      removeSelectors.push('.only-moderators');
+      if (userData.fingerprint == document.documentElement.dataset.authorFingerprint) {
+        removeSelectors.push('.only-moderators:not(.only-comment-moderators)');
+      } else {
+        removeSelectors.push('.only-moderators');
+      }
     }
 
     if (!userData.isAuthor) {
