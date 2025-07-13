@@ -1749,9 +1749,14 @@ if ( ! function_exists( 'fictioneer_output_critical_fonts' ) ) {
  * @since 5.0.0
  * @since 5.10.0 - Split up for font manager.
  * @since 5.18.1 - No longer pluggable, hooked into wp_head
+ * @since 5.31.0 - Update to consider adult content rating.
  */
 
 function fictioneer_output_head_meta() {
+  global $post;
+
+  $post_id = $post ? ( isset( $post->ID ) ? $post->ID : null ) : null;
+
   // Start HTML ---> ?>
   <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
@@ -1759,6 +1764,36 @@ function fictioneer_output_head_meta() {
   <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <?php // <--- End HTML
+
+  if ( ! $post_id || ! is_singular() ) {
+    return;
+  }
+
+  $post_type = get_post_type( $post );
+
+  // Adult story?
+  if (
+    $post_type === 'fcn_story' &&
+    get_post_meta( $post_id, 'fictioneer_story_rating', true ) === 'Adult'
+  ) {
+    echo '<meta name="rating" content="adult">';
+  }
+
+  // Adult chapter or adult story?
+  if ( $post_type === 'fcn_chapter' ) {
+    if ( get_post_meta( $post_id, 'fictioneer_chapter_rating', true ) === 'Adult' ) {
+      echo '<meta name="rating" content="adult">';
+    } else {
+      $story_id = fictioneer_get_chapter_story_id( $post_id );
+
+      if (
+        $story_id &&
+        get_post_meta( $story_id, 'fictioneer_story_rating', true ) === 'Adult'
+      ) {
+        echo '<meta name="rating" content="adult">';
+      }
+    }
+  }
 }
 add_action( 'wp_head', 'fictioneer_output_head_meta', 1 );
 
