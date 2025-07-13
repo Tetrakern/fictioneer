@@ -1861,7 +1861,7 @@ if ( get_option( 'fictioneer_enable_lastpostmodified_caching' ) ) {
 }
 
 // =============================================================================
-// ROBOTS
+// ROBOTS META TAG
 // =============================================================================
 
 /**
@@ -1936,4 +1936,58 @@ function fictioneer_meta_robots( $robots ) {
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
   add_filter( 'wp_robots', 'fictioneer_meta_robots' );
+}
+
+// =============================================================================
+// ROBOTS TXT
+// =============================================================================
+
+function fictioneer_robots_txt( $output, $public ) {
+  if ( ! $public ) {
+    return $output;
+  }
+
+  // For all user agents...
+  $output = "User-agent: *\n\n";
+
+  // Disallow
+  $output .= "Disallow: /wp-admin/\n";
+  $output .= "Disallow: /wp-json/\n";
+  $output .= "Disallow: /cdn-cgi/bm/cv/\n"; // CloudFlare challenge URLs
+  $output .= "Disallow: /cdn-cgi/challenge-platform/\n"; // CloudFlare challenge URLs
+
+  $output .= "Disallow: /wp-content/mu-plugins/\n"; // Nothing for crawlers
+  $output .= "Disallow: /wp-login.php\n"; // Nothing for crawlers
+  $output .= "Disallow: /?s=\n"; // Search results; only results in search result spam
+  $output .= "Disallow: /search/\n"; // Search results; only results in search result spam
+  $output .= "Disallow: /*?oauth_nonce=\n"; // OAuth 2 login
+  $output .= "Disallow: /oauth2?code=\n"; // OAuth 2 login
+
+  // Allow
+  $output .= "\nAllow: /wp-admin/admin-ajax.php\n";
+
+  // Sitemap
+  if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active() ) {
+    $output .= "\nSitemap: " . home_url( '/sitemap.xml' ) . "\n";
+  }
+
+  // Ban user agents...
+  $output .= "\nUser-agent: Nuclei\n"; // Often used for probing vulnerabilities
+  $output .= "User-agent: WikiDo\n"; // Fictioneer is no an event theme
+  $output .= "User-agent: Riddler\n"; // Security crawler from Net Systems Research
+  $output .= "User-agent: Go-http-client\n"; // Generic Go HTTP client; often used by scripts and scrapers
+  $output .= "User-agent: Node/simplecrawler\n"; // Common in custom scrapers or pentesting tools
+  $output .= "User-agent: CazoodleBot\n"; // Old academic crawler, now mostly defunct or misused
+  $output .= "User-agent: Barkrowler\n"; // Academic/research crawler from Télécom Paris; very aggressiv
+  $output .= "User-agent: magpie-crawler\n"; // Chinese bot; minimal benefit and often high load
+  $output .= "User-agent: dotbot/1.0\n"; // Dotbot (by Moz); old and sometimes aggressive
+  $output .= "User-agent: Zoominfobot\n"; // B2B data scraper; not SEO-relevant, borderline abusive
+  $output .= "Disallow: /\n";
+
+  // Continue filter
+  return $output;
+}
+
+if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
+  add_filter( 'robots_txt', 'fictioneer_robots_txt', 10, 2 );
 }

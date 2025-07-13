@@ -382,6 +382,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `rest_api_init` | `fictioneer_rest_setup` (10)
 | `rest_authentication_errors` | `fictioneer_restrict_rest_api` (10)
 | `rest_request_before_callbacks` | `fictioneer_rest_capture_post_id` (5)
+| `robots_txt` | `fictioneer_robots_txt` (10)
 | `script_loader_tag` | `fictioneer_data_jetpack_boost_tag` (10)
 | `show_admin_bar` | `__return_false` (10)
 | `strip_shortcodes_tagnames` | `fictioneer_exempt_shortcodes_from_removal` (10)
