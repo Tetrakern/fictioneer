@@ -1942,6 +1942,17 @@ if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() )
 // ROBOTS TXT
 // =============================================================================
 
+/**
+ * Replace default robots.txt output.
+ *
+ * @since 5.31.0
+ *
+ * @param string $output  The robots.txt output.
+ * @param bool   $public  Whether the site is considered "public".
+ *
+ * @return string The new robots.txt output.
+ */
+
 function fictioneer_robots_txt( $output, $public ) {
   if ( ! $public ) {
     return $output;
