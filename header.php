@@ -28,7 +28,7 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 global $post;
 
 $page_id = get_queried_object_id();
-$post_id = $post ? $post->ID : null;
+$post_id = $post ? ( isset( $post->ID ) ? $post->ID : null ) : null;
 $story_id = null;
 
 if ( $page_id != $post_id ) {

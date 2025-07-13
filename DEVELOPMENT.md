@@ -402,7 +402,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `wp_insert_post_data` | `fictioneer_remove_restricted_block_content` (1), `fictioneer_strip_shortcodes_on_save` (1), `fictioneer_see_some_evil` (1), `fictioneer_prevent_publish_date_update` (1), `fictioneer_prevent_parent_and_order_update` (1), `fictioneer_prevent_track_and_ping_updates` (1)
 | `wp_is_application_passwords_available` | `__return_false` (10)
 | `wp_resource_hints` | `fictioneer_remove_emoji_resource_hint` (10)
-| `wp_robots` | `wp_robots_no_robots` (10), `fictioneer_no_index_robots` (10)
+| `wp_robots` | `wp_robots_no_robots` (10), `fictioneer_meta_robots` (10)
 | `wp_sitemaps_enabled` | `__return_false` (10)
 | `wp_unique_post_slug` | `fictioneer_protect_reserved_post_slugs` (10)
 | `xmlrpc_enabled` | `__return_false` (10)

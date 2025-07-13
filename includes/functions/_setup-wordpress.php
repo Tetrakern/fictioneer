@@ -1868,6 +1868,7 @@ if ( get_option( 'fictioneer_enable_lastpostmodified_caching' ) ) {
  * Modify the robots meta tag.
  *
  * @since 5.31.0
+ * @global WP_Post $post  The current WordPress post object.
  *
  * @param array $robots  Associative array of directives. Every key must be the
  *                       name of the directive, and the corresponding value must
@@ -1878,45 +1879,61 @@ if ( get_option( 'fictioneer_enable_lastpostmodified_caching' ) ) {
  * @return array Updated directives.
  */
 
-function fictioneer_no_index_robots( $robots ) {
+function fictioneer_meta_robots( $robots ) {
+  global $post;
+
+  // Flags
+  $noindex = null;
+  $follow = null;
+
   // Always exclude multi-site registration, search pages, and date archives
   if (
     FICTIONEER_MU_REGISTRATION ||
     is_search() ||
     is_date()
   ) {
-    $robots['noindex'] = true;
-    $robots['follow'] = true;
-    return $robots;
+    $noindex = true;
+    $follow = true;
   }
 
   // Only index first archive page
-  if ( is_archive() && is_paged() ) {
-    $robots['noindex'] = true;
-    $robots['follow'] = true;
-    return $robots;
+  if ( ! $noindex && is_archive() && is_paged() ) {
+    $noindex = true;
+    $follow = true;
   }
 
   // Do not index pages with filter query params
-  if ( isset( $_GET['order'] ) || isset( $_GET['orderby'] ) || isset( $_GET['post_type'] ) ) {
-    $robots['noindex'] = true;
-    $robots['follow'] = true;
-    return $robots;
+  if (
+    ! $noindex &&
+    ( isset( $_GET['order'] ) || isset( $_GET['orderby'] ) || isset( $_GET['post_type'] ) )
+  ) {
+    $noindex = true;
+    $follow = true;
   }
 
   // Check for post conditions
-  global $post;
+  $post_id = $post ? ( isset( $post->ID ) ? $post->ID : null ) : null;
 
-  $post_id = $post ? $post->ID : null;
+  if (
+    ! $noindex && $post_id && is_singular() &&
+    get_post_meta( $post_id, 'fictioneer_discourage_search_engines', true )
+  ) {
+    $noindex = true;
+    $follow = true;
+  }
 
-  if ( is_singular() && $post_id && get_post_meta( $post_id, 'fictioneer_discourage_search_engines', true ) ) {
-    $robots['noindex'] = true;
-    $robots['follow'] = true;
+  // Update robots
+  if ( $noindex ) {
+    $robots['noindex'] = $noindex;
+  }
+
+  if ( $follow ) {
+    $robots['follow'] = $follow;
   }
 
   return $robots;
 }
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
-  add_filter( 'wp_robots', 'fictioneer_no_index_robots' );
+  add_filter( 'wp_robots', 'fictioneer_meta_robots' );
 }
