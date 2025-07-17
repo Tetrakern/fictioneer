@@ -870,6 +870,10 @@ const FcnFormatting = {
 
 // Initialize on load
 (() => {
+  if (!FcnFormatting.eFormattingTarget) {
+    return;
+  }
+
   const formatting = FcnFormatting.get();
 
   FcnFormatting.updateSiteWidth(formatting['site-width'], false);
