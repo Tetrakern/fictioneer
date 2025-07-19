@@ -2492,7 +2492,7 @@ if ( ! function_exists( 'fictioneer_check_comment_disallowed_list' ) ) {
     // Ensure HTML tags are not being used to bypass the list of disallowed characters and words.
     $comment_without_html = wp_strip_all_tags( $comment );
 
-    $words = explode( "\n", $mod_keys );
+    $words = preg_split( '/\r\n|\r|\n/', $mod_keys );
 
     foreach ( (array) $words as $word ) {
       $word = trim( $word );
@@ -3348,7 +3348,7 @@ function fictioneer_url_list_to_array( $list ) {
 
   // Prepare URLs
   $urls = [];
-  $lines = explode( "\n", $list );
+  $lines = preg_split( '/\r\n|\r|\n/', $list );
 
   // Extract
   foreach ( $lines as $line ) {
@@ -4046,7 +4046,7 @@ function fictioneer_log( $message, $current_user = null ) {
   $log_contents = file_get_contents( $log_file );
 
   // Parse
-  $log_entries = explode( "\n", $log_contents );
+  $log_entries = preg_split( '/\r\n|\r|\n/', $log_contents );
 
   // Limit (if too large)
   $log_entries = array_slice( $log_entries, -($log_limit + 1) );
@@ -4092,7 +4092,7 @@ function fictioneer_get_log() {
   $log_contents = file_get_contents( $log_file );
 
   // Parse
-  $log_entries = explode( "\n", $log_contents );
+  $log_entries = preg_split( '/\r\n|\r|\n/', $log_contents );
 
   // Limit display to 250
   $log_entries = array_slice( $log_entries, -250 );
@@ -4131,7 +4131,7 @@ function fictioneer_get_wp_debug_log() {
   $log_contents = file_get_contents( $log_file );
 
   // Parse
-  $log_entries = explode( "\n", $log_contents );
+  $log_entries = preg_split( '/\r\n|\r|\n/', $log_contents );
 
   // Limit display to 250
   $log_entries = array_slice( $log_entries, -250 );

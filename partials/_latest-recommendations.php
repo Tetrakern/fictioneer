@@ -169,8 +169,8 @@ if ( $splide ) {
 
             // Sources
             $urls = array_merge(
-              explode( "\n", get_post_meta( $post_id, 'fictioneer_recommendation_urls', true ) ),
-              explode( "\n", get_post_meta( $post_id, 'fictioneer_recommendation_support', true ) )
+              preg_split( '/\r\n|\r|\n/', get_post_meta( $post_id, 'fictioneer_recommendation_urls', true ) ),
+              preg_split( '/\r\n|\r|\n/', get_post_meta( $post_id, 'fictioneer_recommendation_support', true ) )
             );
 
             // Sanitize

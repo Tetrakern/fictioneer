@@ -1904,7 +1904,7 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
     $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
 
     if ( ! empty( $google_fonts_links ) ) {
-      $google_fonts_links = explode( "\n", $google_fonts_links );
+      $google_fonts_links = preg_split( '/\r\n|\r|\n/', $google_fonts_links );
 
       // Start HTML ---> ?>
       <link rel="preconnect" href="https://fonts.googleapis.com">

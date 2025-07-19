@@ -1478,7 +1478,7 @@ function fictioneer_sanitize_phrase_cookie_consent_banner( $input ) {
 function fictioneer_sanitize_google_fonts_links( $value ) {
   // Setup
   $value = sanitize_textarea_field( $value );
-  $lines = explode( "\n", $value );
+  $lines = preg_split( '/\r\n|\r|\n/', $value );
   $valid_links = [];
 
   // Validate and sanitize each line

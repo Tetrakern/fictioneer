@@ -369,7 +369,7 @@ function fictioneer_get_font_data() {
   $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
 
   if ( $google_fonts_links ) {
-    $google_fonts_links = explode( "\n", $google_fonts_links );
+    $google_fonts_links = preg_split( '/\r\n|\r|\n/', $google_fonts_links );
 
     foreach ( $google_fonts_links as $link ) {
       $font = fictioneer_extract_font_from_google_link( $link );

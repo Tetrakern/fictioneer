@@ -190,7 +190,7 @@ function fictioneer_ajax_submit_contact_form() {
   }
 
   // Addresses
-  $to_addresses = array_filter( explode( "\n", get_option( 'fictioneer_contact_email_addresses' ) ) );
+  $to_addresses = array_filter( preg_split( '/\r\n|\r|\n/', get_option( 'fictioneer_contact_email_addresses' ) ) );
   $to_addresses = empty( $to_addresses ) ? [get_bloginfo( 'admin_email' )] : $to_addresses;
   $from_address = get_option( 'fictioneer_system_email_address' );
 

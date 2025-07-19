@@ -296,7 +296,7 @@ function fictioneer_prepare_release_notes( $message ) {
 
   if ( $pos !== false ) {
     $message = trim( substr( $message, $pos + strlen( '### Release Notes' ) ) );
-    $lines = explode( "\n", $message );
+    $lines = preg_split( '/\r\n|\r|\n/', $message );
     $notes = '';
 
     foreach ( $lines as $line ) {
