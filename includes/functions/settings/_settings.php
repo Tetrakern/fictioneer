@@ -215,37 +215,34 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
     // Setup
     $output = [];
 
-    // General tab
-    $output['general'] = '<a href="?page=fictioneer" class="fictioneer-settings__nav-tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
+    $tabs = array(
+      'general' => array( 'fictioneer', __( 'General', 'fictioneer' ) ),
+      'roles' => array( 'fictioneer_roles', __( 'Roles', 'fictioneer' ) ),
+      'plugins' => array( 'fictioneer_plugins', __( 'Plugins', 'fictioneer' ) ),
+      'connections' => array( 'fictioneer_connections', __( 'Connections', 'fictioneer' ) ),
+      'phrases' => array( 'fictioneer_phrases', __( 'Phrases', 'fictioneer' ) ),
+      'fonts' => array( 'fictioneer_fonts', __( 'Fonts', 'fictioneer' ) ),
+      'epubs' => array( 'fictioneer_epubs', __( 'ePUBs', 'fictioneer' ) ),
+      'seo' => array( 'fictioneer_seo', __( 'SEO', 'fictioneer' ) ),
+      'tools' => array( 'fictioneer_tools', __( 'Tools', 'fictioneer' ) ),
+      'logs' => array( 'fictioneer_logs', __( 'Logs', 'fictioneer' ) )
+    );
 
-    // Roles tab
-    $output['roles'] = '<a href="?page=fictioneer_roles" class="fictioneer-settings__nav-tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
+    // Build tabs
+    foreach ( $tabs as $key => $tab_data ) {
+      list( $page, $label ) = $tab_data;
 
-    // Plugins tab
-    $output['plugins'] = '<a href="?page=fictioneer_plugins" class="fictioneer-settings__nav-tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
+      if ( $key === 'seo' && ! get_option( 'fictioneer_enable_seo' ) ) {
+        continue;
+      }
 
-    // Connections tab
-    $output['connections'] = '<a href="?page=fictioneer_connections" class="fictioneer-settings__nav-tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
-
-    // Phrases tab
-    $output['phrases'] = '<a href="?page=fictioneer_phrases" class="fictioneer-settings__nav-tab' . ( $tab == 'phrases' ? ' active' : '' ) . '">' . __( 'Phrases', 'fictioneer' ) . '</a>';
-
-    // Fonts tab
-    $output['fonts'] = '<a href="?page=fictioneer_fonts" class="fictioneer-settings__nav-tab' . ( $tab == 'fonts' ? ' active' : '' ) . '">' . __( 'Fonts', 'fictioneer' ) . '</a>';
-
-    // EPubs tab
-    $output['epubs'] = '<a href="?page=fictioneer_epubs" class="fictioneer-settings__nav-tab' . ( $tab == 'epubs' ? ' active' : '' ) . '">' . __( 'ePUBs', 'fictioneer' ) . '</a>';
-
-    // SEO tab (if enabled)
-    if ( get_option( 'fictioneer_enable_seo' ) ) {
-      $output['seo'] = '<a href="?page=fictioneer_seo" class="fictioneer-settings__nav-tab' . ( $tab == 'seo' ? ' active' : '' ) . '">' . __( 'SEO', 'fictioneer' ) . '</a>';
+      $output[ $key ] = sprintf(
+        '<a href="?page=%s" class="fictioneer-settings__nav-tab%s">%s</a>',
+        esc_attr( $page ),
+        $tab === $key ? ' active' : '',
+        $label
+      );
     }
-
-    // Tools tab
-    $output['tools'] = '<a href="?page=fictioneer_tools" class="fictioneer-settings__nav-tab' . ( $tab == 'tools' ? ' active' : '' ) . '">' . __( 'Tools', 'fictioneer' ) . '</a>';
-
-    // Logs tab
-    $output['logs'] = '<a href="?page=fictioneer_logs" class="fictioneer-settings__nav-tab' . ( $tab == 'logs' ? ' active' : '' ) . '">' . __( 'Logs', 'fictioneer' ) . '</a>';
 
     // Apply filters
     $output = apply_filters( 'fictioneer_filter_admin_settings_navigation', $output );
