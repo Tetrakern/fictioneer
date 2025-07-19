@@ -342,6 +342,7 @@ function fictioneer_get_font_data() {
 
           if ( $data && json_last_error() === JSON_ERROR_NONE ) {
             if ( ! ( $data['remove'] ?? 0 ) ) {
+              $data['dir'] = "/fonts/{$folder_name}";
               $data['css_path'] = "/fonts/{$folder_name}/font.css";
               $data['css_file'] = $css_file;
               $data['in_child_theme'] = $theme === 'child';

@@ -181,31 +181,23 @@ $seo_table->prepare_items();
   <?php wp_nonce_field( 'fictioneer_settings_actions', 'fictioneer_admin_nonce' ); ?>
 
   <div class="fictioneer-settings__content">
+
     <div class="fictioneer-single-column">
-
-      <div class="fictioneer-card">
-        <div class="fictioneer-card__wrapper">
-          <div class="fictioneer-card__content">
-            <div class="fictioneer-card__row">
-              <p><?php
-                printf(
-                  __( 'This is the generated <a href="%s" target="_blank">Open Graph</a> metadata used in rich objects, such as embeds and search engine results. What is actually displayed is entirely up to the external service. Schemas are created when a post is first visited. Note that not all post types or page templates get a schema. You can set a default OG image under <strong>Site Identity</strong> in the <a href="%s" target="_blank">Customizer</a>.', 'fictioneer' ),
-                  'https://ogp.me/',
-                  wp_customize_url()
-                );
-              ?></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <form id="seo-table" method="get" class="fictioneer-form">
         <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>">
 
+        <p><?php
+          printf(
+            __( 'This is the generated <a href="%s" target="_blank">Open Graph</a> metadata used in rich objects, such as embeds and search engine results. What is actually displayed is entirely up to the external service. Schemas are created when a post is first visited. Note that not all post types or page templates get a schema. You can set a default OG image under <strong>Site Identity</strong> in the <a href="%s" target="_blank">Customizer</a>.', 'fictioneer' ),
+            'https://ogp.me/',
+            wp_customize_url()
+          );
+        ?></p>
+
         <?php $seo_table->display(); ?>
       </form>
-
     </div>
+
   </div>
 
   <dialog class="fictioneer-dialog" id="schema-dialog">

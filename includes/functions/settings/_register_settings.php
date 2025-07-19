@@ -1047,6 +1047,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-fonts-group',
       'sanitize_callback' => 'fictioneer_sanitize_google_fonts_links'
     ),
+    'fictioneer_http_headers_link_fonts' => array(
+      'name' => 'fictioneer_http_headers_link_fonts',
+      'group' => 'fictioneer-settings-fonts-group',
+      'sanitize_callback' => 'fictioneer_sanitize_preload_font_links'
+    ),
     'fictioneer_comment_form_selector' => array(
       'name' => 'fictioneer_comment_form_selector',
       'group' => 'fictioneer-settings-general-group',
@@ -1241,7 +1246,8 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_subitem_short_date_format' => __( 'Subitem short date format', 'fictioneer' ),
       'fictioneer_contact_email_addresses' => __( 'Contact form email receivers', 'fictioneer' ),
       'fictioneer_upload_mime_types' => __( 'Allowed file upload mime types', 'fictioneer' ),
-      'fictioneer_google_fonts_links' => __( ' Google Fonts links', 'fictioneer' ),
+      'fictioneer_google_fonts_links' => __( 'Google Fonts links', 'fictioneer' ),
+      'fictioneer_http_headers_link_fonts' => __( 'HTTP Headers Preload Font Links', 'fictioneer' ),
       'fictioneer_comment_form_selector' => __( 'Comment form CSS selector', 'fictioneer' ),
       'fictioneer_show_wp_login_link' => __( 'Show default WordPress login in modal', 'fictioneer' ),
       'fictioneer_enable_static_partials' => __( 'Enable caching of partials', 'fictioneer' ),
@@ -1362,7 +1368,7 @@ function fictioneer_register_settings() {
 // =============================================================================
 
 /**
- * Sanitizes the 'words per minute' setting with fallback
+ * Sanitize the 'words per minute' setting with fallback.
  *
  * @since 4.0.0
  *
@@ -1376,7 +1382,7 @@ function fictioneer_sanitize_words_per_minute( $input ) {
 }
 
 /**
- * Sanitizes integer to be 1 or more
+ * Sanitize integer to be 1 or more.
  *
  * @since 4.6.0
  *
@@ -1390,7 +1396,7 @@ function fictioneer_sanitize_integer_one_up( $input ) {
 }
 
 /**
- * Sanitizes a page ID and checks whether it is valid
+ * Sanitize a page ID and checks whether it is valid.
  *
  * @since 4.6.0
  *
@@ -1404,7 +1410,7 @@ function fictioneer_sanitize_page_id( $input ) {
 }
 
 /**
- * Sanitizes with absint() unless it is an empty string
+ * Sanitize with absint() unless it is an empty string.
  *
  * @since 5.15.0
  *
@@ -1422,7 +1428,7 @@ function fictioneer_sanitize_absint_or_empty_string( $input ) {
 }
 
 /**
- * Sanitizes the phrase for the cookie consent banner
+ * Sanitize the phrase for the cookie consent banner.
  *
  * Checks whether the input is a string and has at least 32 characters,
  * otherwise a default is returned. The content is also cleaned of any
@@ -1460,7 +1466,7 @@ function fictioneer_sanitize_phrase_cookie_consent_banner( $input ) {
 }
 
 /**
- * Sanitizes the textarea input for Google Fonts links
+ * Sanitize the textarea input for Google Fonts links.
  *
  * @since 5.10.0
  *
@@ -1483,7 +1489,7 @@ function fictioneer_sanitize_google_fonts_links( $value ) {
       $sanitized_link = filter_var( $line, FILTER_SANITIZE_URL );
 
       if ( $sanitized_link !== false ) {
-        $valid_links[] = $sanitized_link;
+        $valid_links[] = esc_url_raw( $sanitized_link );
       }
     }
   }
@@ -1493,7 +1499,65 @@ function fictioneer_sanitize_google_fonts_links( $value ) {
 }
 
 /**
- * Sanitizes a comma-separated Patreon ID list into a unique array
+ * Sanitize the textarea input for preload font links.
+ *
+ * @since 5.31.0
+ *
+ * @param string $value  The textarea string.
+ *
+ * @return string The sanitized textarea string.
+ */
+
+function fictioneer_sanitize_preload_font_links( $value ) {
+  // Setup
+  $value = sanitize_textarea_field( $value );
+  $lines = preg_split( '/\r\n|\r|\n/', $value );
+  $valid_links = [];
+
+  $valid_extensions = ['woff', 'woff2', 'ttf', 'otf', 'eot', 'svg', 'fon'];
+
+  // Validate and sanitize each line
+  foreach ( $lines as $line ) {
+    $line = trim( $line );
+
+    if ( $line === '' ) {
+      continue;
+    }
+
+    $line = sanitize_text_field( $line );
+    $path = parse_url( $line, PHP_URL_PATH );
+
+    if ( ! $path ) {
+      continue;
+    }
+
+    $extension = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
+
+    if ( ! in_array( $extension, $valid_extensions, true ) ) {
+      continue;
+    }
+
+    if ( str_starts_with( $line, 'https://' ) && filter_var( $line, FILTER_VALIDATE_URL ) ) {
+      $valid_links[] = esc_url_raw( $line );
+
+      continue;
+    }
+
+    if (
+      str_starts_with( $line, '/' ) &&
+      ! str_contains( $line, '://' ) &&
+      ! str_contains( $line, '../' )
+    ) {
+      $valid_links[] = esc_url_raw( $line );
+    }
+  }
+
+  // Continue saving process
+  return implode( "\n", array_unique( $valid_links ) );
+}
+
+/**
+ * Sanitize a comma-separated Patreon ID list into a unique array.
  *
  * @since 5.15.0
  *
@@ -1510,7 +1574,7 @@ function fictioneer_sanitize_global_patreon_tiers( $input ) {
 }
 
 /**
- * Sanitizes a Patreon URL
+ * Sanitize a Patreon URL.
  *
  * @since 5.15.0
  * @since 5.19.1 - Split up into two functions.

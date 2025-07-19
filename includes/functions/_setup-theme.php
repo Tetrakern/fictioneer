@@ -1647,7 +1647,7 @@ add_action( 'login_head', 'fictioneer_wp_login_scripts' );
 // =============================================================================
 
 /**
- * Removed the jQuery migrate script
+ * Remove the jQuery migrate script.
  *
  * @since 5.0.0
  *
@@ -1678,7 +1678,7 @@ if ( ! is_admin() && ! get_option( 'fictioneer_enable_jquery_migrate' ) ) {
 // =============================================================================
 
 /**
- * Exclude stylesheets from Autoptimize (if installed)
+ * Exclude stylesheets from Autoptimize (if installed).
  *
  * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
@@ -1694,7 +1694,7 @@ function fictioneer_ao_exclude_css( $exclude ) {
 add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css' );
 
 /**
- * Exclude scripts from Autoptimize (if installed)
+ * Exclude scripts from Autoptimize (if installed).
  *
  * @since 5.23.1
  * @link https://github.com/wp-plugins/autoptimize
@@ -1713,9 +1713,65 @@ add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_js' );
 // OUTPUT HEAD FONTS
 // =============================================================================
 
+/**
+ * Add Link headers to preload fonts.
+ *
+ * @since 5.31.0
+ *
+ * @param string[] $headers  Associative array of headers to be sent.
+ *
+ * @return string[] The updated headers.
+ */
+
+function fictioneer_headers_preload_font_links( $headers ) {
+  $preload_links = get_option( 'fictioneer_http_headers_link_fonts' );
+
+  if ( ! $preload_links || ! is_string( $preload_links ) ) {
+    return $headers;
+  }
+
+  $preload_links = preg_split( '/\r\n|\r|\n/', $preload_links );
+
+  if ( ! empty( $preload_links ) ) {
+    $mime_types = array(
+      'woff2' => 'font/woff2',
+      'woff' => 'font/woff',
+      'ttf' => 'font/ttf',
+      'otf' => 'font/otf',
+      'eot' => 'application/vnd.ms-fontobject',
+      'svg' => 'image/svg+xml',
+      'fon' => 'application/x-font'
+    );
+
+    $links = [];
+
+    foreach ( $preload_links as $link ) {
+      $extension = strtolower( pathinfo( parse_url( $link, PHP_URL_PATH ), PATHINFO_EXTENSION ) );
+
+      $links[] = sprintf(
+        '<%s>; rel=preload; as=font; type=%s; crossorigin=anonymous; nopush',
+        esc_url( $link ),
+        $mime_types[ $extension ] ?? 'font/woff'
+      );
+    }
+
+    if ( empty( $headers['Link'] ) ) {
+      $headers['Link'] = implode( ', ', $links );
+    } else {
+      $headers['Link'] .= ', ' . implode( ', ', $links );
+    }
+  }
+
+  return $headers;
+}
+
+if ( ! is_admin() ) {
+  add_filter( 'wp_headers', 'fictioneer_headers_preload_font_links' );
+}
+
 if ( ! function_exists( 'fictioneer_output_critical_fonts' ) ) {
   /**
-   * Output critical path fonts in <head>
+   * Output critical path fonts in <head>.
    *
    * Critical fonts that need to be loaded as fast as possible and are
    * therefore inlined in the <head>.

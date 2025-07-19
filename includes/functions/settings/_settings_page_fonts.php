@@ -28,6 +28,81 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Preload Fonts', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <p><?php
+                  printf(
+                    __( 'To improve the loading time of your site and reduce FOUT (Flash of Unstyled Text), you can preload fonts in your <a href="%s" target="_blank">HTTP headers</a>. This is also beneficial to your search rank. You need to either provide the font file path relative to the WordPress root directory or the full URL if external. The font file can be located anywhere in your WordPress directory as long as the relative path is correct. Only preload font files (charsets, styles, weights, etc.) that are immediately visible on page load (above the fold).', 'fictioneer' ),
+                    'https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers'
+                  );
+                ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <textarea name="fictioneer_http_headers_link_fonts" id="fictioneer_http_headers_link_fonts" rows="4" placeholder="<?php echo "https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700\n/wp-content/themes/fictioneer/fonts/open-sans/open-sans-v40-regular.woff2"; ?>"><?php
+                  echo get_option( 'fictioneer_http_headers_link_fonts' );
+                ?></textarea>
+                <p class="fictioneer-sub-label"><?php _e( 'Only one link per line.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <code><pre><?php echo "/wp-content/themes/fictioneer/fonts/open-sans/open-sans-v40-regular.woff2\n/wp-content/themes/fictioneer/fonts/open-sans/open-sans-v40-300.woff2\n/wp-content/themes/fictioneer/fonts/open-sans/open-sans-v40-600.woff2\n/wp-content/themes/fictioneer/fonts/open-sans/open-sans-v40-700.woff2"; ?></pre></code>
+                <p class="fictioneer-sub-label"><?php _e( 'This should work for the default theme "Open Sans" font, both in dark and light mode. Depending on the fonts or styles/weights/etc. used above the fold, you may need more.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <details>
+                  <summary><?php _e( 'Paths for theme fonts', 'fictioneer' ); ?></summary>
+                  <div><?php
+                    foreach ( $fonts as $key => $data ) {
+                      if ( ! isset( $data['dir'] ) ) {
+                        continue;
+                      }
+
+                      $root = $data['in_child_theme'] ? get_template_directory() : get_stylesheet_directory();
+                      $dir = $root . $data['dir'];
+                      $files = scandir( $dir, SCANDIR_SORT_DESCENDING );
+                      $valid_extensions = ['woff', 'woff2', 'ttf', 'otf', 'eot', 'svg', 'fon'];
+                      $font_files = [];
+
+                      foreach ( $files as $file ) {
+                        $path = $dir . DIRECTORY_SEPARATOR . $file;
+
+                        if ( ! is_file( $path ) ) {
+                          continue;
+                        }
+
+                        $extension = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
+
+                        if ( in_array( $extension, $valid_extensions, true ) ) {
+                          $normalized = str_replace( '\\', '/', $path );
+                          $shortened = strstr( $normalized, '/wp-content' );
+                          $font_files[] = $shortened ?: $normalized;
+                        }
+                      }
+
+                      if ( empty( $font_files ) ) {
+                        continue;
+                      }
+
+                      printf(
+                        '<div style="margin-top: 8px;"><strong>%s:</strong><br>%s</div>',
+                        $data['name'],
+                        implode( '<br>', array_map( 'esc_html', $font_files ) )
+                      );
+                    }
+                  ?></div>
+                </details>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
             <h3 class="fictioneer-card__header"><?php _e( 'Google Fonts', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
