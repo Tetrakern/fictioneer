@@ -773,7 +773,7 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
   markRead({ currentTarget, params: { id } }) {
     this.readUpdateStack.push(id);
 
-    _$$(`.alert[data-id="alert-${id}"]`).forEach(alert => alert.classList.remove('unread'));
+    _$$(`.alert[data-id="alert-${id}"]`).forEach(alert => alert.classList.remove('_unread'));
 
     _$$('.mobile-menu-button, [data-fictioneer-alerts-target="newAlertsDisplay"]').forEach(element => {
       const tempNumber = Math.max(0, parseInt(element.dataset.new ?? 0) - 1);
