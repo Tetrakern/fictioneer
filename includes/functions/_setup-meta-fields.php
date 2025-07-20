@@ -3784,7 +3784,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
       'info'
     );
 
-    $alert_message = sanitize_text_field( $_POST['fictioneer_alert_message'] ?? '' );
+    $alert_message = sanitize_text_field( fictioneer_maybe_unslash( $_POST['fictioneer_alert_message'] ?? '' ) );
     $alert_date = get_post_time( 'U', true, $post_id ) > time()
       ? get_post_time( 'Y-m-d H:i:s', false, $post_id )
       : current_time( 'mysql', false );
