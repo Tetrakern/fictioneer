@@ -218,6 +218,8 @@ function fictioneer_theme_setup() {
 
     update_option( 'fictioneer_theme_info', $theme_info, 'yes' );
 
+    fictioneer_initialize_alerts();
+
     do_action( 'fictioneer_after_update', $theme_info['version'], $previous_version );
   }
 }
@@ -228,7 +230,7 @@ add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
 // =============================================================================
 
 /**
- * Purges selected caches and Transients after update
+ * Purge selected caches and Transients after update.
  *
  * @since 5.12.2
  * @since 5.27.3 - Use fictioneer_purge_theme_caches();
@@ -242,7 +244,7 @@ function fictioneer_purge_caches_after_update() {
 add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 
 /**
- * Removes default chapter icons from post meta table
+ * Remove default chapter icons from post meta table.
  *
  * @since 5.24.1
  */
@@ -265,7 +267,7 @@ function fictioneer_remove_default_chapter_icons_from_meta() {
 add_action( 'fictioneer_after_update', 'fictioneer_remove_default_chapter_icons_from_meta' );
 
 /**
- * Removes obsolete fictioneer_first_publish_date from post meta table
+ * Remove obsolete fictioneer_first_publish_date from post meta table.
  *
  * @since 5.24.1
  */
@@ -337,7 +339,7 @@ function fictioneer_remove_obsolete_comment_meta() {
 add_action( 'fictioneer_after_update', 'fictioneer_remove_obsolete_comment_meta' );
 
 /**
- * Deletes the cached SEO meta data of the front page
+ * Delete the cached SEO meta data of the front page.
  *
  * @since 5.25.0
  */
@@ -371,6 +373,24 @@ function fictioneer_restore_disabled_widgets_autoload( $version ) {
   }
 }
 add_action( 'fictioneer_after_update', 'fictioneer_restore_disabled_widgets_autoload' );
+
+/**
+ * Delete obsolete user meta fields.
+ *
+ * @since 5.31.0
+ */
+
+function fictioneer_remove_obsolete_user_meta() {
+  global $wpdb;
+
+  $wpdb->query(
+    $wpdb->prepare(
+      "DELETE FROM {$wpdb->usermeta} WHERE meta_key = %s",
+      'fictioneer_user_follows_cache'
+    )
+  );
+}
+add_action( 'fictioneer_after_update', 'fictioneer_remove_obsolete_user_meta' );
 
 // =============================================================================
 // SIDEBAR
@@ -1620,7 +1640,7 @@ add_filter( 'customize_refresh_nonces', 'fictioneer_add_customizer_refresh_nonce
 // =============================================================================
 
 /**
- * Print scripts to the wp-login-php
+ * Print scripts to the wp-login-php.
  *
  * @since 5.7.3
  * @since 5.26.1 - Use wp_print_inline_script_tag().

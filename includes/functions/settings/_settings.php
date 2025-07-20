@@ -212,6 +212,9 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
    */
 
   function fictioneer_settings_header( $tab = 'general' ) {
+    // Ensure notifications table exists
+    fictioneer_initialize_alerts();
+
     // Setup
     $output = [];
 
@@ -277,7 +280,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 // =============================================================================
 
 /**
- * Callback for connections settings page
+ * Callback for connections settings page.
  *
  * @since 4.7.0
  */
@@ -287,7 +290,7 @@ function fictioneer_settings_connections() {
 }
 
 /**
- * Callback for general settings page
+ * Callback for general settings page.
  *
  * @since 4.7.0
  */
@@ -297,7 +300,7 @@ function fictioneer_settings_general() {
 }
 
 /**
- * Callback for roles settings page
+ * Callback for roles settings page.
  *
  * @since 4.7.0
  */
@@ -307,7 +310,7 @@ function fictioneer_settings_roles() {
 }
 
 /**
- * Callback for plugins settings page
+ * Callback for plugins settings page.
  *
  * @since 5.7.1
  */
@@ -317,7 +320,7 @@ function fictioneer_settings_plugins() {
 }
 
 /**
- * Callback for epubs settings page
+ * Callback for epubs settings page.
  *
  * @since 4.7.0
  */
@@ -327,7 +330,7 @@ function fictioneer_settings_epubs() {
 }
 
 /**
- * Callback for SEO settings page
+ * Callback for SEO settings page.
  *
  * @since 4.7.0
  */
@@ -337,7 +340,7 @@ function fictioneer_settings_seo() {
 }
 
 /**
- * Callback for phrases settings page
+ * Callback for phrases settings page.
  *
  * @since 4.7.0
  */
@@ -347,7 +350,7 @@ function fictioneer_settings_phrases() {
 }
 
 /**
- * Callback for fonts settings page
+ * Callback for fonts settings page.
  *
  * @since 4.9.4
  */
@@ -357,7 +360,7 @@ function fictioneer_settings_fonts() {
 }
 
 /**
- * Callback for tools settings page
+ * Callback for tools settings page.
  *
  * @since 4.7.0
  */
@@ -367,7 +370,7 @@ function fictioneer_settings_tools() {
 }
 
 /**
- * Callback for logs settings page
+ * Callback for logs settings page.
  *
  * @since 4.7.0
  */
@@ -377,7 +380,7 @@ function fictioneer_settings_logs() {
 }
 
 /**
- * Callback for setup settings page
+ * Callback for setup settings page.
  *
  * @since 5.20.3
  */

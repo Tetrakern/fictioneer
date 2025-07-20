@@ -458,7 +458,7 @@ add_action( 'publish_to_draft', 'fictioneer_chapter_to_draft' );
 add_action( 'private_to_draft', 'fictioneer_chapter_to_draft' );
 
 /**
- * Perform updates when a chapter goes from future to publish
+ * Perform updates when a chapter goes from future to publish.
  *
  * @since 5.21.0
  *

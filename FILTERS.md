@@ -1220,7 +1220,7 @@ Filters the intermediate item array of the `fictioneer_render_icon_menu()` funct
 * $profile (string|null) – HTML for the profile icon link.
 * $bookmarks (string|null) – HTML for the bookmarks icon link.
 * $discord (string|null) – HTML for the Discord icon link.
-* $follows (string|null) – HTML for the Follows icon menu.
+* $alerts (string|null) – HTML for the alerts icon menu.
 * $search (string|null) – HTML for the search icon link.
 * $lightswitch (string) – HTML for the dark/light mode icon toggle.
 * $settings (string) – HTML for the setting modal icon toggle.

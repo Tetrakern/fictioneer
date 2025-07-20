@@ -785,6 +785,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox'
     ),
+    'fictioneer_enable_alerts' => array(
+      'name' => 'fictioneer_enable_alerts',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox'
+    ),
   ),
   'integers' => array(
     'fictioneer_user_profile_page' => array(
@@ -1021,6 +1026,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field'
     ),
+    'fictioneer_alert_date_format' => array(
+      'name' => 'fictioneer_alert_date_format',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'sanitize_text_field'
+    ),
     'fictioneer_contact_email_addresses' => array(
       'name' => 'fictioneer_contact_email_addresses',
       'group' => 'fictioneer-settings-general-group',
@@ -1244,6 +1254,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_patreon_global_lock_unlock_amount' => __( 'Global unlock gate pledge threshold in cents', 'fictioneer' ),
       'fictioneer_subitem_date_format' => __( 'Subitem long date format', 'fictioneer' ),
       'fictioneer_subitem_short_date_format' => __( 'Subitem short date format', 'fictioneer' ),
+      'fictioneer_alert_date_format' => __( 'Alert date format', 'fictioneer' ),
       'fictioneer_contact_email_addresses' => __( 'Contact form email receivers', 'fictioneer' ),
       'fictioneer_upload_mime_types' => __( 'Allowed file upload mime types', 'fictioneer' ),
       'fictioneer_google_fonts_links' => __( 'Google Fonts links', 'fictioneer' ),
@@ -1280,6 +1291,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_enable_scheduled_chapter_commenting' => __( 'Allow commenting on scheduled posts', 'fictioneer' ),
       'fictioneer_enable_story_filter_reel' => __( 'Enable story chapter list filters', 'fictioneer' ),
       'fictioneer_disable_rest_save_actions' => __( 'Disable theme save actions for REST requests', 'fictioneer' ),
+      'fictioneer_enable_alerts' => __( 'Enable alerts (requires account)', 'fictioneer' ),
     );
   }
 

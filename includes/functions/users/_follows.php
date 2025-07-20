@@ -103,53 +103,6 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
   }
 }
 
-if ( ! function_exists( 'fictioneer_query_new_followed_chapters_count' ) ) {
-  /**
-   * Query count of new chapters for followed stories
-   *
-   * @since 5.27.0
-   *
-   * @param array       $story_ids   IDs of the followed stories.
-   * @param string|null $after_date  Optional. Only return chapters after this date,
-   *                                 e.g. wp_date( 'Y-m-d H:i:s', $timestamp ).
-   * @param int         $count       Optional. Maximum number of chapters. Default 99.
-   *
-   * @return array Number of new chapters found.
-   */
-
-  function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date = null, $count = 99 ) {
-    global $wpdb;
-
-    $story_ids = array_map( 'absint', $story_ids );
-
-    if ( empty( $story_ids ) ) {
-      return 0;
-    }
-
-    $story_ids_placeholder = implode( ',', array_fill( 0, count( $story_ids ), '%d' ) );
-
-    $sql = "
-      SELECT COUNT(p.ID) as count
-      FROM {$wpdb->posts} p
-      INNER JOIN {$wpdb->postmeta} pm_story ON p.ID = pm_story.post_id
-      LEFT JOIN {$wpdb->postmeta} pm_hidden ON p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden'
-      WHERE p.post_type = 'fcn_chapter'
-        AND p.post_status = 'publish'
-        AND pm_story.meta_key = 'fictioneer_chapter_story'
-        AND pm_story.meta_value IN ({$story_ids_placeholder})
-        AND (pm_hidden.meta_key IS NULL OR pm_hidden.meta_value = '0')
-    ";
-
-    if ( $after_date ) {
-      $sql .= " AND p.post_date_gmt > %s";
-    }
-
-    $query_args = array_merge( $story_ids, $after_date ? [ $after_date ] : [] );
-
-    return min( (int) $wpdb->get_var( $wpdb->prepare( $sql, $query_args ) ), $count );
-  }
-}
-
 // =============================================================================
 // AJAX REQUESTS
 // > Return early if no AJAX functions are required.
@@ -212,8 +165,6 @@ function fictioneer_ajax_toggle_follow() {
   }
 
   // Update database & response
-  delete_user_meta( $user->ID, 'fictioneer_user_follows_cache' );
-
   if ( update_user_meta( $user->ID, 'fictioneer_user_follows', $user_follows ) ) {
     do_action( 'fictioneer_toggled_follow', $story_id, $set );
     wp_send_json_success();
@@ -249,7 +200,6 @@ function fictioneer_ajax_clear_my_follows() {
 
   // Update user
   if ( delete_user_meta( $user->ID, 'fictioneer_user_follows' ) ) {
-    update_user_meta( $user->ID, 'fictioneer_user_follows_cache', false );
     wp_send_json_success( array( 'success' => __( 'Data has been cleared.', 'fictioneer' ) ) );
   } else {
     wp_send_json_error( array( 'failure' => __( 'Database error. Follows could not be cleared.', 'fictioneer' ) ) );
@@ -258,163 +208,6 @@ function fictioneer_ajax_clear_my_follows() {
 
 if ( get_option( 'fictioneer_enable_follows' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_clear_my_follows', 'fictioneer_ajax_clear_my_follows' );
-}
-
-// =============================================================================
-// MARK FOLLOWS AS READ - AJAX
-// =============================================================================
-
-/**
- * Mark all Follows as read via AJAX
- *
- * Updates the 'seen' timestamp in the 'fictioneer_user_follows' meta data,
- * which is used to determine whether Follows are new. This will mark all
- * of them as read, you cannot mark single items in the list as read.
- *
- * @since 4.3.0
- */
-
-function fictioneer_ajax_mark_follows_read() {
-  // Rate limit
-  fictioneer_check_rate_limit( 'fictioneer_ajax_mark_follows_read' );
-
-  // Setup and validations
-  $user = fictioneer_get_validated_ajax_user();
-
-  if ( ! $user ) {
-    wp_send_json_error( array( 'error' => 'Request did not pass validation.' ) );
-  }
-
-  $user_follows = fictioneer_load_follows( $user );
-
-  if ( empty( $user_follows ) ) {
-    wp_send_json_error( array( 'failure' => __( 'Follows are empty.', 'fictioneer' ) ) );
-  }
-
-  // Update 'seen' timestamp to now; compatible with Date.now() in JavaScript
-  $user_follows['seen'] = time() * 1000;
-
-  // Update database
-  delete_user_meta( $user->ID, 'fictioneer_user_follows_cache' );
-  $result = update_user_meta( $user->ID, 'fictioneer_user_follows', $user_follows );
-
-  // Response
-  if ( $result ) {
-    wp_send_json_success();
-  } else {
-    wp_send_json_error( array( 'error' => 'Follows could not be updated.' ) );
-  }
-}
-
-if ( get_option( 'fictioneer_enable_follows' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_mark_follows_read', 'fictioneer_ajax_mark_follows_read' );
-}
-
-// =============================================================================
-// GET FOLLOWS NOTIFICATIONS - AJAX
-// =============================================================================
-
-/**
- * Sends the HTML for Follows notifications via AJAX
- *
- * @since 4.3.0
- */
-
-function fictioneer_ajax_get_follows_notifications() {
-  // Rate limit
-  fictioneer_check_rate_limit( 'fictioneer_ajax_get_follows_notifications' );
-
-  // Setup and validations
-  $user = fictioneer_get_validated_ajax_user();
-
-  if ( ! $user ) {
-    wp_send_json_error(
-      array(
-        'error' => 'You must be logged in.',
-        'html' => '<div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">' . __( 'Not logged in.', 'fictioneer' ) . '</div></div></div>'
-      )
-    );
-  }
-
-  // Follows
-  $user_follows = fictioneer_load_follows( $user );
-
-  // Last story/chapter update on site
-  $last_update = fictioneer_get_last_fiction_update();
-
-  // Meta cache for HTML?
-  if ( ! empty( $last_update ) ) {
-    $meta_cache = get_user_meta( $user->ID, 'fictioneer_user_follows_cache', true );
-
-    if ( ! empty( $meta_cache ) && array_key_exists( $last_update, $meta_cache ) ) {
-      $html = $meta_cache[ $last_update ] . '<!-- Cached on ' . $meta_cache['timestamp'] . ' -->';
-
-      wp_send_json_success( array( 'html' => $html ) );
-    }
-  }
-
-  // Chapters for notifications
-  $chapters = count( $user_follows['data'] ) > 0 ?
-    fictioneer_query_followed_chapters( array_keys( $user_follows['data'] ) ) : false;
-
-  // Build notifications
-  ob_start();
-
-  if ( $chapters ) {
-    foreach ( $chapters as $chapter ) {
-      $date = get_the_date(
-        sprintf(
-          _x( '%1$s \a\t %2$s', 'Date in Follows update list.', 'fictioneer' ),
-          get_option( 'date_format' ),
-          get_option( 'time_format' )
-        ), $chapter->ID
-      );
-      $chapter_timestamp = get_post_timestamp( $chapter->ID ) * 1000; // Compatible with Date.now() in JavaScript
-      $story_id = fictioneer_get_chapter_story_id( $chapter->ID );
-      $new = $user_follows['seen'] < $chapter_timestamp ? '_new' : '';
-
-      // Start HTML ---> ?>
-      <div class="follow-item <?php echo $new; ?>" data-chapter-id="<?php echo $chapter->ID; ?>" data-story-id="<?php echo $story_id; ?>" data-timestamp="<?php echo $chapter_timestamp; ?>">
-        <div class="follow-wrapper">
-          <div class="follow-title truncate _1-1">
-            <a class="follow-title-link _no-menu-item-style" href="<?php echo get_the_permalink( $chapter->ID ); ?>"><?php echo fictioneer_get_safe_title( $chapter->ID, 'ajax-get-follows-notifications' ); ?></a>
-          </div>
-          <div class="follow-meta truncate _1-1"><?php echo $date ; ?> in <?php echo fictioneer_get_safe_title( $story_id, 'ajax-get-follows-notifications' ); ?></div>
-          <div class="follow-marker">&bull;</div>
-        </div>
-      </div>
-      <?php // <--- End HTML
-    }
-  } else {
-    // Start HTML ---> ?>
-    <div class="follow-item">
-      <div class="follow-wrapper">
-        <div class="follow-placeholder truncate _1-1"><?php _e( 'You are not following any stories.', 'fictioneer' ); ?></div>
-      </div>
-    </div>
-    <?php // <--- End HTML
-  }
-
-  $html = fictioneer_minify_html( ob_get_clean() );
-
-  // Update meta cache
-  if ( ! empty( $last_update ) ) {
-    update_user_meta(
-      $user->ID,
-      'fictioneer_user_follows_cache',
-      array(
-        $last_update => $html,
-        'timestamp' => time() * 1000
-      )
-    );
-  }
-
-  // Return HTML
-  wp_send_json_success( array( 'html' => $html ) );
-}
-
-if ( get_option( 'fictioneer_enable_follows' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_get_follows_notifications', 'fictioneer_ajax_get_follows_notifications' );
 }
 
 // =============================================================================

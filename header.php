@@ -128,6 +128,10 @@ if ( $post_type === 'fcn_chapter' ) {
   $body_attributes['data-controller'] .= ' fictioneer-chapter-formatting';
 }
 
+if ( get_option( 'fictioneer_enable_alerts' ) ) {
+  $body_attributes['data-controller'] .= ' fictioneer-alerts';
+}
+
 if ( $story_id ) {
   $body_attributes['data-story-id'] = $story_id;
 }

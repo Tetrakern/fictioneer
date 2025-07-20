@@ -71,6 +71,12 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
     this.refreshView();
   }
 
+  /**
+   * Refresh view with current data.
+   *
+   * @since 5.27.0
+   */
+
   refreshView() {
     const checkmarks = this.data();
 
@@ -143,20 +149,42 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
   #ready = false;
   #paused = false;
 
-  #loggedIn() {
-    const loggedIn = FcnUtils.loggedIn();
+  /**
+   * Check whether the user is still logged-in.
+   *
+   * Note: Also stops watchers and intervals.
+   *
+   * @since 5.27.0
+   * @return {boolean} True if logged-in, false otherwise.
+   */
 
-    if (!loggedIn) {
+  #loggedIn() {
+    if (!FcnUtils.loggedIn()) {
       this.#unwatch();
       this.#paused = true;
+
+      return false;
     }
 
-    return loggedIn;
+    return true;
   }
 
-  #userDataChanged() {
+  /**
+   * Check whether the checkmarks data has changed.
+   *
+   * @since 5.27.0
+   * @return {boolean} True if changed and logged-in, false otherwise.
+   */
+
+  #checkmarksDataChanged() {
     return this.#loggedIn() && JSON.stringify(this.checkmarksCachedData ?? 0) !== JSON.stringify(this.data());
   }
+
+  /**
+   * Start refresh interval (if data has changed).
+   *
+   * @since 5.27.0
+   */
 
   #startRefreshInterval() {
     if (this.refreshInterval) {
@@ -164,11 +192,17 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
     }
 
     this.refreshInterval = setInterval(() => {
-      if (!this.#paused && this.#userDataChanged()) {
+      if (!this.#paused && this.#checkmarksDataChanged()) {
         this.refreshView()
       }
     }, 30000 + Math.random() * 1000);
   }
+
+  /**
+   * Watch for window visibility changes to refresh and toggle intervals.
+   *
+   * @since 5.27.0
+   */
 
   #watch() {
     this.#startRefreshInterval();
@@ -189,6 +223,12 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
 
     document.addEventListener('visibilitychange', this.visibilityStateCheck);
   }
+
+  /**
+   * Stop watching for window visibility changes.
+   *
+   * @since 5.27.0
+   */
 
   #unwatch() {
     clearInterval(this.refreshInterval);

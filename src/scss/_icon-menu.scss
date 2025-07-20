@@ -7,7 +7,7 @@
   color: var(--navigation-color);
 
   .menu-item {
-    :is(a, label, button):where(:not(._no-menu-item-style)) {
+    > :is(a, label, button):where(:not(._no-menu-item-style)) {
       display: flex;
       align-items: center;
       color: var(--navigation-color);
@@ -23,28 +23,11 @@
     }
 
     .sub-menu {
-      :where(a, label, button):where(:not(._no-menu-item-style)) {
+      > :where(a, label, button):where(:not(._no-menu-item-style)) {
         color: var(--navigation-subitem-color, var(--navigation-color));
 
         &:hover {
           color: var(--navigation-subitem-color-hover, var(--navigation-color-hover));
-        }
-      }
-    }
-
-    &:hover,
-    &:focus-within {
-      .follow-menu-item {
-        &:not(._loaded) {
-          .fa-spinner {
-            display: block;
-            content-visibility: visible;
-          }
-
-          .icon._fa-bell {
-            display: none;
-            content-visibility: hidden;
-          }
         }
       }
     }
@@ -56,7 +39,7 @@
     }
   }
 
-  .sub-menu .menu-item :where(a, label, button):where(:not(._no-menu-item-style)) {
+  .sub-menu .menu-item > :where(a, label, button):where(:not(._no-menu-item-style)) {
     padding: 0 1rem;
   }
 
@@ -69,20 +52,6 @@
 
   .icon._user {
     transform: translate(0, 0) scale(1.725);
-  }
-
-  .follow-menu-item {
-    padding: 0 8px;
-    min-width: 34px;
-
-    > :is(i, .icon) {
-      margin: 0 auto;
-    }
-
-    .fa-spinner {
-      display: none;
-      content-visibility: hidden;
-    }
   }
 }
 

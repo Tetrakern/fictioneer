@@ -5,7 +5,7 @@
 // =============================================================================
 
 /**
- * Get relevant user data via AJAX
+ * AJAX: Get relevant user data.
  *
  * @since 5.7.0
  */
@@ -22,9 +22,11 @@ function fictioneer_ajax_get_user_data() {
     'user_id' => $user->ID,
     'timestamp' => time() * 1000, // Compatible with Date.now() in JavaScript
     'loggedIn' => $logged_in,
+    'alerts' => '{}',
     'follows' => false,
     'reminders' => false,
     'checkmarks' => false,
+    'notifications' => false,
     'bookmarks' => '{}',
     'fingerprint' => fictioneer_get_user_fingerprint( $user->ID ),
     'avatarUrl' => '',
@@ -49,25 +51,33 @@ function fictioneer_ajax_get_user_data() {
     );
   }
 
-  // --- FOLLOWS ---------------------------------------------------------------
+  // --- ALERTS ---------------------------------------------------------
 
-  if ( $logged_in && get_option( 'fictioneer_enable_follows' ) ) {
-    $follows = fictioneer_load_follows( $user );
-    $follows['new'] = false;
+  if ( $logged_in && get_option( 'fictioneer_enable_alerts' ) ) {
+    $follows = get_option( 'fictioneer_enable_follows' ) ? fictioneer_load_follows( $user ) : [];
 
-    // New notifications?
-    if ( count( $follows['data'] ) > 0 ) {
-      $latest_count = fictioneer_query_new_followed_chapters_count(
-        array_keys( $follows['data'] ),
-        wp_date( 'Y-m-d H:i:s', $follows['seen'] / 1000, new DateTimeZone( 'UTC' ) )
-      );
+    $read_alerts = get_user_meta( $user->ID, 'fictioneer_read_alerts', true ) ?: [];
+    $show_read_alerts = get_user_meta( $user->ID, 'fictioneer_show_read_alerts', true ) ? true : false;
 
-      if ( $latest_count > 0 ) {
-        $follows['new'] = $latest_count;
-      }
+    if ( ! is_array( $read_alerts ) ) {
+      $read_alerts = [];
+      update_user_meta( $user->ID, 'fictioneer_read_alerts', $read_alerts );
     }
 
-    $data['follows'] = $follows;
+    $alerts = fictioneer_get_alerts(
+      array(
+        'story_ids' => array_keys( $follows['data'] ?? [] ),
+        'exclude_ids' => $show_read_alerts ? $read_alerts : []
+      )
+    );
+
+    if ( ! empty( $alerts ) ) {
+      $data['alerts'] = array(
+        'items' => $alerts,
+        'read' => is_array( $read_alerts ) ? $read_alerts : [],
+        'showRead' => $show_read_alerts
+      );
+    }
   }
 
   // --- REMINDERS -------------------------------------------------------------
@@ -106,7 +116,7 @@ add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get
 // =============================================================================
 
 /**
- * Delete a user's account via AJAX
+ * AJAX: Delete a user's account.
  *
  * @since 4.5.0
  */
@@ -155,7 +165,7 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
 // =============================================================================
 
 /**
- * Clears all the user's comment subscriptions via AJAX
+ * AJAX: Clear all the user's comment subscriptions.
  *
  * Changes the comment notification validation timestamp, effectively terminating
  * all associated previous comment subscriptions. This is far cheaper than looping
@@ -186,7 +196,7 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comment_subscriptions', 'fictionee
 // =============================================================================
 
 /**
- * Clears all the user's comments via AJAX
+ * AJAX: Clear all the user's comments.
  *
  * Queries all comments of the user and overrides the comment data with
  * garbage, preserving the comment thread integrity.
@@ -250,7 +260,7 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comments', 'fictioneer_ajax_clear_
 // =============================================================================
 
 /**
- * Unset one of the user's OAuth bindings via AJAX
+ * AJAX: Unset one of the user's OAuth bindings.
  *
  * @since 4.0.0
  */
@@ -301,7 +311,7 @@ add_action( 'wp_ajax_fictioneer_ajax_unset_my_oauth', 'fictioneer_ajax_unset_my_
 // =============================================================================
 
 /**
- * Clear all cookies and log out.
+ * AJAX: Clear all cookies and log out.
  *
  * @since 5.27.0
  */
@@ -350,7 +360,7 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_cookies', 'fictioneer_ajax_clear_cook
 // =============================================================================
 
 /**
- * Save bookmarks JSON for user via AJAX
+ * AJAX: Save bookmarks JSON for user.
  *
  * Note: Bookmarks are not evaluated server-side, only stored as JSON string.
  * Everything else happens client-side.

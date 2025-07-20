@@ -3553,6 +3553,40 @@ function fictioneer_render_extra_metabox( $post ) {
     unset( $output['flags_heading'] );
   }
 
+  // Alerts...
+  if ( current_user_can( 'fcn_add_alerts' ) && get_option( 'fictioneer_enable_alerts' ) ) {
+    $output['alert_message_heading'] = '<div class="fictioneer-meta-field-heading">' .
+      _x( 'Alert Message', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
+
+    $output['fictioneer_alert_type'] = fictioneer_get_metabox_select(
+      $post,
+      'fictioneer_alert_type',
+      array(
+        'info' => _x( 'Info', 'Alert type.', 'fictioneer' ),
+        'warning' => _x( 'Warning', 'Alert type.', 'fictioneer' ),
+        'alert' => _x( 'Alert', 'Alert type.', 'fictioneer' )
+      ),
+      array(
+        'description' => __( 'The type affects how the alert is displayed.', 'fictioneer' )
+      )
+    );
+
+    $output['fictioneer_alert_title'] = fictioneer_get_metabox_text(
+      $post,
+      'fictioneer_alert_message',
+      array(
+        'description' => __( 'Custom alert message instead of post title.', 'fictioneer' )
+      )
+    );
+
+    // Checkbox: Add alert on save
+    $output['fictioneer_add_alert'] = fictioneer_get_metabox_checkbox(
+      $post,
+      'fictioneer_add_alert',
+      __( 'Add alert on save', 'fictioneer' )
+    );
+  }
+
   // --- Filters ---------------------------------------------------------------
 
   $output = apply_filters( 'fictioneer_filter_metabox_advanced', $output, $post );
@@ -3735,6 +3769,34 @@ function fictioneer_save_extra_metabox( $post_id ) {
   // Checkbox: Disable padding
   if ( isset( $_POST['fictioneer_disable_page_padding'] ) && current_user_can( 'manage_options' ) ) {
     $fields['fictioneer_disable_page_padding'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_page_padding'] );
+  }
+
+  // Add alert
+  if (
+    current_user_can( 'fcn_add_alerts' ) &&
+    get_option( 'fictioneer_enable_alerts' ) &&
+    isset( $_POST['fictioneer_add_alert'] )
+  ) {
+    $alert_type = fictioneer_sanitize_selection(
+      $_POST['fictioneer_alert_type'] ?? 'info',
+      ['info', 'warning', 'alert'],
+      'info'
+    );
+
+    $alert_message = sanitize_text_field( $_POST['fictioneer_alert_message'] ?? '' );
+
+    error_log( get_post_time( 'Y-m-d H:i:s', false, $post_id ) );
+
+    fictioneer_add_alert(
+      $alert_message ?: fictioneer_get_safe_title( $post_id ),
+      array(
+        'type' => $alert_type,
+        'post_id' => $post_id,
+        'author' => $post_author_id,
+        'url' => get_permalink( $post_id ),
+        'date' => get_post_time( 'Y-m-d H:i:s', false, $post_id )
+      )
+    );
   }
 
   // --- Filters -----------------------------------------------------------------

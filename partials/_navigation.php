@@ -51,7 +51,7 @@ if ( $header_style === 'wide' ) {
 
       <?php do_action( 'fictioneer_navigation_wrapper_start', $args ); ?>
 
-      <button class="mobile-menu-button follows-alert-number" data-fictioneer-follows-target="newDisplay" data-action="click->fictioneer#toggleMobileMenu">
+      <button class="mobile-menu-button" data-fictioneer-alerts-target="newAlertsDisplay" data-action="click->fictioneer#toggleMobileMenu">
         <?php
           fictioneer_icon( 'fa-bars', 'off' );
           fictioneer_icon( 'fa-xmark', 'on' );

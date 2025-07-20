@@ -4,12 +4,17 @@
 
 application.register('fictioneer-follows', class extends Stimulus.Controller {
   static get targets() {
-    return ['toggleButton', 'newDisplay', 'scrollList', 'mobileScrollList', 'mobileMarkRead']
+    return ['toggleButton']
   }
 
   followsLoaded = false;
-  markedRead = false;
   timeout = 0;
+
+  /**
+   * Stimulus Controller initialize lifecycle callback.
+   *
+   * @since 5.27.0
+   */
 
   initialize() {
     if (fcn()?.userReady) {
@@ -22,6 +27,12 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
       });
     }
   }
+
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.27.0
+   */
 
   connect() {
     window.FictioneerApp.Controllers.fictioneerFollows = this;
@@ -46,10 +57,6 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
     return !!(FcnUtils.loggedIn() && this.data()?.[id]);
   }
 
-  unreadCount() {
-    return parseInt(FcnUtils.userData()?.follows?.new ?? 0)
-  }
-
   toggleFollow({ params: { id } }) {
     if (this.#loggedIn()) {
       fcn_toggleFollow(id, !this.isFollowed(id));
@@ -66,6 +73,12 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
     this.refreshView();
   }
 
+  /**
+   * Refresh view with current data.
+   *
+   * @since 5.27.0
+   */
+
   refreshView() {
     this.toggleButtonTargets.forEach(button => {
       const storyId = button.dataset.storyId;
@@ -73,111 +86,7 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
       button.classList.toggle('_followed', this.isFollowed(storyId));
     });
 
-    const unreadCount = this.unreadCount();
-
-    this.newDisplayTargets.forEach(display => {
-      display.classList.toggle('_new', unreadCount > 0);
-
-      if (unreadCount > 0) {
-        display.dataset.newCount = unreadCount;
-
-        if (this.hasMobileMarkReadTarget) {
-          this.mobileMarkReadTarget.classList.remove('hidden');
-        }
-      }
-    });
-
     localStorage.removeItem('fcnBookshelfContent');
-  }
-
-  loadFollowsHtml() {
-    if (this.followsLoaded) {
-      return;
-    }
-
-    FcnUtils.aGet({
-      'action': 'fictioneer_ajax_get_follows_notifications',
-      'fcn_fast_ajax': 1
-    })
-    .then(response => {
-      if (response.data.html) {
-        if (this.hasScrollListTarget) {
-          this.scrollListTarget.innerHTML = response.data.html;
-        }
-
-        if (this.hasMobileScrollListTarget) {
-          this.mobileScrollListTarget.innerHTML = response.data.html;
-        }
-
-        // Use opportunity to fix broken login state
-        if (FcnUtils.userData().loggedIn === false) {
-          fcn().removeUserData();
-          fcn().fetchUserData();
-        }
-      }
-    })
-    .catch(error => {
-      if (error.status === 429) {
-        fcn_showNotification(fictioneer_tl.notification.slowDown, 3, 'warning');
-      } else if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      }
-
-      if (this.hasScrollListTarget) {
-        this.scrollListTarget.remove();
-      }
-
-      if (this.hasMobileScrollListTarget) {
-        this.mobileScrollListTarget.remove();
-      }
-    })
-    .then(() => {
-      this.followsLoaded = true;
-
-      if (this.hasNewDisplayTarget) {
-        this.newDisplayTargets.forEach(display => {
-          display.classList.add('_loaded');
-        });
-      }
-    });
-  }
-
-  markRead() {
-    if ((!this.followsLoaded && this.unreadCount() > 0) || this.markedRead) {
-      return;
-    }
-
-    this.markedRead = true;
-
-    this.newDisplayTargets.forEach(display => {
-      display.classList.remove('_new');
-    });
-
-    _$$('.follow-item').forEach(element => {
-      element.classList.remove('_new');
-    });
-
-    if (this.hasMobileMarkReadTarget) {
-      this.mobileMarkReadTarget.classList.add('hidden');
-    }
-
-    const userData = FcnUtils.userData();
-
-    userData.new = 0;
-    userData.lastLoaded = 0;
-
-    FcnUtils.setUserData(userData);
-
-    // Request
-    FcnUtils.aPost({
-      'action': 'fictioneer_ajax_mark_follows_read',
-      'fcn_fast_ajax': 1
-    })
-    .catch(error => {
-      if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      }
-    });
   }
 
   // =====================
@@ -187,20 +96,42 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
   #ready = false;
   #paused = false;
 
-  #loggedIn() {
-    const loggedIn = FcnUtils.loggedIn();
+  /**
+   * Check whether the user is still logged-in.
+   *
+   * Note: Also stops watchers and intervals.
+   *
+   * @since 5.27.0
+   * @return {boolean} True if logged-in, false otherwise.
+   */
 
-    if (!loggedIn) {
+  #loggedIn() {
+    if (!FcnUtils.loggedIn()) {
       this.#unwatch();
       this.#paused = true;
+
+      return false;
     }
 
-    return loggedIn;
+    return true;
   }
 
-  #userDataChanged() {
+  /**
+   * Check whether the follows data has changed.
+   *
+   * @since 5.27.0
+   * @return {boolean} True if changed and logged-in, false otherwise.
+   */
+
+  #followsDataChanged() {
     return this.#loggedIn() && JSON.stringify(this.followsCachedData ?? 0) !== JSON.stringify(this.data());
   }
+
+  /**
+   * Start refresh interval (if data has changed).
+   *
+   * @since 5.27.0
+   */
 
   #startRefreshInterval() {
     if (this.refreshInterval) {
@@ -208,11 +139,17 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
     }
 
     this.refreshInterval = setInterval(() => {
-      if (!this.#paused && this.#userDataChanged()) {
+      if (!this.#paused && this.#followsDataChanged()) {
         this.refreshView()
       }
     }, 30000 + Math.random() * 1000);
   }
+
+  /**
+   * Watch for window visibility changes to refresh and toggle intervals.
+   *
+   * @since 5.27.0
+   */
 
   #watch() {
     this.#startRefreshInterval();
@@ -233,6 +170,12 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
 
     document.addEventListener('visibilitychange', this.visibilityStateCheck);
   }
+
+  /**
+   * Stop watching for window visibility changes.
+   *
+   * @since 5.27.0
+   */
 
   #unwatch() {
     clearInterval(this.refreshInterval);

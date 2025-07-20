@@ -662,7 +662,6 @@ function fictioneer_admin_profile_clear_data_node() {
       break;
     case 'follows':
       $result = delete_user_meta( $profile_user_id, 'fictioneer_user_follows' );
-      delete_user_meta( $profile_user_id, 'fictioneer_user_follows_cache' );
       break;
     case 'reminders':
       $result = delete_user_meta( $profile_user_id, 'fictioneer_user_reminders' );

@@ -1948,7 +1948,6 @@ function fictioneer_sanitize_checkbox( $value ) {
 
 function fictioneer_sanitize_selection( $value, $allowed_options, $default = null ) {
   $value = sanitize_text_field( $value ?? '' );
-  $value = is_numeric( $value ) ? intval( $value ) : $value;
 
   return in_array( $value, $allowed_options ) ? $value : $default;
 }
@@ -2237,7 +2236,7 @@ function fictioneer_show_auth_content() {
 // =============================================================================
 
 /**
- * Returns selected translations
+ * Return selected translations.
  *
  * Adding theme options for all possible translations would be a pain,
  * so this is done with a function that can be filtered as needed. For

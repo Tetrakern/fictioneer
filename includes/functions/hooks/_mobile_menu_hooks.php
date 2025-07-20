@@ -146,39 +146,34 @@ function fictioneer_mobile_quick_buttons() {
 add_action( 'fictioneer_mobile_menu_bottom', 'fictioneer_mobile_quick_buttons', 10 );
 
 // =============================================================================
-// MOBILE MENU FOLLOWS FRAME
+// MOBILE MENU ALERTS FRAME
 // =============================================================================
 
 /**
- * Adds the Follows frame to the mobile menu
+ * Add the alerts frame to the mobile menu.
  *
  * @since 5.0.0
  */
 
-function fictioneer_mobile_follows_frame() {
+function fictioneer_mobile_alerts_frame() {
   // Start HTML ---> ?>
-  <div id="mobile-frame-follows" class="mobile-menu__frame" data-fictioneer-mobile-menu-target="frame">
-    <div class="mobile-menu__panel mobile-menu__follows-panel">
+  <div id="mobile-frame-alerts" class="mobile-menu__frame" data-fictioneer-mobile-menu-target="frame">
+    <div class="mobile-menu__panel mobile-menu__alerts-panel">
       <div class="mobile-menu__panel-header">
         <button class="mobile-menu__back-button" data-action="click->fictioneer-mobile-menu#back">
           <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
         </button>
-        <button class="mark-follows-read mobile-menu__panel-action-button hidden" data-fictioneer-follows-target="mobileMarkRead" data-action="click->fictioneer-follows#markRead">
-          <i class="fa-solid fa-check"></i>
-        </button>
       </div>
-      <div id="mobile-menu-follows-list" class="mobile-menu__list mobile-follow-notifications"  data-fictioneer-follows-target="mobileScrollList">
-        <div class="mobile-content-is-loading">
-          <i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i>
-        </div>
+      <div id="mobile-menu-alerts-list" class="mobile-menu__list mobile-alerts"  data-fictioneer-alerts-target="mobileAlertList">
+        <div class="alert _no-alerts"><?php _e( 'You have no alerts.', 'fictioneer' ); ?></div>
       </div>
     </div>
   </div>
   <?php // <--- End HTML
 }
 
-if ( get_option( 'fictioneer_enable_follows' ) ) {
-  add_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_follows_frame', 10 );
+if ( get_option( 'fictioneer_enable_alerts' ) ) {
+  add_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_alerts_frame', 10 );
 }
 
 // =============================================================================
@@ -286,7 +281,7 @@ function fictioneer_mobile_lists_panel() {
   // Chapters?
   if ( $post_type === 'fcn_chapter' && fictioneer_get_chapter_story_id( get_the_ID() ) && ! is_search() ) {
     $output['chapters'] = sprintf(
-      '<button class="mobile-menu__frame-button" data-click-action="open-dialog-modal" data-click-target="#fictioneer-chapter-index-dialog"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      '<button class="mobile-menu__frame-button mobile-frame-button-chapters" data-click-action="open-dialog-modal" data-click-target="#fictioneer-chapter-index-dialog"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
       __( 'Chapters', 'fictioneer' )
     );
   }
@@ -294,16 +289,16 @@ function fictioneer_mobile_lists_panel() {
   // Bookmarks?
   if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
     $output['bookmarks'] = sprintf(
-      '<button class="mobile-menu__frame-button" data-action="click->fictioneer-mobile-menu#openFrame click->fictioneer-mobile-menu#setMobileBookmarks" data-fictioneer-mobile-menu-frame-param="bookmarks"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      '<button class="mobile-menu__frame-button mobile-frame-button-bookmarks" data-action="click->fictioneer-mobile-menu#openFrame click->fictioneer-mobile-menu#setMobileBookmarks" data-fictioneer-mobile-menu-frame-param="bookmarks"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
       fcntr( 'bookmarks' )
     );
   }
 
-  // Follows?
-  if ( get_option( 'fictioneer_enable_follows' ) ) {
-    $output['follows'] = sprintf(
-      '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-fictioneer-follows-target="newDisplay" data-frame-target="follows" data-action="click->fictioneer-follows#loadFollowsHtml:once click->fictioneer-mobile-menu#openFrame" data-fictioneer-mobile-menu-frame-param="follows"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
-      fcntr( 'follows' )
+  // Alerts?
+  if ( get_option( 'fictioneer_enable_alerts' ) ) {
+    $output['alerts'] = sprintf(
+      '<button class="mobile-menu__frame-button hide-if-logged-out mobile-frame-button-alerts" data-fictioneer-alerts-target="newAlertsDisplay" data-frame-target="alerts" data-action="click->fictioneer-mobile-menu#openFrame" data-fictioneer-mobile-menu-frame-param="alerts"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      __( 'Alerts', 'fictioneer' )
     );
   }
 

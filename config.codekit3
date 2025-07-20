@@ -2496,6 +2496,19 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/src\/scss\/_alerts.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/scss\/css\/_alerts.css",
+      "oF" : 0,
+      "oS" : 3,
+      "pg" : 0
+    },
     "\/src\/scss\/_archive.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -2583,19 +2596,6 @@
       "ma" : 0,
       "oA" : 1,
       "oAP" : "\/src\/scss\/css\/_cookies.css",
-      "oF" : 0,
-      "oS" : 3,
-      "pg" : 0
-    },
-    "\/src\/scss\/_follows.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/src\/scss\/css\/_follows.css",
       "oF" : 0,
       "oS" : 3,
       "pg" : 0

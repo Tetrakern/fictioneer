@@ -1567,6 +1567,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_CARD_CACHE_EXPIRATION_TIME | integer | Time until the whole story card cache expires in seconds. Default `HOUR_IN_SECONDS`.
 | FICTIONEER_STORY_CARD_CHAPTER_LIMIT | integer | Maximum number of chapters shown on story cards. Default 3.
 | FICTIONEER_OAUTH_COOKIE_EXPIRATION | integer | Expiration time of the OAuth 2.0 login cookie in seconds. Default `259200` (3 days).
+| FICTIONEER_MAX_READ_ALERTS | integer | How many alert IDs are stored as "read" for a user. Default `500`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_SHOW_SEARCH_IN_MENUS | boolean | Whether to show search page links in menus. Default `true`.

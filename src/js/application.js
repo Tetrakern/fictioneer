@@ -714,6 +714,356 @@ function fcn_setUserData(data) {
 }
 
 // =============================================================================
+// ALERTS
+// =============================================================================
+
+application.register('fictioneer-alerts', class extends Stimulus.Controller {
+  static get targets() {
+    return ['navAlertList', 'mobileAlertList', 'newAlertsDisplay']
+  }
+
+  readUpdateStack = [];
+
+  /**
+   * Stimulus Controller initialize lifecycle callback.
+   *
+   * @since 5.31.0
+   */
+
+  initialize() {
+    if (fcn()?.userReady) {
+      this.#ready = true;
+    } else {
+      document.addEventListener('fcnUserDataReady', () => {
+        this.refreshView();
+        this.#ready = true;
+        this.#watch();
+      });
+    }
+  }
+
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.31.0
+   */
+
+  connect() {
+    window.FictioneerApp.Controllers.fictioneerAlerts = this;
+
+    if (this.#ready) {
+      this.refreshView();
+      this.#watch();
+    }
+
+    this.#alertDataChanged();
+    this.#alertDataChanged();
+  }
+
+  data() {
+    this.#cachedAlertData = FcnUtils.userData().alerts;
+
+    if (!this.#cachedAlertData) {
+      this.#cachedAlertData = {};
+    }
+
+    return this.#cachedAlertData;
+  }
+
+  markRead({ currentTarget, params: { id } }) {
+    this.readUpdateStack.push(id);
+
+    _$$(`.alert[data-id="alert-${id}"]`).forEach(alert => alert.classList.remove('unread'));
+
+    _$$('.mobile-menu-button, [data-fictioneer-alerts-target="newAlertsDisplay"]').forEach(element => {
+      const tempNumber = Math.max(0, parseInt(element.dataset.new ?? 0) - 1);
+
+      element.dataset.new = tempNumber;
+      element.classList.toggle('_new', tempNumber > 0);
+    });
+
+    this.#updateAlertReadIcons('fa-solid fa-spinner fa-spin', '--fa-animation-duration: .8s;', [id]);
+
+    clearTimeout(this.readUpdateTimeout);
+
+    if (currentTarget.closest('.alert__content')) {
+      this.#postReadUpdate();
+    } else {
+      this.readUpdateTimeout = setTimeout(() => this.#postReadUpdate(), 1000);
+    }
+  }
+
+  /**
+   * Refresh view with current data.
+   *
+   * @since 5.31.0
+   */
+
+  refreshView() {
+    const alertData = this.data();
+
+    if (!alertData?.items?.length || (!this.hasNavAlertListTarget && !this.hasMobileAlertListTarget)) {
+      return;
+    }
+
+    this.refreshNewAlertsCounts();
+
+    FcnUtils.yieldToMain();
+
+    const fragment = document.createDocumentFragment();
+    const readIds = new Set(alertData.read ?? []);
+
+    for (const alert of alertData.items) {
+      const isRead = readIds.has(alert.id);
+
+      if (isRead && !alertData.showRead) {
+        continue;
+      }
+
+      const wrapper = document.createElement('div');
+
+      wrapper.className = `alert _${alert.type ?? 'info'} ${isRead ? '' : '_unread'}`;
+      wrapper.dataset.id = `alert-${alert.id}`;
+
+      const content = document.createElement('div');
+
+      content.className = 'alert__content';
+      content.innerHTML = alert.url
+        ? `<a href="${alert.url}" data-action="fictioneer-alerts#markRead" data-fictioneer-alerts-id-param="${alert.id}">${alert.content}</a>`
+        : alert.content;
+
+      const meta = document.createElement('div');
+
+      meta.className = 'alert__meta';
+      meta.innerHTML = `<time datetime="${alert.date_gmt}">${alert.date}</time>`;
+
+      const actions = document.createElement( 'div' );
+
+      actions.className = 'alert__actions';
+      actions.innerHTML = `<button class="alert__button-read _no-menu-item-style" type="button" data-action="fictioneer-alerts#markRead" data-fictioneer-alerts-id-param="${alert.id}"><i class="fa-solid fa-xmark" data-alert-icon-id="${alert.id}"></i></button>`;
+
+      wrapper.append(content, meta, actions);
+      fragment.appendChild(wrapper);
+    }
+
+    if (this.hasNavAlertListTarget) {
+      this.navAlertListTarget.innerHTML = '';
+      this.navAlertListTarget.appendChild(fragment.cloneNode(true));
+    }
+
+    if (this.hasMobileAlertListTarget) {
+      this.mobileAlertListTarget.innerHTML = '';
+      this.mobileAlertListTarget.appendChild(fragment);
+    }
+  }
+
+  /**
+   * Get number of unread alerts.
+   *
+   * @since 5.31.0
+   * @return {number} Number of unread alerts.
+   */
+
+  getNewAlertsCount() {
+    const alertData = this.data();
+
+    if (!alertData) {
+      return 0;
+    }
+
+    const read = new Set(alertData.read);
+
+    return alertData.items.filter(obj => !read.has(obj.id)).length;
+  }
+
+  refreshNewAlertsCounts() {
+    const newAlerts = this.getNewAlertsCount();
+
+    // Accounts for old child themes
+    _$$('.mobile-menu-button, [data-fictioneer-alerts-target="newAlertsDisplay"]').forEach(element => {
+      element.dataset.new = newAlerts;
+      element.classList.toggle('_new', newAlerts > 0);
+    });
+  }
+
+  // =====================
+  // ====== PRIVATE ======
+  // =====================
+
+  #ready = false;
+  #paused = false;
+  #cachedAlertData = null;
+
+  /**
+   * Check whether the user is still logged-in.
+   *
+   * Note: Also stops watchers and intervals.
+   *
+   * @since 5.31.0
+   * @return {boolean} True if logged-in, false otherwise.
+   */
+
+  #loggedIn() {
+    if (!FcnUtils.loggedIn()) {
+      this.#unwatch();
+      this.#paused = true;
+
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Check whether the alert data has changed.
+   *
+   * @since 5.31.0
+   * @return {boolean} True if changed and logged-in, false otherwise.
+   */
+
+  #alertDataChanged() {
+    return this.#loggedIn() && JSON.stringify(this.#cachedAlertData) !== JSON.stringify(this.data());
+  }
+
+  /**
+   * Start refresh interval (if data has changed).
+   *
+   * @since 5.31.0
+   */
+
+  #startRefreshInterval() {
+    if (this.refreshInterval) {
+      return;
+    }
+
+    this.refreshInterval = setInterval(() => {
+      if (!this.#paused && this.#alertDataChanged()) {
+        this.refreshView();
+      }
+    }, 30000 + Math.random() * 1000);
+  }
+
+  /**
+   * Watch for window visibility changes to refresh and toggle intervals.
+   *
+   * @since 5.31.0
+   */
+
+  #watch() {
+    this.#startRefreshInterval();
+
+    this.visibilityStateCheck = () => {
+      if (this.#loggedIn()) {
+        if (document.visibilityState === 'visible') {
+          this.#paused = false;
+          this.refreshView();
+          this.#startRefreshInterval();
+        } else {
+          this.#paused = true;
+          clearInterval(this.refreshInterval);
+          this.refreshInterval = null;
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', this.visibilityStateCheck);
+  }
+
+  /**
+   * Stop watching for window visibility changes.
+   *
+   * @since 5.31.0
+   */
+
+  #unwatch() {
+    clearInterval(this.refreshInterval);
+    document.removeEventListener('visibilitychange', this.visibilityStateCheck);
+  }
+
+  /**
+   * Post read alert IDs to server.
+   *
+   * @since 5.31.0
+   */
+
+  #postReadUpdate() {
+    const userData = FcnUtils.userData();
+    const newIds = this.readUpdateStack;
+
+    if (!userData.alerts) {
+      return;
+    }
+
+    if (!Array.isArray(userData.alerts.read)) {
+      userData.alerts.read = [];
+    }
+
+    userData.alerts.read = Array.from(
+      new Set(
+        [...userData.alerts.read, ...newIds].map(v => parseInt(v, 10)).filter(n => Number.isInteger(n))
+      )
+    );
+
+    userData.lastLoaded = 0;
+
+    FcnUtils.setUserData(userData);
+
+    FcnUtils.aPost({
+      'action': 'fictioneer_ajax_mark_alert_read',
+      'fcn_fast_ajax': 1,
+      'ids': userData.alerts.read
+    })
+    .then(response => {
+      if (response.success) {
+        this.#updateAlertReadIcons('fa-solid fa-check', null, newIds);
+      } else {
+        this.#updateAlertReadIcons('fa-solid fa-triangle-exclamation', null, newIds);
+      }
+    })
+    .catch(error => {
+      this.#updateAlertReadIcons('fa-solid fa-triangle-exclamation', null, newIds);
+
+      if (error.status && error.statusText) {
+        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
+      }
+    });
+
+    this.readUpdateStack = [];
+    this.#cachedAlertData = userData.alerts;
+    this.refreshNewAlertsCounts();
+  }
+
+  /**
+   * Update the "mark as read" button icon.
+   *
+   * @since 5.31.0
+   * @param {string} icon - FontAwesome CSS classes.
+   * @param {string|null} style - Optional. Content for inline style attribute.
+   *                              Will remove the inline style if null.
+   * @param {integer[]|null} ids - Optional. Array of alert IDs to target specific icons.
+   *                               Defaults to this.readUpdateStack or an empty array.
+   */
+
+  #updateAlertReadIcons(icon, style = null, ids = null) {
+    ids = ids ?? this.readUpdateStack ?? [];
+
+    ids.forEach(id => {
+      const elements = _$$(`[data-alert-icon-id="${id}"]`);
+
+      elements.forEach(element => {
+        element.classList = icon;
+
+        if (style) {
+          element.setAttribute('style', style);
+        } else {
+          element.removeAttribute('style');
+        }
+      });
+    });
+  }
+});
+
+// =============================================================================
 // CLEANUPS
 // =============================================================================
 

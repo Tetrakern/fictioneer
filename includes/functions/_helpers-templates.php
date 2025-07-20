@@ -6,7 +6,7 @@
 
 if ( ! function_exists( 'fictioneer_get_excerpt' ) ) {
   /**
-   * Returns the excerpt with theme adjustments
+   * Return the excerpt with theme adjustments.
    *
    * @since 5.0.0
    * @since 5.21.2 - Add optional $post parameter.
@@ -27,7 +27,7 @@ if ( ! function_exists( 'fictioneer_get_excerpt' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_limited_excerpt' ) ) {
   /**
-   * Returns excerpt with maximum length in characters
+   * Return excerpt with maximum length in characters.
    *
    * @since 3.0
    *
@@ -52,7 +52,7 @@ if ( ! function_exists( 'fictioneer_get_limited_excerpt' ) ) {
 
 if ( ! function_exists( 'fictioneer_first_paragraph_as_excerpt' ) ) {
   /**
-   * Returns the first paragraph of the content as excerpt
+   * Return the first paragraph of the content as excerpt.
    *
    * @since 3.0
    *
@@ -71,7 +71,7 @@ if ( ! function_exists( 'fictioneer_first_paragraph_as_excerpt' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_forced_excerpt' ) ) {
   /**
-   * Returns the excerpt even if the post is protected
+   * Return the excerpt even if the post is protected.
    *
    * @since 4.5.0
    *
@@ -108,7 +108,7 @@ if ( ! function_exists( 'fictioneer_get_forced_excerpt' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
   /**
-   * Returns an author's display name as link to public profile
+   * Return an author's display name as link to public profile.
    *
    * @since 4.0.0
    *
@@ -133,7 +133,7 @@ if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
   /**
-   * Returns the HTML for the authors
+   * Return the HTML for the authors.
    *
    * @since 5.0.0
    *
@@ -166,7 +166,7 @@ if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_story_author_nodes' ) ) {
   /**
-   * Returns the HTML for the authors on story pages
+   * Return the HTML for the authors on story pages.
    *
    * @since 5.0.0
    *
@@ -187,7 +187,7 @@ if ( ! function_exists( 'fictioneer_get_story_author_nodes' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_chapter_author_nodes' ) ) {
   /**
-   * Returns the HTML for the authors on chapter pages
+   * Return the HTML for the authors on chapter pages.
    *
    * @since 5.0.0
    *
@@ -213,7 +213,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_author_nodes' ) ) {
 
 if ( ! function_exists( 'fictioneer_icon' ) ) {
   /**
-   * Outputs the HTML for an inline svg icon
+   * Output the HTML for an inline svg icon.
    *
    * @since 4.0.0
    *
@@ -230,7 +230,7 @@ if ( ! function_exists( 'fictioneer_icon' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_icon' ) ) {
   /**
-   * Returns the HTML for an inline svg icon
+   * Return the HTML for an inline svg icon.
    *
    * Uses a similar structure to Font Awesome but inserts an external svg
    * via the <use> tag. The version is added as query variable for cache
@@ -259,7 +259,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
   /**
-   * Returns the sanitized title and accounts for empty strings
+   * Return the sanitized title and accounts for empty strings.
    *
    * @since 4.7.0
    * @since 5.12.0 - Added $context and $args parameters.
@@ -295,7 +295,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
 }
 
 /**
- * Returns sanitized safe title
+ * Return sanitized safe title.
  *
  * @since 5.7.1
  *
@@ -321,7 +321,7 @@ function fictioneer_sanitize_safe_title( $title, $date, $time ) {
 }
 
 /**
- * Prepends icon to sanitized titles of sticky blog posts
+ * Prepend icon to sanitized titles of sticky blog posts.
  *
  * @since 5.7.1
  *
@@ -343,7 +343,7 @@ function fictioneer_prefix_sticky_safe_title( $title, $id ) {
 add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_sticky_safe_title', 10, 2 );
 
 /**
- * Prepends icon to sanitized titles of protected blog posts
+ * Prepend icon to sanitized titles of protected blog posts.
  *
  * @since 5.7.3
  *
@@ -365,7 +365,7 @@ function fictioneer_prefix_protected_safe_title( $title, $id ) {
 add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_protected_safe_title', 10, 2 );
 
 /**
- * Prepends "Draft:" to sanitized titles of drafts
+ * Prepend "Draft:" to sanitized titles of drafts.
  *
  * @since 5.7.1
  *
@@ -392,7 +392,7 @@ add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title'
 
 if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
   /**
-   * Returns the HTML for the reading time nodes
+   * Return the HTML for the reading time nodes.
    *
    * Returns the estimated reading time for a given amount of words in two nodes,
    * a long one for desktop and a short one for mobile.
@@ -2408,15 +2408,16 @@ function fictioneer_render_icon_menu( $args ) {
 
   if (
     $location === 'in-navigation' &&
-    get_option( 'fictioneer_enable_follows' ) &&
-    fictioneer_show_auth_content()
+    fictioneer_show_auth_content() &&
+    get_option( 'fictioneer_enable_alerts' )
   ) {
-    $output['follows'] = sprintf(
-      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><button id="follow-menu-button" class="icon-menu__item _with-submenu follow-menu-item follows-alert-number mark-follows-read" aria-label="%1$s" data-fictioneer-follows-target="newDisplay" data-action="mouseover->fictioneer-follows#loadFollowsHtml:once focus->fictioneer-follows#loadFollowsHtml:once click->fictioneer-follows#markRead">%2$s<i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i><span class="follow-menu-item__read">%3$s</span></button><div class="follow-notifications sub-menu"><div id="follow-menu-scroll" class="follow-notifications__scroll" data-fictioneer-follows-target="scrollList"><div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">%4$s</div></div></div></div></div></div>',
-      esc_attr__( 'Mark follows as read', 'fictioneer' ),
+    $output['alerts'] = sprintf(
+      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out">
+        <button type="button" id="alerts-menu-button" class="icon-menu__item _with-submenu alerts-menu-item alerts-number" data-fictioneer-alerts-target="newAlertsDisplay">%1$s</button>
+        <div class="alerts sub-menu" data-fictioneer-alerts-target="navAlertList"><div class="alert _no-alerts">%2$s</div></div>
+      </div>',
       fictioneer_get_icon( 'fa-bell' ),
-      _x( 'Read', 'Mark as read button.', 'fictioneer' ),
-      __( 'Looking for updates...', 'fictioneer' )
+      __( 'You have no alerts.', 'fictioneer' )
     );
   }
 

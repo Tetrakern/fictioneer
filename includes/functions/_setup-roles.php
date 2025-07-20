@@ -38,7 +38,8 @@ define(
     'fcn_unlock_posts',
     'fcn_expire_passwords',
     'fcn_crosspost',
-    'fcn_status_override'
+    'fcn_status_override',
+    'fcn_add_alerts'
   )
 );
 
@@ -99,13 +100,14 @@ function fictioneer_initialize_roles( $force = false ) {
   }
 
   // If this capability is missing, the roles need to be updated
-  if ( $administrator && ! in_array( 'fcn_status_override', array_keys( $administrator->capabilities ) ) ) {
+  if ( $administrator && ! in_array( 'fcn_add_alerts', array_keys( $administrator->capabilities ) ) ) {
     get_role( 'administrator' )->add_cap( 'fcn_custom_page_header' );
     get_role( 'administrator' )->add_cap( 'fcn_custom_epub_upload' );
     get_role( 'administrator' )->add_cap( 'fcn_unlock_posts' );
     get_role( 'administrator' )->add_cap( 'fcn_expire_passwords' );
     get_role( 'administrator' )->add_cap( 'fcn_crosspost' );
     get_role( 'administrator' )->add_cap( 'fcn_status_override' );
+    get_role( 'administrator' )->add_cap( 'fcn_add_alerts' );
 
     if ( $editor = get_role( 'editor' ) ) {
       $editor->add_cap( 'fcn_custom_page_header' );

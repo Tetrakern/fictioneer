@@ -619,6 +619,9 @@ function fictioneer_theme_deactivation() {
     // SQL to delete all comment meta starting with "fictioneer_"
     $wpdb->query( "DELETE FROM {$wpdb->commentmeta} WHERE meta_key LIKE 'fictioneer_%'" );
 
+    // SQL to delete all alerts
+    $wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . 'fcn_alerts' );
+
     // Reset user roles
     remove_role( 'fcn_moderator' );
   }
@@ -713,6 +716,7 @@ function fcntr_admin( $key, $escape = false ) {
       'fcn_expire_passwords' => _x( 'Expire Passwords', 'Capability translation', 'fictioneer' ),
       'fcn_crosspost' => _x( 'Crosspost', 'Capability translation', 'fictioneer' ),
       'fcn_status_override' => _x( 'Status Override', 'Capability translation', 'fictioneer' ),
+      'fcn_add_alerts' => _x( 'Add Alerts', 'Capability translation', 'fictioneer' ),
       'fcn_reduced_profile' => _x( 'Reduced Profile', 'Capability translation', 'fictioneer' ),
       'fcn_only_moderate_comments' => _x( 'Only Moderate Comments', 'Capability translation', 'fictioneer' ),
       'fcn_upload_limit' => _x( 'Upload Limit', 'Capability translation', 'fictioneer' ),

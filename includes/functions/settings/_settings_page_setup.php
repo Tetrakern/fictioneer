@@ -84,9 +84,15 @@
         );
 
         fictioneer_settings_setup_card(
+          'fictioneer_enable_alerts',
+          __( 'Enable on-site alerts for updates?', 'fictioneer' ),
+          __( 'With this feature enabled, logged-in users will get on-site update alerts for followed stories (separate feature) and other selected posts. Note that this will increase your server load.', 'fictioneer' )
+        );
+
+        fictioneer_settings_setup_card(
           'fictioneer_enable_follows',
           __( 'Enable logged-in users to follow stories?', 'fictioneer' ),
-          __( 'With this feature enabled, logged-in users can "follow" a story to receive on-site update notifications and track the story in their bookshelf (if set up). This feature is more useful if you host many ongoing stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' )
+          __( 'With this feature enabled, logged-in users can "follow" a story to receive on-site update alerts (separate feature) and track the story in their bookshelf (if set up). This feature is more useful if you host many ongoing stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(

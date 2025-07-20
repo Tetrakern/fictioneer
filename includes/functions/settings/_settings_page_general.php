@@ -138,6 +138,15 @@ $images = get_template_directory_uri() . '/img/documentation/';
                 ?></p>
               </div>
 
+              <div class="fictioneer-card__row fictioneer-card__row--inline-input">
+                <p class="fictioneer-inline-text-input"><?php
+                  printf(
+                    __( '<span>Use</span> %s <span>for alert date formats (<code>Y-m-d H:i</code>).</span>', 'fictioneer' ),
+                    '<input name="fictioneer_alert_date_format" type="text" id="fictioneer_alert_date_format" value="' . esc_attr( get_option( 'fictioneer_alert_date_format', 'Y-m-d H:i' ) ) . '" style="font-family: Consolas, Monaco, monospace; font-size: 87.5%; text-align: center;" size="8" placeholder="Y-m-d H:i">'
+                  );
+                ?></p>
+              </div>
+
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_text_input(
@@ -380,11 +389,21 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_alerts',
+                    __( 'Enable alerts (requires account)', 'fictioneer' ),
+                    __( 'Show dropdown menu with on-site alerts for updates.', 'fictioneer' ),
+                    __( 'With this feature enabled, logged-in users will get on-site update alerts for followed stories (separate feature) and other selected posts. Note that this will increase your server load.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_follows',
                     __( 'Enable Follows (requires account)', 'fictioneer' ),
                     __( 'Follow stories and get on-site alerts for updates.', 'fictioneer' ),
-                    __( 'With this feature enabled, logged-in users can "follow" a story to receive on-site update notifications and track the story in their bookshelf (if set up). This feature is more useful if you host many ongoing stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' ),
-                    '<div class="helper-modal-image"><img src="' . $images . 'fictioneer_enable_follows.jpg"></div>'
+                    __( 'With this feature enabled, logged-in users can "follow" a story to receive on-site update alerts (separate feature) and track the story in their bookshelf (if set up). This feature is more useful if you host many ongoing stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' )
                   );
                 ?>
               </div>

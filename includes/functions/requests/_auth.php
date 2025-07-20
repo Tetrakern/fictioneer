@@ -123,7 +123,7 @@ function ffcnr_is_editor( $user ) {
 }
 
 /**
- * Returns a user's Follows
+ * Return a user's Follows.
  *
  * @since 5.27.0
  * @see includes/functions/users/_follows.php
@@ -156,52 +156,6 @@ function fictioneer_load_follows( $user ) {
 
   // Return
   return $follows;
-}
-
-/**
- * Query count of new chapters for followed stories
- *
- * @since 5.27.0
- * @see includes/functions/users/_follows.php
- *
- * @param array       $story_ids   IDs of the followed stories.
- * @param string|null $after_date  Optional. Only return chapters after this date,
- *                                 e.g. wp_date( 'Y-m-d H:i:s', $timestamp, 'gmt' ).
- * @param int         $count       Optional. Maximum number of chapters. Default 99.
- *
- * @return array Number of new chapters found.
- */
-
-function fictioneer_query_new_followed_chapters_count( $story_ids, $after_date = null, $count = 99 ) {
-  global $wpdb;
-
-  $story_ids = array_map( 'absint', $story_ids );
-
-  if ( empty( $story_ids ) ) {
-    return 0;
-  }
-
-  $story_ids_placeholder = implode( ',', array_fill( 0, count( $story_ids ), '%d' ) );
-
-  $sql = "
-    SELECT COUNT(p.ID) as count
-    FROM {$wpdb->posts} p
-    INNER JOIN {$wpdb->postmeta} pm_story ON p.ID = pm_story.post_id
-    LEFT JOIN {$wpdb->postmeta} pm_hidden ON p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden'
-    WHERE p.post_type = 'fcn_chapter'
-      AND p.post_status = 'publish'
-      AND pm_story.meta_key = 'fictioneer_chapter_story'
-      AND pm_story.meta_value IN ({$story_ids_placeholder})
-      AND (pm_hidden.meta_key IS NULL OR pm_hidden.meta_value = '0')
-  ";
-
-  if ( $after_date ) {
-    $sql .= " AND p.post_date_gmt > %s";
-  }
-
-  $query_args = array_merge( $story_ids, $after_date ? [ $after_date ] : [] );
-
-  return min( (int) $wpdb->get_var( $wpdb->prepare( $sql, $query_args ) ), $count );
 }
 
 /**
@@ -298,6 +252,196 @@ function fictioneer_get_user_fingerprint( $user ) {
   return $fingerprint;
 }
 
+/**
+ * Get alerts.
+ *
+ * @since 5.31.0
+ *
+ * @global wpdb $wpdb  WordPress database object.
+ *
+ * @param array|null $args  Optional. Additional query arguments.
+ *
+ * @return array Queried alerts.
+ */
+
+function fictioneer_get_alerts( $args = [] ) {
+  global $wpdb;
+
+  $defaults = [
+    'types' => [],
+    'post_ids' => [],
+    'story_ids' => [],
+    'author' => null,
+    'roles' => [],
+    'user_ids' => [],
+    'tags' => [],
+    'only_ids' => false
+  ];
+
+  $args = wp_parse_args( $args, $defaults );
+
+  $table = $wpdb->prefix . 'fcn_alerts';
+  $fields = $args['only_ids'] ? 'ID' : 'ID, type, content, url'; // 'date, date_gmt' will be appended
+  $global_types = ['info', 'alert', 'warning'];
+  $has_filters = false;
+  $params = [];
+  $filtered_where = [];
+  $filtered_params = [];
+
+  if ( ! empty( $args['types'] ) ) {
+    $types = array_filter( array_map( 'sanitize_key', $args['types'] ) );
+
+    if ( $types ) {
+      $has_filters = true;
+      $placeholders = implode( ', ', array_fill( 0, count( $types ), '%s' ) );
+      $filtered_where[] = "type IN ({$placeholders})";
+      $filtered_params = array_merge( $filtered_params, $types );
+    }
+  }
+
+  if ( ! empty( $args['post_ids'] ) ) {
+    $post_ids = array_filter( array_map( 'intval', $args['post_ids'] ) );
+    $post_ids = array_filter( $post_ids, function( $value ) { return $value > 0; } );
+
+    if ( $post_ids ) {
+      $has_filters = true;
+      $placeholders = implode( ', ', array_fill( 0, count( $post_ids ), '%d' ) );
+      $filtered_where[] = "post_id IN ({$placeholders})";
+      $filtered_params = array_merge( $filtered_params, $post_ids );
+    }
+  }
+
+  if ( ! empty( $args['story_ids'] ) ) {
+    $story_ids = array_filter( array_map( 'intval', $args['story_ids'] ) );
+    $story_ids = array_filter( $story_ids, function( $value ) { return $value > 0; } );
+
+    if ( $story_ids ) {
+      $has_filters = true;
+      $placeholders = implode( ', ', array_fill( 0, count( $story_ids ), '%d' ) );
+      $filtered_where[] = "story_id IN ({$placeholders})";
+      $filtered_params = array_merge( $filtered_params, $story_ids );
+    }
+  }
+
+  if ( isset( $args['author'] ) && is_numeric( $args['author'] ) && $args['author'] > 0 ) {
+    $has_filters = true;
+    $filtered_where[] = $wpdb->prepare( 'author = %d', (int) $args['author'] );
+  }
+
+  if ( ! empty( $args['roles'] ) ) {
+    $role_where = ['roles IS NULL'];
+
+    foreach ( $args['roles'] as $role ) {
+      $role = sanitize_key( $role );
+
+      if ( $role ) {
+        $has_filters = true;
+        $role_where[] = $wpdb->prepare( 'roles LIKE %s', '%"' . $role . '";%' );
+      }
+    }
+
+    $filtered_where[] = '( ' . implode( ' OR ', $role_where ) . ' )';
+  } else {
+    $filtered_where[] = 'roles IS NULL';
+  }
+
+  if ( ! empty( $args['user_ids'] ) ) {
+    $user_where = ['users IS NULL'];
+
+    foreach ( $args['user_ids'] as $user_id ) {
+      $user_id = max( intval( $user_id ), 0 );
+
+      if ( $user_id > 0 ) {
+        $has_filters = true;
+        $user_where[] = $wpdb->prepare( 'users LIKE %s', '%"' . $user_id . '";%' );
+      }
+    }
+
+    $filtered_where[] = '( ' . implode( ' OR ', $user_where ) . ' )';
+  } else {
+    $filtered_where[] = 'users IS NULL';
+  }
+
+  if ( ! empty( $args['tags'] ) ) {
+    $tag_where = ['tags IS NULL'];
+
+    foreach ( $args['tags'] as $tag ) {
+      $tag = sanitize_key( $tag );
+
+      if ( $tag ) {
+        $has_filters = true;
+        $tag_where[] = $wpdb->prepare( 'tags LIKE %s', '%"' . $tag . '";%' );
+      }
+    }
+
+    $filtered_where[] = '( ' . implode( ' OR ', $tag_where ) . ' )';
+  } else {
+    $filtered_where[] = 'tags IS NULL';
+  }
+
+  if ( ! empty( $args['since'] ) ) {
+    $has_filters = true;
+
+    $since = is_numeric( $args['since'] )
+      ? gmdate( 'Y-m-d H:i:s', (int) $args['since'] )
+      : sanitize_text_field( $args['since'] );
+
+    $filtered_where[] = $wpdb->prepare( 'date_gmt >= %s', $since );
+  }
+
+  $filtered_where[] = $wpdb->prepare( 'date_gmt <= %s', gmdate( 'Y-m-d H:i:s' ) );
+
+  if ( $has_filters ) {
+    $sql_filtered = "SELECT {$fields}, date, date_gmt FROM $table";
+
+    if ( $filtered_where ) {
+      $sql_filtered .= ' WHERE ' . implode( ' AND ', $filtered_where );
+    }
+
+    $placeholders = implode( ', ', array_fill( 0, count( $global_types ), '%s' ) );
+    $sql_global = "SELECT {$fields}, date, date_gmt FROM $table WHERE type IN ($placeholders) AND date_gmt <= %s";
+    $params = array_merge( $filtered_params, $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
+
+    $sql = "($sql_filtered) UNION ALL ($sql_global) ORDER BY date_gmt DESC LIMIT 99";
+  } else {
+    $placeholders = implode( ', ', array_fill( 0, count( $global_types ), '%s' ) );
+    $params = array_merge( $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
+
+    $sql = "SELECT {$fields}, date, date_gmt FROM $table WHERE type IN ($placeholders) AND date_gmt <= %s ORDER BY date_gmt DESC LIMIT 99";
+  }
+
+  $results = $wpdb->get_results( $wpdb->prepare( $sql, ...$params ), ARRAY_A );
+
+  if ( empty( $results ) ) {
+    return [];
+  }
+
+  $exclude_ids = array_map( 'intval', (array) ( $args['exclude_ids'] ?? [] ) );
+  $date_format = ffcnr_get_option( 'fictioneer_alert_date_format', 'Y-m-d H:i' ) ?: 'Y-m-d H:i';
+  $filtered_results = [];
+
+  foreach ( $results as &$row ) {
+    if ( in_array( (int) $row['ID'], $exclude_ids ) ) {
+      continue;
+    }
+
+    if ( $args['only_ids'] ) {
+      $filtered_results[] = (int) $row['ID'];
+    } else {
+      $row['id'] = (int) $row['ID'];
+      unset( $row['ID'] );
+
+      $timestamp = strtotime( $row['date_gmt'] );
+
+      $row['date'] = wp_date( $date_format, $timestamp );
+
+      $filtered_results[] = $row;
+    }
+  }
+
+  return $filtered_results;
+}
+
 // =============================================================================
 // GET USER DATA
 // =============================================================================
@@ -308,7 +452,8 @@ function ffcnr_get_user_data() {
   // Load options
   $options = ffcnr_load_options([
     'fictioneer_enable_reminders', 'fictioneer_enable_checkmarks',
-    'fictioneer_enable_bookmarks', 'fictioneer_enable_follows'
+    'fictioneer_enable_bookmarks', 'fictioneer_enable_follows',
+    'fictioneer_enable_alerts', 'fictioneer_alert_date_format'
   ]);
 
   // Setup
@@ -346,25 +491,33 @@ function ffcnr_get_user_data() {
     );
   }
 
-  // --- FOLLOWS ---------------------------------------------------------------
+  // --- ALERTS ---------------------------------------------------------------
 
-  if ( $logged_in && $options['fictioneer_enable_follows'] ) {
-    $follows = fictioneer_load_follows( $user );
-    $follows['new'] = false;
+  if ( $logged_in && $options['fictioneer_enable_alerts'] ) {
+    $follows = $options['fictioneer_enable_follows'] ? fictioneer_load_follows( $user ) : [];
 
-    // New notifications?
-    if ( count( $follows['data'] ) > 0 ) {
-      $latest_count = fictioneer_query_new_followed_chapters_count(
-        array_keys( $follows['data'] ),
-        wp_date( 'Y-m-d H:i:s', $follows['seen'] / 1000, new DateTimeZone( 'UTC' ) )
-      );
+    $read_alerts = ffcnr_get_user_meta( $user->ID, 'fictioneer_read_alerts', 'fictioneer' ) ?: [];
+    $show_read_alerts = ffcnr_get_user_meta( $user->ID, 'fictioneer_show_read_alerts', 'fictioneer' ) ? true : false;
 
-      if ( $latest_count > 0 ) {
-        $follows['new'] = $latest_count;
-      }
+    if ( ! is_array( $read_alerts ) ) {
+      $read_alerts = [];
+      ffcnr_update_user_meta( $user->ID, 'fictioneer_read_alerts', $read_alerts );
     }
 
-    $data['follows'] = $follows;
+    $alerts = fictioneer_get_alerts(
+      array(
+        'story_ids' => array_keys( $follows['data'] ?? [] ),
+        'exclude_ids' => $show_read_alerts ? $read_alerts : []
+      )
+    );
+
+    if ( ! empty( $alerts ) ) {
+      $data['alerts'] = array(
+        'items' => $alerts,
+        'read' => is_array( $read_alerts ) ? $read_alerts : [],
+        'showRead' => $show_read_alerts
+      );
+    }
   }
 
   // --- REMINDERS -------------------------------------------------------------

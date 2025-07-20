@@ -308,6 +308,16 @@ if ( ! defined( 'FICTIONEER_OAUTH_COOKIE_EXPIRATION' ) ) {
   define( 'FICTIONEER_OAUTH_COOKIE_EXPIRATION', 3 * DAY_IN_SECONDS );
 }
 
+// Integer: Only remember the latest X read alert IDs
+if ( ! defined( 'FICTIONEER_MAX_READ_ALERTS' ) ) {
+  define( 'FICTIONEER_MAX_READ_ALERTS', 500 );
+}
+
+// Integer: Expiration threshold for alerts
+if ( ! defined( 'FICTIONEER_ALERT_EXPIRATION_DAYS' ) ) {
+  define( 'FICTIONEER_ALERT_EXPIRATION_DAYS', 90 * DAY_IN_SECONDS );
+}
+
 /*
  * Booleans
  */
@@ -469,6 +479,12 @@ require_once __DIR__ . '/includes/functions/_service-caching.php';
  */
 
 require_once __DIR__ . '/includes/functions/_service-posts.php';
+
+/**
+ * Add notifications feature.
+ */
+
+require_once __DIR__ . '/includes/functions/_module-alerts.php';
 
 /**
  * Set up the theme customizer.

@@ -818,6 +818,24 @@ const FcnUtils = {
         editor.innerHTML += content;
         break;
     }
+  },
+
+  /**
+   * Polyfill for scheduler.yield().
+   *
+   * @since 5.31.0
+   * @link https://web.dev/articles/optimize-long-tasks
+   */
+
+  yieldToMain () {
+    if (globalThis.scheduler?.yield) {
+      return scheduler.yield();
+    }
+
+    // Fall back to yielding with setTimeout.
+    return new Promise(resolve => {
+      setTimeout(resolve, 0);
+    });
   }
 };
 

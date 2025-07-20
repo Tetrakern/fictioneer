@@ -278,17 +278,6 @@ body:not(.mobile-menu-open) {
     }
   }
 
-  .follows-alert-number {
-    &._new {
-      &::after {
-        position: relative;
-        top: -6px;
-        right: -2px;
-        display: inline-flex;
-      }
-    }
-  }
-
   .mobile-navigation {
     li {
       &:not(:last-child) {
