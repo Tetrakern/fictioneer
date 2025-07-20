@@ -813,12 +813,16 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
     const fragment = document.createDocumentFragment();
     const readIds = new Set(alertData.read ?? []);
 
+    let hasAlerts = false;
+
     for (const alert of alertData.items) {
       const isRead = readIds.has(alert.id);
 
       if (isRead && !alertData.showRead) {
         continue;
       }
+
+      hasAlerts = true;
 
       const wrapper = document.createElement('div');
 
@@ -846,12 +850,12 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
       fragment.appendChild(wrapper);
     }
 
-    if (this.hasNavAlertListTarget) {
+    if (hasAlerts && this.hasNavAlertListTarget) {
       this.navAlertListTarget.innerHTML = '';
       this.navAlertListTarget.appendChild(fragment.cloneNode(true));
     }
 
-    if (this.hasMobileAlertListTarget) {
+    if (hasAlerts && this.hasMobileAlertListTarget) {
       this.mobileAlertListTarget.innerHTML = '';
       this.mobileAlertListTarget.appendChild(fragment);
     }
