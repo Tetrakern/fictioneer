@@ -3775,7 +3775,8 @@ function fictioneer_save_extra_metabox( $post_id ) {
   if (
     current_user_can( 'fcn_add_alerts' ) &&
     get_option( 'fictioneer_enable_alerts' ) &&
-    isset( $_POST['fictioneer_add_alert'] )
+    isset( $_POST['fictioneer_add_alert'] ) &&
+    fictioneer_sanitize_checkbox( $_POST['fictioneer_add_alert'] )
   ) {
     $alert_type = fictioneer_sanitize_selection(
       $_POST['fictioneer_alert_type'] ?? 'info',
