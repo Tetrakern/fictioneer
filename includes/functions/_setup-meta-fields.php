@@ -3784,6 +3784,9 @@ function fictioneer_save_extra_metabox( $post_id ) {
     );
 
     $alert_message = sanitize_text_field( $_POST['fictioneer_alert_message'] ?? '' );
+    $alert_date = get_post_time( 'U', true, $post_id ) > time()
+      ? get_post_time( 'Y-m-d H:i:s', false, $post_id )
+      : current_time( 'mysql', false );
 
     fictioneer_add_alert(
       $alert_message ?: fictioneer_get_safe_title( $post_id ),
@@ -3792,7 +3795,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
         'post_id' => $post_id,
         'author' => $post_author_id,
         'url' => get_permalink( $post_id ),
-        'date' => get_post_time( 'Y-m-d H:i:s', false, $post_id )
+        'date' => $alert_date
       )
     );
   }
