@@ -61,7 +61,7 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
                         continue;
                       }
 
-                      $root = $data['in_child_theme'] ? get_template_directory() : get_stylesheet_directory();
+                      $root = $data['in_child_theme'] ? get_stylesheet_directory() : get_template_directory();
                       $dir = $root . $data['dir'];
                       $files = scandir( $dir, SCANDIR_SORT_DESCENDING );
                       $valid_extensions = ['woff', 'woff2', 'ttf', 'otf', 'eot', 'svg', 'fon'];
