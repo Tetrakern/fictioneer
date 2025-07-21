@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-20 20:34+0000\n"
+"POT-Creation-Date: 2025-07-21 09:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -798,12 +798,12 @@ msgid "Account"
 msgstr ""
 
 #: includes/functions/_setup-theme.php:2202
-#: includes/functions/users/_admin-profile.php:893
+#: includes/functions/users/_admin-profile.php:908
 msgid "Account already linked to another profile."
 msgstr ""
 
 #: partials/account/_oauth.php:45
-#: includes/functions/users/_admin-profile.php:2083
+#: includes/functions/users/_admin-profile.php:2114
 msgid "Account Bindings"
 msgstr ""
 
@@ -994,55 +994,55 @@ msgstr ""
 msgid "Admin Capabilities (Danger)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1803
+#: includes/functions/users/_admin-profile.php:1834
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Active Patron:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1796
+#: includes/functions/users/_admin-profile.php:1827
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Data Valid:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1819
+#: includes/functions/users/_admin-profile.php:1850
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Last Charge Date:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1826
+#: includes/functions/users/_admin-profile.php:1857
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Last Charge Status:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1812
+#: includes/functions/users/_admin-profile.php:1843
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Lifetime Support Cents:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1833
+#: includes/functions/users/_admin-profile.php:1864
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Next Charge Date:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1852
+#: includes/functions/users/_admin-profile.php:1883
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Tier:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1768
+#: includes/functions/users/_admin-profile.php:1799
 msgctxt "Admin profile Patreon section."
 msgid "Expired (reauthenticate with Patreon)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1771
-#: includes/functions/users/_admin-profile.php:1773
+#: includes/functions/users/_admin-profile.php:1802
+#: includes/functions/users/_admin-profile.php:1804
 msgctxt "Admin profile Patreon section."
 msgid "Never"
 msgstr ""
@@ -1633,7 +1633,7 @@ msgstr ""
 msgid "Allow commenting on scheduled posts"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1558
+#: includes/functions/users/_admin-profile.php:1589
 msgid ""
 "Allow the user to ignore the password of selected posts. Chapters inherit "
 "the unlock from the story."
@@ -1676,7 +1676,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:258
-#: includes/functions/users/_admin-profile.php:1945
+#: includes/functions/users/_admin-profile.php:1976
 msgid "Always hold comments for moderation"
 msgstr ""
 
@@ -1689,12 +1689,12 @@ msgid "Always renders the chapter icons instead of locks/etc."
 msgstr ""
 
 #: partials/account/_profile.php:201
-#: includes/functions/users/_admin-profile.php:1152
+#: includes/functions/users/_admin-profile.php:1168
 msgid "Always subscribe to comments"
 msgstr ""
 
 #: partials/account/_profile.php:134
-#: includes/functions/users/_admin-profile.php:1082
+#: includes/functions/users/_admin-profile.php:1098
 msgid "Always use gravatar"
 msgstr ""
 
@@ -1710,7 +1710,7 @@ msgstr ""
 msgid "Anthology, Vignettes, etc."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1566
+#: includes/functions/users/_admin-profile.php:1597
 msgid "Any"
 msgstr ""
 
@@ -1778,7 +1778,7 @@ msgstr ""
 msgid "Archived posts on %s."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1447
+#: includes/functions/users/_admin-profile.php:1478
 #, php-format
 msgid ""
 "Are you sure you want to clear your %s? This action is irreversible. Enter "
@@ -1836,7 +1836,7 @@ msgid "Are you sure? Follows will be irrevocably deleted. Enter %s to confirm."
 msgstr ""
 
 #: partials/account/_oauth.php:39
-#: includes/functions/users/_admin-profile.php:1206
+#: includes/functions/users/_admin-profile.php:1237
 #, php-format
 msgid ""
 "Are you sure? Note that if you disconnect all accounts, you may no longer be "
@@ -1856,7 +1856,7 @@ msgid ""
 msgstr ""
 
 #: partials/account/_danger-zone.php:31
-#: includes/functions/users/_admin-profile.php:2201
+#: includes/functions/users/_admin-profile.php:2232
 #, php-format
 msgid ""
 "Are you sure? Your account will be irrevocably deleted, although this will "
@@ -1889,7 +1889,7 @@ msgstr ""
 msgid "Author index page assignment"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2001
+#: includes/functions/users/_admin-profile.php:2032
 msgid "Author Page"
 msgstr ""
 
@@ -1973,7 +1973,7 @@ msgstr ""
 msgid "Background textures"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2131
+#: includes/functions/users/_admin-profile.php:2162
 msgid "Badge Override"
 msgstr ""
 
@@ -2112,7 +2112,7 @@ msgstr ""
 msgid "Bookmarks"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:888
+#: includes/functions/users/_admin-profile.php:903
 msgid "Bookmarks could not be cleared."
 msgstr ""
 
@@ -2128,7 +2128,7 @@ msgstr ""
 msgid "Bookmarks page assignment"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:892
+#: includes/functions/users/_admin-profile.php:907
 msgid "Bookmarks successfully cleared."
 msgstr ""
 
@@ -3042,7 +3042,7 @@ msgstr ""
 #: includes/functions/_setup-types-and-terms.php:205
 #: includes/functions/settings/_settings_actions.php:1454
 #: includes/functions/hooks/_story_hooks.php:433
-#: includes/functions/users/_admin-profile.php:1570
+#: includes/functions/users/_admin-profile.php:1601
 msgid "Chapter"
 msgstr ""
 
@@ -3429,11 +3429,11 @@ msgstr ""
 msgid "Checkmarks"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:887
+#: includes/functions/users/_admin-profile.php:902
 msgid "Checkmarks could not be cleared."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:891
+#: includes/functions/users/_admin-profile.php:906
 msgid "Checkmarks successfully cleared."
 msgstr ""
 
@@ -3527,12 +3527,12 @@ msgid ""
 "Widgets; it will not appear before that."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1466
+#: includes/functions/users/_admin-profile.php:1497
 #, php-format
 msgid "Clear %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1471
+#: includes/functions/users/_admin-profile.php:1502
 #, php-format
 msgid "Clear %s (%s)"
 msgstr ""
@@ -3591,7 +3591,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:322
 #: includes/functions/_setup-types-and-terms.php:347
-#: includes/functions/users/_admin-profile.php:1571
+#: includes/functions/users/_admin-profile.php:1602
 msgid "Collection"
 msgstr ""
 
@@ -3904,11 +3904,11 @@ msgstr ""
 msgid "Comment Subscriptions"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:882
+#: includes/functions/users/_admin-profile.php:897
 msgid "Comment subscriptions could not be cleared."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:884
+#: includes/functions/users/_admin-profile.php:899
 msgid "Comment subscriptions successfully cleared."
 msgstr ""
 
@@ -3976,7 +3976,7 @@ msgstr ""
 msgid "Comments are moderated."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:881
+#: includes/functions/users/_admin-profile.php:896
 msgid "Comments could not be cleared."
 msgstr ""
 
@@ -3984,7 +3984,7 @@ msgstr ""
 msgid "Comments could not be loaded."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:883
+#: includes/functions/users/_admin-profile.php:898
 msgid "Comments successfully cleared."
 msgstr ""
 
@@ -4250,7 +4250,7 @@ msgstr ""
 msgid "Custom filters with image for groups and/or post IDs."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1955
+#: includes/functions/users/_admin-profile.php:1986
 msgid "Custom message in the user profile, which may be a nice thing as well."
 msgstr ""
 
@@ -4911,7 +4911,7 @@ msgid "Darker success and confirmation color."
 msgstr ""
 
 #: partials/account/_data.php:103
-#: includes/functions/users/_admin-profile.php:1426
+#: includes/functions/users/_admin-profile.php:1457
 msgid "Data"
 msgstr ""
 
@@ -4923,7 +4923,7 @@ msgid "Data has been cleared."
 msgstr ""
 
 #: includes/functions/users/_user-ajax.php:152
-#: includes/functions/users/_admin-profile.php:898
+#: includes/functions/users/_admin-profile.php:913
 msgid "Database error. Account could not be deleted."
 msgstr ""
 
@@ -5042,8 +5042,8 @@ msgid "Delete"
 msgstr ""
 
 #: partials/account/_danger-zone.php:42
-#: includes/functions/users/_admin-profile.php:2212
-#: includes/functions/users/_admin-profile.php:2224
+#: includes/functions/users/_admin-profile.php:2243
+#: includes/functions/users/_admin-profile.php:2255
 msgid "Delete Account"
 msgstr ""
 
@@ -5096,7 +5096,7 @@ msgstr ""
 msgid "Deleted User"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:732
+#: includes/functions/users/_admin-profile.php:747
 msgctxt "Deleted user base name."
 msgid "DeletedUser"
 msgstr ""
@@ -5127,7 +5127,7 @@ msgid "Disable application passwords"
 msgstr ""
 
 #: partials/account/_profile.php:146
-#: includes/functions/users/_admin-profile.php:1095
+#: includes/functions/users/_admin-profile.php:1111
 msgid "Disable avatar"
 msgstr ""
 
@@ -5157,12 +5157,12 @@ msgid "Disable comment BBCodes"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:246
-#: includes/functions/users/_admin-profile.php:1924
+#: includes/functions/users/_admin-profile.php:1955
 msgid "Disable comment editing capability"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:252
-#: includes/functions/users/_admin-profile.php:1938
+#: includes/functions/users/_admin-profile.php:1969
 msgid "Disable comment reply notifications"
 msgstr ""
 
@@ -5172,7 +5172,7 @@ msgid "Disable commenting across the site"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:240
-#: includes/functions/users/_admin-profile.php:1917
+#: includes/functions/users/_admin-profile.php:1948
 msgid "Disable commenting capability"
 msgstr ""
 
@@ -5245,7 +5245,7 @@ msgstr ""
 msgid "Disable partial caching of content"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1931
+#: includes/functions/users/_admin-profile.php:1962
 msgid "Disable post comment moderation capability"
 msgstr ""
 
@@ -5260,12 +5260,12 @@ msgid "Disable Reddit share button"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:234
-#: includes/functions/users/_admin-profile.php:1910
+#: includes/functions/users/_admin-profile.php:1941
 msgid "Disable renaming capability"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:228
-#: includes/functions/users/_admin-profile.php:1903
+#: includes/functions/users/_admin-profile.php:1934
 msgid "Disable reporting capability"
 msgstr ""
 
@@ -5340,7 +5340,7 @@ msgid "Disable Twitter share button"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:222
-#: includes/functions/users/_admin-profile.php:1896
+#: includes/functions/users/_admin-profile.php:1927
 msgid "Disable user avatar"
 msgstr ""
 
@@ -5380,7 +5380,7 @@ msgstr ""
 msgid "Disallowed keys found."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1249
+#: includes/functions/users/_admin-profile.php:1280
 msgid "Disconnect"
 msgstr ""
 
@@ -5391,7 +5391,7 @@ msgstr ""
 msgid "Discord"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:894
+#: includes/functions/users/_admin-profile.php:909
 msgid "Discord account successfully linked"
 msgstr ""
 
@@ -5419,11 +5419,11 @@ msgid ""
 "Discord comment channel webhook &bull; Shows excerpts of (private) comments!"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:880
+#: includes/functions/users/_admin-profile.php:895
 msgid "Discord connection successfully removed."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2087
+#: includes/functions/users/_admin-profile.php:2118
 msgid "Discord ID Hash"
 msgstr ""
 
@@ -5715,7 +5715,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:156
+#: includes/functions/users/_admin-profile.php:162
 msgid "Email change cancelled."
 msgstr ""
 
@@ -6183,7 +6183,7 @@ msgctxt "Expiration suffix for protected note in post list tables."
 msgid "%1$s (until %2$s)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2165
+#: includes/functions/users/_admin-profile.php:2196
 msgid "External Avatar URL"
 msgstr ""
 
@@ -6283,7 +6283,7 @@ msgstr ""
 #: includes/functions/_setup-theme.php:2549
 #: includes/functions/settings/_settings.php:27
 #: includes/functions/settings/_settings.php:256
-#: includes/functions/users/_admin-profile.php:948
+#: includes/functions/users/_admin-profile.php:963
 msgid "Fictioneer"
 msgstr ""
 
@@ -6366,7 +6366,7 @@ msgid "Filter stories list"
 msgstr ""
 
 #: partials/account/_profile.php:61
-#: includes/functions/users/_admin-profile.php:1026
+#: includes/functions/users/_admin-profile.php:1041
 msgid "Fingerprint"
 msgstr ""
 
@@ -6423,11 +6423,11 @@ msgstr ""
 msgid "Follow stories and get on-site alerts for updates."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:885
+#: includes/functions/users/_admin-profile.php:900
 msgid "Follows could not be cleared."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:889
+#: includes/functions/users/_admin-profile.php:904
 msgid "Follows successfully cleared."
 msgstr ""
 
@@ -6619,7 +6619,7 @@ msgstr ""
 msgid "Generate footnotes from tooltips"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2047
+#: includes/functions/users/_admin-profile.php:2078
 msgid "Generic donation link"
 msgstr ""
 
@@ -6678,7 +6678,7 @@ msgstr ""
 msgid "Google"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:895
+#: includes/functions/users/_admin-profile.php:910
 msgid "Google account successfully linked."
 msgstr ""
 
@@ -6692,7 +6692,7 @@ msgstr ""
 msgid "Google Client Secret"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:878
+#: includes/functions/users/_admin-profile.php:893
 msgid "Google connection successfully removed."
 msgstr ""
 
@@ -6704,7 +6704,7 @@ msgstr ""
 msgid "Google Fonts links"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2093
+#: includes/functions/users/_admin-profile.php:2124
 msgid "Google ID Hash"
 msgstr ""
 
@@ -6783,7 +6783,7 @@ msgid "Hidden due to negative reports."
 msgstr ""
 
 #: partials/account/_profile.php:172
-#: includes/functions/users/_admin-profile.php:1122
+#: includes/functions/users/_admin-profile.php:1138
 msgid "Hide badge"
 msgstr ""
 
@@ -7213,11 +7213,16 @@ msgstr ""
 msgid "Justify"
 msgstr ""
 
+#: partials/account/_profile.php:215
+#: includes/functions/users/_admin-profile.php:1183
+msgid "Keep read alerts"
+msgstr ""
+
 #: includes/functions/hooks/_chapter_hooks.php:671
 msgid "Ko-Fi"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2040
+#: includes/functions/users/_admin-profile.php:2071
 msgid "Ko-Fi link"
 msgstr ""
 
@@ -7594,7 +7599,7 @@ msgid ""
 msgstr ""
 
 #: partials/account/_profile.php:158
-#: includes/functions/users/_admin-profile.php:1108
+#: includes/functions/users/_admin-profile.php:1124
 msgid "Lock avatar"
 msgstr ""
 
@@ -7960,11 +7965,11 @@ msgstr ""
 msgid "Moderation actions directly in the comment section."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1889
+#: includes/functions/users/_admin-profile.php:1920
 msgid "Moderation Flags"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1952
+#: includes/functions/users/_admin-profile.php:1983
 msgid "Moderation Message"
 msgstr ""
 
@@ -8091,10 +8096,10 @@ msgstr ""
 
 #: includes/functions/_module-discord.php:109
 #: includes/functions/_module-discord.php:152
-#: includes/functions/users/_admin-profile.php:1591
-#: includes/functions/users/_admin-profile.php:1670
-#: includes/functions/users/_admin-profile.php:1772
-#: includes/functions/users/_admin-profile.php:1853
+#: includes/functions/users/_admin-profile.php:1622
+#: includes/functions/users/_admin-profile.php:1701
+#: includes/functions/users/_admin-profile.php:1803
+#: includes/functions/users/_admin-profile.php:1884
 msgid "n/a"
 msgstr ""
 
@@ -8186,7 +8191,7 @@ msgid "Nickname"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_connections.php:295
-#: includes/functions/users/_admin-profile.php:1769
+#: includes/functions/users/_admin-profile.php:1800
 msgid "No"
 msgstr ""
 
@@ -8327,8 +8332,8 @@ msgstr ""
 msgid "No Title Page"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2009
-#: includes/functions/users/_admin-profile.php:2010
+#: includes/functions/users/_admin-profile.php:2040
+#: includes/functions/users/_admin-profile.php:2041
 msgid "None"
 msgstr ""
 
@@ -8373,7 +8378,7 @@ msgstr ""
 msgid "OAuth 2.0 authentication not enabled or Patreon client not set up."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1194
+#: includes/functions/users/_admin-profile.php:1225
 msgid "OAuth 2.0 Connections"
 msgstr ""
 
@@ -8545,7 +8550,7 @@ msgid "Overridden by personal site settings."
 msgstr ""
 
 #: partials/account/_profile.php:185
-#: includes/functions/users/_admin-profile.php:1136
+#: includes/functions/users/_admin-profile.php:1152
 msgid "Override assigned badge"
 msgstr ""
 
@@ -8554,11 +8559,11 @@ msgstr ""
 msgid "Override chapter status icons"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2134
+#: includes/functions/users/_admin-profile.php:2165
 msgid "Override the user’s badge."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1568
+#: includes/functions/users/_admin-profile.php:1599
 msgid "Page"
 msgstr ""
 
@@ -8733,7 +8738,7 @@ msgstr ""
 msgid "Patreon"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:897
+#: includes/functions/users/_admin-profile.php:912
 msgid "Patreon account successfully linked."
 msgstr ""
 
@@ -8775,7 +8780,7 @@ msgstr ""
 msgid "Patreon comment badge label"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:877
+#: includes/functions/users/_admin-profile.php:892
 msgid "Patreon connection successfully removed."
 msgstr ""
 
@@ -8807,11 +8812,11 @@ msgstr ""
 msgid "Patreon gate message override (below link, leave empty for default)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2096
+#: includes/functions/users/_admin-profile.php:2127
 msgid "Patreon ID Hash"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2038
+#: includes/functions/users/_admin-profile.php:2069
 msgid "Patreon link"
 msgstr ""
 
@@ -8820,13 +8825,13 @@ msgctxt "Patreon link meta field label."
 msgid "Patreon Link"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1789
+#: includes/functions/users/_admin-profile.php:1820
 msgid "Patreon Membership"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3455
 #: includes/functions/_setup-meta-fields.php:4869
-#: includes/functions/users/_admin-profile.php:1845
+#: includes/functions/users/_admin-profile.php:1876
 #, php-format
 msgctxt "Patreon tier meta field token (title and amount_cents)."
 msgid "%s (%s)"
@@ -8907,7 +8912,7 @@ msgstr ""
 msgid "PayPal"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2045
+#: includes/functions/users/_admin-profile.php:2076
 msgid "PayPal link"
 msgstr ""
 
@@ -8975,7 +8980,7 @@ msgstr ""
 msgid "Polygons"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1567
+#: includes/functions/users/_admin-profile.php:1598
 msgid "Post"
 msgstr ""
 
@@ -9154,19 +9159,19 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1069
+#: includes/functions/users/_admin-profile.php:1085
 msgid "Profile Flags"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:125
+#: includes/functions/users/_admin-profile.php:131
 msgid "Profile updated."
 msgstr ""
 
 #: includes/functions/comments/_comments_threads.php:348
 #: includes/functions/comments/_comments_threads.php:350
-#: includes/functions/users/_admin-profile.php:1185
-#: includes/functions/users/_admin-profile.php:1344
-#: includes/functions/users/_admin-profile.php:2199
+#: includes/functions/users/_admin-profile.php:1216
+#: includes/functions/users/_admin-profile.php:1375
+#: includes/functions/users/_admin-profile.php:2230
 msgctxt "Prompt confirm deletion string."
 msgid "delete"
 msgstr ""
@@ -9299,7 +9304,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:387
 #: includes/functions/_setup-types-and-terms.php:413
-#: includes/functions/users/_admin-profile.php:1572
+#: includes/functions/users/_admin-profile.php:1603
 msgid "Recommendation"
 msgstr ""
 
@@ -9431,11 +9436,11 @@ msgstr ""
 msgid "Remember stories to be \"read later\"."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:886
+#: includes/functions/users/_admin-profile.php:901
 msgid "Reminders could not be cleared."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:890
+#: includes/functions/users/_admin-profile.php:905
 msgid "Reminders successfully cleared."
 msgstr ""
 
@@ -9508,13 +9513,13 @@ msgstr ""
 msgid "Renaming capability disabled."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2029
+#: includes/functions/users/_admin-profile.php:2060
 msgid ""
 "Rendered at the bottom of your chapters. This will override \"You can "
 "support the author on\"."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2021
+#: includes/functions/users/_admin-profile.php:2052
 msgid ""
 "Rendered inside your public author profile. This will override your "
 "biographical info."
@@ -9900,7 +9905,7 @@ msgctxt "Search page SEO description."
 msgid "Search results on %s."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1564
+#: includes/functions/users/_admin-profile.php:1595
 msgid "Search posts to unlock…"
 msgstr ""
 
@@ -10356,6 +10361,10 @@ msgstr ""
 msgid "Show %s more"
 msgstr ""
 
+#: partials/account/_profile.php:206
+msgid "Show alerts that have been marked as read."
+msgstr ""
+
 #: includes/functions/settings/_settings_page_general.php:276
 msgid "Show custom fields form on post edit screen."
 msgstr ""
@@ -10528,7 +10537,7 @@ msgid "Size limit for file uploads"
 msgstr ""
 
 #: partials/account/_skins.php:30
-#: includes/functions/users/_admin-profile.php:1284
+#: includes/functions/users/_admin-profile.php:1315
 msgid "Skins"
 msgstr ""
 
@@ -10774,7 +10783,7 @@ msgstr ""
 #: includes/functions/_setup-types-and-terms.php:115
 #: includes/functions/_setup-types-and-terms.php:140
 #: includes/functions/settings/_settings_page_epubs.php:81
-#: includes/functions/users/_admin-profile.php:1569
+#: includes/functions/users/_admin-profile.php:1600
 msgid "Story"
 msgstr ""
 
@@ -11098,7 +11107,7 @@ msgstr ""
 msgid "SubscribeStar"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2043
+#: includes/functions/users/_admin-profile.php:2074
 msgid "SubscribeStar link"
 msgstr ""
 
@@ -11140,7 +11149,7 @@ msgid "Support <em>%s</em>"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3827
-#: includes/functions/users/_admin-profile.php:2033
+#: includes/functions/users/_admin-profile.php:2064
 msgid "Support Links"
 msgstr ""
 
@@ -11148,7 +11157,7 @@ msgstr ""
 msgid "Support me on <strong>Patreon</strong>"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2026
+#: includes/functions/users/_admin-profile.php:2057
 msgid "Support Message"
 msgstr ""
 
@@ -11426,7 +11435,7 @@ msgid ""
 "timestamps are based on the server’s timezone (%s)."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1429
+#: includes/functions/users/_admin-profile.php:1460
 msgid ""
 "The following items represent data nodes stored in your account. Anything "
 "submitted by yourself, such as comments. You can clear these nodes here, but "
@@ -11541,7 +11550,7 @@ msgid ""
 "contact an administrator."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2168
+#: includes/functions/users/_admin-profile.php:2199
 msgid "There is no guarantee this URL remains valid!"
 msgstr ""
 
@@ -11672,7 +11681,7 @@ msgid "Title"
 msgstr ""
 
 #: partials/account/_skins.php:38
-#: includes/functions/users/_admin-profile.php:1291
+#: includes/functions/users/_admin-profile.php:1322
 #, php-format
 msgid ""
 "To create your own skin, <a href=\"%s\" download>download this template</a>."
@@ -11814,7 +11823,7 @@ msgstr ""
 msgid "Twitch"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:896
+#: includes/functions/users/_admin-profile.php:911
 msgid "Twitch account successfully linked."
 msgstr ""
 
@@ -11828,11 +11837,11 @@ msgstr ""
 msgid "Twitch Client Secret"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:879
+#: includes/functions/users/_admin-profile.php:894
 msgid "Twitch connection successfully removed."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2090
+#: includes/functions/users/_admin-profile.php:2121
 msgid "Twitch ID Hash"
 msgstr ""
 
@@ -11900,21 +11909,21 @@ msgstr ""
 msgid "Unlock"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1598
-#: includes/functions/users/_admin-profile.php:1674
+#: includes/functions/users/_admin-profile.php:1629
+#: includes/functions/users/_admin-profile.php:1705
 #, php-format
 msgctxt "Unlock post item meta: Type | ID."
 msgid "(%s | %s)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1590
-#: includes/functions/users/_admin-profile.php:1669
+#: includes/functions/users/_admin-profile.php:1621
+#: includes/functions/users/_admin-profile.php:1700
 #, php-format
 msgctxt "Unlock post item."
 msgid "Author: %s | Title: %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1541
+#: includes/functions/users/_admin-profile.php:1572
 msgid "Unlock Posts"
 msgstr ""
 
@@ -11989,7 +11998,7 @@ msgstr ""
 msgid "Update Genre"
 msgstr ""
 
-#: partials/account/_profile.php:212
+#: partials/account/_profile.php:226
 msgid "Update Profile"
 msgstr ""
 
@@ -12339,7 +12348,7 @@ msgstr ""
 msgid "User Flags:"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:994
+#: includes/functions/users/_admin-profile.php:1009
 msgid "User ID"
 msgstr ""
 
@@ -12592,7 +12601,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/settings/_settings_page_connections.php:295
-#: includes/functions/users/_admin-profile.php:1766
+#: includes/functions/users/_admin-profile.php:1797
 msgid "Yes"
 msgstr ""
 
@@ -12641,7 +12650,7 @@ msgid "You can change your password in your WordPress profile."
 msgstr ""
 
 #: partials/account/_danger-zone.php:39
-#: includes/functions/users/_admin-profile.php:2214
+#: includes/functions/users/_admin-profile.php:2245
 msgid ""
 "You can delete your account and associated user data with it. Submitted <em>"
 "content</em> such as comments and posts will remain under the “Deleted User” "
@@ -12701,7 +12710,7 @@ msgid ""
 msgstr ""
 
 #: partials/account/_skins.php:33
-#: includes/functions/users/_admin-profile.php:1287
+#: includes/functions/users/_admin-profile.php:1318
 msgid ""
 "You can upload up to three custom CSS skins (max. 200 KB each), with one "
 "active at a time. These skins apply only to your current device and browser "
@@ -12795,7 +12804,7 @@ msgstr ""
 msgid "You have no alerts."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2018
+#: includes/functions/users/_admin-profile.php:2049
 msgid "You have no published pages yet."
 msgstr ""
 
@@ -12846,7 +12855,7 @@ msgid "Your nickname will be displayed instead of your username. Not unique!"
 msgstr ""
 
 #: partials/account/_oauth.php:47
-#: includes/functions/users/_admin-profile.php:1197
+#: includes/functions/users/_admin-profile.php:1228
 msgid ""
 "Your profile can be linked to one or more external accounts, such as Discord "
 "or Google. You may add or remove these accounts at your own volition, but be "
@@ -12854,7 +12863,7 @@ msgid ""
 msgstr ""
 
 #: partials/account/_profile.php:69
-#: includes/functions/users/_admin-profile.php:1029
+#: includes/functions/users/_admin-profile.php:1044
 msgid "Your unique hash. Used to distinguish commenters."
 msgstr ""
 
