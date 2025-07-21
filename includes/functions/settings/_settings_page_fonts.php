@@ -28,7 +28,7 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php _e( 'Preload Fonts', 'fictioneer' ); ?></h3>
+            <h3 class="fictioneer-card__header"><?php _e( 'Preload Fonts (Advanced)', 'fictioneer' ); ?></h3>
             <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
@@ -54,8 +54,10 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
 
               <div class="fictioneer-card__row">
                 <details>
-                  <summary><?php _e( 'Paths for theme fonts', 'fictioneer' ); ?></summary>
+                  <summary><?php _e( 'Reference for theme fonts', 'fictioneer' ); ?></summary>
                   <div><?php
+                    $valid_extensions = ['woff', 'woff2', 'ttf', 'otf', 'eot', 'svg', 'fon'];
+
                     foreach ( $fonts as $key => $data ) {
                       if ( ! isset( $data['dir'] ) ) {
                         continue;
@@ -64,8 +66,11 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
                       $root = $data['in_child_theme'] ? get_stylesheet_directory() : get_template_directory();
                       $dir = $root . $data['dir'];
                       $files = scandir( $dir, SCANDIR_SORT_DESCENDING );
-                      $valid_extensions = ['woff', 'woff2', 'ttf', 'otf', 'eot', 'svg', 'fon'];
                       $font_files = [];
+
+                      if ( ! $files ) {
+                        continue;
+                      }
 
                       foreach ( $files as $file ) {
                         $path = $dir . DIRECTORY_SEPARATOR . $file;
@@ -88,9 +93,74 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
                       }
 
                       printf(
-                        '<div style="margin-top: 8px;"><strong>%s:</strong><br>%s</div>',
+                        '<details style="margin: 12px 0 0 12px;"><summary>%s</summary><div><code><pre>%s</pre></code></div></details>',
                         $data['name'],
                         implode( '<br>', array_map( 'esc_html', $font_files ) )
+                      );
+                    }
+                  ?></div>
+                </details>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Critical Font CSS (Advanced)', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <p><?php
+                  _e( 'If you use a different font than "Open Sans" and want to reduce FOUT (Flash of Unstyled Text), you need to inline the <code>@font</code> CSS definitions into the <code>&lt;head&gt;</code> of your site, ensuring they are loaded before the content is rendered. This is in addition to the preloading of the font files. For theme fonts, you can find these definitions under <code>/{theme-folder}/fonts/{font-folder}/</code> in the respective <code>font.css</code> file. If you load fonts by other means, you need to find the CSS yourself. Just add the CSS in the box below.', 'fictioneer' );
+                ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <textarea name="fictioneer_critical_font_css" id="fictioneer_critical_font_css" rows="4" placeholder="<?php echo esc_attr( '@font-face{font-display:swap;font-family:"Crimson Text";font-style:normal;font-weight:400;size-adjust:115%;src:url("../fonts/crimson-text/crimson-text-v19-regular.woff2") format("woff2")} ...' ); ?>"><?php echo get_option( 'fictioneer_critical_font_css' ); ?></textarea>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <details>
+                  <summary><?php _e( 'Reference for theme fonts', 'fictioneer' ); ?></summary>
+                  <div><?php
+                    foreach ( $fonts as $key => $data ) {
+                      if ( ! isset( $data['dir'] ) ) {
+                        continue;
+                      }
+
+                      $root = $data['in_child_theme'] ? get_stylesheet_directory() : get_template_directory();
+                      $dir = $root . $data['dir'];
+                      $files = scandir( $dir, SCANDIR_SORT_DESCENDING );
+                      $css = '';
+
+                      if ( ! $files ) {
+                        continue;
+                      }
+
+                      foreach ( $files as $file ) {
+                        $path = $dir . DIRECTORY_SEPARATOR . $file;
+
+                        if ( ! is_file( $path ) ) {
+                          continue;
+                        }
+
+                        $extension = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
+
+                        if ( $extension === 'css' ) {
+                          $css = file_get_contents( str_replace( '\\', '/', $path ) );
+                        }
+                      }
+
+                      if ( empty( $css ) ) {
+                        continue;
+                      }
+
+                      printf(
+                        '<details style="margin: 12px 0 0 12px;"><summary>%s</summary><div><code><pre>%s</pre></code></div></details>',
+                        $data['name'],
+                        esc_html( $css )
                       );
                     }
                   ?></div>

@@ -1803,15 +1803,23 @@ if ( ! function_exists( 'fictioneer_output_critical_fonts' ) ) {
     // Setup
     $primary_font = get_theme_mod( 'primary_font_family_value', 'Open Sans' );
     $uri = get_template_directory_uri() . '/fonts/';
+    $critical_fonts_css = get_option( 'fictioneer_critical_font_css' );
 
-    // Currently, only Open Sans is supported
-    if ( $primary_font !== 'Open Sans' ) {
-      return;
+    // Default: Open Sans
+    if ( $primary_font === 'Open Sans' ) {
+      // Start HTML ---> ?>
+      <style id="open-sans-critical-font" type="text/css" data-no-optimize="1" data-no-defer="1" data-no-minify="1">@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:300;src:local("OpenSans-Light"),url("<?php echo $uri; ?>open-sans/open-sans-v40-300.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:300;src:local("OpenSans-LightItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-300italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:400;src:local("OpenSans-Regular"),url("<?php echo $uri; ?>open-sans/open-sans-v40-regular.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:400;src:local("OpenSans-Italic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:500;src:local("OpenSans-Medium"),url("<?php echo $uri; ?>open-sans/open-sans-v40-500.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:500;src:local("OpenSans-MediumItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-500italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:600;src:local("OpenSans-SemiBold"),url("<?php echo $uri; ?>open-sans/open-sans-v40-600.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:600;src:local("OpenSans-SemiBoldItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-600italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:700;src:local("OpenSans-Bold"),url("<?php echo $uri; ?>open-sans/open-sans-v40-700.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:700;src:local("OpenSans-BoldItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-700italic.woff2") format("woff2")}</style>
+      <?php // <--- End HTML
     }
 
-    // Start HTML ---> ?>
-    <style id="inline-fonts" type="text/css" data-no-optimize="1" data-no-defer="1" data-no-minify="1">@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:300;src:local("OpenSans-Light"),url("<?php echo $uri; ?>open-sans/open-sans-v40-300.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:300;src:local("OpenSans-LightItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-300italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:400;src:local("OpenSans-Regular"),url("<?php echo $uri; ?>open-sans/open-sans-v40-regular.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:400;src:local("OpenSans-Italic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:500;src:local("OpenSans-Medium"),url("<?php echo $uri; ?>open-sans/open-sans-v40-500.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:500;src:local("OpenSans-MediumItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-500italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:600;src:local("OpenSans-SemiBold"),url("<?php echo $uri; ?>open-sans/open-sans-v40-600.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:600;src:local("OpenSans-SemiBoldItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-600italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:700;src:local("OpenSans-Bold"),url("<?php echo $uri; ?>open-sans/open-sans-v40-700.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:700;src:local("OpenSans-BoldItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-700italic.woff2") format("woff2")}</style>
-    <?php // <--- End HTML
+    // Custom font definitions
+    if ( $critical_fonts_css ) {
+      // Start HTML ---> ?>
+      <style id="custom-critical-fonts" type="text/css" data-no-optimize="1" data-no-defer="1" data-no-minify="1"><?php
+        echo $critical_fonts_css;
+      ?></style>
+      <?php // <--- End HTML
+    }
   }
 }
 

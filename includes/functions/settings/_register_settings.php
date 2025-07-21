@@ -1086,7 +1086,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_age_confirmation_redirect_post',
       'group' => 'fictioneer-settings-phrases-group',
       'sanitize_callback' => 'fictioneer_sanitize_url'
-    )
+    ),
+    'fictioneer_critical_font_css' => array(
+      'name' => 'fictioneer_critical_font_css',
+      'group' => 'fictioneer-settings-fonts-group',
+      'sanitize_callback' => 'fictioneer_sanitize_css'
+    ),
   )
 ));
 
@@ -1292,6 +1297,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_enable_story_filter_reel' => __( 'Enable story chapter list filters', 'fictioneer' ),
       'fictioneer_disable_rest_save_actions' => __( 'Disable theme save actions for REST requests', 'fictioneer' ),
       'fictioneer_enable_alerts' => __( 'Enable alerts (requires account)', 'fictioneer' ),
+      'fictioneer_critical_font_css' => __( 'Critical font CSS', 'fictioneer' ),
     );
   }
 
