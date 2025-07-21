@@ -441,7 +441,7 @@ function fictioneer_get_alerts( $args = [] ) {
     $sql_global = "SELECT {$fields}, date, date_gmt FROM $table WHERE type IN ($placeholders) AND date_gmt <= %s";
     $params = array_merge( $filtered_params, $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
 
-    $sql = "($sql_filtered) UNION ALL ($sql_global) ORDER BY date_gmt DESC LIMIT 99";
+    $sql = "($sql_filtered) UNION ALL ($sql_global) ORDER BY date_gmt DESC LIMIT 69";
   } else {
     $placeholders = implode( ', ', array_fill( 0, count( $global_types ), '%s' ) );
     $params = array_merge( $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
