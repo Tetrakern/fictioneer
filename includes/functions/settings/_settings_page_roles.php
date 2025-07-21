@@ -246,7 +246,7 @@ $current_role = $roles[ $current_role_slug ];
 
   <?php fictioneer_settings_header( 'roles' ); ?>
 
-  <ul class="fictioneer-settings__subnav">
+  <div class="fictioneer-settings__subnav">
     <?php
       foreach ( $roles as $key => $role ) {
         $role['type'] = $key;
@@ -258,7 +258,7 @@ $current_role = $roles[ $current_role_slug ];
       }
     ?>
     <button type="button" class="" data-fcn-dialog-target="add-role-dialog"><span class="dashicons dashicons-plus"></span></button>
-  </ul>
+  </div>
 
   <div class="fictioneer-settings__content">
     <form method="post" action="<?php echo $admin_url; ?>" class="fictioneer-form">
