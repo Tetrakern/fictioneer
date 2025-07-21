@@ -67,7 +67,7 @@ function fictioneer_ajax_get_user_data() {
     $alerts = fictioneer_get_alerts(
       array(
         'story_ids' => array_keys( $follows['data'] ?? [] ),
-        'exclude_ids' => $show_read_alerts ? $read_alerts : []
+        'exclude_ids' => $show_read_alerts ? [] : $read_alerts
       )
     );
 

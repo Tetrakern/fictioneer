@@ -202,6 +202,20 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
       </div>
     <?php endif; ?>
 
+    <?php if ( get_option( 'fictioneer_enable_alerts' ) ) : ?>
+      <div class="profile__input-wrapper _checkbox" title="<?php esc_attr_e( 'Show alerts that have been marked as read.', 'fictioneer' ); ?>">
+        <input type="hidden" name="fictioneer_show_read_alerts" value="0">
+        <input
+          id="fictioneer_show_read_alerts"
+          name="fictioneer_show_read_alerts"
+          type="checkbox"
+          value="1"
+          <?php echo checked( 1, get_the_author_meta( 'fictioneer_show_read_alerts', $current_user->ID ), false ); ?>
+        >
+        <label for="fictioneer_show_read_alerts"><?php _e( 'Keep read alerts', 'fictioneer' ); ?></label>
+      </div>
+    <?php endif; ?>
+
   </div>
 
   <?php wp_nonce_field( 'fictioneer_update_frontend_profile', 'fictioneer_nonce' ); ?>

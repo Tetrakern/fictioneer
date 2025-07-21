@@ -97,6 +97,10 @@
     }
   }
 
+  &__icon-x:is(i) {
+    display: none;
+  }
+
   &._unread {
     &::before {
       content: '';
@@ -111,6 +115,10 @@
 
     .alert__button-read {
       pointer-events: initial;
+    }
+
+    .alert__icon-x:is(i) {
+      display: inline-block
     }
   }
 

@@ -345,7 +345,7 @@ function ffcnr_get_current_user( $options = null, $blog_id_override = null ) {
 }
 
 /**
- * Loads meta fields for a given user ID.
+ * Load meta fields for a given user ID.
  *
  * @since 5.27.0
  * @global wpdb $wpdb  WordPress database object.

@@ -782,7 +782,7 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
       element.classList.toggle('_new', tempNumber > 0);
     });
 
-    this.#updateAlertReadIcons('fa-solid fa-spinner fa-spin', '--fa-animation-duration: .8s;', [id]);
+    this.#updateAlertReadIcons('fa-solid fa-spinner fa-spin alert__icon-spin', '--fa-animation-duration: .8s;', [id]);
 
     clearTimeout(this.readUpdateTimeout);
 
@@ -844,7 +844,7 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
       const actions = document.createElement( 'div' );
 
       actions.className = 'alert__actions';
-      actions.innerHTML = `<button class="alert__button-read _no-menu-item-style" type="button" data-action="fictioneer-alerts#markRead" data-fictioneer-alerts-id-param="${alert.id}"><i class="fa-solid fa-xmark" data-alert-icon-id="${alert.id}"></i></button>`;
+      actions.innerHTML = `<button class="alert__button-read _no-menu-item-style" type="button" data-action="fictioneer-alerts#markRead" data-fictioneer-alerts-id-param="${alert.id}"><i class="fa-solid fa-xmark alert__icon-x" data-alert-icon-id="${alert.id}"></i></button>`;
 
       wrapper.append(content, meta, actions);
       fragment.appendChild(wrapper);

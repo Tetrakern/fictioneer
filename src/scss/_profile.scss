@@ -72,14 +72,17 @@
   }
 
   &__flags {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    gap: 16px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 1rem 2rem;
     margin: 2rem 0;
 
     @include bp(tablet) {
       flex-direction: row;
+    }
+
+    > .profile__input-wrapper {
+      flex: 1 1 30%;
     }
   }
 

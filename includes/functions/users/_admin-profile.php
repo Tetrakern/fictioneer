@@ -118,6 +118,12 @@ function fictioneer_update_frontend_profile() {
     fictioneer_update_user_meta( $user_id, 'fictioneer_comment_reply_notifications', $checkbox_value );
   }
 
+  // Keep read alerts?
+  if ( isset( $_POST['fictioneer_show_read_alerts'] ) ) {
+    $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_show_read_alerts'] ?? 0 );
+    fictioneer_update_user_meta( $user_id, 'fictioneer_show_read_alerts', $checkbox_value );
+  }
+
   // Redirect
   wp_safe_redirect(
     add_query_arg(
@@ -409,6 +415,15 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
         $updated_user_id,
         'fictioneer_comment_reply_notifications',
         fictioneer_sanitize_checkbox( $_POST['fictioneer_comment_reply_notifications'] ?? 0 )
+      );
+    }
+
+    // Keep read alerts
+    if ( isset( $_POST['fictioneer_show_read_alerts'] ) ) {
+      fictioneer_update_user_meta(
+        $updated_user_id,
+        'fictioneer_show_read_alerts',
+        fictioneer_sanitize_checkbox( $_POST['fictioneer_show_read_alerts'] ?? 0 )
       );
     }
   }
@@ -1063,6 +1078,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
   $hide_badge = get_the_author_meta( 'fictioneer_hide_badge', $profile_user->ID ) ?: false;
   $disable_override_badge = get_the_author_meta( 'fictioneer_disable_badge_override', $profile_user->ID ) ?: false;
   $reply_notifications = get_the_author_meta( 'fictioneer_comment_reply_notifications', $profile_user->ID ) ?: false;
+  $keep_alerts = get_the_author_meta( 'fictioneer_show_read_alerts', $profile_user->ID ) ?: false;
 
   // --- Start HTML ---> ?>
   <tr class="user-fictioneer-profile-flags-wrap">
@@ -1150,6 +1166,21 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
                 <?php echo checked( 1, $reply_notifications, false ); ?>
               >
               <span><?php _e( 'Always subscribe to comments', 'fictioneer' ); ?></span>
+            </label>
+          </div>
+        <?php endif; ?>
+        <?php if ( get_option( 'fictioneer_enable_alerts' ) ) : ?>
+          <div class="profile__input-wrapper profile__input-wrapper--checkbox">
+            <label for="fictioneer_show_read_alerts" class="checkbox-group">
+              <input type="hidden" name="fictioneer_show_read_alerts" value="0">
+              <input
+                name="fictioneer_show_read_alerts"
+                type="checkbox"
+                id="fictioneer_show_read_alerts"
+                value="1"
+                <?php echo checked( 1, $keep_alerts, false ); ?>
+              >
+              <span><?php _e( 'Keep read alerts', 'fictioneer' ); ?></span>
             </label>
           </div>
         <?php endif; ?>
