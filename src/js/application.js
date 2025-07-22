@@ -815,6 +815,14 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
 
     let hasAlerts = false;
 
+    if (alertData.showRead) {
+      alertData.items.sort((a, b) => {
+        const aIsRead = readIds.has(a.id);
+        const bIsRead = readIds.has(b.id);
+        return (aIsRead === bIsRead) ? 0 : aIsRead ? 1 : -1;
+      });
+    }
+
     for (const alert of alertData.items) {
       const isRead = readIds.has(alert.id);
 
