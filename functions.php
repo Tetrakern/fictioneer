@@ -313,9 +313,9 @@ if ( ! defined( 'FICTIONEER_MAX_READ_ALERTS' ) ) {
   define( 'FICTIONEER_MAX_READ_ALERTS', 500 );
 }
 
-// Integer: Expiration threshold for alerts
-if ( ! defined( 'FICTIONEER_ALERT_EXPIRATION_DAYS' ) ) {
-  define( 'FICTIONEER_ALERT_EXPIRATION_DAYS', 90 * DAY_IN_SECONDS );
+// Integer: Expiration threshold for alerts in seconds
+if ( ! defined( 'FICTIONEER_ALERT_EXPIRATION' ) ) {
+  define( 'FICTIONEER_ALERT_EXPIRATION', 90 * DAY_IN_SECONDS );
 }
 
 /*

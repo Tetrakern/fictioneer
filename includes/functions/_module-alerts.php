@@ -82,7 +82,7 @@ function fictioneer_alert_cleanup() {
     $wpdb->query(
       $wpdb->prepare(
         "DELETE FROM $table WHERE date_gmt < %s",
-        gmdate( 'Y-m-d H:i:s', time() - FICTIONEER_ALERT_EXPIRATION_DAYS )
+        gmdate( 'Y-m-d H:i:s', time() - FICTIONEER_ALERT_EXPIRATION )
       )
     );
   }
