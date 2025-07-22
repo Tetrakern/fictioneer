@@ -4,7 +4,7 @@
 
 :where(.mobile-menu-button, .alerts-number, .mobile-frame-button-alerts)._new {
   position: relative;
-  color: var(--new-alert-color) !important;
+  color: var(--alert-highlight-color) !important;
 
   &::after {
     content: attr(data-new);
@@ -13,7 +13,7 @@
     right: 0;
     display: grid;
     place-content: center;
-    background: var(--new-alert-color);
+    background: var(--alert-highlight-color);
     color: var(--new-alert-icon-text-color);
     font-size: 8px;
     font-weight: var(--font-weight-strong);
@@ -74,27 +74,11 @@
   }
 
   &._warning {
-    --alert-background: color-mix(in srgb, transparent 90%, var(--red-500) 10%);
-
-    &:hover {
-      background: color-mix(
-        in srgb,
-        var(--alert-background-hover, var(--navigation-subitem-background-hover)) 80%,
-        var(--red-500) 20%
-      );
-    }
+    --alert-highlight-color: var(--alert-highlight-color-warning, var(--red-500));
   }
 
   &._alert {
-    --alert-background: color-mix(in srgb, transparent 90%, var(--primary-500) 10%);
-
-    &:hover {
-      background: color-mix(
-        in srgb,
-        var(--alert-background-hover, var(--navigation-subitem-background-hover)) 90%,
-        var(--primary-500) 10%
-      );
-    }
+    --alert-highlight-color: var(--alert-highlight-color-alert, var(--alert-title-link-color, var(--fg-400)));
   }
 
   &__icon-x:is(i) {
@@ -108,7 +92,7 @@
       inset: 5px 0 5px 5px;
       right: unset;
       display: block;
-      background: var(--new-alert-color);
+      background: var(--alert-highlight-color);
       border-radius: 1px;
       width: 2px;
     }
@@ -124,6 +108,7 @@
 
   &__content {
     grid-area: a;
+    color: var(--alert-title-link-color, var(--fg-400));
     font-weight: var(--font-weight-medium);
 
     a[href] {
@@ -137,19 +122,19 @@
 
   &__meta {
     grid-area: b;
-    color: var(--fg-700);
+    color: var(--alert-meta-color, var(--fg-700));
     font-size: 13px;
     margin-top: 0.4em;
   }
 
   &__actions {
     grid-area: c;
-    color: var(--fg-900);
+    color: var(--alert-action-color, var(--fg-900));
     font-size: 13px;
 
     button {
       &:hover {
-        color: var(--fg-400);
+        color: var(--alert-action-color-hover, var(--fg-400));
       }
     }
   }
