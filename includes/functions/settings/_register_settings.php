@@ -1313,70 +1313,22 @@ function fictioneer_get_option_label( $option ) {
  * Registers settings for the Fictioneer theme
  *
  * @since 4.0.0
+ * @since 5.31.0 - Optimized with nested loop.
  */
 
 function fictioneer_register_settings() {
-  // Booleans
-  foreach ( FICTIONEER_OPTIONS['booleans'] as $setting ) {
-    register_setting(
-      $setting['group'],
-      $setting['name'],
-      array(
-        'sanitize_callback' => $setting['sanitize_callback']
-      )
-    );
+  foreach ( [ 'booleans', 'integers', 'floats', 'strings' ] as $type ) {
+    foreach ( FICTIONEER_OPTIONS[ $type ] as $setting ) {
+      register_setting(
+        $setting['group'],
+        $setting['name'],
+        array( 'sanitize_callback' => $setting['sanitize_callback'] )
+      );
 
-    // Ensure option exists in the database (use fallback for check)
-    if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
-      add_option( $setting['name'], $setting['default'] ?? '' );
-    }
-  }
-
-  // Integers
-  foreach ( FICTIONEER_OPTIONS['integers'] as $setting ) {
-    register_setting(
-      $setting['group'],
-      $setting['name'],
-      array(
-        'sanitize_callback' => $setting['sanitize_callback']
-      )
-    );
-
-    // Ensure option exists in the database (use fallback for check)
-    if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
-      add_option( $setting['name'], $setting['default'] ?? '' );
-    }
-  }
-
-  // Floats
-  foreach ( FICTIONEER_OPTIONS['floats'] as $setting ) {
-    register_setting(
-      $setting['group'],
-      $setting['name'],
-      array(
-        'sanitize_callback' => $setting['sanitize_callback']
-      )
-    );
-
-    // Ensure option exists in the database (use fallback for check)
-    if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
-      add_option( $setting['name'], $setting['default'] ?? '' );
-    }
-  }
-
-  // Strings
-  foreach ( FICTIONEER_OPTIONS['strings'] as $setting ) {
-    register_setting(
-      $setting['group'],
-      $setting['name'],
-      array(
-        'sanitize_callback' => $setting['sanitize_callback']
-      )
-    );
-
-    // Ensure option exists in the database (use fallback for check)
-    if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
-      add_option( $setting['name'], $setting['default'] ?? '' );
+      // Ensure option exists in the database (use fallback for check)
+      if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
+        add_option( $setting['name'], $setting['default'] ?? '' );
+      }
     }
   }
 }
