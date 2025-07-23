@@ -80,6 +80,12 @@ function fictioneer_ajax_get_user_data() {
     }
   }
 
+  // --- FOLLOWS ---------------------------------------------------------------
+
+  if ( $logged_in && get_option( 'fictioneer_enable_follows' ) ) {
+    $data['follows'] = fictioneer_load_follows( $user );
+  }
+
   // --- REMINDERS -------------------------------------------------------------
 
   if ( $logged_in && get_option( 'fictioneer_enable_reminders' ) ) {
