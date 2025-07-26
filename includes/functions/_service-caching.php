@@ -969,10 +969,13 @@ function fictioneer_clear_all_cached_partials() {
   );
 
   foreach ( $files as $fileinfo ) {
+    $path = $fileinfo->getRealPath();
     $todo = ( $fileinfo->isDir() ? 'rmdir' : 'unlink' );
 
-    if ( ! $todo( $fileinfo->getRealPath() ) ) {
-      error_log( 'Failed to delete ' . $fileinfo->getRealPath() );
+    if ( file_exists( $path ) ) {
+      if ( ! $todo( $path ) ) {
+        error_log( "Failed to delete {$path}." );
+      }
     }
   }
 }
