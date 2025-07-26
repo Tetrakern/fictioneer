@@ -267,7 +267,7 @@ td.fictioneer_patreon_lock_amount {
 
   &:focus-within {
     .fictioneer-metabox-checkbox__checkbox {
-      outline: 2px solid var(--wp-admin-theme-color);
+      outline: 2px solid var(--wp-admin-theme-color, #3858e9);
       outline-offset: 1.5px;
     }
   }
@@ -305,8 +305,8 @@ td.fictioneer_patreon_lock_amount {
       }
 
       &:checked {
-        background: var(--wp-admin-theme-color) !important;
-        border-color: var(--wp-admin-theme-color) !important;
+        background: var(--wp-admin-theme-color, #3858e9) !important;
+        border-color: var(--wp-admin-theme-color, #3858e9) !important;
       }
 
       &:not(:checked) + svg {
@@ -807,12 +807,12 @@ td.fictioneer_patreon_lock_amount {
       }
 
       &.is-dragged-ghost {
-        background: rgba(var(--wp-admin-theme-color--rgb), .1);
+        background: rgb(var(--wp-admin-theme-color--rgb, 56 88 233) / 10%);
       }
 
       &-label {
         display: inline-block;
-        background: rgba(0, 0, 0, .12);
+        background: rgb(0 0 0 / 12%);
         font-size: 10px;
         line-height: 1;
         padding: 3px 4px;
@@ -1080,7 +1080,7 @@ td.fictioneer_patreon_lock_amount {
     transition: opacity 0.15s;
 
     &:hover {
-      color: var(--wp-admin-theme-color);
+      color: var(--wp-admin-theme-color, #3858e9);
     }
   }
 
