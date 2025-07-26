@@ -3627,7 +3627,7 @@ function fictioneer_get_post_patreon_data( $post = null ) {
   $parent_tiers = [];
   $parent_amount_cents = 0;
 
-  if ( $post->post_type === 'fcn_chapter' ) {
+  if ( $post->post_type === 'fcn_chapter' && ! get_post_meta( $post_id, 'fictioneer_patreon_override', true ) ) {
     $parent_id = fictioneer_get_chapter_story_id( $post_id );
 
     if ( $parent_id && get_post_meta( $parent_id, 'fictioneer_patreon_inheritance', true ) ) {

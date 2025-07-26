@@ -2885,6 +2885,17 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
     );
   }
 
+  if (
+    ( current_user_can( 'fcn_assign_patreon_tiers' ) || current_user_can( 'manage_options' ) ) &&
+    get_option( 'fictioneer_enable_patreon_locks' )
+  ) {
+    $output['fictioneer_patreon_override'] = fictioneer_get_metabox_checkbox(
+    $post,
+      'fictioneer_patreon_override',
+      __( 'Override story Patreon settings', 'fictioneer' )
+    );
+  }
+
   // --- Filters ---------------------------------------------------------------
 
   $output = apply_filters( 'fictioneer_filter_metabox_chapter_meta', $output, $post );
@@ -3102,6 +3113,16 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   ) {
     $fields['fictioneer_chapter_disable_partial_caching'] =
       fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_disable_partial_caching'] );
+  }
+
+  // Override Patreon flag
+  if (
+    isset( $_POST['fictioneer_patreon_override'] ) &&
+    ( current_user_can( 'fcn_assign_patreon_tiers' ) || current_user_can( 'manage_options' ) ) &&
+    get_option( 'fictioneer_enable_patreon_locks' )
+  ) {
+    $fields['fictioneer_patreon_override'] =
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_patreon_override'] );
   }
 
   // Rating
