@@ -1999,5 +1999,5 @@ function fictioneer_robots_txt( $output, $public ) {
 }
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
-  add_filter( 'robots_txt', 'fictioneer_robots_txt', 10, 2 );
+  add_filter( 'robots_txt', 'fictioneer_robots_txt', 1, 2 );
 }
