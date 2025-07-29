@@ -1565,10 +1565,11 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME | integer | Time until a cached partial expires in seconds. Default `4 * HOUR_IN_SECONDS`.
 | FICTIONEER_CARD_CACHE_LIMIT | integer | Number of story cards cached if the feature is enabled. Default `50`.
 | FICTIONEER_CARD_CACHE_EXPIRATION_TIME | integer | Time until the whole story card cache expires in seconds. Default `HOUR_IN_SECONDS`.
-| FICTIONEER_STORY_CARD_CHAPTER_LIMIT | integer | Maximum number of chapters shown on story cards. Default 3.
+| FICTIONEER_STORY_CARD_CHAPTER_LIMIT | integer | Maximum number of chapters shown on story cards. Default `3`.
 | FICTIONEER_OAUTH_COOKIE_EXPIRATION | integer | Expiration time of the OAuth 2.0 login cookie in seconds. Default `259200` (3 days).
 | FICTIONEER_MAX_READ_ALERTS | integer | How many alert IDs are stored as "read" for a user. Default `500`.
-| FICTIONEER_ALERT_EXPIRATION | integer | How long alerts are kept in the database in seconds. Default 90 days in seconds.
+| FICTIONEER_ALERT_EXPIRATION | integer | How long alerts are kept in the database in seconds. Default `7776000` (90 days).
+| FICTIONEER_SITEMAP_ENTRIES_PER_PAGE | integer | How many entries per page the sitemap shows. Default `2000`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_SHOW_SEARCH_IN_MENUS | boolean | Whether to show search page links in menus. Default `true`.

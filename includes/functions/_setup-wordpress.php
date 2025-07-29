@@ -870,10 +870,11 @@ function fictioneer_get_lightbox_attribute() {
 // =============================================================================
 
 /**
- * Add custom query vars
+ * Add custom query vars.
  *
  * @since 4.0.0
  * @since 5.8.7 - Appended 'fictioneer_sitemap'.
+ * @since 5.31.1 - Appended 'fictioneer_sitemap_page'.
  *
  * @param array $qvars  Allowed query variable names.
  *
@@ -886,6 +887,7 @@ function fictioneer_query_vars( $qvars ) {
   $qvars[] = 'cp'; // e.g. custom/current page
   $qvars[] = 'pg'; // e.g. page
   $qvars[] = 'fictioneer_sitemap';
+  $qvars[] = 'fictioneer_sitemap_page';
 
   return $qvars;
 }

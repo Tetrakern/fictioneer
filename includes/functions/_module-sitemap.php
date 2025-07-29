@@ -8,10 +8,15 @@
  * Add rewrite rule for custom theme sitemap.
  *
  * @since 5.8.7
+ * @since 5.31.1 - Refactored for paginated sitemap.
  */
 
 function fictioneer_add_sitemap_rewrite_rule() {
-  add_rewrite_rule( '^sitemap\.xml$', 'index.php?fictioneer_sitemap=1', 'top' );
+  add_rewrite_rule( '^sitemap\.xml$', 'index.php?fictioneer_sitemap=index', 'top' );
+  add_rewrite_rule( '^sitemap-([0-9]+)\.xml$', 'index.php?fictioneer_sitemap_page=$matches[1]', 'top' );
+
+  add_rewrite_tag( '%fictioneer_sitemap%', '([^&]+)' );
+  add_rewrite_tag( '%fictioneer_sitemap_page%', '([0-9]+)' );
 }
 
 if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active() ) {
@@ -19,34 +24,32 @@ if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active
 }
 
 /**
- * Serve the custom theme sitemap.xml.
+ * Serve sitemap index or page.
  *
- * @since 5.8.7
+ * @since 5.31.1
  */
 
-function fictioneer_serve_sitemap() {
-  // Check whether this is the sitemap route
-  if ( is_null( get_query_var( 'fictioneer_sitemap', null ) ) ) {
-    return;
+function fictioneer_serve_paginated_sitemap() {
+  if ( get_query_var( 'fictioneer_sitemap' ) === 'index' ) {
+    fictioneer_serve_sitemap_index();
+    exit;
   }
 
-  // Setup
-  $sitemap_file = ABSPATH . '/fictioneer_sitemap.xml';
+  $page = intval( get_query_var( 'fictioneer_sitemap_page' ) );
+  $total = fictioneer_get_sitemap_total_pages();
 
-  // Sitemap missing or older than 24 hours?
-  if ( ! file_exists( $sitemap_file ) || ( time() - filemtime( $sitemap_file ) ) > DAY_IN_SECONDS ) {
-    fictioneer_create_sitemap();
+  if ( $page > 0 && $page <= $total ) {
+    fictioneer_serve_sitemap_page( $page );
+    exit;
   }
-
-  // Serve the sitemap file
-  header( 'Content-Type: application/xml' );
-  readfile( $sitemap_file );
-  exit;
 }
-add_action( 'template_redirect', 'fictioneer_serve_sitemap' );
+
+if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active() ) {
+  add_action( 'template_redirect', 'fictioneer_serve_paginated_sitemap' );
+}
 
 // =============================================================================
-// (RE-)BUILD SITEMAP
+// HELPERS
 // =============================================================================
 
 /**
@@ -60,7 +63,7 @@ add_action( 'template_redirect', 'fictioneer_serve_sitemap' );
  */
 
 function fictioneer_loc_node( $content ) {
-  return '<loc>' . $content . '</loc>';
+  return '<loc>' . esc_xml( $content ) . '</loc>';
 }
 
 /**
@@ -74,7 +77,7 @@ function fictioneer_loc_node( $content ) {
  */
 
 function fictioneer_lastmod_node( $content ) {
-  return '<lastmod>' . $content . '</lastmod>';
+  return '<lastmod>' . esc_xml( $content ) . '</lastmod>';
 }
 
 /**
@@ -88,7 +91,7 @@ function fictioneer_lastmod_node( $content ) {
  */
 
 function fictioneer_frequency_node( $content ) {
-  return '<changefreq>' . $content . '</changefreq>';
+  return '<changefreq>' . esc_xml( $content ) . '</changefreq>';
 }
 
 /**
@@ -113,162 +116,283 @@ function fictioneer_url_node( $loc, $lastmod = null, $freq = null ) {
 }
 
 /**
- * Generate theme sitemap.
+ * Return number of sitemap pages.
  *
- * @since 4.0.0
- * @since 5.8.7 - Create on demand, not on post save.
+ * @since 5.31.1
+ *
+ * @global wpdb $wpdb  WordPress database abstraction object.
+ *
+ * @return int Number of sitemap pages.
  */
 
-function fictioneer_create_sitemap() {
-  // Open
-  $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-  $sitemap .= '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+function fictioneer_get_sitemap_total_pages() {
+  global $wpdb;
 
-  // Blog and front page
-  $sitemap .= fictioneer_url_node( esc_url( home_url( '/' ) ), current_time( 'c' ), 'daily' );
-  $sitemap .= fictioneer_url_node( get_permalink( get_option( 'page_for_posts' ) ), current_time( 'c' ), 'daily' );
+  static $pages = null;
 
-  // Pages
-  $pages = get_posts(
+  if ( $pages ) {
+    return $pages;
+  }
+
+  $home = (int) get_option( 'page_on_front' );
+  $blog = (int) get_option( 'page_for_posts' );
+
+  $sql = "
+    SELECT COUNT(1)
+    FROM {$wpdb->posts} p
+    LEFT JOIN {$wpdb->postmeta} m1
+      ON m1.post_id = p.ID AND m1.meta_key = 'fictioneer_chapter_hidden'
+    LEFT JOIN {$wpdb->postmeta} m2
+      ON m2.post_id = p.ID AND m2.meta_key = 'fictioneer_story_hidden'
+    WHERE p.post_status = 'publish'
+      AND p.post_type IN ( 'page', 'post', 'fcn_collection', 'fcn_story', 'fcn_chapter', 'fcn_recommendation' )
+      AND (
+        p.post_type != 'fcn_chapter'
+        OR COALESCE(m1.meta_value, '') NOT IN ('1', 'true', 'yes')
+      )
+      AND (
+        p.post_type != 'fcn_story'
+        OR COALESCE(m2.meta_value, '') NOT IN ('1', 'true', 'yes')
+      )
+  ";
+
+  $count = (int) $wpdb->get_var( $sql );
+
+  if ( $home ) {
+    $home_exists = $wpdb->get_var(
+      $wpdb->prepare(
+        "SELECT 1 FROM {$wpdb->posts} WHERE ID = %d AND post_status = 'publish' LIMIT 1",
+        $home
+      )
+    );
+
+    if ( $home_exists ) {
+      $count--;
+    }
+  }
+
+  if ( $blog && $blog !== $home ) {
+    $blog_exists = $wpdb->get_var(
+      $wpdb->prepare(
+        "SELECT 1 FROM {$wpdb->posts} WHERE ID = %d AND post_status = 'publish' LIMIT 1",
+        $blog
+      )
+    );
+
+    if ( $blog_exists ) {
+      $count--;
+    }
+  }
+
+  $pages = (int) ceil( $count / FICTIONEER_SITEMAP_ENTRIES_PER_PAGE );
+
+  return $pages;
+}
+
+// =============================================================================
+// SITEMAP INDEX
+// =============================================================================
+
+/**
+ * Serve the virtual sitemap index XML.
+ *
+ * @since 5.31.1
+ */
+
+function fictioneer_serve_sitemap_index() {
+  header( 'Content-Type: application/xml; charset=UTF-8' );
+
+  // Render Transient?
+  $transient = get_transient( 'fictioneer_sitemap_index' );
+
+  if ( ! WP_DEBUG && $transient ) {
+    echo $transient;
+    return;
+  }
+
+  // Setup
+  $total = fictioneer_get_sitemap_total_pages();
+  $base_url = home_url( '/' );
+  $output = '';
+
+  // Build
+  $output .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+  $output .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+  for ( $i = 1; $i <= $total; $i++ ) {
+    $loc = esc_xml( esc_url( "{$base_url}sitemap-{$i}.xml" ) );
+    $lastmod = esc_xml( current_time( 'c', true ) );
+
+    $output .= "\t<sitemap>\n";
+    $output .= "\t\t<loc>$loc</loc>\n";
+    $output .= "\t\t<lastmod>$lastmod</lastmod>\n";
+    $output .= "\t</sitemap>\n";
+  }
+
+  $output .= '</sitemapindex>';
+
+  // Cache as Transient
+  set_transient( 'fictioneer_sitemap_index', $output, 4 * HOUR_IN_SECONDS );
+  set_transient( 'fictioneer_sitemaps_timestamp', time() );
+
+  // Render
+  echo $output;
+}
+
+// =============================================================================
+// PAGINATED SITEMAP
+// =============================================================================
+
+/**
+ * Serve paginated sitemap.
+ *
+ * @since 5.31.1
+ *
+ * @param int $page  Current page.
+ */
+
+function fictioneer_serve_sitemap_page( $page ) {
+  // Setup
+  $offset = ( $page - 1 ) * FICTIONEER_SITEMAP_ENTRIES_PER_PAGE;
+  $timestamp = get_transient( 'fictioneer_sitemaps_timestamp' ) ?: time();
+  $transient_key = 'fictioneer_sitemap_' . FICTIONEER_SITEMAP_ENTRIES_PER_PAGE . "_{$page}";
+
+  // Header
+  header( 'Content-Type: application/xml; charset=UTF-8' );
+
+  // Render Transient?
+  $transient = get_transient( $transient_key );
+
+  if ( ! WP_DEBUG && $transient && $transient['timestamp'] === $timestamp ) {
+    echo $transient['content'];
+    return;
+  }
+
+  // Get date and time
+  $now = current_time( 'c', true );
+
+  // Compile sitemap
+  $output = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+  $output .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+  // Static pages
+  if ( $page === 1 ) {
+    $home = get_option( 'page_on_front' );
+    $blog = get_option( 'page_for_posts' );
+
+    $output .= fictioneer_url_node( esc_url( home_url( '/' ) ), $now, 'daily' );
+
+    if ( $blog && $blog !== $home ) {
+      $output .= fictioneer_url_node( get_permalink( $blog ), $now, 'daily' );
+    }
+  }
+
+  // Content
+  $entries = fictioneer_get_sitemap_entries( FICTIONEER_SITEMAP_ENTRIES_PER_PAGE, $offset );
+
+  foreach ( $entries as $entry ) {
+    $output .= fictioneer_url_node( $entry['loc'], $entry['lastmod'], $entry['freq'] );
+  }
+
+  $output .= '</urlset>';
+
+  // Cache as Transient
+  set_transient(
+    $transient_key,
     array(
-      'post_type' => 'page',
-      'post_status' => 'publish',
-      'orderby' => 'date',
-      'order' => 'DESC',
-      'numberposts' => '1000',
-      'post__not_in' => [get_option( 'page_on_front' ), get_option( 'page_for_posts' )],
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false,
-      'no_found_rows' => true
+      'content' => $output,
+      'timestamp' => $timestamp
+    ),
+    4 * HOUR_IN_SECONDS - 2
+  );
+
+  // Render
+  echo $output;
+}
+
+/**
+ * Get sitemap entries.
+ *
+ * @since 5.31.1
+ *
+ * @global wpdb $wpdb  WordPress database abstraction object.
+ *
+ * @param int $limit   Value for 'posts_per_page' argument.
+ * @param int $offset  Offset to account for the pagination.
+ *
+ * @return array Collection of node data ('loc', 'lastmod', 'freq').
+ */
+
+function fictioneer_get_sitemap_entries( $limit, $offset ) {
+  global $wpdb;
+
+  // Setup
+  $home = (int) get_option( 'page_on_front' );
+  $blog = (int) get_option( 'page_for_posts' );
+  $entries = [];
+  $template_excludes = apply_filters(
+    'fictioneer_filter_sitemap_page_template_excludes',
+    array(
+      'user-profile.php',
+      'singular-bookmarks.php',
+      'singular-bookshelf.php',
+      'singular-bookshelf-ajax.php'
     )
   );
 
-  foreach ( $pages as $post ) {
-    $post_id = $post->ID;
-    $template = get_page_template_slug( $post_id );
-    $template_excludes = ['user-profile.php', 'singular-bookmarks.php', 'singular-bookshelf.php', 'singular-bookshelf-ajax.php'];
-    $template_excludes = apply_filters( 'fictioneer_filter_sitemap_page_template_excludes', $template_excludes );
+  // Query
+  $sql = "
+    SELECT
+      p.ID,
+      p.post_type,
+      p.post_modified_gmt,
+      m3.meta_value AS story_status
+    FROM {$wpdb->posts} p
+    LEFT JOIN {$wpdb->postmeta} m1 ON m1.post_id = p.ID AND m1.meta_key = 'fictioneer_chapter_hidden'
+    LEFT JOIN {$wpdb->postmeta} m2 ON m2.post_id = p.ID AND m2.meta_key = 'fictioneer_story_hidden'
+    LEFT JOIN {$wpdb->postmeta} m3 ON m3.post_id = p.ID AND m3.meta_key = 'fictioneer_story_status'
+    WHERE p.post_status = 'publish'
+      AND p.post_type IN ('page', 'post', 'fcn_collection', 'fcn_story', 'fcn_chapter', 'fcn_recommendation')
+      AND (
+        p.post_type != 'fcn_chapter'
+        OR COALESCE(m1.meta_value, '') NOT IN ('1', 'true', 'yes')
+      )
+      AND (
+        p.post_type != 'fcn_story'
+        OR COALESCE(m2.meta_value, '') NOT IN ('1', 'true', 'yes')
+      )
+    ORDER BY p.post_date DESC
+    LIMIT %d OFFSET %d
+  ";
 
-    if ( in_array( $template, $template_excludes ) ) {
+  $results = $wpdb->get_results( $wpdb->prepare( $sql, $limit, $offset ) );
+
+  // Collect data
+  foreach ( $results as $row ) {
+    if ( $row->ID === $home || $row->ID === $blog ) {
       continue;
     }
 
-    $lastmod = get_the_modified_date( 'c', $post_id );
-    $sitemap .= fictioneer_url_node( get_permalink( $post_id ), $lastmod, 'monthly' );
-  }
+    if ( $row->post_type === 'page' ) {
+      $slug = get_page_template_slug( $row->ID );
 
-  // Blogs
-  $blogs = get_posts(
-    array(
-      'post_type' => 'post',
-      'post_status' => 'publish',
-      'orderby' => 'date',
-      'order' => 'DESC',
-      'numberposts' => '1000',
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false,
-      'no_found_rows' => true
-    )
-  );
-
-  foreach ( $blogs as $post ) {
-    $lastmod = get_the_modified_date( 'c', $post->ID );
-    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'never' );
-  }
-
-  // Collections
-  $collections = get_posts(
-    array(
-      'post_type' => 'fcn_collection',
-      'post_status' => 'publish',
-      'orderby' => 'date',
-      'order' => 'DESC',
-      'numberposts' => '1000',
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false,
-      'no_found_rows' => true
-    )
-  );
-
-  foreach ( $collections as $post ) {
-    $lastmod = get_the_modified_date( 'c', $post->ID );
-    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
-  }
-
-  // Stories
-  $stories = get_posts(
-    array(
-      'post_type' => 'fcn_story',
-      'post_status' => 'publish',
-      'orderby' => 'date',
-      'order' => 'DESC',
-      'numberposts' => '2000',
-      'update_post_meta_cache' => true,
-      'update_post_term_cache' => false,
-      'no_found_rows' => true
-    )
-  );
-
-  foreach ( $stories as $post ) {
-    $post_id = $post->ID;
-
-    if ( get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ) {
-      continue;
+      if ( in_array( $slug, $template_excludes ) ) {
+        continue;
+      }
     }
 
-    $lastmod = get_the_modified_date( 'c', $post_id );
-    $status = get_post_meta( $post_id, 'fictioneer_story_status', true );
-    $frequency = $status == 'Ongoing' ? 'weekly' : 'monthly';
-    $sitemap .= fictioneer_url_node( get_permalink( $post_id ), $lastmod, $frequency );
+    $entries[] = array(
+      'loc' => get_permalink( $row->ID ),
+      'lastmod' => gmdate( 'c', strtotime( $row->post_modified_gmt ) ),
+      'freq' => match ( $row->post_type ) {
+        'fcn_story' => ( $row->story_status === 'Ongoing' ? 'weekly' : 'monthly' ),
+        'post' => 'never',
+        'page' => 'monthly',
+        default => 'monthly'
+      }
+    );
   }
 
-  // Chapters
-  $chapters = get_posts(
-    array(
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'publish',
-      'orderby' => 'date',
-      'order' => 'DESC',
-      'numberposts' => '10000',
-      'update_post_meta_cache' => true,
-      'update_post_term_cache' => false,
-      'no_found_rows' => true
-    )
-  );
-
-  foreach ( $chapters as $post ) {
-    if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
-      continue;
-    }
-
-    $lastmod = get_the_modified_date( 'c', $post->ID );
-    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
-  }
-
-  // Recommendations
-  $recommendations = get_posts(
-    array(
-      'post_type' => 'fcn_recommendation',
-      'post_status' => 'publish',
-      'orderby' => 'date',
-      'order' => 'DESC',
-      'numberposts' => '1000',
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false,
-      'no_found_rows' => true
-    )
-  );
-
-  foreach ( $recommendations as $post ) {
-    $lastmod = get_the_modified_date( 'c', $post->ID );
-    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
-  }
-
-  // End
-  $sitemap .= "\n" . '</urlset>';
-
-  // Save
-  $file_path = fopen( ABSPATH . '/fictioneer_sitemap.xml', 'w' );
-  fwrite( $file_path, $sitemap );
-  fclose( $file_path );
+  // Result
+  return $entries;
 }

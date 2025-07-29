@@ -318,6 +318,11 @@ if ( ! defined( 'FICTIONEER_ALERT_EXPIRATION' ) ) {
   define( 'FICTIONEER_ALERT_EXPIRATION', 90 * DAY_IN_SECONDS );
 }
 
+// Integer: Sitemap entries per page
+if ( ! defined( 'FICTIONEER_SITEMAP_ENTRIES_PER_PAGE' ) ) {
+  define( 'FICTIONEER_SITEMAP_ENTRIES_PER_PAGE', 2000 );
+}
+
 /*
  * Booleans
  */
