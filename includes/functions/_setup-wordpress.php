@@ -1972,8 +1972,6 @@ function fictioneer_robots_txt( $output, $public ) {
   $output .= "Disallow: /wp-login.php\n"; // Nothing for crawlers
   $output .= "Disallow: /?s=\n"; // Search results; only results in search result spam
   $output .= "Disallow: /search/\n"; // Search results; only results in search result spam
-  $output .= "Disallow: /*?oauth_nonce=\n"; // OAuth 2 login
-  $output .= "Disallow: /oauth2?code=\n"; // OAuth 2 login
 
   // Allow
   $output .= "\nAllow: /wp-admin/admin-ajax.php\n";
@@ -2003,3 +2001,32 @@ function fictioneer_robots_txt( $output, $public ) {
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
   add_filter( 'robots_txt', 'fictioneer_robots_txt', 1, 2 );
 }
+
+/**
+ * Exclude URIs from being crawled.
+ *
+ * @since 5.31.1
+ *
+ * @param string $output  The robots.txt output.
+ * @param bool   $public  Whether the site is considered "public".
+ *
+ * @return string The updated robots.txt output.
+ */
+
+function fictioneer_robots_txt_exclusions( $output, $public ) {
+  if ( ! $public ) {
+    return $output;
+  }
+
+  // Insert after...
+  $needle = 'Disallow: /wp-admin/';
+  $custom = "Disallow: /*?oauth_nonce=\nDisallow: /oauth2?code=";
+
+  if ( strpos( $output, $needle ) !== false && strpos( $output, $custom ) === false ) {
+    $output = str_replace( $needle, $needle . "\n" . $custom, $output );
+  }
+
+  // Continue filter
+  return $output;
+}
+add_filter( 'robots_txt', 'fictioneer_robots_txt_exclusions', 10, 2 );
