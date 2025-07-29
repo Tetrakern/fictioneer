@@ -1983,14 +1983,32 @@ function fictioneer_robots_txt( $output, $public ) {
 
   // Ban user agents...
   $output .= "\nUser-agent: Nuclei\n"; // Often used for probing vulnerabilities
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: WikiDo\n"; // Fictioneer is no an event theme
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: Riddler\n"; // Security crawler from Net Systems Research
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: Go-http-client\n"; // Generic Go HTTP client; often used by scripts and scrapers
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: Node/simplecrawler\n"; // Common in custom scrapers or pentesting tools
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: CazoodleBot\n"; // Old academic crawler, now mostly defunct or misused
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: Barkrowler\n"; // Academic/research crawler from Télécom Paris; very aggressiv
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: magpie-crawler\n"; // Chinese bot; minimal benefit and often high load
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: dotbot/1.0\n"; // Dotbot (by Moz); old and sometimes aggressive
+  $output .= "Disallow: /\n\n";
+
   $output .= "User-agent: Zoominfobot\n"; // B2B data scraper; not SEO-relevant, borderline abusive
   $output .= "Disallow: /\n";
 
