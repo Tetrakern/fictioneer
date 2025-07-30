@@ -1,5 +1,7 @@
 @use 'sass:math';
+@use 'sass:color';
 @use 'sass:string';
+@use 'sass:list';
 @use '_mixins' as *;
 @use '_variables' as *;
 
@@ -59,7 +61,7 @@
 // https://toward.studio/latest/making-css-gradients-smooth
 // https://css-tricks.com/easing-linear-gradients/
 
-@function scrim_gradient($startColor: #000000, $direction: 'to bottom', $startOpacity: 1, $offset: 0) {
+@function scrim_gradient($startColor: #000000, $direction: "to bottom", $startOpacity: 1, $offset: 0) {
   $scrimCoordinates: (
     0: 1,
     19: 0.738,
@@ -76,16 +78,16 @@
     100: 0
   );
 
-  $hue: hue($startColor);
-  $saturation: saturation($startColor);
-  $lightness: lightness($startColor);
+  $hue: color.channel($startColor, "hue", $space: hsl);
+  $saturation: color.channel($startColor, "saturation", $space: hsl);
+  $lightness: color.channel($startColor, "lightness", $space: hsl);
   $stops: ();
 
   @each $colorStop, $alphaValue in $scrimCoordinates {
     $adjustedAlpha: $alphaValue * $startOpacity;
-    $adjustedStop: percentage(($colorStop * 0.01 * (100 - $offset) + $offset) * 0.01);
+    $adjustedStop: math.percentage(($colorStop * 0.01 * (100 - $offset) + $offset) * 0.01);
     $stop: hsla($hue, $saturation, $lightness, $adjustedAlpha) $adjustedStop;
-    $stops: append($stops, $stop, comma);
+    $stops: list.append($stops, $stop, comma);
   }
 
   @return linear-gradient(string.unquote($direction), $stops);
