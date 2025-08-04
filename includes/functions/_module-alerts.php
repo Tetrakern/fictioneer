@@ -147,7 +147,7 @@ function fictioneer_add_alert( $content, $args = [] ) {
     'content' => wp_kses_post( $content ),
     'url' => isset( $args['url'] ) ? sanitize_url( $args['url'] ) : null,
     'roles' => isset( $args['roles'] ) ? maybe_serialize( array_map( 'sanitize_key', (array) $args['roles'] ) ) : null,
-    'users' => isset( $args['users'] ) ? maybe_serialize( array_map( 'absint', (array) $args['users'] ) ) : null,
+    'users' => isset( $args['users'] ) ? maybe_serialize( array_map( 'sanitize_key', (array) $args['users'] ) ) : null,
     'tags' => isset( $args['tags'] ) ? maybe_serialize( array_map( 'sanitize_key', (array) $args['tags'] ) ) : null,
     'date' => $args['date'],
     'date_gmt' => get_gmt_from_date( $args['date'] )
@@ -364,7 +364,8 @@ function fictioneer_get_alerts( $args = [] ) {
 
   if ( isset( $args['author'] ) && is_numeric( $args['author'] ) && $args['author'] > 0 ) {
     $has_filters = true;
-    $filtered_where[] = $wpdb->prepare( 'author = %d', (int) $args['author'] );
+    $filtered_where[] = 'author = %d';
+    $filtered_params[] = (int) $args['author'];
   }
 
   if ( ! empty( $args['roles'] ) ) {
@@ -375,7 +376,8 @@ function fictioneer_get_alerts( $args = [] ) {
 
       if ( $role ) {
         $has_filters = true;
-        $role_where[] = $wpdb->prepare( 'roles LIKE %s', '%"' . $role . '";%' );
+        $role_where[] = 'roles LIKE %s';
+        $filtered_params[] = '%"' . $wpdb->esc_like( $role ) . '";%';
       }
     }
 
@@ -388,11 +390,12 @@ function fictioneer_get_alerts( $args = [] ) {
     $user_where = ['users IS NULL'];
 
     foreach ( $args['user_ids'] as $user_id ) {
-      $user_id = max( intval( $user_id ), 0 );
+      $user_id = sanitize_key( $user_id );
 
-      if ( $user_id > 0 ) {
+      if ( intval( $user_id ) > 0 ) {
         $has_filters = true;
-        $user_where[] = $wpdb->prepare( 'users LIKE %s', '%"' . $user_id . '";%' );
+        $user_where[] = 'users LIKE %s';
+        $filtered_params[] = '%"' . $wpdb->esc_like( $user_id ) . '";%';
       }
     }
 
@@ -409,7 +412,8 @@ function fictioneer_get_alerts( $args = [] ) {
 
       if ( $tag ) {
         $has_filters = true;
-        $tag_where[] = $wpdb->prepare( 'tags LIKE %s', '%"' . $tag . '";%' );
+        $tag_where[] = 'tags LIKE %s';
+        $filtered_params[] = '%"' . $wpdb->esc_like( $tag ) . '";%';
       }
     }
 
@@ -425,10 +429,12 @@ function fictioneer_get_alerts( $args = [] ) {
       ? gmdate( 'Y-m-d H:i:s', (int) $args['since'] )
       : sanitize_text_field( $args['since'] );
 
-    $filtered_where[] = $wpdb->prepare( 'date_gmt >= %s', $since );
+    $filtered_where[] = 'date_gmt >= %s';
+    $filtered_params[] = $since;
   }
 
-  $filtered_where[] = $wpdb->prepare( 'date_gmt <= %s', gmdate( 'Y-m-d H:i:s' ) );
+  $filtered_where[] = 'date_gmt <= %s';
+  $filtered_params[] = gmdate( 'Y-m-d H:i:s' );
 
   if ( $has_filters ) {
     $sql_filtered = "SELECT {$fields}, date, date_gmt FROM $table";
@@ -437,16 +443,18 @@ function fictioneer_get_alerts( $args = [] ) {
       $sql_filtered .= ' WHERE ' . implode( ' AND ', $filtered_where );
     }
 
-    $placeholders = implode( ', ', array_fill( 0, count( $global_types ), '%s' ) );
-    $sql_global = "SELECT {$fields}, date, date_gmt FROM $table WHERE type IN ($placeholders) AND date_gmt <= %s";
-    $params = array_merge( $filtered_params, $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
+    $global_placeholders = implode( ', ', array_fill( 0, count( $global_types ), '%s' ) );
+    $sql_global = "SELECT {$fields}, date, date_gmt FROM $table WHERE type IN ($global_placeholders) AND date_gmt <= %s";
 
     $sql = "($sql_filtered) UNION ALL ($sql_global) ORDER BY date_gmt DESC LIMIT 69";
-  } else {
-    $placeholders = implode( ', ', array_fill( 0, count( $global_types ), '%s' ) );
-    $params = array_merge( $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
 
-    $sql = "SELECT {$fields}, date, date_gmt FROM $table WHERE type IN ($placeholders) AND date_gmt <= %s ORDER BY date_gmt DESC LIMIT 99";
+    $params = array_merge( $filtered_params, $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
+  } else {
+    $global_placeholders = implode( ', ', array_fill( 0, count( $global_types ), '%s' ) );
+
+    $sql = "SELECT {$fields}, date, date_gmt FROM $table WHERE type IN ($global_placeholders) AND date_gmt <= %s ORDER BY date_gmt DESC LIMIT 99";
+
+    $params = array_merge( $global_types, [ gmdate( 'Y-m-d H:i:s' ) ] );
   }
 
   $results = $wpdb->get_results( $wpdb->prepare( $sql, ...$params ), ARRAY_A );
@@ -467,14 +475,13 @@ function fictioneer_get_alerts( $args = [] ) {
     if ( $args['only_ids'] ) {
       $filtered_results[] = (int) $row['ID'];
     } else {
-      $row['id'] = (int) $row['ID'];
-      unset( $row['ID'] );
-
-      $timestamp = strtotime( $row['date_gmt'] );
-
-      $row['date'] = wp_date( $date_format, $timestamp );
-
-      $filtered_results[] = $row;
+      $filtered_results[] = array(
+        'id' => (int) $row['ID'],
+        'type' => $row['type'],
+        'content'=> $row['content'],
+        'url' => $row['url'],
+        'date' => wp_date( $date_format, strtotime( $row['date_gmt'] ) ),
+      );
     }
   }
 
