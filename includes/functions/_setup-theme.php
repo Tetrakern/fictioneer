@@ -1133,6 +1133,14 @@ function fictioneer_style_queue() {
       $cache_bust
     );
   }
+
+  // Font Awesome
+  wp_enqueue_style(
+    'fictioneer-font-awesome',
+    get_template_directory_uri() . '/assets/fontawesome/css/all.min.css',
+    [],
+    $cache_bust
+  );
 }
 add_action( 'wp_enqueue_scripts', 'fictioneer_style_queue' );
 
@@ -1196,76 +1204,6 @@ function fictioneer_output_customize_preview_css() {
 
 if ( is_customize_preview() ) {
   add_action( 'wp_enqueue_scripts', 'fictioneer_output_customize_preview_css', 9999 );
-}
-
-// =============================================================================
-// FONT AWESOME
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_add_font_awesome_integrity' ) ) {
-  /**
-   * Enqueue Font Awesome
-   *
-   * @since 5.7.6
-   * @link https://fontawesome.com/docs/web/use-with/wordpress/install-manually
-   *
-   * @param string $tag     The link tag for the enqueued style.
-   * @param string $handle  The style's registered handle.
-   *
-   * @return string The modified link tag.
-   */
-
-  function fictioneer_add_font_awesome_integrity( $tag, $handle ) {
-    // Abort conditions...
-    if ( empty( FICTIONEER_FA_INTEGRITY ) ) {
-      return $tag;
-    }
-
-    // Modify HTML
-    if ( $handle === 'font-awesome-cdn-webfont-fictioneer' ) {
-      $tag = preg_replace( '/\/>$/', 'integrity="' . FICTIONEER_FA_INTEGRITY . '" data-jetpack-boost="ignore" data-no-defer="1" data-no-optimize="1" data-no-minify="1" crossorigin="anonymous" />', $tag, 1 );
-    }
-
-    // Continue filter
-    return $tag;
-  }
-}
-
-if ( ! function_exists( 'fictioneer_add_font_awesome' ) ) {
-  /**
-   * Enqueue Font Awesome
-   *
-   * @since 5.7.6
-   * @link https://fontawesome.com/docs/web/use-with/wordpress/install-manually
-   */
-
-  function fictioneer_add_font_awesome() {
-    // Abort conditions...
-    if ( empty( FICTIONEER_FA_CDN ) ) {
-      return;
-    }
-
-    // Setup
-    $actions = ['wp_enqueue_scripts', 'admin_enqueue_scripts', 'login_enqueue_scripts'];
-
-    // Actions
-    foreach ( $actions as $action ) {
-      add_action(
-        $action,
-        function() {
-          wp_enqueue_style( 'font-awesome-cdn-webfont-fictioneer', FICTIONEER_FA_CDN, [], null );
-        }
-      );
-    }
-
-    // Filters
-    add_filter( 'style_loader_tag', 'fictioneer_add_font_awesome_integrity', 10, 2 );
-  }
-
-  // Initialize
-  if ( ! get_option( 'fictioneer_disable_font_awesome' ) ) {
-    fictioneer_add_font_awesome();
-  }
 }
 
 // =============================================================================

@@ -83,6 +83,50 @@
       "rFN" : 0,
       "uCM" : 0
     },
+    "\/assets\/fontawesome\/css\/all.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/assets\/fontawesome\/css\/all.min-min.css",
+      "oF" : 1,
+      "pg" : 0
+    },
+    "\/assets\/fontawesome\/webfonts\/fa-brands-400.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/assets\/fontawesome\/webfonts\/fa-brands-400.woff2",
+      "oF" : 1
+    },
+    "\/assets\/fontawesome\/webfonts\/fa-regular-400.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/assets\/fontawesome\/webfonts\/fa-regular-400.woff2",
+      "oF" : 1
+    },
+    "\/assets\/fontawesome\/webfonts\/fa-solid-900.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/assets\/fontawesome\/webfonts\/fa-solid-900.woff2",
+      "oF" : 1
+    },
+    "\/assets\/fontawesome\/webfonts\/fa-v4compatibility.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/assets\/fontawesome\/webfonts\/fa-v4compatibility.woff2",
+      "oF" : 1
+    },
     "\/author.php" : {
       "cB" : 0,
       "ft" : 8192,

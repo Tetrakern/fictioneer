@@ -365,7 +365,7 @@
   .menu-item-has-children > a {
     @include bp(desktop) {
       &::after {
-        font-family: 'Font Awesome 6 Free';
+        font-family: 'Font Awesome 7 Free';
         font-size: .75em;
         font-weight: 900;
       }
@@ -444,7 +444,7 @@
 
   > a::after {
     content: unicode("f078");
-    font-family: "Font Awesome 6 Free";
+    font-family: "Font Awesome 7 Free";
     font-size: .75em;
     font-weight: 900;
     margin: 0 -0.5em 0 .75em;

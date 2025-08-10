@@ -139,6 +139,14 @@ function fictioneer_admin_scripts( $hook_suffix ) {
       FICTIONEER_VERSION
     );
   }
+
+  // Font Awesome
+  wp_enqueue_style(
+    'fictioneer-font-awesome',
+    get_template_directory_uri() . '/assets/fontawesome/css/all.min.css',
+    [],
+    FICTIONEER_VERSION
+  );
 }
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_scripts' );
 
