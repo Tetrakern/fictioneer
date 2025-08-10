@@ -1696,6 +1696,8 @@ function fictioneer_headers_preload_font_links( $headers ) {
 
   $preload_links = preg_split( '/\r\n|\r|\n/', $preload_links );
 
+  $preload_links[] = '/wp-content/themes/fictioneer/assets/fontawesome/webfonts/fa-solid-900.woff2';
+
   if ( ! empty( $preload_links ) ) {
     $mime_types = array(
       'woff2' => 'font/woff2',
