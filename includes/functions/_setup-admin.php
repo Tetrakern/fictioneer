@@ -151,6 +151,66 @@ function fictioneer_admin_scripts( $hook_suffix ) {
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_scripts' );
 
 // =============================================================================
+// MODIFY EDITOR SETTINGS
+// =============================================================================
+
+/**
+ * Add programmatic CSS to the block editor via the settings.
+ *
+ * @param array $settings  Default editor settings.
+ *
+ * @return array Modified editor settings with the added programmatic CSS.
+ */
+
+function fictioneer_add_editor_css( $settings ) {
+  // Setup
+  $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
+  $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
+  $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
+
+  // Build CSS
+  $css = "body {
+    --ff-base: {$font_primary};
+    --ff-note: {$font_secondary};
+    --ff-heading: {$font_heading};
+  }";
+
+  // Add to settings and continue filter
+  $settings['styles'][] = array(
+    'css' => fictioneer_minify_css( $css )
+  );
+
+  return $settings;
+}
+add_filter( 'block_editor_settings_all', 'fictioneer_add_editor_css' );
+
+/**
+ * Modify editor settings based on context.
+ *
+ * @param array                   $settings  Default editor settings.
+ * @param WP_Block_Editor_Context $context   The current block editor context.
+ *
+ * @return array Modified editor settings.
+ */
+
+function fictioneer_modify_editor_settings( $settings, $context ) {
+  if ( ! empty( $context->post ) && $context->post->post_type === 'fcn_chapter' ) {
+    if (
+      isset( $settings['__experimentalFeatures'] ) &&
+      isset( $settings['__experimentalFeatures']['spacing'] )
+    ) {
+      $settings['__experimentalFeatures']['spacing']['blockGap'] = false;
+      $settings['__experimentalFeatures']['spacing']['padding'] = false;
+      $settings['__experimentalFeatures']['spacing']['margin'] = false;
+      $settings['__experimentalFeatures']['spacing']['spacingSizes']['theme'] = [];
+    }
+  }
+
+  return $settings;
+}
+add_filter( 'block_editor_settings_all', 'fictioneer_modify_editor_settings', 10, 2 );
+
+// =============================================================================
 // CHECK FOR UPDATES
 // =============================================================================
 
@@ -360,104 +420,48 @@ add_filter( 'removable_query_args', 'fictioneer_removable_args' );
 // =============================================================================
 
 /**
- * Limit the available default blocks
- *
- * Fictioneer is has a particular and delicate content section, built around and
- * for the main purpose of displaying prose. Other features, such as the ePUB
- * converter heavily depend on _expected_ input or may break. There are certainly
- * more possible but the initial selection has been chosen carefully.
+ * Limit the available default blocks.
  *
  * @since 4.0.0
+ * @since 5.32.0 - Refactored to allow most blocks.
+ *
+ * @param bool|string[] $allowed  Array of blog type slugs, or boolean to enable/disable all.
+ *                                Default true
+ *
+ * @return string[] Array of allowed block type slugs.
  */
 
-function fictioneer_allowed_block_types() {
-  $allowed = array(
-    // WordPress
-    'core/image',
-    'core/paragraph',
-    'core/heading',
-    'core/list',
-    'core/list-item',
-    'core/gallery',
-    'core/quote',
-    'core/pullquote',
-    'core/table',
-    'core/code',
-    'core/preformatted',
-    'core/html',
-    'core/separator',
-    'core/spacer',
-    'core/footnotes',
-    'core/details',
-    'core/more',
-    'core/buttons',
-    'core/button',
-    'core/audio',
-    'core/video',
-    'core/file',
-    'core/embed',
-    'core-embed/youtube',
-    'core-embed/soundcloud',
-    'core-embed/spotify',
-    'core-embed/vimeo',
-    'core-embed/twitter',
-    // Plugins
-    'cloudinary/gallery',
-    'jetpack/business-hours',
-    'jetpack/button',
-    'jetpack/calendly',
-    'jetpack/contact-form',
-    'jetpack/field-text',
-    'jetpack/field-name',
-    'jetpack/field-email',
-    'jetpack/field-url',
-    'jetpack/field-date',
-    'jetpack/field-telephone',
-    'jetpack/field-textarea',
-    'jetpack/field-checkbox',
-    'jetpack/field-consent',
-    'jetpack/field-checkbox-multiple',
-    'jetpack/field-radio',
-    'jetpack/field-select',
-    'jetpack/contact-info',
-    'jetpack/address',
-    'jetpack/email',
-    'jetpack/phone',
-    'jetpack/eventbrite',
-    'jetpack/gif',
-    'jetpack/google-calendar',
-    'jetpack/image-compare',
-    'jetpack/instagram-gallery',
-    'jetpack/mailchimp',
-    'jetpack/map',
-    'jetpack/markdown',
-    'jetpack/opentable',
-    'jetpack/pinterest',
-    'jetpack/podcast-player',
-    'jetpack/rating-star',
-    'jetpack/recurring-payments',
-    'jetpack/repeat-visitor',
-    'jetpack/revue',
-    'jetpack/send-a-message',
-    'jetpack/whatsapp-button',
-    'jetpack/slideshow',
-    'jetpack/story',
-    'jetpack/subscriptions',
-    'jetpack/tiled-gallery',
-    'jetpack/payments-intro',
-    'jetpack/payment-buttons'
-  );
-
-  if ( current_user_can( 'fcn_shortcodes' ) || current_user_can( 'manage_options' ) ) {
-    $allowed[] = 'core/shortcode';
+function fictioneer_allowed_block_types( $allowed ) {
+  if ( $allowed === false ) {
+    return $allowed;
   }
 
-  return $allowed;
-}
+  if ( $allowed === true ) {
+    $allowed = array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() );
+  }
 
-if ( ! get_option( 'fictioneer_enable_all_blocks' ) ) {
-  add_filter( 'allowed_block_types_all', 'fictioneer_allowed_block_types' );
+  $disabled = array(
+    'core/comments',
+    'core/comment-reply-link',
+    'core/comment-template',
+    'core/comment-date',
+    'core/comment-author-name',
+    'core/comment-content',
+    'core/comment-edit-link',
+    'core/post-comment',
+    'core/post-comments',
+    'core/post-comments-form',
+  );
+
+  $disabled = apply_filters( 'fictioneer_filter_disabled_block_types', $disabled, $allowed );
+
+  if ( ! current_user_can( 'fcn_shortcodes' ) && ! current_user_can( 'manage_options' ) ) {
+    $disabled[] = 'core/shortcode';
+  }
+
+  return array_values( array_diff( $allowed, $disabled ) );
 }
+add_filter( 'allowed_block_types_all', 'fictioneer_allowed_block_types' );
 
 // =============================================================================
 // ADD OR UPDATE TERM

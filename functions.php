@@ -502,7 +502,7 @@ if ( is_customize_preview() ) {
 }
 
 /**
- * Set up the theme.
+ * Set up theme.
  */
 
 require_once __DIR__ . '/includes/functions/_setup-theme.php';
@@ -518,6 +518,12 @@ require_once __DIR__ . '/includes/functions/_setup-types-and-terms.php';
  */
 
 require_once __DIR__ . '/includes/functions/_setup-shortcodes.php';
+
+/**
+ * Set up blocks.
+ */
+
+require_once __DIR__ . '/includes/functions/_setup-blocks.php';
 
 /**
  * Generate sitemap.

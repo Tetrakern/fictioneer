@@ -63,9 +63,9 @@
       justify-content: flex-end;
 
       :is(i, .icon) {
-        font-size: 16px;
         text-align: center;
         min-width: 6px;
+        transform: scale(1.25);
       }
     }
 
@@ -146,10 +146,6 @@
     p {
       scroll-margin-top: 64px;
 
-      &:not(:last-of-type, [class*=wp-block-]) {
-        margin-bottom: 1.5em;
-      }
-
       &:not(:first-of-type, .has-text-align-center, [class*=wp-block-], [align="center"], [align="right"]) {
         text-indent: 1.5rem;
       }
@@ -160,14 +156,6 @@
     }
 
     .chapter-formatting {
-      --paragraph-spacing: 1.5em;
-      --text-chapter: var(--fg-tinted);
-      letter-spacing: .01em;
-
-      p:not(:last-child, [class*=wp-block-]) {
-        margin-bottom: var(--paragraph-spacing);
-      }
-
       &.no-indent p {
         text-indent: 0 !important;
       }

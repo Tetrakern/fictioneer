@@ -3,12 +3,12 @@
 @use 'common/_variables' as *;
 
 .collection {
-  &__taxonomies {
-    margin-bottom: 1.5rem;
+  &__header {
+    margin-bottom: 2rem;
   }
 
-  &__title {
-    margin-bottom: 2rem;
+  &__taxonomies {
+    margin-bottom: 1.5rem;
   }
 
   &__tags-and-warnings {

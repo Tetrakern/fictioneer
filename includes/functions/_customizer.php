@@ -801,7 +801,7 @@ function fictioneer_build_customize_css( $context = null ) {
       --font-smoothing-moz: auto;
       --font-weight-normal: 400;
       --font-weight-semi-strong: 600;
-      --font-weight-strong: 600;
+      --font-weight-strong: 700;
       --font-weight-medium: 500;
       --font-weight-heading: 700;
       --font-weight-badge: 600;

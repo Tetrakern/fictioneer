@@ -137,12 +137,6 @@
           __( 'Stories and chapters are separate posts that are associated but not hierarchically linked. As a result, the permalink of a chapter does not include the story by default. Enabling this setting adds an alias to include the story in the chapter’s permalink. However, chapter slugs must still be globally unique, and a number will be appended in case of a conflict (e.g. <code>.../story/story-slug/chapter-slug-1</code>).', 'fictioneer' )
         );
 
-        fictioneer_settings_setup_card(
-          'fictioneer_enable_all_blocks',
-          __( 'Enable all Gutenberg blocks?', 'fictioneer' ),
-          __( 'Many blocks in the editor are disabled by default due to compatibility concerns. The theme is not built for full-site editing, and layout blocks — such as Row, Stack, and Group, along with widgets and content items — may lack styling or not work as expected.', 'fictioneer' )
-        );
-
       ?>
 
       <div class="fictioneer-actions"><?php submit_button( __( 'Submit', 'fictioneer' ) ); ?></div>

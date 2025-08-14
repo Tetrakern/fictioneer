@@ -420,12 +420,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
     ),
-    'fictioneer_enable_all_blocks' => array(
-      'name' => 'fictioneer_enable_all_blocks',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'default' => 0
-    ),
     'fictioneer_enable_ajax_authentication' => array(
       'name' => 'fictioneer_enable_ajax_authentication',
       'group' => 'fictioneer-settings-general-group',
@@ -1183,7 +1177,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_collapse_groups_by_default' => __( 'Collapse chapter groups by default', 'fictioneer' ),
       'fictioneer_enable_public_cache_compatibility' => __( 'Enable public cache compatibility mode', 'fictioneer' ),
       'fictioneer_show_full_post_content' => __( 'Display full posts instead of excerpts', 'fictioneer' ),
-      'fictioneer_enable_all_blocks' => __( 'Enable all Gutenberg blocks', 'fictioneer' ),
       'fictioneer_enable_ajax_authentication' => __( 'Enable AJAX user authentication', 'fictioneer' ),
       'fictioneer_disable_application_passwords' => __( 'Disable application passwords', 'fictioneer' ),
       'fictioneer_enable_user_comment_editing' => __( 'Enable comment editing', 'fictioneer' ),

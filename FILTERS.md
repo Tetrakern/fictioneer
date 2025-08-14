@@ -107,6 +107,25 @@ Filters the array of chapter statuses that can be auto-appended to a story’s `
 
 ---
 
+### `apply_filters( 'fictioneer_filter_disabled_block_types', $disabled, $allowed )`
+Filters the array of disabled block type slugs before they are removed from the editor. Note that this filter is skipped if all blocks types are disabled (when `$allowed` is `false`). See [allowed_block_types_all](https://developer.wordpress.org/reference/hooks/allowed_block_types_all/).
+
+**Parameters:**
+* $disabled (string[]) – Array of blog type slugs to be removed from the editor.
+* $allowed (boolean|string[]) – Array of blog type slugs, or boolean to enable/disable all.
+
+**Example:**
+```php
+function child_remove_embed_block( $disabled ) {
+  $disabled[] = 'core/embed';
+
+  return $disabled;
+}
+add_filter( 'fictioneer_filter_disabled_block_types', 'child_remove_embed_block' );
+```
+
+---
+
 ### `apply_filters( 'fictioneer_filter_disable_caching', $bool, $context )`
 Filters whether the `fictioneer_disable_caching()` should be executed or not, attempting to stop cache plugins from caching certain pages. Can also be used to add additional measures to stop plugins not accounted for. If the filter returns anything else but `true`, the function is stopped.
 

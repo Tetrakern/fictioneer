@@ -11,7 +11,7 @@
   grid-column: 1 / -1; // Span all grid columns if any
 
   .page-numbers {
-    @extend %button;
+    @extend %button-primary;
     background: var(--pagination-background);
     color: var(--pagination-color);
     border-radius: 0;

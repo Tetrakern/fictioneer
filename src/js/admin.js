@@ -726,6 +726,10 @@ function fcn_checkRequiredFields() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (!wp.data?.dispatch('core/editor')) {
+    return;
+  }
+
   wp.data?.dispatch('core/editor').lockPostSaving('requiredValueLock');
   fcn_checkRequiredFields();
 

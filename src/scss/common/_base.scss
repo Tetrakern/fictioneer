@@ -127,47 +127,43 @@
   }
 }
 
-%button {
-  --this-padding-horizontal: #{get_clamp(6, 8, 375, 480)};
-  --this-height: #{get_clamp(26, 32, 320, 375)};
+%button-basics {
   cursor: pointer;
   user-select: none;
-  -webkit-appearance: none;
-  appearance: none;
   display: flex;
-  gap: 0 6px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  background: var(--button-primary-background);
-  color: var(--button-primary-color);
+  gap: 0 6px;
   font: var(--button-font-weight) 12px/1 var(--ff-base);
   letter-spacing: get_relative_clamp(0.02, 0.04, 375, 480, 'vw', 'em');
   white-space: nowrap;
   text-shadow: none;
+  padding: calc(0.667em + 1px) get_clamp(6, 8, 375, 480);
   border: var(--button-primary-border, 1px solid transparent);
   border-radius: var(--layout-border-radius-small);
-  padding: 0 var(--this-padding-horizontal);
-  height: var(--this-height);
-  width: fit-content;
   min-width: get_clamp(26, 32, 320, 375);
   box-shadow: var(--button-box-shadow);
   outline-offset: 3px;
-  transition: color, background, border-color, opacity;
+  transition: color, background-color, border-color, opacity, filter;
   transition-duration: var(--transition-duration);
 
-  &:not(.current, .ajax-in-progress, [disabled]):hover {
-    color: var(--button-primary-color-hover);
+  &:not([disabled]):hover {
     background: var(--button-primary-background-hover);
+    color: var(--button-primary-color-hover);
+    border: var(--button-primary-border-hover, 1px solid transparent);
   }
 
-  &:is([disabled], ._disabled) {
+  &[disabled] {
     cursor: not-allowed;
     pointer-events: none;
     background: var(--button-primary-background-disabled);
     color: var(--button-primary-color-disabled);
-    border: var(--button-primary-border-disabled, 1px solid transparent);
     filter: var(--button-primary-filter-disabled);
+  }
+
+  &:not([disabled]).has-background:hover {
+    filter: brightness(0.95);
   }
 
   &._inline {
@@ -175,35 +171,53 @@
   }
 }
 
-.post-password-form input[type=submit],
-button[type=submit]:where(:not(._inline)),
+%button-primary {
+  @extend %button-basics;
+  background: var(--button-primary-background);
+  color: var(--button-primary-color);
+  width: fit-content;
+}
+
+%button-secondary {
+  background: var(--button-secondary-background);
+  color: var(--button-secondary-color);
+  border: var(--button-secondary-border);
+
+  &:not(.current, .ajax-in-progress, [disabled]):hover {
+    background: var(--button-secondary-background-hover);
+    color: var(--button-secondary-color-hover);
+    border: var(--button-secondary-border-hover);
+  }
+
+  &[disabled] {
+    background: var(--button-secondary-background-disabled);
+    color: var(--button-secondary-color-disabled);
+    border: var(--button-secondary-border-disabled);
+  }
+
+  :is(i, .icon) {
+    opacity: .95;
+  }
+}
+
+.post-password-form input[type=submit] {
+  @extend %button-primary;
+}
+
+button[type=submit]:where(:not(._inline)) {
+  @extend %button-primary;
+}
+
 :where(.wp-signup-container, .wp-activate-container) input[type=submit] {
-  @extend %button;
+  @extend %button-primary;
 }
 
 .button {
-  @extend %button;
+  @extend %button-primary;
 
   &._secondary {
-    background: var(--button-secondary-background);
-    color: var(--button-secondary-color);
-    border: var(--button-secondary-border);
-
-    &:not(.current, .ajax-in-progress, [disabled]):hover {
-      background: var(--button-secondary-background-hover);
-      color: var(--button-secondary-color-hover);
-      border: var(--button-secondary-border-hover);
-    }
-
-    &[disabled] {
-      background: var(--button-secondary-background-disabled);
-      color: var(--button-secondary-color-disabled);
-      border: var(--button-secondary-border-disabled);
-    }
-
-    :is(i, .icon) {
-      opacity: .95;
-    }
+    @extend %button-secondary;
+    width: fit-content;
   }
 
   &._danger {
@@ -226,8 +240,7 @@ button[type=submit]:where(:not(._inline)),
     }
   }
 
-  &.ajax-in-progress,
-  &.ajax-in-progress:hover {
+  &:is(.ajax-in-progress, .ajax-in-progress:hover) {
     pointer-events: none;
     background-size: 25px 25px;
     background-image: linear-gradient(
@@ -254,15 +267,34 @@ button[type=submit]:where(:not(._inline)),
 }
 
 .load-more-comments-button {
-  @extend %button;
+  @extend %button-primary;
   --button-primary-background: var(--load-comments-background);
   --button-primary-color: var(--load-comments-color);
   --button-primary-background-hover: var(--load-comments-background-hover);
   --button-primary-color-hover: var(--load-comments-color-hover);
   text-align: center;
-  border: 0;
   width: 100%;
   box-shadow: none;
+}
+
+%links {
+  color: var(--inline-link-color);
+  text-decoration: var(--inline-link-text-decoration);
+  text-underline-offset: 0.25em;
+  transition: text-decoration, color;
+  transition-duration: var(--transition-duration);
+  scroll-margin-top: 64px;
+
+  &:hover {
+    color: var(--inline-link-color-hover);
+    text-decoration: var(--inline-link-text-decoration-hover);
+  }
+}
+
+.comment-section {
+  p a {
+    @extend %links;
+  }
 }
 
 .more-link {
@@ -900,28 +932,155 @@ html:not(.logged-in) body:not(.logged-in) {
   }
 }
 
-.footnotes {
-  clear: both;
-  font-size: max(8px, 0.8em); // Relative to content font size
-  line-height: 1.7;
-  margin-top: 4rem;
+.post-password-form {
+  letter-spacing: 0;
+  padding-top: 168px;
+  margin: 4rem 0;
 
-  &__list:is(ol) {
-    margin: 0;
+  @include bp(tablet) {
+    margin-top: 6rem;
   }
 
-  &__item{
-    scroll-margin-top: 64px;
+  p {
+    margin-bottom: 0 !important; // Hide paragraph wrongly inserted by wpautop()
+  }
 
-    &::marker {
-      color: inherit !important;
+  > div {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-password-form {
+    position: absolute;
+    top: -160px;
+    left: 50%;
+    z-index: -1;
+    color: var(--post-password-background);
+    font-size: 278px;
+    transform: translateX(-50%);
+  }
+
+  .password-wrapper {
+    background: var(--post-password-cutout);
+    padding: 6px 4px;
+    width: 216px;
+  }
+
+  input[type=password] {
+    background: var(--post-password-background);
+    text-align: center;
+    border-radius: 0;
+    width: 208px;
+
+    &::placeholder {
+      color: var(--post-password-placeholder-color, var(--input-placeholder-color));
     }
   }
 
-  &__link-up {
-    display: inline-block;
-    font-size: 80%;
-    padding: 2px 4px;
-    transform: translateY(-0.1em);
+  input[type=submit] {
+    background: transparent;
+    color: var(--post-password-submit-color);
+    font-size: var(--fs-l);
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 0 0 35px 35px;
+    height: 74px;
+    width: 208px;
   }
+}
+
+.unlock-with-patreon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: .75rem;
+  text-align: center;
+  margin: 4rem auto;
+  max-width: 400px;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #F96854;
+    color: #fff;
+    font-family: 'Libre Franklin Extra Bold', Helvetica, Arial;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    white-space: nowrap;
+    text-transform: uppercase;
+    padding: 1rem;
+    border-radius: 2px;
+
+    &:hover {
+      background: #FA7664;
+      color: #fff;
+    }
+  }
+
+  p {
+    display: none;
+  }
+
+  &__note {
+    color: var(--fg-700);
+  }
+
+  &__already-member {
+    color: var(--fg-700);
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+
+      &:hover {
+        color: var(--fg-500);
+      }
+    }
+
+    summary::-webkit-details-marker {
+      list-style: none
+    }
+  }
+}
+
+:is(.iframe-consent, .twitter-consent) {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--fg-600);
+  font-size: var(--fs-xs);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  padding: .5rem;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  transition: color var(--transition-duration);
+
+  &:hover {
+    color: var(--fg-400);
+  }
+}
+
+.iframe-consent {
+  max-width: 300px;
+}
+
+.twitter-consent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--embed-background);
+  border-radius: var(--layout-border-radius-small);
+  height: 100%;
+  width: get_clamp(280, 500, 320, 550);
+  box-shadow: var(--embed-box-shadow);
 }

@@ -3,11 +3,30 @@
 @use 'common/_variables' as *;
 
 .comment-section {
+  --paragraph-spacing: 0;
   --layout-link-color-hover: var(--comment-link-color-hover, var(--fg-300));
   margin-top: 5rem;
 
-  blockquote a[href^="#paragraph-"] {
-    border-bottom: none;
+  blockquote {
+    background: var(--blockquote-background);
+    border-left: 2px solid var(--fg-800);
+    border-radius: calc(var(--layout-border-radius-small) * var(--layout-nested-border-radius-multiplier, 1));
+    padding: .75em 1.5em;
+
+    &:is(.spoiler) {
+      position: relative;
+      border-left: none;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 3px;
+        background-color: currentColor;
+        width: 2px;
+      }
+    }
   }
 
   &:empty {
@@ -271,7 +290,6 @@
     line-height: 1;
     text-transform: uppercase;
     padding-bottom: .75rem;
-    margin-bottom: 24px;
     border-bottom: var(--layout-hr-border-dashed);
   }
 

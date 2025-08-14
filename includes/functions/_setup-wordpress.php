@@ -541,30 +541,6 @@ function fictioneer_remove_protected_text() {
 add_filter( 'protected_title_format', 'fictioneer_remove_protected_text' );
 
 // =============================================================================
-// ADD WRAPPER TO DOWNLOAD BLOCK
-// =============================================================================
-
-/**
- * Add wrapper to download block
- *
- * @since 4.0.0
- *
- * @param  string $block_content  The block content.
- * @param  array  $block          The full block, including name and attributes.
- *
- * @return string The updated block content.
- */
-
-function fictioneer_download_block_wrapper( $block_content, $block ) {
-  if ( 'core/file' === $block['blockName'] ) {
-    $block_content = '<div class="wp-block-file-wrapper">' . $block_content . '</div>';
-  }
-
-  return $block_content;
-}
-add_filter( 'render_block', 'fictioneer_download_block_wrapper', 10, 2 );
-
-// =============================================================================
 // PASSWORD FORM (AND FIX REDIRECT)
 // =============================================================================
 
@@ -915,120 +891,6 @@ function fictioneer_disable_heartbeat() {
 
 if ( get_option( 'fictioneer_disable_heartbeat' ) ) {
   add_action( 'init', 'fictioneer_disable_heartbeat', 1 );
-}
-
-// =============================================================================
-// ADD CONSENT WRAPPER TO EMBEDS
-// =============================================================================
-
-/**
- * Wraps embeds into a consent box that must be clicked to load the embed.
- *
- * @since 3.0.0
- *
- * @param string $content  The content.
- *
- * @return string The modified content.
- */
-
-function fictioneer_embed_consent_wrappers( $content ) {
-  // Return early if...
-  if ( empty( $content ) ) {
-    return $content;
-  }
-
-  if (
-    strpos( $content, '<iframe' ) === false &&
-    strpos( $content, "class='twitter-timeline'" ) === false &&
-    strpos( $content, "class='twitter-tweet'" ) === false
-  ) {
-    return $content;
-  }
-
-  // Setup
-  libxml_use_internal_errors( true );
-  $dom = new DOMDocument();
-  $dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
-  libxml_clear_errors();
-  $xpath = new DomXPath( $dom );
-
-  $iframes = $dom->getElementsByTagName( 'iframe' );
-  $twitter_timelines = $xpath->query( "//a[@class='twitter-timeline']/following-sibling::*[1]" );
-  $twitter_tweets = $xpath->query( "//blockquote[@class='twitter-tweet']/following-sibling::*[1]" );
-
-  // Process iframes
-  foreach ( $iframes as $iframe ) {
-    $src = $iframe->getAttribute( 'src' );
-    $title = htmlspecialchars( $iframe->getAttribute( 'title' ) );
-    $title = ( ! $title || $title == '') ? 'embedded content' : $title;
-
-    $iframe->removeAttribute( 'src' );
-
-    $consent_element = $dom->createElement( 'button' );
-    $consent_element->setAttribute( 'type', 'button' );
-    $consent_element->setAttribute( 'class', 'iframe-consent' );
-    $consent_element->setAttribute( 'data-src', $src );
-    $consent_element->nodeValue = sprintf(
-      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-      $title
-    );
-
-    $embed_logo = $dom->createElement( 'div' );
-    $embed_logo->setAttribute( 'class', 'embed-logo' );
-
-    $iframe->parentNode->insertBefore( $consent_element );
-    $iframe->parentNode->insertBefore( $embed_logo );
-  }
-
-  // Process Twitter timelines
-  foreach ( $twitter_timelines as $twitter ) {
-    $src = $twitter->getAttribute( 'src' );
-
-    $twitter->removeAttribute( 'src' );
-    $twitter->previousSibling->nodeValue = '';
-
-    $consent_element = $dom->createElement( 'div' );
-    $consent_element->setAttribute( 'class', 'twitter-consent' );
-    $consent_element->setAttribute( 'data-src', $src );
-    $consent_element->nodeValue = sprintf(
-      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-      __( 'Twitter', 'fictioneer' )
-    );
-
-    $twitter->parentNode->insertBefore( $consent_element );
-  }
-
-  // Process Twitter tweets
-  foreach ( $twitter_tweets as $twitter ) {
-    $src = $twitter->getAttribute( 'src' );
-
-    $twitter->removeAttribute( 'src' );
-
-    $consent_element = $dom->createElement( 'div' );
-    $consent_element->setAttribute( 'class', 'twitter-consent' );
-    $consent_element->setAttribute( 'data-src', $src );
-    $consent_element->nodeValue = sprintf(
-      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-      __( 'Twitter', 'fictioneer' )
-    );
-
-    $twitter->parentNode->insertBefore( $consent_element );
-  }
-
-  // Extract and save body content
-  $body = $dom->getElementsByTagName( 'body' )->item( 0 );
-  $content = $body ? $dom->saveHTML( $body ) : '';
-  $content = preg_replace( '/<\/?body>/', '', $content );
-
-  // Release memory
-  unset( $dom );
-
-  // Continue filter
-  return $content;
-}
-
-if ( get_option( 'fictioneer_consent_wrappers' ) ) {
-  add_filter( 'the_content', 'fictioneer_embed_consent_wrappers', 20 );
 }
 
 // =============================================================================
@@ -1476,47 +1338,6 @@ function fictioneer_prevent_track_and_ping_updates( $data ) {
 add_filter( 'wp_insert_post_data', 'fictioneer_prevent_track_and_ping_updates', 1 );
 
 // =============================================================================
-// ADD CLASSES TO BLOCKS
-// =============================================================================
-
-/**
- * Add default class to list blocks
- *
- * @since 5.12.0
- *
- * @param string $block_content  HTML content of the block being rendered.
- * @param array  $block          The full block array.
- *
- * @return string The modified block content.
- */
-
-function fictioneer_add_class_to_list_blocks( $block_content, $block ) {
-  if ( $block['blockName'] === 'core/list' ) {
-    $pattern = '/<(ul|ol)([^>]*)>/i';
-
-    $block_content = preg_replace_callback( $pattern, function ( $matches ) {
-      $current_attributes = $matches[2];
-      $new_class = 'block-list';
-
-      if ( strpos( $current_attributes, 'class="' ) !== false ) {
-        $modified_tag = preg_replace(
-          '/class="([^"]*)"/i',
-          'class="$1 ' . $new_class . '"',
-          $current_attributes
-        );
-      } else {
-        $modified_tag = $current_attributes . ' class="' . $new_class . '"';
-      }
-
-      return '<' . $matches[1] . $modified_tag . '>';
-    }, $block_content );
-  }
-
-  return $block_content;
-}
-add_filter( 'render_block', 'fictioneer_add_class_to_list_blocks', 10, 2 );
-
-// =============================================================================
 // ADD WRAPPER TO READ MORE LINKS
 // =============================================================================
 
@@ -1540,7 +1361,7 @@ add_filter( 'the_content_more_link', 'fictioneer_wrap_read_more_link' );
 // =============================================================================
 
 /**
- * Disabled the WordPress font library
+ * Disable the WordPress font library.
  *
  * @since 5.12.4
  *

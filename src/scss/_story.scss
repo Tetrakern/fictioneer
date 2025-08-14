@@ -482,6 +482,7 @@ $header_breakpoint: 640px;
     .on {
       display: none;
       content-visibility: hidden;
+      transform: translateX(-2px);
     }
 
     .off {

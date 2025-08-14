@@ -18,10 +18,6 @@
     color: var(--fg-900);
   }
 
-  &__title:is(h1):not(:last-child) {
-    margin-bottom: 0; // Override if inside content-section
-  }
-
   &__title {
     .sticky-pin {
       font-size: 0.8em;

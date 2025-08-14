@@ -868,11 +868,6 @@ The button colors are based on the background `var(--bg-x)` and foreground `var(
   --button-quick-background-hover: var(--bg-300);
   --button-quick-color: var(--fg-600);
   --button-quick-color-hover: var(--fg-400);
-
-  --button-file-block-color: var(--fg-inverted);
-  --button-file-block-color-hover: var(--fg-inverted);
-  --button-file-block-background: var(--bg-100);
-  --button-file-block-background-hover: var(--bg-50);
 }
 
 /* Light Mode Overrides */
@@ -902,11 +897,6 @@ The button colors are based on the background `var(--bg-x)` and foreground `var(
   --button-quick-background-hover: var(--bg-700);
   --button-quick-color: var(--fg-inverted);
   --button-quick-color-hover: var(--fg-inverted);
-
-  --button-file-block-color: var(--fg-inverted);
-  --button-file-block-color-hover: var(--fg-inverted);
-  --button-file-block-background: var(--bg-600);
-  --button-file-block-background-hover: var(--bg-700);
 }
 ```
 

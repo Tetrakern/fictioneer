@@ -2,82 +2,6 @@
 @use 'common/_mixins' as *;
 @use 'common/_variables' as *;
 
-.widget {
-  --block-latest-posts-title-font-size: 1.1em;
-  color: var(--fg-700);
-  font-size: var(--fs-widget);
-
-  &.widget_block .wp-block-heading {
-    &:is(h1) {
-      font-size: 1.6em;
-    }
-
-    &:is(h2) {
-      font-size: 1.5em;
-    }
-
-    &:is(h3) {
-      font-size: 1.4em;
-    }
-
-    &:is(h4) {
-      font-size: 1.3em;
-    }
-
-    &:is(h5) {
-      font-size: 1.2em;
-    }
-
-    &:is(h6) {
-      font-size: 1.1em;
-    }
-  }
-
-  .wp-block-list {
-    list-style: initial;
-    padding-left: 1.05em;
-  }
-
-  .wp-block-latest-posts {
-    @include bp(desktop) {
-      --this-row-gap: 1.25rem;
-      --this-col-gap: 1.25rem;
-    }
-  }
-
-  .widgettitle {
-    font-size: 1.4em; // h3
-    margin-bottom: .625rem;
-  }
-
-  &:where(:not(:last-child)) {
-    margin-bottom: var(--layout-widget-spacing);
-
-    &:where(:has(.wp-block-heading)) {
-      margin-bottom: .6rem;
-    }
-  }
-
-  .wp-block-separator {
-    margin: 0;
-  }
-}
-
-.widget_meta {
-  ul {
-    list-style-type: disc;
-    padding-left: 1.05em;
-  }
-
-  a:where(:not(.button, .wp-element-button)) {
-    color: var(--widget-link-color);
-
-    &:hover {
-      color: var(--widget-link-color-hover);
-    }
-  }
-}
-
 .has-sidebar {
   --layout-spacing-horizontal: #{get_clamp(20, 48, 480, $full-width)};
   --layout-spacing-horizontal-small: #{get_clamp(10, 20, 320, 400)};
@@ -182,6 +106,8 @@
 
 .fictioneer-sidebar,
 .elementor-widget-sidebar {
+  --grid-columns-row-gap-multiplier: 0.75;
+  --grid-columns-col-gap-multiplier: 0.75;
   position: relative;
   z-index: 1;
   flex: 1 1 100%;
@@ -190,6 +116,7 @@
 .fictioneer-sidebar._layout {
   grid-area: sidebar;
   order: 2;
+  font-size: clamp(13.5px, 3.125cqw, 15px);
 
   @include bp(desktop) {
     padding-top: var(--page-inset-top, 0px);
@@ -211,5 +138,74 @@
       display: none;
       content-visibility: hidden;
     }
+  }
+}
+
+.widget {
+  font-size: var(--fs-widget);
+
+  &:not(:last-child) {
+    > [class*="wp-block-"],
+    &.widget_meta {
+      --this-spacing: 0;
+      margin-block-end: var(--layout-widget-spacing, 1.75rem);
+    }
+
+    > .wp-block-heading,
+    .widgettitle {
+      margin-block-end: calc(var(--layout-widget-spacing, 1.75rem) * var(--layout-widget-spacing-heading-multiplier, 0.5));
+    }
+
+    > .wp-block-separator {
+      margin-bottom: calc(var(--hr-spacing) * 0.75);
+    }
+  }
+
+  .wp-block-separator {
+    margin-top: calc(var(--hr-spacing) * 0.75);
+    margin-bottom: calc(var(--hr-spacing) * 0.75);
+  }
+
+  :where(.wp-block-heading, .widgettitle) {
+    &:is(h1) {
+      font-size: 1.6em;
+    }
+
+    &:is(h2) {
+      font-size: 1.5em;
+    }
+
+    &:is(h3) {
+      font-size: 1.4em;
+    }
+
+    &:is(h4) {
+      font-size: 1.3em;
+    }
+
+    &:is(h5) {
+      font-size: 1.2em;
+    }
+
+    &:is(h6) {
+      font-size: 1.1em;
+    }
+  }
+
+  :is(.wp-block-list, .wp-block-archives-list, .wp-block-categories-list) {
+    --list-item-spacing: var(--widget-list-item-spacing, 0.25em);
+    padding-left: 1.05em;
+  }
+
+  a:where(:not(.button, .wp-element-button)) {
+    color: var(--widget-link-color);
+
+    &:hover {
+      color: var(--widget-link-color-hover);
+    }
+  }
+
+  p {
+    margin-block-end: var(--layout-widget-spacing, 1.75rem);
   }
 }

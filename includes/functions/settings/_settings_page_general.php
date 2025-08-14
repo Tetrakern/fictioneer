@@ -250,17 +250,6 @@ $images = get_template_directory_uri() . '/img/documentation/';
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_all_blocks',
-                    __( 'Enable all Gutenberg blocks', 'fictioneer' ),
-                    __( 'No guarantee these blocks work with the theme.', 'fictioneer' ),
-                    __( 'Many blocks in the editor are hidden by default due to compatibility concerns. The theme is not built for full-site editing, and blocks like Row, Stack, Group, along with widgets and content items, may lack styling or not work as expected.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_advanced_meta_fields',
                     __( 'Enable advanced meta fields', 'fictioneer' ),
                     __( 'Additional options you most likely do not need.', 'fictioneer' )

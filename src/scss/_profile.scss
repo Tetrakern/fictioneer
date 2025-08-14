@@ -64,6 +64,7 @@
     }
 
     &-note {
+      --paragraph-spacing: 0px;
       color: var(--fg-900);
       font-size: var(--fs-xxs);
       line-height: 1.3;

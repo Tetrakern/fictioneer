@@ -1803,8 +1803,7 @@ function fictioneer_after_install_setup() {
     'fictioneer_count_characters_as_words', 'fictioneer_enable_lightbox', 'fictioneer_enable_bookmarks',
     'fictioneer_enable_follows', 'fictioneer_enable_reminders', 'fictioneer_enable_checkmarks',
     'fictioneer_enable_suggestions', 'fictioneer_do_not_save_comment_ip', 'fictioneer_consent_wrappers',
-    'fictioneer_cookie_banner', 'fictioneer_rewrite_chapter_permalinks', 'fictioneer_enable_all_blocks',
-    'fictioneer_enable_alerts'
+    'fictioneer_cookie_banner', 'fictioneer_rewrite_chapter_permalinks', 'fictioneer_enable_alerts'
   );
 
   // Update options

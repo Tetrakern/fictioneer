@@ -23,7 +23,6 @@
   --font-lightness: (1 + var(--font-lightness-offset));
   --hue-offset: 0deg; // Overridden by theme customizer
   --hue-rotate: 0deg + var(--hue-offset);
-  --wp--style--block-gap: 1.5rem;
 
   // === SIDEBAR ===============================================================
 
@@ -123,27 +122,9 @@
   --del-background: var(--red-400);
   --del-color: var(--fg-inverted);
 
-  --caption-overlay-background: linear-gradient(
-    to top,
-    hsla(0, 0%, 0%, 0.7) 0%,
-    hsla(0, 0%, 0%, 0.691) 8.1%,
-    hsla(0, 0%, 0%, 0.666) 15.5%,
-    hsla(0, 0%, 0%, 0.627) 22.5%,
-    hsla(0, 0%, 0%, 0.577) 29%,
-    hsla(0, 0%, 0%, 0.519) 35.3%,
-    hsla(0, 0%, 0%, 0.454) 41.2%,
-    hsla(0, 0%, 0%, 0.385) 47.1%,
-    hsla(0, 0%, 0%, 0.315) 52.9%,
-    hsla(0, 0%, 0%, 0.246) 58.8%,
-    hsla(0, 0%, 0%, 0.181) 64.7%,
-    hsla(0, 0%, 0%, 0.123) 71%,
-    hsla(0, 0%, 0%, 0.073) 77.5%,
-    hsla(0, 0%, 0%, 0.034) 84.5%,
-    hsla(0, 0%, 0%, 0.009) 91.9%,
-    hsla(0, 0%, 0%, 0) 100%
-  );
+  --caption-overlay-background: #{scrim_gradient(#000000, "to top", 0.5)};
   --caption-overlay-color: #fff;
-  --caption-padding: 1.25rem .5rem .5rem;
+  --caption-padding: 1.75rem 0.5rem 0.5rem;
 
   --progress-bar-background: var(--navigation-background);
   --progress-bar-color: var(--bg-200);
@@ -162,10 +143,10 @@
   --calendar-border-color: var(--bg-800);
   --calendar-color: var(--fg-700);
 
-  --paragraph-spacing: 1.5rem;
+  --paragraph-spacing: 1.5em;
   --blockquote-background: rgb(var(--dark-shade-rgb) / 15%);
   --placeholder-background: var(--bg-900);
-  --kbd-background: rgb(var(--dark-shade-rgb) / 17%);
+  --kbd-background: rgb(255 255 255 / 10%);
   --infobox-background: rgb(var(--dark-shade-rgb) / 17%);
   --text-shadow: -1px -1px 1px rgb(0 0 0 / 12%);
   --checkmark-checked: var(--fg-600);
@@ -256,10 +237,25 @@
   --layout-link-color: inherit;
   --layout-link-color-hover: inherit;
   --layout-lineart-color: var(--bg-300);
-  --layout-hr-dots-color: var(--bg-200);
-  --layout-hr-border: 2px solid var(--hr-border-color, var(--layout-lineart-color));
-  --layout-hr-border-dashed: 2px dashed var(--hr-border-color, var(--layout-lineart-color));
-  --layout-widget-spacing: 2rem;
+  --layout-hr-border: 2px solid var(--hr-color);
+  --layout-hr-border-dashed: 2px dashed var(--hr-color);
+  --layout-widget-spacing: 1.75rem;
+  --layout-widget-spacing-heading-multiplier: 0.5;
+
+  --block-spacing-20: 0.5rem;
+  --block-spacing-30: 1rem;
+  --block-spacing-40: 1.5rem;
+  --block-spacing-50: 2rem;
+  --block-spacing-60: 4rem;
+  --block-spacing-70: 6rem;
+  --block-spacing-80: 8rem;
+
+  // === HR ====================================================================
+
+  --hr-color: var(--layout-lineart-color);
+  --hr-size: 2px;
+  --hr-spacing: max(2.5rem, calc(var(--paragraph-spacing) + 1rem));
+  --hr-dots-color: var(--bg-200);
 
   // === MINIMAL ===============================================================
 
@@ -306,8 +302,6 @@
   --navigation-subitem-divider: 1px solid var(--bg-700);
   --navigation-submenu-box-shadow: 0 4px 3px -2px rgb(0 0 0 / 30%);
   --navigation-drop-shadow: drop-shadow(0 3px 2px rgb(0 0 0 / 20%));
-  --navigation-new-follow-background: var(--primary-500);
-  --navigation-new-follow-color: var(--fg-inverted);
   --alert-highlight-color: var(--primary-500);
   --new-alert-icon-text-color: var(--fg-inverted);
 
@@ -384,7 +378,7 @@
   --font-smoothing-webkit: subpixel-antialiased; // Default
   --font-smoothing-moz: auto; // Default
   --font-weight-normal: 300;
-  --font-weight-strong: 500;
+  --font-weight-strong: 600;
   --font-weight-semi-strong: 400;
   --font-weight-medium: 400;
   --font-weight-heading: 600;
@@ -426,7 +420,14 @@
   --fs-dxs: #{get_clamp(12, 13, 400, 768)};
   --fs-ds: #{get_clamp(13, 14, 400, 768)};
 
-  --fs-widget: #{clamp(13px, 5.5cqw, 15px)};
+  --fs-widget: clamp(13.5px, 3.125cqw, 15px);
+
+  --block-fs-h1: #{get_relative_clamp(1.5, 1.8, 320, 768, 'vw', 'em')};
+  --block-fs-h2: #{get_relative_clamp(1.35, 1.6, 320, 768, 'vw', 'em')};
+  --block-fs-h3: #{get_relative_clamp(1.2, 1.4, 320, 768, 'vw', 'em')};
+  --block-fs-h4: #{get_relative_clamp(1.1, 1.2, 320, 768, 'vw', 'em')};
+  --block-fs-h5: #{get_relative_clamp(1.05, 1.125, 320, 768, 'vw', 'em')};
+  --block-fs-h6: var(var(--fs-s));
 
   // === LINKS =================================================================
 
@@ -437,11 +438,14 @@
   --inline-link-color-hover: var(--primary-400);
   --inline-link-color-visited: var(--primary-600);
 
-  --inline-link-text-decoration: underline transparent solid 1px;
-  --inline-link-text-decoration-hover: underline currentColor solid 1px;
+  --inline-link-text-decoration: underline transparent solid 0.05em;
+  --inline-link-text-decoration-hover: underline currentColor solid 0.05em;
 
   --widget-link-color: inherit;
   --widget-link-color-hover: var(--fg-200);
+
+  --footnote-link-color: var(--primary-500);
+  --footnote-link-color-hover: var(--primary-600);
 
   // === COLORS - BOOKMARKS ====================================================
 
@@ -509,13 +513,6 @@
   --button-quick-background-hover: var(--bg-300);
   --button-quick-color: var(--fg-600);
   --button-quick-color-hover: var(--fg-400);
-
-  // === BUTTONS - FILE BLOCK ==================================================
-
-  --button-file-block-color: var(--fg-inverted);
-  --button-file-block-color-hover: var(--fg-inverted);
-  --button-file-block-background: var(--bg-100);
-  --button-file-block-background-hover: var(--bg-50);
 
   // === PASSWORD FORM =========================================================
 
@@ -626,6 +623,19 @@
     --fg-inverted: #{hsl_font_code(222, 20, 5)}; // Contrast ratio vs bg-200 ~ 4.51
   }
 
+  // === CHAPTER FONT SIZES ====================================================
+
+  .chapter-formatting {
+    --wp--preset--font-size--extra-small: .75em; // 12px
+    --wp--preset--font-size--small: .875em; // 14px
+    --wp--preset--font-size--normal: 1em; // 16px
+    --wp--preset--font-size--medium: 1.125em; // 18px
+    --wp--preset--font-size--large: 1.5em; // 24px
+    --wp--preset--font-size--extra-large: 1.75em; // 28px
+    --wp--preset--font-size--huge: 2.125em; // 34px
+    --wp--preset--font-size--gigantic: 2.5em; // 40px
+  }
+
   // === SCOPES ================================================================
 
   .consent-banner {
@@ -732,7 +742,7 @@
   --font-smoothing-moz: auto;
   --font-weight-normal: 400;
   --font-weight-semi-strong: 600;
-  --font-weight-strong: 600;
+  --font-weight-strong: 700;
   --font-weight-medium: 500;
   --font-weight-heading: 700;
   --font-weight-badge: 600;

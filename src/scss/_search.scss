@@ -139,7 +139,7 @@
 
     hr {
       margin: 1.5rem 0;
-      border-style: dashed;
+      border-bottom: var(--layout-hr-border-dashed);
     }
 
     &-toggle {

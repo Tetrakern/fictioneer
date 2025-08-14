@@ -9,6 +9,7 @@
   --body-bg-color: var(--bg-400);
   --site-bg-color: var(--bg-200);
   // --fullscreen-background: var(--page-bg-color);
+  // --dark-shade-rgb: 0 0 0;
 
   --read-ribbon-background: var(--bg-100);
   --read-ribbon-color: var(--fg-400);
@@ -29,7 +30,7 @@
 
   // --caption-overlay-background: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 40%) 70%, transparent);
   // --caption-overlay-color: #fff;
-  // --caption-padding: .3rem .5rem .5rem;
+  // --caption-padding: 0.3rem 0.5rem 0.5rem;
 
   --progress-bar-background: var(--bg-800);
   // --progress-bar-color: var(--bg-200);
@@ -48,7 +49,7 @@
   --calendar-border-color: var(--bg-300);
   --calendar-color: var(--fg-800);
 
-  // --paragraph-spacing: 1.5rem;
+  // --paragraph-spacing: 1.5em;
   --blockquote-background: hsl(var(--bg-950-free) / 8%);
   // --placeholder-background: var(--bg-900);
   --kbd-background: var(--bg-300);
@@ -118,6 +119,18 @@
   --bg-900-free: #{hsl_code_free(210, 39, 11)}; // #111c27
   --bg-950-free: #{hsl_code_free(210, 71, 4)}; // #030a11
 
+  // --bg-50: hsl(var(--bg-50-free));
+  // --bg-100: hsl(var(--bg-100-free));
+  // --bg-200: hsl(var(--bg-200-free));
+  // --bg-300: hsl(var(--bg-300-free));
+  // --bg-400: hsl(var(--bg-400-free));
+  // --bg-500: hsl(var(--bg-500-free));
+  // --bg-600: hsl(var(--bg-600-free));
+  // --bg-700: hsl(var(--bg-700-free));
+  // --bg-800: hsl(var(--bg-800-free));
+  // --bg-900: hsl(var(--bg-900-free));
+  // --bg-950: hsl(var(--bg-950-free));
+
   // === LAYOUT ================================================================
 
   // --layout-spacing-vertical: #{get_clamp(24, 48, 480, $full-width)};
@@ -128,9 +141,25 @@
   // --layout-link-color: inherit;
   // --layout-link-color-hover: inherit;
   --layout-lineart-color: hsl(var(--bg-950-free) / 15%);
-  --layout-hr-dots-color: hsl(var(--bg-950-free) / 40%);
-  // --layout-hr-border: 2px solid var(--hr-border-color, var(--layout-lineart-color));
-  // --layout-hr-border-dashed: 2px dashed var(--hr-border-color, var(--layout-lineart-color));
+  // --layout-hr-border: 2px solid var(--hr-color);
+  // --layout-hr-border-dashed: 2px dashed var(--hr-color);
+  // --layout-widget-spacing: 1.75rem;
+  // --layout-widget-spacing-heading-multiplier: 0.5;
+
+  // --block-spacing-20: 0.5rem;
+  // --block-spacing-30: 1rem;
+  // --block-spacing-40: 1.5rem;
+  // --block-spacing-50: 2rem;
+  // --block-spacing-60: 4rem;
+  // --block-spacing-70: 6rem;
+  // --block-spacing-80: 8rem;
+
+  // === HR ====================================================================
+
+  // --hr-color: var(--layout-lineart-color);
+  // --hr-size: 2px;
+  // --hr-spacing: max(2.5rem, calc(var(--paragraph-spacing) + 1rem));
+  --hr-dots-color: var(--bg-600);
 
   // === MINIMAL ===============================================================
 
@@ -176,11 +205,10 @@
   --navigation-subitem-background-hover: var(--bg-400);
   --navigation-color: var(--fg-500);
   --navigation-color-hover: var(--fg-100);
+  // --navigation-font-size: #{get_clamp(14, 16, 375, 768)};
   --navigation-subitem-divider: 1px solid var(--bg-500);
   // --navigation-submenu-box-shadow: 0 4px 3px -2px rgb(0 0 0 / 30%);
   --navigation-drop-shadow: drop-shadow(0 2px 1px rgba(0, 0, 0, 17%));
-  // --navigation-new-follow-background: var(--primary-500);
-  // --navigation-new-follow-color: var(--fg-inverted);
   // --alert-highlight-color: var(--primary-500);
   // --new-alert-icon-text-color: var(--fg-inverted);
 
@@ -235,13 +263,13 @@
   // --box-shadow-l: rgb(0 0 0 / 10%) 0 6px 12px -2px, rgb(0 0 0 / 15%) 0 3px 7px -3px;
   // --box-shadow-xl: 0 3px 8px -1px rgb(0 0 0 / 9%), 0 3px 12px -1px rgb(0 0 0 / 17%);
 
-  // --drop-shadow-border: drop-shadow(0 0 1px rgb(0 0 0 / 30%));
-  // --drop-shadow-xs: drop-shadow(0 1px 2px rgb(0 0 0 / 12%));
-  // --drop-shadow-s: drop-shadow(0 1px 3px rgb(0 0 0 / 9%)) drop-shadow(0 1px 2px rgb(0 0 0 / 7%));
-  // --drop-shadow: drop-shadow(0 2px 4px rgb(0 0 0 / 10%)) drop-shadow(0 -1px 3px rgb(0 0 0 / 5%));
-  // --drop-shadow-m: drop-shadow(0 2px 5px rgb(0 0 0 / 14%)) drop-shadow(0 1px 1px rgb(0 0 0 / 5%));
-  // --drop-shadow-l: drop-shadow(0 5px 11px rgb(0 0 0 / 10%)) drop-shadow(0 2px 6px rgb(0 0 0 / 15%));
-  // --drop-shadow-xl: drop-shadow(0 3px 8px rgb(0 0 0 / 9%)) drop-shadow(0 3px 12px rgb(0 0 0 / 17%));
+  // --drop-shadow-border: drop-shadow(0 -1.5px 0 var(--card-frame-border-color,rgb(0 0 0/70%))) drop-shadow(0 1.5px 0 var(--card-frame-border-color,rgb(0 0 0/70%))) drop-shadow(1.5px 0 0 var(--card-frame-border-color,rgb(0 0 0/70%))) drop-shadow(-1.5px 0 0 var(--card-frame-border-color,rgb(0 0 0/70%)));
+  // --drop-shadow-xs: drop-shadow(0 1px 1px rgb(0 0 0 / 6%)) drop-shadow(0 0 1px rgb(0 0 0 / 6%));
+  // --drop-shadow-s: drop-shadow(0 1px 2px rgb(0 0 0 / 7%)) drop-shadow(0 1px 1px rgb(0 0 0 / 7%));
+  // --drop-shadow: drop-shadow(0 2px 2px rgb(0 0 0 / 10%)) drop-shadow(0 -1px 5px rgb(0 0 0 / 4%));
+  // --drop-shadow-m: drop-shadow(0 2px 3px rgb(0 0 0 / 10%)) drop-shadow(0 1px 1px rgb(0 0 0 / 10%));
+  // --drop-shadow-l: drop-shadow(0 4px 5px rgb(0 0 0 / 5%)) drop-shadow(0 3px 5px rgb(0 0 0 / 7%));
+  // --drop-shadow-xl: drop-shadow(0 3px 5px rgb(0 0 0 / 11%)) drop-shadow(0 3px 6px rgb(0 0 0 / 11%));
 
   // === MOBILE MENU ===========================================================
 
@@ -257,7 +285,7 @@
   // --font-smoothing-webkit: subpixel-antialiased;
   // --font-smoothing-moz: auto;
   --font-weight-normal: 400;
-  --font-weight-strong: 600;
+  --font-weight-strong: 700;
   --font-weight-semi-strong: 600;
   --font-weight-medium: 500;
   --font-weight-heading: 700;
@@ -269,6 +297,45 @@
   // --font-line-height-base: 1.7;
   --font-letter-spacing-base: 0em;
 
+  // === FONT SIZES ============================================================
+
+  // --fs-xxxs: .625rem; // 10px
+  // --fs-xxs: .75rem; // 12px
+  // --fs-xs: .875rem; // 14px
+  // --fs-s: 1rem; // 16px
+  // --fs-m: 1.125rem; // 18px
+  // --fs-ml: 1.25rem; // 20px
+  // --fs-l: 1.5rem; // 24px
+  // --fs-xl: 1.75rem; // 28px
+  // --fs-xxl: 2.125rem; // 34px
+  // --fs-xxxl: 2.5rem; // 40px
+  // --fs-xxxxl: 3rem; // 48px
+
+  // --fs-em-xxxs: .625em; // 10px
+  // --fs-em-xxs: .75em; // 12px
+  // --fs-em-xs: .875em; // 14px
+  // --fs-em-s: 1em; // 16px
+  // --fs-em-m: 1.125em; // 18px
+  // --fs-em-ml: 1.25em; // 20px
+  // --fs-em-l: 1.5em; // 24px
+  // --fs-em-xl: 1.75em; // 28px
+  // --fs-em-xxl: 2.125em; // 34px
+  // --fs-em-xxxl: 2.5em; // 40px
+  // --fs-em-xxxxl: 3em; // 48px
+
+  // --fs-dxxs: #{get_clamp(11, 13, 400, 768)};
+  // --fs-dxs: #{get_clamp(12, 13, 400, 768)};
+  // --fs-ds: #{get_clamp(13, 14, 400, 768)};
+
+  // --fs-widget: #{clamp(13px, 5.5cqw, 15px)};
+
+  // --block-fs-h1: #{get_relative_clamp(1.5, 1.8, 320, 768, 'vw', 'em')};
+  // --block-fs-h2: #{get_relative_clamp(1.35, 1.6, 320, 768, 'vw', 'em')};
+  // --block-fs-h3: #{get_relative_clamp(1.2, 1.4, 320, 768, 'vw', 'em')};
+  // --block-fs-h4: #{get_relative_clamp(1.1, 1.2, 320, 768, 'vw', 'em')};
+  // --block-fs-h5: #{get_relative_clamp(1.05, 1.125, 320, 768, 'vw', 'em')};
+  // --block-fs-h6: var(var(--fs-s));
+
   // === LINKS =================================================================
 
   // --heading-link-color: var(--fg-400);
@@ -278,11 +345,14 @@
   // --inline-link-color-hover: var(--primary-400);
   // --inline-link-color-visited: var(--primary-600);
 
-  // --inline-link-text-decoration: underline transparent solid 1px;
-  // --inline-link-text-decoration-hover: underline currentColor solid 1px;
+  --inline-link-text-decoration: underline transparent solid 1px;
+  --inline-link-text-decoration-hover: underline currentColor solid 1px;
 
   // --widget-link-color: inherit;
-  --widget-link-color-hover: var(--fg-300);
+  --widget-link-color-hover: var(--primary-500);
+
+  // --footnote-link-color: var(--primary-500);
+  // --footnote-link-color-hover: var(--primary-600);
 
   // === COLORS - BOOKMARKS ====================================================
 
@@ -316,7 +386,7 @@
   --button-primary-color: var(--fg-inverted);
   --button-primary-color-hover: var(--fg-inverted);
   // --button-primary-color-disabled: var(--fg-700);
-  --button-primary-filter-disabled: opacity(.6);
+  --button-primary-filter-disabled: opacity(0.6);
 
   // === BUTTONS - SECONDARY ===================================================
 
@@ -350,13 +420,6 @@
   --button-quick-background-hover: var(--bg-700);
   --button-quick-color: var(--fg-inverted);
   --button-quick-color-hover: var(--fg-inverted);
-
-  // === BUTTONS - FILE BLOCK ==================================================
-
-  // --button-file-block-color: var(--fg-inverted);
-  // --button-file-block-color-hover: var(--fg-inverted);
-  --button-file-block-background: var(--bg-600);
-  --button-file-block-background-hover: var(--bg-700);
 
   // === PASSWORD FORM =========================================================
 
