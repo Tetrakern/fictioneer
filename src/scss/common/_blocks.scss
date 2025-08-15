@@ -349,7 +349,7 @@ p.has-background {
 // HEADINGS
 // =============================================================================
 
-:is(.content-section, .block-editor-iframe__html, .fictioneer-sidebar) :is(h1, h2, h3, h4, h5, h6) {
+:is(.content-section, .editor-styles-wrapper, .fictioneer-sidebar) :is(h1, h2, h3, h4, h5, h6) {
   &:where(:not(.no-theme-spacing, .no-theme-style, :first-child)) {
     margin-block-start: var(--heading-margin-top, min(2.25rem, max(1.75rem, var(--paragraph-spacing) - 0.125em)));
   }

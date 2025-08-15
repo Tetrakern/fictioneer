@@ -1512,13 +1512,16 @@ function fictioneer_data_jetpack_boost_tag( $tag, $handle ) {
 add_filter( 'script_loader_tag', 'fictioneer_data_jetpack_boost_tag', 10, 2 );
 
 /**
- * Enqueue block editor scripts
+ * Enqueue block editor scripts.
  *
  * @since 5.6.0
  */
 
 function fictioneer_enqueue_block_editor_scripts() {
-  // Setup
+  if ( ! is_admin() ) {
+    return;
+  }
+
   $current_screen = get_current_screen();
 
   if ( $current_screen->base === 'post' ) {
@@ -1539,7 +1542,7 @@ function fictioneer_enqueue_block_editor_scripts() {
     ));
   }
 }
-add_action( 'enqueue_block_editor_assets', 'fictioneer_enqueue_block_editor_scripts' );
+add_action( 'enqueue_block_assets', 'fictioneer_enqueue_block_editor_scripts' );
 
 /**
  * Enqueue customizer scripts
