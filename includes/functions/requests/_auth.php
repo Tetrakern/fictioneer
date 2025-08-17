@@ -551,7 +551,7 @@ function ffcnr_get_user_data() {
 
   // ---------------------------------------------------------------------------
 
-  $wpdb->db_connect();
+  $wpdb->close();
 
   // Response
   header( 'Content-Type: application/json; charset=utf-8' );
