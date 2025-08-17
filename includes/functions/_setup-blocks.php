@@ -1,6 +1,66 @@
 <?php
 
 // =============================================================================
+// MODIFY EDITOR SETTINGS
+// =============================================================================
+
+/**
+ * Add programmatic CSS to the block editor via the settings.
+ *
+ * @param array $settings  Default editor settings.
+ *
+ * @return array Modified editor settings with the added programmatic CSS.
+ */
+
+function fictioneer_add_editor_css( $settings ) {
+  // Setup
+  $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
+  $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
+  $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
+
+  // Build CSS
+  $css = "body {
+    --ff-base: {$font_primary};
+    --ff-note: {$font_secondary};
+    --ff-heading: {$font_heading};
+  }";
+
+  // Add to settings and continue filter
+  $settings['styles'][] = array(
+    'css' => fictioneer_minify_css( $css )
+  );
+
+  return $settings;
+}
+add_filter( 'block_editor_settings_all', 'fictioneer_add_editor_css' );
+
+/**
+ * Modify editor settings based on context.
+ *
+ * @param array                   $settings  Default editor settings.
+ * @param WP_Block_Editor_Context $context   The current block editor context.
+ *
+ * @return array Modified editor settings.
+ */
+
+function fictioneer_modify_editor_settings( $settings, $context ) {
+  if ( ! empty( $context->post ) && $context->post->post_type === 'fcn_chapter' ) {
+    if (
+      isset( $settings['__experimentalFeatures'] ) &&
+      isset( $settings['__experimentalFeatures']['spacing'] )
+    ) {
+      $settings['__experimentalFeatures']['spacing']['blockGap'] = false;
+      $settings['__experimentalFeatures']['spacing']['padding'] = false;
+      $settings['__experimentalFeatures']['spacing']['margin'] = false;
+      $settings['__experimentalFeatures']['spacing']['spacingSizes']['theme'] = [];
+    }
+  }
+
+  return $settings;
+}
+add_filter( 'block_editor_settings_all', 'fictioneer_modify_editor_settings', 10, 2 );
+
+// =============================================================================
 // REGISTER BLOCK STYLES
 // =============================================================================
 
