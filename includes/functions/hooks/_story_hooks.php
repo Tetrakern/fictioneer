@@ -642,6 +642,7 @@ function fictioneer_story_chapters( $args ) {
     get_option( 'fictioneer_hide_chapter_icons' );
   $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true );
   $collapse_groups = get_option( 'fictioneer_collapse_groups_by_default' );
+  $checkmark_icon = fictioneer_get_theme_icon( 'icon_checkmark_chapter_list', '<i class="fa-solid fa-check"></i>' );
 
   // Capture output
   ob_start();
@@ -822,7 +823,7 @@ function fictioneer_story_chapters( $args ) {
                           esc_attr( wp_strip_all_tags( $chapter['title'] ) )
                         );
                       ?>"
-                    ><i class="fa-solid fa-check"></i></button>
+                    ><?php echo $checkmark_icon; ?></button>
                   <?php endif; ?>
 
                 </li>

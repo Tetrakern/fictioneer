@@ -53,6 +53,15 @@ defined( 'ABSPATH' ) OR exit;
 $splide = $args['splide'] ?? 0;
 $card_counter = 0;
 
+$icon_words = fictioneer_get_theme_icon(
+  'icon_words',
+  '<i class="fa-solid fa-font"></i>',
+  array(
+    'class' => 'card-footer-icon',
+    'title' => __( 'Words', 'fictioneer' )
+  )
+);
+
 // Prepare query
 $query_args = array(
   'fictioneer_query_name' => 'latest_chapters',
@@ -341,7 +350,7 @@ if ( $splide ) {
                         $words = fictioneer_get_word_count( $post_id );
 
                         if ( $words > 0 ) {
-                          $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ) . '</span>';
+                          $footer_items['words'] = '<span class="card__footer-words">' . $icon_words . ' ' . fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ) . '</span>';
                         }
                       }
 

@@ -44,14 +44,16 @@ if ( get_option( 'fictioneer_show_story_modified_date' ) ) {
 }
 
 // Words
-$meta_output['words'] = '<span class="story__meta-item story__words" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"><i class="fa-solid fa-font"></i> ' . $story['word_count_short'] . '</span>';
+$icon_words = fictioneer_get_theme_icon( 'icon_words', '<i class="fa-solid fa-font"></i>' );
+
+$meta_output['words'] = '<span class="story__meta-item story__words" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '">' . $icon_words . ' ' . $story['word_count_short'] . '</span>';
 
 // Rating
 $meta_output['rating'] = '<span class="story__meta-item story__rating" title="' . esc_attr__( 'Rating', 'fictioneer' ) . '"><i class="fa-solid fa-exclamation-circle"></i> ' . fcntr( $story['rating'] ) . '</span>';
 
 // Checkmark
 if ( $story['chapter_count'] > 0 ) {
-  $meta_output['checkmark'] = '<button class="story__meta-item checkmark story__meta-checkmark" data-fictioneer-checkmarks-target="storyCheck" data-fictioneer-checkmarks-story-param="' . $story_id . '" data-action="click->fictioneer-checkmarks#toggleStory" data-status="' . esc_attr( $story['status'] ) . '" role="checkbox" aria-checked="false" aria-label="' . sprintf( esc_attr__( 'Story checkmark for %s.', 'fictioneer' ), $story['title'] ) . '"><i class="fa-solid fa-check"></i></button>';
+  $meta_output['checkmark'] = '<button class="story__meta-item checkmark story__meta-checkmark" data-fictioneer-checkmarks-target="storyCheck" data-fictioneer-checkmarks-story-param="' . $story_id . '" data-action="click->fictioneer-checkmarks#toggleStory" data-status="' . esc_attr( $story['status'] ) . '" role="checkbox" aria-checked="false" aria-label="' . sprintf( esc_attr__( 'Story checkmark for %s.', 'fictioneer' ), $story['title'] ) . '">' . fictioneer_get_theme_icon( 'icon_checkmark_story_complete', '<i class="fa-solid fa-check"></i>', array( 'no_cache' => true ) ) . '</button>';
 }
 
 // Filter

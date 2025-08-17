@@ -50,6 +50,15 @@ $excerpt = empty( $excerpt ) ? fictioneer_get_excerpt( $post_id ) : $excerpt;
 $tags = false;
 $card_classes = [];
 
+$icon_words = fictioneer_get_theme_icon(
+  'icon_words',
+  '<i class="fa-solid fa-font"></i>',
+  array(
+    'class' => 'card-footer-icon',
+    'title' => __( 'Total Words', 'fictioneer' )
+  )
+);
+
 if (
   get_option( 'fictioneer_show_tags_on_story_cards' ) &&
   ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )
@@ -265,8 +274,8 @@ if ( $card_cache_active ) {
             $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
           }
 
-          if ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) {
-            $footer_items['words'] = '<span class="card__footer-status"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
+          if ( $story['word_count'] > 1000 || $story['status'] === 'Oneshot' ) {
+            $footer_items['words'] = '<span class="card__footer-status">' . $icon_words . ' ' . $story['word_count_short'] . '</span>';
           }
 
           if ( ( $args['orderby'] ?? 0 ) === 'date' ) {

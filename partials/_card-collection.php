@@ -29,6 +29,15 @@ $items = get_post_meta( $post_id, 'fictioneer_collection_items', true );
 $items = empty( $items ) ? [] : $items;
 $card_classes = [];
 
+$icon_words = fictioneer_get_theme_icon(
+  'icon_words',
+  '<i class="fa-solid fa-font"></i>',
+  array(
+    'class' => 'card-footer-icon',
+    'title' => __( 'Total Words', 'fictioneer' )
+  )
+);
+
 // Taxonomies
 $tags = false;
 $fandoms = false;
@@ -209,7 +218,7 @@ $thumbnail_args = array(
 
           $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $statistics['chapter_count'] . '</span>';
 
-          $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $statistics['word_count'] ) . '</span>';
+          $footer_items['words'] = '<span class="card__footer-words">' . $icon_words . ' ' . fictioneer_shorten_number( $statistics['word_count'] ) . '</span>';
 
           if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
             $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE ) . '</span>';

@@ -1393,7 +1393,7 @@ if ( ! function_exists( 'fictioneer_get_content_field' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
   /**
-   * Wrapper for get_post_meta() to get Font Awesome icon class
+   * Wrapper for get_post_meta() to get Font Awesome icon class.
    *
    * @since 5.0.0
    * @since 5.26.0 - Add $icon parameter as override.
@@ -2188,6 +2188,139 @@ function fictioneer_sanitize_image_id( $id ) {
   $id = max( 0, intval( $id ) );
 
   return wp_get_attachment_url( $id ) ? $id : 0;
+}
+
+// =============================================================================
+// SANITIZE ICON HTML
+// =============================================================================
+
+/**
+ * Return sanitized icon HTML.
+ *
+ * @since 5.32.0
+ *
+ * @param string $html  Icon HTML.
+ *
+ * @return string Sanitized icon HTML.
+ */
+
+function fictioneer_sanitize_icon_html( $html ) {
+  $html = trim( $html );
+
+  if ( $html === '' ) {
+    return '';
+  }
+
+  // Immediately skip these
+  if ( stripos( $html, '<script' ) !== false || stripos( $html, '<iframe' ) !== false ) {
+    return '';
+  }
+
+  // Remove junk comments
+  $html = preg_replace( '/<!--.*?-->/s', '', $html );
+
+  // KSES
+  static $allowed = array(
+    'i' => array(
+      'class' => true,
+      'title' => true,
+      'role' => true,
+      'aria-hidden' => true,
+      'aria-label' => true,
+    ),
+    'span' => array(
+      'class' => true,
+      'role' => true,
+      'aria-hidden' => true,
+      'aria-label' => true,
+      'title' => true,
+    ),
+    'div' => array(
+      'class' => true,
+      'role' => true,
+      'aria-hidden' => true,
+      'aria-label' => true,
+      'title' => true,
+    ),
+    'svg' => array(
+      'class' => true,
+      'role' => true,
+      'aria-hidden' => true,
+      'aria-label' => true,
+      'aria-labelledby' => true,
+      'aria-describedby' => true,
+      'focusable' => true,
+      'width' => true,
+      'height' => true,
+      'viewBox' => true,
+      'preserveAspectRatio' => true,
+      'fill' => true,
+      'stroke' => true,
+      'stroke-width' => true,
+      'xmlns' => true,
+      'xmlns:xlink' => true,
+    ),
+    'g' => array(
+      'class' => true,
+      'fill' => true,
+      'stroke' => true,
+      'stroke-width' => true,
+      'transform' => true,
+    ),
+    'path' => array(
+      'class' => true,
+      'd' => true,
+      'fill' => true,
+      'stroke' => true,
+      'stroke-width' => true,
+      'transform' => true,
+      'vector-effect'=> true,
+    ),
+    'rect' => array(
+      'x' => true, 'y' => true, 'width' => true, 'height' => true,
+      'rx' => true, 'ry' => true, 'fill' => true, 'stroke' => true,
+    ),
+    'circle' => array(
+      'cx' => true, 'cy' => true, 'r' => true, 'fill' => true, 'stroke' => true,
+    ),
+    'line' => array(
+      'x1' => true, 'y1' => true, 'x2' => true, 'y2' => true, 'stroke' => true,
+    ),
+    'polyline' => array(
+      'points' => true, 'fill' => true, 'stroke' => true,
+    ),
+    'polygon' => array(
+      'points' => true, 'fill' => true, 'stroke' => true,
+    ),
+    'symbol' => array( 'id' => true, 'viewBox' => true ),
+    'defs' => [],
+    'use' => array(
+      'href' => true,
+      'xlink:href' => true,
+      'class' => true,
+    ),
+    'title' => [],
+    'desc' => [],
+  );
+
+  $html = wp_kses( $html, $allowed );
+
+  // Restrict <use href> to internal fragment-only links (#id)
+  $html = preg_replace_callback(
+    '/\s(?:xlink:)?href=(["\'])(.*?)\1/i',
+    function( $m ) {
+      $val = $m[2];
+
+      if ( strlen( $val ) && $val[0] === '#' ) {
+        return ' href="' . esc_attr( $val ) . '"';
+      }
+
+      return '';
+    },
+    $html
+  );
+
+  return trim( preg_replace( '/\s{2,}/', ' ', $html ) );
 }
 
 // =============================================================================
@@ -3971,6 +4104,85 @@ function fictioneer_get_story_status_label( $story_id, $status = null ) {
   $status = $status ?: get_post_meta( $story_id, 'fictioneer_story_status', true );
 
   return fcntr( $status );
+}
+
+// =============================================================================
+// GET THEME ICON
+// =============================================================================
+
+/**
+ * Return theme icon HTML set in the Customizer.
+ *
+ * @since 5.32.0
+ *
+ * @param string      $name     Name of the icon.
+ * @param string|null $default  Optional. Fallback icon, defaults to empty string.
+ * @param array|null  $args     Additional arguments. Supports:
+ *   - 'class' (string) : CSS classes.
+ *   - 'title' (string) : Title attribute.
+ *   - 'data' (array) : Associative array of `data-*` attributes.
+ *   - 'no_cache' (bool) : Skip caching if not needed.
+ *
+ * @return string The icon HTML.
+ */
+
+function fictioneer_get_theme_icon( $name, $default = '', $args = [] ) {
+  static $cache = [];
+
+  $id = isset( $args['id'] ) ? (string) $args['id'] : '';
+  $class = isset( $args['class'] ) ? (string) $args['class'] : '';
+  $title = isset( $args['title'] ) ? (string) $args['title'] : '';
+  $data = isset( $args['data'] ) && is_array( $args['data'] ) ? $args['data'] : [];
+
+  $attributes = '';
+
+  if ( $title !== '' ) {
+    $attributes .= ' title="' . esc_attr( $title ) . '"';
+  }
+
+  if ( $id !== '' ) {
+    $attributes .= ' id="' . esc_attr( $id ) . '"';
+  }
+
+  if ( $data ) {
+    foreach ( $data as $key => $value ) {
+      if ( $key ) {
+        $attributes .= ' data-' . $key . '="' . esc_attr( $value ) . '"';
+      }
+    }
+  }
+
+  $key = empty( $args['no_cache'] )
+    ? md5( $name . '|' . (string) $default . '|' . $class . '|' . $attributes )
+    : false;
+
+  if ( $key && isset( $cache[ $key ] ) ) {
+    return $cache[ $key ];
+  }
+
+  $icon = get_theme_mod( $name, $default ) ?: $default;
+
+  if ( $class !== '' ) {
+    $p = strpos( $icon, 'class="' );
+
+    if ( $p !== false ) {
+      $icon = substr_replace( $icon, 'class="' . esc_attr( $class ) . ' ', $p, strlen( 'class="' ) );
+    }
+  }
+
+  if ( $attributes !== '' ) {
+    $p = strpos( $icon, 'class="' );
+
+    if ( $p !== false ) {
+      $icon = substr_replace( $icon, $attributes, $p, 0 );
+    }
+  }
+
+  if ( $key ) {
+    $cache[ $key ] = $icon;
+  }
+
+  return $icon;
 }
 
 // =============================================================================

@@ -1145,6 +1145,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
   $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
   $hide_icons = get_option( 'fictioneer_hide_chapter_icons' );
+  $checkmark_icon = fictioneer_get_theme_icon( 'icon_checkmark_chapter_list', '<i class="fa-solid fa-check"></i>' );
   $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' ) && ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $chapter_ids = [];
@@ -1355,7 +1356,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
                     esc_attr( wp_strip_all_tags( $title ) )
                   );
                 ?>"
-              ><i class="fa-solid fa-check"></i></button>
+              ><?php echo $checkmark_icon; ?></button>
             <?php endif; ?>
           </li>
           <?php // <--- End HTML

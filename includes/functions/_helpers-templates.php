@@ -1803,13 +1803,21 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 
     // Checkmark icon
     if ( $can_checkmarks ) {
-      $icons['checkmark'] = sprintf(
-        '<i class="fa-solid fa-%s card__checkmark-icon" title="%s" data-story-id="%d" data-check-id="%d"></i>',
-        empty( $chapter_id ) ? 'check-double' : 'check',
-        esc_attr( fcntr( 'is_read' ) ),
-        $story_id,
-        empty( $chapter_id ) ? $story_id : $chapter_id
+      $checkmark_args = array(
+        'title' => fcntr( 'is_read' ),
+        'class' => 'card__checkmark-icon',
+        'data' => array(
+          'story-id' => $story_id,
+          'check-id' => empty( $chapter_id ) ? $story_id : $chapter_id
+        ),
+        'no_cache' => true
       );
+
+      if ( empty( $chapter_id ) ) {
+        $icons['checkmark'] = fictioneer_get_theme_icon( 'icon_checkmark_card_story', '<i class="fa-solid fa-check-double"></i>', $checkmark_args );
+      } else {
+        $icons['checkmark'] = fictioneer_get_theme_icon( 'icon_checkmark_card_chapter', '<i class="fa-solid fa-check"></i>', $checkmark_args );
+      }
     }
 
     // Follows menu item

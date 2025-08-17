@@ -30,6 +30,15 @@ $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
 $excerpt = fictioneer_get_forced_excerpt( $post, 512, true );
 $card_classes = [];
 
+$icon_words = fictioneer_get_theme_icon(
+  'icon_words',
+  '<i class="fa-solid fa-font"></i>',
+  array(
+    'class' => 'card-footer-icon',
+    'title' => __( 'Words', 'fictioneer' )
+  )
+);
+
 if ( ! $chapter_rating && $story_id ) {
   $chapter_rating = get_post_meta( $story_id, 'fictioneer_story_rating', true );
 }
@@ -251,7 +260,7 @@ $thumbnail_args = array(
           $words = fictioneer_get_word_count( $post_id );
 
           if ( $words ) {
-            $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $words ) . '</span>';
+            $footer_items['words'] = '<span class="card__footer-words">' . $icon_words . ' ' . fictioneer_shorten_number( $words ) . '</span>';
           }
 
           if ( ( $args['orderby'] ?? 0 ) === 'date' ) {

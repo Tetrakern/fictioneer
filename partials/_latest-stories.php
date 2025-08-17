@@ -54,6 +54,15 @@ $splide = $args['splide'] ?? 0;
 $show_terms = ! in_array( $args['terms'], ['none', 'false'] ) &&
   ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' );
 
+$icon_words = fictioneer_get_theme_icon(
+  'icon_words',
+  '<i class="fa-solid fa-font"></i>',
+  array(
+    'class' => 'card-footer-icon',
+    'title' => __( 'Total Words', 'fictioneer' )
+  )
+);
+
 // Prepare query
 $query_args = array(
   'fictioneer_query_name' => 'latest_stories',
@@ -339,7 +348,7 @@ if ( $splide ) {
                       }
 
                       if ( $args['footer_words'] && ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) ) {
-                        $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
+                        $footer_items['words'] = '<span class="card__footer-words">' . $icon_words . ' ' . $story['word_count_short'] . '</span>';
                       }
 
                       if ( $args['footer_comments'] ) {

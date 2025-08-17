@@ -2808,6 +2808,153 @@ function fictioneer_add_card_customizer_settings( $manager ) {
 }
 
 // =============================================================================
+// ICON SETTINGS
+// =============================================================================
+
+/**
+ * Add icon customizer settings.
+ *
+ * @since 5.32.0
+ *
+ * @param WP_Customize_Manager $manager  The customizer instance.
+ */
+
+function fictioneer_add_icon_customizer_settings( $manager ) {
+  // Add cards section
+  $manager->add_section(
+    'icons',
+    array(
+      'title' => __( 'Icons', 'fictioneer' ),
+      'description' => sprintf(
+        __( 'Change the HTML for selected icons. You can use free <a href="%s" target="_blank" rel="noopener">Font Awesome</a> icons, SVGs, or DIVs and SPANs with text.<br><br><strong>Important:</strong> The outer wrapper must have a class attribute, allowing the theme to inject additional classes and attributes.', 'fictioneer' ),
+        'https://fontawesome.com/search?ic=free&o=r'
+      ),
+      'priority' => '80'
+    )
+  );
+
+  // Chapter list checkmark
+  $manager->add_setting(
+    'icon_checkmark_chapter_list',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-check"></i>'
+    )
+  );
+
+  $manager->add_control(
+    'icon_checkmark_chapter_list',
+    array(
+      'type' => 'textarea',
+      'priority' => 10,
+      'section' => 'icons',
+      'label' => __( 'Chapter Checkmark', 'fictioneer' ),
+      'input_attrs' => array(
+        'class' => 'customizer-icon-html',
+        'placeholder' => '<i class="fa-solid fa-check"></i>',
+      )
+    )
+  );
+
+  // Chapter card checkmark
+  $manager->add_setting(
+    'icon_checkmark_card_chapter',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-check"></i>'
+    )
+  );
+
+  $manager->add_control(
+    'icon_checkmark_card_chapter',
+    array(
+      'type' => 'textarea',
+      'priority' => 10,
+      'section' => 'icons',
+      'label' => __( 'Chapter Card Checkmark', 'fictioneer' ),
+      'input_attrs' => array(
+        'class' => 'customizer-icon-html',
+        'placeholder' => '<i class="fa-solid fa-check"></i>',
+      )
+    )
+  );
+
+  // Story complete checkmark
+  $manager->add_setting(
+    'icon_checkmark_story_complete',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-check"></i>'
+    )
+  );
+
+  $manager->add_control(
+    'icon_checkmark_story_complete',
+    array(
+      'type' => 'textarea',
+      'priority' => 10,
+      'section' => 'icons',
+      'label' => __( 'Story Complete Checkmark', 'fictioneer' ),
+      'input_attrs' => array(
+        'class' => 'customizer-icon-html',
+        'placeholder' => '<i class="fa-solid fa-check"></i>',
+      )
+    )
+  );
+
+  // Story card checkmark
+  $manager->add_setting(
+    'icon_checkmark_card_story',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-check-double"></i>'
+    )
+  );
+
+  $manager->add_control(
+    'icon_checkmark_card_story',
+    array(
+      'type' => 'textarea',
+      'priority' => 10,
+      'section' => 'icons',
+      'label' => __( 'Story Card Complete Checkmark', 'fictioneer' ),
+      'input_attrs' => array(
+        'class' => 'customizer-icon-html',
+        'placeholder' => '<i class="fa-solid fa-check-double"></i>',
+      )
+    )
+  );
+
+  // Words
+  $manager->add_setting(
+    'icon_words',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-font"></i>'
+    )
+  );
+
+  $manager->add_control(
+    'icon_words',
+    array(
+      'type' => 'textarea',
+      'priority' => 10,
+      'section' => 'icons',
+      'label' => __( 'Words', 'fictioneer' ),
+      'input_attrs' => array(
+        'class' => 'customizer-icon-html',
+        'placeholder' => '<i class="fa-solid fa-font"></i>',
+      )
+    )
+  );
+}
+
+// =============================================================================
 // FONT SETTINGS
 // =============================================================================
 
@@ -3175,6 +3322,9 @@ function fictioneer_add_customizers( $manager ) {
 
   // Cards
   fictioneer_add_card_customizer_settings( $manager );
+
+  // Icons
+  fictioneer_add_icon_customizer_settings( $manager );
 
   // Fonts
   fictioneer_add_fonts_customizer_settings( $manager );
