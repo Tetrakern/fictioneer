@@ -707,14 +707,14 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
 
   // Return modified content
   return preg_replace_callback(
-    '/<p\s*/i',
+    '/<p(?=\s|>)/i',
     function () use ( &$paragraph_id ) {
-      return "<p id='paragraph-{$paragraph_id}' data-paragraph-id='" . $paragraph_id++ . "'";
+      return "<p id='paragraph-{$paragraph_id}' data-paragraph-id='" . $paragraph_id++ . "' ";
     },
     $content
   );
 }
-add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id' );
+add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 12 );
 
 /**
  * Fix line breaks before paragraphs are added.
