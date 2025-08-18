@@ -49,10 +49,14 @@ function fictioneer_modify_editor_settings( $settings, $context ) {
       isset( $settings['__experimentalFeatures'] ) &&
       isset( $settings['__experimentalFeatures']['spacing'] )
     ) {
-      $settings['__experimentalFeatures']['spacing']['blockGap'] = false;
-      $settings['__experimentalFeatures']['spacing']['padding'] = false;
-      $settings['__experimentalFeatures']['spacing']['margin'] = false;
-      $settings['__experimentalFeatures']['spacing']['spacingSizes']['theme'] = [];
+      $settings['__experimentalFeatures']['blocks']['core/paragraph']['spacing']['margin'] = false;
+      $settings['__experimentalFeatures']['blocks']['core/paragraph']['typography']['fontFamilies']['theme'] = [];
+      $settings['__experimentalFeatures']['blocks']['core/paragraph']['typography']['lineHeight'] = false;
+      $settings['__experimentalFeatures']['blocks']['core/paragraph']['typography']['letterSpacing'] = false;
+      $settings['__experimentalFeatures']['blocks']['core/heading']['spacing']['margin'] = false;
+      $settings['__experimentalFeatures']['blocks']['core/heading']['typography']['fontFamilies']['theme'] = [];
+      $settings['__experimentalFeatures']['blocks']['core/heading']['typography']['lineHeight'] = false;
+      $settings['__experimentalFeatures']['blocks']['core/heading']['typography']['letterSpacing'] = false;
     }
   }
 
