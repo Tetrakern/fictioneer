@@ -714,7 +714,7 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
     $content
   );
 }
-add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 12 );
+add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id' );
 
 /**
  * Fix line breaks before paragraphs are added.
