@@ -1102,8 +1102,9 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Follow
     if ( get_option( 'fictioneer_enable_follows' ) ) {
       $output['follow'] = sprintf(
-        '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%1$d" data-fictioneer-follows-target="toggleButton" data-action="click->fictioneer-follows#toggleFollow" data-fictioneer-follows-id-param="%1$d"><i class="fa-solid fa-star"></i><span class="span-follow hide-below-400">%2$s</span></button>',
+        '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%1$d" data-fictioneer-follows-target="toggleButton" data-action="click->fictioneer-follows#toggleFollow" data-fictioneer-follows-id-param="%1$d">%2$s<span class="span-follow hide-below-400">%3$s</span></button>',
         $story_id,
+        fictioneer_get_theme_icon( 'icon_follow', '<i class="fa-solid fa-star"></i>' ),
         fcntr( 'follow' )
       );
 
@@ -1794,10 +1795,16 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 
     // Follows icon
     if ( $can_follows ) {
-      $icons['follow'] = sprintf(
-        '<i class="fa-solid fa-star card__followed-icon" title="%s" data-follow-id="%d"></i>',
-        esc_attr( fcntr( 'is_followed' ) ),
-        $story_id
+      $icons['follow'] = fictioneer_get_theme_icon(
+        'icon_follow',
+        '<i class="fa-solid fa-star"></i>',
+        array(
+          'class' => 'card__followed-icon',
+          'title' => fcntr( 'is_followed' ),
+          'data' => array(
+            'follow-id' => $story_id
+          )
+        )
       );
     }
 

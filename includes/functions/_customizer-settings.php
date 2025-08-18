@@ -2952,6 +2952,30 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
       )
     )
   );
+
+  // Follow
+  $manager->add_setting(
+    'icon_follow',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-star"></i>'
+    )
+  );
+
+  $manager->add_control(
+    'icon_follow',
+    array(
+      'type' => 'textarea',
+      'priority' => 10,
+      'section' => 'icons',
+      'label' => __( 'Follow', 'fictioneer' ),
+      'input_attrs' => array(
+        'class' => 'customizer-icon-html',
+        'placeholder' => '<i class="fa-solid fa-star"></i>',
+      )
+    )
+  );
 }
 
 // =============================================================================

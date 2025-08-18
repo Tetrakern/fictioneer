@@ -1429,7 +1429,8 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
 
   // Follows?
   if ( get_option( 'fictioneer_enable_follows' ) && $follows_count > 0 ) {
-    $nodes[] = ['follows', '<i class="fa-solid fa-star"></i>', $follows_count];
+    $icon_follow = fictioneer_get_theme_icon( 'icon_follow', '<i class="fa-solid fa-star"></i>' );
+    $nodes[] = ['follows', $icon_follow, $follows_count];
   }
 
   // Reminders?
