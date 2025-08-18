@@ -21,8 +21,7 @@ body {
   }
 
   .hidden {
-    display: inherit !important;
-    border: 1px dotted #999;
+    border: 1px dotted color-mix(in srgb, currentColor 30%, transparent 70%);
   }
 
   .full-width {
