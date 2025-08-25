@@ -39,16 +39,17 @@ function fictioneer_watch_for_customizer_updates() {
 add_action( 'customize_save_after', 'fictioneer_watch_for_customizer_updates' );
 
 // =============================================================================
-// ADD CUSTOMIZER RANGE VALUE CONTROL
+// ADD EXTRA CUSTOMIZER CONTROLS
 // =============================================================================
 
 /**
  * Check for WP_Customizer_Control existence before adding custom control because
- * WP_Customize_Control is loaded on customizer page only.
+ * WP_Customize_Control is loaded in the Customizer only.
  */
 
 if ( class_exists( 'WP_Customize_Control' ) ) {
   require_once( get_template_directory() . '/includes/classes/class-customize-range-control.php' );
+  require_once( get_template_directory() . '/includes/classes/class-customize-icon-control.php' );
 }
 
 // =============================================================================
@@ -2844,15 +2845,15 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'icon_checkmark_chapter_list',
-    array(
-      'type' => 'textarea',
-      'priority' => 10,
-      'section' => 'icons',
-      'label' => __( 'Chapter Checkmark', 'fictioneer' ),
-      'input_attrs' => array(
-        'class' => 'customizer-icon-html',
-        'placeholder' => '<i class="fa-solid fa-check"></i>',
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_checkmark_chapter_list',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Chapter Checkmark', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-check"></i>'
+        )
       )
     )
   );
@@ -2868,15 +2869,15 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'icon_checkmark_card_chapter',
-    array(
-      'type' => 'textarea',
-      'priority' => 10,
-      'section' => 'icons',
-      'label' => __( 'Chapter Card Checkmark', 'fictioneer' ),
-      'input_attrs' => array(
-        'class' => 'customizer-icon-html',
-        'placeholder' => '<i class="fa-solid fa-check"></i>',
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_checkmark_card_chapter',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Chapter Card Checkmark', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-check"></i>'
+        )
       )
     )
   );
@@ -2892,15 +2893,15 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'icon_checkmark_story_complete',
-    array(
-      'type' => 'textarea',
-      'priority' => 10,
-      'section' => 'icons',
-      'label' => __( 'Story Complete Checkmark', 'fictioneer' ),
-      'input_attrs' => array(
-        'class' => 'customizer-icon-html',
-        'placeholder' => '<i class="fa-solid fa-check"></i>',
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_checkmark_story_complete',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Story Complete Checkmark', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-check"></i>'
+        )
       )
     )
   );
@@ -2916,15 +2917,15 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'icon_checkmark_card_story',
-    array(
-      'type' => 'textarea',
-      'priority' => 10,
-      'section' => 'icons',
-      'label' => __( 'Story Card Complete Checkmark', 'fictioneer' ),
-      'input_attrs' => array(
-        'class' => 'customizer-icon-html',
-        'placeholder' => '<i class="fa-solid fa-check-double"></i>',
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_checkmark_card_story',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Story Card Complete Checkmark', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-check-double"></i>'
+        )
       )
     )
   );
@@ -2940,15 +2941,15 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'icon_words',
-    array(
-      'type' => 'textarea',
-      'priority' => 10,
-      'section' => 'icons',
-      'label' => __( 'Words', 'fictioneer' ),
-      'input_attrs' => array(
-        'class' => 'customizer-icon-html',
-        'placeholder' => '<i class="fa-solid fa-font"></i>',
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_words',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Words', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-font"></i>'
+        )
       )
     )
   );
@@ -2964,15 +2965,15 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'icon_follow',
-    array(
-      'type' => 'textarea',
-      'priority' => 10,
-      'section' => 'icons',
-      'label' => __( 'Follow', 'fictioneer' ),
-      'input_attrs' => array(
-        'class' => 'customizer-icon-html',
-        'placeholder' => '<i class="fa-solid fa-star"></i>',
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_follow',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Follow', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-star"></i>'
+        )
       )
     )
   );
