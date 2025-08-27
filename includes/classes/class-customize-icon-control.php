@@ -13,13 +13,13 @@ class Fictioneer_Customize_Icon_HTML_Control extends WP_Customize_Control {
     // Start HTML ---> ?>
     <label class="fictioneer-icon-html-control">
       <span class="customize-control-title">
+        <span class="fictioneer-icon-preview" aria-hidden="true"><?php echo $this->value(); ?></span>
         <?php echo esc_html( $this->label ); ?>
-        (<span class="fictioneer-icon-preview" aria-hidden="true"><?php echo $this->value(); ?></span>)
       </span>
       <textarea
         <?php $this->input_attrs(); ?>
         <?php $this->link(); ?>
-        class="large-text code customizer-icon-html"
+        class="large-text code fictioneer-customizer-icon-html"
         rows="3"
         placeholder="<?php echo esc_attr( $this->input_attrs['placeholder'] ?? '' ); ?>"
       ><?php echo esc_textarea( $this->value() ); ?></textarea>

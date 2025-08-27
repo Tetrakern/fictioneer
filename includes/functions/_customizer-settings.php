@@ -2954,7 +2954,7 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
     )
   );
 
-  // Follow
+  // Follow (on)
   $manager->add_setting(
     'icon_follow',
     array(
@@ -2970,9 +2970,81 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
       'icon_follow',
       array(
         'section' => 'icons',
-        'label' => __( 'Follow', 'fictioneer' ),
+        'label' => __( 'Follow (On)', 'fictioneer' ),
         'input_attrs' => array(
           'placeholder' => '<i class="fa-solid fa-star"></i>'
+        )
+      )
+    )
+  );
+
+  // Follow (off)
+  $manager->add_setting(
+    'icon_follow_off',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-regular fa-star"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_follow_off',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Follow (Off)', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-regular fa-star"></i>'
+        )
+      )
+    )
+  );
+
+  // Reminder (on)
+  $manager->add_setting(
+    'icon_reminder',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-clock"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_reminder',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Reminder (On)', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-clock"></i>'
+        )
+      )
+    )
+  );
+
+  // Reminder (off)
+  $manager->add_setting(
+    'icon_reminder_off',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-regular fa-clock"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_reminder_off',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Reminder (Off)', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-regular fa-clock"></i>'
         )
       )
     )

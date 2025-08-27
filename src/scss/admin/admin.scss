@@ -188,13 +188,22 @@ td.fictioneer_patreon_lock_amount {
   }
 }
 
-.customizer-icon-html {
+.fictioneer-customizer-icon-html {
   background: rgb(0 0 0 / 7%);
   font-family: Consolas, Monaco, monospace;
   font-size: 12px;
   padding: 6px;
   border: none;
   height: 56px;
+}
+
+.fictioneer-icon-preview {
+  display: inline-flex;
+  background: rgb(0 0 0 / 7%);
+  font-size: 12px;
+  padding: 3px 2px;
+  margin-right: 2px;
+  border-radius: 3px;
 }
 
 // =============================================================================
