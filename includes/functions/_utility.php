@@ -451,7 +451,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $warnings = get_the_terms( $story_id, 'fcn_content_warning' );
     $genres = get_the_terms( $story_id, 'fcn_genre' );
     $status = get_post_meta( $story_id, 'fictioneer_story_status', true );
-    $icon = 'fa-solid fa-circle';
+    $icon = fictioneer_get_theme_icon( 'icon_story_status_ongoing', '<i class="fa-solid fa-circle"></i>' );
     $chapter_count = 0;
     $word_count = 0;
     $comment_count = 0;
@@ -462,16 +462,16 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     if ( $status != 'Ongoing' ) {
       switch ( $status ) {
         case 'Completed':
-          $icon = 'fa-solid fa-circle-check';
+          $icon = fictioneer_get_theme_icon( 'icon_story_status_completed', '<i class="fa-solid fa-circle-check"></i>' );
           break;
         case 'Oneshot':
-          $icon = 'fa-solid fa-circle-check';
+          $icon = fictioneer_get_theme_icon( 'icon_story_status_oneshot', '<i class="fa-solid fa-circle-check"></i>' );
           break;
         case 'Hiatus':
-          $icon = 'fa-solid fa-circle-pause';
+          $icon = fictioneer_get_theme_icon( 'icon_story_status_hiatus', '<i class="fa-solid fa-circle-pause"></i>' );
           break;
         case 'Canceled':
-          $icon = 'fa-solid fa-ban';
+          $icon = fictioneer_get_theme_icon( 'icon_story_status_canceled', '<i class="fa-solid fa-ban"></i>' );
           break;
       }
     }
@@ -4161,14 +4161,7 @@ function fictioneer_get_theme_icon( $name, $default = '', $args = [] ) {
   }
 
   $icon = get_theme_mod( $name, $default ) ?: $default;
-
-  if ( $class !== '' ) {
-    $p = strpos( $icon, 'class="' );
-
-    if ( $p !== false ) {
-      $icon = substr_replace( $icon, 'class="' . esc_attr( $class ) . ' ', $p, strlen( 'class="' ) );
-    }
-  }
+  $icon = fictioneer_add_class_to_icon( $icon, $class );
 
   if ( $attributes !== '' ) {
     $p = strpos( $icon, 'class="' );
@@ -4180,6 +4173,33 @@ function fictioneer_get_theme_icon( $name, $default = '', $args = [] ) {
 
   if ( $key ) {
     $cache[ $key ] = $icon;
+  }
+
+  return $icon;
+}
+
+// =============================================================================
+// ADD CSS CLASS TO ICON
+// =============================================================================
+
+/**
+ * Add class to icon (if it has a class attribute).
+ *
+ * @since 5.32.0
+ *
+ * @param string $icon   HTML of the icon.
+ * @param string $class  CSS class string to be added.
+ *
+ * @return string The icon HTML with the class added.
+ */
+
+function fictioneer_add_class_to_icon( $icon, $class ) {
+  if ( $class ) {
+    $p = strpos( $icon, 'class="' );
+
+    if ( $p !== false ) {
+      $icon = substr_replace( $icon, 'class="' . esc_attr( $class ) . ' ', $p, strlen( 'class="' ) );
+    }
   }
 
   return $icon;

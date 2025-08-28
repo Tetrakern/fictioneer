@@ -2269,8 +2269,7 @@ function fictioneer_shortcode_story_data( $attr ) {
       $output = $story_data['status'] ?? '';
       break;
     case 'icon':
-      $output = esc_attr( $story_data['icon'] ?? '' );
-      $output = $output ? "<i class='{$output}'></i>" : '';
+      $output = empty( $story_data['icon'] ) ? '' : $story_data['icon'];
       break;
     case 'age_rating':
       $output = $story_data['rating'] ?? '';

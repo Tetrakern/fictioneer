@@ -2827,7 +2827,7 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
     array(
       'title' => __( 'Icons', 'fictioneer' ),
       'description' => sprintf(
-        __( 'Change the HTML for selected icons. You can use free <a href="%s" target="_blank" rel="noopener">Font Awesome</a> icons, SVGs, or DIVs and SPANs with text.<br><br><strong>Important:</strong> The outer wrapper must have a class attribute, allowing the theme to inject additional classes and attributes.', 'fictioneer' ),
+        __( 'Change the HTML for selected icons. You can use free <a href="%s" target="_blank" rel="noopener">Font Awesome</a> icons, SVGs, or DIVs and SPANs with text.<br><br><strong>Important:</strong> The outer wrapper must have a class attribute, allowing the theme to inject additional classes and attributes.<br><br><strong>Note:</strong> Some icons require you to purge the theme caches under Fictioneer > Tools for them to become visible immediately.', 'fictioneer' ),
         'https://fontawesome.com/search?ic=free&o=r'
       ),
       'priority' => '80'
@@ -3045,6 +3045,126 @@ function fictioneer_add_icon_customizer_settings( $manager ) {
         'label' => __( 'Reminder (Off)', 'fictioneer' ),
         'input_attrs' => array(
           'placeholder' => '<i class="fa-regular fa-clock"></i>'
+        )
+      )
+    )
+  );
+
+  // Status: Ongoing
+  $manager->add_setting(
+    'icon_story_status_ongoing',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-circle"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_story_status_ongoing',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Story Status: Ongoing', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-circle></i>'
+        )
+      )
+    )
+  );
+
+  // Status: Completed
+  $manager->add_setting(
+    'icon_story_status_completed',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-circle-check"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_story_status_completed',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Story Status: Completed', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-circle-check></i>'
+        )
+      )
+    )
+  );
+
+  // Status: Oneshot
+  $manager->add_setting(
+    'icon_story_status_oneshot',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-circle-check"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_story_status_oneshot',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Story Status: Oneshot', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-circle-check></i>'
+        )
+      )
+    )
+  );
+
+  // Status: Hiatus
+  $manager->add_setting(
+    'icon_story_status_hiatus',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-circle-pause"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_story_status_hiatus',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Story Status: Hiatus', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-circle-pause></i>'
+        )
+      )
+    )
+  );
+
+  // Status: Canceled
+  $manager->add_setting(
+    'icon_story_status_canceled',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_icon_html',
+      'default' => '<i class="fa-solid fa-ban"></i>'
+    )
+  );
+
+  $manager->add_control(
+    new Fictioneer_Customize_Icon_HTML_Control(
+      $manager,
+      'icon_story_status_canceled',
+      array(
+        'section' => 'icons',
+        'label' => __( 'Story Status: Canceled', 'fictioneer' ),
+        'input_attrs' => array(
+          'placeholder' => '<i class="fa-solid fa-ban></i>'
         )
       )
     )
