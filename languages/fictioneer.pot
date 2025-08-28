@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-17 12:18+0000\n"
+"POT-Creation-Date: 2025-08-28 09:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "%s chapters have been appended."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1735
+#: includes/functions/_helpers-templates.php:1739
 #, php-format
 msgid "%s Comment"
 msgid_plural "%s Comments"
@@ -200,7 +200,7 @@ msgstr ""
 msgid "<b>Patreon:</b> Data expired. Log in with Patreon again to refresh."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1453
+#: includes/functions/_helpers-templates.php:1457
 #, php-format
 msgid "<b>Warning:</b> %s"
 msgstr ""
@@ -215,12 +215,12 @@ msgstr ""
 msgid "<br><fieldset><legend>Sender</legend>%s</fieldset>"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1013
+#: includes/functions/_setup-admin.php:953
 #, php-format
 msgid "<code>%s</code> directory could not be found or created."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1021
+#: includes/functions/_setup-admin.php:961
 #, php-format
 msgid "<code>%s</code> directory permissions are not 755."
 msgstr ""
@@ -551,18 +551,18 @@ msgid ""
 "<span>Use</span> %s <span>for short date formats (<code>M j</code>).</span>"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1039
-#: includes/functions/_setup-admin.php:1057
-#: includes/functions/_setup-admin.php:1075
+#: includes/functions/_setup-admin.php:979
+#: includes/functions/_setup-admin.php:997
+#: includes/functions/_setup-admin.php:1015
 #, php-format
 msgid ""
 "<strong>%s</strong> could not be found or created in the <code>%s</code> "
 "directory."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1048
-#: includes/functions/_setup-admin.php:1066
-#: includes/functions/_setup-admin.php:1084
+#: includes/functions/_setup-admin.php:988
+#: includes/functions/_setup-admin.php:1006
+#: includes/functions/_setup-admin.php:1024
 #, php-format
 msgid "<strong>%s</strong> file permissions are not 644."
 msgstr ""
@@ -648,7 +648,7 @@ msgid ""
 "convenience."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:332
+#: includes/functions/_setup-admin.php:272
 #, php-format
 msgid ""
 "<strong>Fictioneer %1$s</strong> is available. Please <a href=\"%2$s\" "
@@ -803,7 +803,7 @@ msgid "Account already linked to another profile."
 msgstr ""
 
 #: partials/account/_oauth.php:45
-#: includes/functions/users/_admin-profile.php:2114
+#: includes/functions/users/_admin-profile.php:2126
 msgid "Account Bindings"
 msgstr ""
 
@@ -831,7 +831,7 @@ msgstr ""
 msgid "Add alert on save"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1539
+#: includes/functions/_customizer-settings.php:1540
 msgid ""
 "Add an offset in pixels to the main container, positive or negative. Default "
 "0."
@@ -938,7 +938,7 @@ msgstr ""
 msgid "Additional options you most likely do not need."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:296
+#: includes/functions/_customizer-settings.php:297
 msgid ""
 "Adds a fractional offset to the font lightness multiplier, affecting the "
 "whole site. Default 0."
@@ -953,38 +953,38 @@ msgid ""
 "this log."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:722
+#: includes/functions/_customizer-settings.php:723
 msgid ""
 "Adds an offset to the font lightness multiplier, affecting the whole site. "
 "Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:266
-#: includes/functions/_customizer-settings.php:692
+#: includes/functions/_customizer-settings.php:267
+#: includes/functions/_customizer-settings.php:693
 msgid ""
 "Adds an offset to the font saturation multiplier, affecting the whole site. "
 "Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:176
+#: includes/functions/_customizer-settings.php:177
 msgid ""
 "Adds an offset to the hue rotate in degrees, tinting the whole site. Default "
 "0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:602
+#: includes/functions/_customizer-settings.php:603
 msgid "Adds an offset to the hue rotate, tinting the whole site. Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:236
-#: includes/functions/_customizer-settings.php:662
+#: includes/functions/_customizer-settings.php:237
+#: includes/functions/_customizer-settings.php:663
 msgid ""
 "Adds an offset to the lightness multiplier, affecting the whole site. "
 "Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:206
-#: includes/functions/_customizer-settings.php:632
+#: includes/functions/_customizer-settings.php:207
+#: includes/functions/_customizer-settings.php:633
 msgid ""
 "Adds an offset to the saturation multiplier, affecting the whole site. "
 "Default 0."
@@ -994,55 +994,55 @@ msgstr ""
 msgid "Admin Capabilities (Danger)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1834
+#: includes/functions/users/_admin-profile.php:1846
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Active Patron:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1827
+#: includes/functions/users/_admin-profile.php:1839
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Data Valid:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1850
+#: includes/functions/users/_admin-profile.php:1862
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Last Charge Date:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1857
+#: includes/functions/users/_admin-profile.php:1869
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Last Charge Status:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1843
+#: includes/functions/users/_admin-profile.php:1855
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Lifetime Support Cents:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1864
+#: includes/functions/users/_admin-profile.php:1876
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Next Charge Date:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1883
+#: includes/functions/users/_admin-profile.php:1895
 #, php-format
 msgctxt "Admin profile Patreon section."
 msgid "<strong>Tier:</strong> %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1799
+#: includes/functions/users/_admin-profile.php:1811
 msgctxt "Admin profile Patreon section."
 msgid "Expired (reauthenticate with Patreon)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1802
-#: includes/functions/users/_admin-profile.php:1804
+#: includes/functions/users/_admin-profile.php:1814
+#: includes/functions/users/_admin-profile.php:1816
 msgctxt "Admin profile Patreon section."
 msgid "Never"
 msgstr ""
@@ -1633,7 +1633,7 @@ msgstr ""
 msgid "Allow commenting on scheduled posts"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1589
+#: includes/functions/users/_admin-profile.php:1601
 msgid ""
 "Allow the user to ignore the password of selected posts. Chapters inherit "
 "the unlock from the story."
@@ -1676,7 +1676,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:258
-#: includes/functions/users/_admin-profile.php:1976
+#: includes/functions/users/_admin-profile.php:1988
 msgid "Always hold comments for moderation"
 msgstr ""
 
@@ -1698,7 +1698,7 @@ msgstr ""
 msgid "Always use gravatar"
 msgstr ""
 
-#: includes/functions/_utility.php:4245
+#: includes/functions/_utility.php:4275
 msgid "Anonymous"
 msgstr ""
 
@@ -1710,7 +1710,7 @@ msgstr ""
 msgid "Anthology, Vignettes, etc."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1597
+#: includes/functions/users/_admin-profile.php:1609
 msgid "Any"
 msgstr ""
 
@@ -1778,7 +1778,7 @@ msgstr ""
 msgid "Archived posts on %s."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1478
+#: includes/functions/users/_admin-profile.php:1490
 #, php-format
 msgid ""
 "Are you sure you want to clear your %s? This action is irreversible. Enter "
@@ -1856,7 +1856,7 @@ msgid ""
 msgstr ""
 
 #: partials/account/_danger-zone.php:31
-#: includes/functions/users/_admin-profile.php:2232
+#: includes/functions/users/_admin-profile.php:2244
 #, php-format
 msgid ""
 "Are you sure? Your account will be irrevocably deleted, although this will "
@@ -1889,7 +1889,7 @@ msgstr ""
 msgid "Author index page assignment"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2032
+#: includes/functions/users/_admin-profile.php:2044
 msgid "Author Page"
 msgstr ""
 
@@ -1927,45 +1927,45 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1400
+#: includes/functions/_helpers-templates.php:1404
 msgid "Back to Story"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:452
+#: includes/functions/_customizer-settings.php:453
 msgid "Background color for the navigation bar. Based on BG-50 by default."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:883
+#: includes/functions/_customizer-settings.php:884
 msgid "Background color for the navigation bar. Based on BG-900 by default."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:524
-#: includes/functions/_customizer-settings.php:955
+#: includes/functions/_customizer-settings.php:525
+#: includes/functions/_customizer-settings.php:956
 msgid "Background color of the admin comment badge."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:532
-#: includes/functions/_customizer-settings.php:963
+#: includes/functions/_customizer-settings.php:533
+#: includes/functions/_customizer-settings.php:964
 msgid "Background color of the author comment badge."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:520
-#: includes/functions/_customizer-settings.php:951
+#: includes/functions/_customizer-settings.php:521
+#: includes/functions/_customizer-settings.php:952
 msgid "Background color of the generic comment badge."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:528
-#: includes/functions/_customizer-settings.php:959
+#: includes/functions/_customizer-settings.php:529
+#: includes/functions/_customizer-settings.php:960
 msgid "Background color of the moderator comment badge."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:540
-#: includes/functions/_customizer-settings.php:971
+#: includes/functions/_customizer-settings.php:541
+#: includes/functions/_customizer-settings.php:972
 msgid "Background color of the override comment badge."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:536
-#: includes/functions/_customizer-settings.php:967
+#: includes/functions/_customizer-settings.php:537
+#: includes/functions/_customizer-settings.php:968
 msgid "Background color of the supporter comment badge."
 msgstr ""
 
@@ -1973,22 +1973,22 @@ msgstr ""
 msgid "Background textures"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2162
+#: includes/functions/users/_admin-profile.php:2174
 msgid "Badge Override"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:472
-#: includes/functions/_customizer-settings.php:903
+#: includes/functions/_customizer-settings.php:473
+#: includes/functions/_customizer-settings.php:904
 msgid "Base alert and warning color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:460
-#: includes/functions/_customizer-settings.php:891
+#: includes/functions/_customizer-settings.php:461
+#: includes/functions/_customizer-settings.php:892
 msgid "Base primary accent and content link color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:484
-#: includes/functions/_customizer-settings.php:915
+#: includes/functions/_customizer-settings.php:485
+#: includes/functions/_customizer-settings.php:916
 msgid "Base success and confirmation color."
 msgstr ""
 
@@ -2116,7 +2116,7 @@ msgstr ""
 msgid "Bookmarks could not be cleared."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2403
+#: includes/functions/_helpers-templates.php:2419
 msgid "Bookmarks Page"
 msgstr ""
 
@@ -2158,13 +2158,13 @@ msgctxt "Bookshelf tab name pattern: {Tab} ({Count})"
 msgid "%s (%s)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2359
+#: includes/functions/_customizer-settings.php:2360
 msgid ""
 "Border radius of large containers in pixels, such as the main content "
 "section. Default 4."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2390
+#: includes/functions/_customizer-settings.php:2391
 msgid ""
 "Border radius of small containers in pixels, such as story cards and inputs. "
 "Default 2."
@@ -2184,7 +2184,7 @@ msgstr ""
 msgid "Bundle JavaScript files into one"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:667
+#: includes/functions/_setup-admin.php:607
 msgid "Buy me a coffee on <strong>Ko-fi</strong>"
 msgstr ""
 
@@ -2259,677 +2259,677 @@ msgstr ""
 msgid "Canvas (Site)"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:731
+#: includes/functions/_setup-admin.php:671
 msgctxt "Capability translation"
 msgid "Add Alerts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:738
+#: includes/functions/_setup-admin.php:678
 msgctxt "Capability translation"
 msgid "Admin Panel Access"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:737
+#: includes/functions/_setup-admin.php:677
 msgctxt "Capability translation"
 msgid "Adminbar Access"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:724
+#: includes/functions/_setup-admin.php:664
 msgctxt "Capability translation"
 msgid "All Blocks"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:744
+#: includes/functions/_setup-admin.php:684
 msgctxt "Capability translation"
 msgid "Allow Self Delete"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:761
+#: includes/functions/_setup-admin.php:701
 msgctxt "Capability translation"
 msgid "Assign Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:777
+#: includes/functions/_setup-admin.php:717
 msgctxt "Capability translation"
 msgid "Assign Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:781
+#: includes/functions/_setup-admin.php:721
 msgctxt "Capability translation"
 msgid "Assign Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:773
+#: includes/functions/_setup-admin.php:713
 msgctxt "Capability translation"
 msgid "Assign Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:769
+#: includes/functions/_setup-admin.php:709
 msgctxt "Capability translation"
 msgid "Assign Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:727
+#: includes/functions/_setup-admin.php:667
 msgctxt "Capability translation"
 msgid "Assign Patreon Tiers"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:765
+#: includes/functions/_setup-admin.php:705
 msgctxt "Capability translation"
 msgid "Assign Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:736
+#: includes/functions/_setup-admin.php:676
 msgctxt "Capability translation"
 msgid "Classic Editor"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:752
+#: includes/functions/_setup-admin.php:692
 msgctxt "Capability translation"
 msgid "Create Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:729
+#: includes/functions/_setup-admin.php:669
 msgctxt "Capability translation"
 msgid "Crosspost"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:718
+#: includes/functions/_setup-admin.php:658
 msgctxt "Capability translation"
 msgid "Custom ePUB CSS"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:719
+#: includes/functions/_setup-admin.php:659
 msgctxt "Capability translation"
 msgid "Custom ePUB Upload"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:717
+#: includes/functions/_setup-admin.php:657
 msgctxt "Capability translation"
 msgid "Custom Page CSS"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:720
+#: includes/functions/_setup-admin.php:660
 msgctxt "Capability translation"
 msgid "Custom Page Header"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:739
+#: includes/functions/_setup-admin.php:679
 msgctxt "Capability translation"
 msgid "Dashboard Access"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:763
+#: includes/functions/_setup-admin.php:703
 msgctxt "Capability translation"
 msgid "Delete Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:819
+#: includes/functions/_setup-admin.php:759
 msgctxt "Capability translation"
 msgid "Delete Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:779
+#: includes/functions/_setup-admin.php:719
 msgctxt "Capability translation"
 msgid "Delete Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:830
+#: includes/functions/_setup-admin.php:770
 msgctxt "Capability translation"
 msgid "Delete Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:783
+#: includes/functions/_setup-admin.php:723
 msgctxt "Capability translation"
 msgid "Delete Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:775
+#: includes/functions/_setup-admin.php:715
 msgctxt "Capability translation"
 msgid "Delete Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:771
+#: includes/functions/_setup-admin.php:711
 msgctxt "Capability translation"
 msgid "Delete Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:823
+#: includes/functions/_setup-admin.php:763
 msgctxt "Capability translation"
 msgid "Delete Others Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:834
+#: includes/functions/_setup-admin.php:774
 msgctxt "Capability translation"
 msgid "Delete Others Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:750
+#: includes/functions/_setup-admin.php:690
 msgctxt "Capability translation"
 msgid "Delete Others Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:801
+#: includes/functions/_setup-admin.php:741
 msgctxt "Capability translation"
 msgid "Delete Others Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:790
+#: includes/functions/_setup-admin.php:730
 msgctxt "Capability translation"
 msgid "Delete Others Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:845
+#: includes/functions/_setup-admin.php:785
 msgctxt "Capability translation"
 msgid "Delete Others Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:812
+#: includes/functions/_setup-admin.php:752
 msgctxt "Capability translation"
 msgid "Delete Others Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:797
+#: includes/functions/_setup-admin.php:737
 msgctxt "Capability translation"
 msgid "Delete Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:767
+#: includes/functions/_setup-admin.php:707
 msgctxt "Capability translation"
 msgid "Delete Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:786
+#: includes/functions/_setup-admin.php:726
 msgctxt "Capability translation"
 msgid "Delete Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:826
+#: includes/functions/_setup-admin.php:766
 msgctxt "Capability translation"
 msgid "Delete Private Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:837
+#: includes/functions/_setup-admin.php:777
 msgctxt "Capability translation"
 msgid "Delete Private Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:804
+#: includes/functions/_setup-admin.php:744
 msgctxt "Capability translation"
 msgid "Delete Private Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:793
+#: includes/functions/_setup-admin.php:733
 msgctxt "Capability translation"
 msgid "Delete Private Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:848
+#: includes/functions/_setup-admin.php:788
 msgctxt "Capability translation"
 msgid "Delete Private Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:815
+#: includes/functions/_setup-admin.php:755
 msgctxt "Capability translation"
 msgid "Delete Private Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:821
+#: includes/functions/_setup-admin.php:761
 msgctxt "Capability translation"
 msgid "Delete Published Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:832
+#: includes/functions/_setup-admin.php:772
 msgctxt "Capability translation"
 msgid "Delete Published Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:799
+#: includes/functions/_setup-admin.php:739
 msgctxt "Capability translation"
 msgid "Delete Published Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:788
+#: includes/functions/_setup-admin.php:728
 msgctxt "Capability translation"
 msgid "Delete Published Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:843
+#: includes/functions/_setup-admin.php:783
 msgctxt "Capability translation"
 msgid "Delete Published Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:810
+#: includes/functions/_setup-admin.php:750
 msgctxt "Capability translation"
 msgid "Delete Published Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:841
+#: includes/functions/_setup-admin.php:781
 msgctxt "Capability translation"
 msgid "Delete Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:808
+#: includes/functions/_setup-admin.php:748
 msgctxt "Capability translation"
 msgid "Delete Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:762
+#: includes/functions/_setup-admin.php:702
 msgctxt "Capability translation"
 msgid "Edit Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:818
+#: includes/functions/_setup-admin.php:758
 msgctxt "Capability translation"
 msgid "Edit Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:778
+#: includes/functions/_setup-admin.php:718
 msgctxt "Capability translation"
 msgid "Edit Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:829
+#: includes/functions/_setup-admin.php:769
 msgctxt "Capability translation"
 msgid "Edit Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:782
+#: includes/functions/_setup-admin.php:722
 msgctxt "Capability translation"
 msgid "Edit Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:726
+#: includes/functions/_setup-admin.php:666
 msgctxt "Capability translation"
 msgid "Edit Date"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:774
+#: includes/functions/_setup-admin.php:714
 msgctxt "Capability translation"
 msgid "Edit Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:742
+#: includes/functions/_setup-admin.php:682
 msgctxt "Capability translation"
 msgid "Edit Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:770
+#: includes/functions/_setup-admin.php:710
 msgctxt "Capability translation"
 msgid "Edit Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:822
+#: includes/functions/_setup-admin.php:762
 msgctxt "Capability translation"
 msgid "Edit Others Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:833
+#: includes/functions/_setup-admin.php:773
 msgctxt "Capability translation"
 msgid "Edit Others Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:749
+#: includes/functions/_setup-admin.php:689
 msgctxt "Capability translation"
 msgid "Edit Others Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:800
+#: includes/functions/_setup-admin.php:740
 msgctxt "Capability translation"
 msgid "Edit Others Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:789
+#: includes/functions/_setup-admin.php:729
 msgctxt "Capability translation"
 msgid "Edit Others Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:844
+#: includes/functions/_setup-admin.php:784
 msgctxt "Capability translation"
 msgid "Edit Others Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:811
+#: includes/functions/_setup-admin.php:751
 msgctxt "Capability translation"
 msgid "Edit Others Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:796
+#: includes/functions/_setup-admin.php:736
 msgctxt "Capability translation"
 msgid "Edit Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:723
+#: includes/functions/_setup-admin.php:663
 msgctxt "Capability translation"
 msgid "Edit Permalink"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:766
+#: includes/functions/_setup-admin.php:706
 msgctxt "Capability translation"
 msgid "Edit Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:785
+#: includes/functions/_setup-admin.php:725
 msgctxt "Capability translation"
 msgid "Edit Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:825
+#: includes/functions/_setup-admin.php:765
 msgctxt "Capability translation"
 msgid "Edit Private Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:836
+#: includes/functions/_setup-admin.php:776
 msgctxt "Capability translation"
 msgid "Edit Private Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:803
+#: includes/functions/_setup-admin.php:743
 msgctxt "Capability translation"
 msgid "Edit Private Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:792
+#: includes/functions/_setup-admin.php:732
 msgctxt "Capability translation"
 msgid "Edit Private Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:847
+#: includes/functions/_setup-admin.php:787
 msgctxt "Capability translation"
 msgid "Edit Private Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:814
+#: includes/functions/_setup-admin.php:754
 msgctxt "Capability translation"
 msgid "Edit Private Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:820
+#: includes/functions/_setup-admin.php:760
 msgctxt "Capability translation"
 msgid "Edit Published Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:831
+#: includes/functions/_setup-admin.php:771
 msgctxt "Capability translation"
 msgid "Edit Published Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:798
+#: includes/functions/_setup-admin.php:738
 msgctxt "Capability translation"
 msgid "Edit Published Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:787
+#: includes/functions/_setup-admin.php:727
 msgctxt "Capability translation"
 msgid "Edit Published Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:842
+#: includes/functions/_setup-admin.php:782
 msgctxt "Capability translation"
 msgid "Edit Published Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:809
+#: includes/functions/_setup-admin.php:749
 msgctxt "Capability translation"
 msgid "Edit Published Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:840
+#: includes/functions/_setup-admin.php:780
 msgctxt "Capability translation"
 msgid "Edit Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:807
+#: includes/functions/_setup-admin.php:747
 msgctxt "Capability translation"
 msgid "Edit Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:757
+#: includes/functions/_setup-admin.php:697
 msgctxt "Capability translation"
 msgid "Edit Theme Options"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:758
+#: includes/functions/_setup-admin.php:698
 msgctxt "Capability translation"
 msgid "Edit Themes"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:753
+#: includes/functions/_setup-admin.php:693
 msgctxt "Capability translation"
 msgid "Edit Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:728
+#: includes/functions/_setup-admin.php:668
 msgctxt "Capability translation"
 msgid "Expire Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:827
+#: includes/functions/_setup-admin.php:767
 msgctxt "Capability translation"
 msgid "Ignore Chapter Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:838
+#: includes/functions/_setup-admin.php:778
 msgctxt "Capability translation"
 msgid "Ignore Collection Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:805
+#: includes/functions/_setup-admin.php:745
 msgctxt "Capability translation"
 msgid "Ignore Page Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:794
+#: includes/functions/_setup-admin.php:734
 msgctxt "Capability translation"
 msgid "Ignore Post Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:816
+#: includes/functions/_setup-admin.php:756
 msgctxt "Capability translation"
 msgid "Ignore Story Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:751
+#: includes/functions/_setup-admin.php:691
 msgctxt "Capability translation"
 msgid "List Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:722
+#: includes/functions/_setup-admin.php:662
 msgctxt "Capability translation"
 msgid "Make Sticky"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:760
+#: includes/functions/_setup-admin.php:700
 msgctxt "Capability translation"
 msgid "Manage Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:776
+#: includes/functions/_setup-admin.php:716
 msgctxt "Capability translation"
 msgid "Manage Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:780
+#: includes/functions/_setup-admin.php:720
 msgctxt "Capability translation"
 msgid "Manage Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:772
+#: includes/functions/_setup-admin.php:712
 msgctxt "Capability translation"
 msgid "Manage Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:768
+#: includes/functions/_setup-admin.php:708
 msgctxt "Capability translation"
 msgid "Manage Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:764
+#: includes/functions/_setup-admin.php:704
 msgctxt "Capability translation"
 msgid "Manage Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:746
+#: includes/functions/_setup-admin.php:686
 msgctxt "Capability translation"
 msgid "Moderate Comments"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:743
+#: includes/functions/_setup-admin.php:683
 msgctxt "Capability translation"
 msgid "Moderate Post Comments"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:849
+#: includes/functions/_setup-admin.php:789
 msgctxt "Capability translation"
 msgid "No Filters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:733
+#: includes/functions/_setup-admin.php:673
 msgctxt "Capability translation"
 msgid "Only Moderate Comments"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:747
+#: includes/functions/_setup-admin.php:687
 msgctxt "Capability translation"
 msgid "Privacy Clearance"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:817
+#: includes/functions/_setup-admin.php:757
 msgctxt "Capability translation"
 msgid "Publish Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:828
+#: includes/functions/_setup-admin.php:768
 msgctxt "Capability translation"
 msgid "Publish Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:795
+#: includes/functions/_setup-admin.php:735
 msgctxt "Capability translation"
 msgid "Publish Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:784
+#: includes/functions/_setup-admin.php:724
 msgctxt "Capability translation"
 msgid "Publish Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:839
+#: includes/functions/_setup-admin.php:779
 msgctxt "Capability translation"
 msgid "Publish Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:806
+#: includes/functions/_setup-admin.php:746
 msgctxt "Capability translation"
 msgid "Publish Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:745
+#: includes/functions/_setup-admin.php:685
 msgctxt "Capability translation"
 msgid "Read"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:748
+#: includes/functions/_setup-admin.php:688
 msgctxt "Capability translation"
 msgid "Read Others Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:824
+#: includes/functions/_setup-admin.php:764
 msgctxt "Capability translation"
 msgid "Read Private Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:835
+#: includes/functions/_setup-admin.php:775
 msgctxt "Capability translation"
 msgid "Read Private Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:802
+#: includes/functions/_setup-admin.php:742
 msgctxt "Capability translation"
 msgid "Read Private Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:791
+#: includes/functions/_setup-admin.php:731
 msgctxt "Capability translation"
 msgid "Read Private Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:846
+#: includes/functions/_setup-admin.php:786
 msgctxt "Capability translation"
 msgid "Read Private Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:813
+#: includes/functions/_setup-admin.php:753
 msgctxt "Capability translation"
 msgid "Read Private Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:732
+#: includes/functions/_setup-admin.php:672
 msgctxt "Capability translation"
 msgid "Reduced Profile"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:754
+#: includes/functions/_setup-admin.php:694
 msgctxt "Capability translation"
 msgid "Remove Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:716
+#: includes/functions/_setup-admin.php:656
 msgctxt "Capability translation"
 msgid "Select Page Templates"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:721
+#: includes/functions/_setup-admin.php:661
 msgctxt "Capability translation"
 msgid "SEO Meta"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:715
+#: includes/functions/_setup-admin.php:655
 msgctxt "Capability translation"
 msgid "Shortcodes"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:740
+#: includes/functions/_setup-admin.php:680
 msgctxt "Capability translation"
 msgid "Show Badge"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:730
+#: includes/functions/_setup-admin.php:670
 msgctxt "Capability translation"
 msgid "Status Override"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:725
+#: includes/functions/_setup-admin.php:665
 msgctxt "Capability translation"
 msgid "Story Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:756
+#: includes/functions/_setup-admin.php:696
 msgctxt "Capability translation"
 msgid "Switch Themes"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:759
+#: includes/functions/_setup-admin.php:699
 msgctxt "Capability translation"
 msgid "Unfiltered HTML"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:755
+#: includes/functions/_setup-admin.php:695
 msgctxt "Capability translation"
 msgid "Unlock Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:741
+#: includes/functions/_setup-admin.php:681
 msgctxt "Capability translation"
 msgid "Upload Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:734
+#: includes/functions/_setup-admin.php:674
 msgctxt "Capability translation"
 msgid "Upload Limit"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:735
+#: includes/functions/_setup-admin.php:675
 msgctxt "Capability translation"
 msgid "Upload Restrictions"
 msgstr ""
@@ -2954,71 +2954,71 @@ msgctxt "Caption of the _read_ ribbon."
 msgid "Read"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3239
+#: includes/functions/_customizer-settings.php:3456
 msgid "Card Body Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2708
+#: includes/functions/_customizer-settings.php:2709
 msgid "Card Column Gap Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2648
+#: includes/functions/_customizer-settings.php:2649
 msgid "Card Cover Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2768
+#: includes/functions/_customizer-settings.php:2769
 msgid "Card Font Size Grow Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2798
+#: includes/functions/_customizer-settings.php:2799
 msgid "Card Font Size Maximum Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2738
+#: includes/functions/_customizer-settings.php:2739
 msgid "Card Font Size Minimum Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2564
+#: includes/functions/_customizer-settings.php:2565
 msgid "Card Footer Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2508
+#: includes/functions/_customizer-settings.php:2509
 msgid "Card Frame"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2536
+#: includes/functions/_customizer-settings.php:2537
 msgid "Card Image Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3261
+#: includes/functions/_customizer-settings.php:3478
 msgid "Card List Link Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2678
+#: includes/functions/_customizer-settings.php:2679
 msgid "Card Row Gap Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2597
+#: includes/functions/_customizer-settings.php:2598
 msgid "Card Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3217
+#: includes/functions/_customizer-settings.php:3434
 msgid "Card Title Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2619
+#: includes/functions/_customizer-settings.php:2620
 msgid "Card Width"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2476
+#: includes/functions/_customizer-settings.php:2477
 msgid "Cards"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1465
+#: includes/functions/_customizer-settings.php:1466
 msgid "Change Default Cover"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3361
+#: includes/functions/_customizer-settings.php:3578
 msgid "Change Open Graph image"
 msgstr ""
 
@@ -3026,18 +3026,20 @@ msgstr ""
 msgid "Change Password"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1435
+#: includes/functions/_customizer-settings.php:1436
 msgid "Change Placeholder Image"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2829
+#: includes/functions/_customizer-settings.php:2830
 #, php-format
 msgid ""
 "Change the HTML for selected icons. You can use free <a href=\"%s\" "
 "target=\"_blank\" rel=\"noopener\">Font Awesome</a> icons, SVGs, or DIVs and "
 "SPANs with text.<br><br><strong>Important:</strong> The outer wrapper must "
 "have a class attribute, allowing the theme to inject additional classes and "
-"attributes."
+"attributes.<br><br><strong>Note:</strong> Some icons require you to purge "
+"the theme caches under Fictioneer > Tools for them to become visible "
+"immediately."
 msgstr ""
 
 #: partials/account/_profile.php:116
@@ -3052,7 +3054,7 @@ msgstr ""
 #: includes/functions/_setup-types-and-terms.php:205
 #: includes/functions/settings/_settings_actions.php:1475
 #: includes/functions/hooks/_story_hooks.php:433
-#: includes/functions/users/_admin-profile.php:1601
+#: includes/functions/users/_admin-profile.php:1613
 msgid "Chapter"
 msgstr ""
 
@@ -3123,7 +3125,7 @@ msgstr ""
 msgid "Chapter Attributes"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3195
+#: includes/functions/_customizer-settings.php:3412
 msgid "Chapter Body Font"
 msgstr ""
 
@@ -3131,7 +3133,7 @@ msgstr ""
 msgid "Chapter Capabilities"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2876
+#: includes/functions/_customizer-settings.php:2877
 msgid "Chapter Card Checkmark"
 msgstr ""
 
@@ -3145,7 +3147,7 @@ msgctxt "Chapter card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2852
+#: includes/functions/_customizer-settings.php:2853
 msgid "Chapter Checkmark"
 msgstr ""
 
@@ -3290,7 +3292,7 @@ msgctxt "Chapter list status prefix."
 msgid "Trashed:"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3173
+#: includes/functions/_customizer-settings.php:3390
 msgid "Chapter List Title Font"
 msgstr ""
 
@@ -3366,7 +3368,7 @@ msgctxt "Chapter text icon meta field label."
 msgid "Text Icon"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3151
+#: includes/functions/_customizer-settings.php:3368
 msgid "Chapter Title Font"
 msgstr ""
 
@@ -3474,83 +3476,83 @@ msgstr ""
 msgid "Choose a %s to browse"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1488
+#: includes/functions/_customizer-settings.php:1489
 msgid "Choose a page transition animation."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2131
+#: includes/functions/_customizer-settings.php:2132
 msgid ""
 "Choose the collapsed style for your content lists. This also depends on your "
 "list style."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2565
+#: includes/functions/_customizer-settings.php:2566
 msgid "Choose the footer style for your cards."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2509
+#: includes/functions/_customizer-settings.php:2510
 msgid ""
 "Choose the frame for your cards. Turn off the card shadow if borders get "
 "blurry."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2537
+#: includes/functions/_customizer-settings.php:2538
 msgid "Choose the image style for your cards. Can be overridden in shortcodes."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2598
+#: includes/functions/_customizer-settings.php:2599
 msgid "Choose the shadow for your cards."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2045
+#: includes/functions/_customizer-settings.php:2046
 msgid "Choose the shadow for your cover."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2104
+#: includes/functions/_customizer-settings.php:2105
 msgid "Choose the style for your content lists."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2158
+#: includes/functions/_customizer-settings.php:2159
 msgid "Choose the style for your footer."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1184
+#: includes/functions/_customizer-settings.php:1185
 msgid "Choose the style for your header image."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1770
+#: includes/functions/_customizer-settings.php:1771
 msgid ""
 "Choose the style for your header. This can affect or disable other settings."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1917
+#: includes/functions/_customizer-settings.php:1918
 msgid "Choose the style for your mobile menu."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1892
+#: includes/functions/_customizer-settings.php:1893
 msgid "Choose the style for your mobile navigation."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1958
+#: includes/functions/_customizer-settings.php:1959
 msgid "Choose the style for your pages."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2012
+#: includes/functions/_customizer-settings.php:2013
 msgid "Choose where to display the cover."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1570
+#: includes/functions/_customizer-settings.php:1571
 msgid ""
 "Choose whether and where to render the sidebar. You can set it up under "
 "Widgets; it will not appear before that."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1497
+#: includes/functions/users/_admin-profile.php:1509
 #, php-format
 msgid "Clear %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1502
+#: includes/functions/users/_admin-profile.php:1514
 #, php-format
 msgid "Clear %s (%s)"
 msgstr ""
@@ -3559,18 +3561,18 @@ msgstr ""
 msgid "Clear Cookies"
 msgstr ""
 
-#: includes/functions/_setup-blocks.php:121
-#: includes/functions/_setup-blocks.php:149
-#: includes/functions/_setup-blocks.php:172
+#: includes/functions/_setup-blocks.php:185
+#: includes/functions/_setup-blocks.php:213
+#: includes/functions/_setup-blocks.php:236
 #, php-format
 msgid "Click to load %s with third-party consent."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2470
+#: includes/functions/_helpers-templates.php:2486
 msgid "Click to log out"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:672
+#: includes/functions/_setup-admin.php:612
 #: includes/functions/settings/_settings_page_general.php:1861
 #: includes/functions/settings/_settings_page_seo.php:213
 #: includes/functions/comments/_comments_moderation.php:394
@@ -3609,7 +3611,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:322
 #: includes/functions/_setup-types-and-terms.php:347
-#: includes/functions/users/_admin-profile.php:1602
+#: includes/functions/users/_admin-profile.php:1614
 msgid "Collection"
 msgstr ""
 
@@ -3676,26 +3678,26 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:444
+#: includes/functions/_customizer-settings.php:445
 msgid ""
 "Color for some card frame borders and divider lines. Based on BG-300 by "
 "default."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:875
+#: includes/functions/_customizer-settings.php:876
 msgid ""
 "Color for some card frame borders and divider lines. Based on BG-800 by "
 "default."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:492
-#: includes/functions/_customizer-settings.php:923
+#: includes/functions/_customizer-settings.php:493
+#: includes/functions/_customizer-settings.php:924
 msgid ""
 "Color of the \"alpha\" bookmark line and button. Based on Primary-500 by "
 "default."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:577
+#: includes/functions/_customizer-settings.php:578
 msgid ""
 "Color scheme for the dark mode. <b>Warning:</b> Looking at light text on "
 "dark background for a prolonged period of time causes immense eye strain! "
@@ -3703,7 +3705,7 @@ msgid ""
 "issue."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:151
+#: includes/functions/_customizer-settings.php:152
 msgid ""
 "Color scheme for the light mode. If you want to add custom CSS, this needs "
 "to be under <code>:root[data-mode=\"light\"]</code>."
@@ -4109,15 +4111,15 @@ msgctxt "Contact form."
 msgid "You need to accept the privacy policy."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2130
+#: includes/functions/_customizer-settings.php:2131
 msgid "Content List Collapse Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2448
+#: includes/functions/_customizer-settings.php:2449
 msgid "Content List Gap"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2103
+#: includes/functions/_customizer-settings.php:2104
 msgid "Content List Style"
 msgstr ""
 
@@ -4230,44 +4232,44 @@ msgstr ""
 msgid "Custom badge \"<b>%s</b>\" assigned."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2836
+#: includes/functions/_helpers-templates.php:2852
 msgctxt "Custom CSS skin."
 msgid "Error."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2831
+#: includes/functions/_helpers-templates.php:2847
 msgctxt "Custom CSS skin."
 msgid "File is missing the \"Name\" meta data."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2830
+#: includes/functions/_helpers-templates.php:2846
 msgctxt "Custom CSS skin."
 msgid ""
 "Invalid file contents. Please check for missing braces (\"{}\") or forbidden "
 "characters (\"<\")."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2835
+#: includes/functions/_helpers-templates.php:2851
 msgctxt "Custom CSS skin."
 msgid "Invalid JSON."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2834
+#: includes/functions/_helpers-templates.php:2850
 msgctxt "Custom CSS skin."
 msgid "Maximum file size of 200 KB exceeded."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2829
+#: includes/functions/_helpers-templates.php:2845
 msgctxt "Custom CSS skin."
 msgid "Wrong file type. Please upload a valid CSS file."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2833
+#: includes/functions/_helpers-templates.php:2849
 msgctxt "Custom CSS skin."
 msgid "Wrong or missing fingerprint hash."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2832
+#: includes/functions/_helpers-templates.php:2848
 msgctxt "Custom CSS skin."
 msgid "You cannot upload more than 3 skins."
 msgstr ""
@@ -4276,7 +4278,7 @@ msgstr ""
 msgid "Custom filters with image for groups and/or post IDs."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1986
+#: includes/functions/users/_admin-profile.php:1998
 msgid "Custom message in the user profile, which may be a nice thing as well."
 msgstr ""
 
@@ -4294,400 +4296,400 @@ msgid ""
 "custom post types. Can be slow."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2499
+#: includes/functions/_customizer-settings.php:2500
 msgctxt "Customizer card frame option."
 msgid "Battered"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2496
-msgctxt "Customizer card frame option."
-msgid "Border (2px)"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2497
 msgctxt "Customizer card frame option."
-msgid "Border (3px)"
+msgid "Border (2px)"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2498
 msgctxt "Customizer card frame option."
-msgid "Chamfered"
+msgid "Border (3px)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2494
+#: includes/functions/_customizer-settings.php:2499
 msgctxt "Customizer card frame option."
-msgid "Stacked (Left)"
+msgid "Chamfered"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2495
 msgctxt "Customizer card frame option."
+msgid "Stacked (Left)"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2496
+msgctxt "Customizer card frame option."
 msgid "Stacked (Random)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2493
+#: includes/functions/_customizer-settings.php:2494
 msgctxt "Customizer card frame option."
 msgid "Stacked (Right)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2525
+#: includes/functions/_customizer-settings.php:2526
 msgctxt "Customizer card image option."
 msgid "Embedded (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2526
+#: includes/functions/_customizer-settings.php:2527
 msgctxt "Customizer card image option."
 msgid "Seamless"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2582
+#: includes/functions/_customizer-settings.php:2583
 msgctxt "Customizer card shadow option."
 msgid "Border Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2581
+#: includes/functions/_customizer-settings.php:2582
 msgctxt "Customizer card shadow option."
 msgid "No Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2588
+#: includes/functions/_customizer-settings.php:2589
 msgctxt "Customizer card shadow option."
 msgid "Shadow Huge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2587
+#: includes/functions/_customizer-settings.php:2588
 msgctxt "Customizer card shadow option."
 msgid "Shadow Large"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2586
+#: includes/functions/_customizer-settings.php:2587
 msgctxt "Customizer card shadow option."
 msgid "Shadow Medium (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2585
+#: includes/functions/_customizer-settings.php:2586
 msgctxt "Customizer card shadow option."
 msgid "Shadow Normal"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2585
+msgctxt "Customizer card shadow option."
+msgid "Shadow Small"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:2584
 msgctxt "Customizer card shadow option."
-msgid "Shadow Small"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2583
-msgctxt "Customizer card shadow option."
 msgid "Shadow Thin"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2555
+#: includes/functions/_customizer-settings.php:2556
 msgctxt "Customizer card style option."
 msgid "Combined"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2553
+#: includes/functions/_customizer-settings.php:2554
 msgctxt "Customizer card style option."
 msgid "Embedded (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2554
+#: includes/functions/_customizer-settings.php:2555
 msgctxt "Customizer card style option."
 msgid "Unfolded"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2120
+#: includes/functions/_customizer-settings.php:2121
 msgctxt "Customizer content group style option."
 msgid "Boxed/Large (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2121
+#: includes/functions/_customizer-settings.php:2122
 msgctxt "Customizer content list group option."
 msgid "Edge/Narrow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2094
+#: includes/functions/_customizer-settings.php:2095
 msgctxt "Customizer content list style option."
 msgid "Free"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2092
+#: includes/functions/_customizer-settings.php:2093
 msgctxt "Customizer content list style option."
 msgid "Full"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2091
+#: includes/functions/_customizer-settings.php:2092
 msgctxt "Customizer content list style option."
 msgid "Gradient (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2093
+#: includes/functions/_customizer-settings.php:2094
 msgctxt "Customizer content list style option."
 msgid "Lines"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3286
+#: includes/functions/_customizer-settings.php:3503
 msgctxt "Customizer dark mode font weight option."
 msgid "Adjusted"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3287
+#: includes/functions/_customizer-settings.php:3504
 msgctxt "Customizer dark mode font weight option."
 msgid "Normal"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2147
+#: includes/functions/_customizer-settings.php:2148
 msgctxt "Customizer footer style option."
 msgid "Floating (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2148
+#: includes/functions/_customizer-settings.php:2149
 msgctxt "Customizer footer style option."
 msgid "Isolated"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1170
-msgctxt "Customizer header image style option."
-msgid "Battered"
-msgstr ""
-
 #: includes/functions/_customizer-settings.php:1171
 msgctxt "Customizer header image style option."
-msgid "Chamfered"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:1174
-msgctxt "Customizer header image style option."
-msgid "Custom CSS"
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:1173
-msgctxt "Customizer header image style option."
-msgid "Grunge Frame (Large)"
+msgid "Battered"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1172
 msgctxt "Customizer header image style option."
+msgid "Chamfered"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:1175
+msgctxt "Customizer header image style option."
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:1174
+msgctxt "Customizer header image style option."
+msgid "Grunge Frame (Large)"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:1173
+msgctxt "Customizer header image style option."
 msgid "Grunge Frame (Small)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1169
+#: includes/functions/_customizer-settings.php:1170
 msgctxt "Customizer header image style option."
 msgid "Plain (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1559
+#: includes/functions/_customizer-settings.php:1560
 msgctxt "Customizer header sidebar option."
 msgid "Left"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1560
+#: includes/functions/_customizer-settings.php:1561
 msgctxt "Customizer header sidebar option."
 msgid "Right"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1753
+#: includes/functions/_customizer-settings.php:1754
 msgctxt "Customizer header style option."
 msgid "Default (Image)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1755
+#: includes/functions/_customizer-settings.php:1756
 msgctxt "Customizer header style option."
 msgid "Overlay (Image)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1757
+#: includes/functions/_customizer-settings.php:1758
 msgctxt "Customizer header style option."
 msgid "Post Content (ID)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1754
+#: includes/functions/_customizer-settings.php:1755
 msgctxt "Customizer header style option."
 msgid "Split (Image)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1756
+#: includes/functions/_customizer-settings.php:1757
 msgctxt "Customizer header style option."
 msgid "Text (Center)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1758
+#: includes/functions/_customizer-settings.php:1759
 msgctxt "Customizer header style option."
 msgid "Top"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1759
+#: includes/functions/_customizer-settings.php:1760
 msgctxt "Customizer header style option."
 msgid "Wide"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1919
+#: includes/functions/_customizer-settings.php:1920
 msgctxt "Customizer mobile menu style option."
 msgid "Minimize site to right (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1920
+#: includes/functions/_customizer-settings.php:1921
 msgctxt "Customizer mobile menu style option."
 msgid "Slide in from left"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1921
+#: includes/functions/_customizer-settings.php:1922
 msgctxt "Customizer mobile menu style option."
 msgid "Slide in from right"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1895
+#: includes/functions/_customizer-settings.php:1896
 msgctxt "Customizer mobile navigation style option."
 msgid "Collapse"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1894
+#: includes/functions/_customizer-settings.php:1895
 msgctxt "Customizer mobile navigation style option."
 msgid "Overflow (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1760
-#: includes/functions/_customizer-settings.php:2527
+#: includes/functions/_customizer-settings.php:1761
+#: includes/functions/_customizer-settings.php:2528
 msgctxt "Customizer option."
 msgid "None"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1490
-#: includes/functions/_customizer-settings.php:1558
-#: includes/functions/_customizer-settings.php:2492
+#: includes/functions/_customizer-settings.php:1491
+#: includes/functions/_customizer-settings.php:1559
+#: includes/functions/_customizer-settings.php:2493
 msgctxt "Customizer option."
 msgid "None (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1938
+#: includes/functions/_customizer-settings.php:1939
 msgctxt "Customizer page style option."
 msgid "Battered"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1940
+#: includes/functions/_customizer-settings.php:1941
 msgctxt "Customizer page style option."
 msgid "Battered Ringbook"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1941
+#: includes/functions/_customizer-settings.php:1942
 msgctxt "Customizer page style option."
 msgid "Chamfered"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1947
+#: includes/functions/_customizer-settings.php:1948
 msgctxt "Customizer page style option."
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1946
+#: includes/functions/_customizer-settings.php:1947
 msgctxt "Customizer page style option."
 msgid "Grunge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1942
+#: includes/functions/_customizer-settings.php:1943
 msgctxt "Customizer page style option."
 msgid "Interface"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1945
+#: includes/functions/_customizer-settings.php:1946
 msgctxt "Customizer page style option."
 msgid "Layered Peaks"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1944
+#: includes/functions/_customizer-settings.php:1945
 msgctxt "Customizer page style option."
 msgid "Layered Steps"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1948
+#: includes/functions/_customizer-settings.php:1949
 msgctxt "Customizer page style option."
 msgid "None (Hide)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1937
+#: includes/functions/_customizer-settings.php:1938
 msgctxt "Customizer page style option."
 msgid "Plain (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1939
+#: includes/functions/_customizer-settings.php:1940
 msgctxt "Customizer page style option."
 msgid "Ringbook"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1943
+#: includes/functions/_customizer-settings.php:1944
 msgctxt "Customizer page style option."
 msgid "Wave"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2000
+#: includes/functions/_customizer-settings.php:2001
 msgctxt "Customizer story cover position option."
 msgid "Floating Left"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2001
+#: includes/functions/_customizer-settings.php:2002
 msgctxt "Customizer story cover position option."
 msgid "Floating Right"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1998
+#: includes/functions/_customizer-settings.php:1999
 msgctxt "Customizer story cover position option."
 msgid "Floating Top-Left"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1999
+#: includes/functions/_customizer-settings.php:2000
 msgctxt "Customizer story cover position option."
 msgid "Floating Top-Right"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2002
+#: includes/functions/_customizer-settings.php:2003
 msgctxt "Customizer story cover position option."
 msgid "Hide"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1997
+#: includes/functions/_customizer-settings.php:1998
 msgctxt "Customizer story cover position option."
 msgid "Top-Left Overflow (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2029
+#: includes/functions/_customizer-settings.php:2030
 msgctxt "Customizer story cover shadow option."
 msgid "Border Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2028
+#: includes/functions/_customizer-settings.php:2029
 msgctxt "Customizer story cover shadow option."
 msgid "No Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2035
+#: includes/functions/_customizer-settings.php:2036
 msgctxt "Customizer story cover shadow option."
 msgid "Shadow Huge (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2034
+#: includes/functions/_customizer-settings.php:2035
 msgctxt "Customizer story cover shadow option."
 msgid "Shadow Large"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2033
+#: includes/functions/_customizer-settings.php:2034
 msgctxt "Customizer story cover shadow option."
 msgid "Shadow Medium"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2032
+#: includes/functions/_customizer-settings.php:2033
 msgctxt "Customizer story cover shadow option."
 msgid "Shadow Normal"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2031
+#: includes/functions/_customizer-settings.php:2032
 msgctxt "Customizer story cover shadow option."
 msgid "Shadow Small"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2030
+#: includes/functions/_customizer-settings.php:2031
 msgctxt "Customizer story cover shadow option."
 msgid "Shadow Thin"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1491
+#: includes/functions/_customizer-settings.php:1492
 msgctxt "Customizer view transition option."
 msgid "Cross-Fade"
 msgstr ""
@@ -4696,220 +4698,220 @@ msgstr ""
 msgid "Danger Zone"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:946
+#: includes/functions/_customizer-settings.php:947
 msgid "Dark &ltdel>"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:942
+#: includes/functions/_customizer-settings.php:943
 msgid "Dark &ltins>"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:954
+#: includes/functions/_customizer-settings.php:955
 msgid "Dark Admin Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:962
+#: includes/functions/_customizer-settings.php:963
 msgid "Dark Author Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:782
+#: includes/functions/_customizer-settings.php:783
 msgid "Dark Background 100"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:786
+#: includes/functions/_customizer-settings.php:787
 msgid "Dark Background 200"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:790
+#: includes/functions/_customizer-settings.php:791
 msgid "Dark Background 300"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:794
+#: includes/functions/_customizer-settings.php:795
 msgid "Dark Background 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:778
+#: includes/functions/_customizer-settings.php:779
 msgid "Dark Background 50"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:798
+#: includes/functions/_customizer-settings.php:799
 msgid "Dark Background 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:802
+#: includes/functions/_customizer-settings.php:803
 msgid "Dark Background 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:806
+#: includes/functions/_customizer-settings.php:807
 msgid "Dark Background 700"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:810
+#: includes/functions/_customizer-settings.php:811
 msgid "Dark Background 800"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:814
+#: includes/functions/_customizer-settings.php:815
 msgid "Dark Background 900"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:818
+#: includes/functions/_customizer-settings.php:819
 msgid "Dark Background 950"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:926
+#: includes/functions/_customizer-settings.php:927
 msgid "Dark Bookmark Alpha"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:930
+#: includes/functions/_customizer-settings.php:931
 msgid "Dark Bookmark Beta"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:938
+#: includes/functions/_customizer-settings.php:939
 msgid "Dark Bookmark Delta"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:934
+#: includes/functions/_customizer-settings.php:935
 msgid "Dark Bookmark Gamma"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:922
+#: includes/functions/_customizer-settings.php:923
 msgid "Dark Bookmark Line"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:874
+#: includes/functions/_customizer-settings.php:875
 msgid "Dark Card Frame"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:826
+#: includes/functions/_customizer-settings.php:827
 msgid "Dark Foreground 100"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:830
+#: includes/functions/_customizer-settings.php:831
 msgid "Dark Foreground 200"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:834
+#: includes/functions/_customizer-settings.php:835
 msgid "Dark Foreground 300"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:838
+#: includes/functions/_customizer-settings.php:839
 msgid "Dark Foreground 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:842
+#: includes/functions/_customizer-settings.php:843
 msgid "Dark Foreground 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:846
+#: includes/functions/_customizer-settings.php:847
 msgid "Dark Foreground 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:850
+#: includes/functions/_customizer-settings.php:851
 msgid "Dark Foreground 700"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:854
+#: includes/functions/_customizer-settings.php:855
 msgid "Dark Foreground 800"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:858
+#: includes/functions/_customizer-settings.php:859
 msgid "Dark Foreground 900"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:862
+#: includes/functions/_customizer-settings.php:863
 msgid "Dark Foreground 950"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:870
+#: includes/functions/_customizer-settings.php:871
 msgid "Dark Foreground Inverted"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:866
+#: includes/functions/_customizer-settings.php:867
 msgid "Dark Foreground Tinted"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:950
+#: includes/functions/_customizer-settings.php:951
 msgid "Dark Generic Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:910
+#: includes/functions/_customizer-settings.php:911
 msgid "Dark Green 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:914
+#: includes/functions/_customizer-settings.php:915
 msgid "Dark Green 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:918
+#: includes/functions/_customizer-settings.php:919
 msgid "Dark Green 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:749
+#: includes/functions/_customizer-settings.php:750
 msgid "Dark Header Tagline"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:738
+#: includes/functions/_customizer-settings.php:739
 msgid "Dark Header Title"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:576
+#: includes/functions/_customizer-settings.php:577
 msgid "Dark Mode Colors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3283
+#: includes/functions/_customizer-settings.php:3500
 msgid "Dark Mode Font Weight"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:958
+#: includes/functions/_customizer-settings.php:959
 msgid "Dark Moderator Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:882
+#: includes/functions/_customizer-settings.php:883
 msgid "Dark Navigation Background (Sticky)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:970
+#: includes/functions/_customizer-settings.php:971
 msgid "Dark Override Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:886
+#: includes/functions/_customizer-settings.php:887
 msgid "Dark Primary 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:890
+#: includes/functions/_customizer-settings.php:891
 msgid "Dark Primary 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:894
+#: includes/functions/_customizer-settings.php:895
 msgid "Dark Primary 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:898
+#: includes/functions/_customizer-settings.php:899
 msgid "Dark Red 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:902
+#: includes/functions/_customizer-settings.php:903
 msgid "Dark Red 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:906
+#: includes/functions/_customizer-settings.php:907
 msgid "Dark Red 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:822
+#: includes/functions/_customizer-settings.php:823
 msgid "Dark Shade"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:966
+#: includes/functions/_customizer-settings.php:967
 msgid "Dark Supporter Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:871
+#: includes/functions/_customizer-settings.php:872
 msgid ""
 "Dark text color for bright backgrounds. Default contrast ~4.5:1 on BG-200."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:878
+#: includes/functions/_customizer-settings.php:879
 msgid "Dark Theme Color Meta"
 msgstr ""
 
@@ -4921,23 +4923,23 @@ msgstr ""
 msgid "Darken Background"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:476
-#: includes/functions/_customizer-settings.php:907
+#: includes/functions/_customizer-settings.php:477
+#: includes/functions/_customizer-settings.php:908
 msgid "Darker alert and warning color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:464
-#: includes/functions/_customizer-settings.php:895
+#: includes/functions/_customizer-settings.php:465
+#: includes/functions/_customizer-settings.php:896
 msgid "Darker primary accent and content link visited color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:488
-#: includes/functions/_customizer-settings.php:919
+#: includes/functions/_customizer-settings.php:489
+#: includes/functions/_customizer-settings.php:920
 msgid "Darker success and confirmation color."
 msgstr ""
 
 #: partials/account/_data.php:103
-#: includes/functions/users/_admin-profile.php:1457
+#: includes/functions/users/_admin-profile.php:1469
 msgid "Data"
 msgstr ""
 
@@ -5003,23 +5005,23 @@ msgstr ""
 msgid "Decrease font size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2990
+#: includes/functions/_customizer-settings.php:3207
 msgid "Default"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:867
+#: includes/functions/_customizer-settings.php:868
 msgid ""
 "Default color in chapters; slightly darker and more saturated than the base "
 "text color to reduce eye strain. Default contrast ~6.9:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:436
+#: includes/functions/_customizer-settings.php:437
 msgid ""
 "Default color in chapters; slightly lighter and more saturated than the base "
 "text color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1456
+#: includes/functions/_customizer-settings.php:1457
 msgid ""
 "Default cover for stories if none has been provided; inherited by chapters."
 msgstr ""
@@ -5028,7 +5030,7 @@ msgstr ""
 msgid "Default genres have been added to the list."
 msgstr ""
 
-#: includes/functions/_utility.php:4226
+#: includes/functions/_utility.php:4256
 msgctxt "Default name in logs."
 msgid "System"
 msgstr ""
@@ -5039,7 +5041,7 @@ msgctxt "Default Patreon supporter badge label."
 msgid "Patron"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1455
+#: includes/functions/_customizer-settings.php:1456
 msgid "Default Story Cover"
 msgstr ""
 
@@ -5068,8 +5070,8 @@ msgid "Delete"
 msgstr ""
 
 #: partials/account/_danger-zone.php:42
-#: includes/functions/users/_admin-profile.php:2243
 #: includes/functions/users/_admin-profile.php:2255
+#: includes/functions/users/_admin-profile.php:2267
 msgid "Delete Account"
 msgstr ""
 
@@ -5183,12 +5185,12 @@ msgid "Disable comment BBCodes"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:246
-#: includes/functions/users/_admin-profile.php:1955
+#: includes/functions/users/_admin-profile.php:1967
 msgid "Disable comment editing capability"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:252
-#: includes/functions/users/_admin-profile.php:1969
+#: includes/functions/users/_admin-profile.php:1981
 msgid "Disable comment reply notifications"
 msgstr ""
 
@@ -5198,7 +5200,7 @@ msgid "Disable commenting across the site"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:240
-#: includes/functions/users/_admin-profile.php:1948
+#: includes/functions/users/_admin-profile.php:1960
 msgid "Disable commenting capability"
 msgstr ""
 
@@ -5271,7 +5273,7 @@ msgstr ""
 msgid "Disable partial caching of content"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1962
+#: includes/functions/users/_admin-profile.php:1974
 msgid "Disable post comment moderation capability"
 msgstr ""
 
@@ -5286,12 +5288,12 @@ msgid "Disable Reddit share button"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:234
-#: includes/functions/users/_admin-profile.php:1941
+#: includes/functions/users/_admin-profile.php:1953
 msgid "Disable renaming capability"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:228
-#: includes/functions/users/_admin-profile.php:1934
+#: includes/functions/users/_admin-profile.php:1946
 msgid "Disable reporting capability"
 msgstr ""
 
@@ -5304,19 +5306,19 @@ msgstr ""
 msgid "Disable sidebar"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1689
+#: includes/functions/_customizer-settings.php:1690
 msgid "Disable sidebar in chapters"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1712
+#: includes/functions/_customizer-settings.php:1713
 msgid "Disable sidebar in collections"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1735
+#: includes/functions/_customizer-settings.php:1736
 msgid "Disable sidebar in recommendations"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1666
+#: includes/functions/_customizer-settings.php:1667
 msgid "Disable sidebar in stories"
 msgstr ""
 
@@ -5366,7 +5368,7 @@ msgid "Disable Twitter share button"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:222
-#: includes/functions/users/_admin-profile.php:1927
+#: includes/functions/users/_admin-profile.php:1939
 msgid "Disable user avatar"
 msgstr ""
 
@@ -5380,7 +5382,7 @@ msgstr ""
 msgid "Disabled \"%s\" font key. Currently disabled keys: %s."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2981
+#: includes/functions/_customizer-settings.php:3198
 #, php-format
 msgctxt "Disabled Customizer font option."
 msgid "%s — Disabled"
@@ -5410,8 +5412,8 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1646
-#: includes/functions/_helpers-templates.php:2298
+#: includes/functions/_helpers-templates.php:1650
+#: includes/functions/_helpers-templates.php:2314
 #: includes/functions/settings/_settings_page_connections.php:30
 #: includes/functions/hooks/_mobile_menu_hooks.php:364
 msgid "Discord"
@@ -5449,11 +5451,11 @@ msgstr ""
 msgid "Discord connection successfully removed."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2118
+#: includes/functions/users/_admin-profile.php:2130
 msgid "Discord ID Hash"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2413
+#: includes/functions/_helpers-templates.php:2429
 #: includes/functions/settings/_register_settings.php:1240
 #: includes/functions/settings/_settings_page_connections.php:55
 msgid "Discord invite link"
@@ -5631,7 +5633,7 @@ msgstr ""
 msgid "Download ePUB"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2891
+#: includes/functions/_helpers-templates.php:2907
 msgid "Downloading…"
 msgstr ""
 
@@ -6081,7 +6083,7 @@ msgstr ""
 msgid "Enlarge images in floating container on click."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1234
+#: includes/functions/_helpers-templates.php:1238
 #: includes/functions/hooks/_chapter_hooks.php:457
 msgid "Enter fullscreen"
 msgstr ""
@@ -6165,11 +6167,11 @@ msgstr ""
 msgid "Error. Schema of post #%s could not be purged."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1688
+#: includes/functions/_setup-admin.php:1628
 msgid "Error: Colors not found."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1678
+#: includes/functions/_setup-admin.php:1618
 msgid "Error: Insufficient permissions."
 msgstr ""
 
@@ -6189,7 +6191,7 @@ msgctxt "Excluded Advanced search summary."
 msgid "%sExcluded Tags:"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1241
+#: includes/functions/_helpers-templates.php:1245
 #: includes/functions/hooks/_chapter_hooks.php:458
 msgid "Exit fullscreen"
 msgstr ""
@@ -6200,7 +6202,7 @@ msgctxt "Expiration suffix for protected note in post list tables."
 msgid "%1$s (until %2$s)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2196
+#: includes/functions/users/_admin-profile.php:2208
 msgid "External Avatar URL"
 msgstr ""
 
@@ -6212,19 +6214,19 @@ msgstr ""
 msgid "Extra Meta"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1278
+#: includes/functions/_customizer-settings.php:1279
 msgid "Fade Out - Breakpoint"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1252
+#: includes/functions/_customizer-settings.php:1253
 msgid "Fade Out - Start"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:428
+#: includes/functions/_customizer-settings.php:429
 msgid "Faded color for background, decorative, and disabled items."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:859
+#: includes/functions/_customizer-settings.php:860
 msgid ""
 "Faded color for background, decorative, and disabled items. Default contrast "
 "~3.5:1 on BG-700."
@@ -6234,7 +6236,7 @@ msgstr ""
 msgid "Failure"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1426
+#: includes/functions/_customizer-settings.php:1427
 msgid ""
 "Fallback if no thumbnail has been provided, for example on vertical cards."
 msgstr ""
@@ -6405,6 +6407,14 @@ msgstr ""
 msgid "Fix Paragraphs"
 msgstr ""
 
+#: includes/functions/_customizer-settings.php:2997
+msgid "Follow (Off)"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2973
+msgid "Follow (On)"
+msgstr ""
+
 #: includes/functions/_utility.php:2404
 msgctxt "Follow a story."
 msgid "Follow"
@@ -6412,15 +6422,15 @@ msgstr ""
 
 #: includes/functions/_helpers-templates.php:1002
 #: includes/functions/_helpers-templates.php:1004
-#: includes/functions/_helpers-templates.php:1169
-#: includes/functions/_helpers-templates.php:1169
+#: includes/functions/_helpers-templates.php:1173
+#: includes/functions/_helpers-templates.php:1173
 msgid "Follow on Feedly"
 msgstr ""
 
 #: includes/functions/_helpers-templates.php:1010
 #: includes/functions/_helpers-templates.php:1012
-#: includes/functions/_helpers-templates.php:1172
-#: includes/functions/_helpers-templates.php:1172
+#: includes/functions/_helpers-templates.php:1176
+#: includes/functions/_helpers-templates.php:1176
 msgid "Follow on Inoreader"
 msgstr ""
 
@@ -6481,8 +6491,8 @@ msgstr ""
 msgid "Font Lightness"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:295
-#: includes/functions/_customizer-settings.php:721
+#: includes/functions/_customizer-settings.php:296
+#: includes/functions/_customizer-settings.php:722
 msgid "Font Lightness Offset"
 msgstr ""
 
@@ -6495,8 +6505,8 @@ msgstr ""
 msgid "Font Saturation"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:265
-#: includes/functions/_customizer-settings.php:691
+#: includes/functions/_customizer-settings.php:266
+#: includes/functions/_customizer-settings.php:692
 msgid "Font Saturation Offset"
 msgstr ""
 
@@ -6544,14 +6554,14 @@ msgctxt "Font size name"
 msgid "Small"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2998
+#: includes/functions/_customizer-settings.php:3215
 #: includes/functions/settings/_settings.php:82
 #: includes/functions/settings/_settings.php:83
 #: includes/functions/settings/_settings.php:227
 msgid "Fonts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3284
+#: includes/functions/_customizer-settings.php:3501
 msgid ""
 "Fonts are rendered thinner in dark mode to offset text bleeding; you can "
 "turn that off."
@@ -6561,7 +6571,7 @@ msgstr ""
 msgid "Footer Menu"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2157
+#: includes/functions/_customizer-settings.php:2158
 msgid "Footer Style"
 msgstr ""
 
@@ -6632,12 +6642,12 @@ msgctxt "Frontpage page name, mainly used in breadcrumbs."
 msgid "Home"
 msgstr ""
 
-#: includes/functions/_setup-blocks.php:18
+#: includes/functions/_setup-blocks.php:82
 msgctxt "Gallery block style label."
 msgid "Grid"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1641
+#: includes/functions/_customizer-settings.php:1642
 msgid "Gap between sidebar and content in pixels. Default 48."
 msgstr ""
 
@@ -6661,7 +6671,7 @@ msgstr ""
 msgid "Generate footnotes from tooltips"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2078
+#: includes/functions/users/_admin-profile.php:2090
 msgid "Generic donation link"
 msgstr ""
 
@@ -6715,7 +6725,7 @@ msgstr ""
 msgid "Global unlock gate pledge threshold in cents"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2300
+#: includes/functions/_helpers-templates.php:2316
 #: includes/functions/settings/_settings_page_connections.php:135
 msgid "Google"
 msgstr ""
@@ -6746,7 +6756,7 @@ msgstr ""
 msgid "Google Fonts links"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2124
+#: includes/functions/users/_admin-profile.php:2136
 msgid "Google ID Hash"
 msgstr ""
 
@@ -6764,19 +6774,19 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1327
+#: includes/functions/_customizer-settings.php:1328
 msgid "Header Color - Dark Mode"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1303
+#: includes/functions/_customizer-settings.php:1304
 msgid "Header Color - Light Mode"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1865
+#: includes/functions/_customizer-settings.php:1866
 msgid "Header Height - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1839
+#: includes/functions/_customizer-settings.php:1840
 msgid "Header Height - Minimum"
 msgstr ""
 
@@ -6784,15 +6794,15 @@ msgstr ""
 msgid "Header Image"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1183
+#: includes/functions/_customizer-settings.php:1184
 msgid "Header Image Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1769
+#: includes/functions/_customizer-settings.php:1770
 msgid "Header Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3063
+#: includes/functions/_customizer-settings.php:3280
 msgid "Heading Font"
 msgstr ""
 
@@ -6869,7 +6879,7 @@ msgstr ""
 msgid "Hide password form on Patreon-gated posts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1591
+#: includes/functions/_customizer-settings.php:1592
 msgid "Hide sidebar on mobile"
 msgstr ""
 
@@ -6939,38 +6949,38 @@ msgstr ""
 msgid "Hides the page until the document is fully parsed."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:404
+#: includes/functions/_customizer-settings.php:405
 msgid "High text color for contrast and hovers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:835
+#: includes/functions/_customizer-settings.php:836
 msgid ""
 "High text color for contrast and hovers. Default contrast ~9:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:400
+#: includes/functions/_customizer-settings.php:401
 msgid "Higher text color for contrast and hovers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:831
+#: includes/functions/_customizer-settings.php:832
 msgid ""
 "Higher text color for contrast and hovers. Default contrast ~10:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:396
+#: includes/functions/_customizer-settings.php:397
 msgid "Highest text color for contrast and hovers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:827
+#: includes/functions/_customizer-settings.php:828
 msgid ""
 "Highest text color for contrast and hovers. Default contrast ~11:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2277
+#: includes/functions/_customizer-settings.php:2278
 msgid "Horizontal Spacing - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2251
+#: includes/functions/_customizer-settings.php:2252
 msgid "Horizontal Spacing - Minimum"
 msgstr ""
 
@@ -7010,8 +7020,8 @@ msgstr ""
 msgid "https://github.com/Tetrakern"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:175
-#: includes/functions/_customizer-settings.php:601
+#: includes/functions/_customizer-settings.php:176
+#: includes/functions/_customizer-settings.php:602
 msgid "Hue Offset"
 msgstr ""
 
@@ -7030,7 +7040,7 @@ msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2827
+#: includes/functions/_customizer-settings.php:2828
 msgid "Icons"
 msgstr ""
 
@@ -7047,13 +7057,13 @@ msgstr ""
 msgid "ID missing"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1253
+#: includes/functions/_customizer-settings.php:1254
 msgid ""
 "If set to above 0, the header image will fade to transparent, with the value "
 "in percent as offset from the top (1-99). Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1279
+#: includes/functions/_customizer-settings.php:1280
 msgid ""
 "If set to above 320, the fade-out will only be applied to viewports equal to "
 "or wider than the value in pixels. Default 0."
@@ -7091,7 +7101,7 @@ msgid ""
 "<strong>pdf</strong>, <strong>rtf</strong>, and <strong>txt</strong>."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:662
+#: includes/functions/_setup-admin.php:602
 msgid ""
 "If you like Fictioneer, please consider supporting the development with a "
 "donation or as sponsor. You do not have to and there are no gated premium "
@@ -7212,11 +7222,11 @@ msgid ""
 "go here, for example."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1228
+#: includes/functions/_customizer-settings.php:1229
 msgid "Inset header image"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1231
+#: includes/functions/_customizer-settings.php:1232
 msgid ""
 "Inset the header image with a limit of 1.5 times the site width. For smaller "
 "images that do not work on widescreens."
@@ -7265,7 +7275,7 @@ msgstr ""
 msgid "Items per page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2412
+#: includes/functions/_helpers-templates.php:2428
 msgid "Join Discord"
 msgstr ""
 
@@ -7290,7 +7300,7 @@ msgstr ""
 msgid "Ko-Fi"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2071
+#: includes/functions/users/_admin-profile.php:2083
 msgid "Ko-Fi link"
 msgstr ""
 
@@ -7303,7 +7313,7 @@ msgstr ""
 msgid "Landscape Image"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2358
+#: includes/functions/_customizer-settings.php:2359
 msgid "Large Border Radius"
 msgstr ""
 
@@ -7329,7 +7339,7 @@ msgstr ""
 msgid "Last Updated"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1406
+#: includes/functions/_customizer-settings.php:1407
 msgid "Layout"
 msgstr ""
 
@@ -7366,232 +7376,232 @@ msgstr ""
 msgid "Letter Spacing"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:515
+#: includes/functions/_customizer-settings.php:516
 msgid "Light &ltdel>"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:511
+#: includes/functions/_customizer-settings.php:512
 msgid "Light &ltins>"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:523
+#: includes/functions/_customizer-settings.php:524
 msgid "Light Admin Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:531
+#: includes/functions/_customizer-settings.php:532
 msgid "Light Author Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:355
+#: includes/functions/_customizer-settings.php:356
 msgid "Light Background 100"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:359
+#: includes/functions/_customizer-settings.php:360
 msgid "Light Background 200"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:363
+#: includes/functions/_customizer-settings.php:364
 msgid "Light Background 300"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:367
+#: includes/functions/_customizer-settings.php:368
 msgid "Light Background 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:351
+#: includes/functions/_customizer-settings.php:352
 msgid "Light Background 50"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:371
+#: includes/functions/_customizer-settings.php:372
 msgid "Light Background 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:375
+#: includes/functions/_customizer-settings.php:376
 msgid "Light Background 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:379
+#: includes/functions/_customizer-settings.php:380
 msgid "Light Background 700"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:383
+#: includes/functions/_customizer-settings.php:384
 msgid "Light Background 800"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:387
+#: includes/functions/_customizer-settings.php:388
 msgid "Light Background 900"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:391
+#: includes/functions/_customizer-settings.php:392
 msgid "Light Background 950"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:495
+#: includes/functions/_customizer-settings.php:496
 msgid "Light Bookmark Alpha"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:499
+#: includes/functions/_customizer-settings.php:500
 msgid "Light Bookmark Beta"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:507
+#: includes/functions/_customizer-settings.php:508
 msgid "Light Bookmark Delta"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:503
+#: includes/functions/_customizer-settings.php:504
 msgid "Light Bookmark Gamma"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:491
+#: includes/functions/_customizer-settings.php:492
 msgid "Light Bookmark Line"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:443
+#: includes/functions/_customizer-settings.php:444
 msgid "Light Card Frame"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:395
+#: includes/functions/_customizer-settings.php:396
 msgid "Light Foreground 100"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:399
+#: includes/functions/_customizer-settings.php:400
 msgid "Light Foreground 200"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:403
+#: includes/functions/_customizer-settings.php:404
 msgid "Light Foreground 300"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:407
+#: includes/functions/_customizer-settings.php:408
 msgid "Light Foreground 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:411
+#: includes/functions/_customizer-settings.php:412
 msgid "Light Foreground 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:415
+#: includes/functions/_customizer-settings.php:416
 msgid "Light Foreground 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:419
+#: includes/functions/_customizer-settings.php:420
 msgid "Light Foreground 700"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:423
+#: includes/functions/_customizer-settings.php:424
 msgid "Light Foreground 800"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:427
+#: includes/functions/_customizer-settings.php:428
 msgid "Light Foreground 900"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:431
+#: includes/functions/_customizer-settings.php:432
 msgid "Light Foreground 950"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:439
+#: includes/functions/_customizer-settings.php:440
 msgid "Light Foreground Inverted"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:435
+#: includes/functions/_customizer-settings.php:436
 msgid "Light Foreground Tinted"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:519
+#: includes/functions/_customizer-settings.php:520
 msgid "Light Generic Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:479
+#: includes/functions/_customizer-settings.php:480
 msgid "Light Green 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:483
+#: includes/functions/_customizer-settings.php:484
 msgid "Light Green 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:487
+#: includes/functions/_customizer-settings.php:488
 msgid "Light Green 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:323
+#: includes/functions/_customizer-settings.php:324
 msgid "Light Header Tagline"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:312
+#: includes/functions/_customizer-settings.php:313
 msgid "Light Header Title"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:150
+#: includes/functions/_customizer-settings.php:151
 msgid "Light Mode Colors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:527
+#: includes/functions/_customizer-settings.php:528
 msgid "Light Moderator Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:451
+#: includes/functions/_customizer-settings.php:452
 msgid "Light Navigation Background (Sticky)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:539
+#: includes/functions/_customizer-settings.php:540
 msgid "Light Override Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:455
+#: includes/functions/_customizer-settings.php:456
 msgid "Light Primary 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:459
+#: includes/functions/_customizer-settings.php:460
 msgid "Light Primary 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:463
+#: includes/functions/_customizer-settings.php:464
 msgid "Light Primary 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:467
+#: includes/functions/_customizer-settings.php:468
 msgid "Light Red 400"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:471
+#: includes/functions/_customizer-settings.php:472
 msgid "Light Red 500"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:475
+#: includes/functions/_customizer-settings.php:476
 msgid "Light Red 600"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:535
+#: includes/functions/_customizer-settings.php:536
 msgid "Light Supporter Badge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:440
+#: includes/functions/_customizer-settings.php:441
 msgid ""
 "Light text color for dark backgrounds. Default contrast ~17.3:1 on BG-900."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:447
+#: includes/functions/_customizer-settings.php:448
 msgid "Light Theme Color Meta"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:468
-#: includes/functions/_customizer-settings.php:899
+#: includes/functions/_customizer-settings.php:469
+#: includes/functions/_customizer-settings.php:900
 msgid "Lighter alert and warning color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:456
-#: includes/functions/_customizer-settings.php:887
+#: includes/functions/_customizer-settings.php:457
+#: includes/functions/_customizer-settings.php:888
 msgid "Lighter primary accent and content link hover color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:480
-#: includes/functions/_customizer-settings.php:911
+#: includes/functions/_customizer-settings.php:481
+#: includes/functions/_customizer-settings.php:912
 msgid "Lighter success and confirmation color."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:235
-#: includes/functions/_customizer-settings.php:661
+#: includes/functions/_customizer-settings.php:236
+#: includes/functions/_customizer-settings.php:662
 msgid "Lightness Offset"
 msgstr ""
 
@@ -7603,15 +7613,15 @@ msgstr ""
 msgid "Link copied to clipboard!"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2404
+#: includes/functions/_helpers-templates.php:2420
 msgid "Link to bookmarks page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2437
+#: includes/functions/_helpers-templates.php:2453
 msgid "Link to search page"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2460
+#: includes/functions/_helpers-templates.php:2476
 msgid "Link to site RSS feed"
 msgstr ""
 
@@ -7622,7 +7632,7 @@ msgid ""
 "."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2394
+#: includes/functions/_helpers-templates.php:2410
 msgid "Link to user profile"
 msgstr ""
 
@@ -7680,11 +7690,11 @@ msgstr ""
 msgid "Log all post updates"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1113
+#: includes/functions/_helpers-templates.php:1116
 msgid "Log in to Follow"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1096
+#: includes/functions/_helpers-templates.php:1097
 msgid "Log in to set Reminders"
 msgstr ""
 
@@ -7699,7 +7709,7 @@ msgid "Logged-in users can report comments via flag button."
 msgstr ""
 
 #: includes/functions/_utility.php:2415
-#: includes/functions/_helpers-templates.php:2383
+#: includes/functions/_helpers-templates.php:2399
 msgid "Login"
 msgstr ""
 
@@ -7720,16 +7730,16 @@ msgstr ""
 msgid "Login/Register"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1044
+#: includes/functions/_customizer-settings.php:1045
 msgid "Logo Height - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1018
+#: includes/functions/_customizer-settings.php:1019
 msgid "Logo Height - Minimum"
 msgstr ""
 
 #: includes/functions/_utility.php:2418
-#: includes/functions/_helpers-templates.php:2469
+#: includes/functions/_helpers-templates.php:2485
 msgid "Logout"
 msgstr ""
 
@@ -7775,7 +7785,7 @@ msgstr ""
 msgid "Main Navigation"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1538
+#: includes/functions/_customizer-settings.php:1539
 msgid "Main Offset"
 msgstr ""
 
@@ -7818,59 +7828,59 @@ msgstr ""
 msgid "Masks and polygons"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1379
+#: includes/functions/_customizer-settings.php:1380
 msgid ""
 "Max. height in pixels of the header image on [site-width] viewports. Default "
 "480."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1097
+#: includes/functions/_customizer-settings.php:1098
 msgid ""
 "Maximum font size in pixels of the site title on [site-width] viewports. "
 "Default 60."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1149
+#: includes/functions/_customizer-settings.php:1150
 msgid ""
 "Maximum font size in pixels of the tagline on [site-width] viewports. "
 "Default 18."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1378
+#: includes/functions/_customizer-settings.php:1379
 msgid "Maximum Height"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1866
+#: includes/functions/_customizer-settings.php:1867
 msgid ""
 "Maximum height of the header section in pixels on the largest viewport. "
 "Default 380."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1045
+#: includes/functions/_customizer-settings.php:1046
 msgid ""
 "Maximum height of the logo in pixels on [site-width] viewports, which some "
 "header types limit further. Default 210."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2278
+#: includes/functions/_customizer-settings.php:2279
 msgid ""
 "Maximum of the horizontal spacing in pixels on [site-width] viewport. "
 "Default 80."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2330
+#: includes/functions/_customizer-settings.php:2331
 msgid ""
 "Maximum of the small horizontal spacing in pixels below 375px viewports. "
 "Default 20."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2226
+#: includes/functions/_customizer-settings.php:2227
 msgid ""
 "Maximum of the vertical spacing in pixels on [site-width] viewports. Default "
 "48."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1513
+#: includes/functions/_customizer-settings.php:1514
 msgid "Maximum site width in pixels, should not be less than 896. Default 960."
 msgstr ""
 
@@ -7930,7 +7940,7 @@ msgid ""
 "<p>Invalid or missing story ID.</p><p style=\"margin-top: -10px;\">%s</p>"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1353
+#: includes/functions/_customizer-settings.php:1354
 msgid ""
 "Min. height in pixels of the header image on 320px viewports. Default 210."
 msgstr ""
@@ -7943,50 +7953,50 @@ msgstr ""
 msgid "Minimalist mode"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2620
+#: includes/functions/_customizer-settings.php:2621
 msgid ""
 "Minimum card width in pixels (still limited by space); affects card scale. "
 "Default 308."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1071
+#: includes/functions/_customizer-settings.php:1072
 msgid ""
 "Minimum font size in pixels of the site title on 320px viewports. Default 32."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1123
+#: includes/functions/_customizer-settings.php:1124
 msgid ""
 "Minimum font size in pixels of the tagline on 320px viewports. Default 13."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1352
+#: includes/functions/_customizer-settings.php:1353
 msgid "Minimum Height"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1840
+#: includes/functions/_customizer-settings.php:1841
 msgid ""
 "Minimum height of the header section in pixels on the smallest viewport. "
 "Default 190."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1019
+#: includes/functions/_customizer-settings.php:1020
 msgid ""
 "Minimum height of the logo in pixels on 320px viewports, which some header "
 "types limit further. Default 210."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2252
+#: includes/functions/_customizer-settings.php:2253
 msgid ""
 "Minimum of the horizontal spacing in pixels on 480px viewports. Default 20."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2304
+#: includes/functions/_customizer-settings.php:2305
 msgid ""
 "Minimum of the small horizontal spacing in pixels on 320px viewports. "
 "Default 10."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2200
+#: includes/functions/_customizer-settings.php:2201
 msgid ""
 "Minimum of the vertical spacing in pixels on the smallest viewport. Default "
 "24."
@@ -8001,7 +8011,7 @@ msgctxt "Mobile menu label"
 msgid "Menu"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1916
+#: includes/functions/_customizer-settings.php:1917
 msgid "Mobile Menu Style"
 msgstr ""
 
@@ -8009,7 +8019,7 @@ msgstr ""
 msgid "Mobile Navigation Menu"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1891
+#: includes/functions/_customizer-settings.php:1892
 msgid "Mobile Navigation Style"
 msgstr ""
 
@@ -8017,11 +8027,11 @@ msgstr ""
 msgid "Moderation actions directly in the comment section."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1920
+#: includes/functions/users/_admin-profile.php:1932
 msgid "Moderation Flags"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1983
+#: includes/functions/users/_admin-profile.php:1995
 msgid "Moderation Message"
 msgstr ""
 
@@ -8069,19 +8079,19 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2769
+#: includes/functions/_customizer-settings.php:2770
 msgid ""
 "Modifies the calculation of the dynamic card font sizes in fractions of "
 "pixels. Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2739
+#: includes/functions/_customizer-settings.php:2740
 msgid ""
 "Modifies the lower end of the dynamic card font sizes in fractions of pixels."
 " Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2799
+#: includes/functions/_customizer-settings.php:2800
 msgid ""
 "Modifies the upper end of the dynamic card font sizes in fractions of pixels."
 " Default 0."
@@ -8110,23 +8120,23 @@ msgstr ""
 msgid "MU-Plugin enabled successfully."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:496
-#: includes/functions/_customizer-settings.php:927
+#: includes/functions/_customizer-settings.php:497
+#: includes/functions/_customizer-settings.php:928
 msgid "Multi-purpose color of the \"alpha\" bookmark."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:500
-#: includes/functions/_customizer-settings.php:931
+#: includes/functions/_customizer-settings.php:501
+#: includes/functions/_customizer-settings.php:932
 msgid "Multi-purpose color of the \"beta\" bookmark."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:508
-#: includes/functions/_customizer-settings.php:939
+#: includes/functions/_customizer-settings.php:509
+#: includes/functions/_customizer-settings.php:940
 msgid "Multi-purpose color of the \"delta\" bookmark."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:504
-#: includes/functions/_customizer-settings.php:935
+#: includes/functions/_customizer-settings.php:505
+#: includes/functions/_customizer-settings.php:936
 msgid "Multi-purpose color of the \"gamma\" bookmark."
 msgstr ""
 
@@ -8134,24 +8144,24 @@ msgstr ""
 msgid "Multiplier for displayed word counts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2649
+#: includes/functions/_customizer-settings.php:2650
 msgid "Multiplier for the card cover width. Default 1."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2709
+#: includes/functions/_customizer-settings.php:2710
 msgid "Multiplier for the grid column gap. Default 1."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2679
+#: includes/functions/_customizer-settings.php:2680
 msgid "Multiplier for the grid row gap. Default 1."
 msgstr ""
 
 #: includes/functions/_module-discord.php:109
 #: includes/functions/_module-discord.php:152
-#: includes/functions/users/_admin-profile.php:1622
-#: includes/functions/users/_admin-profile.php:1701
-#: includes/functions/users/_admin-profile.php:1803
-#: includes/functions/users/_admin-profile.php:1884
+#: includes/functions/users/_admin-profile.php:1634
+#: includes/functions/users/_admin-profile.php:1713
+#: includes/functions/users/_admin-profile.php:1815
+#: includes/functions/users/_admin-profile.php:1896
 msgid "n/a"
 msgstr ""
 
@@ -8176,7 +8186,7 @@ msgstr ""
 msgid "Navigation Bar"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3107
+#: includes/functions/_customizer-settings.php:3324
 msgid "Navigation Item Font"
 msgstr ""
 
@@ -8184,11 +8194,11 @@ msgstr ""
 msgid "Navigation Menu"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2420
+#: includes/functions/_customizer-settings.php:2421
 msgid "Nested Border Radius Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2421
+#: includes/functions/_customizer-settings.php:2422
 msgid ""
 "Nested border-radii can look bad if too large, which you can offset here. "
 "Default 1."
@@ -8243,7 +8253,7 @@ msgid "Nickname"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_connections.php:295
-#: includes/functions/users/_admin-profile.php:1800
+#: includes/functions/users/_admin-profile.php:1812
 msgid "No"
 msgstr ""
 
@@ -8296,7 +8306,7 @@ msgstr ""
 msgid "No description yet."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1656
+#: includes/functions/_setup-admin.php:1596
 msgid "No groups found."
 msgstr ""
 
@@ -8371,7 +8381,7 @@ msgstr ""
 #: partials/_latest-recommendations-compact.php:268
 #: partials/_latest-stories-compact.php:342
 #: partials/_latest-recommendations.php:281 partials/_latest-updates.php:450
-#: includes/functions/_setup-shortcodes.php:2527
+#: includes/functions/_setup-shortcodes.php:2526
 msgid "No taxonomies specified yet."
 msgstr ""
 
@@ -8380,8 +8390,8 @@ msgstr ""
 msgid "No Title Page"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2040
-#: includes/functions/users/_admin-profile.php:2041
+#: includes/functions/users/_admin-profile.php:2052
+#: includes/functions/users/_admin-profile.php:2053
 msgid "None"
 msgstr ""
 
@@ -8444,7 +8454,7 @@ msgstr ""
 msgid "Offensive comments cannot be edited."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2070
+#: includes/functions/_customizer-settings.php:2071
 msgid ""
 "Offset for the maximum width of the story page cover image in pixels. "
 "Default 0. Does not work on the \"Top-Left Overflow\" position."
@@ -8505,7 +8515,7 @@ msgstr ""
 msgid "Only one link per line."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1815
+#: includes/functions/_customizer-settings.php:1816
 msgid ""
 "Only used by the Post Content header style. Enter the ID of the post or page "
 "you want to render as header. Can impact performance."
@@ -8523,7 +8533,7 @@ msgstr ""
 msgid "Open chapter formatting modal"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3349
+#: includes/functions/_customizer-settings.php:3566
 msgid "Open Graph Default Image"
 msgstr ""
 
@@ -8544,11 +8554,11 @@ msgstr ""
 msgid "Open info box"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2384
+#: includes/functions/_helpers-templates.php:2400
 msgid "Open login modal"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2451
+#: includes/functions/_helpers-templates.php:2467
 msgid "Open site settings modal"
 msgstr ""
 
@@ -8611,11 +8621,11 @@ msgstr ""
 msgid "Override story Patreon settings"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2165
+#: includes/functions/users/_admin-profile.php:2177
 msgid "Override the user’s badge."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1599
+#: includes/functions/users/_admin-profile.php:1611
 msgid "Page"
 msgstr ""
 
@@ -8641,7 +8651,7 @@ msgctxt "Page short name meta field label."
 msgid "Short Name"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1957
+#: includes/functions/_customizer-settings.php:1958
 msgid "Page Style"
 msgstr ""
 
@@ -8684,7 +8694,8 @@ msgid ""
 "Paragraphs in chapters have a first-line indentation by default to guide the "
 "reading eye. However, you may find this unaesthetic and prefer to disable it."
 " Note that users can still enable indentation through the chapter formatting "
-"modal."
+"modal and once a setting is stored locally, it is unaffected by this option. "
+"You cannot override user formatting."
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:544
@@ -8780,7 +8791,7 @@ msgstr ""
 msgid "Past Year"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2301
+#: includes/functions/_helpers-templates.php:2317
 #: includes/functions/settings/_settings_page_connections.php:162
 #: includes/functions/hooks/_chapter_hooks.php:662
 msgid "Patreon"
@@ -8860,11 +8871,11 @@ msgstr ""
 msgid "Patreon gate message override (below link, leave empty for default)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2127
+#: includes/functions/users/_admin-profile.php:2139
 msgid "Patreon ID Hash"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2069
+#: includes/functions/users/_admin-profile.php:2081
 msgid "Patreon link"
 msgstr ""
 
@@ -8873,13 +8884,13 @@ msgctxt "Patreon link meta field label."
 msgid "Patreon Link"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1820
+#: includes/functions/users/_admin-profile.php:1832
 msgid "Patreon Membership"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3476
 #: includes/functions/_setup-meta-fields.php:4890
-#: includes/functions/users/_admin-profile.php:1876
+#: includes/functions/users/_admin-profile.php:1888
 #, php-format
 msgctxt "Patreon tier meta field token (title and amount_cents)."
 msgid "%s (%s)"
@@ -8908,13 +8919,13 @@ msgctxt "Patreon tiers meta field label."
 msgid "Patreon Tiers"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1191
+#: includes/functions/_setup-admin.php:1131
 #, php-format
 msgctxt "Pattern for checkbox option in logs."
 msgid "%1$s: %2$s"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1517
+#: includes/functions/_setup-admin.php:1457
 #, php-format
 msgctxt "Pattern for connection updates in logs."
 msgid "%s updated."
@@ -8927,13 +8938,13 @@ msgctxt ""
 msgid "Deleted file from server: %s"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1311
+#: includes/functions/_setup-admin.php:1251
 #, php-format
 msgctxt "Pattern for page assignment updates in logs."
 msgid "%1$s changed from \"%2$s\" to \"%3$s\""
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1408
+#: includes/functions/_setup-admin.php:1348
 #, php-format
 msgctxt "Pattern for phrase updates in logs."
 msgid "%1$s phrase changed to \"%2$s\""
@@ -8960,7 +8971,7 @@ msgstr ""
 msgid "PayPal"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2076
+#: includes/functions/users/_admin-profile.php:2088
 msgid "PayPal link"
 msgstr ""
 
@@ -8998,7 +9009,7 @@ msgctxt "Pitch for text-to-speech voice."
 msgid "Pitch"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1425
+#: includes/functions/_customizer-settings.php:1426
 msgid "Placeholder Image"
 msgstr ""
 
@@ -9028,7 +9039,7 @@ msgstr ""
 msgid "Polygons"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1598
+#: includes/functions/users/_admin-profile.php:1610
 msgid "Post"
 msgstr ""
 
@@ -9036,7 +9047,7 @@ msgstr ""
 msgid "Post Capabilities"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1814
+#: includes/functions/_customizer-settings.php:1815
 msgid "Post Content Header ID"
 msgstr ""
 
@@ -9092,7 +9103,7 @@ msgstr ""
 msgid "Potential Issues"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3196
+#: includes/functions/_customizer-settings.php:3413
 msgid "Pre-selected font used in chapters. Defaults to primary font."
 msgstr ""
 
@@ -9151,33 +9162,33 @@ msgstr ""
 msgid "Preview tag list (hover for description)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:412
+#: includes/functions/_customizer-settings.php:413
 msgid "Primary base text color for page content."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:843
+#: includes/functions/_customizer-settings.php:844
 msgid ""
 "Primary base text color for page content. Default contrast ~7:3 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:416
+#: includes/functions/_customizer-settings.php:417
 msgid "Primary faded text color for page content."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:847
+#: includes/functions/_customizer-settings.php:848
 msgid ""
 "Primary faded text color for page content. Default contrast ~6:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3019
+#: includes/functions/_customizer-settings.php:3236
 msgid "Primary Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:408
+#: includes/functions/_customizer-settings.php:409
 msgid "Primary heavy text color for page content."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:839
+#: includes/functions/_customizer-settings.php:840
 msgid ""
 "Primary heavy text color for page content. Default contrast ~8:1 on BG-700."
 msgstr ""
@@ -9219,7 +9230,7 @@ msgstr ""
 #: includes/functions/comments/_comments_threads.php:350
 #: includes/functions/users/_admin-profile.php:1216
 #: includes/functions/users/_admin-profile.php:1375
-#: includes/functions/users/_admin-profile.php:2230
+#: includes/functions/users/_admin-profile.php:2242
 msgctxt "Prompt confirm deletion string."
 msgid "delete"
 msgstr ""
@@ -9244,7 +9255,7 @@ msgstr ""
 #: partials/_card-page.php:88 partials/_article-cards.php:306
 #: partials/_card-collection.php:224 partials/_card-post.php:112
 #: partials/_latest-chapters.php:363 partials/_card-chapter.php:267
-#: includes/functions/_helpers-templates.php:1706
+#: includes/functions/_helpers-templates.php:1710
 msgid "Published"
 msgstr ""
 
@@ -9352,7 +9363,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:387
 #: includes/functions/_setup-types-and-terms.php:413
-#: includes/functions/users/_admin-profile.php:1603
+#: includes/functions/users/_admin-profile.php:1615
 msgid "Recommendation"
 msgstr ""
 
@@ -9472,7 +9483,7 @@ msgctxt "Relationship meta field search placeholder."
 msgid "Search…"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:335
+#: includes/functions/_setup-admin.php:275
 msgid "Release Notes"
 msgstr ""
 
@@ -9489,6 +9500,14 @@ msgstr ""
 msgid "Remember stories to be \"read later\"."
 msgstr ""
 
+#: includes/functions/_customizer-settings.php:3045
+msgid "Reminder (Off)"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:3021
+msgid "Reminder (On)"
+msgstr ""
+
 #: includes/functions/users/_admin-profile.php:901
 msgid "Reminders could not be cleared."
 msgstr ""
@@ -9497,9 +9516,9 @@ msgstr ""
 msgid "Reminders successfully cleared."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1434
-#: includes/functions/_customizer-settings.php:1464
-#: includes/functions/_customizer-settings.php:3360
+#: includes/functions/_customizer-settings.php:1435
+#: includes/functions/_customizer-settings.php:1465
+#: includes/functions/_customizer-settings.php:3577
 #: includes/functions/_setup-meta-fields.php:607
 #: includes/functions/_setup-meta-fields.php:667
 #: includes/functions/_setup-meta-fields.php:2384
@@ -9566,13 +9585,13 @@ msgstr ""
 msgid "Renaming capability disabled."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2060
+#: includes/functions/users/_admin-profile.php:2072
 msgid ""
 "Rendered at the bottom of your chapters. This will override \"You can "
 "support the author on\"."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2052
+#: includes/functions/users/_admin-profile.php:2064
 msgid ""
 "Rendered inside your public author profile. This will override your "
 "biographical info."
@@ -9658,7 +9677,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:127
+#: includes/functions/_customizer-settings.php:128
 msgid "Reset Colors"
 msgstr ""
 
@@ -9670,7 +9689,7 @@ msgstr ""
 msgid "Reset font size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:113
+#: includes/functions/_customizer-settings.php:114
 msgid "Reset Options"
 msgstr ""
 
@@ -9786,62 +9805,62 @@ msgstr ""
 msgid "Role Tools"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:704
+#: includes/functions/_setup-admin.php:644
 msgctxt "Role translation"
 msgid "Administrator"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:707
+#: includes/functions/_setup-admin.php:647
 msgctxt "Role translation"
 msgid "Author"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:708
+#: includes/functions/_setup-admin.php:648
 msgctxt "Role translation"
 msgid "Contributor"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:711
+#: includes/functions/_setup-admin.php:651
 msgctxt "Role translation"
 msgid "Developer"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:705
+#: includes/functions/_setup-admin.php:645
 msgctxt "Role translation"
 msgid "Editor"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:712
+#: includes/functions/_setup-admin.php:652
 msgctxt "Role translation"
 msgid "Member"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:706
+#: includes/functions/_setup-admin.php:646
 msgctxt "Role translation"
 msgid "Moderator"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:709
+#: includes/functions/_setup-admin.php:649
 msgctxt "Role translation"
 msgid "Subscriber"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:703
+#: includes/functions/_setup-admin.php:643
 msgctxt "Role translation"
 msgid "Super Admin"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:713
+#: includes/functions/_setup-admin.php:653
 msgctxt "Role translation"
 msgid "Supporter"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:714
+#: includes/functions/_setup-admin.php:654
 msgctxt "Role translation"
 msgid "Tester"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:710
+#: includes/functions/_setup-admin.php:650
 msgctxt "Role translation"
 msgid "Translator"
 msgstr ""
@@ -9862,8 +9881,8 @@ msgstr ""
 msgid "Saturate Background"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:205
-#: includes/functions/_customizer-settings.php:631
+#: includes/functions/_customizer-settings.php:206
+#: includes/functions/_customizer-settings.php:632
 msgid "Saturation Offset"
 msgstr ""
 
@@ -9911,7 +9930,7 @@ msgstr ""
 msgid "Scroll to top"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1263
+#: includes/functions/_helpers-templates.php:1267
 #: includes/functions/hooks/_chapter_hooks.php:367
 msgid "Scroll to top of the chapter"
 msgstr ""
@@ -9948,7 +9967,7 @@ msgstr ""
 msgid "Search Genres"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2436
+#: includes/functions/_helpers-templates.php:2452
 msgid "Search Page"
 msgstr ""
 
@@ -9958,7 +9977,7 @@ msgctxt "Search page SEO description."
 msgid "Search results on %s."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1595
+#: includes/functions/users/_admin-profile.php:1607
 msgid "Search posts to unlock…"
 msgstr ""
 
@@ -9974,15 +9993,15 @@ msgstr ""
 msgid "Search Stories"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3041
+#: includes/functions/_customizer-settings.php:3258
 msgid "Secondary Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:420
+#: includes/functions/_customizer-settings.php:421
 msgid "Secondary text color for complementary items."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:851
+#: includes/functions/_customizer-settings.php:852
 msgid ""
 "Secondary text color for complementary items. Default contrast ~5:1 on BG-"
 "700."
@@ -10024,15 +10043,15 @@ msgid ""
 "author (or co-author) of the chapter and the story must match."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1463
+#: includes/functions/_customizer-settings.php:1464
 msgid "Select Default Cover"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3359
+#: includes/functions/_customizer-settings.php:3576
 msgid "Select Open Graph image"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1433
+#: includes/functions/_customizer-settings.php:1434
 msgid "Select Placeholder Image"
 msgstr ""
 
@@ -10362,7 +10381,7 @@ msgstr ""
 msgid "Setup"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1156
+#: includes/functions/_helpers-templates.php:1160
 msgid "Share"
 msgstr ""
 
@@ -10436,7 +10455,7 @@ msgstr ""
 msgid "Show excerpt on password-protected posts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1205
+#: includes/functions/_customizer-settings.php:1206
 msgid "Show header image shadow"
 msgstr ""
 
@@ -10448,7 +10467,7 @@ msgstr ""
 msgid "Show latest chapters on large story cards"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1979
+#: includes/functions/_customizer-settings.php:1980
 msgid "Show page shadow"
 msgstr ""
 
@@ -10490,7 +10509,7 @@ msgstr ""
 msgid "Show the modified date on story pages"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1791
+#: includes/functions/_customizer-settings.php:1792
 msgid "Show title text shadow"
 msgstr ""
 
@@ -10500,15 +10519,15 @@ msgid ""
 "fictioneer_get_consent()</code> theme function."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1569
+#: includes/functions/_customizer-settings.php:1570
 msgid "Sidebar"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1640
+#: includes/functions/_customizer-settings.php:1641
 msgid "Sidebar Gap"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1614
+#: includes/functions/_customizer-settings.php:1615
 msgid "Sidebar Width"
 msgstr ""
 
@@ -10531,12 +10550,12 @@ msgid ""
 "selected actions (per action)."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2459
+#: includes/functions/_helpers-templates.php:2475
 msgid "Site RSS"
 msgstr ""
 
 #: includes/functions/_utility.php:2429
-#: includes/functions/_helpers-templates.php:2450
+#: includes/functions/_helpers-templates.php:2466
 msgid "Site Settings"
 msgstr ""
 
@@ -10565,19 +10584,19 @@ msgctxt "Site settings modal theme selection: Current Theme."
 msgid "Theme:"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1096
+#: includes/functions/_customizer-settings.php:1097
 msgid "Site Title - Maximum Size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1070
+#: includes/functions/_customizer-settings.php:1071
 msgid "Site Title - Minimum Size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3085
+#: includes/functions/_customizer-settings.php:3302
 msgid "Site Title Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1512
+#: includes/functions/_customizer-settings.php:1513
 msgid "Site Width"
 msgstr ""
 
@@ -10610,7 +10629,7 @@ msgstr ""
 msgid "Slug of the role. Must not be changed."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2389
+#: includes/functions/_customizer-settings.php:2390
 msgid "Small Border Radius"
 msgstr ""
 
@@ -10653,11 +10672,11 @@ msgctxt "Small card: {n} Words."
 msgid "%1$s Words"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2329
+#: includes/functions/_customizer-settings.php:2330
 msgid "Small Horizontal Spacing - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2303
+#: includes/functions/_customizer-settings.php:2304
 msgid "Small Horizontal Spacing - Minimum"
 msgstr ""
 
@@ -10783,7 +10802,7 @@ msgctxt "Spoiler obfuscation character."
 msgid "&#183; "
 msgstr ""
 
-#: includes/functions/_setup-admin.php:666
+#: includes/functions/_setup-admin.php:606
 msgid "Sponsor me on <strong>GitHub</strong>"
 msgstr ""
 
@@ -10796,17 +10815,17 @@ msgstr ""
 msgid "Start typing for suggestions…"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1192
+#: includes/functions/_setup-admin.php:1132
 msgctxt "State of checkbox option in logs."
 msgid "Checked"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1192
+#: includes/functions/_setup-admin.php:1132
 msgctxt "State of checkbox option in logs."
 msgid "Unchecked"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1782
+#: includes/functions/_helpers-templates.php:1786
 #: includes/functions/comments/_comments_moderation.php:195
 #: includes/functions/comments/_comments_moderation.php:398
 msgid "Sticky"
@@ -10871,7 +10890,7 @@ msgstr ""
 #: includes/functions/_setup-types-and-terms.php:115
 #: includes/functions/_setup-types-and-terms.php:140
 #: includes/functions/settings/_settings_page_epubs.php:81
-#: includes/functions/users/_admin-profile.php:1600
+#: includes/functions/users/_admin-profile.php:1612
 msgid "Story"
 msgstr ""
 
@@ -10904,7 +10923,7 @@ msgstr ""
 msgid "Story Capabilities"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2924
+#: includes/functions/_customizer-settings.php:2925
 msgid "Story Card Complete Checkmark"
 msgstr ""
 
@@ -10945,7 +10964,7 @@ msgctxt "Story changelog chapter removed."
 msgid "#%s unprivated: %s."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2156
+#: includes/functions/_helpers-templates.php:2172
 msgctxt "Story changelog initialized."
 msgid "Initialized."
 msgstr ""
@@ -10987,7 +11006,7 @@ msgctxt "Story co-authors meta field label."
 msgid "Co-Authors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2900
+#: includes/functions/_customizer-settings.php:2901
 msgid "Story Complete Checkmark"
 msgstr ""
 
@@ -11000,7 +11019,7 @@ msgstr ""
 msgid "Story Cover Image"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2069
+#: includes/functions/_customizer-settings.php:2070
 msgid "Story Cover Width Offset"
 msgstr ""
 
@@ -11096,11 +11115,11 @@ msgstr ""
 msgid "Story Page"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2011
+#: includes/functions/_customizer-settings.php:2012
 msgid "Story Page Cover Position"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2044
+#: includes/functions/_customizer-settings.php:2045
 msgid "Story Page Cover Shadow"
 msgstr ""
 
@@ -11120,7 +11139,7 @@ msgctxt "Story redirect link meta field label."
 msgid "Redirect Link (Beware!)"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1165
+#: includes/functions/_helpers-templates.php:1169
 msgid "Story RSS Feed"
 msgstr ""
 
@@ -11132,6 +11151,26 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1932
 msgctxt "Story status override meta field label."
 msgid "Status Override"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:3165
+msgid "Story Status: Canceled"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:3093
+msgid "Story Status: Completed"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:3141
+msgid "Story Status: Hiatus"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:3117
+msgid "Story Status: Oneshot"
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:3069
+msgid "Story Status: Ongoing"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_tools.php:229
@@ -11146,7 +11185,7 @@ msgstr ""
 msgid "Story tags duplicated as genres."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3129
+#: includes/functions/_customizer-settings.php:3346
 msgid "Story Title Font"
 msgstr ""
 
@@ -11159,11 +11198,11 @@ msgctxt "Story top web fiction link meta field label."
 msgid "Top Web Fiction Link"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:432
+#: includes/functions/_customizer-settings.php:433
 msgid "Strongly faded color for background, decorative, and disabled items."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:863
+#: includes/functions/_customizer-settings.php:864
 msgid ""
 "Strongly faded color for background, decorative, and disabled items. Default "
 "contrast ~3:1 on BG-700."
@@ -11203,7 +11242,7 @@ msgstr ""
 msgid "SubscribeStar"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2074
+#: includes/functions/users/_admin-profile.php:2086
 msgid "SubscribeStar link"
 msgstr ""
 
@@ -11245,19 +11284,19 @@ msgid "Support <em>%s</em>"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3848
-#: includes/functions/users/_admin-profile.php:2064
+#: includes/functions/users/_admin-profile.php:2076
 msgid "Support Links"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:668
+#: includes/functions/_setup-admin.php:608
 msgid "Support me on <strong>Patreon</strong>"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2057
+#: includes/functions/users/_admin-profile.php:2069
 msgid "Support Message"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:657
+#: includes/functions/_setup-admin.php:597
 #: includes/functions/settings/_settings.php:264
 msgid "Support the Development"
 msgstr ""
@@ -11267,11 +11306,11 @@ msgstr ""
 msgid "Suspicious content on %s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2891
+#: includes/functions/_helpers-templates.php:2907
 msgid "Sync Down"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2890
+#: includes/functions/_helpers-templates.php:2906
 msgid "Sync Up"
 msgstr ""
 
@@ -11285,7 +11324,7 @@ msgstr ""
 msgid "System email name"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2972
+#: includes/functions/_customizer-settings.php:3189
 msgid "System Font"
 msgstr ""
 
@@ -11304,11 +11343,11 @@ msgstr ""
 msgid "Tag Tools"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1148
+#: includes/functions/_customizer-settings.php:1149
 msgid "Tagline - Maximum Size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1122
+#: includes/functions/_customizer-settings.php:1123
 msgid "Tagline - Minimum Size"
 msgstr ""
 
@@ -11412,17 +11451,17 @@ msgctxt "Taxonomy singular name."
 msgid "Genre"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:2590
+#: includes/functions/_setup-shortcodes.php:2589
 #, php-format
 msgctxt "Terms shortcode with count."
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:424
+#: includes/functions/_customizer-settings.php:425
 msgid "Tertiary text color for related complementary items."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:855
+#: includes/functions/_customizer-settings.php:856
 msgid ""
 "Tertiary text color for related complementary items. Default contrast ~4.5:1 "
 "on BG-700."
@@ -11492,7 +11531,7 @@ msgid ""
 "The full short description is passed to the Storygraph API."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1100
+#: includes/functions/_setup-admin.php:1040
 msgid "The <strong>mbstring</strong> PHP extension is not enabled."
 msgstr ""
 
@@ -11531,19 +11570,19 @@ msgid ""
 "timestamps are based on the server’s timezone (%s)."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1460
+#: includes/functions/users/_admin-profile.php:1472
 msgid ""
 "The following items represent data nodes stored in your account. Anything "
 "submitted by yourself, such as comments. You can clear these nodes here, but "
 "be aware that this is irreversible."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2449
+#: includes/functions/_customizer-settings.php:2450
 msgid ""
 "The gap between content list items in pixels (not grid view). Default 4."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1095
+#: includes/functions/_setup-admin.php:1035
 msgid ""
 "The main theme directory is not \"fictioneer\" and needs to be renamed to "
 "match internal paths."
@@ -11605,7 +11644,7 @@ msgstr ""
 msgid "Theme caches have been purged."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:947
+#: includes/functions/_setup-admin.php:887
 msgctxt "Theme mu-plugin."
 msgid ""
 "Disables plugins for selected actions to accelerate dynamic requests, such "
@@ -11613,7 +11652,7 @@ msgid ""
 "reduce loading times."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:956
+#: includes/functions/_setup-admin.php:896
 msgctxt "Theme mu-plugin."
 msgid ""
 "Disables the Elementor plugin on all pages except those with a Canvas page "
@@ -11622,12 +11661,12 @@ msgid ""
 "anywhere else on the frontend."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:955
+#: includes/functions/_setup-admin.php:895
 msgctxt "Theme mu-plugin."
 msgid "Fictioneer Elementor Control"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:946
+#: includes/functions/_setup-admin.php:886
 msgctxt "Theme mu-plugin."
 msgid "Fictioneer Fast Requests"
 msgstr ""
@@ -11646,11 +11685,11 @@ msgid ""
 "contact an administrator."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2199
+#: includes/functions/users/_admin-profile.php:2211
 msgid "There is no guarantee this URL remains valid!"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:114
+#: includes/functions/_customizer-settings.php:115
 msgid ""
 "This allows you to quickly reset options to their default. However, this is "
 "irreversible! Save changes before doing this since the Customizer needs to "
@@ -11803,14 +11842,14 @@ msgid ""
 "the Elementor plugin."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1398
+#: includes/functions/_helpers-templates.php:1402
 #: includes/functions/hooks/_general_hooks.php:772
 #: includes/functions/hooks/_story_hooks.php:469
 msgid "Toggle between ascending and descending order"
 msgstr ""
 
 #: partials/_modal-formatting.php:140
-#: includes/functions/_helpers-templates.php:2444
+#: includes/functions/_helpers-templates.php:2460
 msgid "Toggle between dark mode and light mode"
 msgstr ""
 
@@ -11838,7 +11877,7 @@ msgid "Toggle comments between ascending and descending order"
 msgstr ""
 
 #: partials/_modal-formatting.php:137
-#: includes/functions/_helpers-templates.php:2443
+#: includes/functions/_helpers-templates.php:2459
 msgid "Toggle Dark/Light Mode"
 msgstr ""
 
@@ -11878,7 +11917,7 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:2468
+#: includes/functions/_setup-shortcodes.php:2467
 msgctxt "Tooltip shortcode."
 msgid "Click to see note"
 msgstr ""
@@ -11914,7 +11953,7 @@ msgstr ""
 msgid "Tweaks"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2299
+#: includes/functions/_helpers-templates.php:2315
 #: includes/functions/settings/_settings_page_connections.php:108
 msgid "Twitch"
 msgstr ""
@@ -11937,12 +11976,12 @@ msgstr ""
 msgid "Twitch connection successfully removed."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2121
+#: includes/functions/users/_admin-profile.php:2133
 msgid "Twitch ID Hash"
 msgstr ""
 
-#: includes/functions/_setup-blocks.php:150
-#: includes/functions/_setup-blocks.php:173
+#: includes/functions/_setup-blocks.php:214
+#: includes/functions/_setup-blocks.php:237
 msgid "Twitter"
 msgstr ""
 
@@ -12005,21 +12044,21 @@ msgstr ""
 msgid "Unlock"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1629
-#: includes/functions/users/_admin-profile.php:1705
+#: includes/functions/users/_admin-profile.php:1641
+#: includes/functions/users/_admin-profile.php:1717
 #, php-format
 msgctxt "Unlock post item meta: Type | ID."
 msgid "(%s | %s)"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1621
-#: includes/functions/users/_admin-profile.php:1700
+#: includes/functions/users/_admin-profile.php:1633
+#: includes/functions/users/_admin-profile.php:1712
 #, php-format
 msgctxt "Unlock post item."
 msgid "Author: %s | Title: %s"
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:1572
+#: includes/functions/users/_admin-profile.php:1584
 msgid "Unlock Posts"
 msgstr ""
 
@@ -12158,7 +12197,7 @@ msgstr ""
 msgid "Uploaded to this story"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2890
+#: includes/functions/_helpers-templates.php:2906
 msgid "Uploading…"
 msgstr ""
 
@@ -12189,25 +12228,25 @@ msgstr ""
 msgid "Use constants for additional customization."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:771
+#: includes/functions/_customizer-settings.php:772
 msgid "Use custom dark mode colors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2179
+#: includes/functions/_customizer-settings.php:2180
 msgid "Use custom layout properties"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:344
+#: includes/functions/_customizer-settings.php:345
 msgid "Use custom light mode colors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:448
+#: includes/functions/_customizer-settings.php:449
 msgid ""
 "Used by some browsers for the interface background color. Based on BG-300 by "
 "default."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:879
+#: includes/functions/_customizer-settings.php:880
 msgid ""
 "Used by some browsers for the interface background color. Based on BG-800 by "
 "default."
@@ -12217,127 +12256,127 @@ msgstr ""
 msgid "Used by the \"Story Page/Mirror\" templates."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:783
+#: includes/functions/_customizer-settings.php:784
 msgid ""
 "Used for active buttons and tabs, suggestion and file buttons, checked "
 "formatting toggles, popup menu hovers/selected, and spoiler codes."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:380
+#: includes/functions/_customizer-settings.php:381
 msgid ""
 "Used for active primary buttons and tabs, formatting toggle hovers, "
 "suggestion and file button hovers, mobile menu button hovers, current "
 "pagination number, and popup menu hovers/selected."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:803
+#: includes/functions/_customizer-settings.php:804
 msgid "Used for cards, modals, and other high elevations."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:352
+#: includes/functions/_customizer-settings.php:353
 msgid ""
 "Used for cards, modals, navigation, the LitRPG container, and other high "
 "elevations."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:819
+#: includes/functions/_customizer-settings.php:820
 msgid "Used for content lists and gradients with varying opacity (10-16%)."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:392
+#: includes/functions/_customizer-settings.php:393
 msgid ""
 "Used for content lists and gradients, info boxes, overlays, stripes, borders,"
 " inputs, comments, and selection highlights with varying opacity (3-40%)."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:791
+#: includes/functions/_customizer-settings.php:792
 msgid ""
 "Used for loading shapes, solid horizontal lines, navigation subitem hovers, "
 "primary button hovers, secondary button borders, mobile menu button hovers, "
 "tag hovers, and secondary tag borders."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3020
+#: includes/functions/_customizer-settings.php:3237
 msgid ""
 "Used for most of the content and as default chapter font. Default \"Open "
 "Sans\"."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:372
+#: includes/functions/_customizer-settings.php:373
 msgid ""
 "Used for navigation subitem dividers and secondary button border hovers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:384
+#: includes/functions/_customizer-settings.php:385
 msgid ""
 "Used for popup menus, chapter micro menu, spoiler codes, tooltips, default "
 "notices, chapter progress bar, and input components."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:376
+#: includes/functions/_customizer-settings.php:377
 msgid ""
 "Used for primary buttons, mobile menu buttons, file and suggestion buttons, "
 "checked formatting toggles, tag hovers, secondary tag hovers, and input "
 "tokens."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:795
+#: includes/functions/_customizer-settings.php:796
 msgid ""
 "Used for primary buttons, navigation item hovers, navigation submenus, tags, "
 "secondary tag hovers, tab hovers, and pagination number hovers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:823
+#: includes/functions/_customizer-settings.php:824
 msgid ""
 "Used for semi-transparent overlays with varying opacity, including inputs, "
 "info boxes, comments, blockquotes, table stripes, code blocks, &ltkbd> "
 "elements, and scroll bars."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3042
+#: includes/functions/_customizer-settings.php:3259
 msgid ""
 "Used for small cards, tags, alongside icons, and in meta rows. Default "
 "\"Lato\"."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:779
+#: includes/functions/_customizer-settings.php:780
 msgid ""
 "Used for suggestion and file button hovers, popup menus, tooltips, default "
 "notices, formatting toggle hovers, read ribbons, and the LitRPG container."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:799
+#: includes/functions/_customizer-settings.php:800
 msgid ""
 "Used for tabs, pagination numbers, disabled primary buttons, barber pole "
 "animations, secondary button hovers, mobile menu buttons, password submit "
 "label, and input tokens."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:364
+#: includes/functions/_customizer-settings.php:365
 msgid ""
 "Used for tabs, pagination numbers, navigation item hovers, navigation "
 "submenus, overlays, secondary button hovers, &ltkbd> elements, card frame "
 "borders, and barber pole animations."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:516
-#: includes/functions/_customizer-settings.php:947
+#: includes/functions/_customizer-settings.php:517
+#: includes/functions/_customizer-settings.php:948
 msgid "Used for the \"deleted\" highlight in suggestions."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:512
-#: includes/functions/_customizer-settings.php:943
+#: includes/functions/_customizer-settings.php:513
+#: includes/functions/_customizer-settings.php:944
 msgid "Used for the \"inserted\" highlight in suggestions."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:815
+#: includes/functions/_customizer-settings.php:816
 msgid ""
 "Used for the &ltbody>, unset checkmarks, navigation, isolated footer, "
 "chapter micro menu, TTS interface, image placeholders, consent banner, and "
 "mixed into the default mobile menu (with 3% white)."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:368
+#: includes/functions/_customizer-settings.php:369
 msgid ""
 "Used for the &ltbody>, unset checkmarks, tab hovers, tags, loading shapes, "
 "disabled primary buttons, any secondary button borders, secondary and "
@@ -12345,85 +12384,85 @@ msgid ""
 "and the default mobile menu."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3240
+#: includes/functions/_customizer-settings.php:3457
 msgid "Used for the card content. Defaults to secondary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3218
+#: includes/functions/_customizer-settings.php:3435
 msgid "Used for the card titles. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:787
+#: includes/functions/_customizer-settings.php:788
 msgid ""
 "Used for the chapter progress fill, dashed horizontal lines, the current "
 "pagination number, and secondary button border hovers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:388
+#: includes/functions/_customizer-settings.php:389
 msgid ""
 "Used for the isolated footer, TTS interface, image placeholders, and consent "
 "banner."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3108
+#: includes/functions/_customizer-settings.php:3325
 msgid "Used for the items in the navigation bar. Defaults to primary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3262
+#: includes/functions/_customizer-settings.php:3479
 msgid "Used for the links in card lists. Defaults to secondary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:356
+#: includes/functions/_customizer-settings.php:357
 msgid ""
 "Used for the page, slide-in mobile menu, password cutouts and submit label, "
 "and read ribbon."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:807
+#: includes/functions/_customizer-settings.php:808
 msgid ""
 "Used for the page, slide-in mobile menu, password cutouts, and navigation "
 "subitem dividers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3086
+#: includes/functions/_customizer-settings.php:3303
 msgid "Used for the site title and tagline. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3064
+#: includes/functions/_customizer-settings.php:3281
 msgid ""
 "Used for the site title plus articles, chapters, and cards. Default \"Open "
 "Sans\"."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:811
+#: includes/functions/_customizer-settings.php:812
 msgid "Used for the site, card footers, card overlays, and card frame borders."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:360
+#: includes/functions/_customizer-settings.php:361
 msgid "Used for the site."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3152
+#: includes/functions/_customizer-settings.php:3369
 msgid "Used for the title on chapter pages. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3130
+#: includes/functions/_customizer-settings.php:3347
 msgid "Used for the title on story pages. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3174
+#: includes/functions/_customizer-settings.php:3391
 msgid "Used for the title row in chapter lists. Defaults to primary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1328
+#: includes/functions/_customizer-settings.php:1329
 msgid "Used in dark mode if no header image has been selected. Default none."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1304
+#: includes/functions/_customizer-settings.php:1305
 msgid "Used in light mode if no header image has been selected. Default none."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:3350
+#: includes/functions/_customizer-settings.php:3567
 msgid ""
 "Used in rich snippets. Don’t forget to purge all SEO schemas after updating."
 msgstr ""
@@ -12450,7 +12489,7 @@ msgstr ""
 
 #. Name of the template
 #: user-profile.php:2 user-profile.php:47
-#: includes/functions/_helpers-templates.php:2393
+#: includes/functions/_helpers-templates.php:2409
 msgid "User Profile"
 msgstr ""
 
@@ -12490,11 +12529,11 @@ msgstr ""
 msgid "Version (Total)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2225
+#: includes/functions/_customizer-settings.php:2226
 msgid "Vertical Spacing - Maximum"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2199
+#: includes/functions/_customizer-settings.php:2200
 msgid "Vertical Spacing - Minimum"
 msgstr ""
 
@@ -12530,7 +12569,7 @@ msgstr ""
 msgid "View Story"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1487
+#: includes/functions/_customizer-settings.php:1488
 msgid "View Transition"
 msgstr ""
 
@@ -12576,7 +12615,7 @@ msgstr ""
 msgid "Whenever you change the chapter story and save."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:1615
+#: includes/functions/_customizer-settings.php:1616
 msgid "Width of the sidebar in pixels. Default 256."
 msgstr ""
 
@@ -12661,8 +12700,8 @@ msgctxt "Word count caption in statistics."
 msgid "Words"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1481
-#: includes/functions/_helpers-templates.php:1489
+#: includes/functions/_helpers-templates.php:1485
+#: includes/functions/_helpers-templates.php:1493
 #, php-format
 msgctxt "Word count in chapter list."
 msgid "%s Words"
@@ -12677,7 +12716,7 @@ msgstr ""
 
 #: partials/_card-story.php:233 partials/_latest-chapters.php:61
 #: partials/_card-chapter.php:38 partials/_card-chapter.php:223
-#: includes/functions/_customizer-settings.php:2948
+#: includes/functions/_customizer-settings.php:2949
 #: includes/functions/settings/_settings_page_epubs.php:83
 msgid "Words"
 msgstr ""
@@ -12698,7 +12737,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/settings/_settings_page_connections.php:295
-#: includes/functions/users/_admin-profile.php:1797
+#: includes/functions/users/_admin-profile.php:1809
 msgid "Yes"
 msgstr ""
 
@@ -12747,7 +12786,7 @@ msgid "You can change your password in your WordPress profile."
 msgstr ""
 
 #: partials/account/_danger-zone.php:39
-#: includes/functions/users/_admin-profile.php:2245
+#: includes/functions/users/_admin-profile.php:2257
 msgid ""
 "You can delete your account and associated user data with it. Submitted <em>"
 "content</em> such as comments and posts will remain under the “Deleted User” "
@@ -12839,7 +12878,7 @@ msgstr ""
 msgid "You cannot reply to deleted comments."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1145
+#: includes/functions/_setup-admin.php:1085
 #, php-format
 msgid ""
 "You currently have <strong>%s revisions stored</strong> in your database. "
@@ -12847,7 +12886,7 @@ msgid ""
 "need them. Use a plugin to clean them up."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1124
+#: includes/functions/_setup-admin.php:1064
 #, php-format
 msgid ""
 "You currently show <strong>%s posts per page</strong>. This high number can "
@@ -12855,7 +12894,7 @@ msgid ""
 "chapters per story."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1132
+#: includes/functions/_setup-admin.php:1072
 #, php-format
 msgid ""
 "You currently store <strong>unlimited revisions per post</strong>. This can "
@@ -12896,12 +12935,12 @@ msgid ""
 "%4$s</strong> as read. Last modified on %5$s."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2428
+#: includes/functions/_helpers-templates.php:2444
 #: includes/functions/hooks/_mobile_menu_hooks.php:168
 msgid "You have no alerts."
 msgstr ""
 
-#: includes/functions/users/_admin-profile.php:2049
+#: includes/functions/users/_admin-profile.php:2061
 msgid "You have no published pages yet."
 msgstr ""
 
@@ -12925,7 +12964,7 @@ msgid ""
 "fictioneer-id-param=\"login-modal\">logged in</button> to comment."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1116
+#: includes/functions/_setup-admin.php:1056
 #, php-format
 msgid ""
 "Your <strong>Home URL</strong> does not start with <code>%s</code>. This can "
@@ -12933,7 +12972,7 @@ msgid ""
 "scripts not loading."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:1109
+#: includes/functions/_setup-admin.php:1049
 #, php-format
 msgid ""
 "Your <strong>Site URL</strong> does not start with <code>%s</code>. This can "
@@ -12969,12 +13008,12 @@ msgid "Your unique name in the system. Cannot be changed."
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:234
-#: includes/functions/_setup-admin.php:1646
+#: includes/functions/_setup-admin.php:1586
 msgid "— New Group —"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:233
-#: includes/functions/_setup-admin.php:1645
+#: includes/functions/_setup-admin.php:1585
 msgid "— Select Group —"
 msgstr ""
 
