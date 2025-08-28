@@ -327,8 +327,8 @@ function fictioneer_get_sitemap_entries( $limit, $offset ) {
   global $wpdb;
 
   // Setup
-  $home = (int) get_option( 'page_on_front' );
-  $blog = (int) get_option( 'page_for_posts' );
+  $home = get_option( 'page_on_front' );
+  $blog = get_option( 'page_for_posts' );
   $entries = [];
   $template_excludes = apply_filters(
     'fictioneer_filter_sitemap_page_template_excludes',
@@ -369,8 +369,8 @@ function fictioneer_get_sitemap_entries( $limit, $offset ) {
 
   // Collect data
   foreach ( $results as $row ) {
-    if ( $row->ID === $home || $row->ID === $blog ) {
-      continue;
+    if ( $row->ID == $home || $row->ID == $blog ) {
+      continue; // Added separately
     }
 
     if ( $row->post_type === 'page' ) {
