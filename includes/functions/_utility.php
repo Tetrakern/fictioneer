@@ -4161,7 +4161,7 @@ function fictioneer_get_theme_icon( $name, $default = '', $args = [] ) {
   }
 
   $icon = get_theme_mod( $name, $default ) ?: $default;
-  $icon = fictioneer_add_class_to_icon( $icon, $class );
+  $icon = fictioneer_add_class_to_element( $icon, $class );
 
   if ( $attributes !== '' ) {
     $p = strpos( $icon, 'class="' );
@@ -4183,26 +4183,36 @@ function fictioneer_get_theme_icon( $name, $default = '', $args = [] ) {
 // =============================================================================
 
 /**
- * Add class to icon (if it has a class attribute).
+ * Add or prepend class to element HTML string.
+ *
+ * Note: Looks for the _first_ occurrence of a class attribute
+ * or injects one into the _first_ tag if none is found. In the
+ * case of nested HTML, this can lead to unwanted results if no
+ * class attribute has been set on the outer tag.
  *
  * @since 5.32.0
  *
- * @param string $icon   HTML of the icon.
+ * @param string $html   HTML of the element.
  * @param string $class  CSS class string to be added.
  *
- * @return string The icon HTML with the class added.
+ * @return string The element HTML with the class added.
  */
 
-function fictioneer_add_class_to_icon( $icon, $class ) {
-  if ( $class ) {
-    $p = strpos( $icon, 'class="' );
-
-    if ( $p !== false ) {
-      $icon = substr_replace( $icon, 'class="' . esc_attr( $class ) . ' ', $p, strlen( 'class="' ) );
-    }
+function fictioneer_add_class_to_element( $html, $class ) {
+  if ( $html === '' || ! $class ) {
+    return $html;
   }
 
-  return $icon;
+  $class = trim( $class );
+  $p = strpos( $html, 'class="' );
+
+  if ( $p !== false ) {
+    $html = substr_replace( $html, 'class="' . esc_attr( $class ) . ' ', $p, strlen( 'class="' ) );
+  } else {
+    $html = preg_replace( '/^<([a-z0-9]+)/i', '<$1 class="' . esc_attr( $class ) . '"', $html, 1 );
+  }
+
+  return $html;
 }
 
 // =============================================================================

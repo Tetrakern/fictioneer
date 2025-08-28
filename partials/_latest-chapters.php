@@ -369,7 +369,7 @@ if ( $splide ) {
                       }
 
                       if ( $story && $args['footer_status'] ) {
-                        $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '">' . fictioneer_add_class_to_icon( $story['icon'], 'card-footer-icon' ) . ' ' . fcntr( $story['status'] ) . '</span>';
+                        $footer_items['status'] = '<span class="card__footer-status _' . strtolower( $story['status'] ) . '">' . fictioneer_add_class_to_element( $story['icon'], 'card-footer-icon' ) . ' ' . fcntr( $story['status'] ) . '</span>';
                       }
 
                       // Filter footer items
