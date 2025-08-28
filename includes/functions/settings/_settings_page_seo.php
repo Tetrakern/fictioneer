@@ -8,6 +8,9 @@
  */
 
 
+$sitemap_excluded = get_option( 'fictioneer_seo_sitemap_excludes', [] ) ?: [];
+$sitemap_excluded = is_array( $sitemap_excluded ) ? $sitemap_excluded : [];
+
 class Fictioneer_Seo_Table extends WP_List_Table {
   public $page = 1;
   public $per_page = 25;
@@ -182,9 +185,29 @@ $seo_table->prepare_items();
 
   <div class="fictioneer-settings__content">
 
+    <form method="post" action="options.php" class="fictioneer-form" style="margin-bottom: 32px;">
+      <?php settings_fields( 'fictioneer-settings-seo-group' ); ?>
+      <div class="fictioneer-single-column">
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Sitemap Excludes', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+              <div class="fictioneer-card__row">
+                <textarea name="fictioneer_seo_sitemap_excludes" id="fictioneer_seo_sitemap_excludes" rows="2" placeholder="1, 12, 123"><?php echo implode( ', ', $sitemap_excluded ); ?></textarea>
+                <p class="fictioneer-sub-label"><?php _e( 'Comma-separated list of post IDs to exclude from the sitemap.', 'fictioneer' ); ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fictioneer-actions"><?php submit_button(); ?></div>
+      </div>
+    </form>
+
     <div class="fictioneer-single-column">
       <form id="seo-table" method="get" class="fictioneer-form">
         <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>">
+
+        <h1 style="margin-bottom: 12px;"><?php _e( 'SEO Metadata', 'fictioneer' ); ?></h1>
 
         <p><?php
           printf(

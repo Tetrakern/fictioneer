@@ -1086,6 +1086,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-fonts-group',
       'sanitize_callback' => 'fictioneer_sanitize_css'
     ),
+    'fictioneer_seo_sitemap_excludes' => array(
+      'name' => 'fictioneer_seo_sitemap_excludes',
+      'group' => 'fictioneer-settings-seo-group',
+      'sanitize_callback' => 'fictioneer_sanitize_comma_separated_ids'
+    ),
   )
 ));
 
@@ -1291,6 +1296,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_rest_save_actions' => __( 'Disable theme save actions for REST requests', 'fictioneer' ),
       'fictioneer_enable_alerts' => __( 'Enable alerts (requires account)', 'fictioneer' ),
       'fictioneer_critical_font_css' => __( 'Critical font CSS', 'fictioneer' ),
+      'fictioneer_seo_sitemap_excludes' => __( 'Post IDs excluded from sitemap', 'fictioneer' ),
     );
   }
 
@@ -1303,7 +1309,7 @@ function fictioneer_get_option_label( $option ) {
 // =============================================================================
 
 /**
- * Registers settings for the Fictioneer theme
+ * Register settings for the Fictioneer theme.
  *
  * @since 4.0.0
  * @since 5.31.0 - Optimized with nested loop.
@@ -1523,6 +1529,7 @@ function fictioneer_sanitize_preload_font_links( $value ) {
  * Sanitize a comma-separated Patreon ID list into a unique array.
  *
  * @since 5.15.0
+ * @since 5.32.0 - Changed to alias for generic sanitizer.
  *
  * @param string $input  The comma-separated list.
  *
@@ -1530,10 +1537,7 @@ function fictioneer_sanitize_preload_font_links( $value ) {
  */
 
 function fictioneer_sanitize_global_patreon_tiers( $input ) {
-  $ids = fictioneer_sanitize_list_into_array( $input, array( 'absint' => 1, 'unique' => 1 ) );
-
-  // Remove falsy values and return
-  return array_filter( $ids );
+  return fictioneer_sanitize_comma_separated_ids( $input );
 }
 
 /**
@@ -1549,6 +1553,22 @@ function fictioneer_sanitize_global_patreon_tiers( $input ) {
 
 function fictioneer_sanitize_patreon_url( $url ) {
   return fictioneer_sanitize_url( $url, null, '#^https://(www\.)?patreon\.#' );
+}
+
+/**
+ * Sanitize comma-separated list of IDs.
+ *
+ * @since 5.32.0
+ *
+ * @param string $input  List of IDs.
+ *
+ * @return string The sanitized list of IDs.
+ */
+
+function fictioneer_sanitize_comma_separated_ids( $input ) {
+  $ids = fictioneer_sanitize_list_into_array( $input, array( 'absint' => 1, 'unique' => 1 ) );
+
+  return array_values( array_filter( $ids ) );
 }
 
 // =============================================================================

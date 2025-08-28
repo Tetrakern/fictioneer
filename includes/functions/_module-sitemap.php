@@ -367,10 +367,17 @@ function fictioneer_get_sitemap_entries( $limit, $offset ) {
 
   $results = $wpdb->get_results( $wpdb->prepare( $sql, $limit, $offset ) );
 
+  $excluded_ids = get_option( 'fictioneer_seo_sitemap_excludes' ) ?: [];
+  $excluded_ids = is_array( $excluded_ids ) ? $excluded_ids : [];
+
   // Collect data
   foreach ( $results as $row ) {
     if ( $row->ID == $home || $row->ID == $blog ) {
       continue; // Added separately
+    }
+
+    if ( ! empty( $excluded_ids ) && in_array( $row->ID, $excluded_ids ) ) {
+      continue;
     }
 
     if ( $row->post_type === 'page' ) {
