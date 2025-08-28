@@ -56,7 +56,7 @@
         fictioneer_settings_setup_card(
           'fictioneer_disable_default_formatting_indent',
           __( 'Disable default indentation of chapter paragraphs?', 'fictioneer' ),
-          __( 'Paragraphs in chapters have a first-line indentation by default to guide the reading eye. However, you may find this unaesthetic and prefer to disable it. Note that users can still enable indentation through the chapter formatting modal.', 'fictioneer' )
+          __( 'Paragraphs in chapters have a first-line indentation by default to guide the reading eye. However, you may find this unaesthetic and prefer to disable it. Note that users can still enable indentation through the chapter formatting modal and once a setting is stored locally, it is unaffected by this option. You cannot override user formatting.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
