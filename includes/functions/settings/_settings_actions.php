@@ -2017,3 +2017,51 @@ function fictioneer_convert_line_breaks() {
   exit;
 }
 add_action( 'admin_post_fictioneer_convert_line_breaks', 'fictioneer_convert_line_breaks' );
+
+// =============================================================================
+// FLUSH PERMALINKS
+// =============================================================================
+
+/**
+ * Flush permalinks (once).
+ *
+ * @since 5.32.0
+ */
+
+function fictioneer_flush_permalinks() {
+  static $flushed = false;
+
+  if ( ! $flushed ) {
+    $flushed = true;
+
+    flush_rewrite_rules();
+
+    fictioneer_log(
+      __( 'Flushed permalinks', 'fictioneer' )
+    );
+  }
+}
+
+/**
+ * Flush permalinks when certain options are updated.
+ *
+ * @since 5.32.0
+ *
+ * @param string $option  The option name.
+ */
+
+function fictioneer_flush_permalinks_on( $option ) {
+  $watched = array(
+    'fictioneer_rewrite_chapter_permalinks',
+    'fictioneer_enable_sitemap',
+    'fictioneer_enable_epubs',
+    'fictioneer_enable_oauth',
+    'fictioneer_enable_theme_rss',
+  );
+
+  if ( in_array( $option, $watched, true ) ) {
+    fictioneer_flush_permalinks();
+  }
+}
+add_action( 'updated_option', 'fictioneer_flush_permalinks_on' );
+add_action( 'added_option', 'fictioneer_flush_permalinks_on' );
