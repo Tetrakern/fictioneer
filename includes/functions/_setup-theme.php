@@ -219,6 +219,7 @@ function fictioneer_theme_setup() {
     update_option( 'fictioneer_theme_info', $theme_info, 'yes' );
 
     fictioneer_initialize_alerts();
+    flush_rewrite_rules();
 
     do_action( 'fictioneer_after_update', $theme_info['version'], $previous_version );
   }
