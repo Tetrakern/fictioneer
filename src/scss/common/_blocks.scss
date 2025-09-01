@@ -143,7 +143,7 @@ details {
     clear: both;
     float: none;
 
-    @container (min-width: 640px) {
+    @container (min-width: 480px) {
       clear: none;
       margin-inline-start: unset;
       margin-inline-end: unset;
@@ -152,7 +152,7 @@ details {
   }
 
   &.alignright {
-    @container (min-width: 640px) {
+    @container (min-width: 480px) {
       float: right;
       margin-inline-start: var(--this-align-right-inline-start, 2.5rem);
       margin-inline-end: var(--this-align-right-inline-end, 0);
@@ -160,7 +160,7 @@ details {
   }
 
   &.alignleft {
-    @container (min-width: 640px) {
+    @container (min-width: 480px) {
       float: left;
       margin-inline-start: var(--this-align-left-inline-start, 0);
       margin-inline-end: var(--this-align-left-inline-end, 2.5rem);
@@ -173,7 +173,7 @@ details {
     margin-block-start: var(--this-spacing, max(0.5rem, var(--paragraph-spacing)));
 
     &:where(.alignleft, .alignright) {
-      @container (min-width: 640px) {
+      @container (min-width: 480px) {
         margin-block-start: var(--this-float-spacing, max(0.5rem, var(--paragraph-spacing)));
       }
     }
@@ -183,7 +183,7 @@ details {
     margin-block-end: var(--this-spacing, max(0.5rem, var(--paragraph-spacing)));
 
     &:where(.alignleft, .alignright) {
-      @container (min-width: 640px) {
+      @container (min-width: 480px) {
         margin-block-end: var(--this-float-spacing, max(0.5rem, var(--paragraph-spacing)));
       }
     }
