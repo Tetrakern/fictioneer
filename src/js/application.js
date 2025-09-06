@@ -760,6 +760,13 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
     this.#alertDataChanged();
   }
 
+  /**
+   * Return currently loaded alerts from user data.
+   *
+   * @since 5.31.0
+   * @return {Object} The user data.
+   */
+
   data() {
     this.#cachedAlertData = FcnUtils.userData().alerts;
 
@@ -769,6 +776,16 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
 
     return this.#cachedAlertData;
   }
+
+  /**
+   * Add alert to update stack and enqueue update on server.
+   *
+   * @since 5.31.0
+   * @param {Event} event - The event.
+   * @param {HTMLElement} event.currentTarget - Trigger element.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.id - Alert ID.
+   */
 
   markRead({ currentTarget, params: { id } }) {
     this.readUpdateStack.push(id);
@@ -789,7 +806,7 @@ application.register('fictioneer-alerts', class extends Stimulus.Controller {
     if (currentTarget.closest('.alert__content')) {
       this.#postReadUpdate();
     } else {
-      this.readUpdateTimeout = setTimeout(() => this.#postReadUpdate(), 1000);
+      this.readUpdateTimeout = setTimeout(() => this.#postReadUpdate(), 1500);
     }
   }
 
