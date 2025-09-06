@@ -7,7 +7,7 @@
       "uuidString" : "8FBBED4B-FAF6-4EE5-AC20-B162062715B3"
     }
   ],
-  "creatorBuild" : "34704",
+  "creatorBuild" : "34892",
   "files" : {
     "\/.gitattributes" : {
       "cB" : 0,
@@ -2995,6 +2995,19 @@
       "oS" : 3,
       "pg" : 0
     },
+    "\/src\/scss\/admin\/_editor-properties.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/scss\/admin\/css\/_editor-properties.css",
+      "oF" : 0,
+      "oS" : 3,
+      "pg" : 0
+    },
     "\/src\/scss\/admin\/_properties.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -3108,19 +3121,6 @@
       "ma" : 0,
       "oA" : 1,
       "oAP" : "\/src\/scss\/common\/css\/_blocks.css",
-      "oF" : 0,
-      "oS" : 3,
-      "pg" : 0
-    },
-    "\/src\/scss\/common\/_formatting.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/src\/scss\/common\/css\/_formatting.css",
       "oF" : 0,
       "oS" : 3,
       "pg" : 0
@@ -4909,6 +4909,9 @@
         "active" : 0,
         "optionString" : "{'skipBlankLines': false, 'ignoreComments': false}"
       },
+      "no-unassigned-vars" : {
+        "active" : 0
+      },
       "no-undef" : {
         "active" : 0,
         "optionString" : "{'typeof': false}"
@@ -4989,7 +4992,8 @@
         "active" : 0
       },
       "no-useless-escape" : {
-        "active" : 1
+        "active" : 1,
+        "optionString" : "{'allowRegexCharacters': []}"
       },
       "no-useless-rename" : {
         "active" : 0,
