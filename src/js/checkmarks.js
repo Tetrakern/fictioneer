@@ -44,6 +44,13 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
     }
   }
 
+  /**
+   * Return currently loaded checkmarks from user data.
+   *
+   * @since 5.27.0
+   * @return {Object} The user data.
+   */
+
   data() {
     this.checkmarksCachedData = FcnUtils.userData().checkmarks?.data;
 
@@ -54,13 +61,38 @@ application.register('fictioneer-checkmarks', class extends Stimulus.Controller 
     return this.checkmarksCachedData;
   }
 
+  /**
+   * Helper to toggle chapter checkmark.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.chapter - Chapter ID.
+   * @param {String} event.params.story - Story ID.
+   */
+
   toggleChapter({ params: { chapter, story } }) {
     fcn_toggleCheckmark(story, chapter);
   }
 
+  /**
+   * Helper to toggle story checkmark.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.story - Story ID.
+   */
+
   toggleStory({ params: { story } }) {
     fcn_toggleCheckmark(story);
   }
+
+  /**
+   * Clear all checkmarks and refresh view.
+   *
+   * @since 5.27.0
+   */
 
   clear() {
     const userData = FcnUtils.userData();

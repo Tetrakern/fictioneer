@@ -10,6 +10,12 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
   remindersLoaded = false;
   timeout = 0;
 
+  /**
+   * Stimulus Controller initialize lifecycle callback.
+   *
+   * @since 5.27.0
+   */
+
   initialize() {
     if (fcn()?.userReady) {
       this.#ready = true;
@@ -22,6 +28,12 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
     }
   }
 
+  /**
+   * Stimulus Controller connect lifecycle callback.
+   *
+   * @since 5.31.0
+   */
+
   connect() {
     window.FictioneerApp.Controllers.fictioneerReminders = this;
 
@@ -30,6 +42,13 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
       this.#watch();
     }
   }
+
+  /**
+   * Return currently loaded reminders from user data.
+   *
+   * @since 5.27.0
+   * @return {Object} The user data.
+   */
 
   data() {
     this.remindersCachedData = FcnUtils.userData().reminders?.data;
@@ -41,9 +60,26 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
     return this.remindersCachedData;
   }
 
+  /**
+   * Return whether story ID is remembered.
+   *
+   * @since 5.27.0
+   * @param {Number} id - The ID of the story.
+   * @return {boolean} True if remembered, false if not (or logged-out).
+   */
+
   isRemembered(id) {
     return !!(FcnUtils.loggedIn() && this.data()?.[id]);
   }
+
+  /**
+   * Toggle reminder and refresh view.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.id - Story ID.
+   */
 
   toggleReminder({ params: { id } }) {
     if (this.#loggedIn()) {
@@ -51,6 +87,12 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
       this.refreshView();
     }
   }
+
+  /**
+   * Clear all reminders and refresh view.
+   *
+   * @since 5.27.0
+   */
 
   clear() {
     const userData = FcnUtils.userData();
@@ -60,6 +102,12 @@ application.register('fictioneer-reminders', class extends Stimulus.Controller {
     fcn().setUserData(userData);
     this.refreshView();
   }
+
+  /**
+   * Refresh view with current data.
+   *
+   * @since 5.27.0
+   */
 
   refreshView() {
     this.toggleButtonTargets.forEach(button => {

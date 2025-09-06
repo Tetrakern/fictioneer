@@ -354,9 +354,9 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    *
    * @since 5.29.3
    * @param {Event} event - The event.
-   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
-   * @param {Object} params - Additional parameters.
-   * @param {String} params.type - Action type.
+   * @param {HTMLElement} event.currentTarget - Trigger element.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.type - Action type.
    */
 
   siteWidth({ currentTarget, params: { type } }) {
@@ -371,9 +371,9 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    *
    * @since 5.30.0
    * @param {Event} event - The event.
-   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
-   * @param {Object} params - Additional parameters.
-   * @param {String} params.type - Action type.
+   * @param {HTMLElement} event.currentTarget - Trigger element.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.type - Action type.
    */
 
   fontSaturation({ currentTarget, params: { type } }) {
@@ -397,9 +397,9 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    *
    * @since 5.29.3
    * @param {Event} event - The event.
-   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
-   * @param {Object} params - Additional parameters.
-   * @param {String} params.type - Action type.
+   * @param {HTMLElement} event.currentTarget - Trigger element.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.type - Action type.
    */
 
   fontSize({ currentTarget, params: { type } }) {
@@ -425,9 +425,9 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    *
    * @since 5.30.0
    * @param {Event} event - The event.
-   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
-   * @param {Object} params - Additional parameters.
-   * @param {String} params.type - Action type.
+   * @param {HTMLElement} event.currentTarget - Trigger element.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.type - Action type.
    */
 
   letterSpacing({ currentTarget, params: { type } }) {
@@ -442,9 +442,9 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    *
    * @since 5.30.0
    * @param {Event} event - The event.
-   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
-   * @param {Object} params - Additional parameters.
-   * @param {String} params.type - Action type.
+   * @param {HTMLElement} event.currentTarget - Trigger element.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.type - Action type.
    */
 
   lineHeight({ currentTarget, params: { type } }) {
@@ -459,9 +459,9 @@ application.register('fictioneer-chapter-formatting', class extends Stimulus.Con
    *
    * @since 5.30.0
    * @param {Event} event - The event.
-   * @param {HTMLElement} event.currentTarget - Trigger element listened to.
-   * @param {Object} params - Additional parameters.
-   * @param {String} params.type - Action type.
+   * @param {HTMLElement} event.currentTarget - Trigger element.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.type - Action type.
    */
 
   paragraphSpacing({ currentTarget, params: { type } }) {

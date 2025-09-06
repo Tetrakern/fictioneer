@@ -43,6 +43,13 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
     }
   }
 
+  /**
+   * Return currently loaded follows from user data.
+   *
+   * @since 5.27.0
+   * @return {Object} The user data.
+   */
+
   data() {
     this.followsCachedData = FcnUtils.userData().follows?.data;
 
@@ -53,9 +60,26 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
     return this.followsCachedData;
   }
 
+  /**
+   * Return whether story ID is followed.
+   *
+   * @since 5.27.0
+   * @param {Number} id - The ID of the story.
+   * @return {boolean} True if followed, false if not (or logged-out).
+   */
+
   isFollowed(id) {
     return !!(FcnUtils.loggedIn() && this.data()?.[id]);
   }
+
+  /**
+   * Toggle follow and refresh view.
+   *
+   * @since 5.27.0
+   * @param {Event} event - The event.
+   * @param {Object} event.params - Additional parameters.
+   * @param {String} event.params.id - Story ID.
+   */
 
   toggleFollow({ params: { id } }) {
     if (this.#loggedIn()) {
@@ -63,6 +87,12 @@ application.register('fictioneer-follows', class extends Stimulus.Controller {
       this.refreshView();
     }
   }
+
+  /**
+   * Clear all follows and refresh view.
+   *
+   * @since 5.27.0
+   */
 
   clear() {
     const userData = FcnUtils.userData();
