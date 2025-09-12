@@ -27,21 +27,34 @@ if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active
  * Serve sitemap index or page.
  *
  * @since 5.31.1
+ * @since 5.32.2 - Added guard clauses.
  */
 
 function fictioneer_serve_paginated_sitemap() {
-  if ( get_query_var( 'fictioneer_sitemap' ) === 'index' ) {
+  $index = get_query_var( 'fictioneer_sitemap' );
+  $page_raw = get_query_var( 'fictioneer_sitemap_page' );
+
+  if ( $index !== 'index' && $page_raw === '' ) {
+    return;
+  }
+
+  if ( $index === 'index' ) {
     fictioneer_serve_sitemap_index();
     exit;
   }
 
-  $page = intval( get_query_var( 'fictioneer_sitemap_page' ) );
-  $total = fictioneer_get_sitemap_total_pages();
+  $page = intval( $page_raw );
 
-  if ( $page > 0 && $page <= $total ) {
-    fictioneer_serve_sitemap_page( $page );
-    exit;
+  if ( $page > 0 ) {
+    $total = fictioneer_get_sitemap_total_pages();
+
+    if ( $page <= $total ) {
+      fictioneer_serve_sitemap_page( $page );
+      exit;
+    }
   }
+
+  return;
 }
 
 if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active() ) {
