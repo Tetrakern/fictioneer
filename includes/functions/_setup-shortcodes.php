@@ -19,6 +19,11 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
     // Query
     $result = new WP_Query( $args );
 
+    // Prime thumbnail cache
+    if ( function_exists( 'update_post_thumbnail_cache' ) ) {
+      update_post_thumbnail_cache( $result );
+    }
+
     // Prime author cache
     if (
       get_option( 'fictioneer_show_authors' ) &&

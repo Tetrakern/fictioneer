@@ -77,6 +77,11 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
         $featured_query = new WP_Query( $query_args );
 
+        // Prime thumbnail cache
+        if ( function_exists( 'update_post_thumbnail_cache' ) ) {
+          update_post_thumbnail_cache( $featured_query );
+        }
+
         // Prime author cache
         if ( ! empty( $featured_query->posts ) && function_exists( 'update_post_author_caches' ) ) {
           update_post_author_caches( $featured_query->posts );
