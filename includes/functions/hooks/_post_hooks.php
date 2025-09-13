@@ -93,6 +93,11 @@ function fictioneer_post_featured_list( $post_id, $args ) {
     return;
   }
 
+  // Prime thumbnail cache
+  if ( function_exists( 'update_post_thumbnail_cache' ) ) {
+    update_post_thumbnail_cache( $featured_query );
+  }
+
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {
     update_post_author_caches( $featured_query->posts );

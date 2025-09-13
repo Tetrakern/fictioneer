@@ -114,6 +114,11 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
       // Query without excluded posts
       $query = new WP_Query( $the_query_args );
 
+      // Prime thumbnail cache
+      if ( function_exists( 'update_post_thumbnail_cache' ) ) {
+        update_post_thumbnail_cache( $query );
+      }
+
       // Prime author cache
       if (
         get_option( 'fictioneer_show_authors' ) &&

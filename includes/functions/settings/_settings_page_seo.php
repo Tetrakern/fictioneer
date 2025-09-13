@@ -51,6 +51,11 @@ class Fictioneer_Seo_Table extends WP_List_Table {
 
     $query = new WP_Query( $query_args );
 
+    // Prime thumbnail cache
+    if ( function_exists( 'update_post_thumbnail_cache' ) ) {
+      update_post_thumbnail_cache( $query );
+    }
+
     // Pagination
     $this->set_pagination_args(
       array(

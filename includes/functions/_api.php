@@ -478,6 +478,11 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     $query = new WP_Query( $query_args );
     $stories = $query->posts;
 
+    // Prime thumbnail cache
+    if ( function_exists( 'update_post_thumbnail_cache' ) ) {
+      update_post_thumbnail_cache( $query );
+    }
+
     // Prime author cache
     if ( ! empty( $query->posts ) && function_exists( 'update_post_author_caches' ) ) {
       update_post_author_caches( $query->posts );
