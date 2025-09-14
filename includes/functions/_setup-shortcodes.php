@@ -6,7 +6,7 @@
 
 if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
   /**
-   * Returns query for shortcode
+   * Return query result for shortcode.
    *
    * @since 5.4.9
    *
@@ -42,7 +42,7 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
 // =============================================================================
 
 /**
- * Register relationships for posts with certain shortcodes
+ * Register relationships for posts with certain shortcodes.
  *
  * @since 5.0.0
  *
@@ -140,7 +140,7 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
 // =============================================================================
 
 /**
- * Returns sanitized arguments extracted from shortcode attributes
+ * Return sanitized arguments extracted from shortcode attributes.
  *
  * @since 5.7.3
  *
@@ -248,7 +248,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
 // =============================================================================
 
 /**
- * Extract taxonomies from shortcode attributes
+ * Extract taxonomies from shortcode attributes.
  *
  * @since 5.2.0
  *
@@ -295,7 +295,7 @@ function fictioneer_get_shortcode_taxonomies( $attr ) {
 // =============================================================================
 
 /**
- * Get shortcode Tax Query
+ * Get shortcode Tax Query.
  *
  * @since 5.2.0
  *
@@ -370,7 +370,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
 // =============================================================================
 
 /**
- * Returns inline script to initialize Splide ASAP
+ * Return inline script to initialize Splide ASAP.
  *
  * Note: The script tag is only returned once in case multiple sliders
  * are active since only one is needed.
@@ -409,7 +409,7 @@ function fictioneer_get_splide_inline_init() {
 // =============================================================================
 
 /**
- * Shortcode to display showcase
+ * Shortcode to display showcase.
  *
  * @since 5.0.0
  *
@@ -528,7 +528,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
 // =============================================================================
 
 /**
- * Shortcode to show latest chapters
+ * Shortcode to show latest chapters.
  *
  * @since 3.0
  *
@@ -636,7 +636,7 @@ add_shortcode( 'fictioneer_latest_chapters', 'fictioneer_shortcode_latest_chapte
 // =============================================================================
 
 /**
- * Shortcode to show latest stories
+ * Shortcode to show latest stories.
  *
  * @since 3.0
  *
@@ -748,7 +748,7 @@ add_shortcode( 'fictioneer_latest_stories', 'fictioneer_shortcode_latest_stories
 // =============================================================================
 
 /**
- * Shortcode to show latest story updates
+ * Shortcode to show latest story updates.
  *
  * @since 4.3.0
  *
@@ -863,7 +863,7 @@ add_shortcode( 'fictioneer_latest_updates', 'fictioneer_shortcode_latest_story_u
 // =============================================================================
 
 /**
- * Shortcode to show latest recommendations
+ * Shortcode to show latest recommendations.
  *
  * @since 4.0.0
  *
@@ -957,7 +957,7 @@ add_shortcode( 'fictioneer_latest_recommendations', 'fictioneer_shortcode_latest
 // =============================================================================
 
 /**
- * Shortcode to show the latest post
+ * Shortcode to show the latest post.
  *
  * @since 4.0.0
  *
@@ -1017,7 +1017,7 @@ add_shortcode( 'fictioneer_latest_posts', 'fictioneer_shortcode_latest_posts' );
 // =============================================================================
 
 /**
- * Shortcode to show bookmarks
+ * Shortcode to show bookmarks.
  *
  * @since 4.0.0
  *
@@ -1057,7 +1057,7 @@ add_shortcode( 'fictioneer_bookmarks', 'fictioneer_shortcode_bookmarks' );
 // =============================================================================
 
 /**
- * Shortcode to show cookie consent actions
+ * Shortcode to show cookie consent actions.
  *
  * Renders buttons to handle your consent and stored cookies.
  *
@@ -1115,7 +1115,7 @@ function fictioneer_shortcode_chapter_list_empty( $attr ) {
 }
 
 /**
- * Shortcode to show chapter list outside of story pages
+ * Shortcode to show chapter list outside of story pages.
  *
  * @since 5.0.0
  *
@@ -1391,7 +1391,7 @@ add_shortcode( 'fictioneer_chapter_list', 'fictioneer_shortcode_chapter_list' );
 // =============================================================================
 
 /**
- * Shortcode to show a contact form
+ * Shortcode to show a contact form.
  *
  * @since 5.0.0
  *
@@ -1501,7 +1501,7 @@ add_shortcode( 'fictioneer_contact_form', 'fictioneer_shortcode_contact_form' );
 // =============================================================================
 
 /**
- * Shortcode to show the latest post
+ * Shortcode to show the latest post.
  *
  * @since 5.0.0
  *
@@ -1577,7 +1577,7 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
 // =============================================================================
 
 /**
- * Shortcode to show blog with pagination
+ * Shortcode to show blog with pagination.
  *
  * @since 5.2.0
  *
@@ -1726,7 +1726,7 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
 // =============================================================================
 
 /**
- * Shortcode to show article cards with pagination
+ * Shortcode to show article cards with pagination.
  *
  * @since 5.7.3
  *
@@ -1854,7 +1854,7 @@ add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' 
 // =============================================================================
 
 /**
- * Shortcode to show story section
+ * Shortcode to show story section.
  *
  * @since 5.14.0
  *
@@ -1981,7 +1981,7 @@ add_shortcode( 'fictioneer_story_section', 'fictioneer_shortcode_story_section' 
 // =============================================================================
 
 /**
- * Shortcode to show story actions
+ * Shortcode to show story actions.
  *
  * @since 5.14.0
  *
@@ -2115,7 +2115,7 @@ function fictioneer_shortcode_remove_story_buttons( $output, $args ) {
 // =============================================================================
 
 /**
- * Shortcode to show subscribe button
+ * Shortcode to show subscribe button.
  *
  * @since 5.14.0
  *
@@ -2157,7 +2157,7 @@ add_shortcode( 'fictioneer_subscribe_button', 'fictioneer_shortcode_subscribe_bu
 // =============================================================================
 
 /**
- * Shortcode to show story comments
+ * Shortcode to show story comments.
  *
  * @since 5.14.0
  *
@@ -2217,7 +2217,7 @@ add_shortcode( 'fictioneer_story_comments', 'fictioneer_shortcode_story_comments
 // =============================================================================
 
 /**
- * Shortcode to show selected story data
+ * Shortcode to show selected story data.
  *
  * Data: id, word_count, chapter_count, icon, age_rating, rating_letter, comment_count,
  * datetime, date, time, categories, tags, genres, fandoms, characters, or warnings.
@@ -2326,7 +2326,7 @@ add_shortcode( 'fictioneer_story_data', 'fictioneer_shortcode_story_data' );
 // =============================================================================
 
 /**
- * Shortcode to show a Font Awesome icon
+ * Shortcode to show a Font Awesome icon.
  *
  * @since 5.14.0
  *
@@ -2406,7 +2406,7 @@ add_shortcode( 'fictioneer_sidebar', 'fictioneer_shortcode_sidebar' );
 // =============================================================================
 
 /**
- * Shortcode to add a tooltip with an associated footnote
+ * Shortcode to add a tooltip with an associated footnote.
  *
  * @since 5.25.0
  *

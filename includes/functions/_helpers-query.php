@@ -5,7 +5,7 @@
 // =============================================================================
 
 /**
- * Returns list of allowed orderby parameters for WP_Query
+ * Return list of allowed orderby parameters for WP_Query.
  *
  * @since 5.7.0
  * @since 5.9.4 - Extended list.
@@ -25,7 +25,7 @@ function fictioneer_allowed_orderby() {
 
 if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
   /**
-   * Returns the query and HTML list items for a post type
+   * Return the query and HTML list items for a post type.
    *
    * @since 5.0.0
    *
@@ -34,8 +34,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
    * @param string $empty       Optional. What to show as empty result. Defaults to 'No results'.
    * @param array  $card_args   Optional. Card partial arguments merged with the defaults.
    *
-   * @return array|boolean The query results ('query') and the cards as list items ('html').
-   *                       False for impermissible parameters.
+   * @return array|bool The query results ('query') and the cards as list items ('html').
+   *                    False for impermissible parameters.
    */
 
   function fictioneer_get_card_list( $type, $query_args = [], $empty = '', $card_args = [] ) {
@@ -183,7 +183,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
 if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
   /**
-   * Appends date query to query arguments
+   * Append date query to query arguments.
    *
    * @since 5.4.0
    *
@@ -256,7 +256,7 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
 // =============================================================================
 
 /**
- * Filters sticky stories to the top and accounts for missing meta fields
+ * Filter sticky stories to the top and accounts for missing meta fields.
  *
  * @since 5.7.3
  * @since 5.9.4 - Check orderby by components, extend allow list.
@@ -303,7 +303,7 @@ if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
 // =============================================================================
 
 /**
- * Adds 'fictioneer_chapter_hidden' to be saved falsy
+ * Add 'fictioneer_chapter_hidden' to be saved falsy.
  *
  * @since 5.9.4
  *
@@ -345,7 +345,7 @@ if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
 // =============================================================================
 
 /**
- * Returns ID of the chapter story or empty string
+ * Return ID of the chapter story or empty string.
  *
  * @since 5.26.0
  *
@@ -359,7 +359,7 @@ function fictioneer_get_chapter_story_id( $chapter_id ) {
 }
 
 /**
- * Sets the chapter parent ID to the story ID
+ * Set the chapter parent ID to the story ID.
  *
  * @since 5.26.0
  *
@@ -388,7 +388,7 @@ function fictioneer_set_chapter_story_parent( $chapter_id, $story_id ) {
 
 if ( ! function_exists( 'fictioneer_sql_filter_valid_chapter_ids' ) ) {
   /**
-   * Filters out non-valid chapter array IDs
+   * Filter out non-valid chapter array IDs.
    *
    * Note: This is a lot faster than using WP_Query().
    *
@@ -447,7 +447,7 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_chapter_ids' ) ) {
 
 if ( ! function_exists( 'fictioneer_sql_filter_valid_page_ids' ) ) {
   /**
-   * Filters out non-valid story page array IDs
+   * Filter out non-valid story page array IDs.
    *
    * Note: This is a lot faster than using WP_Query().
    *
@@ -503,7 +503,7 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_page_ids' ) ) {
 
 if ( ! function_exists( 'fictioneer_sql_filter_valid_collection_ids' ) ) {
   /**
-   * Filters out non-valid story page array IDs
+   * Filter out non-valid story page array IDs.
    *
    * Note: This is a lot faster than using WP_Query().
    *
@@ -571,7 +571,7 @@ if ( ! function_exists( 'fictioneer_sql_filter_valid_collection_ids' ) ) {
 
 if ( ! function_exists( 'fictioneer_sql_filter_valid_featured_ids' ) ) {
   /**
-   * Filters out non-valid featured array IDs
+   * Filter out non-valid featured array IDs.
    *
    * Note: This is a lot faster than using WP_Query().
    *
@@ -729,7 +729,7 @@ if ( ! function_exists( 'fictioneer_sql_has_new_story_chapters' ) ) {
 
 if ( ! function_exists( 'fictioneer_sql_get_co_authored_story_ids' ) ) {
   /**
-   * Returns story IDs where the user is a co-author
+   * Return story IDs where the user is a co-author.
    *
    * @since 5.26.0
    *
@@ -769,7 +769,7 @@ if ( ! function_exists( 'fictioneer_sql_get_co_authored_story_ids' ) ) {
 
 if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
   /**
-   * Returns selectable stories for chapter assignments
+   * Return selectable stories for chapter assignments.
    *
    * @since 5.26.0
    *
@@ -884,7 +884,7 @@ if ( ! function_exists( 'fictioneer_sql_get_chapter_story_selection' ) ) {
 
 if ( ! function_exists( 'fictioneer_sql_get_story_chapter_relationship_data' ) ) {
   /**
-   * Returns chapter objects for a story
+   * Return chapter objects for a story.
    *
    * @since 5.26.0
    *
@@ -953,7 +953,7 @@ if ( ! function_exists( 'fictioneer_sql_get_story_chapter_relationship_data' ) )
 }
 
 /**
- * Updates the comment count of a post
+ * Update the comment count of a post.
  *
  * @since 5.26.0
  *
