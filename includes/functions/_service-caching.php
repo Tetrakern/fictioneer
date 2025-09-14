@@ -1356,6 +1356,11 @@ function fictioneer_save_story_card_cache() {
     );
   }
 
+  // Any changes?
+  if ( get_transient( 'fictioneer_card_cache' ) === $fictioneer_story_card_cache ) {
+    return;
+  }
+
   // Save Transient
   set_transient( 'fictioneer_card_cache', $fictioneer_story_card_cache, FICTIONEER_CARD_CACHE_EXPIRATION_TIME );
 }
