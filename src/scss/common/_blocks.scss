@@ -1139,6 +1139,7 @@ figcaption {
 
   .embed-logo {
     position: absolute;
+    top: 50%;
     left: 50%;
     z-index: -1;
     background: no-repeat center/contain;
@@ -1153,7 +1154,6 @@ figcaption {
     .embed-logo {
       --bg: url('../img/youtube_logo_monochrome.webp');
       filter: brightness(15%);
-      top: 140px;
       height: 150px;
     }
   }
@@ -1162,7 +1162,6 @@ figcaption {
     .embed-logo {
       --bg: url('../img/amazon_kindle_logo.svg');
       filter: grayscale(100%) brightness(0%);
-      top: 270px;
       height: 100px;
     }
   }
@@ -1171,7 +1170,6 @@ figcaption {
     .embed-logo {
       --bg: url('../img/soundcloud_logo.svg');
       filter: brightness(0);
-      top: 200px;
       height: 300px;
     }
   }
@@ -1180,7 +1178,6 @@ figcaption {
     .embed-logo {
       --bg: url('../img/spotify_logo_dark.webp');
       filter: brightness(15%);
-      top: 190px;
       height: 200px;
       width: 200px;
     }

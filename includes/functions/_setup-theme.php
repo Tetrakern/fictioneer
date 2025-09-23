@@ -179,6 +179,9 @@ function fictioneer_theme_setup() {
     )
   );
 
+  // Responsive embeds
+  add_theme_support( 'responsive-embeds' );
+
   // Add support for editor styles
   add_theme_support( 'editor-styles' );
   add_editor_style( '/css/editor.css' );
