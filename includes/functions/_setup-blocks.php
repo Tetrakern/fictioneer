@@ -149,8 +149,8 @@ function fictioneer_embed_consent_wrapper( $block_content, $block ) {
   // Check for iframes or twitter
   if (
     strpos( $block_content, '<iframe' ) === false &&
-    strpos( $block_content, "twitter-timeline" ) === false &&
-    strpos( $block_content, "twitter-tweet" ) === false
+    strpos( $block_content, 'twitter-timeline' ) === false &&
+    strpos( $block_content, 'twitter-tweet' ) === false
   ) {
     return $block_content;
   }
