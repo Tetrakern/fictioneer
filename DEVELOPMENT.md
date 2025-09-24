@@ -379,7 +379,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `protected_title_format` | `fictioneer_remove_protected_text` (10)
 | `query_vars` | `fictioneer_query_vars` (10)
 | `removable_query_args` | `fictioneer_removable_args` (10)
-| `render_block` | `fictioneer_download_block_wrapper` (10), `fictioneer_term_list_select_wrapper` (10), `fictioneer_embed_consent_wrapper` (10)
+| `render_block` | `fictioneer_download_block_wrapper` (10), `fictioneer_term_list_select_wrapper` (10), `fictioneer_embed_consent_router` (10)
 | `rest_pre_insert_fcn_chapter` | `fictioneer_rest_pre_chapter_story_change` (10)
 | `rest_api_init` | `fictioneer_rest_setup` (10)
 | `rest_authentication_errors` | `fictioneer_restrict_rest_api` (10)
