@@ -151,8 +151,8 @@ function fictioneer_embed_consent_core( $block_content ) {
       // Extract title
       $title = '';
 
-      if ( preg_match( '/\btitle=(["\'])(.*?)\1/i', $iframe_attributes, $tm ) && $tm[2] !== '' ) {
-        $title = $tm[2];
+      if ( preg_match( '/\btitle=(["\'])(.*?)\1/i', $iframe_attributes, $title_match ) && $title_match[2] !== '' ) {
+        $title = $title_match[2];
       }
 
       // Remove src attribute from the iframe
