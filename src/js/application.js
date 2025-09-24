@@ -1309,13 +1309,13 @@ document.body.addEventListener('change', e => {
  * Load embedded content by setting the src attribute.
  *
  * @since 4.0.0
- * @param {Event} event - The event.
+ * @param {HTMLElement} event.target - The clicked element.
  */
 
-function fcn_loadEmbed(event) {
-  event.target.parentNode.querySelectorAll('iframe, script')[0].src = event.target.dataset.src;
-  event.target.parentElement.querySelector('.embed-logo')?.remove();
-  event.target.remove();
+function fcn_loadEmbed({ target }) {
+  target.parentNode.querySelector('iframe, script').src = target.dataset.src;
+  target.parentElement.querySelector('.embed-logo')?.remove();
+  target.remove();
 }
 
 // Listen for clicks on embeds
