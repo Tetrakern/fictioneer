@@ -125,36 +125,70 @@ add_filter( 'render_block', 'fictioneer_term_list_select_wrapper', 10, 2 );
  * Add consent wrapper to embed block.
  *
  * @since 5.32.0
+ * @since 5.32.2 - Split and refactored with preg_replace_callback()
  *
  * @param string $block_content  The block content.
- * @param array  $block          The full block, including name and attributes.
  *
  * @return string The updated block content.
  */
 
-function fictioneer_embed_consent_wrapper( $block_content, $block ) {
-  // Guard clause for legacy or malformed blocks
-  if ( empty( $block['blockName'] ) ) {
-    return $block_content;
-  }
+function fictioneer_embed_consent_core( $block_content ) {
+  $consent_fragment = __( 'Click to load %s with third-party consent.', 'fictioneer' );
 
-  // Check block
-  if (
-    $block['blockName'] !== 'core/embed' &&
-    ! str_starts_with( $block['blockName'], 'core-embed/twitter' )
-  ) {
-    return $block_content;
-  }
+  $block_content = preg_replace_callback(
+    '/<iframe\b([^>]*)>(.*?)<\/iframe\s*>/is',
+    function ( $match ) use ( $consent_fragment ) {
+      $iframe_attributes = $match[1];
+      $inner_html = $match[2];
 
-  // Check for iframes or twitter
-  if (
-    strpos( $block_content, '<iframe' ) === false &&
-    strpos( $block_content, 'twitter-timeline' ) === false &&
-    strpos( $block_content, 'twitter-tweet' ) === false
-  ) {
-    return $block_content;
-  }
+      // Extract src (or skip if missing)
+      if ( ! preg_match( '/\bsrc=(["\'])(.*?)\1/i', $iframe_attributes, $src_match ) ) {
+        return $match[0];
+      }
 
+      $src = $src_match[2];
+
+      // Extract title
+      $title = '';
+
+      if ( preg_match( '/\btitle=(["\'])(.*?)\1/i', $iframe_attributes, $tm ) && $tm[2] !== '' ) {
+        $title = $tm[2];
+      }
+
+      // Remove src attribute from the iframe
+      $iframe_attributes_clean = preg_replace( '/\s*\bsrc=(["\']).*?\1/i', '', $iframe_attributes );
+
+      // Build consent button
+      $consent_button = sprintf(
+        '<button type="button" class="iframe-consent" data-src="%s">%s</button>',
+        esc_attr( $src ),
+        sprintf( $consent_fragment, $title )
+      );
+
+      // Rebuild iframe
+      $iframe_clean = "<iframe {$iframe_attributes_clean}>{$inner_html}</iframe>";
+
+      // Compile consent wrapper
+      return $iframe_clean . $consent_button . '<div class="embed-logo"></div>';
+    },
+    $block_content
+  );
+
+  return $block_content;
+}
+
+/**
+ * Add consent wrapper to Twitter embed block.
+ *
+ * @since 5.32.0
+ * @since 5.32.2 - Split from core embed.
+ *
+ * @param string $block_content  The block content.
+ *
+ * @return string The updated block content.
+ */
+
+function fictioneer_embed_consent_twitter( $block_content ) {
   // Prepare dom document
   libxml_use_internal_errors( true );
   $dom = new DOMDocument();
@@ -162,38 +196,12 @@ function fictioneer_embed_consent_wrapper( $block_content, $block ) {
   libxml_clear_errors();
   $xpath = new DomXPath( $dom );
 
-  // Handle iframes...
-  $iframes = $dom->getElementsByTagName( 'iframe' );
+  $consent_message = sprintf(
+    __( 'Click to load %s with third-party consent.', 'fictioneer' ),
+    __( 'Twitter', 'fictioneer' )
+  );
 
-  foreach ( $iframes as $iframe ) {
-    $src = $iframe->getAttribute( 'src' );
-
-    if ( ! $src ) {
-      continue;
-    }
-
-    $title = htmlspecialchars( $iframe->getAttribute( 'title' ) );
-    $title = ( ! $title || $title === '' ) ? 'embedded content' : $title;
-
-    $iframe->removeAttribute( 'src' );
-
-    $consent_element = $dom->createElement( 'button' );
-    $consent_element->setAttribute( 'type', 'button' );
-    $consent_element->setAttribute( 'class', 'iframe-consent' );
-    $consent_element->setAttribute( 'data-src', $src );
-    $consent_element->nodeValue = sprintf(
-      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-      $title
-    );
-
-    $embed_logo = $dom->createElement( 'div' );
-    $embed_logo->setAttribute( 'class', 'embed-logo' );
-
-    $iframe->parentNode->insertBefore( $consent_element );
-    $iframe->parentNode->insertBefore( $embed_logo );
-  }
-
-  // Handle Twitter timelines
+  // Handle timelines
   $twitter_timelines = $xpath->query( "//a[contains(@class, 'twitter-timeline')]/following-sibling::*[1]" );
 
   foreach ( $twitter_timelines as $twitter ) {
@@ -209,15 +217,12 @@ function fictioneer_embed_consent_wrapper( $block_content, $block ) {
     $consent_element = $dom->createElement( 'div' );
     $consent_element->setAttribute( 'class', 'twitter-consent' );
     $consent_element->setAttribute( 'data-src', $src );
-    $consent_element->nodeValue = sprintf(
-      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-      __( 'Twitter', 'fictioneer' )
-    );
+    $consent_element->nodeValue = $consent_message;
 
     $twitter->parentNode->insertBefore( $consent_element );
   }
 
-  // Handle Twitter tweets
+  // Handle tweets
   $twitter_tweets = $xpath->query( "//blockquote[contains(@class, 'twitter-tweet')]/following-sibling::*[1]" );
 
   foreach ( $twitter_tweets as $twitter ) {
@@ -232,10 +237,7 @@ function fictioneer_embed_consent_wrapper( $block_content, $block ) {
     $consent_element = $dom->createElement( 'div' );
     $consent_element->setAttribute( 'class', 'twitter-consent' );
     $consent_element->setAttribute( 'data-src', $src );
-    $consent_element->nodeValue = sprintf(
-      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-      __( 'Twitter', 'fictioneer' )
-    );
+    $consent_element->nodeValue = $consent_message;
 
     $twitter->parentNode->insertBefore( $consent_element );
   }
@@ -247,6 +249,48 @@ function fictioneer_embed_consent_wrapper( $block_content, $block ) {
   return preg_replace( '/<\/?body>/', '', $html );
 }
 
+/**
+ * Route embed blocks to consent wrapper filters.
+ *
+ * @since 5.32.2
+ *
+ * @param string $block_content  The block content.
+ * @param array  $block          The full block, including name and attributes.
+ *
+ * @return string The updated block content.
+ */
+
+function fictioneer_embed_consent_router( $block_content, $block ) {
+  // Guard clause for legacy or malformed blocks
+  if ( empty( $block['blockName'] ) ) {
+    return $block_content;
+  }
+
+  // Check for iframes or twitter
+  if (
+    strpos( $block_content, '<iframe' ) === false &&
+    strpos( $block_content, 'wp-block-embed-twitter' ) === false
+  ) {
+    return $block_content;
+  }
+
+  // Core embed?
+  if (
+    $block['blockName'] === 'core/embed' &&
+    ! strpos( $block_content, 'wp-block-embed-twitter' )
+  ) {
+    return fictioneer_embed_consent_core( $block_content );
+  }
+
+  // Twitter embed?
+  if ( strpos( $block_content, 'wp-block-embed-twitter' ) ) {
+    return fictioneer_embed_consent_twitter( $block_content );
+  }
+
+  // Continue filter
+  return $block_content;
+}
+
 if ( get_option( 'fictioneer_consent_wrappers' ) ) {
-  add_filter( 'render_block', 'fictioneer_embed_consent_wrapper', 10, 2 );
+  add_filter( 'render_block', 'fictioneer_embed_consent_router', 10, 2 );
 }
