@@ -27,7 +27,7 @@ function fictioneer_log_micro_time( $context = '' ) {
 
   if ( $fictioneer_start_time ) {
     $prefix = $context ? "({$context}) Duration: " : 'Duration: ';
-    error_log( $prefix . ( microtime( 1 ) - $fictioneer_start_time ) );
+    error_log( $prefix . number_format( microtime( 1 ) - $fictioneer_start_time, 10 ) );
   }
 
   $fictioneer_start_time = null;
