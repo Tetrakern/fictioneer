@@ -5,7 +5,7 @@
 // =============================================================================
 
 /**
- * Stored current microtime globally
+ * Store current microtime globally.
  *
  * @since 5.26.0
  */
@@ -17,7 +17,7 @@ function fictioneer_start_micro_time() {
 }
 
 /**
- * Writes elapses microtime to log
+ * Write elapses microtime to log.
  *
  * @since 5.26.0
  */
@@ -27,7 +27,7 @@ function fictioneer_log_micro_time( $context = '' ) {
 
   if ( $fictioneer_start_time ) {
     $prefix = $context ? "({$context}) Duration: " : 'Duration: ';
-    error_log( $prefix . number_format( microtime( 1 ) - $fictioneer_start_time, 10 ) );
+    error_log( $prefix . sprintf( '%.10f µs', ( microtime( 1 ) - $fictioneer_start_time ) * 1_000_000 ) );
   }
 
   $fictioneer_start_time = null;
@@ -38,7 +38,7 @@ function fictioneer_log_micro_time( $context = '' ) {
 // =============================================================================
 
 /**
- * Logs a message to the theme log file
+ * Log a message to the theme log file.
  *
  * @since 5.23.1
  *
@@ -63,11 +63,11 @@ function fictioneer_lorem_ipsum_content() {
 }
 
 /**
- * Generates a number of test comments
+ * Generate a number of test comments.
  *
  * @since 5.23.1
  *
- * @param int $post_id  Post ID the comment belongs to
+ * @param int $post_id  Post ID the comment belongs to.
  * @param int $number   Number of comments to create.
  */
 
@@ -89,7 +89,7 @@ function fictioneer_generate_test_comments( $post_id, $number = 3 ) {
 }
 
 /**
- * Generates a test users, stories, and chapters
+ * Generate a test users, stories, and chapters.
  *
  * @since 5.23.1
  */
