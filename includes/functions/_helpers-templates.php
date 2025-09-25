@@ -562,25 +562,21 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
       return '';
     }
 
-    // Build
-    $html = '<ol vocab="https://schema.org/" typeof="BreadcrumbList" class="breadcrumbs">';
+    $items = [];
+    $pos = 1;
 
-    foreach ( $breadcrumbs as $key => $value ) {
-      $html .= '<li class="breadcrumbs__item" property="itemListElement" typeof="ListItem">';
-
-      if ( $count > $key + 1 && $value[1] ) {
-        $html .= '<a property="item" typeof="WebPage" href="' . esc_url( $value[1] ) . '"><span property="name">' . $value[0] . '</span></a>';
+    foreach ( $breadcrumbs as $crumb ) {
+      if ( $pos < $count && $crumb[1] !== '' ) {
+        $items[] =
+          '<li class="breadcrumbs__item" property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" href="' . esc_url( $crumb[1] ) . '"><span property="name">' . $crumb[0] . '</span></a><meta property="position" content="' . $pos++ . '"></li>';
       } else {
-        $html .= '<span property="name">' . $value[0] . '</span>';
+        $items[] =
+          '<li class="breadcrumbs__item" property="itemListElement" typeof="ListItem"><span property="name" ' . ( $pos == $count ? 'aria-current="page"' : '' ) . '>' . $crumb[0] . '</span><meta property="position" content="' . $pos++ . '"></li>';
       }
-
-      $html .= '<meta property="position" content="' . ( $key + 1 ) . '"></li>';
     }
 
-    $html .= '</ol>';
-
     // Return HTML
-    return $html;
+    return '<nav aria-label="Breadcrumb" class="nav-breadcrumbs"><ol vocab="https://schema.org/" typeof="BreadcrumbList" class="breadcrumbs">' . implode( '', $items ) . '</ol></nav>';
   }
 }
 
@@ -1524,28 +1520,31 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
 
   function fictioneer_get_taxonomy_pills( $taxonomy_groups, $context = '', $classes = '' ) {
     // Abort conditions
-    if ( ! is_array( $taxonomy_groups ) || count( $taxonomy_groups ) < 1 ) {
+    if ( ! is_array( $taxonomy_groups ) || empty( $taxonomy_groups ) ) {
       return '';
     }
 
     // Setup
+    $has_filters = has_filter( 'fictioneer_filter_taxonomy_pills_group' );
     $html = '';
 
     // Loop over all groups...
     foreach ( $taxonomy_groups as $key => $group ) {
       // Check for empty group
-      if ( ! $group || ! is_array( $group ) || count( $group ) < 1 ) {
+      if ( ! $group || ! is_array( $group ) || empty( $group ) ) {
         continue;
       }
 
       // Filter group
-      $group = apply_filters( 'fictioneer_filter_taxonomy_pills_group', $group, $key, $context );
+      if ( $has_filters ) {
+        $group = apply_filters( 'fictioneer_filter_taxonomy_pills_group', $group, $key, $context );
+      }
 
       // Process group
       foreach ( $group as $taxonomy ) {
         $html .= sprintf(
           '<a href="%s" class="tag-pill _taxonomy-%s _taxonomy-slug-%s %s">%s</a>',
-          get_tag_link( $taxonomy ),
+          get_term_link( $taxonomy ),
           str_replace( 'fcn_', '', $taxonomy->taxonomy ),
           $taxonomy->slug,
           $classes,

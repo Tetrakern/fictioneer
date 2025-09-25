@@ -667,20 +667,27 @@ function fictioneer_story_chapters( $args ) {
       // Build HTML
       if ( ! empty( $chapter_groups ) ) {
         $group_index = 0;
-        $has_groups = count( $chapter_groups ) > 1 && get_option( 'fictioneer_enable_chapter_groups' );
+        $has_groups = get_option( 'fictioneer_enable_chapter_groups' ) && count( $chapter_groups ) > 1;
+        $has_group_filters = has_filter( 'fictioneer_filter_chapter_group' );
+        $has_icon_filters = has_filter( 'fictioneer_filter_chapter_icon' );
+        $has_prefix_filters = has_filter( 'fictioneer_filter_list_chapter_prefix' );
+        $has_title_filters = has_filter( 'fictioneer_filter_list_chapter_title_row' );
+        $ts_pattern_aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
+        $ts_pattern_show_more = __( 'Show %s more', 'fictioneer' );
 
         // Loop over groups (or one group for all if disabled)...
         foreach ( $chapter_groups as $key => $group ) {
           $group_index++;
 
-          $group = apply_filters( 'fictioneer_filter_chapter_group', $group, $group_index, $story_id );
+          if (  $has_group_filters ) {
+            $group = apply_filters( 'fictioneer_filter_chapter_group', $group, $group_index, $story_id );
+          }
 
           $index = 0;
           $reverse_order = 99999;
           $group_item_count = count( $group['data'] );
           $chapter_folding = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
           $chapter_folding = $chapter_folding && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
-          $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
 
           // Start HTML ---> ?>
           <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', array_merge( $group_classes, $group['classes'] ?? [] ) ); ?>" data-folded="true" data-fictioneer-story-target="chapterGroup">
@@ -688,7 +695,7 @@ function fictioneer_story_chapters( $args ) {
             <?php if ( $has_groups ) : ?>
               <button
                 class="chapter-group__name <?php echo implode( ' ', $group['classes'] ?? [] ); ?>"
-                aria-label="<?php echo esc_attr( sprintf( $aria_label, $group['group'] ) ); ?>"
+                aria-label="<?php echo esc_attr( sprintf( $ts_pattern_aria_label, $group['group'] ) ); ?>"
                 data-item-count="<?php echo esc_attr( $group_item_count ); ?>"
                 data-group-index="<?php echo esc_attr( $group_index ); ?>"
                 data-action="click->fictioneer#toggleChapterGroup"
@@ -725,7 +732,7 @@ function fictioneer_story_chapters( $args ) {
                     <button class="chapter-group__folding-toggle" data-action="click->fictioneer-story#unfoldChapters" tabindex="0">
                       <?php
                         printf(
-                          __( 'Show %s more', 'fictioneer' ),
+                          $ts_pattern_show_more,
                           $group_item_count - FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2
                         );
                       ?>
@@ -755,7 +762,9 @@ function fictioneer_story_chapters( $args ) {
                         $icon = "<i class='{$icon} chapter-group__list-item-icon'></i>";
                       }
 
-                      echo apply_filters( 'fictioneer_filter_chapter_icon', $icon, $chapter['id'], $story_id );
+                      echo $has_icon_filters
+                        ? apply_filters( 'fictioneer_filter_chapter_icon', $icon, $chapter['id'], $story_id )
+                        : $icon;
                     }
                   ?>
 
@@ -775,14 +784,15 @@ function fictioneer_story_chapters( $args ) {
                       }
                     }
 
-                    $chapter['prefix'] = apply_filters(
-                      'fictioneer_filter_list_chapter_prefix',
-                      $chapter['prefix'], $chapter['id'], 'story'
-                    );
+                    $chapter['prefix'] = $has_prefix_filters
+                      ? apply_filters(
+                        'fictioneer_filter_list_chapter_prefix',
+                        $chapter['prefix'], $chapter['id'], 'story'
+                      )
+                      : $chapter['prefix'];
 
                     if ( ! empty( $chapter['prefix'] ) ) {
-                      // Mind space between prefix and title
-                      $title_output .= $chapter['prefix'] . ' ';
+                      $title_output .= $chapter['prefix'] . ' '; // Mind space between prefix and title
                     }
 
                     if ( ! empty( $chapter['list_title'] ) && $chapter['title'] !== $chapter['list_title'] ) {
@@ -795,10 +805,12 @@ function fictioneer_story_chapters( $args ) {
                       $title_output .= $chapter['title'];
                     }
 
-                    echo apply_filters(
-                      'fictioneer_filter_list_chapter_title_row',
-                      $title_output, $chapter['id'], $chapter['prefix'], $chapter['password'], 'story'
-                    );
+                    echo $has_title_filters
+                      ? apply_filters(
+                        'fictioneer_filter_list_chapter_title_row',
+                        $title_output, $chapter['id'], $chapter['prefix'], $chapter['password'], 'story'
+                      )
+                      : $title_output;
 
                   ?></a>
 

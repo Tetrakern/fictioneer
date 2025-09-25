@@ -198,6 +198,11 @@ if ( $card_cache_active ) {
             );
 
             $chapters = new WP_Query( $chapter_query_args );
+
+            $ts_words = __( 'Words', 'fictioneer' );
+            $ts_new = __( 'New', 'fictioneer' );
+            $current_time = current_time( 'timestamp' );
+
           ?>
           <?php foreach ( $chapters->posts as $chapter ) : ?>
             <?php
@@ -230,9 +235,10 @@ if ( $card_cache_active ) {
                   printf(
                     '<span class="words">%1$s<span class="cq-hide-below-460"> %2$s</span></span><span class="separator-dot">&#8196;&bull;&#8196;</span><span class="date">%3$s</span>',
                     fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) ),
-                    __( 'Words', 'fictioneer' ),
-                    current_time( 'timestamp' ) - get_post_time( 'U', false, $chapter->ID ) < DAY_IN_SECONDS ?
-                      __( 'New', 'fictioneer' ) : get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID )
+                    $ts_words,
+                    $current_time - get_post_time( 'U', false, $chapter->ID ) < DAY_IN_SECONDS
+                      ? $ts_new
+                      : get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID )
                   );
                 ?>
               </div>

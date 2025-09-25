@@ -258,6 +258,8 @@ if ( $show_advanced ) {
             [$queried_authors_out, 'author', 'authors', 'ex_authors_and', _x( '%sExcluded Authors:', 'Advanced search summary.', 'fictioneer' )],
           );
 
+          $ts_and = _x( '[&] ', 'Advanced search summary AND operation note.', 'fictioneer' );
+
           foreach ( $queried_terms as $quad ) {
             // Skip if nothing has been queried
             if ( empty( $quad[0] ) ) {
@@ -268,8 +270,7 @@ if ( $show_advanced ) {
             echo "<span class='search-form__current-{$quad[2]}'>";
 
             // AND/OR?
-            $and = ( $_GET[ $quad[3] ] ?? 0 ) === '1' ?
-              _x( '[&] ', 'Advanced search summary AND operation note.', 'fictioneer' ) : '';
+            $and = ( $_GET[ $quad[3] ] ?? 0 ) === '1' ? $ts_and : '';
 
             // Heading (needs whitespace left and right)
             printf( ' <b>' . $quad[4] . '</b> ', $and );

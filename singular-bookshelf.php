@@ -32,6 +32,7 @@ $order = fictioneer_sanitize_query_var( $_GET['order'] ?? 0, ['desc', 'asc'], 'd
 $current_page = get_query_var( 'pg', 1 ) ?: 1;
 $max_pages = 1;
 $tabs = [];
+$ts_pattern_tab = _x( '%s (%s)', 'Bookshelf tab name pattern: {Tab} ({Count})', 'fictioneer' );
 
 // Follows?
 if ( get_option( 'fictioneer_enable_follows' ) ) {
@@ -134,9 +135,9 @@ get_header( null, array( 'no_index' => 1 ) );
           <section id="tabs" class="scroll-margin-top bookshelf__tabs tabs-wrapper spacing-top">
             <div class="tabs">
               <?php foreach ( $tabs as $key => $value ) : ?>
-                <a href="<?php echo esc_url( add_query_arg( array( 'tab' => $key, 'order' => $order ), $current_url ) . '#main'); ?>" class="tabs__item <?php echo implode( ' ', $value['classes'] )?>"><?php
+                <a href="<?php echo esc_url( add_query_arg( array( 'tab' => $key, 'order' => $order ), $current_url )); ?>#main" class="tabs__item <?php echo implode( ' ', $value['classes'] )?>"><?php
                   printf(
-                    _x( '%s (%s)', 'Bookshelf tab name pattern: {Tab} ({Count})', 'fictioneer' ),
+                    $ts_pattern_tab,
                     $value['name'],
                     number_format_i18n( count( $value['post_ids'] ) )
                   );

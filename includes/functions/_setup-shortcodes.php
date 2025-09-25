@@ -2580,6 +2580,7 @@ function fictioneer_shortcode_terms( $attr ) {
 
   // Build and return HTML
   $html = '';
+  $ts_pattern_term = _x( '%1$s (%2$s)', 'Terms shortcode with count.', 'fictioneer' );
 
   if ( ! empty( $terms ) ) {
     foreach ( $terms as $term ) {
@@ -2591,7 +2592,7 @@ function fictioneer_shortcode_terms( $attr ) {
         'tag-pill ' . $inner_classes,
         $inner_style,
         $show_count
-          ? sprintf( _x( '%1$s (%2$s)', 'Terms shortcode with count.', 'fictioneer' ), $term->name, $term->count )
+          ? sprintf( $ts_pattern_term, $term->name, $term->count )
           : $term->name
       );
     }
