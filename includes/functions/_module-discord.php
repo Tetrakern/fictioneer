@@ -6,10 +6,10 @@
 
 if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
   /**
-   * Sends a message to a Discord channel
+   * Send a message to a Discord channel.
    *
    * @since 4.0.0
-   * @since 5.6.0 - Refactored with wp_remote_post()
+   * @since 5.6.0 - Refactored with wp_remote_post().
    *
    * @param string $webhook  The webhook for the Discord channel.
    * @param array  $message  The message to be sent.
@@ -43,7 +43,7 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
 // =============================================================================
 
 /**
- * Sends a comment as message to a Discord channel
+ * Send a comment as message to a Discord channel.
  *
  * @since 4.0.0
  * @see fictioneer_discord_send_message()
@@ -187,7 +187,7 @@ if ( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) {
 // =============================================================================
 
 /**
- * Sends a notification to Discord when a story is first published
+ * Send a notification to Discord when a story is first published.
  *
  * @since 5.6.0
  * @since 5.21.2 - Refactored.
@@ -288,7 +288,7 @@ if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
 // =============================================================================
 
 /**
- * Sends a notification to Discord when a chapter is first published
+ * Send a notification to Discord when a chapter is first published.
  *
  * @since 5.6.0
  * @since 5.21.2 - Refactored.

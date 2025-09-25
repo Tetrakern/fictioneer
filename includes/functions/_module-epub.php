@@ -191,7 +191,7 @@ if ( ! function_exists( 'fictioneer_fix_tags' ) ) {
 
 if ( ! function_exists( 'fictioneer_prepare_build_directory' ) ) {
   /**
-   * Prepare clean directory and base files for build process
+   * Prepare clean directory and base files for build process.
    *
    * @since 5.0.0
    *
@@ -263,7 +263,7 @@ if ( ! function_exists( 'fictioneer_prepare_build_directory' ) ) {
 
 if ( ! function_exists( 'fictioneer_add_epub_cover' ) ) {
   /**
-   * Copy cover image and HTML file to the ePUB directory
+   * Copy cover image and HTML file to the ePUB directory.
    *
    * @since 5.0.0
    * @link https://www.php.net/manual/en/class.domelement.php
@@ -311,7 +311,7 @@ if ( ! function_exists( 'fictioneer_add_epub_cover' ) ) {
 
 if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
   /**
-   * Process and add chapters to ePUB directory and lists
+   * Process and add chapters to ePUB directory and lists.
    *
    * @since 5.0.0
    *
@@ -563,7 +563,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
 
 if ( ! function_exists( 'fictioneer_query_epub_chapters' ) ) {
   /**
-   * Process and add chapters to ePUB directory and lists
+   * Process and add chapters to ePUB directory and lists.
    *
    * @since 5.26.0
    *
@@ -618,7 +618,7 @@ if ( ! function_exists( 'fictioneer_query_epub_chapters' ) ) {
 
 if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
   /**
-   * Generate and add OPF file to ePUB directory
+   * Generate and add OPF file to ePUB directory.
    *
    * @since 5.0.0
    *
@@ -758,7 +758,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
 
 if ( ! function_exists( 'fictioneer_generate_epub_ncx' ) ) {
   /**
-   * Generate and add NCX file to ePUB directory
+   * Generate and add NCX file to ePUB directory.
    *
    * @since 5.0.0
    * @link https://www.php.net/manual/en/class.domelement.php
@@ -824,7 +824,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_ncx' ) ) {
 
 if ( ! function_exists( 'fictioneer_generate_epub_toc' ) ) {
   /**
-   * Generate and add table of content file to ePUB directory
+   * Generate and add table of content file to ePUB directory.
    *
    * @since 5.0.0
    *
@@ -869,7 +869,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_toc' ) ) {
 
 if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
   /**
-   * Generate and add front matter file to ePUB directory
+   * Generate and add front matter file to ePUB directory.
    *
    * @since 5.0.0
    *
@@ -966,7 +966,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
 
 if ( ! function_exists( 'fictioneer_generate_epub_afterword' ) ) {
   /**
-   * Generate and add afterword file to ePUB directory
+   * Generate and add afterword file to ePUB directory.
    *
    * @since 5.0.0
    *
@@ -1028,7 +1028,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_afterword' ) ) {
 // =============================================================================
 
 /**
- * Generate ePUB and save it to the uploads directory
+ * Generate ePUB and save it to the uploads directory.
  *
  * @since 4.0.0
  */
@@ -1229,7 +1229,7 @@ if ( ! wp_doing_ajax() ) {
 // =============================================================================
 
 /**
- * Start ePUB download if ready
+ * Start ePUB download if ready.
  *
  * @since 5.7.2
  */
