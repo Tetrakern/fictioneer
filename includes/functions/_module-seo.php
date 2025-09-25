@@ -549,7 +549,10 @@ function fictioneer_output_head_seo() {
 
         // Output og array
         foreach ( $all_authors as $author_name ) {
-          echo "<meta property='article:author' content='$author_name'>";
+          echo
+            '<meta property="article:author" content="',
+            $author_name,
+            '">';
         }
       ?>
     <?php endif; ?>
@@ -573,8 +576,8 @@ function fictioneer_output_head_seo() {
   <meta name="twitter:description" content="<?php echo $og_description; ?>">
 
   <?php if ( $show_author && $article_twitter ) : ?>
-    <meta name="twitter:creator" content="<?php echo '@' . $article_twitter; ?>">
-    <meta name="twitter:site" content="<?php echo '@' . $article_twitter; ?>">
+    <meta name="twitter:creator" content="<?php echo '@', $article_twitter; ?>">
+    <meta name="twitter:site" content="<?php echo '@', $article_twitter; ?>">
   <?php endif; ?>
   <?php // <--- End HTML
 }

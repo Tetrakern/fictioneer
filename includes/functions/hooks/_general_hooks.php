@@ -36,7 +36,10 @@ function fictioneer_add_fiction_css() {
   }
 
   if ( ! empty( $custom_css ) && ! preg_match( '#</?\w+#', $custom_css ) ) {
-    echo '<style id="fictioneer-custom-styles">' . str_replace( '<', '', $custom_css ). '</style>';
+    echo
+      '<style id="fictioneer-custom-styles">',
+      str_replace( '<', '', $custom_css ),
+      '</style>';
   }
 }
 add_action( 'wp_head', 'fictioneer_add_fiction_css' );
@@ -257,7 +260,14 @@ function fictioneer_wide_header_identity( $args ) {
 
   // Logo
   if ( has_custom_logo() ) {
-    echo '<' . $logo_tag . ' class="wide-header-logo">' . get_custom_logo() . '</' . $logo_tag . '>';
+    echo
+      '<',
+      $logo_tag,
+      ' class="wide-header-logo">',
+      get_custom_logo(),
+      '</',
+      $logo_tag,
+      '>';
   }
 
   // Title and tagline (if any)
@@ -459,7 +469,10 @@ function fictioneer_post_content_header( $args ) {
     wp_reset_postdata();
     $post = $original_post;
 
-    echo '<header class="post-content-header content-section hide-on-fullscreen">' . $content . '</header>';
+    echo
+      '<header class="post-content-header content-section hide-on-fullscreen">',
+      $content,
+      '</header>';
   }
 }
 add_action( 'fictioneer_site', 'fictioneer_post_content_header', 20 );
@@ -719,7 +732,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
       <div class="list-button _text popup-menu-toggle" tabindex="0" role="button" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><?php
         echo $post_type_menu[ $post_type ?? 'any' ]['label'] ?? __( 'Unknown', 'fictioneer' );
         echo '<div class="popup-menu _bottom _center _fixed-position">';
-        echo '<div class="popup-heading">' . __( 'Post Type', 'fictioneer' ) . '</div>';
+        echo
+          '<div class="popup-heading">',
+          __( 'Post Type', 'fictioneer' ),
+          '</div>';
 
         foreach ( $post_type_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
@@ -734,7 +750,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
       <div class="list-button _text popup-menu-toggle" tabindex="0" role="button" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><?php
         echo $orderby_menu[ $args['orderby'] ]['label'] ?? __( 'Custom', 'fictioneer' );
         echo '<div class="popup-menu _bottom _center _fixed-position">';
-        echo '<div class="popup-heading">' . __( 'Order By', 'fictioneer' ) . '</div>';
+        echo
+          '<div class="popup-heading">',
+          __( 'Order By', 'fictioneer' ),
+          '</div>';
 
         foreach ( $orderby_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
@@ -758,7 +777,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
         }
 
         echo '<div class="popup-menu _bottom _center _fixed-position">';
-        echo '<div class="popup-heading">' . __( 'Time Range', 'fictioneer' ) . '</div>';
+        echo
+          '<div class="popup-heading">',
+          __( 'Time Range', 'fictioneer' ),
+          '</div>';
 
         foreach ( $date_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );

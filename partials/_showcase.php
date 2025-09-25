@@ -120,13 +120,17 @@ if ( $args['min_width'] ) {
   <section class="showcase container-inline-size <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
     <?php
       if ( $args['splide'] === false ) {
-        echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+        echo
+          '<div class="shortcode-json-invalid">',
+          __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ),
+          '</div>';
       }
 
       if ( $splide ) {
-        echo fictioneer_get_splide_loading_style( $splide, $args['uid'] );
-        echo fictioneer_get_splide_placeholders( $args['uid'] );
-        echo '<div class="splide__track">';
+        echo
+          fictioneer_get_splide_loading_style( $splide, $args['uid'] ),
+          fictioneer_get_splide_placeholders( $args['uid'] ),
+          '<div class="splide__track">';
       }
 
       // Classes

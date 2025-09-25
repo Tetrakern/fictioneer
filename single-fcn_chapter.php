@@ -122,13 +122,19 @@ get_header(
 
         <section id="chapter-content" class="chapter__content content-section" data-fictioneer-chapter-target="content" data-action="mouseup->fictioneer-suggestion#toggleFloatingButton"><?php
           if ( $password_required && $password_note ) {
-            echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
+            echo
+              '<div class="chapter__password-note infobox">',
+              $password_note,
+              '</div>';
           }
 
           echo '<div class="resize-font chapter-formatting tools-wrapper chapter-font-color chapter-font-family" data-fictioneer-chapter-target="contentWrapper" data-action="mousedown->fictioneer-chapter#fastClick">';
 
           if ( $password_required && get_option( 'fictioneer_show_protected_excerpt' ) ) {
-            echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post_id, 512 ) . '</p>';
+            echo
+              '<p class="chapter__forced-excerpt">',
+              fictioneer_get_forced_excerpt( $post_id, 512 ),
+              '</p>';
           }
 
           fictioneer_the_static_content();

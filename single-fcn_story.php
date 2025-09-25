@@ -75,11 +75,17 @@ get_header(
       <section class="story__summary content-section"><?php
         if ( $password_required ) {
           if ( $password_note ) {
-            echo '<div class="story__password-note infobox">' . $password_note . '</div>';
+            echo
+              '<div class="story__password-note infobox">',
+              $password_note,
+              '</div>';
           }
 
           if ( get_option( 'fictioneer_show_protected_excerpt' ) ) {
-            echo '<p class="story__forced-excerpt">' . fictioneer_get_forced_excerpt( $post_id, 512 ) . '</p>';
+            echo
+              '<p class="story__forced-excerpt">',
+              fictioneer_get_forced_excerpt( $post_id, 512 ),
+              '</p>';
           }
         }
 

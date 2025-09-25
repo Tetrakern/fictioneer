@@ -345,7 +345,10 @@ function fictioneer_story_filter_reel( $args ) {
   $splide = apply_filters( 'fictioneer_filter_filter_reel_splide', $splide, $filters, $args );
 
   // HTML
-  echo '<section class="story__filter-reel splide" data-fictioneer-story-target="filterReel" data-splide="' . esc_attr( json_encode( $splide ) ) . '"><button type="button" class="story__filter-reel-toggle" data-fictioneer-story-target="filterToggle"></button><div class="story__filter-reel-wrapper splide__track"><ul class="story__filter-reel-list splide__list">';
+  echo
+    '<section class="story__filter-reel splide" data-fictioneer-story-target="filterReel" data-splide="',
+    esc_attr( json_encode( $splide ) ),
+    '"><button type="button" class="story__filter-reel-toggle" data-fictioneer-story-target="filterToggle"></button><div class="story__filter-reel-wrapper splide__track"><ul class="story__filter-reel-list splide__list">';
 
   foreach ( $filters as $filter ) {
     $image_id = ( $filter['image_id'] ?? 0 ) ?: get_theme_mod( 'default_story_cover', 0 );

@@ -141,7 +141,10 @@ if ( $splide ) {
 <section id="<?php echo $unique_id; ?>" class="scroll-margin-top article-card-block <?php echo esc_attr( $args['classes'] ); ?>" <?php echo implode( ' ', $attributes ); ?>>
   <?php
     if ( $args['splide'] === false ) {
-      echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+      echo
+        '<div class="shortcode-json-invalid">',
+        __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ),
+        '</div>';
     }
 
     if ( $splide ) {

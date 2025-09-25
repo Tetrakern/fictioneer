@@ -2491,7 +2491,12 @@ function fictioneer_render_icon_menu( $args ) {
   $output = apply_filters( 'fictioneer_filter_icon_menu_items', $output, $args );
 
   // Render
-  echo '<div class="icon-menu _' . $location . '" data-nosnippet>' . implode( '', $output ) . '</div>';
+  echo
+    '<div class="icon-menu _',
+    $location,
+    '" data-nosnippet>',
+    implode( '', $output ),
+    '</div>';
 }
 
 /**

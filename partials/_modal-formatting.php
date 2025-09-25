@@ -83,7 +83,12 @@ defined( 'ABSPATH' ) OR exit;
             $length = count( $fonts );
 
             for ( $i = 0; $i < $length; $i++ ) {
-              echo '<option value="' . $i . '">' . $fonts[ $i ]['name'] . '</option>';
+              echo
+                '<option value="',
+                $i,
+                '">',
+                $fonts[ $i ]['name'],
+                '</option>';
             }
           ?>
         </select>
@@ -101,7 +106,12 @@ defined( 'ABSPATH' ) OR exit;
             $length = count( $colors );
 
             for ( $i = 0; $i < $length; $i++ ) {
-              echo '<option value="' . $i . '">' . $colors[ $i ]['name'] . '</option>';
+              echo
+                '<option value="',
+                $i,
+                '">',
+                $colors[ $i ]['name'],
+                '</option>';
             }
           ?>
         </select>

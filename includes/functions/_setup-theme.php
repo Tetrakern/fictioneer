@@ -600,7 +600,7 @@ add_filter( 'wp_unique_post_slug', 'fictioneer_protect_reserved_post_slugs' );
 // =============================================================================
 
 /**
- * Fictioneer version of _custom_background_cb() for custom backgrounds
+ * Fictioneer version of _custom_background_cb() for custom backgrounds.
  *
  * @since 4.7.0
  * @link https://developer.wordpress.org/reference/functions/_custom_background_cb/
@@ -660,11 +660,15 @@ function fictioneer_custom_background() {
 
   $attachment = "background-attachment: {$attachment};";
 
-  // Build
-  $style = $image . $position . $size . $repeat . $attachment;
-
   // Output
-  echo '<style id="custom-background-css" type="text/css">.custom-background {' . trim( $style ) . '}</style>';
+  echo
+    '<style id="custom-background-css" type="text/css">.custom-background {',
+    $image,
+    $position,
+    $size,
+    $repeat,
+    $attachment,
+    '}</style>';
 }
 
 // =============================================================================
@@ -815,7 +819,11 @@ function fictioneer_root_attributes() {
 
   // Output
   foreach ( $output as $key => $value ) {
-    echo "{$key}='" . esc_attr( $value ) . "' ";
+    echo
+      $key,
+      "='",
+      esc_attr( $value ),
+      "' ";
   }
 }
 
@@ -1781,7 +1789,7 @@ if ( ! function_exists( 'fictioneer_output_critical_fonts' ) ) {
 // =============================================================================
 
 /**
- * Output HTML <head> meta
+ * Output HTML <head> meta.
  *
  * @since 5.0.0
  * @since 5.10.0 - Split up for font manager.
@@ -1798,7 +1806,7 @@ function fictioneer_output_head_meta() {
   <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <meta name="format-detection" content="telephone=no">
-  <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
+  <meta name="theme-color" content="<?php echo '#', get_background_color(); ?>">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <?php // <--- End HTML
 

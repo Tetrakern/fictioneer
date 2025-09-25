@@ -218,7 +218,10 @@ get_header();
 
             // Output pagination
             if ( $pag_args['total'] > 1 ) {
-              echo '<li class="pagination">' . fictioneer_paginate_links( $pag_args ) . '</li>';
+              echo
+                '<li class="pagination">',
+                fictioneer_paginate_links( $pag_args ),
+                '</li>';
             }
           ?>
         </ul>

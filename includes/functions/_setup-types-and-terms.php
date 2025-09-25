@@ -766,11 +766,17 @@ function fictioneer_add_chapter_story_filter_dropdown( $post_type ) {
   $selected = absint( $_GET['filter_story'] ?? 0 );
 
   // Open
-  echo '<select name="filter_story"><option value="">' . __( 'All Stories', 'fictioneer' ) . '</option>';
+  echo
+    '<select name="filter_story"><option value="">',
+    __( 'All Stories', 'fictioneer' ),
+    '</option>';
 
   // Note if there are too many stories
   if ( count( $posts ) >= 200 ) {
-    echo '<option value="" disabled>' . __( '200 MOST RECENTLY UPDATED', 'fictioneer' ) . '</option>';
+    echo
+      '<option value="" disabled>',
+      __( '200 MOST RECENTLY UPDATED', 'fictioneer' ),
+      '</option>';
   }
 
   // Items

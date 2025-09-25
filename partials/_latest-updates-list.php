@@ -154,7 +154,10 @@ if ( $splide ) {
 <section class="latest-updates _list <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
   <?php
     if ( $args['splide'] === false ) {
-      echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+      echo
+        '<div class="shortcode-json-invalid">',
+        __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ),
+        '</div>';
     }
 
     if ( $splide ) {

@@ -444,7 +444,7 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
 }
 
 /**
- * Returns HTML for a select meta field
+ * Return HTML for a select meta field.
  *
  * @since 5.7.4
  * @since 5.9.3 - Added 'query_var' argument.
@@ -509,7 +509,14 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
           $value = esc_attr( $value );
           $translation = esc_html( $translation );
 
-          echo "<option value='{$value}' " . selected( $selected, $value, false ) . ">{$translation}</option>";
+          echo
+            '<option value="',
+            $value,
+            '" ',
+            selected( $selected, $value, false ),
+            '>',
+            $translation,
+            '</option>';
         }
       ?></select>
     </div>
@@ -813,7 +820,12 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
 
       <select class="fictioneer-meta-field__select" autocomplete="off" data-target="fcn-meta-field-tokens-add"><?php
         foreach ( $options as $value => $translation ) {
-          echo '<option value="' . esc_attr( $value ) . '">' . esc_html( $translation ) . '</option>';
+          echo
+            '<option value="',
+            esc_attr( $value ),
+            '">',
+            esc_html( $translation ),
+            '</option>';
         }
       ?></select>
 
@@ -1111,8 +1123,14 @@ function fictioneer_relationship_post_type_select( $name, $args = [] ) {
 
   // HTML
   echo '<div class="fictioneer-meta-field fictioneer-meta-field--select"><div class="fictioneer-meta-field__wrapper">';
-  echo "<select data-target='{$name}' autocomplete='off'>";
-  echo '<option value="" selected>' . __( 'Select post type', 'fictioneer' ) . '</option>';
+  echo
+    '<select data-target="',
+    $name,
+    '" autocomplete="off">';
+  echo
+    '<option value="" selected>',
+    __( 'Select post type', 'fictioneer' ),
+    '</option>';
 
   foreach ( $post_types as $post_type ) {
     // Excluded?
@@ -1120,10 +1138,12 @@ function fictioneer_relationship_post_type_select( $name, $args = [] ) {
       continue;
     }
 
-    $label = esc_html( $post_type->labels->singular_name );
-    $value = esc_attr( $post_type->name );
-
-    echo "<option value='{$value}'>{$label}</option>";
+    echo
+      '<option value="',
+      esc_attr( $post_type->name ),
+      '">',
+      esc_html( $post_type->labels->singular_name ),
+      '</option>';
   }
 
   echo '</select></div></div>';

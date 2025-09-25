@@ -1696,7 +1696,10 @@ function fictioneer_shortcode_blog( $attr ) {
         wp_reset_postdata();
 
         if ( $blog_query->max_num_pages > 1 ) {
-          echo '<nav class="pagination">' . fictioneer_paginate_links( $pag_args ) . '</nav>';
+          echo
+            '<nav class="pagination">',
+            fictioneer_paginate_links( $pag_args ),
+            '</nav>';
         }
       ?>
     </section>
@@ -1934,7 +1937,10 @@ function fictioneer_shortcode_story_section( $attr ) {
   // Buffer
   ob_start();
 
-  echo '<div class="story-section-shortcode story _shortcode ' . esc_attr( $classes ) . '">';
+  echo
+    '<div class="story-section-shortcode story _shortcode ',
+    esc_attr( $classes ),
+    '">';
 
   if ( $show_tabs ) {
     fictioneer_story_tabs( $hook_args );

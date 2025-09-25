@@ -34,7 +34,10 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
     $name = empty( $comment->comment_author ) ? fcntr( 'anonymous_guest' ) : $comment->comment_author;
 
     if ( $type == 'private' ) {
-      echo '<div class="fictioneer-comment__hidden-notice">' . __( 'Comment has been marked as private.', 'fictioneer' ) . '</div>';
+      echo
+        '<div class="fictioneer-comment__hidden-notice">',
+        __( 'Comment has been marked as private.', 'fictioneer' ),
+        '</div>';
       return;
     }
 

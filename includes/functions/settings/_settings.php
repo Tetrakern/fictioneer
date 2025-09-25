@@ -577,7 +577,10 @@ function fictioneer_settings_page_assignment( $option, $label ) {
     )
   );
 
-  echo '<p class="fictioneer-sub-label">' . $label . '</p>';
+  echo
+    '<p class="fictioneer-sub-label">',
+    $label,
+    '</p>';
 }
 
 /**

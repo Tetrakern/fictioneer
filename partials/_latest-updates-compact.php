@@ -151,7 +151,10 @@ if ( $splide ) {
 <section class="small-card-block latest-updates <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
   <?php
     if ( $args['splide'] === false ) {
-      echo '<div class="shortcode-json-invalid">' . __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ) . '</div>';
+      echo
+        '<div class="shortcode-json-invalid">',
+        __( 'Splide JSON is invalid and has been ignored.', 'fictioneer' ),
+        '</div>';
     }
 
     if ( $splide ) {
@@ -352,7 +355,12 @@ if ( $splide ) {
                           $words = $args['words'] ? fictioneer_get_word_count( $chapter->ID ) : 0;
 
                           if ( $words ) {
-                            echo '<span class="words _words-' . $words . '">' . fictioneer_shorten_number( $words ) . '</span>';
+                            echo
+                              '<span class="words _words-',
+                              $words,
+                              '">',
+                              fictioneer_shorten_number( $words ),
+                              '</span>';
                           }
 
                           if ( $words && $args['date'] ) {
@@ -360,9 +368,12 @@ if ( $splide ) {
                           }
 
                           if ( $args['date'] ) {
-                            echo '<span class="date">' . get_the_date(
-                              $args['nested_date_format'] ?: FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID
-                            ) . '</span>';
+                            echo
+                              '<span class="date">',
+                              get_the_date(
+                                $args['nested_date_format'] ?: FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID
+                              ),
+                              '</span>';
                           }
                         ?>
                       </div>

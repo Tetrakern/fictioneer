@@ -51,7 +51,10 @@ $cover = fictioneer_get_seo_image( $story_id );
 header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
 
 // Echo XML version
-echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?>';
+echo
+  '<?xml version="1.0" encoding="',
+  get_option( 'blog_charset' ),
+  '"?>';
 
 // Fire default action
 do_action( 'rss_tag_pre', 'rss2' );
@@ -102,25 +105,37 @@ do_action( 'rss_tag_pre', 'rss2' );
     <?php
       if ( $story['fandoms'] ) {
         foreach ( $story['fandoms'] as $fandom ) {
-          echo '<category>' . $fandom->name . '</category>';
+          echo
+            '<category>',
+            $fandom->name,
+            '</category>';
         }
       }
 
       if ( $story['genres'] ) {
         foreach ( $story['genres'] as $genre ) {
-          echo '<category>' . $genre->name . '</category>';
+          echo
+            '<category>',
+            $genre->name,
+            '</category>';
         }
       }
 
       if ( $story['characters'] ) {
         foreach ( $story['characters'] as $character ) {
-          echo '<category>' . $character->name . '</category>';
+          echo
+            '<category>',
+            $character->name,
+            '</category>';
         }
       }
 
       if ( $story['tags'] ) {
         foreach ( $story['tags'] as $tag ) {
-          echo '<category>' . $tag->name . '</category>';
+          echo
+            '<category>',
+            $tag->name,
+            '</category>';
         }
       }
     ?>
@@ -193,25 +208,37 @@ do_action( 'rss_tag_pre', 'rss2' );
             <?php
               if ( $chapter_fandoms = get_the_terms( $post_id, 'fcn_fandom' ) ) {
                 foreach ( $chapter_fandoms as $fandom ) {
-                  echo '<category>' . $fandom->name . '</category>';
+                  echo
+                    '<category>',
+                    $fandom->name,
+                    '</category>';
                 }
               }
 
               if ( $chapter_genres = get_the_terms( $post_id, 'fcn_genre' ) ) {
                 foreach ( $chapter_genres as $genre ) {
-                  echo '<category>' . $genre->name . '</category>';
+                  echo
+                    '<category>',
+                    $genre->name,
+                    '</category>';
                 }
               }
 
               if ( $chapter_characters = get_the_terms( $post_id, 'fcn_character' ) ) {
                 foreach ( $chapter_characters as $character ) {
-                  echo '<category>' . $character->name . '</category>';
+                  echo
+                    '<category>',
+                    $character->name,
+                    '</category>';
                 }
               }
 
               if ( $chapter_tags = get_the_tags( $post_id ) ) {
                 foreach ( $chapter_tags as $tag ) {
-                  echo '<category>' . $tag->name . '</category>';
+                  echo
+                    '<category>',
+                    $tag->name,
+                    '</category>';
                 }
               }
 

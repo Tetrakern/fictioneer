@@ -967,7 +967,10 @@ function fictioneer_custom_profile_fields( $profile_user ) {
 
       // Display moderation message (if any)
       if ( ! empty( $moderation_message ) ) {
-        echo '<p>' . $moderation_message . '</p>';
+        echo
+          '<p>',
+          $moderation_message,
+          '</p>';
       }
 
       // Hook to show fields

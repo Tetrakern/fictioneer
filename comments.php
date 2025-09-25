@@ -93,7 +93,10 @@ if (
         }
       }
     } else {
-      echo '<div class="fictioneer-comments__disabled">' . __( 'Commenting is disabled.', 'fictioneer' ) . '</div>';
+      echo
+        '<div class="fictioneer-comments__disabled">',
+        __( 'Commenting is disabled.', 'fictioneer' ),
+        '</div>';
     }
 
     if ( $comments_count > 0 ) {

@@ -74,7 +74,10 @@ $cover = get_theme_mod( 'og_image' );
 header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
 
 // Echo XML version
-echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?>';
+echo
+  '<?xml version="1.0" encoding="',
+  get_option( 'blog_charset' ),
+  '"?>';
 
 // Fire default action
 do_action( 'rss_tag_pre', 'rss2' );
@@ -109,7 +112,10 @@ do_action( 'rss_tag_pre', 'rss2' );
         $cover_src = wp_get_attachment_image_src( $cover, 'full' );
 
         if ( $cover_src ) {
-          echo '<webfeeds:cover image="' . esc_url( $cover_src[0] ) . '" />';
+          echo
+            '<webfeeds:cover image="',
+            esc_url( $cover_src[0] ),
+            '" />';
         }
       }
     ?>
@@ -160,31 +166,46 @@ do_action( 'rss_tag_pre', 'rss2' );
 
             if ( $categories = wp_get_post_categories( $post_id ) ) {
               foreach ( $categories as $cat ) {
-                echo '<category>' . get_category( $cat )->name . '</category>';
+                echo
+                  '<category>',
+                  get_category( $cat )->name,
+                  '</category>';
               }
             }
 
             if ( $fandoms = get_the_terms( $post_id, 'fcn_fandom' ) ) {
               foreach ( $fandoms as $fandom ) {
-                echo '<category>' . $fandom->name . '</category>';
+                echo
+                  '<category>',
+                  $fandom->name,
+                  '</category>';
               }
             }
 
             if ( $genres = get_the_terms( $post_id, 'fcn_genre' ) ) {
               foreach ( $genres as $genre ) {
-                echo '<category>' . $genre->name . '</category>';
+                echo
+                  '<category>',
+                  $genre->name,
+                  '</category>';
               }
             }
 
             if ( $characters = get_the_terms( $post_id, 'fcn_character' ) ) {
               foreach ( $characters as $character ) {
-                echo '<category>' . $character->name . '</category>';
+                echo
+                  '<category>',
+                  $character->name,
+                  '</category>';
               }
             }
 
             if ( $tags = get_the_tags( $post_id ) ) {
               foreach ( $tags as $tag ) {
-                echo '<category>' . $tag->name . '</category>';
+                echo
+                  '<category>',
+                  $tag->name,
+                  '</category>';
               }
             }
 

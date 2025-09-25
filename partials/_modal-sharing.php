@@ -56,9 +56,13 @@ if ( ! get_option( 'fictioneer_disable_facebook_share' ) ) {
 
     <?php
       if ( ! empty( $output ) ) {
-        echo '<div class="modal__row media-buttons _modal">'
-          . implode( '', apply_filters( 'fictioneer_filter_sharing_modal_links', $output, $post_id, $story_link, urlencode( $title ) ) )
-          . '</div>';
+        echo
+          '<div class="modal__row media-buttons _modal">',
+          implode(
+            '',
+            apply_filters( 'fictioneer_filter_sharing_modal_links', $output, $post_id, $story_link, urlencode( $title ) )
+          ),
+          '</div>';
       }
     ?>
 
