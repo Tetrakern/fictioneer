@@ -130,8 +130,12 @@ $thumbnail_args = array(
 
             // Make sure there are no whitespaces in-between!
             if ( $list_title ) {
-              echo "<span class='cq-show-below-460'>{$list_title}</span>";
-              echo "<span class='cq-hide-below-460'>{$title}</span>";
+              echo
+                '<span class="cq-show-below-460">',
+                $list_title,
+                '</span><span class="cq-hide-below-460">',
+                $title,
+                '</span>';
             } else {
               echo $title;
             }
