@@ -451,7 +451,7 @@ function fictioneer_story_tabs( $args ) {
               continue;
             }
 
-            echo "<button class='tabs__item' data-fictioneer-story-target='tab' data-fictioneer-story-tab-name-param='tab-page-{$index}' data-action='click->fictioneer-story#toggleTab' data-target='tab-page-{$index}' tabindex='0'>{$page[1]}</button>";
+            echo '<button class="tabs__item" data-fictioneer-story-target="tab" data-fictioneer-story-tab-name-param="tab-page-', $index, '" data-action="click->fictioneer-story#toggleTab" data-target="tab-page-', $index, '" tabindex="0">', $page[1], '</button>';
 
             $index++;
 

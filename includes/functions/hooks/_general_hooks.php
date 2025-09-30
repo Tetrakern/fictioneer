@@ -255,23 +255,17 @@ function fictioneer_wide_header_identity( $args ) {
   }
 
   // Setup
+  $has_text = display_header_text();
   $title_tag = is_front_page() ? 'h1' : 'div';
-  $logo_tag = ( display_header_text() || ! is_front_page() ) ? 'div' : 'h1';
+  $logo_tag = ( $has_text || ! is_front_page() ) ? 'div' : 'h1';
 
   // Logo
   if ( has_custom_logo() ) {
-    echo
-      '<',
-      $logo_tag,
-      ' class="wide-header-logo">',
-      get_custom_logo(),
-      '</',
-      $logo_tag,
-      '>';
+    echo '<', $logo_tag, ' class="wide-header-logo">', get_custom_logo(), '</', $logo_tag, '>';
   }
 
   // Title and tagline (if any)
-  if ( ! display_header_text() ) {
+  if ( ! $has_text ) {
     return;
   }
 
@@ -280,13 +274,13 @@ function fictioneer_wide_header_identity( $args ) {
   $name = get_bloginfo( 'name' );
   $tagline = get_bloginfo( 'description' );
 
-  echo "<div class='wide-header-identity {$text_shadow}'><{$title_tag} class='wide-header-identity__title'><a href='{$url}' class='wide-header-identity__title-link' rel='home'>{$name}</{$title_tag}></a>";
+  echo '<div class="wide-header-identity ', $text_shadow, '"><', $title_tag, ' class="wide-header-identity__title"><a href="', $url, '" class="wide-header-identity__title-link" rel="home">', $name, '</a></', $title_tag, '>';
 
   if ( $tagline ) {
-    echo "<div class='wide-header-identity__tagline'>{$tagline}</div>";
+    echo '<div class="wide-header-identity__tagline">', $tagline, '</div>';
   }
 
-  echo "</div>";
+  echo '</div>';
 }
 add_action( 'fictioneer_navigation_wrapper_start', 'fictioneer_wide_header_identity' );
 
@@ -731,15 +725,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
     <?php if ( is_archive() && ! empty( $post_type_menu ) ) : ?>
       <div class="list-button _text popup-menu-toggle" tabindex="0" role="button" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><?php
         echo $post_type_menu[ $post_type ?? 'any' ]['label'] ?? __( 'Unknown', 'fictioneer' );
-        echo '<div class="popup-menu _bottom _center _fixed-position">';
-        echo
-          '<div class="popup-heading">',
-          __( 'Post Type', 'fictioneer' ),
-          '</div>';
+        echo '<div class="popup-menu _bottom _center _fixed-position"><div class="popup-heading">', __( 'Post Type', 'fictioneer' ), '</div>';
 
         foreach ( $post_type_menu as $tuple ) {
-          $url = esc_url( $tuple['url'] );
-          echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
+          echo '<a href="', esc_url( $tuple['url'] ), '" rel="nofollow">', $tuple['label'], '</a>';
         }
 
         echo '</div>';
@@ -749,15 +738,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
     <?php if ( ! empty( $orderby_menu ) ) : ?>
       <div class="list-button _text popup-menu-toggle" tabindex="0" role="button" data-fictioneer-last-click-target="toggle" data-action="click->fictioneer-last-click#toggle"><?php
         echo $orderby_menu[ $args['orderby'] ]['label'] ?? __( 'Custom', 'fictioneer' );
-        echo '<div class="popup-menu _bottom _center _fixed-position">';
-        echo
-          '<div class="popup-heading">',
-          __( 'Order By', 'fictioneer' ),
-          '</div>';
+        echo '<div class="popup-menu _bottom _center _fixed-position"><div class="popup-heading">', __( 'Order By', 'fictioneer' ), '</div>';
 
         foreach ( $orderby_menu as $tuple ) {
-          $url = esc_url( $tuple['url'] );
-          echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
+          echo '<a href="', esc_url( $tuple['url'] ), '" rel="nofollow">', $tuple['label'], '</a>';
         }
 
         echo '</div>';
@@ -776,15 +760,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
           echo $date_menu[ $key ]['label'];
         }
 
-        echo '<div class="popup-menu _bottom _center _fixed-position">';
-        echo
-          '<div class="popup-heading">',
-          __( 'Time Range', 'fictioneer' ),
-          '</div>';
+        echo '<div class="popup-menu _bottom _center _fixed-position"><div class="popup-heading">', __( 'Time Range', 'fictioneer' ), '</div>';
 
         foreach ( $date_menu as $tuple ) {
-          $url = esc_url( $tuple['url'] );
-          echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
+          echo '<a href="', esc_url( $tuple['url'] ), '" rel="nofollow">', $tuple['label'], '</a>';
         }
 
         echo '</div>';
