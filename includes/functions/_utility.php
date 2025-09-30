@@ -28,7 +28,7 @@ function fictioneer_is_local_environment() {
 
 if ( ! function_exists( 'fictioneer_url_exists' ) ) {
   /**
-   * Checks whether an URL exists
+   * Check whether an URL exists.
    *
    * @since 4.0.0
    * @link https://www.geeksforgeeks.org/how-to-check-the-existence-of-url-in-php/
@@ -61,7 +61,7 @@ if ( ! function_exists( 'fictioneer_url_exists' ) ) {
 // =============================================================================
 
 /**
- * Check whether a JSON is valid
+ * Check whether a JSON is valid.
  *
  * @since 4.0.0
  * @since 5.21.1 - Use json_validate() if on PHP 8.3 or higher.
@@ -91,7 +91,7 @@ function fictioneer_is_valid_json( $data = null ) {
 // =============================================================================
 
 /**
- * Checks whether a plugin is active for the entire network
+ * Check whether a plugin is active for the entire network.
  *
  * @since 5.20.2
  * @link https://developer.wordpress.org/reference/functions/is_plugin_active_for_network/
@@ -133,7 +133,7 @@ function fictioneer_is_plugin_active( $path ) {
 
 if ( ! function_exists( 'fictioneer_seo_plugin_active' ) ) {
   /**
-   * Checks whether any SEO plugin known to the theme is active
+   * Check whether any SEO plugin known to the theme is active.
    *
    * The theme's SEO features are inherently incompatible with SEO plugins, which
    * may be more sophisticated but do not understand the theme's content structure.
@@ -158,7 +158,7 @@ if ( ! function_exists( 'fictioneer_seo_plugin_active' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_user_by_id_or_email' ) ) {
   /**
-   * Get user by ID or email
+   * Get user by ID or email.
    *
    * @since 4.6.0
    *
@@ -192,7 +192,7 @@ if ( ! function_exists( 'fictioneer_get_user_by_id_or_email' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
   /**
-   * Get Unix timestamp for last story or chapter update
+   * Get Unix timestamp for last story or chapter update.
    *
    * @since 5.0.0
    *
@@ -216,7 +216,7 @@ if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
 // =============================================================================
 
 /**
- * Returns array of chapter posts for a story
+ * Return array of chapter posts for a story.
  *
  * @since 5.9.2
  * @since 5.22.3 - Refactored.
@@ -295,7 +295,7 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
 // =============================================================================
 
 /**
- * Groups and prepares chapters for a specific story
+ * Group and prepares chapters for a specific story.
  *
  * Note: If chapter groups are disabled, all chapters will be
  * within the 'all_chapters' group.
@@ -378,7 +378,7 @@ function fictioneer_prepare_chapter_groups( $story_id, $chapters ) {
 
 if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
   /**
-   * Get collection of a story's data
+   * Get collection of a story's data.
    *
    * @since 4.3.0
    * @since 5.25.0 - Refactored with custom SQL query.
@@ -406,7 +406,11 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       $meta_cache = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
     }
 
-    if ( $meta_cache && ( $meta_cache['last_modified'] ?? 0 ) >= get_the_modified_time( 'U', $story_id ) ) {
+    $now = time();
+    $last_modified = strtotime( get_post_field( 'post_modified_gmt', $story_id, 'raw' )
+      ?: get_post_field( 'post_modified', $story_id, 'raw' ) );
+
+    if ( $meta_cache && ( $meta_cache['last_modified'] ?? 0 ) >= $last_modified ) {
       // Return cached data without refreshing the comment count
       if ( ! $show_comments ) {
         return $meta_cache;
@@ -414,7 +418,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
       // Time to refresh comment count?
       $comment_count_delay = ( $meta_cache['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
-      $refresh_comments = $comment_count_delay < time() || ( $args['refresh_comment_count'] ?? 0 );
+      $refresh_comments = $comment_count_delay < $now || ( $args['refresh_comment_count'] ?? 0 );
 
       // Refresh comment count
       if ( $refresh_comments ) {
@@ -426,7 +430,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         }
 
         $meta_cache['comment_count'] = $comment_count;
-        $meta_cache['comment_count_timestamp'] = time();
+        $meta_cache['comment_count_timestamp'] = $now;
 
         // Update post database comment count
         $story_comment_count = get_approved_comments( $story_id, array( 'count' => true ) ) ?: 0;
@@ -485,12 +489,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
     if ( ! empty( $chapter_ids ) ) {
       $chapter_ids_placeholder = implode( ',', array_fill( 0, count( $chapter_ids ), '%d' ) );
-
-      $status_list = array_map( function( $status ) use ( $wpdb ) {
-        return $wpdb->prepare( '%s', $status );
-      }, $queried_statuses );
-
-      $status_list = implode( ',', $status_list );
+      $status_placeholders = implode( ',', array_fill( 0, count( $queried_statuses ), '%s' ) );
 
       $query = $wpdb->prepare(
         "SELECT
@@ -503,19 +502,20 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         FROM {$wpdb->posts} c
         LEFT JOIN {$wpdb->postmeta} pm ON pm.post_id = c.ID
         WHERE c.ID IN ($chapter_ids_placeholder)
-          AND c.post_status IN ($status_list)
+          AND c.post_status IN ($status_placeholders)
         GROUP BY c.ID",
-        ...$chapter_ids // WHERE clause
+        ...$chapter_ids, // WHERE clause
+        ...$queried_statuses // WHERE clause
       );
 
       $query = apply_filters( 'fictioneer_filter_get_story_data_sql', $query, $story_id, $chapter_ids, $queried_statuses );
 
       $chapters = $wpdb->get_results( $query );
 
-      usort( $chapters, function( $a, $b ) use ( $chapter_ids ) {
-        $position_a = array_search( $a->chapter_id, $chapter_ids );
-        $position_b = array_search( $b->chapter_id, $chapter_ids );
-        return $position_a - $position_b;
+      $chapter_positions = array_flip( $chapter_ids );
+
+      usort( $chapters, function( $a, $b ) use ( $chapter_positions ) {
+        return $chapter_positions[ $a->chapter_id ] - $chapter_positions[ $b->chapter_id ];
       });
     }
 
@@ -524,7 +524,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         // Do not count non-chapters...
         if ( empty( $chapter->is_no_chapter ) ) {
           $chapter_count++;
-          $word_count += intval( $chapter->word_count );
+          $word_count += (int) $chapter->word_count;
         }
 
         // ... but they are still listed!
@@ -537,11 +537,11 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       }
 
       // Count ALL comments
-      $comment_count += intval( $chapter->comment_count );
+      $comment_count += (int) $chapter->comment_count;
     }
 
     // Add story word count
-    $word_count += get_post_meta( $story_id, '_word_count', true );
+    $word_count += (int) get_post_meta( $story_id, '_word_count', true );
 
     // Customize word count
     $modified_word_count = fictioneer_multiply_word_count( $word_count );
@@ -568,9 +568,9 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'rating_letter' => $rating[0],
       'chapter_ids' => $visible_chapter_ids,
       'indexed_chapter_ids' => $indexed_chapter_ids,
-      'last_modified' => get_the_modified_time( 'U', $story_id ),
+      'last_modified' => $last_modified,
       'comment_count' => $comment_count,
-      'comment_count_timestamp' => time(),
+      'comment_count_timestamp' => $now,
       'redirect' => get_post_meta( $story_id, 'fictioneer_story_redirect_link', true )
     );
 
