@@ -249,7 +249,14 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    */
 
   function fictioneer_get_icon( $icon, $classes = '', $id = '', $inserts = '' ) {
-    return '<svg id="' . $id . '" ' . $inserts . ' class="icon _' . $icon . ' ' . $classes . '">' . '<use xlink:href="' . esc_url( home_url( '/wp-content/themes/fictioneer/img/icon-sprite.svg?ver=' . fictioneer_get_cache_bust() . '#icon-' . $icon ) ) . '"></use></svg>';
+    static $base_url = null;
+
+    if ( $base_url === null ) {
+      $base_url = trailingslashit( get_stylesheet_directory_uri() )
+        . 'img/icon-sprite.svg?ver=' . fictioneer_get_cache_bust() . '#icon-';
+    }
+
+    return '<svg id="' . $id . '" ' . $inserts . ' class="icon _' . $icon . ' ' . $classes . '">' . '<use xlink:href="' . esc_url( $base_url . $icon ) . '"></use></svg>';
   }
 }
 
