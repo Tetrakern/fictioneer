@@ -267,7 +267,7 @@ if ( $show_advanced ) {
             }
 
             // Open wrapper
-            echo "<span class='search-form__current-{$quad[2]}'>";
+            echo '<span class="search-form__current-', $quad[2], '">';
 
             // AND/OR?
             $and = ( $_GET[ $quad[3] ] ?? 0 ) === '1' ? $ts_and : '';

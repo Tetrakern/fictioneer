@@ -61,10 +61,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
                 continue;
               }
 
-              $name = $term->name;
-              $value = rawurlencode( $term->term_id );
-
-              echo "<span class='node' data-value='{$value}'><span class='node-name'>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
+              echo '<span class="node" data-value="', rawurlencode( $term->term_id ), '"><span class="node-name">', $term->name, '</span><span class="node-delete">', $x_mark, '</span></span>';
             }
           }
         ?>
@@ -75,11 +72,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
       </label>
       <div class="keyword-input__hints"><?php
         foreach ( $examples as $key ) {
-          $name = $taxonomies[ $key ]->name;
-          $value = rawurlencode( $taxonomies[ $key ]->term_id );
-          $description = esc_attr( $taxonomies[ $key ]->description );
-
-          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}' title='{$description}'>{$name}</button>";
+          echo '<button type="button" value="', rawurlencode( $taxonomies[ $key ]->term_id ), '" class="keyword-input__suggestion keyword-button _', $singular, '" title="', esc_attr( $taxonomies[ $key ]->description ), '">', $taxonomies[ $key ]->name, '</button>';
         }
       ?></div>
       <div class="keyword-input__no-suggestions" hidden><?php
@@ -90,11 +83,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
       ?></div>
       <div class="keyword-input__suggestion-list"><?php
         foreach ( $taxonomies as $term ) {
-          $name = $term->name;
-          $value = rawurlencode( $term->term_id );
-          $description = esc_attr( $term->description );
-
-          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}' title='{$description}' hidden>{$name}</button>";
+          echo '<button type="button" value="', rawurlencode( $term->term_id ), '" class="keyword-input__suggestion keyword-button _', $singular, '" title="', esc_attr( $term->description ), '" hidden>', $term->name, '</button>';
         }
       ?></div>
     </div>
@@ -139,10 +128,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
                 continue;
               }
 
-              $name = $author->display_name;
-              $value = rawurlencode( $author->ID );
-
-              echo "<span class='node' data-value='{$value}'><span class='node-name'>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
+              echo '<span class="node" data-value="', rawurlencode( $author->ID ), '"><span class="node-name">', $author->display_name, '</span><span class="node-delete">', $x_mark, '</span></span>';
             }
           }
         ?>
@@ -153,10 +139,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
       </label>
       <div class="keyword-input__hints"><?php
         foreach ( $examples as $key ) {
-          $name = $authors[ $key ]->display_name;
-          $value = rawurlencode( $authors[ $key ]->ID );
-
-          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}'>{$name}</button>";
+          echo '<button type="button" value="', rawurlencode( $authors[ $key ]->ID ), '" class="keyword-input__suggestion keyword-button _', $singular, '">', $authors[ $key ]->display_name, '</button>';
         }
       ?></div>
       <div class="keyword-input__no-suggestions" hidden><?php
@@ -167,10 +150,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
       ?></div>
       <div class="keyword-input__suggestion-list"><?php
         foreach ( $authors as $author ) {
-          $name = $author->display_name;
-          $value = rawurlencode( $author->ID );
-
-          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}' hidden>{$name}</button>";
+          echo '<button type="button" value="', rawurlencode( $author->ID ), '" class="keyword-input__suggestion keyword-button _', $singular, '" hidden>', $author->display_name, '</button>';
         }
       ?></div>
     </div>
