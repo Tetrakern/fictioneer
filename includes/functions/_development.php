@@ -17,7 +17,7 @@ function fictioneer_start_micro_time() {
 }
 
 /**
- * Write elapses microtime to log.
+ * Write elapsed microtime to log.
  *
  * @since 5.26.0
  */
