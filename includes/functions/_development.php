@@ -23,11 +23,13 @@ function fictioneer_start_micro_time() {
  */
 
 function fictioneer_log_micro_time( $context = '' ) {
+  $end_time = microtime( 1 );
+
   global $fictioneer_start_time;
 
   if ( $fictioneer_start_time ) {
     $prefix = $context ? "({$context}) Duration: " : 'Duration: ';
-    error_log( $prefix . sprintf( '%.10f µs', ( microtime( 1 ) - $fictioneer_start_time ) * 1_000_000 ) );
+    error_log( $prefix . sprintf( '%.10f µs', ( $end_time - $fictioneer_start_time ) * 1_000_000 ) );
   }
 
   $fictioneer_start_time = null;
