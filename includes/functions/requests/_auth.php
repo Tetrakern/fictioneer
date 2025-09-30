@@ -349,7 +349,7 @@ function fictioneer_get_alerts( $args = [] ) {
     $user_where = ['users IS NULL'];
 
     foreach ( $args['user_ids'] as $user_id ) {
-      $user_id = max( intval( $user_id ), 0 );
+      $user_id = max( (int) $user_id, 0 );
 
       if ( $user_id > 0 ) {
         $has_filters = true;

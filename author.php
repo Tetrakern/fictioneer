@@ -236,7 +236,7 @@ get_header();
 </main>
 
 <?php
-  $author_index_url = intval( get_option( 'fictioneer_404_page', -1 ) ?: -1 );
+  $author_index_url = (int) ( get_option( 'fictioneer_404_page', -1 ) ?: -1 );
   $author_slug = sprintf(
     _x( 'Author: %s', 'Author page no-index breadcrumb.', 'fictioneer' ),
     $author->display_name
@@ -253,7 +253,7 @@ get_header();
   );
 
   // Add author index breadcrumb (if set)
-  $author_index_page_id = intval( get_option( 'fictioneer_authors_page', -1 ) ?: -1 );
+  $author_index_page_id = (int) ( get_option( 'fictioneer_authors_page', -1 ) ?: -1 );
 
   if ( $author_index_page_id > 0 ) {
     $index_page_title = trim( get_the_title( $author_index_page_id ) );

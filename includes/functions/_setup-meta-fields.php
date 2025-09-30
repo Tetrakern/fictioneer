@@ -5227,7 +5227,7 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
 
   // Update story ID
   if ( $story_id !== '' ) {
-    $story_id = intval( $story_id );
+    $story_id = (int) $story_id;
     $story_author_id = (int) get_post_field( 'post_author', $story_id );
 
     if ( $user_is_editor || $story_author_id === $user_id ) {
@@ -5242,7 +5242,7 @@ function fictioneer_save_chapter_bulk_edit( $updated_post_ids, $shared_post_data
     $updated_stories = [];
 
     foreach ( $updated_post_ids as $chapter_id ) {
-      $current_story_id = intval( fictioneer_get_chapter_story_id( $chapter_id ) );
+      $current_story_id = (int) fictioneer_get_chapter_story_id( $chapter_id );
 
       if ( ! $current_story_id ) {
         continue;
@@ -5279,7 +5279,7 @@ function fictioneer_bulk_edit_chapter_story( $chapter_ids, $story_id, $author_ma
 
   // Unset old story
   foreach ( $allowed_chapter_ids as $chapter_id ) {
-    $current_story_id = intval( fictioneer_get_chapter_story_id( $chapter_id ) );
+    $current_story_id = (int) fictioneer_get_chapter_story_id( $chapter_id );
 
     if ( ! $current_story_id || $current_story_id === $story_id ) {
       continue;

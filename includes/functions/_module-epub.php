@@ -1086,7 +1086,7 @@ function fictioneer_generate_epub() {
   // Build list of authors
   if ( is_array( $co_authors ) && ! empty( $co_authors ) ) {
     foreach ( $co_authors as $co_author_id ) {
-      $co_author_name = get_the_author_meta( 'display_name', intval( $co_author_id ) );
+      $co_author_name = get_the_author_meta( 'display_name', (int) $co_author_id );
 
       if ( ! empty( $co_author_name ) && $co_author_name != $author ) {
         $all_authors[] = $co_author_name;

@@ -1636,7 +1636,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
     $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
     $discord_link = get_option( 'fictioneer_discord_invite_link' );
     $profile_link = get_edit_profile_url( 0 ); // Make sure this is always the default link
-    $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
+    $profile_page_id = (int) ( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
     $output = [];
 
     if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
@@ -2392,7 +2392,7 @@ function fictioneer_render_icon_menu( $args ) {
   $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
   $discord_invite_link = get_option( 'fictioneer_discord_invite_link' );
   $profile_link = get_edit_profile_url();
-  $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
+  $profile_page_id = (int) ( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
 
   if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
     $profile_link = fictioneer_get_assigned_page_link( 'fictioneer_user_profile_page' );

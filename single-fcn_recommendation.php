@@ -90,7 +90,7 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
   );
 
   // Add recommendations list breadcrumb (if set)
-  $rec_page_id = intval( get_option( 'fictioneer_recommendations_page', -1 ) ?: -1 );
+  $rec_page_id = (int) ( get_option( 'fictioneer_recommendations_page', -1 ) ?: -1 );
 
   if ( $rec_page_id > 0 ) {
     $rec_page_title = trim( get_the_title( $rec_page_id ) );
@@ -107,4 +107,3 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
 
   // Get footer with breadcrumbs
   get_footer( null, $footer_args );
-?>

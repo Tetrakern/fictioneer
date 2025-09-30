@@ -261,8 +261,8 @@ function fictioneer_ajax_recount_words() {
   }
 
   // Setup
-  $page = intval( $_REQUEST['index'] ?? 0 );
-  $max_pages = intval( $_REQUEST['goal'] ?? null );
+  $page = (int) ( $_REQUEST['index'] ?? 0 );
+  $max_pages = (int) ( $_REQUEST['goal'] ?? null );
   $posts_per_page = 50;
   $done = false;
 

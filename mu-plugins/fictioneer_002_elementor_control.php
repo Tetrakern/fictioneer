@@ -30,7 +30,7 @@ function fictioneer_mu_002_get_post_id() {
   // Look for ID...
   if ( preg_match( '/\/(\d+)/', $current_url_path, $matches ) ) {
     // Numeric ID in URL (lucky)
-    return intval( $matches[1] );
+    return (int) $matches[1];
   } else {
     // Look for page name
     $path_parts = explode( '/', trim( $current_url_path, '/' ) );

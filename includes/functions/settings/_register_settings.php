@@ -1375,7 +1375,9 @@ function fictioneer_sanitize_integer_one_up( $input ) {
  */
 
 function fictioneer_sanitize_page_id( $input ) {
-  return get_post_type( intval( $input ) ) == 'page' ? intval( $input ) : -1;
+  $id = (int) $input;
+
+  return get_post_type( $id ) === 'page' ? $id : -1;
 }
 
 /**

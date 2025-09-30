@@ -392,7 +392,7 @@ function fictioneer_get_alerts( $args = [] ) {
     foreach ( $args['user_ids'] as $user_id ) {
       $user_id = sanitize_key( $user_id );
 
-      if ( intval( $user_id ) > 0 ) {
+      if ( (int) $user_id > 0 ) {
         $has_filters = true;
         $user_where[] = 'users LIKE %s';
         $filtered_params[] = '%"' . $wpdb->esc_like( $user_id ) . '";%';

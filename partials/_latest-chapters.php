@@ -318,7 +318,7 @@ if ( $splide ) {
 
                       $excerpt = fictioneer_get_forced_excerpt( $post );
                       $spoiler_note = str_repeat(
-                        _x( '&#183; ', 'Spoiler obfuscation character.', 'fictioneer' ), intval( mb_strlen( $excerpt ) )
+                        _x( '&#183; ', 'Spoiler obfuscation character.', 'fictioneer' ), (int) mb_strlen( $excerpt )
                       );
                       $spoiler_note = apply_filters( 'fictioneer_filter_obfuscation_string', $spoiler_note, $post );
                     ?>

@@ -20,7 +20,7 @@ function fictioneer_ajax_get_comment_form() {
   }
 
   // Validations
-  if ( empty( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
+  if ( empty( $_GET['post_id'] ) || (int) $_GET['post_id'] < 1 ) {
     wp_send_json_error( array( 'error' => 'Missing or invalid ID. Comment form could not be loaded.' ) );
   }
 
@@ -70,7 +70,7 @@ function fictioneer_ajax_get_comment_section() {
   }
 
   // Validations
-  if ( ! isset( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
+  if ( ! isset( $_GET['post_id'] ) || (int) $_GET['post_id'] < 1 ) {
     wp_send_json_error( array( 'error' => 'Missing or invalid ID. Comments could not be loaded.' ) );
   }
 
@@ -237,7 +237,7 @@ function fictioneer_ajax_submit_comment() {
   }
 
   // Validations
-  if ( intval( $_POST['comment_post_ID'] ?? 0 ) < 1 || ! isset( $_POST['content'] ) ) {
+  if ( (int) ( $_POST['comment_post_ID'] ?? 0 ) < 1 || ! isset( $_POST['content'] ) ) {
     wp_send_json_error( array( 'error' => 'Comment did not pass validation.' ) );
   }
 
@@ -250,7 +250,7 @@ function fictioneer_ajax_submit_comment() {
   $privacy_consent = filter_var( $_POST['fictioneer-privacy-policy-consent'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $cookie_consent = filter_var( $_POST['wp-comment-cookies-consent'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $unfiltered_html = sanitize_text_field( $_POST['_wp_unfiltered_html_comment_disabled'] ?? '' );
-  $depth = max( intval( $_POST['depth'] ?? 1 ), 1 );
+  $depth = max( (int) ( $_POST['depth'] ?? 1 ), 1 );
   $commentcode = false;
 
   // Abort if post not found
@@ -295,7 +295,7 @@ function fictioneer_ajax_submit_comment() {
     $comment_data['author'] = sanitize_text_field( $_POST['author'] );
   }
 
-  if ( intval( $_POST['comment_parent'] ?? 0 ) > 0 ) {
+  if ( (int) ( $_POST['comment_parent'] ?? 0 ) > 0 ) {
     $comment_data['comment_parent'] = absint( $_POST['comment_parent'] );
   }
 
@@ -488,7 +488,7 @@ function fictioneer_ajax_edit_comment() {
   // Check if comment can (still) be edited...
   $timestamp = strtotime( "{$comment['comment_date_gmt']} GMT" );
   $edit_time = get_option( 'fictioneer_user_comment_edit_time', 15 );
-  $edit_time = empty( $edit_time ) ? -1 : intval( $edit_time ) * 60; // Minutes to seconds
+  $edit_time = empty( $edit_time ) ? -1 : ( (int) $edit_time * 60 ); // Minutes to seconds
   $can_edit = $edit_time < 0 || time() < $edit_time + $timestamp;
 
   if ( ! $can_edit ) {
@@ -571,7 +571,7 @@ function fictioneer_ajax_delete_my_comment() {
   }
 
   // Setup
-  $comment_id = isset( $_POST['comment_id'] ) ? intval( $_POST['comment_id'] ) : false;
+  $comment_id = (int) ( $_POST['comment_id'] ?? 0 );
   $user = fictioneer_get_validated_ajax_user();
 
   // Validations

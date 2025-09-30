@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $show_empty = isset( $args['show_empty'] ) && $args['show_empty'];
-$count = isset( $args['count'] ) ? intval( $args['count'] ) : -1;
+$count = (int) ( $args['count'] ?? -1 );
 
 fictioneer_get_cached_partial( 'partials/_template_bookmark', '', null, null, $args );
 

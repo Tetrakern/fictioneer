@@ -140,7 +140,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
   );
 
   // Add recommendation list breadcrumb (if set)
-  $collections_page_id = intval( get_option( 'fictioneer_collections_page', -1 ) ?: -1 );
+  $collections_page_id = (int) ( get_option( 'fictioneer_collections_page', -1 ) ?: -1 );
 
   if ( $collections_page_id > 0 ) {
     $collections_page_title = trim( get_the_title( $collections_page_id ) );
@@ -157,4 +157,3 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
   // Get footer with breadcrumbs
   get_footer( null, $footer_args );
-?>

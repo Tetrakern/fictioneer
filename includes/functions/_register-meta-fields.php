@@ -226,7 +226,7 @@ function fictioneer_register_general_meta_fields() {
 
           $title = sanitize_text_field( $meta_value['title'] ?? '' );
           $description = sanitize_text_field( $meta_value['description'] ?? '' );
-          $og_image = max( intval( $meta_value['og_image'] ?? 0 ), 0 );
+          $og_image = max( (int) ( $meta_value['og_image'] ?? 0 ), 0 );
 
           if ( ! $title && ! $description && ! $og_image ) {
             return [];
@@ -812,7 +812,7 @@ function fictioneer_register_story_meta_fields() {
             }
 
             $label = sanitize_text_field( $slide['label'] ?? '' );
-            $image_id = max( intval( $slide['image_id'] ?? 0 ), 0 );
+            $image_id = max( (int) ( $slide['image_id'] ?? 0 ), 0 );
 
             $groups = $slide['groups'] ?? [];
             $groups = is_array( $groups ) ? $groups : [];
@@ -1891,7 +1891,7 @@ function fictioneer_register_page_meta_fields() {
           return 0;
         }
 
-        return max( intval( $meta_value ), 0 );
+        return max( (int) $meta_value, 0 );
       }
     )
   );
@@ -1915,7 +1915,7 @@ function fictioneer_register_page_meta_fields() {
           return 0;
         }
 
-        return max( intval( $meta_value ), 0 );
+        return max( (int) $meta_value, 0 );
       }
     )
   );

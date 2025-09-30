@@ -718,7 +718,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
 
       // Apply filters and sum word count
       if ( ! $is_hidden && ! $is_chapter_hidden && ! $is_non_chapter ) {
-        $word_count += fictioneer_get_word_count( $post_id, max( 0, intval( $post['word_count'] ) ) );
+        $word_count += fictioneer_get_word_count( $post_id, max( 0, (int) $post['word_count'] ) );
       }
     }
 
@@ -896,7 +896,7 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
    */
 
   function fictioneer_shorten_number( $number, $precision = 1 ) {
-    $number = intval( $number );
+    $number = (int) $number;
 
     // The letters are prefixed by a HAIR SPACE (&hairsp;)
     if ( $number < 1000 ) {
@@ -938,7 +938,7 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
    */
 
   function fictioneer_validate_id( $id, $for_type = [] ) {
-    $safe_id = intval( $id );
+    $safe_id = (int) $id;
     $types = is_array( $for_type ) ? $for_type : [ $for_type ];
 
     if ( empty( $safe_id ) || $safe_id < 0 ) {
@@ -1296,7 +1296,7 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
   function fictioneer_get_word_count( $post_id = null, $word_count = null ) {
     // Get word count
     $words = $word_count ?? get_post_meta( $post_id ?? get_the_ID(), '_word_count', true ) ?: 0;
-    $words = max( 0, intval( $words ) );
+    $words = max( 0, (int) $words );
 
     // Filter
     $words = apply_filters( 'fictioneer_filter_word_count', $words, $post_id );
@@ -1323,7 +1323,7 @@ if ( ! function_exists( 'fictioneer_get_story_word_count' ) ) {
   function fictioneer_get_story_word_count( $post_id = null, $word_count = null ) {
     // Get word count
     $words = $word_count ?? get_post_meta( $post_id, 'fictioneer_story_total_word_count', true ) ?: 0;
-    $words = max( 0, intval( $words ) );
+    $words = max( 0, (int) $words );
 
     // Filter
     $words = apply_filters( 'fictioneer_filter_story_word_count', $words, $post_id );
@@ -1350,7 +1350,7 @@ if ( ! function_exists( 'fictioneer_multiply_word_count' ) ) {
 
     // Multiply
     if ( $multiplier !== 1.0 ) {
-      $words = intval( $words * $multiplier );
+      $words = (int) ( $words * $multiplier );
     }
 
     // Always return an integer greater or equal 0
@@ -2185,7 +2185,7 @@ function fictioneer_get_split_aspect_ratio( $css ) {
  */
 
 function fictioneer_sanitize_image_id( $id ) {
-  $id = max( 0, intval( $id ) );
+  $id = max( 0, (int) $id );
 
   return wp_get_attachment_url( $id ) ? $id : 0;
 }

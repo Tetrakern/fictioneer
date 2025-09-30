@@ -1000,7 +1000,7 @@ function fictioneer_rest_capture_post_id( $response, $handler, $request ) {
   $post_id = $request->get_param( 'id' ) ?? $request->get_param( 'post' ) ?? 0;
 
   if ( $post_id && is_numeric( $post_id ) ) {
-    $GLOBALS['fictioneer_current_rest_post_id'] = intval( $post_id );
+    $GLOBALS['fictioneer_current_rest_post_id'] = (int) $post_id;
   } else {
     $GLOBALS['fictioneer_current_rest_post_id'] = 0;
   }

@@ -475,7 +475,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     fictioneer_purge_post_cache( $post_id );
 
     // Purge front page (if any)
-    $font_page_id = intval( get_option( 'page_on_front' ) ?: -1 );
+    $font_page_id = (int) ( get_option( 'page_on_front' ) ?: -1 );
 
     if ( $font_page_id != $post_id && $font_page_id > 0 ) {
       fictioneer_purge_post_cache( $font_page_id );

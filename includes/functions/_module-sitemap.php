@@ -43,7 +43,7 @@ function fictioneer_serve_paginated_sitemap() {
     exit;
   }
 
-  $page = intval( $page_raw );
+  $page = (int) $page_raw;
 
   if ( $page > 0 ) {
     $total = fictioneer_get_sitemap_total_pages();

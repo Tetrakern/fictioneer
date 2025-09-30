@@ -128,7 +128,7 @@ get_header(
   );
 
   // Add stories list breadcrumb (if set)
-  $stories_page_id = intval( get_option( 'fictioneer_stories_page', -1 ) ?: -1 );
+  $stories_page_id = (int) ( get_option( 'fictioneer_stories_page', -1 ) ?: -1 );
 
   if ( $stories_page_id > 0 ) {
     $stories_page_title = trim( get_the_title( $stories_page_id ) );
@@ -145,4 +145,3 @@ get_header(
 
   // Get footer with breadcrumbs
   get_footer( null, $footer_args );
-?>

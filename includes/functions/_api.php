@@ -106,10 +106,10 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['description'] = strip_shortcodes( $description );
 
     // Meta
-    $node['words'] = intval( $data['word_count'] );
+    $node['words'] = (int) $data['word_count'];
     $node['ageRating'] = $data['rating'];
     $node['status'] = $data['status'];
-    $node['chapterCount'] = intval( $data['chapter_count'] );
+    $node['chapterCount'] = (int) $data['chapter_count'];
     $node['published'] = get_post_time( 'U', true, $story_id );
     $node['modified'] = get_post_modified_time( 'U', true, $story_id );
     $node['protected'] = $story_post->post_password ? true : false;
@@ -195,7 +195,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         // ... each row contains the post data
         if ( ! isset( $chapters[ $row->ID ] ) ) {
           $chapters[ $row->ID ] = array(
-            'id' => intval( $row->ID ),
+            'id' => (int) $row->ID,
             'guid' => $row->guid,
             'url' => get_permalink( $row->ID ),
             'title' => $row->post_title,
@@ -265,7 +265,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
             $chapters[ $row->ID ]['nonChapter'] = ! empty( $meta_value );
             break;
           case '_word_count':
-            $chapters[ $row->ID ]['words'] = fictioneer_get_word_count( $row->ID, intval( $meta_value ) );
+            $chapters[ $row->ID ]['words'] = fictioneer_get_word_count( $row->ID, (int) $meta_value );
             break;
           case 'fictioneer_chapter_co_authors':
             $co_author_ids = maybe_unserialize( $meta_value );
@@ -503,7 +503,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     $graph['url'] = get_home_url( null, '', 'rest' );
     $graph['language'] = get_bloginfo( 'language' );
     $graph['storyCount'] = $query->found_posts;
-    $graph['chapterCount'] = intval( wp_count_posts( 'fcn_chapter' )->publish );
+    $graph['chapterCount'] = (int) wp_count_posts( 'fcn_chapter' )->publish;
 
     // Stories
     if ( ! empty( $stories ) ) {
@@ -528,10 +528,8 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
       }
     }
 
-    $graph['lastModifiedStory'] = intval(
-      $wpdb->get_var(
-        "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' ORDER BY post_modified DESC LIMIT 1"
-      )
+    $graph['lastModifiedStory'] = (int) $wpdb->get_var(
+      "SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' ORDER BY post_modified DESC LIMIT 1"
     );
 
     // Request meta

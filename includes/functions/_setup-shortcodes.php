@@ -166,8 +166,8 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
   $args = array(
     'uid' => $uid,
     'type' => $attr['type'] ?? 'default',
-    'count' => max( -1, intval( $attr['count'] ?? $def_count ) ),
-    'offset' => max( 0, intval( $attr['offset'] ?? 0 ) ),
+    'count' => max( -1, (int) ( $attr['count'] ?? $def_count ) ),
+    'offset' => max( 0, (int) ( $attr['offset'] ?? 0 ) ),
     'order' => $attr['order'] ?? '',
     'orderby' => $attr['orderby'] ?? '',
     'page' => max( 1, get_query_var( 'page' ) ?: get_query_var( 'paged' ) ),
@@ -1041,7 +1041,7 @@ function fictioneer_shortcode_bookmarks( $attr ) {
   ob_start();
 
   get_template_part( 'partials/_bookmarks', null, array(
-    'count' => max( -1, intval( $attr['count'] ?? -1 ) ),
+    'count' => max( -1, (int) ( $attr['count'] ?? -1 ) ),
     'show_empty' => $attr['show_empty'] ?? false,
     'seamless' => filter_var( $attr['seamless'] ?? $seamless_default, FILTER_VALIDATE_BOOLEAN ),
     'thumbnail' => filter_var( $attr['thumbnail'] ?? $thumbnail_default, FILTER_VALIDATE_BOOLEAN )
@@ -1142,8 +1142,8 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
   // Setup
   $cache = filter_var( $attr['cache'] ?? 1, FILTER_VALIDATE_BOOLEAN );
-  $count = max( -1, intval( $attr['count'] ?? -1 ) );
-  $offset = max( 0, intval( $attr['offset'] ?? 0 ) );
+  $count = max( -1, (int) ( $attr['count'] ?? -1 ) );
+  $offset = max( 0, (int) ( $attr['offset'] ?? 0 ) );
   $group = empty( $attr['group'] ) ? false : strtolower( trim( $attr['group'] ) );
   $heading = empty( $attr['heading'] ) ? false : $attr['heading'];
   $post_status = sanitize_key( $attr['post_status'] ?? 'publish' );
@@ -2525,7 +2525,7 @@ function fictioneer_shortcode_terms( $attr ) {
   // Setup
   $type = sanitize_key( $attr['type'] ?? 'tag' );
   $post_id = absint( $attr['post_id'] ?? 0 );
-  $count = max( -1, intval( $attr['count'] ?? -1 ) );
+  $count = max( -1, (int) ( $attr['count'] ?? -1 ) );
   $orderby = sanitize_text_field( $attr['orderby'] ?? 'count' );
   $order = sanitize_text_field( $attr['order'] ?? 'DESC' );
   $show_empty = filter_var( $attr['show_empty'] ?? 0, FILTER_VALIDATE_BOOLEAN );
