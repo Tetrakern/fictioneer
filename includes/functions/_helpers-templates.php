@@ -270,7 +270,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    *
    * @since 4.7.0
    * @since 5.12.0 - Added $context and $args parameters.
-   * @since 5.26.0 - Spit off fictioneer_sanitize_safe_title()
+   * @since 5.26.0 - Spit off fictioneer_sanitize_safe_title().
    * @link https://developer.wordpress.org/reference/functions/wp_strip_all_tags/
    *
    * @param int|WP_Post $post     The post or post ID to get the title for.
@@ -482,7 +482,7 @@ if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
   /**
-   * Returns the HTML for the footer copyright note
+   * Return the HTML for the footer copyright note.
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -509,7 +509,7 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
 // =============================================================================
 
 /**
- * Returns the current Fictioneer major theme version
+ * Return the current Fictioneer major theme version.
  *
  * Only the major version number should be displayed to avoid telling potential
  * attackers which specific version (and weak points) to target.
@@ -532,7 +532,7 @@ function fictioneer_get_version() {
 
 if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
   /**
-   * Returns the HTML for the breadcrumbs
+   * Return the HTML for the breadcrumbs.
    *
    * Renders a breadcrumbs trail supporting RDFa to be readable by search engines.
    *
@@ -1030,7 +1030,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
   /**
-   * Returns the HTML for the story buttons
+   * Return the HTML for the story buttons.
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -1136,7 +1136,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
 // =============================================================================
 
 /**
- * Returns the HTML for the media buttons
+ * Return the HTML for the media buttons.
  *
  * @since 5.14.0
  * @see fictioneer_get_rss_link()
@@ -1192,7 +1192,7 @@ function fictioneer_get_media_buttons( $args = [] ) {
 
 if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
   /**
-   * Returns the HTML for the chapter warning section
+   * Return the HTML for the chapter warning section.
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -1292,7 +1292,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 // =============================================================================
 
 /**
- * Returns HTML for the chapter index list of a story
+ * Return HTML for the chapter index list of a story.
  *
  * @since 5.25.0
  *
@@ -1429,7 +1429,7 @@ function fictioneer_get_chapter_index_html( $story_id ) {
 
 if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
   /**
-   * Returns HTML for list chapter meta row
+   * Return HTML for list chapter meta row.
    *
    * @since 5.1.2
    * @since 5.9.4 - Removed output buffer.
@@ -1513,7 +1513,7 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
   /**
-   * Returns the HTML for taxonomy tags
+   * Return the HTML for taxonomy tags.
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -1571,7 +1571,7 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_rss_link' ) ) {
   /**
-   * Returns the escaped RSS link
+   * Return the escaped RSS link.
    *
    * @since 5.0.0
    *
@@ -1622,7 +1622,7 @@ if ( ! function_exists( 'fictioneer_get_rss_link' ) ) {
 
 if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
   /**
-   * Returns the HTML for the user submenu in the navigation bar
+   * Return the HTML for the user submenu in the navigation bar.
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -1693,7 +1693,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
   /**
-   * Returns the HTML for the blog post meta row
+   * Return the HTML for the blog post meta row.
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -1762,7 +1762,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
   /**
-   * Returns the HTML for the card controls
+   * Return the HTML for the card controls.
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -1914,7 +1914,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_term_nodes' ) ) {
   /**
-   * Returns array of card tags with HTML markup
+   * Return array of card tags with HTML markup.
    *
    * @since 5.5.3
    * @since 5.23.3 - Refactored into fictioneer_get_term_nodes().
@@ -1996,7 +1996,7 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
 // =============================================================================
 
 /**
- * Returns support links for the post or author
+ * Return support links for the post or author.
  *
  * @since 5.0.19
  * @since 5.13.1 - Improved and simplified.
@@ -2063,7 +2063,7 @@ function fictioneer_get_support_links( $post_id = null, $parent_id = null, $auth
 
 if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
   /**
-   * Returns WP_Query with blog posts associated with the story
+   * Return WP_Query with blog posts associated with the story.
    *
    * @since 5.4.8
    * @since 5.26.0 - Added $count parameter.
@@ -2151,7 +2151,7 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
 // =============================================================================
 
 /**
- * Returns story changelog
+ * Return the story changelog.
  *
  * @since 5.7.5
  *
@@ -2190,7 +2190,7 @@ function fictioneer_get_story_changelog( $story_id ) {
 // =============================================================================
 
 /**
- * Renders the main observer element
+ * Render the main observer element.
  *
  * @since 5.20.0
  *
@@ -2207,7 +2207,7 @@ add_action( 'fictioneer_main', 'fictioneer_main_observer', 1 );
 // =============================================================================
 
 /**
- * Renders the page background element
+ * Render the page background element.
  *
  * Note: The page background is a separate element, absolute positioned under the
  * actual content. This allows for quite some CSS shenanigans and can improve the
@@ -2235,7 +2235,7 @@ add_action( 'fictioneer_main', 'fictioneer_page_background' );
 // =============================================================================
 
 /**
- * Returns an OAuth 2.0 login link for the given channel
+ * Return an OAuth 2.0 login link for the given channel.
  *
  * @since 4.7.0
  * @since 5.19.0 - Refactored.
@@ -2295,7 +2295,7 @@ function fictioneer_get_oauth2_login_link( $channel, $content, $args = [] ) {
 }
 
 /**
- * Returns OAuth 2.0 login links for all channels
+ * Return OAuth 2.0 login links for all channels.
  *
  * @since 4.7.0
  * @since 5.19.0 - Refactored.
@@ -2354,7 +2354,7 @@ function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anch
 // =============================================================================
 
 /**
- * Returns the HTML of the bullet separator
+ * Return the HTML of the bullet separator.
  *
  * @since 5.23.0
  *
@@ -2378,7 +2378,7 @@ function fictioneer_get_bullet_separator( $context = null, $blank = false ) {
 // =============================================================================
 
 /**
- * Renders the icon menu
+ * Render the icon menu.
  *
  * @since 5.25.0
  *
@@ -2507,7 +2507,7 @@ function fictioneer_render_icon_menu( $args ) {
 }
 
 /**
- * Legacy support for icon menu partial (used in some child themes)
+ * Legacy support for icon menu partial (used in some child themes).
  *
  * @since 5.25.0
  * @link https://developer.wordpress.org/reference/functions/get_template_part/
@@ -2530,7 +2530,7 @@ add_action( 'get_template_part', 'fictioneer_legacy_icon_menu_partial', 10, 4 );
 // =============================================================================
 
 /**
- * Returns associative array of Splide breakpoints
+ * Return associative array of Splide breakpoints.
  *
  * @since 5.25.0
  *
@@ -2614,7 +2614,7 @@ function fictioneer_extract_splide_breakpoints( $json_string, $uid = null ) {
 }
 
 /**
- * Returns Splide placeholder style for a specific UID
+ * Return Splide placeholder style for a specific UID.
  *
  * @since 5.25.0
  *
@@ -2731,7 +2731,7 @@ function fictioneer_get_splide_loading_style( $json_string, $uid ) {
 }
 
 /**
- * Returns the HTML for the Splide placeholders
+ * Return the HTML for the Splide placeholders.
  *
  * @since 5.25.0
  * @link https://splidejs.com/guides/arrows/#custom-arrows
