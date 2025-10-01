@@ -641,11 +641,13 @@ function fictioneer_story_chapters( $args ) {
   $story_id = $args['story_id'];
   $story = $args['story_data'];
   $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
-  $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) ||
-    get_option( 'fictioneer_hide_chapter_icons' );
-  $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true );
+  $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true )
+    || get_option( 'fictioneer_hide_chapter_icons' );
+  $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true )
+    || get_option( 'fictioneer_disable_chapter_collapsing' );
   $collapse_groups = get_option( 'fictioneer_collapse_groups_by_default' );
   $checkmark_icon = fictioneer_get_theme_icon( 'icon_checkmark_chapter_list', '<i class="fa-solid fa-check"></i>' );
+  $enable_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
 
   // Capture output
   ob_start();
@@ -655,6 +657,7 @@ function fictioneer_story_chapters( $args ) {
     <?php
       $chapters = fictioneer_get_story_chapter_posts( $story_id );
       $chapter_groups = fictioneer_prepare_chapter_groups( $story_id, $chapters );
+      $chapter_group_count = count( $chapter_groups );
       $group_classes = [];
 
       // Hide icons?
@@ -663,14 +666,14 @@ function fictioneer_story_chapters( $args ) {
       }
 
       // Pre-collapse?
-      if ( $collapse_groups && count( $chapter_groups ) > 1 ) {
+      if ( $collapse_groups && $chapter_group_count > 1 ) {
         $group_classes[] = '_closed';
       }
 
       // Build HTML
-      if ( ! empty( $chapter_groups ) ) {
+      if ( $chapter_group_count > 0 ) {
         $group_index = 0;
-        $has_groups = get_option( 'fictioneer_enable_chapter_groups' ) && count( $chapter_groups ) > 1;
+        $has_groups = get_option( 'fictioneer_enable_chapter_groups' ) && $chapter_group_count > 1;
         $has_group_filters = has_filter( 'fictioneer_filter_chapter_group' );
         $has_icon_filters = has_filter( 'fictioneer_filter_chapter_icon' );
         $has_prefix_filters = has_filter( 'fictioneer_filter_list_chapter_prefix' );
@@ -682,18 +685,17 @@ function fictioneer_story_chapters( $args ) {
         foreach ( $chapter_groups as $key => $group ) {
           $group_index++;
 
-          if (  $has_group_filters ) {
+          if ( $has_group_filters ) {
             $group = apply_filters( 'fictioneer_filter_chapter_group', $group, $group_index, $story_id );
           }
 
           $index = 0;
           $reverse_order = 99999;
           $group_item_count = count( $group['data'] );
-          $chapter_folding = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
-          $chapter_folding = $chapter_folding && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
+          $chapter_folding = ! $disable_folding && $group_item_count >= ( FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3 );
 
           // Start HTML ---> ?>
-          <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', array_merge( $group_classes, $group['classes'] ?? [] ) ); ?>" data-folded="true" data-fictioneer-story-target="chapterGroup">
+          <div id="chapter-group-<?php echo $key ?: 'unassigned'; ?>" class="chapter-group <?php echo implode( ' ', [...$group_classes, ...( $group['classes'] ?? [] )] ); ?>" data-folded="true" data-fictioneer-story-target="chapterGroup">
 
             <?php if ( $has_groups ) : ?>
               <button
@@ -732,14 +734,12 @@ function fictioneer_story_chapters( $args ) {
 
                 <?php if ( $chapter_folding && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
                   <li class="chapter-group__list-item _folding-toggle" style="order: <?php echo $reverse_order - $index; ?>" data-group="<?php echo $key; ?>">
-                    <button class="chapter-group__folding-toggle" data-action="click->fictioneer-story#unfoldChapters" tabindex="0">
-                      <?php
-                        printf(
-                          $ts_pattern_show_more,
-                          $group_item_count - FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2
-                        );
-                      ?>
-                    </button>
+                    <button class="chapter-group__folding-toggle" data-action="click->fictioneer-story#unfoldChapters" tabindex="0"><?php
+                      printf(
+                        $ts_pattern_show_more,
+                        $group_item_count - FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2
+                      );
+                    ?></button>
                   </li>
                   <?php $index++; ?>
                 <?php endif; ?>
@@ -779,7 +779,7 @@ function fictioneer_story_chapters( $args ) {
                     $title_output = '';
 
                     // Non-published chapter prefixes
-                    if ( in_array( $chapter['status'], ['future', 'trash', 'private'] ) ) {
+                    if ( in_array( $chapter['status'], ['future', 'trash', 'private'], true ) ) {
                       $status_prefix = fcntr( "{$chapter['status']}_prefix" );
 
                       if ( $status_prefix ) {
@@ -823,7 +823,7 @@ function fictioneer_story_chapters( $args ) {
 
                   <?php echo fictioneer_get_list_chapter_meta_row( $chapter, array( 'grid' => true ) ); ?>
 
-                  <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
+                  <?php if ( $enable_checkmarks ) : ?>
                     <button
                       class="checkmark chapter-group__list-item-checkmark only-logged-in"
                       data-fictioneer-checkmarks-target="chapterCheck"
@@ -866,14 +866,12 @@ function fictioneer_story_chapters( $args ) {
   // Store output
   $chapters_html = ob_get_clean();
 
-  // Compress output
-  $chapters_html = fictioneer_minify_html( $chapters_html );
-
   // Flush buffered output
   echo $chapters_html;
 
   // Cache for next time (24 hours)
   if ( $enable_transients ) {
+    $chapters_html = fictioneer_minify_html( $chapters_html ); // Compress
     set_transient( 'fictioneer_story_chapter_list_html_' . $story_id, $chapters_html, 86400 );
   }
 }
