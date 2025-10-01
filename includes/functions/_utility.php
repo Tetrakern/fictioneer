@@ -2803,16 +2803,14 @@ if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
    */
 
   function fictioneer_get_fonts() {
+    $custom_fonts = get_option( 'fictioneer_chapter_fonts' );
+
     // Make sure fonts are set up!
-    if (
-      ! get_option( 'fictioneer_chapter_fonts' ) ||
-      ! is_array( get_option( 'fictioneer_chapter_fonts' ) )
-    ) {
+    if ( ! $custom_fonts || ! is_array( $custom_fonts ) ) {
       fictioneer_build_bundled_fonts();
     }
 
     // Setup
-    $custom_fonts = get_option( 'fictioneer_chapter_fonts' );
     $primary_chapter_font = get_theme_mod( 'chapter_chapter_body_font_family_value', 'default' );
     $fonts = array(
       array( 'css' => fictioneer_font_family_value( FICTIONEER_PRIMARY_FONT_CSS ), 'name' => FICTIONEER_PRIMARY_FONT_NAME ),
