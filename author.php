@@ -140,7 +140,7 @@ get_header();
             } elseif ( ! empty( $author->user_description ) ) {
               echo $author->user_description;
             }
-           ?>
+          ?>
         </section>
       <?php endif; ?>
 
