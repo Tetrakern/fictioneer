@@ -2108,7 +2108,10 @@ function fictioneer_sanitize_editor( $content ) {
 
   $content = wp_kses_post( $content );
   $content = strip_shortcodes( $content );
-  $content = preg_replace( '/<!--\s*wp:(.*?)-->(.*?)<!--\s*\/wp:\1\s*-->/s', '', $content );
+
+  if ( strpos( $content, '<!-- wp:' ) !== false ) {
+    $content = preg_replace( '/<!--\s*wp:(.*?)-->(.*?)<!--\s*\/wp:\1\s*-->/s', '', $content );
+  }
 
   return $content;
 }
