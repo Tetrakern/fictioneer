@@ -275,7 +275,10 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
     foreach ( $batches as $batch ) {
       $query_args['post__in'] = $batch ?: [0];
       $chapter_query = new WP_Query( $query_args );
-      $chapter_posts = array_merge( $chapter_posts, $chapter_query->posts );
+
+      foreach ( $chapter_query->posts as $p ) {
+        $chapter_posts[] = $p;
+      }
     }
   }
 
@@ -283,7 +286,7 @@ function fictioneer_get_story_chapter_posts( $story_id, $args = [], $full = fals
   $chapter_positions = array_flip( $chapter_ids );
 
   usort( $chapter_posts, function( $a, $b ) use ( $chapter_positions ) {
-    return $chapter_positions[ $a->ID ] - $chapter_positions[ $b->ID ];
+    return $chapter_positions[ $a->ID ] <=> $chapter_positions[ $b->ID ];
   });
 
   // Return chapters selected in story
