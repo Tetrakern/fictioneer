@@ -2223,7 +2223,9 @@ function fictioneer_sanitize_icon_html( $html ) {
   }
 
   // Remove junk comments
-  $html = preg_replace( '/<!--.*?-->/s', '', $html );
+  if ( strpos( $html, '<!--' ) !== false ) {
+    $html = preg_replace( '/<!--.*?-->/s', '', $html );
+  }
 
   // KSES
   static $allowed = array(
@@ -2312,19 +2314,21 @@ function fictioneer_sanitize_icon_html( $html ) {
   $html = wp_kses( $html, $allowed );
 
   // Restrict <use href> to internal fragment-only links (#id)
-  $html = preg_replace_callback(
-    '/\s(?:xlink:)?href=(["\'])(.*?)\1/i',
-    function( $m ) {
-      $val = $m[2];
+  if ( strpos( $html, 'href=' ) !== false ) {
+     $html = preg_replace_callback(
+      '/\s(?:xlink:)?href=(["\'])(.*?)\1/i',
+      function( $m ) {
+        $val = $m[2];
 
-      if ( strlen( $val ) && $val[0] === '#' ) {
-        return ' href="' . esc_attr( $val ) . '"';
-      }
+        if ( strlen( $val ) && $val[0] === '#' ) {
+          return ' href="' . esc_attr( $val ) . '"';
+        }
 
-      return '';
-    },
-    $html
-  );
+        return '';
+      },
+      $html
+    );
+  }
 
   return trim( preg_replace( '/\s{2,}/', ' ', $html ) );
 }
