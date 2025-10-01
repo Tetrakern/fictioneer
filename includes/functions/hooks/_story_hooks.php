@@ -300,7 +300,9 @@ function fictioneer_story_filter_reel( $args ) {
     return;
   }
 
+  $default_cover_id = get_theme_mod( 'default_story_cover', 0 );
   $image_ids = array_filter( array_column( $filters, 'image_id' ) );
+  $lightbox_attribute = get_option( 'fictioneer_enable_lightbox' ) ? 'data-lightbox' : 'target="_blank"';
 
   if ( ! empty( $image_ids ) ) {
     new WP_Query(
@@ -351,7 +353,7 @@ function fictioneer_story_filter_reel( $args ) {
     '"><button type="button" class="story__filter-reel-toggle" data-fictioneer-story-target="filterToggle"></button><div class="story__filter-reel-wrapper splide__track"><ul class="story__filter-reel-list splide__list">';
 
   foreach ( $filters as $filter ) {
-    $image_id = ( $filter['image_id'] ?? 0 ) ?: get_theme_mod( 'default_story_cover', 0 );
+    $image_id = ( $filter['image_id'] ?? 0 ) ?: $default_cover_id;
     $label = $filter['label'] ?? '';
 
     if ( $image_id ) {
@@ -366,7 +368,7 @@ function fictioneer_story_filter_reel( $args ) {
         ),
         $label ? '<div class="story__filter-reel-item-label"><span class="truncate _2-2">' . $label .'</span></div>' : '',
         wp_get_attachment_image_url( $image_id, 'full' ),
-        get_option( 'fictioneer_enable_lightbox' ) ? 'data-lightbox' : 'target="_blank"',
+        $lightbox_attribute,
         '<i class="fa-solid fa-magnifying-glass-plus icon"></i>',
         ( empty( $filter['groups'] ) && empty( $filter['ids'] ) ) ? '' :
           sprintf(
