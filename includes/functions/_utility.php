@@ -43,7 +43,7 @@ if ( ! function_exists( 'fictioneer_url_exists' ) ) {
       return false;
     }
 
-    $response = wp_remote_head( $url );
+    $response = wp_remote_head( $url, array( 'timeout' => 2, 'redirection' => 0 ) );
 
     if ( is_wp_error( $response ) ) {
       return false;
