@@ -3631,7 +3631,7 @@ if ( ! function_exists( 'fictioneer_get_async_css_loading_pattern' ) ) {
 
 if ( ! function_exists( 'fictioneer_generate_placeholder' ) ) {
   /**
-   * Dummy implementation (currently used a CSS background)
+   * Dummy implementation (currently uses a CSS background).
    *
    * @since 5.14.0
    *
@@ -3650,7 +3650,7 @@ if ( ! function_exists( 'fictioneer_generate_placeholder' ) ) {
 // =============================================================================
 
 /**
- * Find (first) user by display name
+ * Find (first) user by display name.
  *
  * @since 5.14.1
  *
