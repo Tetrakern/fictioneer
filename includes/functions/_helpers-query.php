@@ -727,7 +727,7 @@ if ( ! function_exists( 'fictioneer_sql_has_new_story_chapters' ) ) {
         AND (pm_hidden.meta_key != 'fictioneer_chapter_hidden' OR pm_hidden.meta_value IS NULL)
       LIMIT 1";
 
-    $query = $wpdb->prepare( $sql, array_merge( $chapter_diff, $allowed_statuses ) );
+    $query = $wpdb->prepare( $sql, ...$chapter_diff, ...$allowed_statuses );
 
     // Execute the query to check for new valid chapters
     $new_chapters = $wpdb->get_col( $query );
