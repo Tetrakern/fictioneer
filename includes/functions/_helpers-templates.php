@@ -252,7 +252,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
     static $base_url = null;
 
     if ( $base_url === null ) {
-      $base_url = trailingslashit( get_stylesheet_directory_uri() )
+      $base_url = trailingslashit( get_template_directory_uri() )
         . 'img/icon-sprite.svg?ver=' . fictioneer_get_cache_bust() . '#icon-';
     }
 
