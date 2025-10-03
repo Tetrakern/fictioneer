@@ -1287,7 +1287,8 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
     'paged' => $page,
     's' => $search,
     'update_post_meta_cache' => true,
-    'update_post_term_cache' => false // Improve performance
+    'update_post_term_cache' => false, // Improve performance
+    'suppress_filters' => true // Improve performance
   );
 
   if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
@@ -1517,7 +1518,8 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
       'paged' => $page,
       's' => $search,
       'update_post_meta_cache' => false, // Improve performance
-      'update_post_term_cache' => false // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'suppress_filters' => true // Improve performance
     )
   );
 
@@ -1660,7 +1662,8 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
       'paged' => $page,
       's' => $search,
       'update_post_meta_cache' => false, // Improve performance
-      'update_post_term_cache' => false // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'suppress_filters' => true // Improve performance
     )
   );
 
@@ -1788,7 +1791,8 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
       'paged' => $page,
       's' => $search,
       'update_post_meta_cache' => false, // Improve performance
-      'update_post_term_cache' => false // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'suppress_filters' => true // Improve performance
     )
   );
 

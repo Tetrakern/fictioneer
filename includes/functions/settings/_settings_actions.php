@@ -1452,7 +1452,8 @@ function fictioneer_tools_append_chapters() {
     'meta_value' => $story_id,
     'update_post_meta_cache' => false, // Improve performance
     'update_post_term_cache' => false, // Improve performance
-    'no_found_rows' => true // Improve performance
+    'no_found_rows' => true, // Improve performance
+    'suppress_filters' => true // Improve performance
   );
 
   if ( $action === 'perform' ) {

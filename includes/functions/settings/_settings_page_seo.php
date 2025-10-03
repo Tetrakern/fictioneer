@@ -45,8 +45,9 @@ class Fictioneer_Seo_Table extends WP_List_Table {
       'order' => $order,
       'paged' => $this->page,
       'posts_per_page' => $this->per_page,
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'suppress_filters' => true // Improve performance
     );
 
     $query = new WP_Query( $query_args );

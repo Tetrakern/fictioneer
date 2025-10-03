@@ -2090,9 +2090,10 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
       'nopaging' => false,
       'posts_per_page' => $count,
       'cat' => empty( $category ) ? '99999999' : $category,
-      'no_found_rows' => true,
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false
+      'no_found_rows' => true, // Improve performance
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'suppress_filters' => true // Improve performance
     );
 
     $blog_category_posts = new WP_Query( $blog_category_query_args );
@@ -2103,9 +2104,10 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
       'author__in'  => fictioneer_get_post_author_ids( $story_id ),
       'nopaging' => false,
       'posts_per_page' => $count,
-      'no_found_rows' => true,
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false,
+      'no_found_rows' => true, // Improve performance
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'suppress_filters' => true, // Improve performance
       'meta_query' => array(
         array(
           'key' => 'fictioneer_post_story_blogs',

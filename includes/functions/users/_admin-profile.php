@@ -1695,7 +1695,8 @@ function fictioneer_ajax_search_posts_to_unlock() {
       's' => $search,
       'update_post_meta_cache' => false, // Improve performance
       'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
+      'no_found_rows' => true, // Improve performance
+      'suppress_filters' => true // Improve performance
     )
   );
 
