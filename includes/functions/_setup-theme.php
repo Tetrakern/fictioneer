@@ -136,17 +136,7 @@ function fictioneer_theme_setup() {
   add_theme_support( 'title-tag' );
 
   // Activate support for featured images (thumbnails)
-  add_theme_support(
-    'post-thumbnails',
-    array(
-      'post',
-      'page',
-      'fcn_story',
-      'fcn_chapter',
-      'fcn_recommendation',
-      'fcn_collection'
-    )
-  );
+  add_theme_support( 'post-thumbnails' );
 
   // Register navigation menus
   register_nav_menu( 'nav_menu', __( 'Navigation', 'fictioneer' ) );
