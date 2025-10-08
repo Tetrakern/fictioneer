@@ -445,28 +445,18 @@ function fictioneer_post_content_header( $args ) {
   }
 
   // Get post
-  global $post;
+  $header_post = get_post( $post_id );
 
-  $original_post = $post;
-  $post = get_post( $post_id );
-
-  if ( ! $post ) {
-    $post = $original_post;
+  if ( ! $header_post ) {
     return;
   }
 
   // Render Elementor or theme template
   if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'header' ) ) {
-    setup_postdata( $post );
-    $content = apply_filters( 'get_the_content', $post->post_content );
+    $content = apply_filters( 'get_the_content', $header_post->post_content );
     $content = apply_filters( 'the_content', $content );
-    wp_reset_postdata();
-    $post = $original_post;
 
-    echo
-      '<header class="post-content-header content-section hide-on-fullscreen">',
-      $content,
-      '</header>';
+    echo '<header class="post-content-header content-section hide-on-fullscreen">', $content, '</header>';
   }
 }
 add_action( 'fictioneer_site', 'fictioneer_post_content_header', 20 );
