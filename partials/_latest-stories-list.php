@@ -188,54 +188,54 @@ if ( $splide ) {
             }
 
             // Extra classes
-            $classes = [ '_' . $args['post_status'] ];
+            $card_classes = [ '_' . $args['post_status'] ];
 
             if ( $is_sticky ) {
-              $classes[] = '_sticky';
+              $card_classes[] = '_sticky';
             }
 
             if ( ! empty( $post->post_password ) ) {
-              $classes[] = '_password';
+              $card_classes[] = '_password';
             }
 
             if ( $args['seamless'] ) {
-              $classes[] = '_seamless';
+              $card_classes[] = '_seamless';
             }
 
             if ( $content_list_style !== 'default' ) {
-              $classes[] = "_{$content_list_style}";
+              $card_classes[] = "_{$content_list_style}";
             }
 
             if ( ! $thumbnail ) {
-              $classes[] = '_no-thumbnail';
+              $card_classes[] = '_no-thumbnail';
             }
 
             if ( ! $show_terms || ! ( $story['has_taxonomies'] || $tags ) ) {
-              $classes[] = '_no-tax';
+              $card_classes[] = '_no-tax';
             }
 
             if ( ! $args['footer'] ) {
-              $classes[] = '_no-footer';
+              $card_classes[] = '_no-footer';
             }
 
             if ( ! $args['footer_author'] && ! $args['source'] ) {
-              $classes[] = '_no-footer-author';
+              $card_classes[] = '_no-footer-author';
             }
 
             if ( ! $args['footer_words'] ) {
-              $classes[] = '_no-footer-words';
+              $card_classes[] = '_no-footer-words';
             }
 
             if ( ! $args['footer_date'] ) {
-              $classes[] = '_no-footer-date';
+              $card_classes[] = '_no-footer-date';
             }
 
             if ( ! $args['footer_status'] ) {
-              $classes[] = '_no-footer-status';
+              $card_classes[] = '_no-footer-status';
             }
 
             if ( ! $args['footer_rating'] ) {
-              $classes[] = '_no-footer-rating';
+              $card_classes[] = '_no-footer-rating';
             }
 
             if ( ! $args['footer_comments'] ) {
@@ -243,7 +243,7 @@ if ( $splide ) {
             }
 
             if ( $splide ) {
-              $classes[] = 'splide__slide';
+              $card_classes[] = 'splide__slide';
             }
 
             // Meta
@@ -310,7 +310,7 @@ if ( $splide ) {
 
           ?>
 
-          <li class="post-<?php echo $post_id; ?> post-list-item _latest-stories <?php echo implode( ' ', $classes ); ?>" <?php echo $output_attributes; ?>>
+          <li class="post-<?php echo $post_id; ?> post-list-item _latest-stories <?php echo implode( ' ', $card_classes ); ?>" <?php echo $output_attributes; ?>>
 
             <?php
               if ( $thumbnail ) {
