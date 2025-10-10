@@ -132,6 +132,17 @@ if ( $splide ) {
   $attributes[] = "data-splide='{$splide}'";
 }
 
+// Grid classes
+$grid_classes = 'grid-columns';
+
+if ( $splide ) {
+  $grid_classes .= ' splide__list';
+}
+
+if ( $args['count'] < 2 || count( $args['post_ids'] ?? [] ) === 1 ) {
+  $grid_classes .= ' _single';
+}
+
 ?>
 
 <section class="small-card-block latest-chapters _compact <?php echo $args['classes']; ?>" <?php echo implode( ' ', $attributes ); ?>>
@@ -152,7 +163,7 @@ if ( $splide ) {
 
     <?php if ( $entries->have_posts() ) : ?>
 
-      <ul class="grid-columns <?php if ( $splide ) { echo 'splide__list'; } ?>">
+      <ul class="<?php echo $grid_classes; ?>">
         <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
 
           <?php

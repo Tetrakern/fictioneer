@@ -64,6 +64,10 @@ body:not(.is-editor):not(.is-admin) {
     calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1) * var(--grid-sidebar-row-gap-multiplier, 1))
     calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1) * var(--grid-sidebar-col-gap-multiplier, 1));
   contain: style layout;
+
+  &:where(._single) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .text-overflow-ellipsis {
