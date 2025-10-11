@@ -14,6 +14,18 @@ body {
     padding: 0 var(--layout-spacing-horizontal);
   }
 
+  &.mce-content-body {
+    container-type: inline-size;
+    margin: 9px 10px; // Restore default
+
+    figure:is(.alignleft, .alignright) {
+      img {
+        float: none;
+        margin: 0;
+      }
+    }
+  }
+
   *,
   ::before,
   ::after {
