@@ -144,7 +144,9 @@ if ( $splide ) {
 }
 
 if ( $args['count'] < 2 || count( $args['post_ids'] ?? [] ) === 1 ) {
-  $grid_classes .= ' _single';
+  if ( ( $query_args['posts_per_page'] ?? 1 ) < 2 ) {
+    $grid_classes .= ' _single';
+  }
 }
 
 ?>
