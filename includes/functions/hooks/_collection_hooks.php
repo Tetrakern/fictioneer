@@ -64,7 +64,7 @@ function fictioneer_collections_list( $args ) {
         $pag_args = array(
           'base' => add_query_arg( 'paged', '%#%' ),
           'format' => '?paged=%#%',
-          'current' => max( 1, get_query_var( 'paged' ) ),
+          'current' => fictioneer_get_global_page(),
           'total' => $args['collections']->max_num_pages,
           'prev_text' => fcntr( 'previous' ),
           'next_text' => fcntr( 'next' ),

@@ -62,7 +62,7 @@ function fictioneer_recommendations_list( $args ) {
 
       <?php
         $pag_args = array(
-          'current' => max( 1, get_query_var( 'paged' ) ),
+          'current' => fictioneer_get_global_page(),
           'total' => $args['recommendations']->max_num_pages,
           'prev_text' => fcntr( 'previous' ),
           'next_text' => fcntr( 'next' ),
