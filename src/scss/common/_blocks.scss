@@ -15,11 +15,6 @@
   overflow-wrap: break-word;
 }
 
-hr {
-  overflow: hidden;
-  border: none;
-}
-
 :is(sup, sub) {
   font-size: 75%;
   margin-inline-end: 1px;
@@ -614,6 +609,13 @@ p.has-background {
 // =============================================================================
 // SEPARATOR
 // =============================================================================
+
+hr {
+  overflow: hidden;
+  border-color: var(--hr-color);
+  border-width: var(--hr-size) 0 0;
+  margin: var(--hr-spacing) 0;
+}
 
 .wp-block-separator {
   background: var(--hr-color);
