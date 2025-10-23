@@ -1005,8 +1005,8 @@ function fictioneer_random_spotlight_query( $post_type = 'fcn_story', $args = []
   global $wpdb;
 
   // Setup
-  $option_key = 'fictioneer_spotlight_' . $post_type;
   $post_type = fictioneer_sanitize_post_type( $post_type );
+  $option_key = 'fictioneer_spotlight_' . $post_type;
   $count = max( 1, (int) ( $args['count'] ?? 6 ) );
   $all_post_ids = [];
   $selected_ids = [];
