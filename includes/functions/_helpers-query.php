@@ -994,9 +994,10 @@ function fictioneer_sql_update_comment_count( $post_id, $count ) {
  *
  * @since 5.33.5
  *
- * @param string|null $post_type  Optional. Post type to spotlight. Default 'fcn_story'.
- * @param int|null    $count      Optional. How many posts to query. Default 6.
- * @param int|null    $new_days   Optional. Many many days a post is considered new. Default 14.
+ * @param string|null $post_type   Optional. Post type to spotlight. Default 'fcn_story'.
+ * @param int|null    $count       Optional. How many posts to query. Default 6.
+ * @param int|null    $new_days    Optional. How many days a post is considered new. Default 14.
+ * @param int|null    $new_weight  Optional. How much weight new posts have. Default calculated.
  *
  * @return WP_Query Query result.
  */
@@ -1111,7 +1112,7 @@ function fictioneer_random_spotlight_query( $post_type = 'fcn_story', $args = []
   // Build weighted pot
   $pot = [];
   $total_stories = count( $all_post_ids );
-  $new_story_weight = max( 1, (int) ceil( $total_stories / $count ) );
+  $new_story_weight = max( 1, (int) ( $args['new_weight'] ?? ceil( $total_stories / $count ) ) );
 
   foreach ( $available_stories as $id => $story ) {
     $age = $now - strtotime( $story->post_date_gmt . ' GMT' );
