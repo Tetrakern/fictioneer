@@ -99,9 +99,9 @@ if ( $header_style === 'wide' ) {
         ?>
       </nav>
 
-      <div class="main-navigation__right">
-        <?php fictioneer_render_icon_menu( array( 'location' => 'in-navigation' ) );; ?>
-      </div>
+      <div class="main-navigation__right"><?php
+        fictioneer_render_icon_menu( array( 'location' => 'in-navigation' ) );
+      ?></div>
 
       <?php do_action( 'fictioneer_navigation_wrapper_end', $args ); ?>
 
