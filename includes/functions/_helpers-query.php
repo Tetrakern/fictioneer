@@ -1131,13 +1131,14 @@ function fictioneer_random_spotlight_query( $post_type = 'fcn_story', $args = []
     $selected_lookup[ $id ] = true;
   }
 
-  foreach ( $pot as $index => $id ) {
-    if ( empty( $selected_lookup[ $id ] ) ) {
+  $need = $count - count( $selected_ids );
+
+  foreach ( $pot as $id ) {
+    if ( ! isset( $selected_lookup[ $id ] ) ) {
       $selected_ids[] = $id;
       $selected_lookup[ $id ] = true;
-      unset( $pot[ $index ] );
 
-      if ( count( $selected_ids ) >= $count ) {
+      if ( --$need === 0 ) {
         break;
       }
     }
