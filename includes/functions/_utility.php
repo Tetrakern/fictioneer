@@ -2117,6 +2117,40 @@ function fictioneer_sanitize_editor( $content ) {
 }
 
 // =============================================================================
+// SANITIZE POST TYPE
+// =============================================================================
+
+/**
+ * Sanitize a post type string.
+ *
+ * Note: Also associates simple strings like 'story' with their
+ * registered post type, such as 'fcn_story'.
+ *
+ * @since 5.33.5
+ *
+ * @param string $post_type  The string to be sanitized.
+ *
+ * @return string The sanitized value.
+ */
+
+function fictioneer_sanitize_post_type( $post_type ) {
+  $post_type = sanitize_key( $post_type );
+
+  static $types = array(
+    'story' => 'fcn_story',
+    'stories' => 'fcn_story',
+    'chapter' => 'fcn_chapter',
+    'chapters' => 'fcn_chapter',
+    'collection' => 'fcn_collection',
+    'collections' => 'fcn_collection',
+    'recommendation' => 'fcn_recommendation',
+    'recommendations' => 'fcn_recommendation'
+  );
+
+  return $types[ $post_type ] ?? $post_type;
+}
+
+// =============================================================================
 // ASPECT RATIO CSS
 // =============================================================================
 
