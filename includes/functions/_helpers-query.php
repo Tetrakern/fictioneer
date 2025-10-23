@@ -984,3 +984,178 @@ function fictioneer_sql_update_comment_count( $post_id, $count ) {
     ['%d']
   );
 }
+
+// =============================================================================
+// SPOTLIGHT QUERY
+// =============================================================================
+
+/**
+ * Query weighted random spotlight selection for given post type.
+ *
+ * @since 5.33.5
+ *
+ * @param string|null $post_type  Optional. Post type to spotlight. Default 'fcn_story'.
+ * @param int|null    $count      Optional. How many posts to query. Default 6.
+ * @param int|null    $new_days   Optional. Many many days a post is considered new. Default 14.
+ *
+ * @return WP_Query Query result.
+ */
+
+function fictioneer_random_spotlight_query( $post_type = 'fcn_story', $args = [] ) {
+  global $wpdb;
+
+  // Setup
+  $option_key = 'fictioneer_spotlight_' . $post_type;
+  $post_type = fictioneer_sanitize_post_type( $post_type );
+  $count = max( 1, (int) ( $args['count'] ?? 6 ) );
+  $all_post_ids = [];
+  $selected_ids = [];
+  $previous_ids = get_option( $option_key, [] ) ?: [];
+  $previous_ids = is_array( $previous_ids ) ? $previous_ids : [];
+  $now = current_time( 'timestamp', 1 );
+  $new_period = max( 1, (int) ( $args['new_days'] ?? 14 ) ) * DAY_IN_SECONDS;
+
+  // Fetch all published posts
+  switch ( $post_type ) {
+    case 'fcn_story':
+      $all_post_ids = $wpdb->get_col(
+        "SELECT p.ID
+        FROM {$wpdb->posts} AS p
+        LEFT JOIN {$wpdb->postmeta} AS m
+          ON p.ID = m.post_id
+          AND m.meta_key = 'fictioneer_story_hidden'
+        WHERE p.post_type = 'fcn_story'
+          AND p.post_status = 'publish'
+          AND (
+            m.meta_value IS NULL
+            OR m.meta_value = ''
+            OR m.meta_value = '0'
+            OR m.meta_value = 'false'
+          )"
+      );
+      break;
+    case 'fcn_chapter':
+      $all_post_ids = $wpdb->get_col(
+        "SELECT p.ID
+        FROM {$wpdb->posts} AS p
+        LEFT JOIN {$wpdb->postmeta} AS m
+          ON p.ID = m.post_id
+          AND m.meta_key = 'fictioneer_chapter_hidden'
+        WHERE p.post_type = 'fcn_chapter'
+          AND p.post_status = 'publish'
+          AND (
+            m.meta_value IS NULL
+            OR m.meta_value = ''
+            OR m.meta_value = '0'
+            OR m.meta_value = 'false'
+          )"
+      );
+      break;
+    default:
+      $all_post_ids = $wpdb->get_col(
+        $wpdb->prepare(
+          "SELECT ID FROM {$wpdb->posts}
+           WHERE post_type = %s AND post_status = 'publish'",
+          $post_type
+        )
+      );
+  }
+
+  if ( empty( $all_post_ids ) ) {
+    return [];
+  }
+
+  // Determine available IDs and pre-select remainder
+  $available_ids = array_values( array_diff( $all_post_ids, $previous_ids ) );
+
+  if ( count( $available_ids ) < $count ) {
+    $previous_ids = [];
+    $selected_ids = $available_ids;
+    $available_ids = array_values( array_diff( $all_post_ids, $selected_ids ) );
+  }
+
+  // Short-circuit if already enough IDs are selected
+  if ( count( $selected_ids ) >= $count ) {
+    update_option( $option_key, $selected_ids, false );
+
+    return new WP_Query(
+      array(
+        'post_type' => $post_type,
+        'post__in' => array_slice( $selected_ids, 0, $count ),
+        'orderby' => 'post__in',
+        'posts_per_page' => $count,
+        'no_found_rows' => true,
+        'cache_results' => false
+      )
+    );
+  }
+
+  // If no more IDs are available (reset)
+  if ( empty( $available_ids ) ) {
+    $previous_ids = [];
+    $available_ids = array_values( array_diff( $all_post_ids, $selected_ids ) );
+  }
+
+  // Query available story IDs with GMT date
+  $placeholders = implode( ',', array_fill( 0, count( $available_ids ), '%d' ) );
+
+  $available_stories = $available_ids ? $wpdb->get_results(
+    $wpdb->prepare(
+      "SELECT ID, post_date_gmt FROM {$wpdb->posts}
+      WHERE ID IN ({$placeholders})",
+      $available_ids
+    ),
+    OBJECT_K
+  ) : [];
+
+  // Build weighted pot
+  $pot = [];
+  $total_stories = count( $all_post_ids );
+  $new_story_weight = max( 1, (int) ceil( $total_stories / $count ) );
+
+  foreach ( $available_stories as $id => $story ) {
+    $age = $now - strtotime( $story->post_date_gmt . ' GMT' );
+    $weight = ( $age <= $new_period ) ? $new_story_weight : 1;
+
+    for ( $i = 0; $i < $weight; $i++ ) {
+      $pot[] = (int) $id;
+    }
+  }
+
+  // Random draw
+  shuffle( $pot );
+
+  $selected_lookup = [];
+
+  foreach ( $selected_ids as $id ) {
+    $selected_lookup[ $id ] = true;
+  }
+
+  foreach ( $pot as $index => $id ) {
+    if ( empty( $selected_lookup[ $id ] ) ) {
+      $selected_ids[] = $id;
+      $selected_lookup[ $id ] = true;
+      unset( $pot[ $index ] );
+
+      if ( count( $selected_ids ) >= $count ) {
+        break;
+      }
+    }
+  }
+
+  // Update previously drawn IDs
+  $previous_ids = array_values( array_unique( array_merge( $previous_ids, $selected_ids ) ) );
+  update_option( $option_key, $previous_ids, false );
+
+  // Query posts
+  return new WP_Query(
+    array(
+      'post_type' => $post_type,
+      'post__in' => array_slice( $selected_ids, 0, $count ),
+      'orderby' => 'post__in',
+      'posts_per_page' => $count,
+      'no_found_rows' => true,
+      'cache_results' => false
+    )
+  );
+}
