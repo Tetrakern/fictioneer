@@ -2383,13 +2383,16 @@ function fictioneer_get_bullet_separator( $context = null, $blank = false ) {
  * Render the icon menu.
  *
  * @since 5.25.0
+ * @since 5.32.5 - Added optional class argument.
  *
- * @param array $args['location']  Either 'in-navigation' or 'in-mobile-menu'.
+ * @param string      $args['location']  Either 'in-navigation' or 'in-mobile-menu'.
+ * @param string|null $args['class']     Optional. Main class of the icon menu. Default 'icon-menu'.
  */
 
-function fictioneer_render_icon_menu( $args ) {
+function fictioneer_render_icon_menu( $args = [] ) {
   // Setup
   $output = [];
+  $class = $args['class'] ?? 'icon-menu';
   $location = $args['location'] ?? 'location-missing';
   $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
   $discord_invite_link = get_option( 'fictioneer_discord_invite_link' );
@@ -2501,7 +2504,9 @@ function fictioneer_render_icon_menu( $args ) {
 
   // Render
   echo
-    '<div class="icon-menu _',
+    '<div class="',
+    $class,
+    ' _',
     $location,
     '" data-nosnippet>',
     implode( '', $output ),
