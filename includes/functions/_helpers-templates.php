@@ -2415,7 +2415,7 @@ function fictioneer_render_icon_menu( $args = [] ) {
 
   if ( fictioneer_show_auth_content() ) {
     $output['profile'] = sprintf(
-      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out"><a href="%1$s" title="%2$s" class="subscriber-profile" data-fictioneer-target="avatarWrapper" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-circle-user user-icon"></i></a><ul class="sub-menu">%4$s</ul></div>',
+      '<div class="menu-item menu-item-icon icon-menu-account menu-item-has-children hide-if-logged-out"><a href="%1$s" title="%2$s" class="subscriber-profile" data-fictioneer-target="avatarWrapper" rel="noopener noreferrer nofollow" aria-label="%3$s"><i class="fa-solid fa-circle-user user-icon"></i></a><ul class="sub-menu">%4$s</ul></div>',
       esc_url( $profile_link ),
       esc_attr__( 'User Profile', 'fictioneer' ),
       esc_attr__( 'Link to user profile', 'fictioneer' ),
@@ -2447,7 +2447,7 @@ function fictioneer_render_icon_menu( $args = [] ) {
     get_option( 'fictioneer_enable_alerts' )
   ) {
     $output['alerts'] = sprintf(
-      '<div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out">
+      '<div class="menu-item menu-item-icon icon-menu-alerts menu-item-has-children hide-if-logged-out">
         <button type="button" id="alerts-menu-button" class="icon-menu__item _with-submenu alerts-menu-item alerts-number" data-fictioneer-alerts-target="newAlertsDisplay">%1$s</button>
         <div class="alerts sub-menu" data-fictioneer-alerts-target="navAlertList"><div class="alert _no-alerts">%2$s</div></div>
       </div>',
@@ -2458,7 +2458,7 @@ function fictioneer_render_icon_menu( $args = [] ) {
 
   if ( $location === 'in-navigation' && FICTIONEER_SHOW_SEARCH_IN_MENUS ) {
     $output['search'] = sprintf(
-      '<div class="menu-item menu-item-icon"><a href="%1$s" title="%2$s" rel="nofollow" aria-label="%3$s"><i class="fa-solid fa-magnifying-glass"></i></a></div>',
+      '<div class="menu-item menu-item-icon icon-menu-search"><a href="%1$s" title="%2$s" rel="nofollow" aria-label="%3$s"><i class="fa-solid fa-magnifying-glass"></i></a></div>',
       esc_url( home_url( '/?s' ) ),
       esc_attr__( 'Search Page', 'fictioneer' ),
       esc_attr__( 'Link to search page', 'fictioneer' )
@@ -2466,14 +2466,14 @@ function fictioneer_render_icon_menu( $args = [] ) {
   }
 
   $output['lightswitch'] = sprintf(
-    '<div class="menu-item menu-item-icon toggle-light-mode"><button title="%1$s" role="checkbox" aria-checked="false" aria-label="%2$s">%3$s</button></div>',
+    '<div class="menu-item menu-item-icon icon-menu-light-mode toggle-light-mode"><button title="%1$s" role="checkbox" aria-checked="false" aria-label="%2$s">%3$s</button></div>',
     esc_attr__( 'Toggle Dark/Light Mode', 'fictioneer' ),
     esc_attr__( 'Toggle between dark mode and light mode', 'fictioneer' ),
     fictioneer_get_icon( 'fa-sun', 'only-darkmode' ) . fictioneer_get_icon( 'fa-moon', 'only-lightmode' )
   );
 
   $output['settings'] = sprintf(
-    '<div class="menu-item menu-item-icon site-setting"><button title="%1$s" aria-label="%2$s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="site-settings-modal">%3$s</button></div>',
+    '<div class="menu-item menu-item-icon icon-menu-site-settings site-setting"><button title="%1$s" aria-label="%2$s" data-action="click->fictioneer#toggleModal" data-fictioneer-id-param="site-settings-modal">%3$s</button></div>',
     esc_attr__( 'Site Settings', 'fictioneer' ),
     esc_attr__( 'Open site settings modal', 'fictioneer' ),
     fictioneer_get_icon( 'fa-tools' )
@@ -2481,7 +2481,7 @@ function fictioneer_render_icon_menu( $args = [] ) {
 
   if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
     $output['rss'] = sprintf(
-      '<div class="menu-item menu-item-icon rss-main-link"><a href="%1$s" title="%2$s" aria-label="%3$s">%4$s</a></div>',
+      '<div class="menu-item menu-item-icon icon-menu-rss rss-main-link"><a href="%1$s" title="%2$s" aria-label="%3$s">%4$s</a></div>',
       esc_url( home_url( 'feed' ) ),
       esc_attr__( 'Site RSS', 'fictioneer' ),
       esc_attr__( 'Link to site RSS feed', 'fictioneer' ),
@@ -2491,7 +2491,7 @@ function fictioneer_render_icon_menu( $args = [] ) {
 
   if ( $location === 'in-mobile-menu' && fictioneer_show_auth_content() ) {
     $output['logout'] = sprintf(
-      '<div class="menu-item menu-item-icon hide-if-logged-out"><a href="%1$s" title="%2$s" data-action="click->fictioneer#logout" rel="noopener noreferrer nofollow" aria-label="%3$s">%4$s</a></div>',
+      '<div class="menu-item menu-item-icon icon-menu-logout hide-if-logged-out"><a href="%1$s" title="%2$s" data-action="click->fictioneer#logout" rel="noopener noreferrer nofollow" aria-label="%3$s">%4$s</a></div>',
       fictioneer_get_logout_url(),
       esc_attr__( 'Logout', 'fictioneer' ),
       esc_attr__( 'Click to log out', 'fictioneer' ),
