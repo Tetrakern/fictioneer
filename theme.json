@@ -153,6 +153,20 @@
       "customDuotone": false,
       "defaultDuotone": false,
       "duotone": [],
+      "palette": [
+        { "name": "FG-100", "slug": "fg-100", "color": "var(--fg-100)" },
+        { "name": "FG-200", "slug": "fg-200", "color": "var(--fg-200)" },
+        { "name": "FG-300", "slug": "fg-300", "color": "var(--fg-300)" },
+        { "name": "FG-400", "slug": "fg-400", "color": "var(--fg-400)" },
+        { "name": "FG-500", "slug": "fg-500", "color": "var(--fg-500)" },
+        { "name": "FG-600", "slug": "fg-600", "color": "var(--fg-600)" },
+        { "name": "FG-700", "slug": "fg-700", "color": "var(--fg-700)" },
+        { "name": "FG-800", "slug": "fg-800", "color": "var(--fg-800)" },
+        { "name": "FG-900", "slug": "fg-900", "color": "var(--fg-900)" },
+        { "name": "FG-950", "slug": "fg-950", "color": "var(--fg-950)" },
+        { "name": "FG-Tinted", "slug": "fg-tinted", "color": "var(--fg-tinted)" },
+        { "name": "FG-Inverted", "slug": "fg-inverted", "color": "var(--fg-inverted)" }
+      ],
       "customGradient": true,
       "defaultGradients": false,
       "gradients": [

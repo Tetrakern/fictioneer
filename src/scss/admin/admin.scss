@@ -6,6 +6,21 @@
 // GLOBAL PROPERTIES
 // =============================================================================
 
+:root {
+  --fg-100: hsl(225deg 80% 2%);
+  --fg-200: hsl(224deg 71% 4%);
+  --fg-300: hsl(220deg 55% 7%);
+  --fg-400: hsl(221deg 39% 11%);
+  --fg-500: hsl(225deg 26% 16%);
+  --fg-600: hsl(217deg 19% 27%);
+  --fg-700: hsl(223deg 11% 39%);
+  --fg-800: hsl(220deg 9% 46%);
+  --fg-900: hsl(218deg 11% 58%);
+  --fg-950: hsl(218deg 11% 65%);
+  --fg-tinted: hsl(217deg 33% 17%);
+  --fg-inverted: hsl(210deg 20% 99%);
+}
+
 body {
   --fcn-bg-primary: #1d2327;
   --fcn-bg-secondary: #2c3337;
