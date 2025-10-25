@@ -586,7 +586,7 @@ application.register('fictioneer', class extends Stimulus.Controller {
       });
     }
 
-    if (this.lastModalToggle) {
+    if (this.lastModalToggle && document.body.classList.contains('user-is-tabbing')) {
       this.lastModalToggle?.focus();
       this.lastModalToggle?.blur();
       this.lastModalToggle.null;
