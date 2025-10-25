@@ -41,6 +41,14 @@ $header_breakpoint: 640px;
     }
   }
 
+  &__article {
+    container-type: inline-size;
+
+    .content-section {
+      container-type: initial; // Fix wrapping with floating cover image
+    }
+  }
+
   &__header {
     --this-img-height: #{get_clamp(145, 165, 400, $full-width)};
     --this-img-width: #{get_clamp(96, 110, 400, $full-width)};
