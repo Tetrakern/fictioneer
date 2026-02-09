@@ -419,19 +419,17 @@ Technically just another plugin, but one that will make your site significantly 
 * [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/): The most powerful of the listed cache plugins and also completely free — if you can get it running. As server-side cache, your host must support [LiteSpeed](https://docs.litespeedtech.com/lscache/), which is usually a prominent selling point so you would know. Be aware that enabling the "Remove Query Strings" option can break some things, among them the OAuth 2.0 authentication.
 
   <details>
-    <summary>Example settings</summary><br>
+    <summary>Example settings (simple)</summary><br>
     <p>LiteSpeed Cache offers you far more than what is covered here, so please refer to more comprehensive guides if you want to take advantage of that. However, combined with the other recommended plugins, you can do without.</p>
     <blockquote>
       Assume missing options are off, empty, or left to default.<br><br>
       <strong>[Cache: 1 - Cache] Cache Control Settings:</strong>
       <ul>
         <li>- [x] Enable Cache</li>
-        <li>- [ ] Cache Logged-in Users (OFF)</li>
-        <li>- [ ] Cache Commenters (OFF)</li>
+        <li>- [ ] Cache Logged-in Users (OFF; or ON if you know what you are doing)</li>
+        <li>- [ ] Cache Commenters (OFF; or ON if you know what you are doing)</li>
         <li>- [x] Cache REST API</li>
         <li>- [x] Cache Login Page</li>
-        <li>- [x] Cache favicon.ico</li>
-        <li>- [x] Cache PHP Resources</li>
         <li>- [ ] Cache Mobile (OFF)</li>
       </ul><br>
       <strong>[Cache: 2 - TTL] TTL:</strong>
@@ -487,10 +485,10 @@ Technically just another plugin, but one that will make your site significantly 
       <ul>
         <li>- [x] Browser Cache</li>
         <li>- [x] Browser Cache TTL: 31557600</li>
-      </ul>
+      </ul><br>
       <strong>[Page Optimization: 3 - HTML Settings] HTML Settings:</strong>
       <ul>
-        <li>- [ ] Remove Query Strings</li>
+        <li>- [ ] Remove Query Strings (OFF)</li>
       </ul>
     </blockquote>
   </details>
