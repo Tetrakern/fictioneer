@@ -27,7 +27,8 @@
     margin-bottom: .75rem;
   }
 
-  &__divider {
+  &__divider:is(hr) {
+    border: none;
     border-bottom: var(--layout-hr-border-dashed);
     margin: .75rem 0;
   }
