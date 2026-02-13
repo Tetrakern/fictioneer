@@ -22,6 +22,9 @@ class Latest_Stories {
 
   public static function render( $attr, $content = '', $tag = '' ) : string {
     $shortcode = $tag ?: 'fictioneer_latest_stories';
+
+    $attr['footer_comments'] = \Fictioneer\Utils::bool( $attr['footer_comments'] ?? null );
+
     $args = Attributes::parse( $attr, $shortcode, 4 );
 
     $args['content'] = $content;
