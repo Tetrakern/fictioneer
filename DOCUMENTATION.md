@@ -1272,7 +1272,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 
 ### Latest Updates
 
-Renders a multi-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Note that the `list` type behaves a bit different with the parameters and the `post_type` parameter is only used for the chapter query (card stories need to be published).
+Renders a multi-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Note that the `list` type behaves a bit different with the parameters and the `post_status` parameter is only used for the chapter query (card stories need to be published).
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, `single`, `compact`, or `list`. The other variants are smaller with less data.
