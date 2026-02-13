@@ -200,7 +200,7 @@ final class Attributes {
       'page' => max( 1, absint( get_query_var( 'page' ) ) ?: absint( get_query_var( 'paged' ) ) ?: 1 ),
       'posts_per_page' => absint( $attr['posts_per_page'] ?? 0 )
         ?: absint( $attr['per_page'] ?? 0 ) ?: (int) get_option( 'posts_per_page' ),
-      'post_status' => sanitize_key( $attr['post_status'] ?? 'publish' ),
+      'post_status' => Utils::parse_list( $attr['post_status'] ?? 'publish', 'sanitize_key' ),
       'post_ids' => wp_parse_id_list( $attr['post_ids'] ?? '' ),
       'author' => sanitize_title( $attr['author'] ?? '' ),
       'author_ids' => wp_parse_id_list( $attr['author_ids'] ?? '' ),
@@ -242,6 +242,10 @@ final class Attributes {
 
     if ( ! empty( $sanitized['post_ids'] ) ) {
       $sanitized['count'] = count( $sanitized['post_ids'] );
+    }
+
+    if ( is_array( $sanitized['post_status'] ) && count( $sanitized['post_status'] ) === 1 ) {
+      $sanitized['post_status'] = reset( $sanitized['post_status'] ); // Legacy support
     }
 
     return apply_filters(

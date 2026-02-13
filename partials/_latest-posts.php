@@ -13,7 +13,7 @@
  * @internal $args['author']            The author provided by the shortcode. Default false.
  * @internal $args['count']             The number of posts provided by the shortcode. Default 1.
  * @internal $args['post_ids']          Array of post IDs. Default empty.
- * @internal $args['post_status']       Queried post status. Default 'publish'.
+ * @internal $args['post_status']       Post status string or array. Default 'publish'.
  * @internal $args['author_ids']        Array of author IDs. Default empty.
  * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
@@ -90,7 +90,13 @@ $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_posts_query_arg
 $latest_entries = \Fictioneer\Shortcodes\Shortcode::query( $query_args );
 
 // Classes
-$args['classes'] .= ' _' . $args['post_status'];
+if ( is_array( $args['post_status'] ) ) {
+  foreach ( $args['post_status'] as $post_status_arg ) {
+    $args['classes'] .= ' _' . $post_status_arg;
+  }
+} else {
+  $args['classes'] .= ' _' . $args['post_status'];
+}
 
 ?>
 

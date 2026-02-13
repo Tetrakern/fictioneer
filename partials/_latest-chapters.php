@@ -16,7 +16,7 @@
  * @internal $args['orderby']             Sorting of posts. Default 'date'.
  * @internal $args['spoiler']             Whether to obscure or show chapter excerpt.
  * @internal $args['post_ids']            Array of post IDs. Default empty.
- * @internal $args['post_status']         Queried post status. Default 'publish'.
+ * @internal $args['post_status']         Post status string or array. Default 'publish'.
  * @internal $args['author_ids']          Array of author IDs. Default empty.
  * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
@@ -204,7 +204,13 @@ if ( $args['count'] < 2 || count( $args['post_ids'] ?? [] ) === 1 ) {
             }
 
             // Extra card classes
-            $card_classes[] = '_' . $args['post_status'];
+            if ( is_array( $args['post_status'] ) ) {
+              foreach ( $args['post_status'] as $post_status_arg ) {
+                $card_classes[] = '_' . $post_status_arg;
+              }
+            } else {
+              $card_classes[] = '_' . $args['post_status'];
+            }
 
             if ( ! empty( $post->post_password ) ) {
               $card_classes[] = '_password';
