@@ -20,6 +20,7 @@
  * @internal $args['order']               Order of posts. Default 'DESC'.
  * @internal $args['post_ids']            Array of post IDs. Default empty.
  * @internal $args['post_status']         Post status string or array. Default 'publish'.
+ * @internal $args['chapter_post_status'] Array of post status strings for the chapters. Default empty.
  * @internal $args['author_ids']          Array of author IDs. Default empty.
  * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
@@ -72,6 +73,8 @@ $icon_words = Utils::get_theme_icon(
     'title' => __( 'Total Words', 'fictioneer' )
   )
 );
+
+$chapter_post_status = $args['chapter_post_status'] ?: ['publish', 'future'];
 
 // Prepare query
 $query_args = array(
@@ -284,19 +287,24 @@ if ( $args['count'] < 2 || count( $args['post_ids'] ?? [] ) === 1 ) {
             // Search for viable chapters...
             $search_list = array_reverse( $story['chapter_ids'] );
 
-            // Pre-load posts
-            $chapter_posts = get_posts(
+            $preload = get_posts(
               array(
                 'fictioneer_query_name' => 'fictioneer_latest_updates_preload_chapters',
                 'post_type' => 'fcn_chapter',
-                'post_status' => ['publish', 'future'],
+                'post_status' => $chapter_post_status,
                 'post__in' => $search_list ?: [0], // Must not be empty!
+                'orderby' => 'post__in',
+                'posts_per_page' => 4, // Buffer
                 'update_post_term_cache' => false, // Improve performance
                 'no_found_rows' => true // Improve performance
               )
             );
 
             foreach ( $search_list as $chapter_id ) {
+              if ( ! in_array( get_post_status( $chapter_id ), $chapter_post_status ) ) {
+                continue;
+              }
+
               $chapter_post = get_post( $chapter_id );
 
               if ( ! $chapter_post ) {

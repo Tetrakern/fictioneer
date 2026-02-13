@@ -1281,6 +1281,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **post_status:** Comma-separated list of post status keys (`publish` or `future`). Note that by default, any post status except `publish` redirects to a 404 page for guests and users without higher permissions. Default `publish`.
+* **chapter_post_status:** Comma-separated list of post status keys (`publish` or `future`) for the displayed chapters.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **only_protected:** Whether to query only protected posts or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.

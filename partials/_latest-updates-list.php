@@ -19,6 +19,7 @@
  * @internal $args['order']               Order of posts. Default 'DESC'.
  * @internal $args['post_ids']            Array of post IDs. Default empty.
  * @internal $args['post_status']         Post status string or array. Default 'publish'.
+ * @internal $args['chapter_post_status'] Array of post status strings for the chapters. Default empty.
  * @internal $args['author_ids']          Array of author IDs. Default empty.
  * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
@@ -58,6 +59,7 @@ $splide = $args['splide'] ?? 0;
 $render_count = 0;
 $show_terms = ! in_array( $args['terms'], ['none', 'false'] );
 $content_list_style = get_theme_mod( 'content_list_style', 'default' );
+$chapter_post_status = $args['chapter_post_status'] ?: ['publish', 'future'];
 
 // Prepare query
 $query_args = array(
@@ -267,9 +269,12 @@ if ( $splide ) {
 
             // Search for viable chapters...
             $search_list = array_reverse( $story['chapter_ids'] );
-            $chapter_post = null;
 
             foreach ( $search_list as $chapter_id ) {
+              if ( ! in_array( get_post_status( $chapter_id ), $chapter_post_status ) ) {
+                continue;
+              }
+
               $chapter_post = get_post( $chapter_id );
 
               if ( ! $chapter_post ) {

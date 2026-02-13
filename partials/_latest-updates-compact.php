@@ -19,6 +19,7 @@
  * @internal $args['order']               Order of posts. Default 'DESC'.
  * @internal $args['post_ids']            Array of post IDs. Default empty.
  * @internal $args['post_status']         Post status string or array. Default 'publish'.
+ * @internal $args['chapter_post_status'] Array of post status strings for the chapters. Default empty.
  * @internal $args['author_ids']          Array of author IDs. Default empty.
  * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
@@ -55,6 +56,7 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $splide = $args['splide'] ?? 0;
 $card_counter = 0;
+$chapter_post_status = $args['chapter_post_status'] ?: ['publish', 'future'];
 
 // Prepare query
 $query_args = array(
@@ -237,6 +239,10 @@ if ( $args['count'] < 2 || count( $args['post_ids'] ?? [] ) === 1 ) {
             $search_list = array_reverse( $story['chapter_ids'] );
 
             foreach ( $search_list as $chapter_id ) {
+              if ( ! in_array( get_post_status( $chapter_id ), $chapter_post_status ) ) {
+                continue;
+              }
+
               $chapter_post = get_post( $chapter_id );
 
               if ( ! $chapter_post ) {
