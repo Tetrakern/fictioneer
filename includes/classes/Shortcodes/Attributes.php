@@ -96,7 +96,6 @@ final class Attributes {
       'posts_per_page' => (int) get_option( 'posts_per_page' ),
       'post_status' => 'publish',
       'post_ids' => '',
-      'chapter_post_status' => '',
       'author' => '',
       'author_ids' => '',
       'excluded_authors' => '',
@@ -202,7 +201,6 @@ final class Attributes {
       'posts_per_page' => absint( $attr['posts_per_page'] ?? 0 )
         ?: absint( $attr['per_page'] ?? 0 ) ?: (int) get_option( 'posts_per_page' ),
       'post_status' => Utils::parse_list( $attr['post_status'] ?? 'publish', 'sanitize_key' ),
-      'chapter_post_status' => Utils::parse_list( $attr['chapter_post_status'] ?? '', 'sanitize_key' ),
       'post_ids' => wp_parse_id_list( $attr['post_ids'] ?? '' ),
       'author' => sanitize_title( $attr['author'] ?? '' ),
       'author_ids' => wp_parse_id_list( $attr['author_ids'] ?? '' ),

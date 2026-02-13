@@ -24,6 +24,7 @@ class Latest_Updates {
     $shortcode = $tag ?: 'fictioneer_latest_updates';
 
     $attr['footer_comments'] = \Fictioneer\Utils::bool( $attr['footer_comments'] ?? null );
+    $attr['post_status'] = \Fictioneer\Utils::parse_list( $attr['post_status'] ?? ['publish', 'future'], 'sanitize_key' );
 
     $args = Attributes::parse( $attr, $shortcode, 4 );
 

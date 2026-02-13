@@ -20,7 +20,6 @@
  * @internal $args['order']               Order of posts. Default 'DESC'.
  * @internal $args['post_ids']            Array of post IDs. Default empty.
  * @internal $args['post_status']         Post status string or array. Default 'publish'.
- * @internal $args['chapter_post_status'] Array of post status strings for the chapters. Default empty.
  * @internal $args['author_ids']          Array of author IDs. Default empty.
  * @internal $args['excluded_authors']    Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']       Array of category IDs to exclude. Default empty.
@@ -74,13 +73,13 @@ $icon_words = Utils::get_theme_icon(
   )
 );
 
-$chapter_post_status = $args['chapter_post_status'] ?: ['publish', 'future'];
+$chapter_post_status = is_array( $args['post_status'] ) ? $args['post_status'] : [ $args['post_status'] ];
 
 // Prepare query
 $query_args = array(
   'fictioneer_query_name' => 'latest_updates',
   'post_type' => 'fcn_story',
-  'post_status' => $args['post_status'],
+  'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => 'meta_value',
