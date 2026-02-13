@@ -420,10 +420,9 @@
     :is(i, .icon) {
       display: inline-block;
       color: var(--fg-800);
-      margin: 0 .35em 0 0;
 
       &.fa-caret-right {
-        margin-left: -0.25em;
+        margin-left: -0.375em;
       }
     }
 
