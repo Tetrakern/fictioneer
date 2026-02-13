@@ -136,12 +136,14 @@ if ( $args['min_width'] ) {
       }
 
       // Classes
+      $classes = '';
+
       if ( is_array( $args['post_status'] ) ) {
         foreach ( $args['post_status'] as $post_status_arg ) {
-          $card_classes[] = '_' . $post_status_arg;
+          $classes .= ' _' . $post_status_arg;
         }
       } else {
-        $card_classes[] = '_' . $args['post_status'];
+        $classes .= ' _' . $args['post_status'];
       }
 
       if ( $args['aspect_ratio'] ) {
