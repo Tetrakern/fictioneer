@@ -521,13 +521,11 @@ function fictioneer_shortcode_contact_form( $attr ) {
   );
 
   // Setup
-  $title = $attr['title'] ?? _x( 'Nameless Form', 'Contact form.', 'fictioneer' );
-  $submit = $attr['submit'] ?? __( 'Submit', 'fictioneer' );
+  $title = $attr['title'] ?: _x( 'Nameless Form', 'Contact form.', 'fictioneer' );
+  $submit = $attr['submit'] ?: __( 'Submit', 'fictioneer' );
   $privacy_policy = filter_var( $attr['privacy_policy'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $required = isset( $attr['required'] ) ? 'required' : '';
-  $email = $attr['email'] ?? '';
-  $name = $attr['name'] ?? '';
-  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
+  $classes = wp_strip_all_tags( $attr['class'] );
   $fields = [];
 
   // HTML snippets
