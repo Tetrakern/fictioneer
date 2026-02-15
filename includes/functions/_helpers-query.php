@@ -100,15 +100,6 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
             )
           )
         );
-
-        // Get excluded posts (faster than meta query)
-        if ( $post_type === 'fcn_chapter' )  {
-          foreach ( $all_query->posts as $candidate ) {
-            if ( get_post_meta( $candidate->ID, 'fictioneer_chapter_no_chapter', true ) ) {
-              $excluded[] = $candidate->ID;
-            }
-          }
-        }
       }
 
       if ( ! empty( $excluded ) && count( $excluded ) <= $batch_limit ) {
@@ -149,11 +140,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
             fictioneer_get_template_part( 'partials/_card-story', null, $the_card_args );
             break;
           case 'fcn_chapter':
-            if ( get_post_meta( $card_post_id, 'fictioneer_chapter_no_chapter', true ) ) {
-              fictioneer_get_template_part( 'partials/_card-hidden', null, $the_card_args );
-            } else {
-              fictioneer_get_template_part( 'partials/_card-chapter', null, $the_card_args );
-            }
+            fictioneer_get_template_part( 'partials/_card-chapter', null, $the_card_args );
             break;
           default:
             fictioneer_get_template_part( 'partials/_card-' . str_replace( 'fcn_', '', $post_type ), null, $the_card_args );

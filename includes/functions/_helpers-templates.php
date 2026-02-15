@@ -1971,16 +1971,11 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
   function fictioneer_echo_card( $args = [] ) {
     // Setup
     $type = get_post_type();
-    $post_id = get_the_ID();
 
     // Echo correct card by post type
     switch ( $type ) {
       case 'fcn_chapter':
-        if ( get_post_meta( $post_id, 'fictioneer_chapter_no_chapter', true ) ) {
-          fictioneer_get_template_part( 'partials/_card-hidden', null, $args );
-        } else {
-          fictioneer_get_template_part( 'partials/_card-chapter', null, $args );
-        }
+        fictioneer_get_template_part( 'partials/_card-chapter', null, $args );
         break;
       case 'fcn_story':
         fictioneer_get_template_part( 'partials/_card-story', null, $args );

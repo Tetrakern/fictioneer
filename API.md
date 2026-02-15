@@ -80,7 +80,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1674004959,
         "protected": false,
         "words": 8040,
-        "nonChapter": false,
         "ageRating": "Teen",
         "taxonomies": {
           "tags": [
@@ -114,7 +113,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978225,
         "protected": false,
         "words": 5949,
-        "nonChapter": false,
         "ageRating": "Teen",
         "taxonomies": {
           "tags": [
@@ -148,7 +146,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978225,
         "protected": true,
         "words": 5242,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -181,7 +178,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978225,
         "protected": false,
         "words": 4509,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -214,7 +210,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978225,
         "protected": false,
         "words": 8272,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -247,7 +242,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978225,
         "protected": false,
         "words": 4249,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -280,7 +274,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978225,
         "protected": false,
         "words": 5836,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -313,7 +306,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978208,
         "protected": false,
         "words": 5173,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -346,7 +338,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 3892,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -379,7 +370,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 5761,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -412,7 +402,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 5043,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -445,7 +434,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 5640,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -478,7 +466,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 4919,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -511,7 +498,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 6068,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -544,7 +530,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 7155,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -574,7 +559,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 5109,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -607,7 +591,6 @@ GET /wp-json/storygraph/v1/story/<id>
         "modified": 1673978207,
         "protected": false,
         "words": 4701,
-        "nonChapter": false,
         "taxonomies": {
           "tags": [
             "Magic",
@@ -704,7 +687,6 @@ The following schema defines all fields that can exist within the response, excl
 | modified `integer` | Unix timestamp of when the chapter was last updated (GMT).
 | protected `boolean` | Whether the chapter is protected by a password.
 | words `integer` | Number of words.
-| nonChapter `boolean` | Whether the chapter is marked as non-chapter.
 | ageRating `string\|null` | Either Everyone, Teen, Mature, or Adult (if different from story).
 | warning `string\|null` | Simple content warning notice.
 | taxonomies `object\|null` | Taxonomy collection node.

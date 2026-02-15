@@ -787,7 +787,7 @@ add_filter( 'fictioneer_filter_get_template_part', 'custom_plugin_override_bookm
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapters_added_statuses', $statuses, $story_id )`
-Filters the array of chapter statuses that are eligible to update the `fictioneer_chapters_modified` story meta field in several functions. By default, the statuses are `['publish']`. Note that hidden chapters (meta flag) will still be ignored regardless of status since they are not listed.
+Filters the array of chapter statuses that are eligible to update the `fictioneer_chapters_modified` story meta field in several functions. By default, the statuses are `['publish']`.
 
 **Note:** If you enable the `FICTIONEER_LIST_SCHEDULED_CHAPTERS` constant, the filter will be used to treat scheduled chapters as published.
 

@@ -1377,10 +1377,6 @@ function fictioneer_get_relationship_chapter_details( $chapter ) {
   // Build
   $info[] = empty( $text_icon ) ? sprintf( '<i class="%s"></i>', $icon ) : "<strong>{$text_icon}</strong>";
 
-  if ( $chapter->fictioneer_chapter_no_chapter ?? 0 ) {
-    $flags[] = _x( 'No Chapter', 'Chapter assignment flag.', 'fictioneer' );
-  }
-
   $info[] = sprintf(
     _x( '<strong>Status:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ),
     Utils_Admin::get_post_status_label( $chapter->post_status )
@@ -2864,12 +2860,6 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
   $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
     __( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
-  $output['fictioneer_chapter_no_chapter'] = fictioneer_get_metabox_checkbox(
-    $post,
-    'fictioneer_chapter_no_chapter',
-    __( 'Do not count as chapter', 'fictioneer' )
-  );
-
   $output['fictioneer_chapter_hide_title'] = fictioneer_get_metabox_checkbox(
     $post,
     'fictioneer_chapter_hide_title',
@@ -3088,11 +3078,6 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // --- Sanitize and add data -------------------------------------------------
 
   $post_author_id = get_post_field( 'post_author', $post_id );
-
-  // No chapter flag
-  if ( isset( $_POST['fictioneer_chapter_no_chapter'] ) ) {
-    $fields['fictioneer_chapter_no_chapter'] = Sanitizer::sanitize_bool_num( $_POST['fictioneer_chapter_no_chapter'] );
-  }
 
   // Hide title flag
   if ( isset( $_POST['fictioneer_chapter_hide_title'] ) ) {

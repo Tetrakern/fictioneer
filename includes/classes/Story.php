@@ -708,11 +708,9 @@ class Story {
         c.ID,
         c.comment_count,
         c.post_status,
-        CAST(wc.meta_value AS UNSIGNED) AS word_count,
-        nc.meta_value AS is_no_chapter
+        CAST(wc.meta_value AS UNSIGNED) AS word_count
       FROM {$wpdb->posts} c
       LEFT JOIN {$wpdb->postmeta} wc ON wc.post_id = c.ID AND wc.meta_key = '_word_count'
-      LEFT JOIN {$wpdb->postmeta} nc ON nc.post_id = c.ID AND nc.meta_key = 'fictioneer_chapter_no_chapter'
       WHERE c.ID IN ($ids_placeholder)
         AND c.post_status IN ($status_placeholders)",
       ...$chapter_ids,
@@ -758,17 +756,15 @@ class Story {
           c.ID,
           c.comment_count,
           c.post_status,
-          CAST(pm.word_count AS UNSIGNED) AS word_count,
-          pm.is_no_chapter
+          CAST(pm.word_count AS UNSIGNED) AS word_count
         FROM {$wpdb->posts} c
         LEFT JOIN (
           SELECT
             post_id,
-            MAX(CASE WHEN meta_key = '_word_count' THEN meta_value END) AS word_count,
-            MAX(CASE WHEN meta_key = 'fictioneer_chapter_no_chapter' THEN meta_value END) AS is_no_chapter
+            MAX(meta_value) AS word_count
           FROM {$wpdb->postmeta}
           WHERE post_id IN ($ids_placeholder)
-            AND meta_key IN ('_word_count','fictioneer_chapter_no_chapter')
+            AND meta_key = '_word_count'
           GROUP BY post_id
         ) pm ON pm.post_id = c.ID
         WHERE c.ID IN ($ids_placeholder)

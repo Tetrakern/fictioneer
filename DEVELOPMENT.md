@@ -249,7 +249,6 @@ These are the protected meta fields used specifically for the **fcn_chapter** po
 | fictioneer_chapter_rating | string | Either Everyone, Teen, Mature, or Adult due to legacy reasons.
 | fictioneer_chapter_warning | string | Short warning shown in chapter lists.
 | fictioneer_chapter_warning_notes | string | Content for warning note in chapters.
-| fictioneer_chapter_no_chapter | boolean | Whether the chapter should not count as chapter.
 | fictioneer_chapter_hide_title | boolean | Whether to hide the title at the top of the chapter.
 | fictioneer_chapter_hide_support_links | boolean | Whether to hide the support links at the bottom of the chapter.
 | fictioneer_chapter_disable_partial_caching | boolean | Whether to disable partial caching for the chapter.

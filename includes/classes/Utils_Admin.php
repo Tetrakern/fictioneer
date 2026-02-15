@@ -1092,15 +1092,13 @@ final class Utils_Admin {
         pm_icon.meta_value as fictioneer_chapter_icon,
         pm_rating.meta_value as fictioneer_chapter_rating,
         pm_warning.meta_value as fictioneer_chapter_warning,
-        pm_group.meta_value as fictioneer_chapter_group,
-        pm_no_chapter.meta_value as fictioneer_chapter_no_chapter
+        pm_group.meta_value as fictioneer_chapter_group
       FROM {$wpdb->posts} p
       LEFT JOIN {$wpdb->postmeta} pm_text_icon ON (p.ID = pm_text_icon.post_id AND pm_text_icon.meta_key = 'fictioneer_chapter_text_icon')
       LEFT JOIN {$wpdb->postmeta} pm_icon ON (p.ID = pm_icon.post_id AND pm_icon.meta_key = 'fictioneer_chapter_icon')
       LEFT JOIN {$wpdb->postmeta} pm_rating ON (p.ID = pm_rating.post_id AND pm_rating.meta_key = 'fictioneer_chapter_rating')
       LEFT JOIN {$wpdb->postmeta} pm_warning ON (p.ID = pm_warning.post_id AND pm_warning.meta_key = 'fictioneer_chapter_warning')
       LEFT JOIN {$wpdb->postmeta} pm_group ON (p.ID = pm_group.post_id AND pm_group.meta_key = 'fictioneer_chapter_group')
-      LEFT JOIN {$wpdb->postmeta} pm_no_chapter ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
       WHERE p.post_type = 'fcn_chapter'
         AND p.ID IN ($placeholders)
         AND EXISTS (

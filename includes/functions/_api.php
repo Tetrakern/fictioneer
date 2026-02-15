@@ -161,7 +161,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         'fictioneer_chapter_group',
         'fictioneer_chapter_rating',
         'fictioneer_chapter_warning',
-        'fictioneer_chapter_no_chapter',
         'fictioneer_chapter_co_authors',
         '_word_count'
       );
@@ -200,7 +199,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
             'published' => strtotime( $row->post_date_gmt ),
             'modified' => strtotime( $row->post_modified_gmt ),
             'protected' => ! empty( $row->post_password ),
-            'nonChapter' => false, // Default
             'language' => get_bloginfo( 'language' ), // Default
             'taxonomies' => [], // Default
             'author' => array(
@@ -248,9 +246,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
             break;
           case 'fictioneer_chapter_warning':
             $chapters[ $row->ID ]['warning'] = $meta_value;
-            break;
-          case 'fictioneer_chapter_no_chapter':
-            $chapters[ $row->ID ]['nonChapter'] = ! empty( $meta_value );
             break;
           case '_word_count':
             $chapters[ $row->ID ]['words'] = fictioneer_get_word_count( $row->ID, (int) $meta_value );

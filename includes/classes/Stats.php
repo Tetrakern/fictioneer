@@ -81,11 +81,9 @@ final class Stats {
     $posts = $wpdb->get_results(
       $wpdb->prepare(
         "SELECT p.ID, p.post_type, p.comment_count,
-          wc.meta_value AS word_count,
-          nch.meta_value AS chapter_no_chapter
+          wc.meta_value AS word_count
         FROM {$wpdb->posts} p
         LEFT JOIN {$wpdb->postmeta} wc  ON p.ID = wc.post_id  AND wc.meta_key = '_word_count'
-        LEFT JOIN {$wpdb->postmeta} nch ON p.ID = nch.post_id AND nch.meta_key = 'fictioneer_chapter_no_chapter'
         WHERE p.post_status = 'publish'
           AND p.post_author = %d
           AND p.post_type IN ('fcn_story', 'fcn_chapter')",
@@ -100,18 +98,14 @@ final class Stats {
     $comment_count = 0;
 
     foreach ( $posts as $post ) {
-      $is_non_chapter = ! empty( $post['chapter_no_chapter'] ) && $post['chapter_no_chapter'] !== '0';
-
       if ( $post['post_type'] === 'fcn_story' ) {
         $story_count++;
-      } elseif ( $post['post_type'] === 'fcn_chapter' && ! $is_non_chapter ) {
+      } elseif ( $post['post_type'] === 'fcn_chapter' ) {
         $chapter_count++;
         $comment_count += (int) $post['comment_count'];
       }
 
-      if ( ! $is_non_chapter ) {
-        $word_count += fictioneer_get_word_count( (int) $post['ID'], max( 0, (int) $post['word_count'] ) );
-      }
+      $word_count += fictioneer_get_word_count( (int) $post['ID'], max( 0, (int) $post['word_count'] ) );
     }
 
     $result = array(
@@ -231,14 +225,11 @@ final class Stats {
       $sql =
         "SELECT p.ID, p.comment_count, COALESCE(pm_word_count.meta_value, 0) AS word_count
         FROM {$wpdb->posts} p
-        LEFT JOIN {$wpdb->postmeta} pm_no_chapter
-          ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
         LEFT JOIN {$wpdb->postmeta} pm_word_count
           ON (p.ID = pm_word_count.post_id AND pm_word_count.meta_key = '_word_count')
         WHERE p.ID IN ($placeholders)
           AND p.post_type = 'fcn_chapter'
-          AND p.post_status = 'publish'
-          AND (pm_no_chapter.meta_value IS NULL OR pm_no_chapter.meta_value = '' OR pm_no_chapter.meta_value = '0')";
+          AND p.post_status = 'publish'";
 
       $chapters = $wpdb->get_results( $wpdb->prepare( $sql, ...$query_chapter_ids ) );
 

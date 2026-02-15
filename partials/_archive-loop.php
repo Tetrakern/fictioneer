@@ -61,13 +61,6 @@ $hook_args = array(
             'ago' => $ago
           );
 
-          // Special conditions for chapters...
-          if ( $type == 'fcn_chapter' ) {
-            if ( get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true ) ) {
-              continue;
-            }
-          }
-
           // Echo correct card
           fictioneer_echo_card( $card_args );
         }

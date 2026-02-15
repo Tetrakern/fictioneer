@@ -414,8 +414,6 @@ add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added
 /**
  * Add the 'future' post status to the update allow list.
  *
- * Note: Hidden chapters are still ignored.
- *
  * @since x.x.x
  *
  * @param string[] $statuses  Statuses that are queried. Default ['publish].

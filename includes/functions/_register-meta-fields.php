@@ -1542,24 +1542,6 @@ function fictioneer_register_chapter_meta_fields() {
 
   register_post_meta(
     'fcn_chapter',
-    'fictioneer_chapter_no_chapter',
-    array(
-      'type' => 'boolean',
-      'single' => true,
-      'show_in_rest' => array(
-        'schema' => array(
-          'type' => 'boolean'
-        )
-      ),
-      'auth_callback' => function( $allowed, $meta_key, $object_id, $user_id ) {
-        return fictioneer_rest_auth_callback( $object_id, $user_id, 'fcn_chapter' );
-      },
-      'sanitize_callback' => [ Sanitizer::class, 'sanitize_bool_num' ]
-    )
-  );
-
-  register_post_meta(
-    'fcn_chapter',
     'fictioneer_chapter_hide_title',
     array(
       'type' => 'boolean',
