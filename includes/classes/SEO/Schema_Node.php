@@ -389,33 +389,7 @@ final class Schema_Node {
       'no_found_rows' => true // Improve performance
     );
 
-    $posts = get_posts( array_merge( $query_args, $args ) );
-
-    if ( $post_type === 'fcn_story' ) {
-      $posts = array_values(
-        array_filter(
-          $posts,
-          function( $item ) {
-            $hidden = get_post_meta( $item->ID, 'fictioneer_story_hidden', true );
-
-            return $hidden !== '1' && $hidden !== 'true' && $hidden !== 1 && $hidden !== true;
-          }
-        )
-      );
-    } elseif ( $post_type === 'fcn_chapter' ) {
-      $posts = array_values(
-        array_filter(
-          $posts,
-          function( $item ) {
-            $hidden = get_post_meta( $item->ID, 'fictioneer_chapter_hidden', true );
-
-            return $hidden !== '1' && $hidden !== 'true' && $hidden !== 1 && $hidden !== true;
-          }
-        )
-      );
-    }
-
-    return $posts;
+    return get_posts( array_merge( $query_args, $args ) );
   }
 
   /**

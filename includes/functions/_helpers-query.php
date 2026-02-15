@@ -102,20 +102,9 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
         );
 
         // Get excluded posts (faster than meta query)
-        if ( $post_type === 'fcn_story' ) {
-          // Story hidden?
+        if ( $post_type === 'fcn_chapter' )  {
           foreach ( $all_query->posts as $candidate ) {
-            if ( get_post_meta( $candidate->ID, 'fictioneer_story_hidden', true ) ) {
-              $excluded[] = $candidate->ID;
-            }
-          }
-        } else {
-          // Chapter hidden or excluded?
-          foreach ( $all_query->posts as $candidate ) {
-            if (
-              get_post_meta( $candidate->ID, 'fictioneer_chapter_hidden', true ) ||
-              get_post_meta( $candidate->ID, 'fictioneer_chapter_no_chapter', true )
-            ) {
+            if ( get_post_meta( $candidate->ID, 'fictioneer_chapter_no_chapter', true ) ) {
               $excluded[] = $candidate->ID;
             }
           }
@@ -157,17 +146,10 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
         switch ( $post_type ) {
           case 'fcn_story':
-            if ( get_post_meta( $card_post_id, 'fictioneer_story_hidden', true ) ) {
-              fictioneer_get_template_part( 'partials/_card-hidden', null, $the_card_args );
-            } else {
-              fictioneer_get_template_part( 'partials/_card-story', null, $the_card_args );
-            }
+            fictioneer_get_template_part( 'partials/_card-story', null, $the_card_args );
             break;
           case 'fcn_chapter':
-            if (
-              get_post_meta( $card_post_id, 'fictioneer_chapter_hidden', true ) ||
-              get_post_meta( $card_post_id, 'fictioneer_chapter_no_chapter', true )
-            ) {
+            if ( get_post_meta( $card_post_id, 'fictioneer_chapter_no_chapter', true ) ) {
               fictioneer_get_template_part( 'partials/_card-hidden', null, $the_card_args );
             } else {
               fictioneer_get_template_part( 'partials/_card-chapter', null, $the_card_args );
@@ -316,48 +298,6 @@ if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
 }
 
 // =============================================================================
-// LIST META QUERIES
-// =============================================================================
-
-/**
- * Add 'fictioneer_chapter_hidden' to be saved falsy.
- *
- * @since 5.9.4
- *
- * @param array $allowed  Array of allowed falsy meta fields.
- *
- * @return array The updated array.
- */
-
-function fictioneer_allow_falsy_chapter_hidden( $allowed ) {
-  $allowed[] = 'fictioneer_chapter_hidden';
-  return $allowed;
-}
-
-if ( get_option( 'fictioneer_disable_extended_chapter_list_meta_queries' ) ) {
-  add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_chapter_hidden' );
-}
-
-/**
- * Adds 'fictioneer_story_hidden' to be saved falsy
- *
- * @since 5.9.4
- *
- * @param array $allowed  Array of allowed falsy meta fields.
- *
- * @return array The updated array.
- */
-
-function fictioneer_allow_falsy_story_hidden( $allowed ) {
-  $allowed[] = 'fictioneer_story_hidden';
-  return $allowed;
-}
-
-if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
-  add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_story_hidden' );
-}
-
-// =============================================================================
 // CHAPTER STORY ID
 // =============================================================================
 
@@ -450,50 +390,13 @@ function fictioneer_random_spotlight_query( $post_type = 'fcn_story', $args = []
   }
 
   // Fetch all published posts
-  switch ( $post_type ) {
-    case 'fcn_story':
-      $all_post_ids = $wpdb->get_col(
-        "SELECT p.ID
-        FROM {$wpdb->posts} AS p
-        LEFT JOIN {$wpdb->postmeta} AS m
-          ON p.ID = m.post_id
-          AND m.meta_key = 'fictioneer_story_hidden'
-        WHERE p.post_type = 'fcn_story'
-          AND p.post_status = 'publish'
-          AND (
-            m.meta_value IS NULL
-            OR m.meta_value = ''
-            OR m.meta_value = '0'
-            OR m.meta_value = 'false'
-          )"
-      );
-      break;
-    case 'fcn_chapter':
-      $all_post_ids = $wpdb->get_col(
-        "SELECT p.ID
-        FROM {$wpdb->posts} AS p
-        LEFT JOIN {$wpdb->postmeta} AS m
-          ON p.ID = m.post_id
-          AND m.meta_key = 'fictioneer_chapter_hidden'
-        WHERE p.post_type = 'fcn_chapter'
-          AND p.post_status = 'publish'
-          AND (
-            m.meta_value IS NULL
-            OR m.meta_value = ''
-            OR m.meta_value = '0'
-            OR m.meta_value = 'false'
-          )"
-      );
-      break;
-    default:
-      $all_post_ids = $wpdb->get_col(
-        $wpdb->prepare(
-          "SELECT ID FROM {$wpdb->posts}
-           WHERE post_type = %s AND post_status = 'publish'",
-          $post_type
-        )
-      );
-  }
+  $all_post_ids = $wpdb->get_col(
+    $wpdb->prepare(
+      "SELECT ID FROM {$wpdb->posts}
+        WHERE post_type = %s AND post_status = 'publish'",
+      $post_type
+    )
+  );
 
   if ( empty( $all_post_ids ) ) {
     return [];

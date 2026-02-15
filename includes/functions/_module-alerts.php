@@ -226,8 +226,7 @@ function fictioneer_add_chapter_alert( $post_id, $post ) {
   if (
     $post->post_type !== 'fcn_chapter' ||
     $post->post_status !== 'publish' ||
-    ( time() - strtotime( $post->post_date_gmt ) ) > 10 ||
-    get_post_meta( $post_id, 'fictioneer_chapter_hidden', true )
+    ( time() - strtotime( $post->post_date_gmt ) ) > 10
   ) {
     return;
   }
@@ -288,8 +287,7 @@ function fictioneer_add_chapter_alert( $post_id, $post ) {
   if (
     $post->post_type !== 'fcn_chapter' ||
     $old_status !== 'future' ||
-    $new_status !== 'publish' ||
-    get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true )
+    $new_status !== 'publish'
   ) {
     return;
   }

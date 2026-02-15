@@ -1185,7 +1185,7 @@ function fictioneer_get_media_buttons( $args = [] ) {
     $feed_url = urlencode( $feed );
 
     // Post feed
-    if ( $post_type === 'fcn_story' && ! get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ) {
+    if ( $post_type === 'fcn_story' && ! get_post_status( $post_id ) !== 'fcn_hidden' ) {
       $output['post_rss'] = '<a href="' . $feed . '" class="rss-link tooltipped media-buttons__item" target="_blank" rel="noopener" data-tooltip="' . esc_attr__( 'Story RSS Feed', 'fictioneer' ) . '" aria-label="' . esc_attr__( 'Story RSS Feed', 'fictioneer' ) . '">' . fictioneer_get_icon( 'fa-rss' ) . '</a>';
     }
 
@@ -1350,10 +1350,7 @@ function fictioneer_get_chapter_index_html( $story_id ) {
   // Loop chapters...
   foreach ( $chapters as $chapter ) {
     // Skip hidden chapters (in case of filtered query params)
-    if (
-      ! in_array( $chapter->post_status, $allowed_statuses ) ||
-      Utils::get_meta( $chapter, 'fictioneer_chapter_hidden' )
-    ) {
+    if ( ! in_array( $chapter->post_status, $allowed_statuses ) ) {
       continue;
     }
 
@@ -1979,21 +1976,14 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
     // Echo correct card by post type
     switch ( $type ) {
       case 'fcn_chapter':
-        if (
-          get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ||
-          get_post_meta( $post_id, 'fictioneer_chapter_no_chapter', true )
-        ) {
+        if ( get_post_meta( $post_id, 'fictioneer_chapter_no_chapter', true ) ) {
           fictioneer_get_template_part( 'partials/_card-hidden', null, $args );
         } else {
           fictioneer_get_template_part( 'partials/_card-chapter', null, $args );
         }
         break;
       case 'fcn_story':
-        if ( get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ) {
-          fictioneer_get_template_part( 'partials/_card-hidden', null, $args );
-        } else {
-          fictioneer_get_template_part( 'partials/_card-story', null, $args );
-        }
+        fictioneer_get_template_part( 'partials/_card-story', null, $args );
         break;
       case 'fcn_recommendation':
         fictioneer_get_template_part( 'partials/_card-recommendation', null, $args );
@@ -2857,13 +2847,20 @@ function fictioneer_display_scheduled_chapters( $query ) {
       $post_status = $query->get( 'post_status' );
 
       if ( ! is_array( $post_status ) ) {
-        $post_status = $post_status ? [ $post_status ] : ['publish'];
+        $post_status = $post_status ? [ $post_status ] : ['publish', 'fcn_hidden'];
       }
 
-      if ( ! in_array( 'future', $post_status ) ) {
-        $post_status[] = 'future';
-        $query->set( 'post_status', $post_status );
+      $post_status = array_values( array_unique( array_filter( array_map( 'sanitize_key', $post_status ) ) ) );
+
+      if ( ! in_array( 'fcn_hidden', $post_status, true ) ) {
+        $post_status[] = 'fcn_hidden';
       }
+
+      if ( ! in_array( 'future', $post_status, true ) ) {
+        $post_status[] = 'future';
+      }
+
+      $query->set( 'post_status', $post_status );
 
       fictioneer_disable_caching( 'scheduled_chapter' ); // Required for WP-Cron to work
     }

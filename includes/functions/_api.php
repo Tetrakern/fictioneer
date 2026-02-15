@@ -163,7 +163,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         'fictioneer_chapter_warning',
         'fictioneer_chapter_no_chapter',
         'fictioneer_chapter_co_authors',
-        'fictioneer_chapter_hidden',
         '_word_count'
       );
 
@@ -188,7 +187,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
       // Process...
       $chapters = [];
-      $hidden_chapters = [];
 
       // ... loop rows
       foreach ( $raw_results as $row ) {
@@ -230,16 +228,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
         // ... get meta value
         $meta_value = maybe_unserialize( $row->meta_value );
-
-        // ... remember hidden chapters
-        if (
-          $row->meta_key === 'fictioneer_chapter_hidden' &&
-          ! empty( $meta_value ) &&
-          $meta_value !== '0' &&
-          $meta_value !== 'false'
-        ) {
-          $hidden_chapters[ $row->ID ] = true;
-        }
 
         // ... add meta data to node
         switch ( $row->meta_key ) {
@@ -320,9 +308,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           }
         }
       }
-
-      // ... remove hidden chapters
-      $chapters = array_diff_key( $chapters, $hidden_chapters );
 
       // ... restore original order
       $order_map = array_flip( $data['chapter_ids'] );

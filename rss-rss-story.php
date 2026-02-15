@@ -16,7 +16,7 @@
 
 // Get ID from parameter
 $story_id = fictioneer_validate_id( $_GET[ 'story_id' ] ?? 0, 'fcn_story' );
-$is_hidden = get_post_meta( $story_id ?: 0, 'fictioneer_story_hidden', true );
+$is_hidden = get_post_status( $story_id ) === 'fcn_hidden';
 
 // Abort if not a valid story ID or password protected
 if ( ! $story_id || $is_hidden || post_password_required( $story_id ) ) {
@@ -172,11 +172,6 @@ do_action( 'rss_tag_pre', 'rss2' );
           // Terminate?
           if ( $terminator < 1 ) {
             break;
-          }
-
-          // Skip invisible chapters
-          if ( get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ) {
-            continue;
           }
 
           // Decrement terminator

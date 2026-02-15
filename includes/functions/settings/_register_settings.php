@@ -550,18 +550,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => [ Sanitizer::class, 'sanitize_bool_num' ],
       'default' => 0
     ),
-    'fictioneer_disable_extended_story_list_meta_queries' => array(
-      'name' => 'fictioneer_disable_extended_story_list_meta_queries',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => [ Sanitizer::class, 'sanitize_bool_num' ],
-      'default' => 0
-    ),
-    'fictioneer_disable_extended_chapter_list_meta_queries' => array(
-      'name' => 'fictioneer_disable_extended_chapter_list_meta_queries',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => [ Sanitizer::class, 'sanitize_bool_num' ],
-      'default' => 0
-    ),
     'fictioneer_count_characters_as_words' => array(
       'name' => 'fictioneer_count_characters_as_words',
       'group' => 'fictioneer-settings-general-group',
@@ -1223,8 +1211,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_font_awesome' => __( 'Disable Font Awesome integration', 'fictioneer' ),
       'fictioneer_enable_site_age_confirmation' => __( 'Enable age confirmation modal for site', 'fictioneer' ),
       'fictioneer_enable_post_age_confirmation' => __( 'Enable age confirmation modal for posts', 'fictioneer' ),
-      'fictioneer_disable_extended_story_list_meta_queries' => __( 'Disable extended story list meta queries', 'fictioneer' ),
-      'fictioneer_disable_extended_chapter_list_meta_queries' => __( 'Disable extended chapter list meta queries', 'fictioneer' ),
       'fictioneer_count_characters_as_words' => __( 'Count characters instead of words', 'fictioneer' ),
       'fictioneer_generate_footnotes_from_tooltips' => __( 'Generate footnotes from tooltips', 'fictioneer' ),
       'fictioneer_show_protected_excerpt' => __( 'Show excerpt on password-protected posts', 'fictioneer' ),
@@ -1425,54 +1411,6 @@ add_filter( 'sanitize_option_fictioneer_authors_page', function( $new_value ) {
 // =============================================================================
 // UPDATED OPTION ACTIONS
 // =============================================================================
-
-/**
- * Append missing 'fictioneer_story_hidden' if extended meta queries are disabled
- *
- * @since 5.9.4
- *
- * @param mixed $old_value  The value before the update.
- * @param mixed $value      The new value.
- */
-
-function fictioneer_update_option_disable_extended_story_list_meta_queries( $old_value, $value ) {
-  if ( $value && $old_value !== $value ) {
-    // Append 'fictioneer_story_hidden'
-    fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_hidden', 0 );
-
-    // Purge cache Transients
-    fictioneer_delete_transients_like( 'fictioneer_' );
-  }
-}
-add_action(
-  'update_option_fictioneer_disable_extended_story_list_meta_queries', 'fictioneer_update_option_disable_extended_story_list_meta_queries',
-  10,
-  2
-);
-
-/**
- * Append missing 'fictioneer_chapter_hidden' if extended meta queries are disabled
- *
- * @since 5.9.4
- *
- * @param mixed $old_value  The value before the update.
- * @param mixed $value      The new value.
- */
-
-function fictioneer_update_option_disable_extended_chapter_list_meta_queries( $old_value, $value ) {
-  if ( $value && $old_value !== $value ) {
-    // Append 'fictioneer_chapter_hidden'
-    fictioneer_append_meta_fields( 'fcn_chapter', 'fictioneer_chapter_hidden', 0 );
-
-    // Purge cache Transients
-    fictioneer_delete_transients_like( 'fictioneer_' );
-  }
-}
-add_action(
-  'update_option_fictioneer_disable_extended_chapter_list_meta_queries', 'fictioneer_update_option_disable_extended_chapter_list_meta_queries',
-  10,
-  2
-);
 
 /**
  * Rebuilds bundled fonts after Google Fonts links update

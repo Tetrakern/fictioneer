@@ -39,28 +39,6 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
         $featured_list = is_array( $featured_list ) ? $featured_list : [];
 
         // Query posts (if any)
-        if ( ! empty( $featured_list ) ) {
-          global $wpdb;
-
-          // Filter out hidden posts
-          $placeholders = implode( ',', array_fill( 0, count( $featured_list ), '%d' ) );
-
-          $sql =
-            "SELECT p.ID
-            FROM {$wpdb->posts} p
-            LEFT JOIN {$wpdb->postmeta} pm_story_hidden
-              ON (p.ID = pm_story_hidden.post_id AND pm_story_hidden.meta_key = 'fictioneer_story_hidden')
-            LEFT JOIN {$wpdb->postmeta} pm_chapter_hidden
-              ON (p.ID = pm_chapter_hidden.post_id AND pm_chapter_hidden.meta_key = 'fictioneer_chapter_hidden')
-            WHERE p.ID IN ($placeholders)
-              AND p.post_status = 'publish'
-              AND (pm_story_hidden.meta_value IS NULL OR pm_story_hidden.meta_value = '' OR pm_story_hidden.meta_value = '0')
-              AND (pm_chapter_hidden.meta_value IS NULL OR pm_chapter_hidden.meta_value = '' OR pm_chapter_hidden.meta_value = '0')";
-
-          $featured_list = $wpdb->get_col( $wpdb->prepare( $sql, ...$featured_list ) );
-        }
-
-        // Query posts
         $query_args = array (
           'fictioneer_query_name' => 'collection_featured',
           'post_type' => FICTIONEER_DEFAULT_POST_TYPES,

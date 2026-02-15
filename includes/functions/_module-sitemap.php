@@ -150,53 +150,23 @@ function fictioneer_get_sitemap_total_pages() {
   $home = (int) get_option( 'page_on_front' );
   $blog = (int) get_option( 'page_for_posts' );
 
-  $sql = "
-    SELECT COUNT(1)
+  $exclude_ids = array_unique( array_filter( [ $home, $blog ] ) );
+  $where_ids = '';
+  $params = [];
+
+  if ( ! empty( $exclude_ids ) ) {
+    $placeholders = implode( ', ', array_fill( 0, count( $exclude_ids ), '%d' ) );
+    $where_ids = " AND p.ID NOT IN ({$placeholders})";
+    $params = $exclude_ids;
+  }
+
+  $sql =
+    "SELECT COUNT(1)
     FROM {$wpdb->posts} p
-    LEFT JOIN {$wpdb->postmeta} m1
-      ON m1.post_id = p.ID AND m1.meta_key = 'fictioneer_chapter_hidden'
-    LEFT JOIN {$wpdb->postmeta} m2
-      ON m2.post_id = p.ID AND m2.meta_key = 'fictioneer_story_hidden'
     WHERE p.post_status = 'publish'
-      AND p.post_type IN ( 'page', 'post', 'fcn_collection', 'fcn_story', 'fcn_chapter', 'fcn_recommendation' )
-      AND (
-        p.post_type != 'fcn_chapter'
-        OR COALESCE(m1.meta_value, '') NOT IN ('1', 'true', 'yes')
-      )
-      AND (
-        p.post_type != 'fcn_story'
-        OR COALESCE(m2.meta_value, '') NOT IN ('1', 'true', 'yes')
-      )
-  ";
+      AND p.post_type IN ('page', 'post', 'fcn_collection', 'fcn_story', 'fcn_chapter', 'fcn_recommendation'){$where_ids}";
 
-  $count = (int) $wpdb->get_var( $sql );
-
-  if ( $home ) {
-    $home_exists = $wpdb->get_var(
-      $wpdb->prepare(
-        "SELECT 1 FROM {$wpdb->posts} WHERE ID = %d AND post_status = 'publish' LIMIT 1",
-        $home
-      )
-    );
-
-    if ( $home_exists ) {
-      $count--;
-    }
-  }
-
-  if ( $blog && $blog !== $home ) {
-    $blog_exists = $wpdb->get_var(
-      $wpdb->prepare(
-        "SELECT 1 FROM {$wpdb->posts} WHERE ID = %d AND post_status = 'publish' LIMIT 1",
-        $blog
-      )
-    );
-
-    if ( $blog_exists ) {
-      $count--;
-    }
-  }
-
+  $count = (int) ( $params ? $wpdb->get_var( $wpdb->prepare( $sql, $params ) ) : $wpdb->get_var( $sql ) );
   $pages = (int) ceil( $count / FICTIONEER_SITEMAP_ENTRIES_PER_PAGE );
 
   return $pages;
@@ -361,19 +331,9 @@ function fictioneer_get_sitemap_entries( $limit, $offset ) {
       p.post_modified_gmt,
       m3.meta_value AS story_status
     FROM {$wpdb->posts} p
-    LEFT JOIN {$wpdb->postmeta} m1 ON m1.post_id = p.ID AND m1.meta_key = 'fictioneer_chapter_hidden'
-    LEFT JOIN {$wpdb->postmeta} m2 ON m2.post_id = p.ID AND m2.meta_key = 'fictioneer_story_hidden'
     LEFT JOIN {$wpdb->postmeta} m3 ON m3.post_id = p.ID AND m3.meta_key = 'fictioneer_story_status'
     WHERE p.post_status = 'publish'
       AND p.post_type IN ('page', 'post', 'fcn_collection', 'fcn_story', 'fcn_chapter', 'fcn_recommendation')
-      AND (
-        p.post_type != 'fcn_chapter'
-        OR COALESCE(m1.meta_value, '') NOT IN ('1', 'true', 'yes')
-      )
-      AND (
-        p.post_type != 'fcn_story'
-        OR COALESCE(m2.meta_value, '') NOT IN ('1', 'true', 'yes')
-      )
     ORDER BY p.post_date DESC
     LIMIT %d OFFSET %d
   ";

@@ -22,7 +22,7 @@ if ( ! defined( 'FICTIONEER_EXAMPLE_CHAPTER_ICONS' ) ) {
 // =============================================================================
 
 /**
- * Validates save action
+ * Validate save action.
  *
  * @since 5.24.1
  *
@@ -51,7 +51,7 @@ function fictioneer_validate_save_action_user( $post_id, $post_type ) {
 
   // Check post status
   if (
-    get_post_status( $post_id ) === 'publish' &&
+    ( get_post_status( $post_id ) === 'publish' || get_post_status( $post_id ) === 'fcn_hidden' ) &&
     ! current_user_can( "edit_published_{$substring}", $post_id )
   ) {
     return false;
@@ -1231,10 +1231,6 @@ function fictioneer_callback_relationship_chapters( $selected, $meta_key, $args 
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
     $label = Utils_Admin::get_post_status_label( $chapter->post_status );
 
-    if ( $chapter->fictioneer_chapter_hidden ?? 0 ) {
-      $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
-    }
-
     if ( $chapter->post_status !== 'publish' ) {
       $title = "{$title} ({$label})";
     }
@@ -1284,7 +1280,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
   // Query
   $query_args = array(
     'post_type' => 'fcn_chapter',
-    'post_status' => ['publish', 'private', 'future'],
+    'post_status' => ['publish', 'private', 'future', 'fcn_hidden'],
     'orderby' => 'date',
     'order' => 'desc',
     'posts_per_page' => 10,
@@ -1314,10 +1310,6 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
     $label = Utils_Admin::get_post_status_label( $chapter->post_status );
 
     // Update title if necessary
-    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
-      $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
-    }
-
     if ( $chapter->post_status !== 'publish' ) {
       $title = "{$title} ({$label})";
     }
@@ -1384,10 +1376,6 @@ function fictioneer_get_relationship_chapter_details( $chapter ) {
 
   // Build
   $info[] = empty( $text_icon ) ? sprintf( '<i class="%s"></i>', $icon ) : "<strong>{$text_icon}</strong>";
-
-  if ( $chapter->fictioneer_chapter_hidden ?? 0 ) {
-    $flags[] = _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' );
-  }
 
   if ( $chapter->fictioneer_chapter_no_chapter ?? 0 ) {
     $flags[] = _x( 'No Chapter', 'Chapter assignment flag.', 'fictioneer' );
@@ -2020,12 +2008,6 @@ function fictioneer_render_story_meta_metabox( $post ) {
     );
   }
 
-  $output['fictioneer_story_hidden'] = fictioneer_get_metabox_checkbox(
-    $post,
-    'fictioneer_story_hidden',
-    __( 'Hide story in lists', 'fictioneer' )
-  );
-
   $output['fictioneer_story_no_thumbnail'] = fictioneer_get_metabox_checkbox(
     $post,
     'fictioneer_story_no_thumbnail',
@@ -2533,11 +2515,6 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $fields['fictioneer_story_sticky'] = Sanitizer::sanitize_bool_num( $_POST['fictioneer_story_sticky'] );
   }
 
-  // Hidden flag
-  if ( isset( $_POST['fictioneer_story_hidden'] ) ) {
-    $fields['fictioneer_story_hidden'] = Sanitizer::sanitize_bool_num( $_POST['fictioneer_story_hidden'] );
-  }
-
   // Thumbnail flag
   if ( isset( $_POST['fictioneer_story_no_thumbnail'] ) ) {
     $fields['fictioneer_story_no_thumbnail'] = Sanitizer::sanitize_bool_num( $_POST['fictioneer_story_no_thumbnail'] );
@@ -2887,12 +2864,6 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
   $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
     __( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
-  $output['fictioneer_chapter_hidden'] = fictioneer_get_metabox_checkbox(
-    $post,
-    'fictioneer_chapter_hidden',
-    __( 'Unlisted (but accessible with link)', 'fictioneer' )
-  );
-
   $output['fictioneer_chapter_no_chapter'] = fictioneer_get_metabox_checkbox(
     $post,
     'fictioneer_chapter_no_chapter',
@@ -3117,11 +3088,6 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // --- Sanitize and add data -------------------------------------------------
 
   $post_author_id = get_post_field( 'post_author', $post_id );
-
-  // Hidden flag
-  if ( isset( $_POST['fictioneer_chapter_hidden'] ) ) {
-    $fields['fictioneer_chapter_hidden'] = Sanitizer::sanitize_bool_num( $_POST['fictioneer_chapter_hidden'] );
-  }
 
   // No chapter flag
   if ( isset( $_POST['fictioneer_chapter_no_chapter'] ) ) {

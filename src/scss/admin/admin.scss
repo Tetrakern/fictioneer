@@ -218,6 +218,34 @@ td.fictioneer_patreon_lock_amount {
 // FICTIONEER METABOXES
 // =============================================================================
 
+.fictioneer-hidden-status-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 20px;
+  margin-top: -8px;
+  width: 100%;
+
+  label {
+    flex: 0 0 38%;
+    min-height: 32px;
+    padding: 6px 0;
+    margin-right: 0;
+  }
+
+  &__input-wrapper {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    min-height: 32px;
+
+    input {
+      margin: 0;
+    }
+  }
+}
+
 .fictioneer-metabox {
   *,
   ::before,

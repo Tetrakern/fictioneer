@@ -46,11 +46,6 @@ if ( empty( $sorted_stories ) ) {
     foreach ( $stories->posts as $story ) {
       $story_id = $story->ID;
 
-      // Skip hidden
-      if ( get_post_meta( $story_id, 'fictioneer_story_hidden', true ) ) {
-        continue;
-      }
-
       // Relevant data
       $title = trim( fictioneer_get_safe_title( $story_id, 'story_index' ) );
       $first_char = mb_strtolower( mb_substr( $title, 0, 1, 'UTF-8' ), 'UTF-8' );

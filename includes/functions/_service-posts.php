@@ -481,8 +481,7 @@ function fictioneer_chapter_future_to_publish( $new_status, $old_status, $post )
   if (
     $post->post_type !== 'fcn_chapter' ||
     $old_status !== 'future' ||
-    $new_status !== 'publish' ||
-    get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true )
+    $new_status !== 'publish'
   ) {
     return;
   }

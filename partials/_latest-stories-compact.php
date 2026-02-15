@@ -78,24 +78,6 @@ $query_args = array(
   'no_found_rows' => true
 );
 
-// Use extended meta query?
-if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
-  $query_args['meta_key'] = 'fictioneer_story_hidden';
-  $query_args['meta_value'] = '0';
-} else {
-  $query_args['meta_query'] = array(
-    'relation' => 'OR',
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'value' => '0'
-    ),
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'compare' => 'NOT EXISTS'
-    )
-  );
-}
-
 // Author?
 if ( ! empty( $args['author'] ) ) {
   $query_args['author_name'] = $args['author'];

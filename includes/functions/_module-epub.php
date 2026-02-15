@@ -611,15 +611,12 @@ if ( ! function_exists( 'fictioneer_query_epub_chapters' ) ) {
       FROM {$wpdb->posts} p
       LEFT JOIN {$wpdb->postmeta} pm_no_chapter
         ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
-      LEFT JOIN {$wpdb->postmeta} pm_hidden
-        ON (p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden')
       LEFT JOIN {$wpdb->postmeta} pm_hide_title
         ON (p.ID = pm_hide_title.post_id AND pm_hide_title.meta_key = 'fictioneer_chapter_hide_title')
       WHERE p.ID IN ($placeholders)
         AND p.post_type = 'fcn_chapter'
         AND p.post_status = 'publish'
-        AND (pm_no_chapter.meta_value IS NULL OR pm_no_chapter.meta_value = '0' OR pm_no_chapter.meta_value = '')
-        AND (pm_hidden.meta_value IS NULL OR pm_hidden.meta_value = '0' OR pm_hidden.meta_value = '')";
+        AND (pm_no_chapter.meta_value IS NULL OR pm_no_chapter.meta_value = '0' OR pm_no_chapter.meta_value = '')";
 
     $chapters = $wpdb->get_results( $wpdb->prepare( $sql, ...$chapter_ids ) );
     $chapter_map = array_column( $chapters, null, 'ID' );

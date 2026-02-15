@@ -82,13 +82,9 @@ final class Stats {
       $wpdb->prepare(
         "SELECT p.ID, p.post_type, p.comment_count,
           wc.meta_value AS word_count,
-          sh.meta_value AS story_hidden,
-          ch.meta_value AS chapter_hidden,
           nch.meta_value AS chapter_no_chapter
         FROM {$wpdb->posts} p
         LEFT JOIN {$wpdb->postmeta} wc  ON p.ID = wc.post_id  AND wc.meta_key = '_word_count'
-        LEFT JOIN {$wpdb->postmeta} sh  ON p.ID = sh.post_id  AND sh.meta_key = 'fictioneer_story_hidden'
-        LEFT JOIN {$wpdb->postmeta} ch  ON p.ID = ch.post_id  AND ch.meta_key = 'fictioneer_chapter_hidden'
         LEFT JOIN {$wpdb->postmeta} nch ON p.ID = nch.post_id AND nch.meta_key = 'fictioneer_chapter_no_chapter'
         WHERE p.post_status = 'publish'
           AND p.post_author = %d
@@ -104,18 +100,16 @@ final class Stats {
     $comment_count = 0;
 
     foreach ( $posts as $post ) {
-      $is_hidden = ! empty( $post['story_hidden'] ) && $post['story_hidden'] !== '0';
-      $is_chapter_hidden = ! empty( $post['chapter_hidden'] ) && $post['chapter_hidden'] !== '0';
       $is_non_chapter = ! empty( $post['chapter_no_chapter'] ) && $post['chapter_no_chapter'] !== '0';
 
-      if ( $post['post_type'] === 'fcn_story' && ! $is_hidden ) {
+      if ( $post['post_type'] === 'fcn_story' ) {
         $story_count++;
-      } elseif ( $post['post_type'] === 'fcn_chapter' && ! $is_chapter_hidden && ! $is_non_chapter ) {
+      } elseif ( $post['post_type'] === 'fcn_chapter' && ! $is_non_chapter ) {
         $chapter_count++;
         $comment_count += (int) $post['comment_count'];
       }
 
-      if ( ! $is_hidden && ! $is_chapter_hidden && ! $is_non_chapter ) {
+      if ( ! $is_non_chapter ) {
         $word_count += fictioneer_get_word_count( (int) $post['ID'], max( 0, (int) $post['word_count'] ) );
       }
     }
@@ -187,7 +181,12 @@ final class Stats {
 
     // SQL
     $placeholders = implode( ',', array_fill( 0, count( $featured ), '%d' ) );
-    $sql = "SELECT p.ID, p.post_type FROM {$wpdb->posts} p WHERE p.ID IN ({$placeholders})";
+
+    $sql =
+      "SELECT p.ID, p.post_type, p.post_status
+      FROM {$wpdb->posts} p
+      WHERE p.ID IN ({$placeholders}) AND p.post_status = 'publish'";
+
     $posts = $wpdb->get_results( $wpdb->prepare( $sql, ...$featured ) ) ?: [];
 
     // Analyze
@@ -232,8 +231,6 @@ final class Stats {
       $sql =
         "SELECT p.ID, p.comment_count, COALESCE(pm_word_count.meta_value, 0) AS word_count
         FROM {$wpdb->posts} p
-        LEFT JOIN {$wpdb->postmeta} pm_hidden
-          ON (p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden')
         LEFT JOIN {$wpdb->postmeta} pm_no_chapter
           ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
         LEFT JOIN {$wpdb->postmeta} pm_word_count
@@ -241,7 +238,6 @@ final class Stats {
         WHERE p.ID IN ($placeholders)
           AND p.post_type = 'fcn_chapter'
           AND p.post_status = 'publish'
-          AND (pm_hidden.meta_value IS NULL OR pm_hidden.meta_value = '' OR pm_hidden.meta_value = '0')
           AND (pm_no_chapter.meta_value IS NULL OR pm_no_chapter.meta_value = '' OR pm_no_chapter.meta_value = '0')";
 
       $chapters = $wpdb->get_results( $wpdb->prepare( $sql, ...$query_chapter_ids ) );

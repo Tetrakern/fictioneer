@@ -21,7 +21,7 @@ get_header(
   null,
   array(
     'type' => 'fcn_chapter',
-    'no_index' => get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ? 1 : 0
+    'no_index' => get_post_status( $post_id ) === 'fcn_hidden'
   )
 );
 

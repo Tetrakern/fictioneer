@@ -97,7 +97,7 @@ Filters the array of allowed orderby arguments for WP_Query.
 ---
 
 ### `apply_filters( 'fictioneer_filter_append_chapter_to_story_statuses', $statuses, $post_id, $story_id, $force )`
-Filters the array of chapter statuses that can be auto-appended to a story’s `fictioneer_story_chapters` metadata in the `\Fictioneer/Utils_Admin::append_chapter_to_story()` function. By default, the statuses are `['publish', 'future']`.
+Filters the array of chapter statuses that can be auto-appended to a story’s `fictioneer_story_chapters` metadata in the `\Fictioneer/Utils_Admin::append_chapter_to_story()` function. By default, the statuses are `['publish', 'future', 'fcn_hidden]`.
 
 **Parameters:**
 * $statuses (array) – Array of chapter statuses.
@@ -836,14 +836,6 @@ Filters the arguments to query the chapters in the `chapters.php` template.
 * 'paged' (int) – Current page number or `1`.
 * 'posts_per_page' (int) – `get_option( 'posts_per_page' )`
 * 'update_post_term_cache' – `! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )`
-* 'meta_query' (array)
-  * 'relation' (string) – `'OR'`
-  * (array)
-    * 'key' – `'fictioneer_chapter_hidden'`
-    * 'value' – `'0'`
-  * (array)
-    * 'key' – `'fictioneer_chapter_hidden'`
-    * 'compare' – `'NOT EXISTS'`
 * 'date_query' – `fictioneer_append_date_query()`
 
 **Parameters:**
@@ -1963,7 +1955,6 @@ Filters the WP_Query arguments in the `fictioneer_latest_chapters` shortcode. Th
 * $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
-* $meta_key (string) – `'fictioneer_chapter_hidden'`
 * $meta_value (int) – `0`
 * $tax_query (array|null) – `\Fictioneer\Shortcodes\Shortcode::tax_query_args( $args )`
 * $no_found_rows (boolean) – `true`
@@ -2086,14 +2077,6 @@ Filters the WP_Query arguments in the `fictioneer_latest_stories` shortcode. The
   * $fictioneer_story_sticky – `'DESC'`
   * `$args['orderby']` – `$args['order']`
 * $posts_per_page (int) – `$args['count']`
-* $meta_query (array)
-  * $relation (string) – `'OR'`
-  * (array)
-    * $key – `'fictioneer_story_hidden'`
-    * $value – `'0'`
-  * (array)
-    * $key – `'fictioneer_story_hidden'`
-    * $compare – `'NOT EXISTS'`
 * $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
@@ -2155,14 +2138,6 @@ Filters the WP_Query arguments in the `fictioneer_latest_updates` shortcode. The
 * $orderby (string) – `'meta_value'`
 * $meta_key (string) – `'fictioneer_chapters_added'`
 * $posts_per_page (int) – `$args['count'] + 4` (buffer for invalid posts)
-* $meta_query (array)
-  * $relation (string) – `'OR'`
-  * (array)
-    * $key – `'fictioneer_story_hidden'`
-    * $value – `'0'`
-  * (array)
-    * $key – `'fictioneer_story_hidden'`
-    * $compare – `'NOT EXISTS'`
 * $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
@@ -2402,14 +2377,6 @@ Filters the arguments to query the stories in the `stories.php` template.
 * $orderby (array) – `'modified'`, `'date'`, `'title'`, or `'rand'`
 * $paged (int) – Current page number or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
-* $meta_query (array)
-  * $relation (string) – `'OR'`
-  * (array)
-    * $key – `'fictioneer_story_hidden'`
-    * $value – `'0'`
-  * (array)
-    * $key – `'fictioneer_story_hidden'`
-    * $compare – `'NOT EXISTS'`
 * $update_post_term_cache – `! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )`
 * $date_query – `fictioneer_append_date_query()`
 

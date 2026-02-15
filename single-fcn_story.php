@@ -31,7 +31,7 @@ get_header(
   null,
   array(
     'type' => 'fcn_story',
-    'no_index' => get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ? 1 : 0
+    'no_index' => get_post_status( $post_id ) === 'fcn_hidden'
   )
 );
 

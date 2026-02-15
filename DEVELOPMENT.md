@@ -216,7 +216,6 @@ These are the protected meta fields used specifically for the **fcn_story** post
 | fictioneer_story_redirect_link | string | Redirect link away from the story page (use with care).
 | fictioneer_story_co_authors | array | Array of author IDs.
 | fictioneer_story_sticky | boolean | Whether the story is sticky in (most) lists.
-| fictioneer_story_hidden | boolean | Whether the story is unlisted but still reachable with the link.
 | fictioneer_story_no_thumbnail | boolean | Whether to hide the thumbnail (cover) on the story page.
 | fictioneer_story_no_tags | boolean | Whether to hide all taxonomies on the story page.
 | fictioneer_story_no_epub | boolean | Whether to disable the ePUB generation and download.
@@ -250,7 +249,6 @@ These are the protected meta fields used specifically for the **fcn_chapter** po
 | fictioneer_chapter_rating | string | Either Everyone, Teen, Mature, or Adult due to legacy reasons.
 | fictioneer_chapter_warning | string | Short warning shown in chapter lists.
 | fictioneer_chapter_warning_notes | string | Content for warning note in chapters.
-| fictioneer_chapter_hidden | boolean | Whether the chapter is unlisted but still reachable with the link.
 | fictioneer_chapter_no_chapter | boolean | Whether the chapter should not count as chapter.
 | fictioneer_chapter_hide_title | boolean | Whether to hide the title at the top of the chapter.
 | fictioneer_chapter_hide_support_links | boolean | Whether to hide the support links at the bottom of the chapter.

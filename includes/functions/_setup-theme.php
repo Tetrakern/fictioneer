@@ -17,10 +17,10 @@ use Fictioneer\Customizer;
 function fictioneer_bring_out_legacy_trash() {
   // Setup
   $options = wp_cache_get( 'alloptions', 'options' );
-  $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log', 'fictioneer_enable_ajax_nonce', 'fictioneer_flush_object_cache', 'fictioneer_enable_all_block_styles', 'fictioneer_light_mode_as_default', 'fictioneer_remove_wp_svg_filters', 'fictioneer_update_check_timestamp', 'fictioneer_latest_version', 'fictioneer_update_notice_timestamp', 'fictioneer_theme_status', 'fictioneer_disable_anti_flicker', 'fictioneer_query_cache_registry', 'fictioneer_disable_whatsapp_share', 'fictioneer_disable_telegram_share', 'fictioneer_enable_query_result_caching', 'fictioneer_disable_all_widgets', 'fictioneer_allow_rest_save_actions', 'fictioneer_enable_all_blocks', 'fictioneer_enable_global_splide', 'fictioneer_bundle_stylesheets', 'fictioneer_story_or_chapter_updated_timestamp', 'fictioneer_relationship_registry'];
+  $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log', 'fictioneer_enable_ajax_nonce', 'fictioneer_flush_object_cache', 'fictioneer_enable_all_block_styles', 'fictioneer_light_mode_as_default', 'fictioneer_remove_wp_svg_filters', 'fictioneer_update_check_timestamp', 'fictioneer_latest_version', 'fictioneer_update_notice_timestamp', 'fictioneer_theme_status', 'fictioneer_disable_anti_flicker', 'fictioneer_query_cache_registry', 'fictioneer_disable_whatsapp_share', 'fictioneer_disable_telegram_share', 'fictioneer_enable_query_result_caching', 'fictioneer_disable_all_widgets', 'fictioneer_allow_rest_save_actions', 'fictioneer_enable_all_blocks', 'fictioneer_enable_global_splide', 'fictioneer_bundle_stylesheets', 'fictioneer_story_or_chapter_updated_timestamp', 'fictioneer_relationship_registry', 'fictioneer_disable_extended_story_list_meta_queries', 'fictioneer_disable_extended_chapter_list_meta_queries'];
 
   // Check for most recent obsolete option...
-  if ( isset( $options['fictioneer_relationship_registry'] ) ) {
+  if ( isset( $options['fictioneer_disable_extended_chapter_list_meta_queries'] ) ) {
     // Looping everything is not great but it only happens once!
     foreach ( $obsolete as $trash ) {
       delete_option( $trash );
@@ -375,6 +375,35 @@ function fictioneer_disable_default_fonts_5_34_1( $version ) {
   }
 }
 add_action( 'fictioneer_after_update', 'fictioneer_disable_default_fonts_5_34_1' );
+
+/**
+ * Migrate old *_hidden meta fields.
+ *
+ * @since 5.35.0
+ *
+ * @param string $version  The version string after the update.
+ */
+
+function fictioneer_migrate_hidden_post_meta( $version ) {
+  if ( version_compare( $version, '5.35.0', '<=' ) ) {
+    global $wpdb;
+
+    $wpdb->query(
+      "UPDATE {$wpdb->posts} p
+      INNER JOIN (
+        SELECT DISTINCT pm.post_id
+        FROM {$wpdb->postmeta} pm
+        WHERE pm.meta_key IN ('fictioneer_story_hidden', 'fictioneer_chapter_hidden')
+          AND pm.meta_value IS NOT NULL
+          AND pm.meta_value != ''
+          AND pm.meta_value != '0'
+      ) hidden ON hidden.post_id = p.ID
+      SET p.post_status = 'fcn_hidden'
+      WHERE p.post_status != 'fcn_hidden'"
+    );
+  }
+}
+add_action( 'fictioneer_after_update', 'fictioneer_migrate_hidden_post_meta' );
 
 // =============================================================================
 // SIDEBAR
@@ -1365,16 +1394,22 @@ function fictioneer_enqueue_block_editor_scripts() {
     return;
   }
 
-  $current_screen = get_current_screen();
+  $screen = get_current_screen();
 
-  if ( $current_screen->base === 'post' ) {
+  if ( ! $screen ) {
+    return;
+  }
+
+  $cache_bust = fictioneer_get_cache_bust();
+
+  if ( $screen->base === 'post' ) {
     $current_user = wp_get_current_user();
 
     wp_register_script(
       'fictioneer-block-editor-scripts',
       get_template_directory_uri() . '/js/block-editor.min.js',
       ['wp-dom-ready', 'wp-edit-post', 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-data', 'jquery'],
-      fictioneer_get_cache_bust(),
+      $cache_bust,
       true
     );
 
@@ -1383,6 +1418,16 @@ function fictioneer_enqueue_block_editor_scripts() {
     wp_localize_script( 'fictioneer-block-editor-scripts', 'fictioneerData', array(
       'userCapabilities' => $current_user->allcaps
     ));
+  }
+
+  if ( in_array( $screen->post_type, ['fcn_story', 'fcn_chapter'], true ) ) {
+    wp_enqueue_script(
+      'fictioneer-editor-hidden-status',
+      get_parent_theme_file_uri( 'js/editor-hidden-status.min.js' ),
+      ['wp-components', 'wp-data', 'wp-edit-post', 'wp-element', 'wp-i18n', 'wp-plugins'],
+      $cache_bust,
+      true
+    );
   }
 }
 add_action( 'enqueue_block_assets', 'fictioneer_enqueue_block_editor_scripts' );

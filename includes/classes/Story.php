@@ -284,7 +284,6 @@ class Story {
         p.post_parent, p.menu_order, p.post_type, p.comment_count';
 
     $meta_keys = array(
-      'fictioneer_chapter_hidden',
       'fictioneer_chapter_group',
       'fictioneer_chapter_icon',
       'fictioneer_chapter_text_icon',
@@ -710,11 +709,9 @@ class Story {
         c.comment_count,
         c.post_status,
         CAST(wc.meta_value AS UNSIGNED) AS word_count,
-        h.meta_value AS is_hidden,
         nc.meta_value AS is_no_chapter
       FROM {$wpdb->posts} c
       LEFT JOIN {$wpdb->postmeta} wc ON wc.post_id = c.ID AND wc.meta_key = '_word_count'
-      LEFT JOIN {$wpdb->postmeta} h  ON h.post_id  = c.ID AND h.meta_key  = 'fictioneer_chapter_hidden'
       LEFT JOIN {$wpdb->postmeta} nc ON nc.post_id = c.ID AND nc.meta_key = 'fictioneer_chapter_no_chapter'
       WHERE c.ID IN ($ids_placeholder)
         AND c.post_status IN ($status_placeholders)",
@@ -762,18 +759,16 @@ class Story {
           c.comment_count,
           c.post_status,
           CAST(pm.word_count AS UNSIGNED) AS word_count,
-          pm.is_hidden,
           pm.is_no_chapter
         FROM {$wpdb->posts} c
         LEFT JOIN (
           SELECT
             post_id,
             MAX(CASE WHEN meta_key = '_word_count' THEN meta_value END) AS word_count,
-            MAX(CASE WHEN meta_key = 'fictioneer_chapter_hidden' THEN meta_value END) AS is_hidden,
             MAX(CASE WHEN meta_key = 'fictioneer_chapter_no_chapter' THEN meta_value END) AS is_no_chapter
           FROM {$wpdb->postmeta}
           WHERE post_id IN ($ids_placeholder)
-            AND meta_key IN ('_word_count','fictioneer_chapter_hidden','fictioneer_chapter_no_chapter')
+            AND meta_key IN ('_word_count','fictioneer_chapter_no_chapter')
           GROUP BY post_id
         ) pm ON pm.post_id = c.ID
         WHERE c.ID IN ($ids_placeholder)
@@ -830,8 +825,8 @@ class Story {
     foreach ( $chapters as $post ) {
       $chapter_id = $post->ID;
 
-      // Skip missing or not visible chapters
-      if ( ! $post || Utils::get_meta( $post, 'fictioneer_chapter_hidden' ) ) {
+      // Skip missing chapters
+      if ( ! $post ) {
         continue;
       }
 

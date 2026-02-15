@@ -27,26 +27,6 @@ $query_args = apply_filters( 'fictioneer_filter_rss_main_query_args', $query_arg
 
 $posts = get_posts( $query_args );
 
-// Filter out hidden posts (faster than meta query)
-$posts = array_filter( $posts, function ( $post ) {
-  // Chapter hidden?
-  if ( $post->post_type === 'fcn_chapter' ) {
-    $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
-
-    return empty( $chapter_hidden ) || $chapter_hidden === '0';
-  }
-
-  // Story hidden?
-  if ( $post->post_type === 'fcn_story' ) {
-    $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
-
-    return empty( $story_hidden ) || $story_hidden === '0';
-  }
-
-  // Keep
-  return true;
-});
-
 // Filter posts for whatever reason
 $posts = apply_filters( 'fictioneer_filter_rss_main_posts', $posts, $query_args );
 

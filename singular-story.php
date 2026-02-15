@@ -32,7 +32,7 @@ if ( $render_story_header && $cover_position === 'top-left-overflow' && $show_th
 get_header(
   null,
   array(
-    'no_index' => get_post_meta( $story_id, 'fictioneer_story_hidden', true ) ? 1 : 0
+    'no_index' => get_post_status( $story_id ) === 'fcn_hidden'
   )
 );
 

@@ -268,6 +268,64 @@ function fictioneer_after_logout_cleanup() {
 add_action( 'login_form', 'fictioneer_after_logout_cleanup' );
 
 // =============================================================================
+// POST STATUS HIDDEN
+// =============================================================================
+
+/**
+ * Register hidden post status.
+ *
+ * @since 1.0.0
+ */
+
+function fictioneer_register_hidden_post_status() : void {
+  register_post_status(
+    'fcn_hidden',
+    array(
+      'label' => _x( 'Unlisted', 'Post status unlisted/hidden.', 'fictioneer' ),
+      'label_count' => _n_noop(
+        'Unlisted <span class="count">(%s)</span>',
+        'Unlisted <span class="count">(%s)</span>',
+        'fictioneer'
+      ),
+      'public' => true,
+      'internal' => false,
+      'protected' => false,
+      'private' => false,
+      'exclude_from_search' => true,
+      'show_in_admin_all_list' => true,
+      'show_in_admin_status_list' => true,
+    )
+  );
+}
+add_action( 'init', 'fictioneer_register_hidden_post_status', 0 );
+
+/**
+ * Add hidden post state label in admin post lists.
+ *
+ * @since 1.0.0
+ *
+ * @param array   $post_states  Existing post states.
+ * @param WP_Post $post         Current post.
+ *
+ * @return array Updated post states.
+ */
+
+function fcn_add_hidden_post_state_label( array $post_states, WP_Post $post ) : array {
+  if ( ! in_array( $post->post_type, array( 'fcn_story', 'fcn_chapter' ), true ) ) {
+    return $post_states;
+  }
+
+  if ( $post->post_status !== 'fcn_hidden' ) {
+    return $post_states;
+  }
+
+  $post_states['fcn_hidden'] = _x( 'Unlisted', 'Post status unlisted/hidden.', 'fictioneer' );
+
+  return $post_states;
+}
+add_filter( 'display_post_states', 'fcn_add_hidden_post_state_label', 10, 2 );
+
+// =============================================================================
 // SHOW CUSTOM POST TYPES ON TAG/CATEGORY ARCHIVES
 // =============================================================================
 
@@ -1292,7 +1350,7 @@ function fictioneer_gate_unpublished_content() {
   // 404 if access is not allowed
   if (
     fictioneer_caching_active( 'get_unpublished_content' ) &&
-    $post->post_status !== 'publish' &&
+    ! in_array( $post->post_status, ['publish', 'fcn_hidden'] ) &&
     ! fictioneer_verify_unpublish_access( $post->ID )
   ) {
     fictioneer_redirect_to_404();
@@ -1304,7 +1362,7 @@ function fictioneer_gate_unpublished_content() {
 
     if (
       ! empty( $story_id ) &&
-      get_post_status( $story_id ) !== 'publish' &&
+      ! in_array( get_post_status( $story_id ), ['publish', 'fcn_hidden'] ) &&
       ! fictioneer_verify_unpublish_access( $story_id )
     ) {
       // 404

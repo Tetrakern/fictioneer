@@ -70,7 +70,94 @@ function fictioneer_admin_styles() {
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
 
 // =============================================================================
-// DYNAMIC EDITOR STYLES
+// ENQUEUE ADMIN SCRIPTS
+// =============================================================================
+
+/**
+ * Enqueue scripts and styles for admin panel
+ *
+ * @since 4.0.0
+ *
+ * @param string $hook_suffix  The current admin page.
+ */
+
+function fictioneer_admin_scripts( $hook_suffix ) {
+  wp_enqueue_script(
+    'fictioneer-utility-scripts',
+    get_template_directory_uri() . '/js/utility.min.js',
+    ['jquery'],
+    FICTIONEER_VERSION,
+    true
+  );
+
+  if ( $hook_suffix === 'post.php' || $hook_suffix === 'post-new.php' ) {
+    wp_enqueue_script(
+      'fictioneer-sortablejs',
+      get_template_directory_uri() . '/js/sortable.min.js',
+      ['jquery', 'fictioneer-utility-scripts'],
+      FICTIONEER_VERSION,
+      true
+    );
+  }
+
+  wp_enqueue_script(
+    'fictioneer-admin-script',
+    get_template_directory_uri() . '/js/admin.min.js',
+    ['jquery', 'fictioneer-utility-scripts'],
+    FICTIONEER_VERSION,
+    true
+  );
+
+  if ( $hook_suffix === 'profile.php' || $hook_suffix === 'user-edit.php' ) {
+    wp_enqueue_script(
+      'fictioneer-css-skins',
+      get_template_directory_uri() . '/js/css-skins.min.js',
+      ['jquery', 'fictioneer-utility-scripts'],
+      FICTIONEER_VERSION,
+      true
+    );
+  }
+
+  wp_localize_script(
+    'fictioneer-admin-script',
+    'fictioneer_ajax',
+    array(
+      'ajax_url' => admin_url( 'admin-ajax.php' ),
+      'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
+      'fictioneer_nonce' => wp_create_nonce( 'fictioneer_nonce' )
+    )
+  );
+
+  // Admin-wide styles
+  wp_enqueue_style(
+    'fictioneer-admin-panel',
+    get_template_directory_uri() . '/css/admin.css',
+    [],
+    FICTIONEER_VERSION
+  );
+
+  // Theme settings styles
+  if ( strpos( $hook_suffix, 'page_fictioneer' ) !== false ) {
+    wp_enqueue_style(
+      'fictioneer-admin-settings',
+      get_template_directory_uri() . '/css/settings.css',
+      ['fictioneer-admin-panel'],
+      FICTIONEER_VERSION
+    );
+  }
+
+  // Font Awesome
+  wp_enqueue_style(
+    'fictioneer-font-awesome',
+    get_template_directory_uri() . '/assets/fontawesome/css/all.min.css',
+    [],
+    FICTIONEER_VERSION
+  );
+}
+add_action( 'admin_enqueue_scripts', 'fictioneer_admin_scripts' );
+
+// =============================================================================
+// BLOCK EDITOR
 // =============================================================================
 
 /**
@@ -213,91 +300,115 @@ if ( ! get_option( 'fictioneer_disable_dynamic_editor_styles' ) ) {
 }
 
 // =============================================================================
-// ENQUEUE ADMIN SCRIPTS
+// CLASSIC EDITOR
 // =============================================================================
 
 /**
- * Enqueue scripts and styles for admin panel
+ * Add custom hidden post status to classic editor status dropdown.
  *
- * @since 4.0.0
- *
- * @param string $hook_suffix  The current admin page.
+ * @since 5.35.0
  */
 
-function fictioneer_admin_scripts( $hook_suffix ) {
-  wp_enqueue_script(
-    'fictioneer-utility-scripts',
-    get_template_directory_uri() . '/js/utility.min.js',
-    ['jquery'],
-    FICTIONEER_VERSION,
-    true
-  );
+function fictioneer_print_classic_hidden_status_script() : void {
+  global $post, $pagenow;
 
-  if ( $hook_suffix === 'post.php' || $hook_suffix === 'post-new.php' ) {
-    wp_enqueue_script(
-      'fictioneer-sortablejs',
-      get_template_directory_uri() . '/js/sortable.min.js',
-      ['jquery', 'fictioneer-utility-scripts'],
-      FICTIONEER_VERSION,
-      true
-    );
+  if ( ! $post instanceof WP_Post ) {
+    return;
   }
 
-  wp_enqueue_script(
-    'fictioneer-admin-script',
-    get_template_directory_uri() . '/js/admin.min.js',
-    ['jquery', 'fictioneer-utility-scripts'],
-    FICTIONEER_VERSION,
-    true
-  );
-
-  if ( $hook_suffix === 'profile.php' || $hook_suffix === 'user-edit.php' ) {
-    wp_enqueue_script(
-      'fictioneer-css-skins',
-      get_template_directory_uri() . '/js/css-skins.min.js',
-      ['jquery', 'fictioneer-utility-scripts'],
-      FICTIONEER_VERSION,
-      true
-    );
+  if ( ! in_array( $post->post_type, ['fcn_story', 'fcn_chapter'], true ) ) {
+    return;
   }
 
-  wp_localize_script(
-    'fictioneer-admin-script',
-    'fictioneer_ajax',
-    array(
-      'ajax_url' => admin_url( 'admin-ajax.php' ),
-      'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
-      'fictioneer_nonce' => wp_create_nonce( 'fictioneer_nonce' )
-    )
-  );
-
-  // Admin-wide styles
-  wp_enqueue_style(
-    'fictioneer-admin-panel',
-    get_template_directory_uri() . '/css/admin.css',
-    [],
-    FICTIONEER_VERSION
-  );
-
-  // Theme settings styles
-  if ( strpos( $hook_suffix, 'page_fictioneer' ) !== false ) {
-    wp_enqueue_style(
-      'fictioneer-admin-settings',
-      get_template_directory_uri() . '/css/settings.css',
-      ['fictioneer-admin-panel'],
-      FICTIONEER_VERSION
-    );
+  if ( ! in_array( $pagenow, ['post.php', 'post-new.php'], true ) ) {
+    return;
   }
 
-  // Font Awesome
-  wp_enqueue_style(
-    'fictioneer-font-awesome',
-    get_template_directory_uri() . '/assets/fontawesome/css/all.min.css',
-    [],
-    FICTIONEER_VERSION
-  );
+  $hidden_label = esc_js( _x( 'Unlisted', 'Post status unlisted/hidden.', 'fictioneer' ) );
+  $save_hidden_label = esc_js( __( 'Save', 'wp' ) );
+  $publish_label = esc_js( __( 'Publish', 'wp' ) );
+  $is_hidden = $post->post_status === 'fcn_hidden';
+
+  // Start HTML ---> ?>
+  <script>
+    (() => {
+      const statusSelect = document.getElementById('post_status');
+      const statusDisplay = document.getElementById('post-status-display');
+      const publishButton = document.getElementById('publish');
+      const saveButton = document.getElementById('save-post');
+
+      if (!statusSelect) {
+        return;
+      }
+
+      let hiddenOption = statusSelect.querySelector('option[value="fcn_hidden"]');
+
+      if (!hiddenOption) {
+        hiddenOption = document.createElement('option');
+        hiddenOption.value = 'fcn_hidden';
+        hiddenOption.textContent = '<?php echo $hidden_label; ?>';
+        statusSelect.appendChild(hiddenOption);
+      }
+
+      let publishOption = statusSelect.querySelector('option[value="publish"]');
+
+      if (!publishOption) {
+        publishOption = document.createElement('option');
+        publishOption.value = 'publish';
+        publishOption.textContent = '<?php echo $publish_label; ?>';
+        statusSelect.appendChild(publishOption);
+      }
+
+      if (saveButton && !saveButton.dataset.fcnDefaultLabel) {
+        saveButton.dataset.fcnDefaultLabel = saveButton.value;
+      }
+
+      if (publishButton && !publishButton.dataset.fcnDefaultLabel) {
+        publishButton.dataset.fcnDefaultLabel = publishButton.value;
+        publishButton.dataset.fcnDefaultName = publishButton.name;
+      }
+
+      function updatePostStatusUi() {
+        const isHidden = statusSelect.value === 'fcn_hidden';
+
+        if (statusDisplay) {
+          const selected = statusSelect.options[statusSelect.selectedIndex];
+          statusDisplay.textContent = selected && selected.textContent ? selected.textContent : '';
+        }
+
+        if (saveButton) {
+          saveButton.value = isHidden
+            ? '<?php echo $save_hidden_label; ?>'
+            : (saveButton.dataset.fcnDefaultLabel || saveButton.value);
+        }
+
+        if (publishButton) {
+          publishButton.disabled = false;
+          publishButton.setAttribute('aria-disabled', 'false');
+          publishButton.name = isHidden
+            ? 'save'
+            : (publishButton.dataset.fcnDefaultName || publishButton.name);
+          publishButton.value = isHidden
+            ? '<?php echo esc_js( __( 'Update', 'wp' ) ); ?>'
+            : (publishButton.dataset.fcnDefaultLabel || publishButton.value);
+        }
+      }
+
+      if (<?php echo $is_hidden ? 'true' : 'false'; ?>) {
+        statusSelect.value = 'fcn_hidden';
+      }
+
+      statusSelect.addEventListener('change', function() {
+        updatePostStatusUi();
+      });
+
+      updatePostStatusUi();
+    })();
+  </script>
+  <?php // <--- End HTML
 }
-add_action( 'admin_enqueue_scripts', 'fictioneer_admin_scripts' );
+add_action( 'admin_footer-post.php', 'fictioneer_print_classic_hidden_status_script' );
+add_action( 'admin_footer-post-new.php', 'fictioneer_print_classic_hidden_status_script' );
 
 // =============================================================================
 // CHECK FOR UPDATES

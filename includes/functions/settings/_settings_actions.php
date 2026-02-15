@@ -162,9 +162,7 @@ function fictioneer_admin_settings_notices() {
       'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' ),
       'fictioneer-db-optimization-preview' => __( '%s superfluous and %s orphaned post meta rows found. %s superfluous comment meta rows found. %s superfluous option rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
       'fictioneer-db-optimization' => __( '%s superfluous or orphaned rows have been deleted.', 'fictioneer' ),
-      'fictioneer-add-story-hidden' => __( 'The "fictioneer_story_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
-      'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-chapters-appended' => __( '%s chapters have been appended.', 'fictioneer' ),
       'fictioneer-legacy-cleanup' => __( 'Performed legacy cleanups: %s.', 'fictioneer' ),
       'fictioneer-disabled-font' => __( 'Disabled font key "%s".', 'fictioneer' ),
@@ -1268,36 +1266,6 @@ function fictioneer_tools_optimize_database_preview() {
 add_action( 'admin_post_fictioneer_tools_optimize_database_preview', 'fictioneer_tools_optimize_database_preview' );
 
 /**
- * Append missing 'fictioneer_story_hidden' post meta
- *
- * @since 5.7.4
- */
-
-function fictioneer_tools_add_story_hidden_fields() {
-  // Verify request
-  fictioneer_verify_admin_action( 'fictioneer_tools_add_story_hidden_fields' );
-
-  // Append 'fictioneer_story_hidden'
-  fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_hidden', 0 );
-
-  // Log
-  Log::add( __( 'Appended missing "fictioneer_story_hidden" meta fields with value 0.', 'fictioneer' ) );
-
-  // Redirect
-  wp_safe_redirect(
-    add_query_arg(
-      array(
-        'success' => 'fictioneer-add-story-hidden'
-      ),
-      fictioneer_get_clean_referer()
-    )
-  );
-
-  exit();
-}
-add_action( 'admin_post_fictioneer_tools_add_story_hidden_fields', 'fictioneer_tools_add_story_hidden_fields' );
-
-/**
  * Append missing 'fictioneer_story_sticky' post meta
  *
  * @since 5.7.4
@@ -1326,36 +1294,6 @@ function fictioneer_tools_add_story_sticky_fields() {
   exit();
 }
 add_action( 'admin_post_fictioneer_tools_add_story_sticky_fields', 'fictioneer_tools_add_story_sticky_fields' );
-
-/**
- * Append missing 'fictioneer_chapter_hidden' post meta
- *
- * @since 5.7.4
- */
-
-function fictioneer_tools_add_chapter_hidden_fields() {
-  // Verify request
-  fictioneer_verify_admin_action( 'fictioneer_tools_add_chapter_hidden_fields' );
-
-  // Append 'fictioneer_chapter_hidden'
-  fictioneer_append_meta_fields( 'fcn_chapter', 'fictioneer_chapter_hidden', 0 );
-
-  // Log
-  Log::add( __( 'Appended missing "fictioneer_chapter_hidden" meta fields with value 0.', 'fictioneer' ) );
-
-  // Redirect
-  wp_safe_redirect(
-    add_query_arg(
-      array(
-        'success' => 'fictioneer-add-chapter-hidden'
-      ),
-      fictioneer_get_clean_referer()
-    )
-  );
-
-  exit();
-}
-add_action( 'admin_post_fictioneer_tools_add_chapter_hidden_fields', 'fictioneer_tools_add_chapter_hidden_fields' );
 
 /**
  * Purge theme caches

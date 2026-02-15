@@ -46,11 +46,7 @@ function fictioneer_chapters_list( $args ) {
           while ( $args['chapters']->have_posts() ) {
             $args['chapters']->the_post();
 
-            if ( get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ) {
-              fictioneer_get_template_part( 'partials/_card-hidden', null, $card_args );
-            } else {
-              fictioneer_get_template_part( 'partials/_card-chapter', null, $card_args );
-            }
+            fictioneer_get_template_part( 'partials/_card-chapter', null, $card_args );
           }
 
           // Actions at end of results
@@ -332,7 +328,6 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   // Setup
   $post_id = get_the_ID();
   $post_status = get_post_status( $post_id );
-  $unlisted = get_post_meta( $post_id, 'fictioneer_chapter_hidden', true );
   $output = [];
 
   // Filter allowed status
@@ -347,7 +342,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   $show_nav = in_array( $post_status, $allowed_statuses );
 
   // Previous
-  if ( $show_nav && ! $unlisted && $args['prev_index'] !== false ) {
+  if ( $show_nav && $args['prev_index'] !== false ) {
     $output['previous'] = sprintf(
       '<a href="%s#start" title="%s" class="button _secondary _navigation _prev">%s</a>',
       get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ),
@@ -372,7 +367,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
   }
 
   // Next
-  if ( $show_nav && ! $unlisted && $args['next_index'] ) {
+  if ( $show_nav && $args['next_index'] ) {
     $output['next'] = sprintf(
       '<a href="%s#start" title="%s" class="button _secondary _navigation _next">%s</a>',
       get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ),

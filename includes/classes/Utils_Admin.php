@@ -904,11 +904,9 @@ final class Utils_Admin {
     $sql =
       "SELECT p.ID
       FROM {$wpdb->posts} p
-      LEFT JOIN {$wpdb->postmeta} pm_hidden ON p.ID = pm_hidden.post_id
       WHERE p.post_type = 'fcn_chapter'
         AND p.ID IN ($chapter_placeholders)
         AND p.post_status IN ($status_placeholders)
-        AND (pm_hidden.meta_key != 'fictioneer_chapter_hidden' OR pm_hidden.meta_value IS NULL)
       LIMIT 1";
 
     $query = $wpdb->prepare( $sql, ...$chapter_diff, ...$allowed_statuses );
@@ -1095,7 +1093,6 @@ final class Utils_Admin {
         pm_rating.meta_value as fictioneer_chapter_rating,
         pm_warning.meta_value as fictioneer_chapter_warning,
         pm_group.meta_value as fictioneer_chapter_group,
-        pm_hidden.meta_value as fictioneer_chapter_hidden,
         pm_no_chapter.meta_value as fictioneer_chapter_no_chapter
       FROM {$wpdb->posts} p
       LEFT JOIN {$wpdb->postmeta} pm_text_icon ON (p.ID = pm_text_icon.post_id AND pm_text_icon.meta_key = 'fictioneer_chapter_text_icon')
@@ -1103,7 +1100,6 @@ final class Utils_Admin {
       LEFT JOIN {$wpdb->postmeta} pm_rating ON (p.ID = pm_rating.post_id AND pm_rating.meta_key = 'fictioneer_chapter_rating')
       LEFT JOIN {$wpdb->postmeta} pm_warning ON (p.ID = pm_warning.post_id AND pm_warning.meta_key = 'fictioneer_chapter_warning')
       LEFT JOIN {$wpdb->postmeta} pm_group ON (p.ID = pm_group.post_id AND pm_group.meta_key = 'fictioneer_chapter_group')
-      LEFT JOIN {$wpdb->postmeta} pm_hidden ON (p.ID = pm_hidden.post_id AND pm_hidden.meta_key = 'fictioneer_chapter_hidden')
       LEFT JOIN {$wpdb->postmeta} pm_no_chapter ON (p.ID = pm_no_chapter.post_id AND pm_no_chapter.meta_key = 'fictioneer_chapter_no_chapter')
       WHERE p.post_type = 'fcn_chapter'
         AND p.ID IN ($placeholders)
@@ -1233,7 +1229,8 @@ final class Utils_Admin {
         'publish' => get_post_status_object( 'publish' )->label,
         'private' => get_post_status_object( 'private' )->label,
         'future' => get_post_status_object( 'future' )->label,
-        'trash' => get_post_status_object( 'trash' )->label
+        'trash' => get_post_status_object( 'trash' )->label,
+        'fcn_hidden' => get_post_status_object( 'fcn_hidden' )->label
       );
     }
 
@@ -1561,7 +1558,7 @@ final class Utils_Admin {
   public static function append_chapter_to_story( $post_id, $story_id, $force = false ) : void {
     $allowed_statuses = apply_filters(
       'fictioneer_filter_append_chapter_to_story_statuses',
-      ['publish', 'future'],
+      ['publish', 'future', 'fcn_hidden'],
       $post_id,
       $story_id,
       $force
@@ -1617,9 +1614,7 @@ final class Utils_Admin {
       );
 
       if ( in_array( get_post_status( $post_id ), $allowed_statuses ) ) {
-        if ( ! get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ) {
-          update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
-        }
+        update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
       }
 
       // Log changes

@@ -66,24 +66,6 @@ $query_args = array(
   'update_post_term_cache' => false
 );
 
-// Use extended meta query?
-if ( get_option( 'fictioneer_disable_extended_chapter_list_meta_queries' ) ) {
-  $query_args['meta_key'] = 'fictioneer_chapter_hidden';
-  $query_args['meta_value'] = '0';
-} else {
-  $query_args['meta_query'] = array(
-    'relation' => 'OR',
-    array(
-      'key' => 'fictioneer_chapter_hidden',
-      'value' => '0'
-    ),
-    array(
-      'key' => 'fictioneer_chapter_hidden',
-      'compare' => 'NOT EXISTS'
-    )
-  );
-}
-
 // Author?
 if ( ! empty( $args['author'] ) ) {
   $query_args['author_name'] = $args['author'];

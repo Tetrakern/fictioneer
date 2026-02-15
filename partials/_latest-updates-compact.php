@@ -71,29 +71,6 @@ $query_args = array(
   'update_post_term_cache' => false // Improve performance
 );
 
-// Use extended meta query?
-if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
-  // Extended syntax necessary due to 'fictioneer_chapters_added'
-  $query_args['meta_query'] = array(
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'value' => '0'
-    )
-  );
-} else {
-  $query_args['meta_query'] = array(
-    'relation' => 'OR',
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'value' => '0'
-    ),
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'compare' => 'NOT EXISTS'
-    )
-  );
-}
-
 // Author?
 if ( ! empty( $args['author'] ) ) {
   $query_args['author_name'] = $args['author'];
@@ -245,10 +222,6 @@ if ( $args['count'] < 2 || count( $args['post_ids'] ?? [] ) === 1 ) {
               $chapter_post = get_post( $chapter_id );
 
               if ( ! $chapter_post ) {
-                continue;
-              }
-
-              if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
                 continue;
               }
 

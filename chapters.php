@@ -22,7 +22,6 @@ $order = Sanitizer::sanitize_query_var( $_GET['order'] ?? 0, ['desc', 'asc'], 'd
 $orderby = Sanitizer::sanitize_query_var( $_GET['orderby'] ?? 0, fictioneer_allowed_orderby(), 'modified' );
 $ago = $_GET['ago'] ?? 0;
 $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
-$meta_query_stack = [];
 
 // Prepare query
 $query_args = array(
@@ -35,39 +34,6 @@ $query_args = array(
   'posts_per_page' => get_option( 'posts_per_page', 8 ),
   'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
 );
-
-// Prepare base meta query part
-if ( get_option( 'fictioneer_disable_extended_chapter_list_meta_queries' ) ) {
-  $meta_query_stack[] = array(
-    array(
-      'key' => 'fictioneer_chapter_hidden',
-      'value' => '0'
-    )
-  );
-} else {
-  $meta_query_stack[] = array(
-    'relation' => 'OR',
-    array(
-      'key' => 'fictioneer_chapter_hidden',
-      'value' => '0'
-    ),
-    array(
-      'key' => 'fictioneer_chapter_hidden',
-      'compare' => 'NOT EXISTS'
-    )
-  );
-}
-
-// Build meta query
-$query_args['meta_query'] = [];
-
-if ( count( $meta_query_stack ) > 1 ) {
-  $query_args['meta_query']['relation'] = 'AND';
-}
-
-foreach ( $meta_query_stack as $part ) {
-  $query_args['meta_query'][] = $part;
-}
 
 // Order by words?
 if ( $orderby === 'words' ) {
