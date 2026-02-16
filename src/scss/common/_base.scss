@@ -152,7 +152,7 @@
   transition: color, background-color, border-color, opacity, filter;
   transition-duration: var(--transition-duration);
 
-  &:not([disabled]):hover {
+  &:not(.current, .ajax-in-progress, [disabled]):hover {
     background: var(--button-primary-background-hover);
     color: var(--button-primary-color-hover);
     border: var(--button-primary-border-hover, 1px solid transparent);
