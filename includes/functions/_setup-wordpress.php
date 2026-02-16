@@ -43,6 +43,39 @@ if ( ! get_option( 'fictioneer_enable_xmlrpc' ) ) {
   add_filter( 'xmlrpc_enabled', '__return_false' );
 }
 
+/**
+ * Disable embed exposure links and routes.
+ *
+ * @since 5.35.0
+ */
+
+function fictioneer_disable_embed_exposure() {
+  remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+  remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+  add_filter( 'rewrite_rules_array', 'fictioneer_remove_embed_rewrites' );
+}
+add_action( 'init', 'fictioneer_disable_embed_exposure' );
+
+/**
+ * Helper to filter out embed rewrite rules.
+ *
+ * @since 5.35.0
+ *
+ * @param array $rules  Rewrite rules array.
+ *
+ * @return array Updated rewrite rules array.
+ */
+
+function fictioneer_remove_embed_rewrites( $rules ) {
+  foreach ( $rules as $rule => $rewrite ) {
+    if ( strpos( $rewrite, 'embed=true' ) !== false ) {
+      unset( $rules[ $rule ] ) ;
+    }
+  }
+
+  return $rules;
+}
+
 // =============================================================================
 // SITEMAPS
 // =============================================================================
