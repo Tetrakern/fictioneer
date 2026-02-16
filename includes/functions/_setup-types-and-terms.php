@@ -674,16 +674,17 @@ add_filter( 'map_meta_cap', 'fictioneer_override_default_taxonomy_capability_che
  */
 
 function fictioneer_restrict_tag_creation( $term, $taxonomy ) {
+  if ( is_wp_error( $term ) || current_user_can( 'edit_post_tags' ) || current_user_can( 'manage_options' ) ) {
+    return $term;
+  }
+
   if ( $taxonomy == 'post_tag' ) {
     return new WP_Error( 'term_addition_blocked', 'You are unauthorized to add new terms.', array( 'status' => 401 ) );
   }
 
   return $term;
 }
-
-if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_options' ) ) {
-  add_filter( 'pre_insert_term', 'fictioneer_restrict_tag_creation', 9999, 2 );
-}
+add_filter( 'pre_insert_term', 'fictioneer_restrict_tag_creation', 9999, 2 );
 
 // =============================================================================
 // REMOVE UNDESIRED SUB-MENUS
