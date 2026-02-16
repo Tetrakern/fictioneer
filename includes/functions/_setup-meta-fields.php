@@ -22,7 +22,7 @@ if ( ! defined( 'FICTIONEER_EXAMPLE_CHAPTER_ICONS' ) ) {
 // =============================================================================
 
 /**
- * Validate save action.
+ * Validates save action
  *
  * @since 5.24.1
  *
@@ -1353,7 +1353,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
 }
 
 /**
- * Return HTML story chapter info
+ * Return HTML story chapter info.
  *
  * @since 5.8.0
  *
@@ -2860,6 +2860,14 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
   $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
     __( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
+  if ( get_option( 'fictioneer_enable_epubs' ) ) {
+    $output['fictioneer_chapter_no_chapter'] = fictioneer_get_metabox_checkbox(
+      $post,
+      'fictioneer_chapter_no_chapter',
+      __( 'Exclude from ePUBs', 'fictioneer' )
+    );
+  }
+
   $output['fictioneer_chapter_hide_title'] = fictioneer_get_metabox_checkbox(
     $post,
     'fictioneer_chapter_hide_title',
@@ -3078,6 +3086,11 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // --- Sanitize and add data -------------------------------------------------
 
   $post_author_id = get_post_field( 'post_author', $post_id );
+
+  // No chapter flag
+  if ( get_option( 'fictioneer_enable_epubs' ) && isset( $_POST['fictioneer_chapter_no_chapter'] ) ) {
+    $fields['fictioneer_chapter_no_chapter'] = Sanitizer::sanitize_bool_num( $_POST['fictioneer_chapter_no_chapter'] );
+  }
 
   // Hide title flag
   if ( isset( $_POST['fictioneer_chapter_hide_title'] ) ) {
