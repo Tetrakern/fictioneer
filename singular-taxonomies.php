@@ -46,10 +46,10 @@ $characters = get_terms(
 );
 
 $terms = array(
-  'tags' => [__( 'Tags', 'fictioneer' ), $tags],
-  'genres' => [__( 'Genres', 'fictioneer' ), $genres],
-  'fandoms' => [__( 'Fandoms', 'fictioneer' ), $fandoms],
-  'characters' => [__( 'Characters', 'fictioneer' ), $characters]
+  'tags' => [ __( 'Tags', 'fictioneer' ), $tags ],
+  'genres' => [ _x( 'Genres', 'Taxonomy general name.', 'fictioneer' ), $genres ],
+  'fandoms' => [ _x( 'Fandoms', 'Taxonomy general name.', 'fictioneer' ), $fandoms ],
+  'characters' => [ _x( 'Characters', 'Taxonomy general name.', 'fictioneer' ), $characters ]
 );
 
 // Header
