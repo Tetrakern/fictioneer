@@ -598,20 +598,12 @@ class Story {
 
       $c = $chapters[ $cid ];
 
-      $is_hidden = ! empty( $c->is_hidden );
-      $is_no_chapter = ! empty( $c->is_no_chapter );
+      $chapter_count++;
+      $word_count += (int) ( $c->word_count ?? 0 );
+      $visible_ids[] = (int) $cid;
 
-      if ( ! $is_hidden ) {
-        if ( ! $is_no_chapter ) {
-          $chapter_count++;
-          $word_count += (int) ( $c->word_count ?? 0 );
-        }
-
-        $visible_ids[] = (int) $cid;
-
-        if ( in_array( $c->post_status, $indexed_statuses, true ) ) {
-          $indexed_ids[] = (int) $cid;
-        }
+      if ( in_array( $c->post_status, $indexed_statuses, true ) ) {
+        $indexed_ids[] = (int) $cid;
       }
 
       $comment_count += (int) ( $c->comment_count ?? 0 );
