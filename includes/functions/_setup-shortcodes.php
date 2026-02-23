@@ -225,7 +225,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $cache = filter_var( $attr['cache'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $count = max( -1, (int) ( $attr['count'] ?? -1 ) );
   $offset = max( 0, (int) ( $attr['offset'] ?? 0 ) );
-  $group = empty( $attr['group'] ) ? false : strtolower( trim( $attr['group'] ) );
+  $group = empty( $attr['group'] ) ? false : mb_strtolower( trim( $attr['group'] ) );
   $heading = empty( $attr['heading'] ) ? false : $attr['heading'];
   $post_status = sanitize_key( $attr['post_status'] ?? 'publish' );
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
@@ -332,7 +332,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           $chapter_story_id = fictioneer_get_chapter_story_id( $chapter_id );
 
           // Check group (if any)
-          if ( $group && $group != strtolower( trim( get_post_meta( $chapter_id, 'fictioneer_chapter_group', true ) ) ) ) {
+          if ( $group && $group != mb_strtolower( trim( get_post_meta( $chapter_id, 'fictioneer_chapter_group', true ) ) ) ) {
             continue;
           }
 
