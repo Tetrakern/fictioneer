@@ -48,7 +48,7 @@ get_header(
 
       // Setup
       $story = \Fictioneer\Story::get_data( $post_id );
-      $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
+      $epub_name = sanitize_file_name( mb_strtolower( get_the_title() ) );
       $this_breadcrumb = [ $story['title'], get_the_permalink() ];
       $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post_id );
       $password_note = $password_note ? str_replace( '[!global]', '', $password_note ) : '';
