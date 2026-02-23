@@ -723,7 +723,7 @@ function fictioneer_add_role() {
   // Prepare strings
   $name = sanitize_text_field( $new_role );
   $name = wp_strip_all_tags( $new_role );
-  $slug = strtolower( $name );
+  $slug = mb_strtolower( $name );
   $slug = str_replace( ' ', '_', $slug );
   $slug = preg_replace( '/[^a-zA-Z0-9 _]/', '', $slug );
 
@@ -796,7 +796,7 @@ function fictioneer_remove_role() {
   $role = $_REQUEST['role'] ?? '';
   $role = sanitize_text_field( $role );
   $role = wp_strip_all_tags( $role );
-  $role = strtolower( $role );
+  $role = mb_strtolower( $role );
   $role = str_replace( ' ', '_', $role );
   $role = preg_replace( '/[^a-zA-Z0-9 _]/', '', $role );
 
@@ -870,7 +870,7 @@ function fictioneer_rename_role() {
   // Prepare strings
   $new_name = sanitize_text_field( $new_name );
   $new_name = wp_strip_all_tags( $new_name );
-  $role_slug = strtolower( $role_slug );
+  $role_slug = mb_strtolower( $role_slug );
   $role_slug = str_replace( ' ', '_', $role_slug );
   $role_slug = preg_replace( '/[^a-zA-Z0-9 _]/', '', $role_slug );
 
