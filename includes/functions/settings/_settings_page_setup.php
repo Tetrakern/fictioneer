@@ -23,7 +23,7 @@
           'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md',
           'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md',
           'https://github.com/Tetrakern/fictioneer/blob/main/FAQ.md',
-          'https://discord.gg/tVfDB7EbaP',
+          'https://discord.gg/vfN8zA9K77',
           esc_url( admin_url( 'admin.php?page=fictioneer' ) ),
           esc_url( admin_url( 'customize.php' ) )
         );
