@@ -92,10 +92,10 @@ if ( ! ( $args['blank'] ?? 0 ) ) {
           '</button><i class="fa-solid fa-spinner fa-spin loader" style="--fa-animation-duration: .8s;"></i><div class="lightbox__content"></div></div>';
       }
 
-      // Fictioneer footer hook
+      // Fictioneer footer hook (includes modals)
       do_action( 'fictioneer_footer', $args );
 
-      // WordPress footer hook (includes modals)
+      // WordPress footer hook
       wp_footer();
     ?>
   </body>
