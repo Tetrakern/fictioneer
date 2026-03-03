@@ -8,12 +8,7 @@ use Fictioneer\Utils_Admin;
 if ( ! defined( 'FICTIONEER_EXAMPLE_CHAPTER_ICONS' ) ) {
   define(
     'FICTIONEER_EXAMPLE_CHAPTER_ICONS',
-    ['fa-solid fa-book', 'fa-solid fa-star', 'fa-solid fa-heart', 'fa-solid fa-bomb', 'fa-solid fa-wine-glass',
-    'fa-solid fa-face-smile', 'fa-solid fa-shield', 'fa-solid fa-ghost', 'fa-solid fa-gear', 'fa-solid fa-droplet',
-    'fa-solid fa-fire', 'fa-solid fa-radiation', 'fa-solid fa-lemon', 'fa-solid fa-globe', 'fa-solid fa-flask',
-    'fa-solid fa-snowflake', 'fa-solid fa-cookie-bite', 'fa-solid fa-circle', 'fa-solid fa-square', 'fa-solid fa-moon',
-    'fa-solid fa-brain', 'fa-solid fa-diamond', 'fa-solid fa-virus', 'fa-solid fa-horse-head', 'fa-solid fa-certificate',
-    'fa-solid fa-scroll', 'fa-solid fa-spa', 'fa-solid fa-skull']
+    ['fa-solid fa-circle', 'fa-solid fa-square', 'fa-solid fa-diamond', 'fa-solid fa-star', 'fa-solid fa-heart', 'fa-solid fa-shield', 'fa-solid fa-splotch', 'fa-solid fa-moon', 'fa-solid fa-bolt', 'fa-solid fa-chess-rook', 'fa-solid fa-certificate', 'fa-solid fa-cannabis', 'fa-solid fa-crown', 'fa-solid fa-droplet', 'fa-solid fa-lemon', 'fa-solid fa-virus', 'fa-solid fa-bomb', 'fa-solid fa-skull', 'fa-solid fa-horse-head', 'fa-solid fa-brain', 'fa-solid fa-sun', 'fa-solid fa-cookie-bite', 'fa-solid fa-scroll', 'fa-solid fa-spa', 'fa-solid fa-face-smile', 'fa-solid fa-ghost', 'fa-solid fa-book', 'fa-solid fa-gear', 'fa-solid fa-fire', 'fa-solid fa-atom', 'fa-solid fa-radiation', 'fa-solid fa-globe', 'fa-solid fa-flask', 'fa-solid fa-snowflake', 'fa-solid fa-wine-glass']
   );
 }
 
