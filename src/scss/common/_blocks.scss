@@ -523,13 +523,13 @@ p.has-background {
 // LISTS
 // =============================================================================
 
-:root :where(.wp-block-list, .list, .wp-block-footnotes, .wp-block-archives-list, .wp-block-categories-list) {
+:root :where(.wp-block-list, .list, .wp-block-footnotes, .wp-block-archives-list, .wp-block-categories-list, .content-section > ul:not([class]), .content-section > ol:not([class])) {
   --this-spacing: var(--list-spacing, var(--paragraph-spacing));
 
   @extend %block-spacing;
 }
 
-:is(.wp-block-list, .list, .wp-block-footnotes, .wp-block-archives-list, .wp-block-categories-list) {
+:is(.wp-block-list, .list, .wp-block-footnotes, .wp-block-archives-list, .wp-block-categories-list, .content-section > ul:not([class]), .content-section > ol:not([class])) {
   padding-left: 1.85em;
 
   &:where(ul) {
