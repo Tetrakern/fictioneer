@@ -23,7 +23,7 @@
     }
 
     .sub-menu {
-      > :where(a, label, button):where(:not(._no-menu-item-style)) {
+      :is(a, label, button):where(:not(._no-menu-item-style)) {
         color: var(--navigation-subitem-color, var(--navigation-color));
 
         &:hover {
