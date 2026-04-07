@@ -505,9 +505,9 @@ final class Meta {
 
     if (
       ! is_array( $seo_fields ) ||
-      ! isset( $seo_fields['title'], $seo_fields['description'], $seo_fields['og_image_id'] )
+      ! isset( $seo_fields['title'], $seo_fields['description'], $seo_fields['og_image'] )
     ) {
-      $seo_fields = array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
+      $seo_fields = array( 'title' => '', 'description' => '', 'og_image' => [] );
     }
 
     self::$data['seo_fields'][ $post_id ] = $seo_fields;
