@@ -66,6 +66,7 @@ if ( ! ( $args['blank'] ?? 0 ) ) {
     <?php
       // Render TTS interface if required
       if (
+        get_option( 'fictioneer_enable_tts' ) &&
         ! empty( $args['post_id'] ) &&
         $args['post_type'] == 'fcn_chapter' &&
         ! post_password_required()
