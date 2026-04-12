@@ -303,11 +303,8 @@ application.register('fictioneer', class extends Stimulus.Controller {
     )
     .then(response => {
       if (response.success) {
-        // Prepare user data object
-        let updatedUserData = this.userData();
-
         // Update local user data
-        updatedUserData = response.data;
+        let updatedUserData = response.data;
         updatedUserData['lastLoaded'] = Date.now();
 
         if (updatedUserData.checkmarks && updatedUserData.checkmarks.data) {

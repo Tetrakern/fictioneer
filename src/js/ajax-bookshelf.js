@@ -56,7 +56,6 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, scrol
     storage['timestamp'] + 60000 < Date.now()
   ) {
     localStorage.removeItem('fcnBookshelfContent');
-    storage = { html: {}, count: {} };
     fcn_fetchBookshelfPart(action, page, order, scroll);
     return;
   }

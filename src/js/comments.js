@@ -404,10 +404,9 @@ application.register('fictioneer-comment-form', class extends Stimulus.Controlle
 
         // Account for sticky comments
         if (target && !parent && target.firstElementChild) {
-          let maybeSticky = null;
-
           if (target.firstElementChild.classList.contains('_sticky')) {
-            maybeSticky = target.firstElementChild;
+            let maybeSticky = target.firstElementChild;
+
             target = maybeSticky;
             insertMode = 'insertAfter';
 
