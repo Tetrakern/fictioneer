@@ -221,7 +221,7 @@ final class Meta {
     }
 
     $seo_fields = self::seo_fields( $post_id );
-    $image_id = $seo_fields['og_image_id'] ?? 0; // Make extra sure
+    $image_id = $seo_fields['og_image'] ?? 0; // Make extra sure
     $image_id = wp_attachment_is_image( $image_id ) ? (int) $image_id : 0;
 
     if ( ! $image_id && has_post_thumbnail( $post_id ) ) {
@@ -493,7 +493,7 @@ final class Meta {
    *
    * @param int $post_id  Post ID.
    *
-   * @return array SEO meta fields (title, description, og_image_id).
+   * @return array SEO meta fields (title, description, og_image).
    */
 
   private static function seo_fields( $post_id ) : array {
@@ -507,7 +507,7 @@ final class Meta {
       ! is_array( $seo_fields ) ||
       ! isset( $seo_fields['title'], $seo_fields['description'], $seo_fields['og_image'] )
     ) {
-      $seo_fields = array( 'title' => '', 'description' => '', 'og_image' => [] );
+      $seo_fields = array( 'title' => '', 'description' => '', 'og_image' => 0 );
     }
 
     self::$data['seo_fields'][ $post_id ] = $seo_fields;

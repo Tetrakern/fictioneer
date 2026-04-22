@@ -1025,7 +1025,7 @@ function fictioneer_tools_legacy_cleanup() {
         $seo_fields = array(
           'title' => $title,
           'description' => $description,
-          'og_image_id' => $og_image
+          'og_image' => $og_image
         );
 
         // Update new meta fields

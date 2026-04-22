@@ -4520,7 +4520,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
   function fictioneer_seo_fields( $post ) {
     // Data
     $seo_fields = get_post_meta( $post->ID, 'fictioneer_seo_fields', true );
-    $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
+    $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image' => 0 );
 
     // Title
     $seo_title = $seo_fields['title'] ?? '';
@@ -4536,7 +4536,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
     }
 
     // Open Graph image...
-    $seo_og_image = $seo_fields['og_image_id'] ?? 0;
+    $seo_og_image = $seo_fields['og_image'] ?? 0;
     $seo_og_image_display = wp_get_attachment_url( $seo_og_image );
     $image_source = '';
 
