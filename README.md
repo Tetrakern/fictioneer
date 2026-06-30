@@ -11,7 +11,7 @@
 
 <p align="center"><strong>WordPress theme and standalone solution for publishing and reading <a href="https://en.wikipedia.org/wiki/Web_fiction">web fictions</a>.</strong></p>
 
-<p align="center"><a href="https://fictioneer-theme.com/" target="_blank">Demo</a> &bull; <a href="https://github.com/Tetrakern/fictioneer/releases">Download</a> &bull; <a href="INSTALLATION.md">Installation</a> &bull; <a href="CUSTOMIZE.md">Customize</a> &bull; <a href="DOCUMENTATION.md">Documentation</a> &bull; <a href="API.md">API</a> &bull; <a href="DEVELOPMENT.md">Development</a> &bull; <a href="FAQ.md">FAQ</a> &bull; <a href="CREDITS.md">Credits</a> &bull; <a href="https://discord.gg/vfN8zA9K77" target="_blank">Discord</a></p>
+<p align="center"><a href="https://fictioneer-theme.com/" target="_blank">Demo</a> &bull; <a href="https://github.com/Tetrakern/fictioneer/releases">Download</a> &bull; <a href="INSTALLATION.md">Installation</a> &bull; <a href="CUSTOMIZE.md">Customize</a> &bull; <a href="DOCUMENTATION.md">Documentation</a> &bull; <a href="API.md">API</a> &bull; <a href="DEVELOPMENT.md">Development</a> &bull; <a href="FAQ.md">FAQ</a> &bull; <a href="CREDITS.md">Credits</a> &bull; <a href="https://discord.gg/wjFGa5kBR4" target="_blank">Discord</a></p>
 <br>
 
 ## About
@@ -47,15 +47,9 @@ Migrating an existing WordPress database can be a downright nightmare. Depending
 
 Since 5.20.0, the theme is compatible with the [Elementor](https://elementor.com/) page/site builder plugin. This allows you to customize parts of the theme without programming skills, although a bit knowledge about HTML and CSS is recommended. Read more about the Elementor implementation in the [documentation](https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md#elementor).
 
-## Commissions
-
-I do take commissions for customizations and new features, *within reason.* Just write me on Discord, and we can figure out what is feasible. However, keep in mind that any feature you pay for may be added to the theme for everyone to enjoy (exclusivity is generally more expensive). Several features have already been sponsored this way. Sharing is caring.<sup>*</sup>
-
-<sup>* As long as that makes sense and is not detrimental.</sup>
-
 ## Support the Development
 
-Fictioneer has been developed by mostly one author, barring [credited](CREDITS.md) code snippets. Since version 5.24.0, several developers have contributed and any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin). You can also join the [Discord](https://discord.gg/vfN8zA9K77).
+Fictioneer has been developed by mostly one author, barring [credited](CREDITS.md) code snippets. Since version 5.24.0, several developers have contributed and any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin).
 
 <a href="https://github.com/Tetrakern/fictioneer/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Tetrakern/fictioneer" />
