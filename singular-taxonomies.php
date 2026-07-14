@@ -88,7 +88,7 @@ get_header();
               <div class="glossary__columns">
                 <?php foreach ( $tuple[1] as $term ) : ?>
                   <div class="glossary__entry">
-                    <a class="glossary__entry-head" href="<?php echo get_term_link( $term ); ?>">
+                    <a class="glossary__entry-head" href="<?php echo esc_url( get_term_link( $term ) ); ?>">
                       <div class="glossary__entry-name"><?php echo $term->name; ?></div>
                       <div class="glossary__entry-count"><?php
                         printf(
