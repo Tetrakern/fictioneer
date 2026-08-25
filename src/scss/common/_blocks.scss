@@ -924,7 +924,6 @@ figcaption {
   overflow-x: auto;
 
   :is(thead, tbody, tfoot, tr, td, th) {
-    border-style: inherit;
     border-color: inherit;
     overflow-wrap: break-word;
   }
