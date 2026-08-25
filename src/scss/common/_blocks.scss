@@ -458,7 +458,8 @@ p.has-background {
 }
 
 .wp-block-gallery {
-  --wp--style--gallery-gap-default: var(--block-spacing-30);
+  --wp--style--gallery-gap-default: var(--block-spacing-20);
+  gap: var(--wp--style--unstable-gallery-gap);
 
   &.is-style-grid-gallery {
     display: grid;

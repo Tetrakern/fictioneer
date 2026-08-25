@@ -50,9 +50,9 @@ if ( ! get_option( 'fictioneer_enable_xmlrpc' ) ) {
  */
 
 function fictioneer_disable_embed_exposure() {
-  remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+  // remove_action( 'rest_api_init', 'wp_oembed_register_route' );
   remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-  add_filter( 'rewrite_rules_array', 'fictioneer_remove_embed_rewrites' );
+  // add_filter( 'rewrite_rules_array', 'fictioneer_remove_embed_rewrites' );
 }
 add_action( 'init', 'fictioneer_disable_embed_exposure' );
 
